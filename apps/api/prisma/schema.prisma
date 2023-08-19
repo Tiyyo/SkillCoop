@@ -1,0 +1,126 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-kysely"
+  output   = "../src/db"
+  fileName = "types.ts"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model user {
+  id        Int       @id @default(autoincrement())
+  email     String    @unique
+  password  String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+  Profile   profile?
+}
+
+model profile {
+  id               Int                  @id @default(autoincrement())
+  user_id          Int                  @unique
+  user             user                 @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  username         String               @unique
+  date_of_birth    DateTime
+  avatar           image?               @relation(fields: [avatar_url], references: [url], onDelete: SetNull, onUpdate: Cascade)
+  avatar_url       String?
+  Event            event[]
+  adder            profile_on_profile[] @relation("adder")
+  friend           profile_on_profile[] @relation("added")
+  Skill_foot       skill_foot?          @relation(fields: [skill_foot_id], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  skill_foot_id    Int?
+  rater_foot       skill_foot[]         @relation("rater_foot")
+  reviewee_foot    skill_foot[]         @relation("reviewee_foot")
+  profile_on_event profile_on_event[]
+}
+
+model profile_on_profile {
+  id          Int       @id @default(autoincrement())
+  adder_id    Int
+  adder       profile   @relation("adder", fields: [adder_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  friend_id   Int
+  friend      profile   @relation("added", fields: [friend_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  status      status?   @relation(fields: [status_name], references: [name], onDelete: SetNull, onUpdate: Cascade)
+  status_name String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime? @updatedAt
+}
+
+model event {
+  id                    Int                @id @default(autoincrement())
+  date                  DateTime
+  duration              Int
+  location              String
+  required_participants Int
+  num_teams             Int                @default(2)
+  organizer_id          Int
+  organizer             profile            @relation(fields: [organizer_id], references: [id], onDelete: NoAction, onUpdate: Cascade)
+  status_name           String
+  status                status             @relation(fields: [status_name], references: [name], onDelete: NoAction, onUpdate: Cascade)
+  createdAt             DateTime           @default(now())
+  updatedAt             DateTime?          @updatedAt
+  profile_on_event      profile_on_event[]
+}
+
+model profile_on_event {
+  id          Int       @id @default(autoincrement())
+  profile_id  Int
+  profile     profile   @relation(fields: [profile_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  event_id    Int
+  event       event     @relation(fields: [event_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  status_name String
+  status      status    @relation(fields: [status_name], references: [name], onDelete: NoAction, onUpdate: Cascade)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime? @updatedAt
+}
+
+model skill_foot {
+  id          Int       @id @default(autoincrement())
+  pace        Int
+  shooting    Int
+  passing     Int
+  dribbling   Int
+  defending   Int
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime? @updatedAt
+  sport_id    Int
+  sport       sport     @relation(fields: [sport_id], references: [id])
+  rater_id    Int
+  rater       profile   @relation("rater_foot", fields: [rater_id], references: [id])
+  reviewee_id Int
+  reviewee    profile   @relation("reviewee_foot", fields: [reviewee_id], references: [id])
+  profile     profile[]
+}
+
+model sport {
+  id         Int          @id @default(autoincrement())
+  name       String       @unique
+  skill_foot skill_foot[]
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime?    @updatedAt
+}
+
+model status {
+  id                 Int                  @id @default(autoincrement())
+  name               String               @unique
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime?            @updatedAt
+  event              event[]
+  profile_on_profile profile_on_profile[]
+  profile_on_event   profile_on_event[]
+}
+
+model image {
+  id        Int       @id @default(autoincrement())
+  url       String    @unique
+  key       String    @unique
+  size      Int?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+  profile   profile[]
+}

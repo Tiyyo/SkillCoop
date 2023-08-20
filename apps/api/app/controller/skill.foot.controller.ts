@@ -2,8 +2,8 @@ import { skillFoot as SkillFoot } from '../models/index';
 import { Request, Response } from 'express'
 import associateStringToNumber from '../utils/associate.string.number';
 import UserInputError from '../helpers/errors/user.input.error'
-import { cacheOrGetCacheData } from '@/helpers/cache.data';
-import logger from '@/helpers/logger';
+import { cacheOrGetCacheData } from '../helpers/cache.data';
+import logger from '../helpers/logger';
 
 export default {
     async getAll(req: Request, res: Response) {

@@ -1,7 +1,7 @@
 import { cacheOrGetCacheData } from '@/helpers/cache.data';
 import { friendslist as Friendlist } from '../models/index';
 import { Request, Response } from 'express'
-import logger from '@/helpers/logger';
+import logger from '../helpers/logger';
 import redis from 'ioredis'
 
 export default {

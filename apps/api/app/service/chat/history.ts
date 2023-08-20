@@ -1,6 +1,6 @@
 import { Redis } from "ioredis"
-import logger from '../../helpers/logger.ts';
-import { ChatMessage } from "../../config/types.ts";
+import logger from '../../helpers/logger';
+import { ChatMessage } from "../../@types/types";
 
 const redis = new Redis()
 

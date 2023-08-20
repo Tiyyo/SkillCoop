@@ -3,12 +3,11 @@ import { profile as Profile } from '../models/index'
 import { image as Image } from '../models/index'
 import logger from '../helpers/logger'
 import { deleteImageFromBucket, uploadImageToBucket } from '../service/upload/s3'
-import { cache } from 'sharp'
-import { cacheOrGetCacheData } from '@/helpers/cache.data'
-import redis from 'ioredis'
-import ServerError from '@/helpers/errors/server.error'
+import { cacheOrGetCacheData } from '../helpers/cache.data'
+import { Redis } from 'ioredis'
+import ServerError from '../helpers/errors/server.error'
 
-const redisClient = new redis()
+const redisClient = new Redis()
 
 
 export default {

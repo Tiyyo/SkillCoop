@@ -1,11 +1,11 @@
-import { cacheOrGetCacheData } from '@/helpers/cache.data';
+import { cacheOrGetCacheData } from '../helpers/cache.data';
 import UserInputError from '../helpers/errors/user.input.error';
 import logger from '../helpers/logger';
 import { profileOnEvent as ProfileOnEvent } from '../models/index';
 import { event as Event } from '../models/index'
 import { Request, Response } from 'express'
 import redis from 'ioredis'
-import ServerError from '@/helpers/errors/server.error';
+import ServerError from '../helpers/errors/server.error';
 
 const redisClient = new redis()
 

@@ -7,16 +7,11 @@ const { verify } = jwt
 export const validateToken = (req: Request, _res: Response, next: NextFunction) => {
     let token: string = ""
 
-    let authHeaders = req.headers.Authorization || req.headers.authorization
+    req.cookies && req.cookies.refreshToken ? token = req.cookies.token : token = ""
 
-    if (authHeaders && typeof authHeaders === "string" && authHeaders.startsWith("Bearer")) {
-        token = authHeaders.split(" ")[1]
-
-        verify(token, process.env.JWT_TOKEN_KEY as string, (err, decoded) => {
-            if (err) throw new AuthorizationError('Unauthorized user')
-            req.user = decoded
-            next()
-        })
-    }
-    if (!token) throw new AuthorizationError('Unauthorized user')
+    verify(token, process.env.JWT_TOKEN_KEY as string, (err, decoded) => {
+        if (err) throw new AuthorizationError('Unauthorized user')
+        req.body.decoded = decoded
+        next()
+    })
 }

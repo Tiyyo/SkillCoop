@@ -3,8 +3,8 @@ import { profileOnEvent as ProfileOnEvent } from '../models/index';
 import { Request, Response } from 'express'
 import AuthorizationError from '../helpers/errors/unauthorized.error'
 import ServerError from '../helpers/errors/server.error'
-import { cacheOrGetCacheData } from '@/helpers/cache.data';
-import logger from '@/helpers/logger';
+import { cacheOrGetCacheData } from '../helpers/cache.data';
+import logger from '../helpers/logger';
 import redis from 'ioredis'
 
 const redisClient = new redis()

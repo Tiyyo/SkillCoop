@@ -5,24 +5,22 @@ import validate from '../middleware/schema.validator';
 import registerSchema from '../schemas/user/register';
 import loginSchema from '../schemas/user/login';
 import { canals } from '../@types/types';
-import { validateToken } from '../middleware/validate.token';
+import validateToken from '../middleware/validate.token';
 
-const { signin, register, refresh } = authController;
+const { signin, register, refresh, logout } = authController;
 
 const router: Router = express.Router();
 
 router.route('/register')
-    .post(validate(registerSchema, canals.body), factory(register))
+  .post(validate(registerSchema, canals.body), factory(register))
 
 router.route('/login')
-    .post(validate(loginSchema, canals.body), factory(signin))
+  .post(validate(loginSchema, canals.body), factory(signin))
 
 router.route('/refresh')
-    .get(validateToken, factory(refresh))
+  .get(validateToken, factory(refresh))
 
-// router.route('/:id')
-// .patch(factory(updateOne))
-// .get(factory(getOne))
-// .delete(factory(deleteOne))
+router.route('/logout')
+  .post(factory(logout))
 
 export default router;

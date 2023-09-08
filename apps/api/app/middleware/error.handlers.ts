@@ -6,26 +6,32 @@ import ValidationError from "../helpers/errors/validation.error";
 import logger from "../helpers/logger";
 import NotFoundError from "../helpers/errors/not.found.error";
 import UserInputError from "../helpers/errors/user.input.error";
+import DatabaseError from "../helpers/errors/database.error";
 
 export const errorHandler = (error: any, _req: Request, res: Response, next: NextFunction) => {
 
-    if (error instanceof ValidationError) {
-        logger.error(error.name + " " + error.message);
-        return res.status(error.status).json({
-            error: error.fieldErrors,
-        });
-    }
+  if (error instanceof ValidationError) {
+    logger.error(error.name + " " + error.message);
+    return res.status(error.status).json({
+      error: 'Invalid data',
+    });
+  }
 
-    if (error instanceof AuthorizationError || error instanceof ServerError || error instanceof NotFoundError || error instanceof UserInputError) {
-        logger.error(error.name + " " + error.message);
-        return res.status(error.status).json({ error: error.userMessage });
-    }
+  if (error instanceof AuthorizationError || error instanceof ServerError || error instanceof NotFoundError || error instanceof UserInputError) {
+    logger.error(error.name + " " + error.message);
+    return res.status(error.status).json({ error: error.userMessage });
+  }
 
-    if (res.app.get('env') !== 'development') {
-        return res.status(500).send('Internal Server Error');
-    } else {
-        logger.error("Unknow error" + " " + error.message);
-        console.log(error);
-        return res.status(500).send({ error: error.message });
-    }
+  if (error instanceof DatabaseError) {
+    logger.error(error.name + " " + error.message);
+    return res.status(error.status).json({ error: error.userMessage });
+  }
+
+  if (res.app.get('env') !== 'development') {
+    return res.status(500).send('Internal Server Error');
+  } else {
+    logger.error("Unknow error" + " " + error.message);
+    console.log(error);
+    return res.status(500).send({ error: error.message });
+  }
 }

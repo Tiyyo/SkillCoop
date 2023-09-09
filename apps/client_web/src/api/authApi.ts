@@ -14,16 +14,16 @@ export const refreshAccessToken = async () => {
   return response.data
 }
 
-authApi.interceptors.request.use(
+authApi.interceptors.response.use(
   (response) => {
     return response
   }, async (error) => {
     const originalRequest = error.config
-    const errMessage = error.response.data.message as string
+    const errMessage = error.response.data.error as string
     if (errMessage.includes('unauthorized') && !originalRequest._retry) {
       originalRequest._retry = true
-      const { accesToken } = await refreshAccessToken()
-      authApi.defaults.headers.common['Authorization'] = `Bearer ${accesToken}`
+      const { accessToken } = await refreshAccessToken()
+      authApi.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`
       return authApi(originalRequest)
     }
     return Promise.reject(error)
@@ -37,17 +37,17 @@ export const signUpUserFn = async (user: User) => {
 
 export const loginUserFn = async (user: User) => {
   const response = await authApi.post('auth/login', user);
-  authApi.defaults.headers.common['Authorization'] = `Bearer ${response.data.accesToken}`
+  authApi.defaults.headers.common['Authorization'] = `Bearer ${response.data.accessToken}`
   return response.data;
 };
 
 export const logoutUserFn = async () => {
-  const response = await authApi.get('auth/logout');
+  const response = await authApi.post('auth/logout');
   return response.data;
 };
 
 export const getMeFn = async () => {
-  const response = await authApi.get('api/users/me');
+  const response = await authApi.get('api/user/me');
   return response.data;
 }
 

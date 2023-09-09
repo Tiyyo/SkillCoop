@@ -4,22 +4,24 @@ import AuthorizationError from "../helpers/errors/unauthorized.error";
 
 const { verify } = jwt
 
-const validateToken = (req: Request, _res: Response, next: NextFunction) => {
+const validateToken = (req: Request, res: Response, next: NextFunction) => {
+  console.log(req.headers.Authorization)
   let token: string = ""
 
   let authHeaders = req.headers.Authorization || req.headers.authorization
+  console.log(authHeaders);
   if (authHeaders && typeof authHeaders === "string" && authHeaders.startsWith("Bearer")) {
     token = authHeaders.split(" ")[1]
 
-    console.log(token);
-
     verify(token, process.env.JWT_TOKEN_KEY as string, (err, decoded) => {
-      if (err) throw new AuthorizationError('unauthorized')
+      // if (err) throw new AuthorizationError('unauthorized')
+      if (err) return res.status(401).json({ error: 'unauthorized' })
       req.body.decoded = decoded
       next()
     })
   }
-  if (!token) throw new AuthorizationError('unauthorized')
+  if (!token) return res.status(401).json({ error: 'unauthorized' })
+  // if (!token) throw new AuthorizationError('unauthorized')
 }
 
 export default validateToken

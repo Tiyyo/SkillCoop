@@ -9,15 +9,7 @@ export type LoginUserData = {
 function Login() {
   const {
     mutate: loginUser,
-  } = useMutation((userData : LoginUserData) => loginUserFn(userData), {
-    onSuccess: () => {
-      // query.refetch();
-      console.log("isSuccess");
-    },
-    onError: (error ) => {
-      console.log(error.response.data.error);
-    },
-});
+  } = useMutation((userData : LoginUserData) => loginUserFn(userData));
 
   const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();

@@ -7,6 +7,9 @@ import "./index.css";
 import { StateContextProvider } from "./context/app.context.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./feature/auth/Login.tsx";
+import Protected from "./component/redirection/Protected.tsx";
+import RedirectToHome from "./component/redirection/RedirectToHome.tsx";
+import Register from "./feature/auth/Register.tsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -23,19 +26,35 @@ const queryClient = new QueryClient({
 const router = createBrowserRouter([
   {
     path: "/",
-    element : <App />
-},
-{
+    element: (
+      <Protected>
+        <App />
+      </Protected>
+    ),
+  },
+  {
     path: "/login",
-    element : <Login />
-}
+    element: (
+      <RedirectToHome>
+        <Login />
+      </RedirectToHome>
+    ),
+  },
+  {
+    path: "/register",
+    element: (
+      <RedirectToHome>
+        <Register />
+      </RedirectToHome>
+      )
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <StateContextProvider>
-        <RouterProvider router={router}/>
+        <RouterProvider router={router} />
       </StateContextProvider>
     </QueryClientProvider>
   </React.StrictMode>

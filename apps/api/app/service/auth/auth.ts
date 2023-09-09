@@ -38,8 +38,10 @@ export default {
     if (!user) throw new UserInputError("Can't find any user with this email", "wrong credentials")
     if (!await bcrypt.compare(password, user[0].password)) throw new UserInputError("Password didn't match", "wrong credentials")
 
-    const accessToken = createAccesToken("15m", { userId: user.id, email: user.email })
-    const refreshToken = createRefreshToken("7d", { userId: user.id, email: user.email })
+    const userInfos = { user_id: user[0].id, email: user[0].email }
+
+    const accessToken = createAccesToken("15m", userInfos)
+    const refreshToken = createRefreshToken("7d", userInfos)
 
     return { accessToken, refreshToken }
   }

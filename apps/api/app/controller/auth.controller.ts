@@ -26,9 +26,9 @@ export default {
   async refresh(req: Request, res: Response) {
     const { decoded } = req.body
 
-    const accesToken = createAccesToken("15m", decoded)
+    const accessToken = createAccesToken("15m", decoded[0])
 
-    res.status(200).json({ accesToken })
+    res.status(200).json({ accessToken })
 
   },
   async logout(_req: Request, res: Response) {

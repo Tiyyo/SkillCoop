@@ -10,6 +10,8 @@ const RequireUser = ({ allowedRoles }: { allowedRoles: string[] }) => {
   const location = useLocation();
   const stateContext = useStateContext();
 
+  // second time this query is called
+  // so need to be abstracted in a hook
   const {
     isLoading,
     isFetching,
@@ -25,6 +27,7 @@ const RequireUser = ({ allowedRoles }: { allowedRoles: string[] }) => {
   const loading = isLoading || isFetching;
 
   if (loading) {
+    // replace by a spinnin loader
     return <div>Loading...</div>;
   }
 

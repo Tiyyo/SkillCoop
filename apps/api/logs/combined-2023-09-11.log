@@ -1,0 +1,739 @@
+2023-09-11 14:09:15:915 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 14:09:45:945 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 8.696 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 14:09:45:945 [35m[35mhttp[35m[39m: [35m[35mOPTIONS /api/user/me 204 0 - 0.863 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 14:09:45:945 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 8.703 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 14:09:46:946 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 2.059 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 14:09:46:946 [35m[35mhttp[35m[39m: [35m[35mOPTIONS /auth/refresh 204 0 - 0.233 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 14:09:46:946 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 200 210 - 4.727 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 14:09:46:946 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 3.026 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 14:14:33:1433 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 1.802 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 14:14:33:1433 [35m[35mhttp[35m[39m: [35m[35mOPTIONS /api/user/me 204 0 - 0.454 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 14:14:33:1433 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 200 59 - 58.062 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 14:14:36:1436 [35m[35mhttp[35m[39m: [35m[35mOPTIONS /auth/logout 204 0 - 0.290 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 14:14:36:1436 [35m[35mhttp[35m[39m: [35m[35mPOST /auth/logout 200 33 - 2.026 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 14:15:10:1510 [35m[35mhttp[35m[39m: [35m[35mPOST /auth/logout 200 33 - 0.800 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 14:15:12:1512 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 1.303 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 14:15:12:1512 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 14:15:12:1512 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 3.661 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 14:15:13:1513 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 0.902 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 14:15:13:1513 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 14:15:13:1513 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 1.439 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 14:15:31:1531 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 1.711 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 14:15:31:1531 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 14:15:31:1531 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 1.442 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 14:15:33:1533 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 0.804 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 14:15:33:1533 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 14:15:33:1533 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 1.349 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 14:47:17:4717 [31m[31merror[31m[39m: [31m[31mNotFoundError Request couldn't match any routes[31m[39m
+2023-09-11 14:47:17:4717 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback?state=%2F&code=4%2F0Adeu5BXrHxfab0ubLiDJw9bV1PCCnu3l-goGpn7gtWL9Q1MLpKgIjMau6mOJjtLu3pITcQ&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent 404 37 - 1.194 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 14:47:17:4717 [31m[31merror[31m[39m: [31m[31mNotFoundError Request couldn't match any routes[31m[39m
+2023-09-11 14:47:17:4717 [35m[35mhttp[35m[39m: [35m[35mGET /favicon.ico 404 37 - 1.021 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 14:52:10:5210 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 14:52:33:5233 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 14:52:42:5242 [31m[31merror[31m[39m: [31m[31mNotFoundError Request couldn't match any routes[31m[39m
+2023-09-11 14:52:42:5242 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback?state=%2F&code=4%2F0Adeu5BWaufAM3cuFByJuAA-RWHZmjuHFONNiTYFCUhiiVE8RTT5HIk05Gt2o_Yok6ENPcw&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent 404 37 - 5.086 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 14:55:55:5555 [31m[31merror[31m[39m: [31m[31mNotFoundError Request couldn't match any routes[31m[39m
+2023-09-11 14:55:55:5555 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback 404 37 - 3.575 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 14:55:58:5558 [31m[31merror[31m[39m: [31m[31mNotFoundError Request couldn't match any routes[31m[39m
+2023-09-11 14:55:58:5558 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback 404 37 - 1.403 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 14:57:31:5731 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 14:57:34:5734 [31m[31merror[31m[39m: [31m[31mNotFoundError Request couldn't match any routes[31m[39m
+2023-09-11 14:57:34:5734 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback 404 37 - 6.055 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 15:00:21:021 [31m[31merror[31m[39m: [31m[31mNotFoundError Request couldn't match any routes[31m[39m
+2023-09-11 15:00:21:021 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback 404 37 - 2.329 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 15:00:41:041 [31m[31merror[31m[39m: [31m[31mNotFoundError Request couldn't match any routes[31m[39m
+2023-09-11 15:00:41:041 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback 404 37 - 1.273 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 15:01:05:15 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 15:01:08:18 [31m[31merror[31m[39m: [31m[31mNotFoundError Request couldn't match any routes[31m[39m
+2023-09-11 15:01:08:18 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback 404 37 - 5.208 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 15:01:25:125 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 15:01:47:147 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 15:01:49:149 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback 200 11 - 4.842 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 15:02:04:24 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 15:02:04:24 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback 200 11 - 4.175 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 15:02:10:210 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback?state=%2F&code=4%2F0Adeu5BXf-ECKHSv4aRBDTaZFfSMNUB9atdf9G2Qz5VJNUmgerapLus8UTRmqJIF95Wh6DQ&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent 200 11 - 1.489 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 15:02:28:228 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 15:03:04:34 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 15:03:42:342 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 15:04:33:433 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 15:04:57:457 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 15:05:29:529 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 15:05:49:549 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 15:06:26:626 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 15:08:32:832 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 15:08:38:838 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 15:10:41:1041 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 15:16:09:169 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 15:16:50:1650 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 15:17:12:1712 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 15:17:22:1722 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 15:17:41:1741 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 15:17:47:1747 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 15:18:54:1854 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 15:19:15:1915 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 15:19:39:1939 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 15:19:55:1955 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 15:26:46:2646 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 15:28:03:283 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 15:28:07:287 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 15:28:29:2829 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 15:29:16:2916 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 15:45:38:4538 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 15:46:53:4653 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 15:46:58:4658 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 15:47:34:4734 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 15:48:00:480 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 15:48:21:4821 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 15:48:37:4837 [31m[31merror[31m[39m: [31m[31mUnknow error Cannot destructure property 'access_token' of '(intermediate value)' as it is undefined.[31m[39m
+2023-09-11 15:48:37:4837 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback?state=%2F&code=4%2F0Adeu5BWoJAmVoChLHJ3rqziQQNGlb6enTNH8dmg8dQi8o4p1I9_fUJUOOO5W7ganEdyDsw&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent 500 100 - 113.715 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 15:49:18:4918 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 15:49:22:4922 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 15:49:26:4926 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback?state=%2F&code=4%2F0Adeu5BV6BbNzvX4NMn5hX_TbqugaTlvg4jvQhd7gD715he_UtCc1Zmdr8MFyJMwO2j0DSw&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent 200 11 - 110.241 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 15:49:57:4957 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 15:50:17:5017 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 15:50:20:5020 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback?state=%2F&code=4%2F0Adeu5BXb3ov0nnp8h2WsRPFIJWS-MLIyfNslenUGeyHFRTMA1j8vzA0Tx-gSR5G4uxMfxQ&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent 200 11 - 117.958 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 15:51:32:5132 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 15:51:36:5136 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback?state=%2F&code=4%2F0Adeu5BX2N0xz4An0Fpz0T3OpX3CoLhBN88c_ky7N3o31n-h6AMd4dVbXQz8pufFK5TqEsg&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent 200 11 - 113.204 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 15:52:05:525 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 15:52:47:5247 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 15:53:17:5317 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 15:53:35:5335 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 15:53:36:5336 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback?state=%2F&code=4%2F0Adeu5BWg8SsafxtwOHeeSLxySAO7XN0eYkgCTRTrp_tllk_KWHcmkty2BR6ayL0MM_VpKg&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent 200 11 - 111.961 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 15:54:18:5418 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 15:54:23:5423 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback?state=%2F&code=4%2F0Adeu5BXJ9QTDmr0nGluytB0H-b2Hn_eUMnLY_AIzP7fCaAPI_ZjAmzL4vhl9P5GNQEFWBw&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent 200 11 - 110.757 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 15:55:05:555 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 15:55:12:5512 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 15:55:15:5515 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback?state=%2F&code=4%2F0Adeu5BWrsZtiYu8LiGrq_2iEEX4Z3CMVFXxR8EQJbVfEiET35j4-0UzduveHXe_YASqHjA&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent 200 11 - 183.362 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 15:55:30:5530 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 15:55:33:5533 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback?state=%2F&code=4%2F0Adeu5BU0oW_SL7vJQBubVUDlaANuMO6OJtuvKo0adB3e6viw3myqmLKQ4mJZcYrJpBRSqA&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent 200 11 - 232.430 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 16:31:45:3145 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 16:31:51:3151 [35m[35mhttp[35m[39m: [35m[35mGET /api/profile/3 401 24 - 3.406 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 16:31:51:3151 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback?state=%2F&code=4%2F0Adeu5BW8aLkoMiUhJmxa4J_NsH9EgqmzsuzGD12IRkvff-FKE8quE5MQDnnMl03YHe1F0g&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent 200 11 - 52.499 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 16:33:32:3332 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 16:33:36:3336 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback?state=%2F&code=4%2F0Adeu5BVmy892jeTRl0--dqDXR1JjkQR9QOwQV9_rpJH14rQuh1LEtRtWo2FYNMk3HBBBRg&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent 200 11 - 216.318 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 16:34:12:3412 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 16:34:17:3417 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback?state=%2F&code=4%2F0Adeu5BXACwUTM2ancVPHsP4dL5UFidj1FU2ZgfjOAJkBDr-mJFhxIfEh1poRsRUjdd6RGw&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent 200 11 - 181.702 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 16:35:11:3511 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 16:35:49:3549 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 16:35:55:3555 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 16:35:58:3558 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback?state=%2F&code=4%2F0Adeu5BU072FTWKG4k39oNHQOAkBvImFI4MjJfRsPq-OYGsIOwts6Zu-vLv4q79aLAdbt8A&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent 200 11 - 229.871 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 16:36:53:3653 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 16:36:57:3657 [31m[31merror[31m[39m: [31m[31mUnknow error AxiosError: Request failed with status code 401[31m[39m
+2023-09-11 16:36:57:3657 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback?state=%2F&code=4%2F0Adeu5BUOMYfsIHAys4OBEAo6fQEbwsxG3vEGp_DK5mj39OKw9hlomRRY4OrrcCqI4GG-7g&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent 500 59 - 286.003 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 16:37:31:3731 [31m[31merror[31m[39m: [31m[31mUnknow error AxiosError: Request failed with status code 401[31m[39m
+2023-09-11 16:37:31:3731 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback?state=%2F&code=4%2F0Adeu5BXLFNbY6u7-X47H_DabNiCFXJp2yk9pxyBVwFwXnplYd-qI6GNvCZrwdCnBjmljXg&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent 500 59 - 211.303 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 16:38:19:3819 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 16:38:48:3848 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 16:38:55:3855 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback?state=%2F&code=4%2F0Adeu5BVh8d2ykmnGIGvHb0rO9HCwHoPkb2MMC0HryyaTtNZA3tU8WW61rLnVzUFmuDw2iQ&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent 200 11 - 284.513 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 16:40:16:4016 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 16:45:14:4514 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 16:47:45:4745 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 16:48:09:489 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 16:48:11:4811 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback?state=%2F&code=4%2F0Adeu5BXMj8JT6cCpo15d4Y79syvWDujhYybnXWkYQTm5qY6PKAi5TUJ2U_YqGOHJ57FErA&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent 200 11 - 242.209 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 16:48:42:4842 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 16:48:48:4848 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 16:48:50:4850 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback?state=%2F&code=4%2F0Adeu5BUykqXdYpSZUFN4GYmTveQnlNTy5ey6VbgIddYTwF8Eei-z8ghK2tVJU4mw51I8Aw&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent 200 11 - 191.033 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 16:49:10:4910 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 16:49:12:4912 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback?state=%2F&code=4%2F0Adeu5BUQaMlZ8JmKbe54c7nAzTospWouYodmuT_j1YuHdNsGn6-HxRBkmPh4b4R_B8QiLA&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent 200 11 - 283.769 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 16:49:48:4948 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 16:49:50:4950 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback?state=%2F&code=4%2F0Adeu5BXfjudhzPefUu0ws8oP4LS7zL6i9Z2JQSl-IeUHwYnS3dSsiZolzq3gMOo86QIsbg&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent 200 11 - 215.321 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 17:26:12:2612 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 17:26:34:2634 [31m[31merror[31m[39m: [31m[31mUnknow error table profile has no column named avatar[31m[39m
+2023-09-11 17:26:34:2634 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback?state=%2F&code=4%2F0Adeu5BWpa0YgQZyJtUjRfPu8OuR5TiYVIMa7_HhE3nzRuP1OM1DM7IY8oxj16RmhGC7PoA&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent 500 52 - 543.479 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 17:27:36:2736 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 17:27:39:2739 [31m[31merror[31m[39m: [31m[31mUnknow error Cannot set headers after they are sent to the client[31m[39m
+2023-09-11 17:27:39:2739 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback?state=%2F&code=4%2F0Adeu5BXklQZf3PRjkoG1bAqvSexsA5cxsjMhXaggZkvQIBSKTnVtvEbVxVeJxqHcfwSPsQ&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent 500 215 - 245.332 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 17:28:28:2828 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 17:28:32:2832 [31m[31merror[31m[39m: [31m[31mUnknow error Cannot set headers after they are sent to the client[31m[39m
+2023-09-11 17:28:32:2832 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback?state=%2F&code=4%2F0Adeu5BVlibc_9OX1K3jCHeuPL_zmJpZw1nqrHRagB_cJYAfDCTU6b0XuKn5KuNdA-ZVAAg&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent 500 215 - 246.889 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 17:28:56:2856 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 17:28:58:2858 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback?state=%2F&code=4%2F0Adeu5BV6mGgU0JFCf4gWJt74L7yJc3Vwc_lyOacEOh4BA55TuhglAkDpN3K-c_uQk3ndIg&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent 302 100 - 232.714 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 17:29:08:298 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback?state=%2F&code=4%2F0Adeu5BWKDE0B1Wg3idQALHiotelKIB2KEUZbFg4K_URfD3gKssdRc9YoQpM9VBn_HQ2lkw&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent 302 100 - 173.654 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 17:29:27:2927 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 17:29:29:2929 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback?state=%2F&code=4%2F0Adeu5BWndEI7f3kgiBIGH2TtjfPhPcEsgt9KUT-aUVGobv-zDYIo3BUXxykGYPVaWmmuJg&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent 302 98 - 202.420 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 17:29:29:2929 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 5.409 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 17:29:29:2929 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 17:29:29:2929 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 6.075 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 17:29:30:2930 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 1.106 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 17:29:30:2930 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 17:29:30:2930 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 3.573 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 17:34:05:345 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 17:34:12:3412 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback?state=%2F&code=4%2F0Adeu5BUZRjvs3LDCrpV8z2kKNbL6tAfXX505B2smW33FfltDJGzERJlY3bmHLwsPu4BSvA&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent 302 510 - 250.006 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 17:34:12:3412 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 3.677 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 17:34:12:3412 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 17:34:12:3412 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 8.852 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 17:34:14:3414 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 1.178 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 17:34:14:3414 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 17:34:14:3414 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 3.122 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:08:57:857 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 18:09:12:912 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 6.390 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:09:12:912 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:09:12:912 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 9.287 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:10:35:1035 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 1.452 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:10:35:1035 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:10:35:1035 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 4.420 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:10:41:1041 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 1.195 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:10:41:1041 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:10:41:1041 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 3.435 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:10:44:1044 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 1.418 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:10:44:1044 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:10:44:1044 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 3.053 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:10:48:1048 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback?state=%2F&code=4%2F0Adeu5BXz3Aud0_2gnuA-RsWf_Rg2NKuohymoGORqMVN7ll1Z7eQLB9i3UJ-dPbnhsW9d0Q&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent 302 534 - 220.331 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:10:49:1049 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 1.502 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:10:49:1049 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:10:49:1049 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 9.483 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:10:50:1050 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 1.075 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:10:50:1050 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:10:50:1050 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 2.103 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:11:04:114 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 2.290 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:11:04:114 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:11:04:114 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 3.212 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:11:05:115 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 1.086 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:11:05:115 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:11:05:115 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 3.648 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:11:12:1112 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback?state=%2F&code=4%2F0Adeu5BURcD_vlq1g9MMZKWMxqjFmcN2On4y-PCmjfvL6MI6D9qaGn7OvF9jko9zpFYgf0w&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent 302 534 - 135.733 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:11:12:1112 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 4.599 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:11:12:1112 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:11:12:1112 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 3.273 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:11:13:1113 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 0.995 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:11:13:1113 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:11:13:1113 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 2.555 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:13:51:1351 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 18:14:03:143 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback?state=%2F&code=4%2F0Adeu5BXs2AY_MfzRdyVPmwy8MQ7ctuCsawMl_XGydS_Fb8wGlxadVk7QyKo1cvjOBsnSEQ&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent 302 532 - 227.088 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:14:04:144 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 5.220 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:14:04:144 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:14:04:144 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 5.365 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:14:05:145 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 0.995 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:14:05:145 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:14:05:145 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 2.956 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:14:41:1441 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 18:15:12:1512 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback?state=%2F&code=4%2F0Adeu5BW_3QoC8OOou0xkmiI_2DtDsQiTqmNNUDi2LHu9YvGeT6-HF4iHyO3sOE5Xyk_Kbw&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent 302 534 - 217.581 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:15:12:1512 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 3.949 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:15:12:1512 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:15:12:1512 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 8.734 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:15:14:1514 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 1.104 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:15:14:1514 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:15:14:1514 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 3.440 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:16:01:161 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 18:16:06:166 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback?state=%2F&code=4%2F0Adeu5BWKX1ySvhv8P8pvyPHMHToMLJqrciHC9zsLBCIwpRmHrEIacVZXYrT5qu9xymHYHw&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent 302 534 - 258.939 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:16:06:166 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 3.659 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:16:06:166 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:16:06:166 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 18.495 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:16:07:167 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 1.128 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:16:07:167 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:16:07:167 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 4.429 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:17:51:1751 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 1.507 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:17:51:1751 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:17:51:1751 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 3.654 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:17:54:1754 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 1.451 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:17:54:1754 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:17:54:1754 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 3.202 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:17:58:1758 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback?state=%2F&code=4%2F0Adeu5BXOJTILYbg4nXqv-j85Go5xYB417aemvX53rhw5vWna5PXV3x4ZmhRgP74vS_XS-g&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent 302 534 - 165.644 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:17:59:1759 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 2.005 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:17:59:1759 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:17:59:1759 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 3.389 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:18:00:180 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 1.046 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:18:00:180 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:18:00:180 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 3.044 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:18:29:1829 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 1.753 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:18:29:1829 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:18:29:1829 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 4.246 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:18:37:1837 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 1.324 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:18:37:1837 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:18:37:1837 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 4.807 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:18:39:1839 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 4.327 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:18:39:1839 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:18:39:1839 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 3.203 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:18:40:1840 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 1.087 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:18:40:1840 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:18:40:1840 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 2.548 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:18:43:1843 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback?state=%2F&code=4%2F0Adeu5BV4VNnadjTYX44DKM3kaED33J4YQBwglvZgMZIfNgu4MxpR2khShitlNY5IjC9ptw&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent 302 534 - 131.627 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:18:43:1843 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 1.075 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:18:43:1843 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:18:43:1843 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 2.702 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:18:44:1844 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 1.053 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:18:44:1844 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:18:44:1844 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 2.367 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:18:57:1857 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 1.798 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:18:57:1857 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:18:57:1857 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 2.741 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:19:01:191 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 1.528 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:19:01:191 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:19:01:191 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 2.356 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:19:05:195 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback?state=%2F&code=4%2F0Adeu5BWludq1_R_HLOKpE9DUCY5UkwmvSUyfl7xwh5__xVlvcTQdtf1KOxLbUNlgy8EN4g&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent 302 534 - 135.749 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:19:05:195 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 1.388 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:19:05:195 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:19:05:195 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 3.000 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:19:06:196 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 1.089 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:19:06:196 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:19:06:196 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 2.655 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:23:50:2350 [35m[35mhttp[35m[39m: [35m[35mOPTIONS /api/user/me 204 0 - 0.330 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:23:50:2350 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 200 63 - 10.856 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:24:03:243 [35m[35mhttp[35m[39m: [35m[35mOPTIONS /api/user/me 204 0 - 0.182 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:24:03:243 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 304 - - 6.381 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:24:53:2453 [35m[35mhttp[35m[39m: [35m[35mOPTIONS /auth/logout 204 0 - 0.158 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:24:53:2453 [35m[35mhttp[35m[39m: [35m[35mPOST /auth/logout 200 33 - 0.760 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:24:58:2458 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback?state=%2F&code=4%2F0Adeu5BVnARDxCfvVudttbt_JOLIZVbTJRB2r_PDvZfWkAGL3LV0goeTntVcF-rYIZ1ZuQQ&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent 302 534 - 164.996 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:24:58:2458 [35m[35mhttp[35m[39m: [35m[35mOPTIONS /api/user/me 204 0 - 0.506 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:24:58:2458 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 304 - - 8.175 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:25:02:252 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 4.544 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:25:02:252 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:25:02:252 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 2.569 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:25:03:253 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 0.924 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:25:03:253 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:25:03:253 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 1.846 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:25:15:2515 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback?state=%2F&code=4%2F0Adeu5BVP6l-a-LWpzw-PcPxuqQUsyfBngw3Hx5p_qznuDX4Faan0H66EL5WSbaWpkowUzw&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent 302 534 - 147.894 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:25:16:2516 [35m[35mhttp[35m[39m: [35m[35mOPTIONS /api/user/me 204 0 - 0.196 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:25:16:2516 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 304 - - 6.834 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:25:27:2527 [35m[35mhttp[35m[39m: [35m[35mOPTIONS /auth/logout 204 0 - 0.224 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:25:27:2527 [35m[35mhttp[35m[39m: [35m[35mPOST /auth/logout 200 33 - 0.703 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:25:32:2532 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback?state=%2F&code=4%2F0Adeu5BVsIgxvyZ9qhMiFd1j-v5X_3uA0UfTg6V4WSg7NS68gQZ1BMXhfJdwNCcyIX5E0mg&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent 302 534 - 174.620 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:25:32:2532 [35m[35mhttp[35m[39m: [35m[35mOPTIONS /api/user/me 204 0 - 0.230 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:25:32:2532 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 304 - - 6.491 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:27:20:2720 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 1.213 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:27:20:2720 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:27:20:2720 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 2.890 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:27:31:2731 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 1.359 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:27:31:2731 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:27:31:2731 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 3.089 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:27:33:2733 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 3.536 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:27:33:2733 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:27:33:2733 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 3.358 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:27:34:2734 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 0.877 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:27:34:2734 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:27:34:2734 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 2.050 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:28:07:287 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 4.982 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:28:07:287 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:28:07:287 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 3.132 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:28:08:288 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 0.950 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:28:08:288 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:28:08:288 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 2.004 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:28:10:2810 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 3.562 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:28:10:2810 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:28:10:2810 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 5.436 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:28:11:2811 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 0.851 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:28:11:2811 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:28:11:2811 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 1.915 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:28:52:2852 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 1.711 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:28:52:2852 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:28:52:2852 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 3.605 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:28:53:2853 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 0.914 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:28:53:2853 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:28:53:2853 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 2.238 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:29:19:2919 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 1.446 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:29:19:2919 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:29:19:2919 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 3.781 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:29:20:2920 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 0.989 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:29:20:2920 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:29:20:2920 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 1.898 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:29:22:2922 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 1.534 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:29:22:2922 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:29:22:2922 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 2.679 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:29:23:2923 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 1.067 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:29:23:2923 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:29:23:2923 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 2.521 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:29:25:2925 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 1.618 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:29:25:2925 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:29:25:2925 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 3.075 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:29:26:2926 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 0.960 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:29:26:2926 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:29:26:2926 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 2.444 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:29:31:2931 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 1.893 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:29:31:2931 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:29:31:2931 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 2.672 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:29:32:2932 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 0.935 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:29:32:2932 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:29:32:2932 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 2.216 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:30:07:307 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 14.590 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:30:07:307 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:30:07:307 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 3.229 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:30:08:308 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 1.094 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:30:08:308 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:30:08:308 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 1.964 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:30:14:3014 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback?state=%2F&code=4%2F0Adeu5BX8UYQtNmfCaadfrSyPis9uBl0nW7Q0pBsY36CQAjtWMVxOW2LZslQu3scA_p0B9Q&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent 302 534 - 121.304 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:30:14:3014 [35m[35mhttp[35m[39m: [35m[35mOPTIONS /api/user/me 204 0 - 0.202 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:30:14:3014 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 304 - - 6.630 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:30:32:3032 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 2.330 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:30:32:3032 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:30:32:3032 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 3.945 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:30:33:3033 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 1.113 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:30:33:3033 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:30:33:3033 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 2.014 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:30:36:3036 [35m[35mhttp[35m[39m: [35m[35mOPTIONS /auth/login 204 0 - 0.335 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:30:36:3036 [31m[31merror[31m[39m: [31m[31mUserInputError Can't find any user with this email[31m[39m
+2023-09-11 18:30:36:3036 [35m[35mhttp[35m[39m: [35m[35mPOST /auth/login 400 29 - 27.033 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:30:38:3038 [35m[35mhttp[35m[39m: [35m[35mPOST /auth/logout 200 33 - 0.412 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:30:39:3039 [31m[31merror[31m[39m: [31m[31mUserInputError Can't find any user with this email[31m[39m
+2023-09-11 18:30:39:3039 [35m[35mhttp[35m[39m: [35m[35mPOST /auth/login 400 29 - 3.261 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:30:40:3040 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 6.205 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:30:40:3040 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:30:40:3040 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 1.279 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:30:41:3041 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 0.914 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:30:41:3041 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:30:41:3041 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 0.963 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:30:45:3045 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback?state=%2F&code=4%2F0Adeu5BWYXjT7Yyuvpykluc_uuexZ4WOygCddnxFO7ApEy7kPRJKsoIAhCxj8Ub8xaaig1A&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent 302 534 - 141.058 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:30:45:3045 [35m[35mhttp[35m[39m: [35m[35mOPTIONS /api/user/me 204 0 - 0.244 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:30:45:3045 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 304 - - 8.369 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:30:55:3055 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 4.234 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:30:55:3055 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:30:55:3055 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 2.809 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:30:56:3056 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 0.983 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:30:56:3056 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:30:56:3056 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 1.983 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:31:05:315 [35m[35mhttp[35m[39m: [35m[35mOPTIONS /auth/login 204 0 - 0.205 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:31:05:315 [31m[31merror[31m[39m: [31m[31mUnknow error Cannot read properties of undefined (reading 'password')[31m[39m
+2023-09-11 18:31:05:315 [35m[35mhttp[35m[39m: [35m[35mPOST /auth/login 500 68 - 14.674 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:31:12:3112 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 3.027 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:31:12:3112 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:31:12:3112 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 2.943 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:31:13:3113 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 1.013 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:31:13:3113 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 18:31:13:3113 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 1.999 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:31:28:3128 [35m[35mhttp[35m[39m: [35m[35mOPTIONS /auth/login 204 0 - 0.188 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:31:28:3128 [31m[31merror[31m[39m: [31m[31mUnknow error Cannot read properties of undefined (reading 'password')[31m[39m
+2023-09-11 18:31:28:3128 [35m[35mhttp[35m[39m: [35m[35mPOST /auth/login 500 68 - 6.103 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:31:49:3149 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 18:31:53:3153 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 18:31:53:3153 [35m[35mhttp[35m[39m: [35m[35mPOST /auth/logout 200 33 - 3.887 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:32:01:321 [35m[35mhttp[35m[39m: [35m[35mOPTIONS /auth/login 204 0 - 0.541 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:32:01:321 [35m[35mhttp[35m[39m: [35m[35mPOST /auth/login 200 210 - 94.965 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:32:04:324 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 8.094 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:32:04:324 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 200 210 - 4.977 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:32:04:324 [35m[35mhttp[35m[39m: [35m[35mOPTIONS /api/user/me 204 0 - 0.245 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:32:04:324 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 200 59 - 10.937 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:32:05:325 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 2.924 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:32:05:325 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 200 210 - 3.895 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:32:05:325 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 304 - - 9.136 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:32:05:325 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 6.595 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:32:05:325 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 304 - - 3.482 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:32:06:326 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 304 - - 7.726 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:36:57:3657 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 18:37:04:374 [35m[35mhttp[35m[39m: [35m[35mOPTIONS /auth/logout 204 0 - 2.515 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:37:04:374 [35m[35mhttp[35m[39m: [35m[35mPOST /auth/logout 200 33 - 2.650 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:37:10:3710 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback?state=%2F&code=4%2F0Adeu5BUFjbzvdlds2sqM0Yj3itPvuGlU4z2syIh5ckzeeJjiBkhMiwUw-fSkETHsX_ar8w&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent 302 534 - 229.290 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:37:10:3710 [35m[35mhttp[35m[39m: [35m[35mOPTIONS /api/user/me 204 0 - 0.686 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:37:10:3710 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 200 63 - 13.903 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:37:12:3712 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 6.359 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:37:12:3712 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 200 215 - 3.704 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 18:37:12:3712 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 304 - - 9.906 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 19:18:35:1835 [35m[35mhttp[35m[39m: [35m[35mOPTIONS /auth/logout 204 0 - 0.347 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 19:18:35:1835 [35m[35mhttp[35m[39m: [35m[35mPOST /auth/logout 200 33 - 0.752 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 19:19:36:1936 [31m[31merror[31m[39m: [31m[31mUnknow error NOT NULL constraint failed: profile.date_of_birth[31m[39m
+2023-09-11 19:19:36:1936 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback?state=%2F&code=4%2F0Adeu5BWwhwyqz8LhAVRmJhRhwgl7ipLZRvLxR_k0VOf2Aqw_Vpfpr8gloQarpaDfA4ERhA&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent 500 61 - 230.331 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 19:23:14:2314 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 19:23:23:2323 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 6.487 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 19:23:23:2323 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 19:23:23:2323 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 3.838 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 19:23:24:2324 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 0.948 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 19:23:24:2324 [31m[31merror[31m[39m: [31m[31mAuthorizationError unauthorized refresh token[31m[39m
+2023-09-11 19:23:24:2324 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 401 58 - 2.582 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 19:23:27:2327 [31m[31merror[31m[39m: [31m[31mUnknow error FOREIGN KEY constraint failed[31m[39m
+2023-09-11 19:23:27:2327 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback?state=%2F&code=4%2F0Adeu5BWB2hzoSp2VCvDrmdH0okKlJggJ6_MAPzcCR5wH-lxfGGbOCdFIObqHx40hyjan_g&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent 500 41 - 281.410 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 19:26:03:263 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 19:26:48:2648 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 19:27:01:271 [31m[31merror[31m[39m: [31m[31mUnknow error FOREIGN KEY constraint failed[31m[39m
+2023-09-11 19:27:01:271 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback?state=%2F&code=4%2F0Adeu5BWnns0TiXP2ROe6nhs4fsC6bzrxrRY1lNKopRfuWg4SfELVipmKDuk0XGoTON5Q4w&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent 500 41 - 389.221 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 19:27:31:2731 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 19:27:57:2757 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 19:28:24:2824 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 19:29:20:2920 [31m[31merror[31m[39m: [31m[31mUnknow error FOREIGN KEY constraint failed[31m[39m
+2023-09-11 19:29:20:2920 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback?state=%2F&code=4%2F0Adeu5BXRBmc_xAKJR3ZAukp3v9gsVzQf-eU8DuFOxiPtVrNgDhjHmC217oeOetEG4jFgsA&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent 500 41 - 297.737 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 19:29:41:2941 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 19:30:05:305 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 19:32:35:3235 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 19:33:34:3334 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 19:34:55:3455 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 19:35:00:350 [35m[35mhttp[35m[39m: [35m[35mPOST /auth/logout 200 33 - 4.901 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 19:35:04:354 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback?state=%2F&code=4%2F0Adeu5BVhkDxpqpBjrgma12rUZlh-FvIxY8N3dAkT67kG2G7_gmo9LRdBW56lg3XKCMeAKQ&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent 302 532 - 325.230 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 19:35:04:354 [35m[35mhttp[35m[39m: [35m[35mOPTIONS /api/user/me 204 0 - 0.594 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 19:35:04:354 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 200 62 - 12.036 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 19:38:38:3838 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 19:38:51:3851 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 5.340 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 19:38:51:3851 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 200 214 - 9.355 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 19:38:51:3851 [35m[35mhttp[35m[39m: [35m[35mOPTIONS /api/user/me 204 0 - 0.373 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 19:38:52:3852 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 304 - - 15.040 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 19:38:53:3853 [35m[35mhttp[35m[39m: [35m[35mOPTIONS /auth/logout 204 0 - 0.321 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 19:38:53:3853 [35m[35mhttp[35m[39m: [35m[35mPOST /auth/logout 200 33 - 1.886 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 19:39:00:390 [35m[35mhttp[35m[39m: [35m[35mGET /auth/google/callback?state=%2F&code=4%2F0Adeu5BU5lQMmKNVefAQLWGOM5IWdIjwsQmxr7ej9F5C9eLTWj2qAcQ_-6WJCW49R6eg9sw&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent 302 532 - 336.369 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 19:39:01:391 [35m[35mhttp[35m[39m: [35m[35mOPTIONS /api/user/me 204 0 - 2.121 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 19:39:01:391 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 200 62 - 6.455 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 19:40:40:4040 [34m[34minfo[34m[39m: [34m[34mServer is running on port 8082[34m[39m
+2023-09-11 19:40:50:4050 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 401 24 - 7.178 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 19:40:50:4050 [35m[35mhttp[35m[39m: [35m[35mGET /auth/refresh 200 214 - 10.464 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 19:40:50:4050 [35m[35mhttp[35m[39m: [35m[35mOPTIONS /api/user/me 204 0 - 0.383 ms[35m[39m
+[35m[35m[35m[39m
+2023-09-11 19:40:50:4050 [35m[35mhttp[35m[39m: [35m[35mGET /api/user/me 304 - - 16.497 ms[35m[39m
+[35m[35m[35m[39m

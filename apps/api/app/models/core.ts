@@ -42,6 +42,7 @@ export class Core {
       throw new DatabaseError(error)
     }
   }
+  // this is not a find many but a find one
   async findMany(data: Record<string, number | string | Date>) {
 
     const key = Object.keys(data)[0].toString()
@@ -57,7 +58,7 @@ export class Core {
 
       if (!result) throw new NotFoundError('Not found')
 
-      return result
+      return result[0]
 
     } catch (error) {
       throw new DatabaseError(error)

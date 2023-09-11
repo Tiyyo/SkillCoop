@@ -20,7 +20,7 @@ function useAuth() {
       stateContext.dispatch({ type: "SET_IS_AUTH", payload: false })
     }
   }, [profile, isError])
-  return { isAuth: stateContext.state.isAuth }
+  return { isAuth: stateContext.state.isAuth, loading }
 }
 
 export default useAuth

@@ -36,9 +36,9 @@ export default {
     const user = await User.findMany({ email: email })
 
     if (!user) throw new UserInputError("Can't find any user with this email", "wrong credentials")
-    if (!await bcrypt.compare(password, user[0].password)) throw new UserInputError("Password didn't match", "wrong credentials")
+    if (!await bcrypt.compare(password, user.password)) throw new UserInputError("Password didn't match", "wrong credentials")
 
-    const userInfos = { user_id: user[0].id, email: user[0].email }
+    const userInfos = { user_id: user.id, email: user.email }
 
     const accessToken = createAccesToken("15m", userInfos)
     const refreshToken = createRefreshToken("7d", userInfos)

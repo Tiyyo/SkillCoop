@@ -46,7 +46,6 @@ const stateReducer = (state: State, action: Action) => {
 
 const StateContextProvider = ({ children }: StateContextProviderProps) => {
   const [state, dispatch] = React.useReducer(stateReducer, initialState);
-  const value = { state, dispatch };
 
   const { data: profile, isError, isLoading, isFetching } = useQuery(["authUser"], () => getMeFn(), {
     enabled: true,
@@ -54,6 +53,9 @@ const StateContextProvider = ({ children }: StateContextProviderProps) => {
 
   const loading = isLoading || isFetching
 
+  console.log(state.isAuth)
+
+  const value = { state, dispatch, loading };
   useEffect(() => {
     if (profile) {
       dispatch({ type: "SET_USER", payload: profile })

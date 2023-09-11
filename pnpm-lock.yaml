@@ -47,6 +47,9 @@ importers:
       aws-sdk:
         specifier: ^2.1432.0
         version: 2.1432.0
+      axios:
+        specifier: ^1.4.0
+        version: 1.4.0
       bcrypt:
         specifier: ^5.1.0
         version: 5.1.0
@@ -83,6 +86,9 @@ importers:
       multer-s3:
         specifier: ^3.0.1
         version: 3.0.1(@aws-sdk/client-s3@3.387.0)
+      nodemailer:
+        specifier: ^6.9.5
+        version: 6.9.5
       nodemon:
         specifier: ^3.0.1
         version: 3.0.1
@@ -92,6 +98,12 @@ importers:
       prisma-kysely:
         specifier: ^1.5.0
         version: 1.5.0
+      randombytes:
+        specifier: ^2.1.0
+        version: 2.1.0
+      schema:
+        specifier: workspace:^
+        version: link:../../packages/schema
       sharp:
         specifier: ^0.32.4
         version: 0.32.4
@@ -138,6 +150,9 @@ importers:
       '@types/node':
         specifier: ^17.0.12
         version: 17.0.45
+      '@types/randombytes':
+        specifier: ^2.0.0
+        version: 2.0.0
       eslint-config-custom:
         specifier: workspace:*
         version: link:../../packages/eslint-config-custom
@@ -180,6 +195,9 @@ importers:
       react-router-dom:
         specifier: ^6.15.0
         version: 6.15.0(react-dom@18.2.0)(react@18.2.0)
+      schema:
+        specifier: workspace:^
+        version: link:../../packages/schema
       zod:
         specifier: ^3.22.2
         version: 3.22.2
@@ -312,6 +330,12 @@ importers:
       eslint-plugin-react:
         specifier: 7.28.0
         version: 7.28.0(eslint@8.45.0)
+
+  packages/schema:
+    dependencies:
+      zod:
+        specifier: ^3.22.2
+        version: 3.22.2
 
   packages/tsconfig: {}
 
@@ -2533,6 +2557,12 @@ packages:
 
   /@types/qs@6.9.7:
     resolution: {integrity: sha512-FGa1F62FT09qcrueBA6qYTrJPVDzah9a+493+o2PCXsesWHIn27G98TsSMs3WPNbZIEj4+VJf6saSFpvD+3Zsw==}
+    dev: true
+
+  /@types/randombytes@2.0.0:
+    resolution: {integrity: sha512-bz8PhAVlwN72vqefzxa14DKNT8jK/mV66CSjwdVQM/k3Th3EPKfUtdMniwZgMedQTFuywAsfjnZsg+pEnltaMA==}
+    dependencies:
+      '@types/node': 17.0.45
     dev: true
 
   /@types/range-parser@1.2.4:
@@ -6489,6 +6519,11 @@ packages:
       es6-promise: 3.3.1
     dev: false
 
+  /nodemailer@6.9.5:
+    resolution: {integrity: sha512-/dmdWo62XjumuLc5+AYQZeiRj+PRR8y8qKtFCOyuOl1k/hckZd8durUUHs/ucKx6/8kN+wFxqKJlQ/LK/qR5FA==}
+    engines: {node: '>=6.0.0'}
+    dev: false
+
   /nodemon@3.0.1:
     resolution: {integrity: sha512-g9AZ7HmkhQkqXkRc20w+ZfQ73cHLbE8hnPbtaFbFtCumZsjyMhKk9LajQ07U5Ux28lvFjZ5X7HvWR1xzU8jHVw==}
     engines: {node: '>=10'}
@@ -7173,6 +7208,12 @@ packages:
     resolution: {integrity: sha512-iHZWu+q3IdFZFX36ro/lKBkSvfkztY5Y7HMiPlOUjhupPcG2JMfst2KKEpu5XndviX/3UhFbRngUPNKtgvtZiA==}
     dependencies:
       inherits: 2.0.4
+    dev: false
+
+  /randombytes@2.1.0:
+    resolution: {integrity: sha512-vYl3iOX+4CKUWuxGi9Ukhie6fsqXqS9FE2Zaic4tNFD2N2QQaXOMFbuKK4QmDHC0JO6B1Zp41J0LpT0oR68amQ==}
+    dependencies:
+      safe-buffer: 5.2.1
     dev: false
 
   /range-parser@1.2.1:

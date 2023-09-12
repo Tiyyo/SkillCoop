@@ -4,8 +4,8 @@ import ServerError from "../helpers/errors/server.error";
 import AuthorizationError from "../helpers/errors/unauthorized.error";
 import ValidationError from "../helpers/errors/validation.error";
 import logger from "../helpers/logger";
-import NotFoundError from "../helpers/errors/not.found.error";
-import UserInputError from "../helpers/errors/user.input.error";
+import NotFoundError from "../helpers/errors/not-found.error";
+import UserInputError from "../helpers/errors/user-input.error";
 import DatabaseError from "../helpers/errors/database.error";
 
 export const errorHandler = (error: any, _req: Request, res: Response, next: NextFunction) => {

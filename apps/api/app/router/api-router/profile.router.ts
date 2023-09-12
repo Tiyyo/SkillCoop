@@ -2,7 +2,7 @@ import express, { Router } from 'express';
 import factory from '../../middleware/factory.controller';
 import profileController from '../../controller/profile.controller';
 import upload from '../../service/upload/upload';
-import validate from '../../middleware/schema.validator';
+import validate from '../../middleware/schema-validator';
 import createProfileSchema from '../../schemas/profile/create.profile';
 import updateProfileSchema from '../../schemas/profile/update.profile';
 import { canals } from '../../@types/types';

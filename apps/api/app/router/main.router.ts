@@ -7,11 +7,11 @@ import friendlistRouter from './api-router/friendslist.router'
 import profileOnEventRouter from './api-router/profileOnEvent.router'
 import skilFootRouter from './api-router/skillFoot.router'
 import statusRouter from './api-router/status.router'
-import NotFoundError from '../helpers/errors/not.found.error';
-import { errorHandler } from '../middleware/error.handlers';
-import { generateBalancedTeam } from '../service/generate_teams';
+import NotFoundError from '../helpers/errors/not-found.error';
+import { errorHandler } from '../middleware/errors-handler';
+import { generateBalancedTeam } from '../service/generate-teams';
 import apiRouter from './api.router';
-import validateToken from '../middleware/validateAccessToken';
+import validateToken from '../middleware/validate-access-token';
 
 const router: Router = express.Router();
 

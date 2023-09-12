@@ -3,7 +3,7 @@ import { profile as Profile } from '../models/index'
 import { image as Image } from '../models/index'
 import logger from '../helpers/logger'
 import { deleteImageFromBucket, uploadImageToBucket } from '../service/upload/s3'
-import { cacheOrGetCacheData } from '../helpers/cache.data'
+import { cacheOrGetCacheData } from '../helpers/cache-data'
 import { Redis } from 'ioredis'
 import ServerError from '../helpers/errors/server.error'
 

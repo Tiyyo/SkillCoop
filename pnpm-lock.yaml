@@ -150,6 +150,9 @@ importers:
       '@types/node':
         specifier: ^17.0.12
         version: 17.0.45
+      '@types/nodemailer':
+        specifier: ^6.4.10
+        version: 6.4.10
       '@types/randombytes':
         specifier: ^2.0.0
         version: 2.0.0
@@ -2547,6 +2550,12 @@ packages:
 
   /@types/node@17.0.45:
     resolution: {integrity: sha512-w+tIMs3rq2afQdsPJlODhoUEKzFP1ayaoyl1CcnwtIlsVe7K7bA1NGm4s3PraqTLlXnbIN84zuBlxBWo1u9BLw==}
+
+  /@types/nodemailer@6.4.10:
+    resolution: {integrity: sha512-oPW/IdhkU3FyZc1dzeqmS+MBjrjZNiiINnrEOrWALzccJlP5xTlbkNr2YnTnnyj9Eqm5ofjRoASEbrCYpA7BrA==}
+    dependencies:
+      '@types/node': 17.0.45
+    dev: true
 
   /@types/normalize-package-data@2.4.1:
     resolution: {integrity: sha512-Gj7cI7z+98M282Tqmp2K5EIsoouUEzbBJhQQzDE3jSIRk6r9gsz0oUokqIUR4u1R3dMHo0pDHM7sNOHyhulypw==}

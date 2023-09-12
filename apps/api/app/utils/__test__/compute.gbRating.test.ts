@@ -1,4 +1,4 @@
-import computeGbRating from '../compute.gbRating'
+import computeGbRating from '../compute-gb-rating'
 
 
 describe('computeGbRating', () => {

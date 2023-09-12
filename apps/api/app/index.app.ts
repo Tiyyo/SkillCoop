@@ -2,7 +2,7 @@
 import express from 'express';
 import cors, { CorsOptions } from 'cors';
 import router from './router/main.router';
-import accesHttp from './middleware/acces.http';
+import accesHttp from './middleware/acces-http';
 import cookieParser from 'cookie-parser';
 // import * as url from 'url';
 

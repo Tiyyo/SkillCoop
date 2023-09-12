@@ -5,11 +5,9 @@ import AuthorizationError from "../helpers/errors/unauthorized.error";
 const { verify } = jwt
 
 const validateToken = (req: Request, res: Response, next: NextFunction) => {
-  console.log(req.headers.Authorization)
   let token: string = ""
 
   let authHeaders = req.headers.Authorization || req.headers.authorization
-  console.log(authHeaders);
   if (authHeaders && typeof authHeaders === "string" && authHeaders.startsWith("Bearer")) {
     token = authHeaders.split(" ")[1]
 

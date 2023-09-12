@@ -77,6 +77,7 @@ export type user = {
     id: Generated<number>;
     email: string;
     password: string;
+    verified: Generated<number>;
     createdAt: Generated<string>;
     updatedAt: string | null;
 };

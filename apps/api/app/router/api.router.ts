@@ -6,7 +6,7 @@ import profileOnEventRouter from './api-router/profileOnEvent.router'
 import skilFootRouter from './api-router/skillFoot.router'
 import statusRouter from './api-router/status.router'
 import userRouter from './api-router/user.router'
-import NotFoundError from '../helpers/errors/not.found.error';
+import NotFoundError from '../helpers/errors/not-found.error';
 
 
 const router: Router = express.Router();

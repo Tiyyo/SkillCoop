@@ -1,5 +1,5 @@
 import DatabaseError from "../helpers/errors/database.error"
-import NotFoundError from "../helpers/errors/not.found.error"
+import NotFoundError from "../helpers/errors/not-found.error"
 
 export class Core {
   tableName: string
@@ -97,7 +97,7 @@ export class Core {
       .where('id', "=", id)
       .executeTakeFirst()
 
-    return !!result.numChangedRows
+    return !!result.numUpdatedRows
   }
   async delete(id: number) {
 

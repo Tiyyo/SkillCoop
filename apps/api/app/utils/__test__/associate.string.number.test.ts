@@ -1,4 +1,4 @@
-import associateStringNumber from '../associate.string.number';
+import associateStringNumber from '../associate-string-number';
 
 describe('associateStringNumber', () => {
   test("should return a number"), () => {

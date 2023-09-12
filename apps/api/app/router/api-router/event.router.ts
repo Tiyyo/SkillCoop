@@ -1,7 +1,7 @@
 import express, { Router } from 'express';
 import factory from '../../middleware/factory.controller';
 import eventController from '../../controller/event.controller';
-import validate from '../../middleware/schema.validator';
+import validate from '../../middleware/schema-validator';
 import createEvent from '../../schemas/event/create.event';
 import updateEvent from '../../schemas/event/update.event';
 import { canals } from '../../@types/types';

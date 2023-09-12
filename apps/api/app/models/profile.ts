@@ -1,5 +1,5 @@
 import DatabaseError from '../helpers/errors/database.error'
-import computeGbRating from '../utils/compute.gbRating'
+import computeGbRating from '../utils/compute-gb-rating'
 import { Core } from './core'
 
 // TODO define a type for Profile

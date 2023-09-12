@@ -1,4 +1,4 @@
-import { mockResponse } from "./mockResponse"
+import { mockResponse } from "./mock-response"
 import authController from "../auth.controller"
 import { Request } from "express"
 import authService from "../../service/auth/auth"

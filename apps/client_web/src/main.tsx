@@ -9,8 +9,11 @@ import { createBrowserRouter, redirect, RouterProvider } from "react-router-dom"
 import Login from "./feature/auth/Login.tsx";
 import Protected from "./component/redirection/Protected.tsx";
 import RedirectToHome from "./component/redirection/RedirectToHome.tsx";
+import TermsAndService from "./feature/terms-and-service/index";
 import Register from "./feature/auth/Register.tsx";
 import { authApi } from "./api/authApi.ts";
+import '../styled-system/styles.css'
+import "./App.css";
 
 
 const queryClient = new QueryClient({
@@ -54,11 +57,12 @@ const router = createBrowserRouter([
     path : '/auth/google',
     loader : async ({request}) => {
     const accessToken = request.url.split('=')[1]
-    console.log(accessToken);
     authApi.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`
-    console.log(authApi.defaults.headers.common['Authorization']);
     return redirect('/')
     }
+},{
+    path : '/terms-and-service',
+    element: <TermsAndService/>
 }
 ]);
 

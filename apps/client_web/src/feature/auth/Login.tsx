@@ -6,6 +6,10 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import getGoogleUrl from "../../utils/getGoogleUrl";
 import { useLocation } from "react-router-dom";
+import SocialButton from "../../component/social-link";
+import Google from "../../assets/Google";
+import Page from "../../layout/Page";
+import FormField from "../../component/form-field";
 
 export type LoginUserData = {
   email: string;
@@ -18,13 +22,10 @@ function Login() {
   } = useMutation((userData : LoginUserData) => loginUserFn(userData));
   const stateContext = useStateContext()
   const location = useLocation()
-  console.log(location.pathname);
   const from = location.state?.from?.pathname || "/" ;
   const {loginSchema} = schema
   const {register , handleSubmit, formState: { errors }} = useForm({
     resolver: zodResolver(loginSchema)})
-
-
 
   const onSubmit = (data) => {
     loginUser(data);
@@ -32,16 +33,23 @@ function Login() {
   };
 
 
+
+
   return (
-    <>
+    <Page>
       <div>Here goes login page</div>
-      <a href={getGoogleUrl(from)}><button>Login with Google</button></a>
+      
+      <a href={getGoogleUrl(from)}>
+        <SocialButton value="Login with Google">
+          <Google/>
+        </SocialButton>
+      </a>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <input  type="text" placeholder="email" {...register('email')}/>
-        <input type="password" placeholder="password" {...register('password')} />
+        <FormField type="text" placeholder="email" register={register}/>
+        <FormField type="password" placeholder="password" register={register}/>
         <button type="submit">Login</button>
       </form>
-    </>
+   </Page>
   );
 }
 export default Login;

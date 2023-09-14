@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { signUpUserFn } from "../../api/authApi";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import registerSchema from "schema";
 
 function Register() {
@@ -21,8 +21,7 @@ function Register() {
 
   const onSubmit = async (data) => {
     try {
-      signUpUser({ email: data.email,
-                  password: data.password });
+      signUpUser({ email: data.email, password: data.password });
       navigate("/login");
     } catch (error) { 
       console.log(error);
@@ -45,7 +44,7 @@ function Register() {
           {...register("confirmedPassword")}
         />
         <label htmlFor="termsAndService">
-          Accept terms and service
+          Accept <Link to='/terms-and-service'>terms and service</Link>
           <input type="checkbox" value="on" {...register("termAndService")} />
         </label>
         <button type="submit">Register</button>

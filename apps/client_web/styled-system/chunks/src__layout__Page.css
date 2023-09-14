@@ -1,0 +1,18 @@
+@layer utilities {
+
+  .bg_grassA1 {
+    background-color: grassA1
+    }
+
+  .bg_white {
+    background-color: white
+    }
+
+  .min-h_100vh {
+    min-height: 100vh
+    }
+
+  .bg_white {
+    background-color: var(--colors-white)
+    }
+}

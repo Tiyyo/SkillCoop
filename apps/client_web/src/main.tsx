@@ -12,8 +12,6 @@ import RedirectToHome from "./component/redirection/RedirectToHome.tsx";
 import TermsAndService from "./feature/terms-and-service/index";
 import Register from "./feature/auth/Register.tsx";
 import { authApi } from "./api/authApi.ts";
-import '../styled-system/styles.css'
-import "./App.css";
 
 
 const queryClient = new QueryClient({

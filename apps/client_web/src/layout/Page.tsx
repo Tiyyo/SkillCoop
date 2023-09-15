@@ -1,13 +1,11 @@
-import { css } from "../../styled-system/css"
+
 
 function Page({children} : { children : React.ReactNode}) {
-const page = css({
-minHeight : '100vh',
-backgroundColor: 'grassA1'
-})
+
+// backgroundColor: 'olive'
 
   return (
-    <div className={page}>{children}</div>
+    <div className="min-h-screen bg-base">{children}</div>
   )
 }
 

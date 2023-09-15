@@ -53,8 +53,6 @@ const StateContextProvider = ({ children }: StateContextProviderProps) => {
 
   const loading = isLoading || isFetching
 
-  console.log(state.isAuth)
-
   const value = { state, dispatch, loading };
   useEffect(() => {
     if (profile) {

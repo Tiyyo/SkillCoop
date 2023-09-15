@@ -2,6 +2,7 @@ import axios from 'axios';
 import { User } from '../types';
 const BASE_URL = 'http://localhost:8082';
 
+
 export const authApi = axios.create({
   baseURL: BASE_URL,
   withCredentials: true,

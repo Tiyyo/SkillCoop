@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Nato Sans';
-  src: url('assets/font/nato-sans/NotoSans-Regular.ttf');
+  src: url('assets/font/noto-sans/NotoSans-Regular.ttf');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -8,7 +8,7 @@
 
 @font-face {
   font-family: 'Nato Sans';
-  src: url('assets/font/nato-sans/NotoSans-Bold.ttf');
+  src: url('assets/font/noto-sans/NotoSans-Bold.ttf');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -16,7 +16,7 @@
 
 @font-face {
   font-family: 'Nato Sans';
-  src: url('assets/font/nato-sans/NotoSans-Light.ttf');
+  src: url('assets/font/noto-sans/NotoSans-Light.ttf');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -24,25 +24,30 @@
 
 @font-face{
   font-family: 'Nato Sans';
-  src: url('assets/font/nato-sans/NotoSans-SemiBold.ttf');
+  src: url('assets/font/noto-sans/NotoSans-SemiBold.ttf');
   font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-padding: 0;
-margin: 0;
-box-sizing: border-box;
---font-nato-sans: 'Nato Sans', sans-serif;
-
+@layer base {
+  body {
+    font-family: 'Nato Sans', sans-serif;
+    font-weight: 400;
+}
 }
 
-body {
-  margin: 0;
-  min-height: 100vh;
-}
+
+
+
+
+
+
+
 
 
 

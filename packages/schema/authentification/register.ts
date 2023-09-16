@@ -1,6 +1,7 @@
 import * as z from "zod";
+import { ZodType } from "zod";
 
-const registerSchema = z
+const registerSchema: ZodType = z
   .object({
     email: z.string().email({ message: "This is not an valid email" }),
     password: z
@@ -23,10 +24,10 @@ const registerSchema = z
     confirmedPassword: z.string(),
     termAndService: z.string().transform((value) => value === "on"),
   })
-  .refine((data) => data.password === data.confirmedPassword, {
-    message: "Passwords don't match !",
-    path: ["confirm"],
-  });
+// .refine((data) => data.password === data.confirmedPassword, {
+//   message: "Passwords don't match !",
+//   path: ["confirm"],
+// });
 
 
 export default registerSchema;

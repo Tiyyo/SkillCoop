@@ -48,7 +48,7 @@ function FormField({
   }, [error]);
 
   return (
-    <>
+      <div className="w-full">
       <div className="relative my-1">
         <input
           type={type === "password" && !icon ? "password" : "text"}
@@ -62,12 +62,12 @@ function FormField({
         />
         <label
           htmlFor={name}
-          className="peer-focus:text-secondary-400 bg-primary-100 absolute left-1 top-2 z-10 origin-[0] -translate-y-4 scale-75 transform px-2 text-sm text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2"
+          className="peer-focus:text-secondary-400 bg-base-light absolute left-1 top-2 z-10 origin-[0] -translate-y-4 scale-75 transform px-2 text-sm text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2"
         >
           {label}
         </label>
         <div
-          className="absolute right-2 top-1/2 -translate-y-1/2 transform text-black-light peer-focus:text-secondary-300"
+          className="absolute right-2 top-1/2 -translate-y-1/2 transform text-black-light peer-focus:text-secondary-300 text-primary-1000"
           onClick={() => toggleIcon()}
         >
           {!icon && subicon ? subicon : children}
@@ -79,7 +79,7 @@ function FormField({
           <p>{errorText}</p>
         </div>
       )}
-    </>
+    </div>
   );
 }
 

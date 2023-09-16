@@ -1,4 +1,4 @@
-const getGoogleUrl = (from: string) => {
+const getGoogleUrl = (from: string): string => {
   const root = 'https://accounts.google.com/o/oauth2/v2/auth'
 
   const options = {

@@ -3,6 +3,11 @@ export type User = {
   password: string
 }
 
+export type RegisterUser = User & {
+  confirmedPassword: string,
+  termAndService: boolean | string
+}
+
 export type Profile = {
   user_id: number,
   avatar_url: string | null,

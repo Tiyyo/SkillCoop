@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { User } from '../types';
+import { RegisterUser, User } from '../types';
 const BASE_URL = 'http://localhost:8082';
 
 
@@ -31,8 +31,9 @@ authApi.interceptors.response.use(
   }
 )
 
-export const signUpUserFn = async (user: User) => {
+export const signUpUserFn = async (user: RegisterUser) => {
   const response = await authApi.post('auth/register', user);
+  console.log('Response sign up FN :', response);
   return response.data;
 };
 

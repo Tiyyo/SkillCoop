@@ -12,7 +12,7 @@ export default function EyeIcon() {
       stroke-width="2"
       stroke-linecap="round"
       stroke-linejoin="round"
-      className="h-6 w-6"
+      className="h-4 w-4"
     >
       <circle cx="12" cy="12" r="10" />
       <path d="m15 9-6 6" />

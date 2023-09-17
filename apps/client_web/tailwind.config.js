@@ -24,6 +24,9 @@ export default {
     },
     backgroundImage : {
       button : "linear-gradient(90deg, rgba(12,159,21,1) 6%, rgba(46,198,120,1) 53%, rgba(17,163,110,1) 94%)"
+      },
+    fontSize : {
+        xxs : "0.625rem",
       }
   },
   },

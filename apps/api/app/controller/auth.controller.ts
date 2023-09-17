@@ -20,9 +20,11 @@ export default {
 
     const newUser = await authService.createUser({ email, password })
 
+
     if (!newUser) throw new ServerError("Couldn't create user")
 
     const emailToken = createAccessToken('1h', { userId: newUser.id })
+
 
     const url = `${process.env.API_URL}/auth/${newUser.id}/verify/${emailToken}`
 

@@ -24,10 +24,10 @@ const registerSchema: ZodType = z
     confirmedPassword: z.string(),
     termAndService: z.string().transform((value) => value === "on"),
   })
-// .refine((data) => data.password === data.confirmedPassword, {
-//   message: "Passwords don't match !",
-//   path: ["confirm"],
-// });
+  .refine((data) => data.password === data.confirmedPassword, {
+    message: "Passwords don't match !",
+    path: ["confirm"],
+  });
 
 
 export default registerSchema;

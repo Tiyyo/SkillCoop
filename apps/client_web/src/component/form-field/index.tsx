@@ -29,7 +29,7 @@ function FormField({
   register,
 }: FormFieldProps) {
   const [errorText, setErrorText] = useState(error);
-  const [icon, setIcon] = useState(true);
+  const [icon, setIcon] = useState(false);
   const isError = errorText && errorText.length > 0;
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {

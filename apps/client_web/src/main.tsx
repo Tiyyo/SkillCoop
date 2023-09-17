@@ -12,6 +12,7 @@ import RedirectToHome from "./component/redirection/RedirectToHome.tsx";
 import TermsAndService from "./feature/terms-and-service/index";
 import Register from "./feature/auth/Register.tsx";
 import { authApi } from "./api/authApi.ts";
+import VerifyEmail from "./feature/auth/VerifyEmail.tsx";
 
 
 const queryClient = new QueryClient({
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
         <Register />
       </RedirectToHome>
       )
+  },
+  {
+    path : '/veryfy-email',
+    element: <VerifyEmail/>
   },
   {
     path : '/auth/google',

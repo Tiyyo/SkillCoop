@@ -53,7 +53,7 @@ const router = createBrowserRouter([
       )
   },
   {
-    path : '/veryfy-email',
+    path : '/verify-email',
     element: <VerifyEmail/>
   },
   {

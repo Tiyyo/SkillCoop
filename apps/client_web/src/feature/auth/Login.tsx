@@ -16,6 +16,7 @@ import EyeIcon from "../../assets/icon/Eye";
 import EyeSlash from "../../assets/icon/EyeSlash";
 import SeparatorLine from "../../component/seperator-line";
 import Center from "../../layout/Center";
+import ErrorContainer from "../../component/error";
 
 export type LoginUserData = {
   email: string;
@@ -27,6 +28,7 @@ function Login() {
     mutate: loginUser,
     isLoading,
     isSuccess,
+    error 
   } = useMutation((userData: LoginUserData) => loginUserFn(userData));
   const loading = isLoading;
   const stateContext = useStateContext();
@@ -89,6 +91,7 @@ function Login() {
             >
               Login
             </button>
+            <ErrorContainer errorValue={error?.response?.data.error}/>
           </form>
         </div>
           <p className="text-xs py-2">Don't have an account ? <Link to="/register" className="text-primary-1000 font-bold">Join us</Link></p>

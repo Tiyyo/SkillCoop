@@ -16,7 +16,7 @@ import EyeIcon from "../../assets/icon/Eye";
 import EyeSlash from "../../assets/icon/EyeSlash";
 import Button from "../../component/button";
 import { RegisterUser } from "../../types";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 const { registerSchema } = schemas;
 
 function Register() {
@@ -25,6 +25,7 @@ function Register() {
   );
   const navigate = useNavigate();
   const location = useLocation();
+  const [currentEmail, setCurrentEmail] = useState<string | null>(null)
   const from = location.state?.from?.pathname || "/";
 
   const {
@@ -37,6 +38,7 @@ function Register() {
 
   const onSubmit = async (data: RegisterUser) => {
     const termAndServiceInString = data.termAndService ? "on" : "off";
+    setCurrentEmail(data.email)
     try {
       signUpUser({
         email: data.email,
@@ -52,7 +54,7 @@ function Register() {
   console.log(isSuccess, isLoading, status );
 
   useEffect(() => {
-    if(isSuccess && !isLoading) navigate('/veryfy-email')
+    if(isSuccess && !isLoading) navigate('/verify-email', {state : {email : currentEmail }})
 }, [isSuccess, isLoading])
 
   return (

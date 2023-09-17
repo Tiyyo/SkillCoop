@@ -33,7 +33,6 @@ authApi.interceptors.response.use(
 
 export const signUpUserFn = async (user: RegisterUser) => {
   const response = await authApi.post('auth/register', user);
-  console.log('Response sign up FN :', response);
   return response.data;
 };
 
@@ -58,10 +57,10 @@ export const getAllEventsFn = async () => {
   return response.data;
 };
 
-// export const verifyEmailFn = async (verificationCode: string) => {
-//   const response = await authApi.get(
-//     `auth/verifyemail/${verificationCode}`
-//   );
-//   return response.data;
-// };
+export const sendEmailVerifyFn = async (email: string) => {
+  const response = await authApi.post(
+    `auth/email`, { email }
+  );
+  return response.data;
+};
 

@@ -9,7 +9,7 @@ export type event = {
     date: string;
     duration: number;
     location: string;
-    required_particpants: number;
+    required_participants: number;
     num_teams: Generated<number>;
     organizer_id: number;
     status_name: string;
@@ -19,7 +19,7 @@ export type event = {
 export type image = {
     id: Generated<number>;
     url: string;
-    key: string;
+    key: string | null;
     size: number | null;
     createdAt: Generated<string>;
     updatedAt: string | null;
@@ -28,7 +28,7 @@ export type profile = {
     id: Generated<number>;
     user_id: number;
     username: string;
-    date_of_birth: string;
+    date_of_birth: string | null;
     avatar_url: string | null;
     skill_foot_id: number | null;
 };
@@ -77,6 +77,7 @@ export type user = {
     id: Generated<number>;
     email: string;
     password: string;
+    verified: Generated<number>;
     createdAt: Generated<string>;
     updatedAt: string | null;
 };

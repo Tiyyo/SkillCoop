@@ -1,7 +1,7 @@
 
 import { Server } from 'socket.io'
-import logger from "../../helpers/logger.ts"
-import { getHistory, storeHistory } from './history.ts'
+import logger from "../../helpers/logger"
+import { getHistory, storeHistory } from './history'
 
 const init = async (server, options) => {
     // get history from redis   

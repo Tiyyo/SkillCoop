@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon ./index.ts --exec ts-node-transpile-only"
+    "dev": "nodemon ./index.ts --exec ts-node-transpile-only",
+    "db:reset": "pnpm exec prisma migrate reset",
+    "db:seed": "pnpm exec prisma db seed"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.387.0",
@@ -36,12 +38,12 @@
     "schema": "workspace:^",
     "sharp": "^0.32.4",
     "socket.io": "^4.7.2",
-    "ts-node": "^10.9.1",
     "winston": "^3.10.0",
     "winston-daily-rotate-file": "^4.7.1",
     "zod": "^3.22.2"
   },
   "devDependencies": {
+    "@faker-js/faker": "^8.0.2",
     "@types/bcrypt": "^5.0.0",
     "@types/better-sqlite3": "^7.6.4",
     "@types/cookie-parser": "^1.4.3",
@@ -55,9 +57,13 @@
     "@types/qs": "^6.9.8",
     "@types/randombytes": "^2.0.0",
     "eslint-config-custom": "workspace:*",
+    "ts-node": "^10.9.1",
     "tsconfig": "workspace:*",
     "typescript": "^4.5.3",
     "vitest": "^0.34.2"
+  },
+  "prisma": {
+    "seed": "ts-node-transpile-only prisma/seed.ts"
   },
   "keywords": [],
   "author": "",

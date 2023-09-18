@@ -1,7 +1,9 @@
 import DatabaseError from "../helpers/errors/database.error"
 import NotFoundError from "../helpers/errors/not-found.error"
+import getDateUTC from "../utils/get-date-utc"
 
 export class Core {
+  //@ts-ignore
   tableName: string
 
   client: any
@@ -65,7 +67,9 @@ export class Core {
     }
   }
   async create(data: any) {
-
+    const today = new Date()
+    const utctoday = getDateUTC(today)
+    data.created_at = utctoday
     try {
       const result = await this.client
         .insertInto(this.tableName)

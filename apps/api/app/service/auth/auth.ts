@@ -25,7 +25,7 @@ interface GoogleUserInfos {
 }
 
 export default {
-  async createUser(data: { email: string, password: string }): Promise<UserInfos> {
+  async createUser(data: { email: string, password: string }): Promise<{ id: number, email: string }> {
     const { email, password } = data
     const saltRouds = 10
 

@@ -17,8 +17,8 @@ model user {
   email     String    @unique
   password  String
   verified  Int       @default(0)
-  createdAt DateTime  @default(now())
-  updatedAt String? 
+  created_at String
+  updated_at String? 
   Profile   profile?
 }
 
@@ -27,13 +27,13 @@ model profile {
   user_id          Int                  @unique
   user             user                 @relation(fields: [user_id], references: [id], onDelete: Cascade)
   username         String               
-  date_of_birth    DateTime?
+  date_of_birth    String?
   avatar           image?               @relation(fields: [avatar_url], references: [url], onDelete: Cascade, onUpdate: Cascade)
   avatar_url       String?
-  Event            event[]
+  event            event[]
   adder            profile_on_profile[] @relation("adder")
   friend           profile_on_profile[] @relation("added")
-  Skill_foot       skill_foot?          @relation(fields: [skill_foot_id], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  skill_foot       skill_foot?          @relation(fields: [skill_foot_id], references: [id], onDelete: SetNull, onUpdate: Cascade)
   skill_foot_id    Int?
   rater_foot       skill_foot[]         @relation("rater_foot")
   reviewee_foot    skill_foot[]         @relation("reviewee_foot")
@@ -48,36 +48,47 @@ model profile_on_profile {
   friend      profile   @relation("added", fields: [friend_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   status      status?   @relation(fields: [status_name], references: [name], onDelete: SetNull, onUpdate: Cascade)
   status_name String?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime? @updatedAt
+  created_at   String
+  updated_at   String?
 }
 
 model event {
   id                    Int                @id @default(autoincrement())
-  date                  DateTime
+  date                  String
   duration              Int
   location              String
   required_participants Int
-  num_teams             Int                @default(2)
+  nb_teams              Int                  @default(2)
   organizer_id          Int
-  organizer             profile            @relation(fields: [organizer_id], references: [id], onDelete: NoAction, onUpdate: Cascade)
+  organizer             profile             @relation(fields: [organizer_id], references: [id], onDelete: NoAction, onUpdate: Cascade)
   status_name           String
-  status                status             @relation(fields: [status_name], references: [name], onDelete: NoAction, onUpdate: Cascade)
-  createdAt             DateTime           @default(now())
-  updatedAt             DateTime?          @updatedAt
+  status                status              @relation(fields: [status_name], references: [name], onDelete: NoAction, onUpdate: Cascade)
+  created_at            String           
+  updated_at            String?
   profile_on_event      profile_on_event[]
+  score                 score[]
+}
+
+model score {
+  id              Int       @id @default(autoincrement())
+  score_team_1    Int
+  score_team_2    Int
+  event_id        Int
+  event          event     @relation(fields: [event_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  created_at      String  
+  updated_at      String?
 }
 
 model profile_on_event {
-  id          Int       @id @default(autoincrement())
+  id          Int         @id @default(autoincrement())
   profile_id  Int
-  profile     profile   @relation(fields: [profile_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  profile     profile     @relation(fields: [profile_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   event_id    Int
-  event       event     @relation(fields: [event_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  event       event       @relation(fields: [event_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   status_name String
-  status      status    @relation(fields: [status_name], references: [name], onDelete: NoAction, onUpdate: Cascade)
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime? @updatedAt
+  status      status      @relation(fields: [status_name], references: [name], onDelete: NoAction, onUpdate: Cascade)
+  created_at   String
+  updated_at   String?
 }
 
 model skill_foot {
@@ -87,8 +98,8 @@ model skill_foot {
   passing     Int
   dribbling   Int
   defending   Int
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime? @updatedAt
+  created_at  String
+  updated_at  String?
   sport_id    Int
   sport       sport     @relation(fields: [sport_id], references: [id])
   rater_id    Int
@@ -102,15 +113,15 @@ model sport {
   id         Int          @id @default(autoincrement())
   name       String       @unique
   skill_foot skill_foot[]
-  createdAt  DateTime     @default(now())
-  updatedAt  DateTime?    @updatedAt
+  created_at  String     
+  updated_at  String?    
 }
 
 model status {
   id                 Int                  @id @default(autoincrement())
   name               String               @unique
-  createdAt          DateTime             @default(now())
-  updatedAt          DateTime?            @updatedAt
+  created_at         String
+  updated_at         String?
   event              event[]
   profile_on_profile profile_on_profile[]
   profile_on_event   profile_on_event[]
@@ -121,7 +132,7 @@ model image {
   url       String    @unique
   key       String?   @unique
   size      Int?
-  createdAt DateTime  @default(now())
-  updatedAt DateTime? @updatedAt
+  created_at String
+  updated_at String?
   profile   profile[]
 }

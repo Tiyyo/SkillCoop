@@ -10,19 +10,19 @@ export type event = {
     duration: number;
     location: string;
     required_participants: number;
-    num_teams: Generated<number>;
+    nb_teams: Generated<number>;
     organizer_id: number;
     status_name: string;
-    createdAt: Generated<string>;
-    updatedAt: string | null;
+    created_at: string;
+    updated_at: string | null;
 };
 export type image = {
     id: Generated<number>;
     url: string;
     key: string | null;
     size: number | null;
-    createdAt: Generated<string>;
-    updatedAt: string | null;
+    created_at: string;
+    updated_at: string | null;
 };
 export type profile = {
     id: Generated<number>;
@@ -37,16 +37,24 @@ export type profile_on_event = {
     profile_id: number;
     event_id: number;
     status_name: string;
-    createdAt: Generated<string>;
-    updatedAt: string | null;
+    created_at: string;
+    updated_at: string | null;
 };
 export type profile_on_profile = {
     id: Generated<number>;
     adder_id: number;
     friend_id: number;
     status_name: string | null;
-    createdAt: Generated<string>;
-    updatedAt: string | null;
+    created_at: string;
+    updated_at: string | null;
+};
+export type score = {
+    id: Generated<number>;
+    score_team_1: number;
+    score_team_2: number;
+    event_id: number;
+    created_at: string;
+    updated_at: string | null;
 };
 export type skill_foot = {
     id: Generated<number>;
@@ -55,8 +63,8 @@ export type skill_foot = {
     passing: number;
     dribbling: number;
     defending: number;
-    createdAt: Generated<string>;
-    updatedAt: string | null;
+    created_at: string;
+    updated_at: string | null;
     sport_id: number;
     rater_id: number;
     reviewee_id: number;
@@ -64,22 +72,22 @@ export type skill_foot = {
 export type sport = {
     id: Generated<number>;
     name: string;
-    createdAt: Generated<string>;
-    updatedAt: string | null;
+    created_at: string;
+    updated_at: string | null;
 };
 export type status = {
     id: Generated<number>;
     name: string;
-    createdAt: Generated<string>;
-    updatedAt: string | null;
+    created_at: string;
+    updated_at: string | null;
 };
 export type user = {
     id: Generated<number>;
     email: string;
     password: string;
     verified: Generated<number>;
-    createdAt: Generated<string>;
-    updatedAt: string | null;
+    created_at: string;
+    updated_at: string | null;
 };
 export type DB = {
     event: event;
@@ -87,6 +95,7 @@ export type DB = {
     profile: profile;
     profile_on_event: profile_on_event;
     profile_on_profile: profile_on_profile;
+    score: score;
     skill_foot: skill_foot;
     sport: sport;
     status: status;

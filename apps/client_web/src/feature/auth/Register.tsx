@@ -20,7 +20,7 @@ import { useEffect, useState } from "react";
 const { registerSchema } = schemas;
 
 function Register() {
-  const { mutate: signUpUser, isSuccess, isLoading, status} = useMutation((userData: RegisterUser) =>
+  const { mutate: signUpUser, isSuccess, isLoading} = useMutation((userData: RegisterUser) =>
     signUpUserFn(userData)
   );
   const navigate = useNavigate();
@@ -50,8 +50,6 @@ function Register() {
       console.log(error);
     }
   };
-
-  console.log(isSuccess, isLoading, status );
 
   useEffect(() => {
     if(isSuccess && !isLoading) navigate('/verify-email', {state : {email : currentEmail }})

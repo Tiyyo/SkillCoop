@@ -83,17 +83,10 @@ export class Core {
 
   }
   async update(id: number, data: any) {
+    const today = new Date()
+    const todayUTC = getDateUTC(today)
 
-    const today = new Intl.DateTimeFormat('fr-FR', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-      hour: 'numeric',
-      minute: 'numeric',
-      timeZone: 'Europe/Paris'
-    }).format(new Date())
-
-    data.updatedAt = today
+    data.updated_at = todayUTC
 
     const result = await this.client
       .updateTable(this.tableName)

@@ -9,6 +9,7 @@ import { SkillFoot } from './skill-foot'
 import { Sport } from './sport'
 import { ProfileOnEvent } from './profile_on_event'
 import { Status } from './status'
+import { Score } from './score'
 
 export const user = new User(db)
 export const event = new Event(db)
@@ -19,3 +20,4 @@ export const skillFoot = new SkillFoot(db)
 export const sport = new Sport(db)
 export const profileOnEvent = new ProfileOnEvent(db)
 export const status = new Status(db)
+export const score = new Score(db)

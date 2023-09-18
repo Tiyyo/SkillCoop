@@ -6,12 +6,12 @@ import validate from '../middleware/schema-validator';
 // import loginSchema from '../schemas/user/login';
 import { canals } from '../@types/types';
 import validateToken from '../middleware/validate.token';
-import schema from 'schema/index'
+import schema from 'schema'
 import validateEmaiToken from '../middleware/validate-email-token';
 
 
-const { signin, register, refresh, logout, googleAuth, verifyEmail } = authController;
-const { registerSchema, loginSchema } = schema
+const { signin, register, refresh, logout, googleAuth, verifyEmail, resendEmail } = authController;
+const { registerSchema, loginSchema, sendVerifEmailSchema } = schema
 
 const router: Router = express.Router();
 
@@ -25,9 +25,14 @@ router.route('/login')
 router.route('/refresh')
   .get(validateToken, factory(refresh))
 
-router.route('/google/callback').get(factory(googleAuth))
+router.route('/email')
+  .post(validate(sendVerifEmailSchema, canals.body), factory(resendEmail))
 
-router.route('/:userId/verify/:token').get(factory(verifyEmail))
+router.route('/google/callback')
+  .get(factory(googleAuth))
+
+router.route('/:userId/verify/:token')
+  .get(factory(verifyEmail))
 
 router.route('/logout')
   .post(factory(logout))

@@ -1,6 +1,12 @@
 import nodemailer from 'nodemailer';
 import ServerError from '../helpers/errors/server.error';
 
+interface SendEmailToConfirmEmail {
+  emailToken: string;
+  email: string;
+  userId: number;
+}
+
 export default {
   async sendVerify(email: string, subject: string, text: string) {
     try {
@@ -23,5 +29,12 @@ export default {
     } catch (error: any) {
       throw new ServerError(error.message)
     }
+  },
+  async sendEmailToConfirmEmail({ emailToken, email, userId }: SendEmailToConfirmEmail) {
+    const url = `${process.env.API_URL}/auth/${userId}/verify/${emailToken}`
+
+    const text = `Click on the link to verify your email: ${url}`
+
+    await this.sendVerify(email, 'validate your email', text)
   }
 }

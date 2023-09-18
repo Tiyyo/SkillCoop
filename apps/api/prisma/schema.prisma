@@ -28,7 +28,7 @@ model profile {
   user             user                 @relation(fields: [user_id], references: [id], onDelete: Cascade)
   username         String               
   date_of_birth    DateTime?
-  avatar           image?               @relation(fields: [avatar_url], references: [url], onDelete: SetNull, onUpdate: Cascade)
+  avatar           image?               @relation(fields: [avatar_url], references: [url], onDelete: Cascade, onUpdate: Cascade)
   avatar_url       String?
   Event            event[]
   adder            profile_on_profile[] @relation("adder")
@@ -119,7 +119,7 @@ model status {
 model image {
   id        Int       @id @default(autoincrement())
   url       String    @unique
-  key       String?    @unique
+  key       String?   @unique
   size      Int?
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt

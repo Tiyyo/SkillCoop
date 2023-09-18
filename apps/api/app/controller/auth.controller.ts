@@ -11,13 +11,14 @@ import ServerError from '../helpers/errors/server.error'
 import emailService from '../utils/send-email'
 import checkParams from '../utils/check-params'
 import { verify } from 'jsonwebtoken'
+import NotFoundError from '../helpers/errors/not-found.error'
+import generateTokens from '../helpers/create-tokens'
+
 
 
 export default {
   async register(req: Request, res: Response) {
-
     const { email, password } = req.body
-
     const newUser = await authService.createUser({ email, password })
 
 
@@ -25,26 +26,24 @@ export default {
 
     const emailToken = createAccessToken('1h', { userId: newUser.id })
 
-
-    const url = `${process.env.API_URL}/auth/${newUser.id}/verify/${emailToken}`
-
-    const text = `Click on the link to verify your email: ${url}`
-
-    await emailService.sendVerify(email, 'validate your email', text)
+    await emailService.sendEmailToConfirmEmail({ emailToken, email, userId: newUser.id })
 
     return res.status(201).json({ message: "User created successfully and confirmation email has been sent" })
 
   },
   async signin(req: Request, res: Response) {
-
     const { email, password } = req.body
+    const MAX_AGE = 1000 * 60 * 60 * 24 * 7 // 7 days
 
-    const { accessToken, refreshToken } = await authService.login({ email, password })
+    try {
+      const { accessToken, refreshToken } = await authService.login({ email, password })
 
-    res.cookie("refreshToken", refreshToken, { httpOnly: true, sameSite: "none", secure: true, maxAge: 24 * 60 * 60 * 1000 })
+      res.cookie("refreshToken", refreshToken, { httpOnly: true, sameSite: "none", secure: true, maxAge: MAX_AGE })
 
-    res.status(200).json({ accessToken })
-
+      res.status(200).json({ accessToken })
+    } catch (error: any) {
+      return res.status(400).json({ error: error.message })
+    }
   },
   async refresh(req: Request, res: Response) {
     const { decoded } = req.body
@@ -67,25 +66,12 @@ export default {
     const { email, given_name, family_name, picture } = await google.getUser({ access_token: googleToken, id_token })
 
     const user = await User.findMany({ email })
-    let accessToken = ""
-    let refreshToken = ""
+
+    let accessToken = null
+    let refreshToken = null
 
     if (!user) {
-      // create a new user with a random password and email
-      // create a new profile wit picture, username as given_name + first letter of family_name
-      // create tokens and send it back
-
-      const password = randomBytes(16).toString('hex')
-      const isCreated = await authService.createUser({ email, password })
-      if (!isCreated) throw new Error('Error creating user')
-
-      const newUser = await User.findMany({ email })
-      const username = `${given_name} ${family_name[0]}.`
-      const newImage = await Image.create({ url: picture })
-      const newProfile = await Profile.create({ username, avatar_url: picture, user_id: newUser.id })
-
-      console.log(newProfile);
-      const userInfos = { user_id: newUser.id, email: newUser.email }
+      const userInfos = authService.createGoogleUser({ email, given_name, family_name, picture })
       accessToken = createAccessToken("15m", userInfos)
       refreshToken = createRefreshToken("7d", userInfos)
     } else {
@@ -93,8 +79,8 @@ export default {
       accessToken = createAccessToken("15m", userInfos)
       refreshToken = createRefreshToken("7d", userInfos)
     }
-    res.cookie("refreshToken", refreshToken, { httpOnly: true, sameSite: "none", secure: true, maxAge: 24 * 60 * 60 * 1000 })
 
+    res.cookie("refreshToken", refreshToken, { httpOnly: true, sameSite: "none", secure: true, maxAge: 24 * 60 * 60 * 1000 })
 
     res.status(301).redirect(`http://localhost:5173/auth/google/?access_token=${accessToken}`)
   },
@@ -103,8 +89,6 @@ export default {
     const userId = checkParams(req.params.userId)
     let tokenUserId = null
 
-    console.log('is controller is called');
-    console.log(token);
 
     verify(token, process.env.JWT_TOKEN_KEY as string, (err, decoded) => {
       if (err) throw new ServerError('Invalid token')
@@ -113,17 +97,29 @@ export default {
       tokenUserId = decoded[0].userId
     })
 
-    console.log(userId, tokenUserId);
     if (userId !== tokenUserId) throw new ServerError("Invalid user id")
 
     const verifiedUser = await User.update(userId, { verified: 1 })
 
-    console.log(verifiedUser);
-
-
     if (!verifiedUser) throw new ServerError("Couldn't update user")
 
     res.status(300).redirect(`http://localhost:5173/login`)
+  },
+  async resendEmail(req: Request, res: Response) {
+    const { email } = req.body
 
+    const user = await User.findMany({ email })
+
+    if (!user) throw new NotFoundError("Couldn't find user")
+
+    const emailToken = createAccessToken('1h', { userId: user.id })
+
+    const url = `${process.env.API_URL}/auth/${user.id}/verify/${emailToken}`
+
+    const text = `Click on the link to verify your email: ${url}`
+
+    await emailService.sendVerify(email, 'validate your email', text)
+
+    return res.status(200).json({ message: "A new confirmation email has been sent" })
   }
 }

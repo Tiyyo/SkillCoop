@@ -30,6 +30,14 @@
   font-display: swap;
 }
 
+@font-face{
+  font-family: 'Paytone One';
+  src: url('assets/font/paytone-one/PaytoneOne-Regular.ttf');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

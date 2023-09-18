@@ -5,12 +5,23 @@ import ServerError from "../../helpers/errors/server.error"
 import UserInputError from "../../helpers/errors/user-input.error"
 import { db } from "../../helpers/database"
 import { user as User } from "../../models/index"
+import { image as Image } from "../../models/index"
+import { profile as Profile } from "../../models/index"
 import bcrypt from "bcrypt"
 import emailService from "../../utils/send-email"
+import generateTokens from "../../helpers/create-tokens"
+import randomBytes from 'randombytes'
 
 interface UserInfos {
-  id: number,
+  user_id: number,
   email: string
+}
+
+interface GoogleUserInfos {
+  email: string,
+  given_name: string,
+  family_name: string,
+  picture: string
 }
 
 export default {
@@ -41,22 +52,30 @@ export default {
     const user = await User.findMany({ email: email })
 
     if (!user) throw new UserInputError("Can't find any user with this email", "wrong credentials")
+
     if (!await bcrypt.compare(password, user.password)) throw new UserInputError("Password didn't match", "wrong credentials")
 
     if (!user.verified) {
+      // generate an new email to send to the user
       const emailToken = createAccesToken('1h', { userId: user.id })
-
-      const url = `${process.env.API_URL}/auth/${user.id}/verify/${emailToken}`
-      const text = `Click on the link to verify your email: ${url}`
-      await emailService.sendVerify(email, 'validate your email', text)
+      await emailService.sendEmailToConfirmEmail({ emailToken, email, userId: user.id })
       throw new UserInputError("Email not verified")
     }
-
     const userInfos = { user_id: user.id, email: user.email }
-
-    const accessToken = createAccesToken("15m", userInfos)
-    const refreshToken = createRefreshToken("7d", userInfos)
+    const { accessToken, refreshToken } = generateTokens(userInfos)
 
     return { accessToken, refreshToken }
+  },
+  async createGoogleUser({ email, given_name, family_name, picture }: GoogleUserInfos): Promise<UserInfos> {
+    const password = randomBytes(16).toString('hex')
+    const isCreated = await this.createUser({ email, password })
+    if (!isCreated) throw new Error('Error creating user')
+
+    const newUser = await User.findMany({ email })
+    const username = `${given_name} ${family_name[0]}.`
+    await User.update(newUser.id, { verified: 1 })
+    await Image.create({ url: picture })
+    await Profile.create({ username, avatar_url: picture, user_id: newUser.id })
+    return { user_id: newUser.id, email: newUser.email }
   }
 }

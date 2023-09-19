@@ -36,7 +36,7 @@ export type profile_on_event = {
     id: Generated<number>;
     profile_id: number;
     event_id: number;
-    team: number;
+    team: number | null;
     status_name: string;
     created_at: string;
     updated_at: string | null;

@@ -29,7 +29,8 @@ SELECT
           'profile_id' , participant.profile_id, 
           'username' , profile.username	,
           'avatar', profile.avatar_url,
-          'status', participant.status_name
+          'status', participant.status_name,
+          'team', participant.team
         )
       ) 
   ) AS participants,

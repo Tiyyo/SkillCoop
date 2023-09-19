@@ -3,6 +3,7 @@ interface Particpants {
   username: string;
   avatar?: string;
   status: string;
+  team?: number;
 }
 
 interface EventCardProps {
@@ -66,8 +67,8 @@ function EventCard({
     return formatedDate;
   };
 
-  const displayScore = (score, eventStatus) => {
-    if (eventStatus === "completed") {
+  const displayScore = (eventStatus: string, score?: number | null) => {
+    if (eventStatus === "completed" && score) {
       return score;
     }
     return "";
@@ -85,44 +86,79 @@ function EventCard({
           {displayCorrectStatus(userStatus, eventStatus)}
         </div>
       </div>
-      <div className="text-xxs text-center">
-        <p>Kick off</p>
-        <div>
-          <p className="text-lg font-semibold">
-            {displayScore(scoreTeamA, eventStatus)}
-            <span className="text-sm mx-2">-</span>
-            {displayScore(scoreTeamB, eventStatus)}
+      <div className="flex items-center justify-between">
+        <div className="relative flex">
+          {eventStatus !== "completed" ||
+            ("full" &&
+              participants
+                .filter((participant) => participant.team === 1)
+                .slice(0, 3)
+                .map((participant, index) => (
+                  <div
+                    className="relative rounded-full border-2 border-primary-1100 aspect-square h-8 overflow-hidden"
+                    style={{
+                      zIndex: 100 - index * 10,
+                      transform: `translateX(-${index}rem)`,
+                    }}
+                  >
+                    <img src={participant.avatar ? participant.avatar : "/images/default-avatar.png"} />
+                  </div>
+                )))}
+        </div>
+        <div className="text-xxs text-center">
+          <p>Kick off</p>
+          <div>
+            <p className="text-lg font-semibold">
+              {displayScore(eventStatus, scoreTeamA)}
+              <span className="text-sm mx-2">-</span>
+              {displayScore(eventStatus, scoreTeamB)}
+            </p>
+          </div>
+          <p className="flex gap-x-1.5 justify-center">
+            <span>{getStartingTime(date)}</span>
+            <span>{getEndingTime(date, duration)}</span>
           </p>
         </div>
-        <p className="flex gap-x-1.5 justify-center">
-          <span>{getStartingTime(date)}</span>
-          <span>{getEndingTime(date, duration)}</span>
-        </p>
-      </div>
-      { eventStatus !== "completed" &&
-        <div className="flex text-xxs items-end">
-        <div className="relative flex">
-          {participants.slice(1, 4).map((participant, index) => (
-            <div
-              className="relative rounded-full border-2 border-primary-1100 aspect-square h-8 overflow-hidden"
-              style={{
-                zIndex: 100 - index * 10,
-                transform: `translateX(-${index}rem)`,
-              }}
-            >
-              <img
-                src={participant.avatar ? participant.avatar : ""}
-              />
-            </div>
-          ))}
+        <div className="flex">
+          {eventStatus !== "completed" ||
+            ("full" &&
+              participants
+                .filter((participant) => participant.team === 2)
+                .slice(0, 3)
+                .map((participant, index) => (
+                  <div
+                    className="relative rounded-full border-2 border-primary-1100 aspect-square h-8 overflow-hidden"
+                    style={{
+                      zIndex: 100 - index * 10,
+                      transform: `translateX(-${index}rem)`,
+                    }}
+                  >
+                    <img src={participant.avatar ? participant.avatar : "/images/default-avatar.png"} />
+                  </div>
+                )))}
         </div>
-        <p className="relative -translate-x-4">
-          <span className="font-bold">{confirmedParticipants}</span> /{" "}
-          <span>{requiredParticipants}</span> are going
-        </p>
       </div>
-      }
-
+      {eventStatus !== "completed" && (
+        <div className="flex text-xxs items-end">
+          <div className="relative flex">
+            {participants.slice(1, 4).map((participant, index) => (
+              <div
+                className="relative rounded-full border-2 border-primary-1100 aspect-square h-8 overflow-hidden"
+                style={{
+                  zIndex: 100 - index * 10,
+                  transform: `translateX(-${index}rem)`,
+                }}
+              >
+                <img src={participant.avatar ? participant.avatar : "/images/default-avatar.png"} />
+              </div>
+            ))}
+          </div>
+          <p className="relative -translate-x-4">
+            <span className="font-bold">{confirmedParticipants}</span> /{" "}
+            <span>{requiredParticipants}</span> are going
+          </p>
+        </div>
+      )}
     </div>
   );
 }

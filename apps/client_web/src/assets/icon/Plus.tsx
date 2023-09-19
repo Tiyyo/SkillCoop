@@ -11,7 +11,7 @@ function Plus() {
       strokeWidth="3"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="h-6 w-6"
+      className="h-5 w-5"
     >
       <path d="M5 12h14" />
       <path d="M12 5v14" />

@@ -96,6 +96,7 @@ async function seed() {
       await Participant.create({
         event_id: eventId,
         profile_id: index + 1,
+        team: index < 6 ? 1 : 2,
         status_name: 'confirmed',
       })
     })
@@ -127,6 +128,7 @@ async function seed() {
         event_id: Number(eventId),
         profile_id: index + 1,
         status_name: 'confirmed',
+        team: index < 6 ? 1 : 2,
       })
     })
   }

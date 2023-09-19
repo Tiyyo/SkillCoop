@@ -18,6 +18,7 @@ import Register from "./feature/auth/Register.tsx";
 import { authApi } from "./api/authApi.ts";
 import VerifyEmail from "./feature/auth/VerifyEmail.tsx";
 import HomePage from "./feature/home-page/HomePage.tsx";
+import HomePageEvent from "./feature/event/index.tsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -36,9 +37,19 @@ const router = createBrowserRouter([
     path: "/",
     element:( 
       <Protected>
-        <App />
+        <HomePageEvent/>
       </Protected>
     ),
+    children : [
+      // {
+      //   path: "/",
+      //   element: <HomePage />,
+      // },
+      // {
+      //   path: "/event",
+      //   element: <HomePageEvent />,
+      // },
+  ]
   },
   {
     path: "/login",

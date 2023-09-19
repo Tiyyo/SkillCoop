@@ -13,12 +13,15 @@ const { getAll, getOne, getAllByUser, createOne, updateOne, deleteOne } = eventC
 const router: Router = express.Router();
 
 router.route('/')
-  .get(factory(getAll))
   .post(validate(createEvent, canals.body), factory(createOne))
   .patch(validate(updateEvent, canals.body), factory(updateOne))
 
 router.route('/user/:id')
   .get(factory(getAllByUser))
+
+router.route('/organizer/:id')
+  .get()
+
 
 router.route('/:id')
   .get(factory(getOne))

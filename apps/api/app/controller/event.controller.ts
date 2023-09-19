@@ -6,6 +6,7 @@ import ServerError from '../helpers/errors/server.error'
 import { cacheOrGetCacheData } from '../helpers/cache-data';
 import logger from '../helpers/logger';
 import redis from 'ioredis'
+import checkParams from '../utils/check-params';
 
 const redisClient = new redis()
 
@@ -97,5 +98,12 @@ export default {
 
     res.status(204).send(result + 'Succesfully deleted')
 
+  },
+  async getAllByUser(req: Request, res: Response) {
+    const userId = checkParams(req.params.id)
+
+    const events = await Event.getEventByUserId(userId)
+
+    res.status(200).json(events)
   }
 }

@@ -96,6 +96,7 @@ async function seed() {
       await Participant.create({
         event_id: eventId,
         profile_id: index + 1,
+        team: index < 6 ? 1 : 2,
         status_name: 'confirmed',
       })
     })
@@ -118,12 +119,6 @@ async function seed() {
       status_name: 'full',
     })
 
-    await Score.create({
-      event_id: Number(eventId),
-      score_team_1: faker.number.int({ min: 0, max: 20 }),
-      score_team_2: faker.number.int({ min: 0, max: 20 }),
-    })
-
     // add 10 participants to each event
     const NB_PARTICIPANTS_TO_CREATE = 10
     const arrayToIterateOnParticipants = new Array(NB_PARTICIPANTS_TO_CREATE).fill(1)
@@ -133,10 +128,37 @@ async function seed() {
         event_id: Number(eventId),
         profile_id: index + 1,
         status_name: 'confirmed',
+        team: index < 6 ? 1 : 2,
       })
     })
   }
 
+  // create 2 open events
+  const NB_EVENTS_OPEN_TO_CREATE = 2
+  const arrayToIterateOnOpenEvents = new Array(NB_EVENTS_OPEN_TO_CREATE).fill(1)
+  const openParticipants = [1, 1, 1, 1, 1, 1,]
+
+  for await (const _ of arrayToIterateOnOpenEvents) {
+    const randomDate = faker.date.future()
+    const date = getDateUTC(randomDate)
+
+    const eventId = await Event.create({
+      date,
+      duration: 90,
+      location: faker.location.city(),
+      required_participants: 10,
+      organizer_id: createdAdmin.id,
+      status_name: 'open',
+    })
+
+    openParticipants.forEach(async (_, index) => {
+      await Participant.create({
+        event_id: Number(eventId),
+        profile_id: index + 1,
+        status_name: index < 3 ? 'confirmed' : 'pending',
+      })
+    })
+  }
 
   logger.info("Database has been seed")
 }

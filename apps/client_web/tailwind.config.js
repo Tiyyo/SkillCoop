@@ -19,6 +19,7 @@ export default {
           1100: "hsla(131, 99.1%, 6.3%, 0.875)",
         },
         accent: {
+          300: "rgb(160, 1, 160, 0.8)",
           700: "#850801",
         },
         error: "hsl(348, 83.3%, 47.1%)",
@@ -37,6 +38,9 @@ export default {
       fontFamily: {
         paytone: ["Paytone One", "sans-serif"],
       },
+      transitionTimingFunction: {
+          cubic: "cubic-bezier(0.68, -0.6, 0.32, 1.6)",
+      }
     },
     plugins: [],
   },

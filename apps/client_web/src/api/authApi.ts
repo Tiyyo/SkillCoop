@@ -64,3 +64,8 @@ export const sendEmailVerifyFn = async (email: string) => {
   return response.data;
 };
 
+export const getEventsFn = async (userId: number) => {
+  const response = await authApi.get(`api/event/user/${userId}`);
+  return response.data;
+}
+

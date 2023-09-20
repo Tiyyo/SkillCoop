@@ -19,6 +19,8 @@ import { authApi } from "./api/authApi.ts";
 import VerifyEmail from "./feature/auth/VerifyEmail.tsx";
 import HomePage from "./feature/home-page/HomePage.tsx";
 import HomePageEvent from "./feature/event/index.tsx";
+import CreateEvent from "./feature/event/CreateEvent.tsx";
+import ResumeEvents from "./feature/event/ResumeEvents.tsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -41,14 +43,14 @@ const router = createBrowserRouter([
       </Protected>
     ),
     children : [
-      // {
-      //   path: "/",
-      //   element: <HomePage />,
-      // },
-      // {
-      //   path: "/event",
-      //   element: <HomePageEvent />,
-      // },
+      {
+        path: "/new-event",
+        element: <CreateEvent/>,
+      },
+      {
+        path: "/events",
+        element: <ResumeEvents/>,
+      },
   ]
   },
   {

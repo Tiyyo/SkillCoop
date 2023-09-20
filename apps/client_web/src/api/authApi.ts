@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { RegisterUser, User } from '../types';
+import { EventType, RegisterUser, User } from '../types';
 const BASE_URL = 'http://localhost:8082';
 
 
@@ -64,7 +64,7 @@ export const sendEmailVerifyFn = async (email: string) => {
   return response.data;
 };
 
-export const getEventsFn = async (userId: number) => {
+export const getEventsFn = async (userId: number): Promise<EventType[]> => {
   const response = await authApi.get(`api/event/user/${userId}`);
   return response.data;
 }

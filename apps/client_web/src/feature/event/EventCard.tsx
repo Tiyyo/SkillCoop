@@ -119,7 +119,7 @@ function EventCard({
             <span>{getEndingTime(date, duration)}</span>
           </p>
         </div>
-        <div className="flex">
+        <div className="flex-row-reverse flex">
           {eventStatus !== "completed" ||
             ("full" &&
               participants
@@ -130,7 +130,7 @@ function EventCard({
                     className="relative rounded-full border-2 border-primary-1100 aspect-square h-8 overflow-hidden"
                     style={{
                       zIndex: 100 - index * 10,
-                      transform: `translateX(-${index}rem)`,
+                      transform: `translateX(${index}rem)`,
                     }}
                   >
                     <img src={participant.avatar ? participant.avatar : "/images/default-avatar.png"} />
@@ -139,7 +139,7 @@ function EventCard({
         </div>
       </div>
       {eventStatus !== "completed" && (
-        <div className="flex text-xxs items-end">
+        <div className="flex text-xxs items-end ">
           <div className="relative flex">
             {participants.slice(1, 4).map((participant, index) => (
               <div

@@ -48,7 +48,7 @@ const router = createBrowserRouter([
         element: <CreateEvent/>,
       },
       {
-        path: "/events",
+        index: true,
         element: <ResumeEvents/>,
       },
   ]

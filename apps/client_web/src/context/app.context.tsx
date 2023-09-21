@@ -14,6 +14,8 @@ type Action = {
   payload: any;
 };
 
+
+
 type Dispatch = (action: Action) => void;
 
 const initialState: State = {
@@ -24,7 +26,7 @@ const initialState: State = {
 type StateContextProviderProps = { children: React.ReactNode };
 
 const StateContext = React.createContext<
-  { state: State; dispatch: Dispatch } | undefined
+  { state: State; dispatch: Dispatch, loading : boolean } | undefined
 >(undefined);
 
 const stateReducer = (state: State, action: Action) => {

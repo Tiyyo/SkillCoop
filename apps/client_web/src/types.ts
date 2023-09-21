@@ -34,6 +34,7 @@ export type EventParticipant = {
   username: string
   avatar: string
   status: InvitationStatus
+  team?: number
 }
 
 export type EventType = {

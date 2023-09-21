@@ -36,6 +36,9 @@ function ResumeEvents() {
     });
   }, [allEvents, loading]);
 
+//  TODO : handle error
+if(isError) return <div>error</div>
+
   return (
     <>
       {loading ? (

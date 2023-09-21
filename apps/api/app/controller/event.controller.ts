@@ -34,7 +34,7 @@ export default {
 
     const eventId = await Event.create(data)
 
-    const result = ProfileOnEvent.create({ event_id: 4, profile_id: data.organizer_id, status_name: "confirmed" })
+    const result = ProfileOnEvent.create({ event_id: eventId, profile_id: data.organizer_id, status_name: "confirmed" })
 
     await redisClient.del("events", (err, reply) => {
       if (err) throw new ServerError('Could not delete cache')

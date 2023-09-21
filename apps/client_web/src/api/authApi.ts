@@ -69,3 +69,9 @@ export const getEventsFn = async (userId: number): Promise<EventType[]> => {
   return response.data;
 }
 
+// TODO add types
+export const createEventFn = async (data) => {
+  const response = await authApi.post('api/event', data)
+  return response.data
+}
+

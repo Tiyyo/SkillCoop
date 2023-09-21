@@ -2,9 +2,11 @@ import express, { Router } from 'express';
 import factory from '../../middleware/factory.controller';
 import eventController from '../../controller/event.controller';
 import validate from '../../middleware/schema-validator';
-import createEvent from '../../schemas/event/create.event';
+import schemas from 'schema'
 import updateEvent from '../../schemas/event/update.event';
 import { canals } from '../../@types/types';
+
+const { createEventSchema } = schemas
 
 
 const { getAll, getOne, getAllByUser, createOne, updateOne, deleteOne } = eventController
@@ -13,7 +15,7 @@ const { getAll, getOne, getAllByUser, createOne, updateOne, deleteOne } = eventC
 const router: Router = express.Router();
 
 router.route('/')
-  .post(validate(createEvent, canals.body), factory(createOne))
+  .post(validate(createEventSchema, canals.body), factory(createOne))
   .patch(validate(updateEvent, canals.body), factory(updateOne))
 
 router.route('/user/:id')

@@ -4,7 +4,12 @@ import App from "./App.tsx";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 // import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import "./index.css";
-import { StateContextProvider } from "./context/app.context.tsx";
+import {
+  StateContextProvider,
+} from "./context/app.context.tsx";
+import {
+  CreateEventContextProvider,
+} from "./context/event.context.tsx";
 import {
   createBrowserRouter,
   redirect,
@@ -37,21 +42,25 @@ const queryClient = new QueryClient({
 const router = createBrowserRouter([
   {
     path: "/",
-    element:( 
+    element: (
       <Protected>
-        <HomePageEvent/>
+        <HomePageEvent />
       </Protected>
     ),
-    children : [
+    children: [
       {
         path: "/new-event",
-        element: <CreateEvent/>,
+        element: (
+          <CreateEventContextProvider>
+            <CreateEvent />,
+          </CreateEventContextProvider>
+        ),
       },
       {
         index: true,
-        element: <ResumeEvents/>,
+        element: <ResumeEvents />,
       },
-  ]
+    ],
   },
   {
     path: "/login",

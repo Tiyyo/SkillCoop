@@ -8,6 +8,7 @@ const createEventSchema = z.object({
   required_participants: z.number(),
   organizer_id: z.number(),
   status_name: z.enum(["open", "full"]).optional(),
+  participants: z.array(z.number()).optional(),
 });
 
 export default createEventSchema;

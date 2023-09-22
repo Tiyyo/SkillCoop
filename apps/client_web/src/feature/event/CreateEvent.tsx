@@ -1,11 +1,16 @@
-import { useMutation } from "@tanstack/react-query";
 import Button from "../../component/button";
 import { useStateContext } from "../../context/app.context";
-import { createEventFn } from "../../api/authApi";
+import { useCreateEventContext } from "../../context/event.context";
+import { useEffect } from "react";
+import schema from "schema";
+import { CreateEventData } from "../../types";
+const { createEventSchema } = schema;
 
 function CreateEvent() {
   const stateContext = useStateContext();
-  const userId = stateContext.state.authUser.userProfile.user_id;
+  const eventContext = useCreateEventContext();
+  const userId = stateContext.state.userProfile.user_id;
+
   const getTodayFormatedForInput = () => {
     const today = new Date();
     const year = today.getFullYear();
@@ -26,29 +31,54 @@ function CreateEvent() {
   };
   // need to handle the case where user select today date but time is in the past
 
-  const {
-    mutate: createEvent,
-    isLoading,
-    isError,
-    isSuccess,
-  } = useMutation((data) => createEventFn(data));
-
-  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = (e: any) => {
     e.preventDefault();
-    const formatedTime = getFormatedTime(e.target.time.value);
-    const eventDate = `${e.target.date.value} ${formatedTime}`;
-    const data = {
-      date: eventDate,
-      duration: Number(e.target.duration.value),
-      location: e.target.location.value,
-      required_participants: Number(e.target.requiredParticipants.value),
+    const data: CreateEventData = {
       organizer_id: userId,
       status_name: "open",
     };
-    createEvent(data);
 
-    console.log(eventDate);
+    // validation date and time
+    if (eventContext.state.start_time && eventContext.state.start_date) {
+      const formatedTime = getFormatedTime(eventContext.state.start_time);
+      const eventDate = `${eventContext.state.start_date} ${formatedTime}`;
+      data.date = eventDate;
+    }
+
+    // validation duration
+    if (eventContext.state.duration) {
+      data.duration = Number(eventContext.state.duration);
+    }
+
+    // validation location
+    if (eventContext.state.location) {
+      data.location = eventContext.state.location;
+    }
+
+    // validation required participants
+    if (eventContext.state.required_participants) {
+      data.required_participants = Number(
+        eventContext.state.required_participants
+      );
+    }
+
+
+    const isValid = createEventSchema.safeParse(data);
+
+    console.log(isValid);
+    if (isValid.success) {
+      eventContext.createEvent(data);
+    }
+
   };
+
+  const updateCreateEventState = (e: any, actionType: string) => {
+    eventContext.dispatch({ type: actionType, payload: e.target.value });
+  };
+
+  useEffect(() => {
+    eventContext.dispatch({ type: "SET_ORGANIZER_ID", payload: userId });
+  }, []);
 
   return (
     <>
@@ -63,8 +93,14 @@ function CreateEvent() {
           type="date"
           min={getTodayFormatedForInput()}
           placeholder="start date"
+          onChange={(e) => updateCreateEventState(e, "SET_DATE")}
         />
-        <input name="time" type="time" placeholder="start time" />
+        <input
+          name="time"
+          type="time"
+          placeholder="start time"
+          onChange={(e) => updateCreateEventState(e, "SET_TIME")}
+        />
         <label
           htmlFor="duration"
           className="block mb-2 text-sm font-medium text-gray-900"
@@ -74,15 +110,21 @@ function CreateEvent() {
         <select
           name="duration"
           className="bg-base-light border text-primary-1100 text-sm rounded-lg focus:ring-primary-800 focus:border-primary-800 block w-full p-2.5 "
+          onChange={(e) => updateCreateEventState(e, "SET_DURATION")}
         >
-          <option selected>Choose a duration</option>
+          <option>Choose a duration</option>
           <option value={45}>45 min</option>
           <option value={60}>1H</option>
           <option value={90}>1H30</option>
           <option value={120}>2H</option>
         </select>
         <label>Select a Location</label>
-        <input name="location" type="text" placeholder="city" />
+        <input
+          name="location"
+          type="text"
+          placeholder="city"
+          onChange={(e) => updateCreateEventState(e, "SET_LOCATION")}
+        />
         <label
           htmlFor="requiredParticipants"
           className="block mb-2 text-sm font-medium text-gray-900"
@@ -92,8 +134,11 @@ function CreateEvent() {
         <select
           name="requiredParticipants"
           className="bg-base-light border text-primary-1100 text-sm rounded-lg focus:ring-primary-800 focus:border-primary-800 block w-full p-2.5 "
+          onChange={(e) =>
+            updateCreateEventState(e, "SET_REQUIRED_PARTICIPANTS")
+          }
         >
-          <option selected>Choose your event format</option>
+          <option>Choose your event format</option>
           <option value={6}>3V3</option>
           <option value={10}>5V5</option>
           <option value={14}>7V7</option>

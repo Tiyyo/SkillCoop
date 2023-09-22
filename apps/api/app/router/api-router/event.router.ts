@@ -24,7 +24,6 @@ router.route('/user/:id')
 router.route('/organizer/:id')
   .get()
 
-
 router.route('/:id')
   .get(factory(getOne))
 

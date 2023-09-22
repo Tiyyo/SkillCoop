@@ -49,6 +49,7 @@ export const logoutUserFn = async () => {
 
 export const getMeFn = async () => {
   const response = await authApi.get('api/user/me');
+  console.log(response);
   return response.data;
 }
 

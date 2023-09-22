@@ -1,11 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useEffect } from "react";
 import { getMeFn } from "../api/authApi";
-// import { IUser } from '../api/types';
 
 type State = {
-  // authUser: IUser | null;
-  authUser: any;
+  userProfile: any;
   isAuth: boolean;
 };
 
@@ -14,16 +12,13 @@ type Action = {
   payload: any;
 };
 
-
-
 type Dispatch = (action: Action) => void;
+type StateContextProviderProps = { children: React.ReactNode };
 
 const initialState: State = {
-  authUser: null,
+  userProfile: null,
   isAuth : false
 };
-
-type StateContextProviderProps = { children: React.ReactNode };
 
 const StateContext = React.createContext<
   { state: State; dispatch: Dispatch, loading : boolean } | undefined
@@ -34,7 +29,7 @@ const stateReducer = (state: State, action: Action) => {
     case "SET_USER": {
       return {
         ...state,
-        authUser: action.payload,
+        userProfile: action.payload,
       };
     }
     case "SET_IS_AUTH": {
@@ -49,22 +44,23 @@ const stateReducer = (state: State, action: Action) => {
 const StateContextProvider = ({ children }: StateContextProviderProps) => {
   const [state, dispatch] = React.useReducer(stateReducer, initialState);
 
-  const { data: profile, isError, isLoading, isFetching } = useQuery(["authUser"], () => getMeFn(), {
+  const { data , isError, isLoading, isFetching } = useQuery(["authUser"], () => getMeFn(), {
     enabled: true,
   });
 
   const loading = isLoading || isFetching
 
   const value = { state, dispatch, loading };
+
   useEffect(() => {
-    if (profile) {
-      dispatch({ type: "SET_USER", payload: profile })
+    if (data && data.userProfile) {
+      dispatch({ type: "SET_USER", payload: data.userProfile })
       dispatch({ type: "SET_IS_AUTH", payload: true })
     } else {
       dispatch({ type: "SET_USER", payload: null })
       dispatch({ type: "SET_IS_AUTH", payload: false })
     }
-  }, [profile, isError])
+  }, [data, isError])
 
   return (
     <StateContext.Provider value={value}>{children}</StateContext.Provider>

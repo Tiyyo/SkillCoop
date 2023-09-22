@@ -37,6 +37,16 @@ export type EventParticipant = {
   team?: number
 }
 
+export type CreateEventData = {
+  date: string
+  duration: number
+  location: string
+  required_participants: number
+  organizer_id: number
+  status_name: 'open'
+  participants?: number[]
+}
+
 export type EventType = {
   event_id: number
   date: string

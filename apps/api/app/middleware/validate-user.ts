@@ -12,9 +12,13 @@ const validateUser = async (
   let token: string = '';
   let userInfos: any = null;
   let requestUserId: string | number = '';
+  let authHeaders = req.headers.Authorization || req.headers.authorization
+  
+  if (authHeaders && typeof authHeaders === "string" && authHeaders.startsWith("Bearer")) {
+    token = authHeaders.split(" ")[1]
+  }
 
-  if (req.cookies && req.cookies.accessToken) token = req.cookies.accessToken;
-
+  //TODO need to control the correct userId or profileId 
   try {
     verify(token, process.env.JWT_TOKEN_KEY as string, async (err, decoded) => {
       if (err || !decoded || typeof decoded === 'string') return res.status(401).json({ error: 'Unauthorized user' });

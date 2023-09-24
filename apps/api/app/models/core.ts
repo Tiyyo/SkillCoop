@@ -82,6 +82,22 @@ export class Core {
     }
 
   }
+  async createMany (data : Record<string, any>) {
+    const today = new Date()
+    const utctoday = getDateUTC(today)
+    data.forEach(el => el.create_at = utctoday)
+
+    try {
+      const result = await this.client
+        .insertInto(this.tableName)
+        .values(data)
+        .execute()
+
+      return result 
+    } catch (error) {
+      throw new DatabaseError(error)
+    }
+  }
   async update(id: number, data: any) {
     const today = new Date()
     const todayUTC = getDateUTC(today)

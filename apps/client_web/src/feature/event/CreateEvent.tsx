@@ -4,6 +4,10 @@ import { useCreateEventContext } from "../../context/event.context";
 import { useEffect } from "react";
 import schema from "schema";
 import { CreateEventData } from "../../types";
+import Input from "../../component/input";
+import SelectInput from "../../component/select";
+import InputDate from "../../component/date-picker";
+import InputTime from "../../component/time-picker";
 const { createEventSchema } = schema;
 
 function CreateEvent() {
@@ -62,23 +66,34 @@ function CreateEvent() {
       );
     }
 
-
     const isValid = createEventSchema.safeParse(data);
 
-    console.log(isValid);
-    if (isValid.success) {
+    if (isValid.success && dateShouldBeInTheFuture(data.date)) {
       eventContext.createEvent(data);
     }
-
   };
 
   const updateCreateEventState = (e: any, actionType: string) => {
-    eventContext.dispatch({ type: actionType, payload: e.target.value });
+    eventContext.dispatch({ type: actionType, payload: e.target?.value ?? e });
   };
 
   useEffect(() => {
     eventContext.dispatch({ type: "SET_ORGANIZER_ID", payload: userId });
   }, []);
+
+  const optionsDuration = [
+    { label: "45 min", value: 45 },
+    { label: "1H", value: 60 },
+    { label: "1H30", value: 90 },
+    { label: "2H", value: 120 },
+  ];
+
+  const optionsFormat = [
+    { label: "3V3", value: 6 },
+    { label: "5V5", value: 10 },
+    { label: "7V7", value: 14 },
+    { label: "11V11", value: 22 },
+  ];
 
   return (
     <>
@@ -86,64 +101,41 @@ function CreateEvent() {
         <button>Go Back</button>
       </div>
       <h2>Create an new Event</h2>
-      <form onSubmit={handleFormSubmit}>
-        <label>Select a Date</label>
-        <input
-          name="date"
-          type="date"
-          min={getTodayFormatedForInput()}
-          placeholder="start date"
-          onChange={(e) => updateCreateEventState(e, "SET_DATE")}
-        />
-        <input
+      <form onSubmit={handleFormSubmit} className="px-3 flex flex-col items-center gap-y-4">
+        <InputDate updateState={updateCreateEventState} actionType="SET_DATE" label='Select a date'/>
+        <InputTime/>
+        <Input
+          label="Select a Time"
           name="time"
           type="time"
-          placeholder="start time"
-          onChange={(e) => updateCreateEventState(e, "SET_TIME")}
+          placeholder="starting time"
+          actionType="SET_TIME"
+          step={3600}
+          updateState={updateCreateEventState}
         />
-        <label
-          htmlFor="duration"
-          className="block mb-2 text-sm font-medium text-gray-900"
-        >
-          Select a Duration
-        </label>
-        <select
+        <SelectInput
           name="duration"
-          className="bg-base-light border text-primary-1100 text-sm rounded-lg focus:ring-primary-800 focus:border-primary-800 block w-full p-2.5 "
-          onChange={(e) => updateCreateEventState(e, "SET_DURATION")}
-        >
-          <option>Choose a duration</option>
-          <option value={45}>45 min</option>
-          <option value={60}>1H</option>
-          <option value={90}>1H30</option>
-          <option value={120}>2H</option>
-        </select>
-        <label>Select a Location</label>
-        <input
+          label="Select a Duration"
+          placeholder="duration in min"
+          updateState={updateCreateEventState}
+          actionType="SET_DURATION"
+          options={optionsDuration}
+        />
+        <Input
           name="location"
+          label="Select a Location"
           type="text"
           placeholder="city"
-          onChange={(e) => updateCreateEventState(e, "SET_LOCATION")}
+          updateState={updateCreateEventState}
+          actionType="SET_LOCATION"
         />
-        <label
-          htmlFor="requiredParticipants"
-          className="block mb-2 text-sm font-medium text-gray-900"
-        >
-          Select a format
-        </label>
-        <select
+        <SelectInput
           name="requiredParticipants"
-          className="bg-base-light border text-primary-1100 text-sm rounded-lg focus:ring-primary-800 focus:border-primary-800 block w-full p-2.5 "
-          onChange={(e) =>
-            updateCreateEventState(e, "SET_REQUIRED_PARTICIPANTS")
-          }
-        >
-          <option>Choose your event format</option>
-          <option value={6}>3V3</option>
-          <option value={10}>5V5</option>
-          <option value={14}>7V7</option>
-          <option value={22}>11V11</option>
-        </select>
+          label="Select a Format"
+          updateState={updateCreateEventState}
+          actionType="SET_REQUIRED_PARTICIPANTS"
+          options={optionsFormat}
+        />
         <Button textContent="Create Event" type="submit" />
       </form>
     </>

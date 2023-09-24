@@ -1,6 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
+  content: [
+    "./index.html",
+    "./src/**/*.{js,jsx,ts,tsx}",
+    "./node_modules/tailwind-datepicker-react/dist/**/*.js",
+  ],
   theme: {
     extend: {
       colors: {
@@ -39,8 +43,8 @@ export default {
         paytone: ["Paytone One", "sans-serif"],
       },
       transitionTimingFunction: {
-          cubic: "cubic-bezier(0.68, -0.6, 0.32, 1.6)",
-      }
+        cubic: "cubic-bezier(0.68, -0.6, 0.32, 1.6)",
+      },
     },
     plugins: [],
   },

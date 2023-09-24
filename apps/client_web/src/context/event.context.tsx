@@ -94,6 +94,8 @@ const CreateEventContextProvider = ({
 
   const value = { state, dispatch, createEvent };
 
+  console.log(state);
+
   return (
     <CreateEventContext.Provider value={value}>
       {children}

@@ -5,9 +5,9 @@ const updateEventSchema = z.object({
     duration: z.number().optional(),
     location: z.string().optional(),
     required_participants: z.number().optional(),
-    num_teams: z.number().optional(),
+    nb_teams: z.number().optional(),
     organizer_id: z.number(),
-    status_name: z.enum(["open", "full"]).optional(),
+    status_name: z.enum(["open", "full", "completed", "cancelled"]).optional(),
 
 });
 

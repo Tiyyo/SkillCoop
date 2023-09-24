@@ -12,11 +12,12 @@ export class Friendlist extends Core {
       const friendships = await this.client
         .selectFrom(this.tableName)
         .selectAll()
+        .limit(20)
         .innerJoin("profile", "profile.id", "profile_on_profile.friend_id")
         .where("adder_id", "=", id)
         .where((builder: any) => builder.or([
           builder("status_name", "=", "confirmed"),
-          builder("status_name", "=", "pending")
+          // builder("status_name", "=", "pending")
         ]))
         .execute()
 
@@ -25,6 +26,23 @@ export class Friendlist extends Core {
       throw new DatabaseError(error)
     }
 
+  }
+  async findFriendByUsername(profileId : number , page : number) {
+    const offset = (page -1) * 10
+    try {
+      const friends = await this.client
+        .selectFrom(this.tableName)
+        .selectAll()
+        .offset(offset)
+        .limit(20)
+        .innerJoin("profile", "profile.id", "profile_on_profile.friend_id")
+        .where("adder_id , "=" , "profile_on_profile.friend_id")
+        .where("status_name" , "=" , "confirmed")
+        .execute()
+        return friends
+    } catch (error) {
+      throw new DatabaseError(error)
+    }
   }
   async sendRequest(adder_id: number, friend_id: number) {
     try {

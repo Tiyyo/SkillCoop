@@ -30,24 +30,24 @@ export default {
     // create one event
     // add organizer to the event
     // add organizer to the participant list to this event
-    const {ids, ...data} = req.body
+    const { ids, ...data } = req.body
 
     const eventId = await Event.create(data)
 
     const result = ProfileOnEvent.create({ event_id: eventId, profile_id: data.organizer_id, status_name: "confirmed" })
 
-    
+
     if (ids) {
-    const participantsToInvite = ids.map((id) => {
-      return  {
-        profile_id : id ,
-        event_id : eventId,
-        status_name : 'pending'
-      }
+      const participantsToInvite = ids.map((id) => {
+        return {
+          profile_id: id,
+          event_id: eventId,
+          status_name: 'pending'
+        }
+      })
+      const instertedParticipant = await ProfileOnEvent.createMany(participantsToInvite)
     }
-    const instertedParticipant = await ProfileOnEvent.createMany(participantsToInvite)
-    }
-      
+
     res.status(201).json(result)
   },
   async getOne(req: Request, res: Response) {

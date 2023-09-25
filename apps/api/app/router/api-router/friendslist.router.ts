@@ -4,19 +4,21 @@ import friendsList from '../../controller/friendslist.controller';
 import validate from '../../middleware/schema-validator';
 import firendlistSchema from '../../schemas/profile_on_profile/profile.on.profile';
 import { canals } from '../../@types/types';
+import schema from 'schema'
+const { searchFriendsSchema } = schema
 
-const { getAll, sendFriendRequest, getRequestToAccept, acceptOrDeclined } = friendsList;
+const { getFriends, sendFriendRequest, getRequestToAccept, acceptOrDeclined, searchFriends } = friendsList;
 
 
 const router: Router = express.Router();
 
 router.route('/')
-  // .get(factory(getAll))
+  .get(validate(searchFriendsSchema, canals.query), factory(searchFriends))
   .post(validate(firendlistSchema, canals.body), factory(sendFriendRequest))
   .patch(validate(firendlistSchema, canals.body), factory(acceptOrDeclined))
 
 router.route('/:id')
-  .get(factory(getAll))
+  .get(factory(getFriends))
 
 router.route('/pending/:id')
   .get(factory(getRequestToAccept))

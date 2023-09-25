@@ -1,56 +1,61 @@
-import { cacheOrGetCacheData } from '@/helpers/cache.data';
 import { friendslist as Friendlist } from '../models/index';
 import { Request, Response } from 'express'
 import logger from '../helpers/logger';
 import redis from 'ioredis'
+import checkParams from '../utils/check-params';
 
 export default {
-    async getAll(req: Request, res: Response) {
-        // get all friends , confirmed and pending
-        const { id } = req.params;
+  async getFriends(req: Request, res: Response) {
+    // get all friend
+    const id = checkParams(req.params.id);
 
-        const friendlist = await Friendlist.findAllByPk(Number(id));
+    const friendlist = await Friendlist.findAllByPk(id);
 
-        res.status(200).json(friendlist);
+    res.status(200).json(friendlist);
+  },
+  async sendFriendRequest(req: Request, res: Response) {
 
-    },
-    async sendFriendRequest(req: Request, res: Response) {
+    // create a new friend request
+    // status send 
+    // create a status for the added pending
+    const { adder_id, friend_id } = req.body;
 
-        // create a new friend request
-        // status send 
-        // create a status for the added pending
+    const result = await Friendlist.sendRequest(adder_id, friend_id);
 
-        const { adder_id, friend_id } = req.body;
+    res.json(result);
 
-        const result = await Friendlist.sendRequest(adder_id, friend_id);
+  },
+  async acceptOrDeclined(req: Request, res: Response) {
 
-        res.json(result);
+    const { adder_id, friend_id, status_name } = req.body;
 
-    },
-    async acceptOrDeclined(req: Request, res: Response) {
+    const result = await Friendlist.updateStatus({ adder_id, friend_id, status_name });
 
-        const { adder_id, friend_id, status_name } = req.body;
+    res.status(200).send(result);
+  },
+  async getRequestToAccept(req: Request, res: Response) {
+    const id = checkParams(req.params.id);
+    // get friendship where id = friend_id and status = pending
 
-        const result = await Friendlist.updateStatus({ adder_id, friend_id, status_name });
+    const pendingRequests = await Friendlist.findPendingRequests(id);
 
-        res.status(200).send(result);
-    },
-    async getRequestToAccept(req: Request, res: Response) {
+    res.json(pendingRequests);
+  },
+  async searchFriends(req: Request, res: Response) {
+    const { username, profile, page } = req.query
 
-        const { id } = req.params;
-        // get friendship where id = friend_id and status = pending
+    console.log(username, profile, page);
+    const friends = await Friendlist.findFriendByUsername(Number(profile), username, Number(page));
 
-        const pendingRequests = await Friendlist.findPendingRequests(Number(id));
-
-        res.json(pendingRequests);
-    },
-    async getOne(req: Request, res: Response) {
-        // get one friend by id and display his profile
-    },
-    async updateOne(req: Request, res: Response) {
-        // confirm a friend request
-    },
-    async deleteOne(req: Request, res: Response) {
-        // remove a friend from a friends list
-    }
+    res.json(friends);
+  },
+  async getOne(req: Request, res: Response) {
+    // get one friend by id and display his profile
+  },
+  async updateOne(req: Request, res: Response) {
+    // confirm a friend request
+  },
+  async deleteOne(req: Request, res: Response) {
+    // remove a friend from a friends list
+  }
 }

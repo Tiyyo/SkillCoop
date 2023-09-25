@@ -19,7 +19,7 @@ model user {
   verified  Int       @default(0)
   created_at String
   updated_at String? 
-  Profile   profile?
+  Profile    profile?
 }
 
 model profile {

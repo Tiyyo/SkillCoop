@@ -4,10 +4,10 @@
 import { Score } from "../@types/types"
 
 const computeGbRating = (score: Score): number => {
-    const values = Object.values(score)
-    const avg = values.reduce((a: number, b: number) => (a + b)) / values.length
+  const values = Object.values(score)
+  const avg = values.reduce((a: number, b: number) => (a + b)) / values.length
 
-    return avg
+  return avg
 }
 
 export default computeGbRating

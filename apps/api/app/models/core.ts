@@ -82,10 +82,10 @@ export class Core {
     }
 
   }
-  async createMany (data : Record<string, any>) {
+  async createMany(data: Record<string, any>) {
     const today = new Date()
     const utctoday = getDateUTC(today)
-    data.forEach(el => el.create_at = utctoday)
+    data.forEach(el => el.created_at = utctoday)
 
     try {
       const result = await this.client
@@ -93,7 +93,7 @@ export class Core {
         .values(data)
         .execute()
 
-      return result 
+      return result
     } catch (error) {
       throw new DatabaseError(error)
     }

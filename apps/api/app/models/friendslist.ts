@@ -11,7 +11,7 @@ export class Friendlist extends Core {
     try {
       const friendships = await this.client
         .selectFrom(this.tableName)
-        .selectAll()
+        .select(['friend_id', 'adder_id', 'status_name', 'avatar_url', 'username'])
         .limit(20)
         .innerJoin("profile", "profile.id", "profile_on_profile.friend_id")
         .where("adder_id", "=", id)
@@ -27,19 +27,20 @@ export class Friendlist extends Core {
     }
 
   }
-  async findFriendByUsername(profileId : number , page : number) {
-    const offset = (page -1) * 10
+  async findFriendByUsername(profileId: number, query: string, page: number = 1) {
+    const offset = (page - 1) * 10
     try {
       const friends = await this.client
         .selectFrom(this.tableName)
-        .selectAll()
+        .select(['friend_id', 'adder_id', 'status_name', 'avatar_url', 'username'])
         .offset(offset)
         .limit(20)
         .innerJoin("profile", "profile.id", "profile_on_profile.friend_id")
-        .where("adder_id , "=" , "profile_on_profile.friend_id")
-        .where("status_name" , "=" , "confirmed")
+        .where("profile_on_profile.adder_id ", "=", profileId)
+        .where("status_name", "=", "confirmed")
+        .where("username", "like", `%${query.toLowerCase()}%`)
         .execute()
-        return friends
+      return friends
     } catch (error) {
       throw new DatabaseError(error)
     }

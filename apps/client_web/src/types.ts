@@ -62,3 +62,11 @@ export type EventType = {
   participants: EventParticipant[] | string
   confirmed_participants: number
 }
+
+export type Friend = {
+  adder_id: number
+  friend_id: number
+  username: string
+  avatar_url: string
+  status_name: InvitationStatus
+}

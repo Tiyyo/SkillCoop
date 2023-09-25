@@ -1,4 +1,5 @@
 import type { ComponentPropsWithoutRef } from "react";
+import Calendar from "../../assets/icon/Calendar";
 
 type Option = {
   label: string;
@@ -8,25 +9,23 @@ type Option = {
 interface SelectInputProps extends ComponentPropsWithoutRef<"select"> {
   label?: string;
   name: string;
-  updateState?: (e: any, args: string) => void;
-  actionType?: string;
+  updateState?: (args : any) => void;
   props?: any;
   options: Option[];
-  placeholder?: string;
+  children?: React.ReactNode;
 }
 
 function SelectInput({
   label,
   name,
   updateState,
-  actionType,
-  placeholder,
   options,
+  children,
   ...props
-}: SelectInputProps & { actionType: string }) {
+}: SelectInputProps) {
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    if (updateState && actionType) {
-      updateState(e, actionType);
+    if (updateState) {
+      updateState(e.target.value);
       return;
     }
   };
@@ -34,21 +33,25 @@ function SelectInput({
     <div className="w-full">
       <label
         htmlFor={name}
-        className="block mb-2 text-sm font-medium text-gray-900"
+        className="block py-2 text-md font-semibold text-primary-1100"
       >
         {label}
       </label>
+      <div className="relative">
+      <div className="absolute top-1/2 left-2 -translate-y-1/2 text-primary-600">
+        {children}
+      </div>
       <select
         name={name}
-        className="bg-base-light border text-primary-1100 text-sm rounded-lg focus:ring-primary-800 focus:border-primary-800 block w-full p-2.5 "
+        className="bg-base-light border text-primary-1100 text-sm rounded-lg focus:ring-primary-800 focus:border-primary-800 block w-full h-10.5 pl-10"
         onChange={handleChange}
         {...props}
       >
-        <option>{placeholder}</option>
         {options.map((option: any) => (
           <option value={option.value}>{option.label}</option>
         ))}
       </select>
+      </div>
     </div>
   );
 }

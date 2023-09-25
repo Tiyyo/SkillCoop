@@ -1,6 +1,5 @@
 import Button from "../../component/button";
 import { useStateContext } from "../../context/app.context";
-import { useCreateEventContext } from "../../context/event.context";
 import { useEffect } from "react";
 import schema from "schema";
 import { CreateEventData } from "../../types";
@@ -8,77 +7,88 @@ import Input from "../../component/input";
 import SelectInput from "../../component/select";
 import InputDate from "../../component/date-picker";
 import InputTime from "../../component/time-picker";
+import { useCreateEvent } from "../../store/createEvent";
+import dateHandler from "../../utils/date.handler";
+import Globe from "../../assets/icon/Globe";
+import Users from "../../assets/icon/Users";
+import Clock from "../../assets/icon/Clock";
+import Return from "../../assets/icon/Return";
+import { Link, useNavigate } from "react-router-dom";
+import Plus from "../../assets/icon/Plus";
+import CalendarClock from "../../assets/icon/CalendarClock";
 const { createEventSchema } = schema;
 
 function CreateEvent() {
   const stateContext = useStateContext();
-  const eventContext = useCreateEventContext();
+  const navigate = useNavigate();
+  const {
+    createEvent,
+    data: eventCreatedState,
+    updateDuration,
+    updateLocation,
+    updateOrganizerId,
+    updateStartDate,
+    updateStartTime,
+    updateRequiredParticipants,
+  } = useCreateEvent();
   const userId = stateContext.state.userProfile.user_id;
 
-  const getTodayFormatedForInput = () => {
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = today.getMonth() + 1;
-    const day = today.getDate();
-    const todayFormated = `${year}-${month < 10 ? "0" + month : month}-${day}`;
-    return todayFormated;
-  };
-
-  const dateShouldBeInTheFuture = (date: string) => {
-    const today = new Date();
-    const dateToCompare = new Date(date);
-    return dateToCompare > today;
-  };
+console.log(eventCreatedState);
 
   const getFormatedTime = (time: string) => {
     return `${time}:0.000`;
   };
-  // need to handle the case where user select today date but time is in the past
 
   const handleFormSubmit = (e: any) => {
     e.preventDefault();
-    const data: CreateEventData = {
+    const data: Partial<CreateEventData> | CreateEventData = {
       organizer_id: userId,
       status_name: "open",
     };
 
+    // TODO need to handle the case where user select today date but time is in the past
     // validation date and time
-    if (eventContext.state.start_time && eventContext.state.start_date) {
-      const formatedTime = getFormatedTime(eventContext.state.start_time);
-      const eventDate = `${eventContext.state.start_date} ${formatedTime}`;
+    if (eventCreatedState.start_time && eventCreatedState.start_date) {
+      const formatedTime = getFormatedTime(eventCreatedState.start_time);
+      const eventDate = `${eventCreatedState.start_date} ${formatedTime}`;
       data.date = eventDate;
     }
 
     // validation duration
-    if (eventContext.state.duration) {
-      data.duration = Number(eventContext.state.duration);
+    if (eventCreatedState.duration) {
+      data.duration = Number(eventCreatedState.duration);
     }
 
     // validation location
-    if (eventContext.state.location) {
-      data.location = eventContext.state.location;
+    if (eventCreatedState.location) {
+      data.location = eventCreatedState.location;
     }
 
     // validation required participants
-    if (eventContext.state.required_participants) {
+    if (eventCreatedState.required_participants) {
       data.required_participants = Number(
-        eventContext.state.required_participants
+        eventCreatedState.required_participants
       );
     }
 
     const isValid = createEventSchema.safeParse(data);
 
-    if (isValid.success && dateShouldBeInTheFuture(data.date)) {
-      eventContext.createEvent(data);
+    if (
+      isValid.success &&
+      data.date &&
+      dateHandler.dateShouldBeInTheFuture(data.date)
+    ) {
+      createEvent(data);
     }
   };
 
-  const updateCreateEventState = (e: any, actionType: string) => {
-    eventContext.dispatch({ type: actionType, payload: e.target?.value ?? e });
+  const handleClickReturn = () => {
+    navigate("/");
   };
 
+  // Not sure if this useEffect is needed
   useEffect(() => {
-    eventContext.dispatch({ type: "SET_ORGANIZER_ID", payload: userId });
+    updateOrganizerId(userId);
   }, []);
 
   const optionsDuration = [
@@ -97,45 +107,68 @@ function CreateEvent() {
 
   return (
     <>
-      <div>
-        <button>Go Back</button>
-      </div>
-      <h2>Create an new Event</h2>
-      <form onSubmit={handleFormSubmit} className="px-3 flex flex-col items-center gap-y-4">
-        <InputDate updateState={updateCreateEventState} actionType="SET_DATE" label='Select a date'/>
-        <InputTime/>
-        <Input
+      <button onClick={handleClickReturn} className="py-2 px-3 text-light">
+        <Return />
+      </button>
+      <h2 className="text-lg text-center py-2 font-bold text-primary-1000">
+        Create an new Event
+      </h2>
+      <form
+        onSubmit={handleFormSubmit}
+        className="px-3 flex flex-col items-center gap-y-4"
+      >
+        <InputDate
+          updateState={updateStartDate}
+          actionType="SET_DATE"
+          label="Select a date"
+          defaultValue={eventCreatedState.start_date ?? ""}
+        />
+        <InputTime
           label="Select a Time"
           name="time"
-          type="time"
-          placeholder="starting time"
-          actionType="SET_TIME"
-          step={3600}
-          updateState={updateCreateEventState}
-        />
+          type="text"
+          readOnly
+          placeholder="HH:mm"
+          updateState={updateStartTime}
+        >
+          <CalendarClock />
+        </InputTime>
         <SelectInput
           name="duration"
           label="Select a Duration"
           placeholder="duration in min"
-          updateState={updateCreateEventState}
-          actionType="SET_DURATION"
+          updateState={updateDuration}
           options={optionsDuration}
-        />
+          defaultValue={eventCreatedState.duration ?? ""}
+        >
+          <Clock />
+        </SelectInput>
         <Input
           name="location"
           label="Select a Location"
           type="text"
-          placeholder="city"
-          updateState={updateCreateEventState}
-          actionType="SET_LOCATION"
-        />
+          placeholder="City"
+          updateState={updateLocation}
+          defaultValue={eventCreatedState.location ?? ""}
+        >
+          <Globe />
+        </Input>
         <SelectInput
           name="requiredParticipants"
           label="Select a Format"
-          updateState={updateCreateEventState}
-          actionType="SET_REQUIRED_PARTICIPANTS"
+          updateState={updateRequiredParticipants}
           options={optionsFormat}
-        />
+          defaultValue={eventCreatedState.required_participants ?? ""}
+        >
+          <Users />
+        </SelectInput>
+        <Link
+          to="invitation"
+          className="flex items-center underline underline-offset-8 un gap-2 py-4 text-md text-primary-1100 font-semibold cursor-pointer"
+        >
+          <p>INVITE FRIENDS </p>
+          <Plus />
+        </Link>
         <Button textContent="Create Event" type="submit" />
       </form>
     </>

@@ -3,11 +3,15 @@ import Datepicker from "tailwind-datepicker-react";
 import dateHandler from "../../utils/date.handler";
 
 interface InputDateProps {
-  updateState?: (e: any, args: string) => void;
+  updateState?: (e: any) => void;
   actionType?: string;
   label?: string;
+  defaultValue?: string;
 }
 
+
+function InputDate({ updateState, label, defaultValue }: InputDateProps) {
+const today = new Date();
 const options = {
   title: "Select a date",
   autoHide: true,
@@ -21,7 +25,7 @@ const options = {
     icons: "",
     text: "text-primary-1100",
     input: "w-full",
-    inputIcon: "text-primary-600",
+    inputIcon: "text-primary-600 ",
     selected: "bg-primary-800",
     disabledText: "text-gray-200",
   },
@@ -30,10 +34,10 @@ const options = {
     next: "",
   },
   datepickerClassNames: "top-12 left-1/2 -translate-x-1/2 ",
-  defaultDate: new Date(),
+  defaultDate: new Date(defaultValue || today),
   language: "en",
 };
-function InputDate({ updateState, actionType, label }: InputDateProps) {
+
   const [show, setShow] = useState<boolean>(false);
 
   const getDateFormatedLikeInputDate = (date: Date) => {
@@ -43,10 +47,10 @@ function InputDate({ updateState, actionType, label }: InputDateProps) {
     return `${year}-${month < 10 ? "0" + month : month}-${day}`;
   };
 
-  const handleChange = (selectedDate: Date) => {
+    const handleChange = (selectedDate: Date) => {
     const formatDate = getDateFormatedLikeInputDate(selectedDate);
-    if (updateState && actionType) {
-      updateState(formatDate, actionType);
+    if (updateState) {
+      updateState(formatDate);
       return;
     }
   };
@@ -57,7 +61,7 @@ function InputDate({ updateState, actionType, label }: InputDateProps) {
   return (
     <div className="relative w-full">
       <p
-        className="block mb-2 text-sm font-medium text-gray-900"
+        className="block py-2 text-md font-semibold text-primary-1100"
       >
         {label}
       </p>

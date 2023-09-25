@@ -41,5 +41,10 @@ export default {
     const day = today.getDate();
     const todayFormated = `${year}-${month < 10 ? "0" + month : month}-${day}`;
     return todayFormated;
+  },
+  dateShouldBeInTheFuture(date: string) {
+    const today = new Date();
+    const dateToCompare = new Date(date);
+    return dateToCompare > today;
   }
-};
+}

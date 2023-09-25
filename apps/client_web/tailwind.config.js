@@ -7,6 +7,9 @@ export default {
   ],
   theme: {
     extend: {
+      height: {
+        10.5: "42px",
+      },
       colors: {
         "base-light": "hsl(110, 20.0%, 99.0%)",
         base: "hsl(120, 16.7%, 97.6%)",

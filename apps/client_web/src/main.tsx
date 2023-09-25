@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.tsx";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 // import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import "./index.css";
@@ -22,10 +21,10 @@ import TermsAndService from "./feature/terms-and-service/index";
 import Register from "./feature/auth/Register.tsx";
 import { authApi } from "./api/authApi.ts";
 import VerifyEmail from "./feature/auth/VerifyEmail.tsx";
-import HomePage from "./feature/home-page/HomePage.tsx";
 import HomePageEvent from "./feature/event/index.tsx";
 import CreateEvent from "./feature/event/CreateEvent.tsx";
 import ResumeEvents from "./feature/event/ResumeEvents.tsx";
+import InvitationEvent from "./feature/event/InvitationEvent.tsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -49,6 +48,10 @@ const router = createBrowserRouter([
     ),
     children: [
       {
+        index: true,
+        element: <ResumeEvents />,
+      },
+      {
         path: "/new-event",
         element: (
           <CreateEventContextProvider>
@@ -57,8 +60,8 @@ const router = createBrowserRouter([
         ),
       },
       {
-        index: true,
-        element: <ResumeEvents />,
+        path: "/new-event/invitation",
+        element: <InvitationEvent/>,
       },
     ],
   },

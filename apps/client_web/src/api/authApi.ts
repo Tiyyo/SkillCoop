@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { EventType, RegisterUser, User } from '../types';
+import { CreateEventData, EventType, Friend, RegisterUser, User } from '../types';
 const BASE_URL = 'http://localhost:8082';
 
 
@@ -49,7 +49,6 @@ export const logoutUserFn = async () => {
 
 export const getMeFn = async () => {
   const response = await authApi.get('api/user/me');
-  console.log(response);
   return response.data;
 }
 
@@ -70,9 +69,24 @@ export const getEventsFn = async (userId: number): Promise<EventType[]> => {
   return response.data;
 }
 
-// TODO add types
-export const createEventFn = async (data) => {
+export const createEventFn = async (data: CreateEventData) => {
   const response = await authApi.post('api/event', data)
+  return response.data
+}
+
+export const getFriendsFn = async (profileId: number): Promise<Friend[]> => {
+  const response = await authApi.get(`api/friends/${profileId}`)
+  return response.data
+}
+
+interface SearchFriendQuery {
+  username: string
+  profile: number
+  page?: number
+}
+
+export const searchFriendsFn = async (data: SearchFriendQuery, signal?: AbortSignal): Promise<Friend[]> => {
+  const response = await authApi.get(`api/friends`, { params: data, signal })
   return response.data
 }
 

@@ -12,6 +12,12 @@ import { friendslist as Friendlist } from "../app/models/index";
 import getDateUTC from "../app/utils/get-date-utc";
 import authService from "../app/service/auth/auth";
 
+function getRandomIntInclusive(min: number, max: number): number {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 async function seed() {
   logger.info("Start seeding");
 
@@ -67,8 +73,8 @@ async function seed() {
   await User.update(createdTest2.id, { verified: 1 });
   await Profile.create({ user_id: createdTest2.id, username: "test2" });
 
-  // create 10 users
-  const NB_USERS_TO_CREATE = 10;
+  // create 50 users
+  const NB_USERS_TO_CREATE = 50;
   const arrayToIterateOn = new Array(NB_USERS_TO_CREATE).fill(1);
 
   for await (const _ of arrayToIterateOn) {
@@ -102,11 +108,9 @@ async function seed() {
       status_name: "pending",
     };
   });
-
   await Friendlist.createMany(dataPendingRequestsTest);
 
   const arrayFourtoThriteen = new Array(10).fill(1);
-
   const dataConfirmedRequests = arrayFourtoThriteen.map((_, index) => {
     return {
       adder_id: createdAdmin.id,
@@ -114,8 +118,17 @@ async function seed() {
       status_name: "confirmed",
     };
   });
-
   await Friendlist.createMany(dataConfirmedRequests);
+
+  const array20 = new Array(20).fill(1);
+  const dataPendingRequestsAdmin = array20.map((_, index) => {
+    return {
+      adder_id: index + 21,
+      friend_id: 1,
+      status_name: "pending",
+    };
+  });
+  await Friendlist.createMany(dataPendingRequestsAdmin);
 
   // create 5 past events
   const NB_EVENTS_TO_CREATE = 5;
@@ -188,6 +201,126 @@ async function seed() {
         profile_id: index + 1,
         status_name: "confirmed",
         team: index < 6 ? 1 : 2,
+      });
+    });
+  }
+
+  const NB_EVENTS_PAST_TO_CREATE_2 = 50;
+  const arrayToIterateOnFutureEvents2 = new Array(
+    NB_EVENTS_PAST_TO_CREATE_2
+  ).fill(1);
+
+  for await (const _ of arrayToIterateOnFutureEvents2) {
+    const randomDate = faker.date.past();
+    const date = getDateUTC(randomDate);
+    const randomInt = getRandomIntInclusive(1, 53)
+
+    const eventId = await Event.create({
+      date,
+      duration: 90,
+      location: faker.location.city(),
+      required_participants: 10,
+      organizer_id: randomInt,
+      status_name: "completed",
+    });
+
+    await Score.create({
+      event_id: Number(eventId),
+      score_team_1: faker.number.int({ min: 0, max: 20 }),
+      score_team_2: faker.number.int({ min: 0, max: 20 }),
+    });
+
+    await Participant.create({
+      event_id: Number(eventId),
+      profile_id: randomInt,
+      status_name: "confirmed",
+      team: 1,
+    });
+    let intAlreadyUsed = [randomInt]
+
+    // add 10 participants to each event
+    const NB_PARTICIPANTS_TO_CREATE = 9;
+    const arrayToIterateOnParticipants = new Array(
+      NB_PARTICIPANTS_TO_CREATE
+    ).fill(1);
+
+    function getIntUnused() {
+      const nbToPush = getRandomIntInclusive(1, 53)
+      if (intAlreadyUsed.find(int => int === nbToPush)) {
+        return getIntUnused()
+      } else {
+        intAlreadyUsed.push(nbToPush)
+        return nbToPush
+      }
+    }
+
+    arrayToIterateOnParticipants.forEach(async (_, index) => {
+
+      await Participant.create({
+        event_id: Number(eventId),
+        profile_id: getIntUnused(),
+        status_name: "confirmed",
+        team: index < 5 ? 1 : 2,
+      });
+    });
+  }
+
+  const NB_EVENTS_PAST_TO_CREATE_3 = 50;
+  const arrayToIterateOnFutureEvents3 = new Array(
+    NB_EVENTS_PAST_TO_CREATE_3
+  ).fill(1);
+
+  for await (const _ of arrayToIterateOnFutureEvents3) {
+    const randomDate = faker.date.past();
+    const date = getDateUTC(randomDate);
+    const randomInt = getRandomIntInclusive(1, 53)
+
+    const eventId = await Event.create({
+      date,
+      duration: 90,
+      location: faker.location.city(),
+      required_participants: 10,
+      organizer_id: randomInt,
+      status_name: "full",
+    });
+
+    await Score.create({
+      event_id: Number(eventId),
+      score_team_1: faker.number.int({ min: 0, max: 20 }),
+      score_team_2: faker.number.int({ min: 0, max: 20 }),
+    });
+
+    await Participant.create({
+      event_id: Number(eventId),
+      profile_id: randomInt,
+      status_name: "confirmed",
+      team: 1,
+    });
+    let intAlreadyUsed = [randomInt]
+
+    // add 10 participants to each event
+    const NB_PARTICIPANTS_TO_CREATE = 9;
+    const arrayToIterateOnParticipants = new Array(
+      NB_PARTICIPANTS_TO_CREATE
+    ).fill(1);
+
+    function getIntUnused() {
+      const nbToPush = getRandomIntInclusive(1, 53)
+      if (intAlreadyUsed.find(int => int === nbToPush)) {
+        return getIntUnused()
+      } else {
+        intAlreadyUsed.push(nbToPush)
+        return nbToPush
+      }
+    }
+
+    arrayToIterateOnParticipants.forEach(async (_, index) => {
+
+      await Participant.create({
+        event_id: Number(eventId),
+        profile_id: getIntUnused(),
+        status_name: "confirmed",
+        team: index < 5 ? 1 : 2,
       });
     });
   }

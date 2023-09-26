@@ -16,8 +16,6 @@ function InvitationEvent() {
     profile : profileId,
     page : 1,
 })
-console.log(searchFriendQuery);
-console.log(isOnFocus);
   const navigate = useNavigate();
   const handleClickReturn = () => {
     navigate("/new-event");

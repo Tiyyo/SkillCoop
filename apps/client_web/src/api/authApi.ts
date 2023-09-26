@@ -1,7 +1,6 @@
 import axios from 'axios';
-import { CreateEventData, EventType, Friend, RegisterUser, User } from '../types';
+import { CreateEventData, EventType, Friend, Profile, RegisterUser, SearchFriendQuery, SearchProfileQuery, User } from '../types';
 const BASE_URL = 'http://localhost:8082';
-
 
 export const authApi = axios.create({
   baseURL: BASE_URL,
@@ -49,6 +48,7 @@ export const logoutUserFn = async () => {
 
 export const getMeFn = async () => {
   const response = await authApi.get('api/user/me');
+  console.log(response);
   return response.data;
 }
 
@@ -79,14 +79,30 @@ export const getFriendsFn = async (profileId: number): Promise<Friend[]> => {
   return response.data
 }
 
-interface SearchFriendQuery {
-  username: string
-  profile: number
-  page?: number
+export const getPendingFriendsFn = async (profileId: number): Promise<Friend[]> => {
+  const response = await authApi.get(`api/friends/pending/${profileId}`)
+  return response.data
 }
 
 export const searchFriendsFn = async (data: SearchFriendQuery, signal?: AbortSignal): Promise<Friend[]> => {
-  const response = await authApi.get(`api/friends`, { params: data, signal })
+  const response = await authApi.get(`api/friends/search/friendlist`, { params: data, signal })
   return response.data
 }
+
+export const searchProfileFn = async (data: SearchProfileQuery, signal?: AbortSignal): Promise<Profile[]> => {
+  const response = await authApi.get(`api/profile/search`, { params: data, signal })
+  return response.data
+}
+
+export const sendFriendRequestFn = async (data: { adder_id: number, friend_id: number }) => {
+  const response = await authApi.post(`api/friends`, data)
+  return response.data
+}
+
+export const acceptOrDeclinedFriendRequestFn = async (data: { adder_id: number, friend_id: number, status_name: string }) => {
+  const response = await authApi.patch(`api/friends`, data)
+  return response.data
+}
+
+
 

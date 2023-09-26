@@ -6,7 +6,7 @@ import validate from '../../middleware/schema-validator';
 import createProfileSchema from '../../schemas/profile/create.profile';
 import updateProfileSchema from '../../schemas/profile/update.profile';
 import { canals } from '../../@types/types';
-const { getAll, getOne, createOne, createImage, updateOne, deleteOne, updateImage } = profileController;
+const { getAll, getOne, createOne, createImage, updateOne, deleteOne, updateImage, searchProfileByUsername } = profileController;
 
 
 const router: Router = express.Router();
@@ -19,6 +19,9 @@ router.route('/')
 router.route('/avatar')
   .post(upload.single('avatar'), factory(createImage))
   .patch(upload.single('avatar'), factory(updateImage))
+
+router.route('/search')
+  .get(factory(searchProfileByUsername))
 
 
 router.route('/:id')

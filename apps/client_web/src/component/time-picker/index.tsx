@@ -6,6 +6,8 @@ interface InputTimeProps extends ComponentPropsWithoutRef<"input"> {
   label?: string;
   updateState?: (args: any) => void;
   children?: React.ReactNode;
+  error?: boolean;
+  defaultValues?: string 
 }
 
 function InputTime({
@@ -13,8 +15,11 @@ function InputTime({
   label,
   updateState,
   children,
+  error,
+  defaultValues,
   ...props
 }: InputTimeProps) {
+  const [hasError, setHasError] = useState<boolean | undefined>(error);
   const [selectedTime, setSelectedTime] = useState<{
     hours: number | undefined;
     minutes: number | undefined;
@@ -37,6 +42,7 @@ function InputTime({
     .map((_, index) => displayNumberWithZeroBehind(index));
 
 useEffect(() => {
+    setHasError(false);
   if (selectedTime.hours && selectedTime.minutes) {
     const formatedTime = `${selectedTime.hours}:${selectedTime.minutes}:0.000`;
     if (updateState) {
@@ -44,6 +50,10 @@ useEffect(() => {
     }
   }
 }, [selectedTime])
+
+  useEffect(() => {
+    setHasError(error);
+  }, [error]);
 
   return (
     <label
@@ -56,15 +66,20 @@ useEffect(() => {
           name={name}
           id={name}
           {...props}
-          className="bg-base-light border border-gray-300 text-primary-1100 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full h-10.5 pl-10 "
+          className={`bg-base-light border text-primary-1100 ${
+            hasError ? "border-2 border-error" : ""
+          } text-xs rounded-lg focus:ring-primary-800 focus:border-primary-800 block w-full h-10.5 pl-10`}
         />
-        <div className="absolute top-1/2 left-2 -translate-y-1/2 text-primary-600">
+        <div className={`absolute top-1/2 left-2 -translate-y-1/2  ${
+            hasError ? "text-error" : "text-primary-600"
+          }`}>
           {children}
         </div>
         <select
           id="hours"
           className="absolute top-0 left-0 w-1/2 max-h-28 overflow-y-auto h-10.5 flex text-end pr-10 bg-transparent"
           onChange={(e) => setSelectedTime({ ...selectedTime, hours: Number(e.target.value)})}
+          defaultValue={displayNumberWithZeroBehind(Number(defaultValues?.split(":")[0])) ?? ""}
         >
           {avaiableHoursChoice.map((hour) => (
             <Choice value={hour} variant="hours"/>
@@ -74,6 +89,7 @@ useEffect(() => {
           id="minutes"
           className="absolute top-0 right-0 w-1/2 max-h-28 h-10.5 pl-10 bg-transparent"
           onChange={(e) => setSelectedTime({ ...selectedTime, minutes: Number(e.target.value)})} 
+          defaultValue={displayNumberWithZeroBehind(Number(defaultValues?.split(":")[1])) ?? ""}
         >
           {avaiableMinutesChoice.map((minute) => (
             <Choice value={minute} />

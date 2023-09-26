@@ -1,10 +1,11 @@
-import type { ComponentPropsWithoutRef } from "react";
+import { useState, type ComponentPropsWithoutRef, useEffect } from "react";
 
 interface InputProps extends ComponentPropsWithoutRef<"input"> {
   type: string;
   label?: string;
   updateState?: (args: any) => void;
   children?: React.ReactNode;
+  error?: boolean;
 }
 
 function Input({
@@ -14,15 +15,21 @@ function Input({
   type,
   updateState,
   children,
+  error,
   ...props
 }: InputProps) {
+  const [hasError, setHasError] = useState<boolean | undefined>(error);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setHasError(false);
     if (updateState) {
       updateState(e.target.value);
       return;
     }
   };
 
+  useEffect(() => {
+    setHasError(error);
+  }, [error]);
   return (
     <label
       htmlFor={name}
@@ -39,9 +46,13 @@ function Input({
           onBlur={(e) => (e.target.type = "text")}
           step={3600}
           {...props}
-          className="bg-base-light border border-gray-300 text-primary-1100 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full h-10.5 pl-10"
+          className={`bg-base-light border border-gray-300 text-primary-1100 text-xs rounded-lg block w-full h-10.5 pl-10 ${
+            hasError ? "border-2 border-error" : ""
+          }`}
         />
-        <div className="absolute top-1/2 left-2 -translate-y-1/2 text-primary-600">
+        <div className={`absolute top-1/2 left-2 -translate-y-1/2  ${
+            hasError ? "text-error" : "text-primary-600"
+          }`}>
           {children}
         </div>
       </div>

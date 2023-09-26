@@ -1,6 +1,14 @@
 import { useMutation } from "@tanstack/react-query";
 import { useCreateEvent } from "../../store/createEvent";
 import { useEffect, useState } from "react";
+import defaultAvatar from "../../../public/images/default-avatar.png";
+import { acceptOrDeclinedFriendRequestFn } from "../../api/authApi";
+import OctogoneCross from "../../assets/icon/OctogoneCross";
+import Check from "../../assets/icon/Check";
+import schema from "schema";
+import { useFriends } from "../../store/friendStore";
+import { InvitationStatus, invitationStatus } from "../../types";
+const { updateFriendshipSchema } = schema;
 
 interface FriendCardProps {
   avatar: string;
@@ -12,6 +20,12 @@ interface FriendCardProps {
   createdAt?: string;
 }
 
+interface updateInvitationStatus {
+  adder_id: number;
+  friend_id: number;
+  status_name: string;
+}
+
 function FriendCard({
   avatar,
   username,
@@ -20,9 +34,13 @@ function FriendCard({
   status,
   activeSelected,
 }: FriendCardProps) {
-  // const {mutate : acceptOrDeclinedInvitation} = useMutation()
+  const { mutate: acceptOrDeclinedInvitation } = useMutation(
+    ["acceptOrDeclinedInvitation"],
+    (data: updateInvitationStatus) => acceptOrDeclinedFriendRequestFn(data)
+  );
   const { addInvitedParticipantsIds, removeInvitedParticipantsIds, data } =
     useCreateEvent();
+  const { removePendingFriend, addConfirmedFriend } = useFriends();
   const [isSelected, setIsSelected] = useState(false);
 
   const handleClickSelectFriend = () => {
@@ -36,13 +54,30 @@ function FriendCard({
   };
 
   const handleActionOnInviation = (e: any) => {
-    const action = e.target.value;
+    const action = e.currentTarget.value;
     const data = {
       adder_id: adderId,
       friend_id: friendId,
       status_name: action,
     };
-    // acceptOrDeclinedInvitation(data)
+    const isValid = updateFriendshipSchema.safeParse(data);
+    if (!isValid.success) {
+      // toast.error(isValid.error.message)
+      return;
+    }
+    acceptOrDeclinedInvitation(data);
+
+    removePendingFriend(username);
+    if (action === "confirmed") {
+      const friend = {
+        friend_id: friendId,
+        username: username,
+        avatar_url: avatar,
+        status_name: invitationStatus.confirmed,
+        adder_id: adderId,
+      };
+      addConfirmedFriend(friend);
+    }
   };
 
   useEffect(() => {
@@ -62,15 +97,31 @@ function FriendCard({
       }}`}
       onClick={handleClickSelectFriend}
     >
-      <img src={avatar} alt="avatar" className="w-10 h-10 rounded-full" />
+      <img
+        src={avatar ?? defaultAvatar}
+        alt="avatar"
+        className="w-10 h-10 rounded-full"
+      />
       <div className="flex flex-col">
         <p className="text-xs">{username}</p>
-        <div className="flex items-baseline">
+        <div className="flex items-center gap-x-3">
           <p className="text-xxs text-light">Level</p>
           {status === "pending" ? (
-            <div onClick={handleActionOnInviation}>
-              <button value="declined">Decline</button>
-              <button value="confirmed">Accept</button>
+            <div className="flex items-center gap-1.5">
+              <button
+                value="declined"
+                className="text-error"
+                onClick={handleActionOnInviation}
+              >
+                <OctogoneCross />
+              </button>
+              <button
+                value="confirmed"
+                className="text-primary-900"
+                onClick={handleActionOnInviation}
+              >
+                <Check />
+              </button>
             </div>
           ) : null}
         </div>

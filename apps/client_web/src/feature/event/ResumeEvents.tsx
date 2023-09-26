@@ -8,7 +8,8 @@ import Spinner from "../../component/loading";
 
 function ResumeEvents() {
   const { state } = useStateContext();
-  const userId: number = state.userProfile.user_id;
+  const userId: number = state?.userProfile.user_id;
+
   const [events, setEvents] = useState<{
     incoming: EventType[] | null;
     past: EventType[] | null;

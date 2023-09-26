@@ -1,6 +1,6 @@
 import Button from "../../component/button";
 import { useStateContext } from "../../context/app.context";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import schema from "schema";
 import { CreateEventData } from "../../types";
 import Input from "../../component/input";
@@ -21,6 +21,7 @@ const { createEventSchema } = schema;
 function CreateEvent() {
   const stateContext = useStateContext();
   const navigate = useNavigate();
+  const [validationErrors, setValidationErrors] = useState(null); // TODO : handle error
   const {
     createEvent,
     data: eventCreatedState,
@@ -32,8 +33,6 @@ function CreateEvent() {
     updateRequiredParticipants,
   } = useCreateEvent();
   const userId = stateContext.state.userProfile.user_id;
-
-console.log(eventCreatedState);
 
   const getFormatedTime = (time: string) => {
     return `${time}:0.000`;
@@ -49,8 +48,8 @@ console.log(eventCreatedState);
     // TODO need to handle the case where user select today date but time is in the past
     // validation date and time
     if (eventCreatedState.start_time && eventCreatedState.start_date) {
-      const formatedTime = getFormatedTime(eventCreatedState.start_time);
-      const eventDate = `${eventCreatedState.start_date} ${formatedTime}`;
+      const eventDate = `${eventCreatedState.start_date} ${eventCreatedState.start_time}`;
+      console.log(eventDate);
       data.date = eventDate;
     }
 
@@ -79,6 +78,9 @@ console.log(eventCreatedState);
       dateHandler.dateShouldBeInTheFuture(data.date)
     ) {
       createEvent(data);
+    } else {
+      console.log(isValid.error.issues);
+      setValidationErrors(isValid.error.issues);
     }
   };
 
@@ -105,6 +107,16 @@ console.log(eventCreatedState);
     { label: "11V11", value: 22 },
   ];
 
+  const inputHasError = (
+    nameInput: string,
+    errors: Record<string, string>[] | null
+  ): boolean => {
+    if(!validationErrors) return false;
+    return errors?.find((error) => error.path[0] === nameInput)
+      ? true
+      : false;
+  };
+
   return (
     <>
       <button onClick={handleClickReturn} className="py-2 px-3 text-light">
@@ -122,6 +134,7 @@ console.log(eventCreatedState);
           actionType="SET_DATE"
           label="Select a date"
           defaultValue={eventCreatedState.start_date ?? ""}
+          error={inputHasError("date", validationErrors)}
         />
         <InputTime
           label="Select a Time"
@@ -130,6 +143,8 @@ console.log(eventCreatedState);
           readOnly
           placeholder="HH:mm"
           updateState={updateStartTime}
+          defaultValues={eventCreatedState.start_time ?? ""}
+          error={inputHasError("date", validationErrors)}
         >
           <CalendarClock />
         </InputTime>
@@ -140,6 +155,7 @@ console.log(eventCreatedState);
           updateState={updateDuration}
           options={optionsDuration}
           defaultValue={eventCreatedState.duration ?? ""}
+          error={inputHasError("duration", validationErrors)}
         >
           <Clock />
         </SelectInput>
@@ -150,6 +166,7 @@ console.log(eventCreatedState);
           placeholder="City"
           updateState={updateLocation}
           defaultValue={eventCreatedState.location ?? ""}
+          error={inputHasError("location", validationErrors)}
         >
           <Globe />
         </Input>
@@ -159,6 +176,7 @@ console.log(eventCreatedState);
           updateState={updateRequiredParticipants}
           options={optionsFormat}
           defaultValue={eventCreatedState.required_participants ?? ""}
+          error={inputHasError("duration", validationErrors)}
         >
           <Users />
         </SelectInput>

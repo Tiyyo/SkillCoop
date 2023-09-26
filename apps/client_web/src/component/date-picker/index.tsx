@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Datepicker from "tailwind-datepicker-react";
 import dateHandler from "../../utils/date.handler";
 
@@ -7,11 +7,13 @@ interface InputDateProps {
   actionType?: string;
   label?: string;
   defaultValue?: string;
+  error? : boolean
 }
 
 
-function InputDate({ updateState, label, defaultValue }: InputDateProps) {
+function InputDate({ updateState, label, defaultValue, error }: InputDateProps) {
 const today = new Date();
+const [hasError, setHasError] = useState<boolean | undefined>(error);
 const options = {
   title: "Select a date",
   autoHide: true,
@@ -24,8 +26,8 @@ const options = {
     clearBtn: "bg-base border border-primary-500",
     icons: "",
     text: "text-primary-1100",
-    input: "w-full",
-    inputIcon: "text-primary-600 ",
+    input: `w-full ${hasError ? "border-2 border-error" : ""}`,
+    inputIcon: `${hasError ? "text-error" : "text-primary-600"}`,
     selected: "bg-primary-800",
     disabledText: "text-gray-200",
   },
@@ -48,6 +50,7 @@ const options = {
   };
 
     const handleChange = (selectedDate: Date) => {
+    setHasError(false);
     const formatDate = getDateFormatedLikeInputDate(selectedDate);
     if (updateState) {
       updateState(formatDate);
@@ -58,6 +61,10 @@ const options = {
   const handleClose = (state: boolean) => {
     setShow(state);
   };
+
+  useEffect(() => {
+    setHasError(error);
+  }, [error]);
   return (
     <div className="relative w-full">
       <p

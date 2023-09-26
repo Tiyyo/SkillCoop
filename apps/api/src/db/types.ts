@@ -42,7 +42,6 @@ export type profile_on_event = {
     updated_at: string | null;
 };
 export type profile_on_profile = {
-    id: Generated<number>;
     adder_id: number;
     friend_id: number;
     status_name: string | null;

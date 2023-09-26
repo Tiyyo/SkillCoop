@@ -35,9 +35,10 @@ function EventCard({
 
   const shouldDisplayAvatars = (eventStatus: EventStatus): boolean => {
     if (eventStatus === "completed") return true;
-    if (eventStatus === "full") return false;
+    if (eventStatus === "full") return true;
     return false;
   };
+
 
   return (
     <div className=" h-32 border-t bg-base-light shadow-sm px-3 py-2">
@@ -65,7 +66,7 @@ function EventCard({
           />
         )}
       </div>
-      {eventStatus !== "completed" && (
+      {!shouldDisplayAvatars(eventStatus) && (
         <div className="flex text-xxs items-end ">
           <Avatars participants={participants} nbAvatarToDisplay={3} />
           <p className="relative -translate-x-4">

@@ -8,10 +8,11 @@ interface ReturnBtnProps {
 function ReturnBtn({ to }: ReturnBtnProps) {
   const navigate = useNavigate();
   const handleClickReturn = () => {
-    let destination: string = '-1';
+    let destination: number | string = -1;
     if (to) {
       destination = to;
     }
+    //@ts-ignore
     navigate(destination);
   };
   return (

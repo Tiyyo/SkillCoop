@@ -60,7 +60,7 @@ export const logoutUserFn = async () => {
   return response.data;
 };
 
-export const getMeFn = async (): Promise<Profile> => {
+export const getMeFn = async (): Promise<{ userProfile: Profile }> => {
   const response = await authApi.get('api/user/me');
   return response.data;
 };
@@ -75,10 +75,16 @@ export const sendEmailVerifyFn = async (email: string) => {
   return response.data;
 };
 
-export const getEventsFn = async (userId: number): Promise<EventType[]> => {
-  const response = await authApi.get(`api/event/user/${userId}`);
+export const getEventsFn = async (profileId: number): Promise<EventType[]> => {
+  const response = await authApi.get(`api/event/user/${profileId}`);
   return response.data;
 };
+
+export const getOrganizeEventFn =
+  async (profileId: number): Promise<EventType[]> => {
+    const response = await authApi.get(`api/event/organizer/${profileId}`);
+    return response.data;
+  }
 
 export const createEventFn = async (data: CreateEventData) => {
   const response = await authApi.post('api/event', data);

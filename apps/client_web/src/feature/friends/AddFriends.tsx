@@ -5,18 +5,19 @@ import { searchProfileFn } from '../../api/authApi';
 import { SearchProfileQuery } from '../../types';
 import { useStateContext } from '../../context/app.context';
 import ProfileCard from '../../component/friend-card/profile';
-import { useFriends } from '../../store/friendStore';
+import { useFriends } from '../../store/friend.store';
 import ReturnBtn from '../../component/return';
 import TitleH2 from '../../component/title-h2';
+import { useApp } from '../../store/app.store';
 
 function AddFriends() {
-  const stateContext = useStateContext();
-  const profildId = stateContext?.state?.userProfile.profile_id;
+  const { userProfile } = useApp();
+  const profildId = userProfile?.profile_id;
   const { addSearchProfile, searchProfiles } = useFriends();
   const [searchValue, setSearchValue] = useState<SearchProfileQuery>({
     username: '',
     page: 1,
-    userProfileId: profildId,
+    userProfileId: profildId ?? 0,
   });
   const {
     data: profiles,

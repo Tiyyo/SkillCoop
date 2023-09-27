@@ -1,8 +1,27 @@
-function HeaderEventList({title} : {title: string}) {
+import { Link } from 'react-router-dom';
+
+function HeaderEventList({
+  title,
+  linkTo,
+  linkOff,
+}: {
+  title: string;
+  linkTo?: string;
+  linkOff?: boolean;
+}) {
   return (
     <div className="flex justify-between pt-6 pb-2 px-3">
       <h2 className="text-sm">{title}</h2>
-      <div className="text-xs text-light">See more</div>
+      {!linkOff &&
+        (linkTo ? (
+          <Link
+            to={linkTo}
+            className="text-xs text-light">
+            See more
+          </Link>
+        ) : (
+          <div className="text-xs text-light">See more</div>
+        ))}
     </div>
   );
 }

@@ -1,9 +1,9 @@
-import { useMutation } from "@tanstack/react-query";
-import defaultAvatar from "../../../public/images/default-avatar.png";
-import { sendFriendRequestFn } from "../../api/authApi";
-import schema from 'schema'
-import { useFriends } from "../../store/friendStore";
-const { createInvitationSchema } = schema
+import { useMutation } from '@tanstack/react-query';
+import defaultAvatar from '../../../public/images/default-avatar.png';
+import { sendFriendRequestFn } from '../../api/authApi';
+import schema from 'schema';
+import { useFriends } from '../../store/friend.store';
+const { createInvitationSchema } = schema;
 
 interface ProfileCardProps {
   avatar: string | null;
@@ -26,33 +26,30 @@ function ProfileCard({
   profileId,
   friendId,
   relation,
-
 }: ProfileCardProps) {
   const { mutate: sendInvitation } = useMutation(
-    ["sendFriendRequest"],
-    (data : CreateInvitation) => sendFriendRequestFn(data)
+    ['sendFriendRequest'],
+    (data: CreateInvitation) => sendFriendRequestFn(data)
   );
-  const { removeSearchProfile} = useFriends()
+  const { removeSearchProfile } = useFriends();
   const handleActionInviation = () => {
     const data = {
       adder_id: profileId,
       friend_id: friendId,
     };
-    const isValid = createInvitationSchema.safeParse(data)
-    if(!isValid.success) {
+    const isValid = createInvitationSchema.safeParse(data);
+    if (!isValid.success) {
       // toast.error(isValid.error.message)
-      return
+      return;
     }
     sendInvitation(data);
-    removeSearchProfile(username)
-    
-};
+    removeSearchProfile(username);
+  };
 
   if (relation) return null;
   return (
     <div
-      className={`flex py-2 px-3 gap-3 cursor-pointer bg-base-light rounded-md border-2 border-transparent`}
-    >
+      className={`flex py-2 px-3 gap-3 cursor-pointer bg-base-light rounded-md border-2 border-transparent`}>
       <img
         src={avatar ?? defaultAvatar}
         alt="avatar"

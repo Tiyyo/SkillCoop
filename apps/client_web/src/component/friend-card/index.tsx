@@ -1,13 +1,13 @@
-import { useMutation } from "@tanstack/react-query";
-import { useCreateEvent } from "../../store/createEvent";
-import { useEffect, useState } from "react";
-import defaultAvatar from "../../../public/images/default-avatar.png";
-import { acceptOrDeclinedFriendRequestFn } from "../../api/authApi";
-import OctogoneCross from "../../assets/icon/OctogoneCross";
-import Check from "../../assets/icon/Check";
-import schema from "schema";
-import { useFriends } from "../../store/friendStore";
-import { invitationStatus } from "../../types";
+import { useMutation } from '@tanstack/react-query';
+import { useCreateEvent } from '../../store/create-event.store';
+import { useEffect, useState } from 'react';
+import defaultAvatar from '../../../public/images/default-avatar.png';
+import { acceptOrDeclinedFriendRequestFn } from '../../api/authApi';
+import OctogoneCross from '../../assets/icon/OctogoneCross';
+import Check from '../../assets/icon/Check';
+import schema from 'schema';
+import { useFriends } from '../../store/friend.store';
+import { invitationStatus } from '../../types';
 const { updateFriendshipSchema } = schema;
 
 interface FriendCardProps {
@@ -35,7 +35,7 @@ function FriendCard({
   activeSelected,
 }: FriendCardProps) {
   const { mutate: acceptOrDeclinedInvitation } = useMutation(
-    ["acceptOrDeclinedInvitation"],
+    ['acceptOrDeclinedInvitation'],
     (data: updateInvitationStatus) => acceptOrDeclinedFriendRequestFn(data)
   );
   const { addInvitedParticipantsIds, removeInvitedParticipantsIds, data } =
@@ -68,7 +68,7 @@ function FriendCard({
     acceptOrDeclinedInvitation(data);
 
     removePendingFriend(username);
-    if (action === "confirmed") {
+    if (action === 'confirmed') {
       const friend = {
         friend_id: friendId,
         username: username,
@@ -87,16 +87,15 @@ function FriendCard({
     }
   }, [data]);
 
-  if (status === "declined") return null;
+  if (status === 'declined') return null;
   return (
     <div
       className={`flex py-2 px-3 gap-3 cursor-pointer rounded-md border-2 border-transparent ${
         isSelected
-          ? " border-opacity-50 border-primary-400 bg-primary-500 shadow-2xl"
-          : "bg-base-light"
+          ? ' border-opacity-50 border-primary-400 bg-primary-500 shadow-2xl'
+          : 'bg-base-light'
       }}`}
-      onClick={handleClickSelectFriend}
-    >
+      onClick={handleClickSelectFriend}>
       <img
         src={avatar ?? defaultAvatar}
         alt="avatar"
@@ -106,20 +105,18 @@ function FriendCard({
         <p className="text-xs">{username}</p>
         <div className="flex items-center gap-x-3">
           <p className="text-xxs text-light">Level</p>
-          {status === "pending" ? (
+          {status === 'pending' ? (
             <div className="flex items-center gap-1.5">
               <button
                 value="declined"
                 className="text-error"
-                onClick={handleActionOnInviation}
-              >
+                onClick={handleActionOnInviation}>
                 <OctogoneCross />
               </button>
               <button
                 value="confirmed"
                 className="text-primary-900"
-                onClick={handleActionOnInviation}
-              >
+                onClick={handleActionOnInviation}>
                 <Check />
               </button>
             </div>

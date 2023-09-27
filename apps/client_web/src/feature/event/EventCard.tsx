@@ -1,8 +1,9 @@
-import Avatars from "../../component/avatars";
-import Badge from "../../component/badge";
-import DateAndLocation from "../../component/date-location";
-import Score from "../../component/score";
-import { EventParticipant, EventStatus } from "../../types";
+import { Link } from 'react-router-dom';
+import Avatars from '../../component/avatars';
+import Badge from '../../component/badge';
+import DateAndLocation from '../../component/date-location';
+import Score from '../../component/score';
+import { EventParticipant, EventStatus } from '../../types';
 
 interface EventCardProps {
   date: string;
@@ -15,6 +16,7 @@ interface EventCardProps {
   scoreTeamB?: number | null;
   eventStatus: EventStatus;
   userStatus: string;
+  eventId: number;
 }
 
 function EventCard({
@@ -28,27 +30,34 @@ function EventCard({
   eventStatus,
   userStatus,
   participants,
+  eventId,
 }: EventCardProps) {
   const displayCorrectStatus = (userStatus: string, eventStatus: string) => {
-    return userStatus === "pending" ? "invited" : eventStatus;
+    return userStatus === 'pending' ? 'invited' : eventStatus;
   };
 
   const shouldDisplayAvatars = (eventStatus: EventStatus): boolean => {
-    if (eventStatus === "completed") return true;
-    if (eventStatus === "full") return true;
+    if (eventStatus === 'completed') return true;
+    if (eventStatus === 'full') return true;
     return false;
   };
-
 
   return (
     <div className=" h-32 border-t bg-base-light shadow-sm px-3 py-2">
       <div className="flex justify-between">
-        <DateAndLocation date={date} location={location} />
+        <DateAndLocation
+          date={date}
+          location={location}
+        />
         <Badge content={displayCorrectStatus(userStatus, eventStatus)} />
       </div>
       <div className="flex items-center justify-center">
         {shouldDisplayAvatars(eventStatus) && (
-          <Avatars participants={participants} nbAvatarToDisplay={3} team={1} />
+          <Avatars
+            participants={participants}
+            nbAvatarToDisplay={3}
+            team={1}
+          />
         )}
         <Score
           eventStatus={eventStatus}
@@ -66,15 +75,27 @@ function EventCard({
           />
         )}
       </div>
-      {!shouldDisplayAvatars(eventStatus) && (
-        <div className="flex text-xxs items-end ">
-          <Avatars participants={participants} nbAvatarToDisplay={3} />
-          <p className="relative -translate-x-4">
-            <span className="font-bold">{confirmedParticipants}</span> /{" "}
-            <span>{requiredParticipants}</span> are going
-          </p>
+      <div className="flex items-end justify-between">
+        <div>
+          {!shouldDisplayAvatars(eventStatus) && (
+            <div className="flex text-xxs items-end ">
+              <Avatars
+                participants={participants}
+                nbAvatarToDisplay={3}
+              />
+              <p className="relative -translate-x-4">
+                <span className="font-bold">{confirmedParticipants}</span> /{' '}
+                <span>{requiredParticipants}</span> are going
+              </p>
+            </div>
+          )}
         </div>
-      )}
+        <Link
+          to={`/event/${eventId}`}
+          className="text-xxs text-light">
+          view details
+        </Link>
+      </div>
     </div>
   );
 }

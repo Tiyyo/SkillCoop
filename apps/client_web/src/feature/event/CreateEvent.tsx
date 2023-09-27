@@ -1,5 +1,4 @@
 import Button from '../../component/button';
-import { useStateContext } from '../../context/app.context';
 import { useEffect, useState } from 'react';
 import schema from 'schema';
 import { CreateEventData } from '../../types';
@@ -7,7 +6,7 @@ import Input from '../../component/input';
 import SelectInput from '../../component/select';
 import InputDate from '../../component/date-picker';
 import InputTime from '../../component/time-picker';
-import { useCreateEvent } from '../../store/createEvent';
+import { useCreateEvent } from '../../store/create-event.store';
 import dateHandler from '../../utils/date.handler';
 import Globe from '../../assets/icon/Globe';
 import Users from '../../assets/icon/Users';
@@ -17,10 +16,11 @@ import Plus from '../../assets/icon/Plus';
 import CalendarClock from '../../assets/icon/CalendarClock';
 import ReturnBtn from '../../component/return';
 import TitleH2 from '../../component/title-h2';
+import { useApp } from '../../store/app.store';
 const { createEventSchema } = schema;
 
 function CreateEvent() {
-  const stateContext = useStateContext();
+  const { userProfile } = useApp();
   const [validationErrors, setValidationErrors] = useState(null); // TODO : handle error
   const {
     createEvent,
@@ -32,7 +32,7 @@ function CreateEvent() {
     updateStartTime,
     updateRequiredParticipants,
   } = useCreateEvent();
-  const userId = stateContext.state.userProfile.user_id;
+  const userId = userProfile?.user_id;
 
   const handleFormSubmit = (e: any) => {
     e.preventDefault();

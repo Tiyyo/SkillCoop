@@ -6,9 +6,10 @@ interface FriendlistProps {
   friends?: Friend[];
   loading: boolean;
   error: boolean;
+  stringKey?: string;
 }
 
-function Friendlist({ friends, loading, error }: FriendlistProps) {
+function Friendlist({ friends, loading, error, stringKey }: FriendlistProps) {
   const NB_SKELETON = 14;
 
   //  TODO : handle error
@@ -30,7 +31,11 @@ function Friendlist({ friends, loading, error }: FriendlistProps) {
         <div className="grid grid-cols-2 py-8 gap-2">
           {friends?.map((friend) => (
             <FriendCard
-              key={friend.friend_id}
+              key={
+                stringKey
+                  ? friend[stringKey as keyof typeof friend]
+                  : friend.friend_id
+              }
               avatar={friend.avatar_url}
               username={friend.username}
               adderId={friend.adder_id}

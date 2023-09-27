@@ -22,7 +22,6 @@ export default {
         logger.error(error)
       }
     })
-
     res.status(200).json(events)
 
   },
@@ -52,7 +51,6 @@ export default {
   },
   async getOne(req: Request, res: Response) {
     // get one event from the database
-
     const { id: event_id } = req.params
 
     const event = await cacheOrGetCacheData(`event${event_id}`, async () => {
@@ -106,9 +104,16 @@ export default {
 
   },
   async getAllByUser(req: Request, res: Response) {
-    const userId = checkParams(req.params.id)
+    const profileId = checkParams(req.params.id)
+    const events = await Event.getEventByUserId(profileId)
 
-    const events = await Event.getEventByUserId(userId)
+    res.status(200).json(events)
+  },
+  async getOrganizerEvents(req: Request, res: Response) {
+    const userId = checkParams(req.params.id)
+    const events = await Event.getOrganizerEvents(userId)
+
+    console.log(events.length);
 
     res.status(200).json(events)
   }

@@ -1,14 +1,12 @@
-import { useStateContext } from "../../context/app.context";
-import HomePage from "../../feature/home-page/HomePage";
-import LoadingPage from "../loading-page";
-
+import HomePage from '../../feature/home-page/HomePage';
+import { useApp } from '../../store/app.store';
+import LoadingPage from '../loading-page';
 
 function Protected({ children }: { children: React.ReactNode }) {
-  const stateContext = useStateContext();
+  const { isAuth, loading } = useApp();
+  if (loading) return <LoadingPage />;
 
-  if(stateContext.loading) return (<LoadingPage/>)
-
-  return stateContext.state.isAuth ? <>{children}</> : <HomePage/>;
+  return isAuth ? <>{children}</> : <HomePage />;
 }
 
 export default Protected;

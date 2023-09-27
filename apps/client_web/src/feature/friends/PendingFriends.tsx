@@ -2,23 +2,31 @@ import { useQuery } from '@tanstack/react-query';
 import { getPendingFriendsFn } from '../../api/authApi';
 import { useStateContext } from '../../context/app.context';
 import Friendlist from './Friendslist';
-import { useFriends } from '../../store/friendStore';
+import { useFriends } from '../../store/friend.store';
 import { useEffect } from 'react';
 import ReturnBtn from '../../component/return';
 import TitleH2 from '../../component/title-h2';
+import { useApp } from '../../store/app.store';
 
 function PendingFriends() {
-  const stateContext = useStateContext();
+  const { userProfile } = useApp();
   const { addPendingFriend, pendingFriends } = useFriends();
-  const profileId = stateContext?.state?.userProfile.profile_id;
+  const profileId = userProfile?.profile_id;
   const {
     data: friends,
     isLoading,
     isFetching,
     isError,
-  } = useQuery(['getPendingFriends'], () => getPendingFriendsFn(profileId), {
-    enabled: true,
-  });
+  } = useQuery(
+    ['getPendingFriends'],
+    () => {
+      if (!profileId) return;
+      return getPendingFriendsFn(profileId);
+    },
+    {
+      enabled: true,
+    }
+  );
   const loading = isLoading || isFetching;
 
   useEffect(() => {
@@ -34,6 +42,7 @@ function PendingFriends() {
         loading={loading}
         friends={pendingFriends}
         error={isError}
+        stringKey="adder_id"
       />
     </>
   );

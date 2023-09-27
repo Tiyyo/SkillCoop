@@ -6,10 +6,11 @@ import FriendCard from '../../component/friend-card';
 import Return from '../../assets/icon/Return';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { useApp } from '../../store/app.store';
 
 function InvitationEvent() {
-  const stateContext = useStateContext();
-  const profileId = stateContext?.state.userProfile.profile_id;
+  const { userProfile } = useApp();
+  const profileId = userProfile?.profile_id;
   const [isOnFocus, setIsOnFocus] = useState<boolean>(false);
   const [searchFriendQuery, setSearchFriendQuery] = useState({
     username: '',

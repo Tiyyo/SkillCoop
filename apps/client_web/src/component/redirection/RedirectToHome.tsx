@@ -1,13 +1,13 @@
-import { useStateContext } from "../../context/app.context";
-import { Navigate} from "react-router-dom";
-import LoadingPage from "../loading-page";
+import { Navigate } from 'react-router-dom';
+import { useApp } from '../../store/app.store';
 
 function RedirectToHome({ children }: { children: React.ReactNode }) {
-  const stateContext = useStateContext();
+  const { isAuth } = useApp();
 
-  if(stateContext.loading) return <LoadingPage/>
+  // TODO : handle loading causing infinite loop
+  // if (loading) return <LoadingPage />;
 
-  return stateContext.state.isAuth ?  <Navigate to="/" /> : <>{children}</>;
+  return isAuth ? <Navigate to="/" /> : <>{children}</>;
 }
 
 export default RedirectToHome;

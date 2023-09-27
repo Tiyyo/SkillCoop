@@ -1,7 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { loginUserFn } from '../../api/authApi';
 import schema from 'schema';
-import { useStateContext } from '../../context/app.context';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import getGoogleUrl from '../../utils/getGoogleUrl';
@@ -17,6 +16,7 @@ import EyeSlash from '../../assets/icon/EyeSlash';
 import SeparatorLine from '../../component/seperator-line';
 import Center from '../../layout/Center';
 import ErrorContainer from '../../component/error';
+import { useApp } from '../../store/app.store';
 
 export type LoginUserData = {
   email: string;
@@ -24,14 +24,13 @@ export type LoginUserData = {
 };
 
 function Login() {
+  const { setIsAuth } = useApp();
   const {
     mutate: loginUser,
-    isLoading,
+    isLoading: loading,
     isSuccess,
     error,
   } = useMutation((userData: LoginUserData) => loginUserFn(userData));
-  const loading = isLoading;
-  const stateContext = useStateContext();
   const location = useLocation();
   const from = location.state?.from?.pathname || '/';
   const { loginSchema } = schema;
@@ -49,7 +48,7 @@ function Login() {
 
   useEffect(() => {
     if (isSuccess && !loading) {
-      stateContext.dispatch({ type: 'SET_IS_AUTH', payload: true });
+      setIsAuth(true);
     }
   }, [isSuccess, loading]);
 

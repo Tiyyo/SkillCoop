@@ -1,14 +1,16 @@
-import { useQuery } from "@tanstack/react-query";
-import { EventType } from "../../types";
-import EventList from "./EventList";
-import { getEventsFn } from "../../api/authApi";
-import { useStateContext } from "../../context/app.context";
-import { useEffect, useState } from "react";
-import Spinner from "../../component/loading";
+import { useQuery } from '@tanstack/react-query';
+import { EventType } from '../../types';
+import EventList from './EventList';
+import { getEventsFn } from '../../api/authApi';
+import { useEffect, useState } from 'react';
+import Spinner from '../../component/loading';
+import { useApp } from '../../store/app.store';
+import { Link } from 'react-router-dom';
+import ArrowRight from '../../assets/icon/ArrowRight';
 
 function ResumeEvents() {
-  const { state } = useStateContext();
-  const userId: number = state?.userProfile.user_id;
+  const { userProfile } = useApp();
+  const userId = userProfile?.user_id;
 
   const [events, setEvents] = useState<{
     incoming: EventType[] | null;
@@ -22,7 +24,14 @@ function ResumeEvents() {
     isError,
     isLoading,
     isFetching,
-  } = useQuery(["getEvents"], () => getEventsFn(userId), { enabled: true });
+  } = useQuery(
+    ['getEvents'],
+    () => {
+      if (!userId) return;
+      return getEventsFn(userId);
+    },
+    { enabled: true }
+  );
   const loading = isLoading || isFetching;
   const today = new Date();
 
@@ -37,17 +46,32 @@ function ResumeEvents() {
     });
   }, [allEvents, loading]);
 
-//  TODO : handle error
-if(isError) return <div>error</div>
+  //  TODO : handle error
+  if (isError) return <div>error</div>;
 
   return (
     <>
       {loading ? (
-        <Spinner/>
+        <Spinner />
       ) : (
         <>
-          <EventList events={events.incoming} title="Incoming" />
-          <EventList events={events.past} title="Past" nbEventToDisplay={2} />
+          <Link
+            to="/my-event"
+            className="flex justify-end text-xs cursor-pointer text-end py-2 px-3 gap-2 text-accent-700 underline-offset-4 underline">
+            My events
+            <ArrowRight />
+          </Link>
+          <EventList
+            events={events.incoming}
+            title="Incoming"
+            linkTo="/events/incoming"
+          />
+          <EventList
+            events={events.past}
+            title="Past"
+            linkTo="/events/past"
+            nbEventToDisplay={2}
+          />
         </>
       )}
     </>

@@ -6,39 +6,51 @@ interface EventListProps {
   title: string;
   events: EventType[] | null;
   nbEventToDisplay?: number;
+  linkTo?: string;
+  linkOff?: boolean;
 }
 
-function EventList({ title, events, nbEventToDisplay }: EventListProps) {
+function EventList({
+  title,
+  events,
+  nbEventToDisplay,
+  linkTo,
+  linkOff,
+}: EventListProps) {
   const nbEvent: number | undefined = nbEventToDisplay
     ? nbEventToDisplay
     : undefined;
 
   return (
     <>
-      <HeaderEventList title={title} />
+      <HeaderEventList
+        title={title}
+        linkTo={linkTo}
+        linkOff={linkOff}
+      />
       <div className="flex flex-col">
         {events &&
-          events?.slice(0, nbEvent).map((event) => (
-            <>
-              <EventCard
-                key={event.event_id}
-                date={event.date}
-                location={event.location}
-                duration={event.duration}
-                // in case backend didn't parse the participants
-                participants={
-                  typeof event.participants === 'string'
-                    ? JSON.parse(event.participants)
-                    : event.participants
-                }
-                requiredParticipants={event.required_participants}
-                confirmedParticipants={event.confirmed_participants}
-                scoreTeamA={event.score_team_1}
-                scoreTeamB={event.score_team_2}
-                userStatus={event.user_status}
-                eventStatus={event.status_name}
-              />
-            </>
+          events.length > 0 &&
+          events.slice(0, nbEvent).map((event) => (
+            <EventCard
+              key={event.event_id}
+              eventId={event.event_id}
+              date={event.date}
+              location={event.location}
+              duration={event.duration}
+              // in case backend didn't parse the participants
+              participants={
+                typeof event.participants === 'string'
+                  ? JSON.parse(event.participants)
+                  : event.participants
+              }
+              requiredParticipants={event.required_participants}
+              confirmedParticipants={event.confirmed_participants}
+              scoreTeamA={event.score_team_1}
+              scoreTeamB={event.score_team_2}
+              userStatus={event.user_status}
+              eventStatus={event.status_name}
+            />
           ))}
       </div>
     </>

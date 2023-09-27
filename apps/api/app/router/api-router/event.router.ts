@@ -2,34 +2,34 @@ import express, { Router } from 'express';
 import factory from '../../middleware/factory.controller';
 import eventController from '../../controller/event.controller';
 import validate from '../../middleware/schema-validator';
-import schemas from 'schema'
+import schemas from 'schema';
 import updateEvent from '../../schemas/event/update.event';
 import { canals } from '../../@types/types';
 
-const { createEventSchema } = schemas
+const { createEventSchema } = schemas;
 
-
-const { getAll, getOne, getAllByUser, createOne, updateOne, deleteOne } = eventController
-
+const {
+  getOrganizerEvents,
+  getOne,
+  getAllByUser,
+  createOne,
+  updateOne,
+  deleteOne,
+} = eventController;
 
 const router: Router = express.Router();
 
-router.route('/')
+router
+  .route('/')
   .post(validate(createEventSchema, canals.body), factory(createOne))
-  .patch(validate(updateEvent, canals.body), factory(updateOne))
+  .patch(validate(updateEvent, canals.body), factory(updateOne));
 
-router.route('/user/:id')
-  .get(factory(getAllByUser))
+router.route('/user/:id').get(factory(getAllByUser));
 
-router.route('/organizer/:id')
-  .get()
+router.route('/organizer/:id').get(factory(getOrganizerEvents));
 
-router.route('/:id')
-  .get(factory(getOne))
+router.route('/:id').get(factory(getOne));
 
-router.route('/:id/:profileId').delete(
-  factory(deleteOne)
-)
-
+router.route('/:id/:profileId').delete(factory(deleteOne));
 
 export default router;

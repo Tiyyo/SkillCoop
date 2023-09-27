@@ -1,6 +1,6 @@
-import HeaderEventList from "./HeaderEventList";
-import { EventType } from "../../types";
-import EventCard from "./EventCard";
+import HeaderEventList from './HeaderEventList';
+import { EventType } from '../../types';
+import EventCard from './EventCard';
 
 interface EventListProps {
   title: string;
@@ -21,12 +21,13 @@ function EventList({ title, events, nbEventToDisplay }: EventListProps) {
           events?.slice(0, nbEvent).map((event) => (
             <>
               <EventCard
+                key={event.event_id}
                 date={event.date}
                 location={event.location}
                 duration={event.duration}
                 // in case backend didn't parse the participants
                 participants={
-                  typeof event.participants === "string"
+                  typeof event.participants === 'string'
                     ? JSON.parse(event.participants)
                     : event.participants
                 }

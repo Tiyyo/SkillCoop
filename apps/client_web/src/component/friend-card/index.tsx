@@ -7,7 +7,7 @@ import OctogoneCross from "../../assets/icon/OctogoneCross";
 import Check from "../../assets/icon/Check";
 import schema from "schema";
 import { useFriends } from "../../store/friendStore";
-import { InvitationStatus, invitationStatus } from "../../types";
+import { invitationStatus } from "../../types";
 const { updateFriendshipSchema } = schema;
 
 interface FriendCardProps {
@@ -102,7 +102,7 @@ function FriendCard({
         alt="avatar"
         className="w-10 h-10 rounded-full"
       />
-      <div className="flex flex-col">
+      <div className="flex flex-col gap-2">
         <p className="text-xs">{username}</p>
         <div className="flex items-center gap-x-3">
           <p className="text-xxs text-light">Level</p>

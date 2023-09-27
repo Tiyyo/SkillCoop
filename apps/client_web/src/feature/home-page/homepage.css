@@ -1,5 +1,5 @@
 .homepage {
-  background: url("../../public/images/bg-foot.jpg") no-repeat;
+  background: url("/images/bg-foot.jpg") no-repeat;
   background-position: -3300px center;
   object-fit: fill;
   height: 100vh;

@@ -1,32 +1,34 @@
-import { useMutation } from "@tanstack/react-query";
-import { signUpUserFn } from "../../api/authApi";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import schemas from "schema";
-import Page from "../../layout/Page";
-import Center from "../../layout/Center";
-import SocialButton from "../../component/social-link";
-import Google from "../../assets/icon/Google";
-import getGoogleUrl from "../../utils/getGoogleUrl";
-import SeparatorLine from "../../component/seperator-line";
-import FormField from "../../component/form-field";
-import Atsign from "../../assets/icon/Atsign";
-import EyeIcon from "../../assets/icon/Eye";
-import EyeSlash from "../../assets/icon/EyeSlash";
-import Button from "../../component/button";
-import { RegisterUser } from "../../types";
-import { useEffect, useState } from "react";
+import { useMutation } from '@tanstack/react-query';
+import { signUpUserFn } from '../../api/authApi';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import schemas from 'schema';
+import Page from '../../layout/Page';
+import Center from '../../layout/Center';
+import SocialButton from '../../component/social-link';
+import Google from '../../assets/icon/Google';
+import getGoogleUrl from '../../utils/getGoogleUrl';
+import SeparatorLine from '../../component/seperator-line';
+import FormField from '../../component/form-field';
+import Atsign from '../../assets/icon/Atsign';
+import EyeIcon from '../../assets/icon/Eye';
+import EyeSlash from '../../assets/icon/EyeSlash';
+import Button from '../../component/button';
+import { RegisterUser } from '../../types';
+import { useEffect, useState } from 'react';
 const { registerSchema } = schemas;
 
 function Register() {
-  const { mutate: signUpUser, isSuccess, isLoading} = useMutation((userData: RegisterUser) =>
-    signUpUserFn(userData)
-  );
+  const {
+    mutate: signUpUser,
+    isSuccess,
+    isLoading,
+  } = useMutation((userData: RegisterUser) => signUpUserFn(userData));
   const navigate = useNavigate();
   const location = useLocation();
-  const [currentEmail, setCurrentEmail] = useState<string | null>(null)
-  const from = location.state?.from?.pathname || "/";
+  const [currentEmail, setCurrentEmail] = useState<string | null>(null);
+  const from = location.state?.from?.pathname || '/';
 
   const {
     register,
@@ -37,8 +39,8 @@ function Register() {
   });
 
   const onSubmit = async (data: RegisterUser) => {
-    const termAndServiceInString = data.termAndService ? "on" : "off";
-    setCurrentEmail(data.email)
+    const termAndServiceInString = data.termAndService ? 'on' : 'off';
+    setCurrentEmail(data.email);
     try {
       signUpUser({
         email: data.email,
@@ -52,8 +54,9 @@ function Register() {
   };
 
   useEffect(() => {
-    if(isSuccess && !isLoading) navigate('/verify-email', {state : {email : currentEmail }})
-}, [isSuccess, isLoading])
+    if (isSuccess && !isLoading)
+      navigate('/verify-email', { state: { email: currentEmail } });
+  }, [isSuccess, isLoading]);
 
   return (
     <Page>
@@ -62,21 +65,21 @@ function Register() {
           Create your SkillCoop account
         </h1>
         <div className="flex flex-col w-[90%] max-w-lg bg-base-light py-12 px-6 rounded-lg">
-          <SocialButton value="Continue with google" href={getGoogleUrl(from)}>
+          <SocialButton
+            value="Continue with google"
+            href={getGoogleUrl(from)}>
             <Google />
           </SocialButton>
           <SeparatorLine />
           <form
             className="flex flex-col items-center gap-y-5"
-            onSubmit={handleSubmit(onSubmit)}
-          >
+            onSubmit={handleSubmit(onSubmit)}>
             <FormField
               type="email"
               name="email"
               label="Email"
               error={errors.email?.message}
-              register={register}
-            >
+              register={register}>
               <Atsign />
             </FormField>
             <FormField
@@ -85,8 +88,7 @@ function Register() {
               label="Password"
               subicon={<EyeSlash />}
               error={errors.password?.message}
-              register={register}
-            >
+              register={register}>
               <EyeIcon />
             </FormField>
             <FormField
@@ -95,8 +97,7 @@ function Register() {
               label="Confirm your password"
               subicon={<EyeSlash />}
               error={errors.confirm?.message}
-              register={register}
-            >
+              register={register}>
               <EyeIcon />
             </FormField>
             <p className="text-xxs flex items-start self-start">
@@ -111,33 +112,36 @@ function Register() {
             </p>
             <label
               htmlFor="termsAndService"
-              className="text-xs text-opacity-70 text-center inline "
-            >
+              className="text-xs text-opacity-70 text-center inline ">
               <input
                 type="checkbox"
                 value="on"
                 className="mr-1"
-                {...register("termAndService")}
+                {...register('termAndService')}
               />
               By signing up, you agree to the
               <Link
                 to="/terms-and-service"
-                className="underline underline-offset-2 ml-1 text-primary-800 inline"
-              >
+                className="underline underline-offset-2 ml-1 text-primary-800 inline">
                 Terms and Service
               </Link>
             </label>
             <p>
               {errors.termAndService
-                ? "You have to accept Terms and Service"
-                : ""}
+                ? 'You have to accept Terms and Service'
+                : ''}
             </p>
-            <Button textContent="Register" type="submit" />
+            <Button
+              textContent="Register"
+              type="submit"
+            />
           </form>
         </div>
         <p className="text-xs py-2">
-          Already have an account ?{" "}
-          <Link to="/login" className="text-primary-1000 font-bold">
+          Already have an account ?{' '}
+          <Link
+            to="/login"
+            className="text-primary-1000 font-bold">
             Log in
           </Link>
         </p>

@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { searchProfileFn } from '../../api/authApi';
 import { SearchProfileQuery } from '../../types';
-import { useStateContext } from '../../context/app.context';
 import ProfileCard from '../../component/friend-card/profile';
 import { useFriends } from '../../store/friend.store';
 import ReturnBtn from '../../component/return';
@@ -61,7 +60,7 @@ function AddFriends() {
             username={profile.username}
             friendId={profile.profile_id}
             relation={profile.relation_exists}
-            profileId={profildId}
+            profileId={profildId ?? 0}
             refetch={refetchProfiles}
           />
         ))}

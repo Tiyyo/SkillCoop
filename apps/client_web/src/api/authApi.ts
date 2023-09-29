@@ -85,16 +85,39 @@ export const getEventsFn = async (profileId: number): Promise<EventType[]> => {
   return response.data;
 };
 
-interface OrganizeEventQuery {
+interface EventQuery {
   profileId: number;
   page: number;
 }
 
 export const getOrganizeEventFn =
-  async (data: OrganizeEventQuery): Promise<{ events: EventType[], previousPage: number, eventCount: number }> => {
+  async (data: EventQuery): Promise<{
+    events: EventType[],
+    previousPage: number,
+    eventCount: number
+  }> => {
     const response = await authApi.get(`api/event/organizer`, { params: data });
 
-    return { events: response.data.events, eventCount: response.data.eventCount, previousPage: data.page };
+    return {
+      events: response.data.events,
+      eventCount: response.data.eventCount,
+      previousPage: data.page
+    };
+  }
+
+export const getPastEventFn =
+  async (data: EventQuery): Promise<{
+    events: EventType[],
+    previousPage: number,
+    eventCount: number
+  }> => {
+    const response = await authApi.get(`api/event/past`, { params: data });
+
+    return {
+      events: response.data.events,
+      eventCount: response.data.eventCount,
+      previousPage: data.page
+    };
   }
 
 export const createEventFn = async (data: CreateEventData) => {

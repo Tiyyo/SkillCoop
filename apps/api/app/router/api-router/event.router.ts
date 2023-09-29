@@ -11,6 +11,7 @@ const { createEventSchema } = schemas;
 const {
   getOrganizerEvents,
   getOne,
+  getPasts,
   getAllByUser,
   createOne,
   updateOne,
@@ -27,6 +28,8 @@ router
 router.route('/user/:id').get(factory(getAllByUser));
 
 router.route('/organizer').get(factory(getOrganizerEvents));
+
+router.route('/past').get(factory(getPasts))
 
 router.route('/:id').get(factory(getOne));
 

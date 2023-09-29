@@ -1,22 +1,24 @@
 import { useQuery } from '@tanstack/react-query';
 import { getFriendsFn, searchFriendsFn } from '../../api/authApi';
-import { useStateContext } from '../../context/app.context';
 import SearchInput from '../../component/search-input';
 import FriendCard from '../../component/friend-card';
 import Return from '../../assets/icon/Return';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useApp } from '../../store/app.store';
+import { SearchFriendQuery } from '../../types';
 
 function InvitationEvent() {
   const { userProfile } = useApp();
   const profileId = userProfile?.profile_id;
   const [isOnFocus, setIsOnFocus] = useState<boolean>(false);
-  const [searchFriendQuery, setSearchFriendQuery] = useState({
-    username: '',
-    profile: profileId,
-    page: 1,
-  });
+  const [searchFriendQuery, setSearchFriendQuery] = useState<SearchFriendQuery>(
+    {
+      username: '',
+      profile: profileId ? profileId : 0,
+      page: 1,
+    }
+  );
   const navigate = useNavigate();
   const handleClickReturn = () => {
     navigate('/new-event');
@@ -26,9 +28,16 @@ function InvitationEvent() {
     isError,
     isLoading,
     isFetching,
-  } = useQuery(['getFriends'], () => getFriendsFn(profileId), {
-    enabled: true,
-  });
+  } = useQuery(
+    ['getFriends'],
+    () => {
+      if (!profileId) return;
+      return getFriendsFn(profileId);
+    },
+    {
+      enabled: true,
+    }
+  );
 
   const {
     data: searchedFriends,
@@ -38,7 +47,10 @@ function InvitationEvent() {
     isFetching: isSearchFetching,
   } = useQuery({
     queryKey: ['searchFriends'],
-    queryFn: ({ signal }) => searchFriendsFn(searchFriendQuery, signal),
+    queryFn: ({ signal }) => {
+      if (searchFriendQuery.profile === 0) return;
+      return searchFriendsFn(searchFriendQuery, signal);
+    },
     enabled: false,
   });
 

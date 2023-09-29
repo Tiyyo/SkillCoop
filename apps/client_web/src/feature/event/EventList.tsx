@@ -1,9 +1,7 @@
 import HeaderEventList from './HeaderEventList';
 import { EventType } from '../../types';
 import EventCard from './EventCard';
-import { useEffect, useRef } from 'react';
-import LoadingPage from '../../component/loading-page';
-import Spinner from '../../component/loading';
+import InfiniteScroll from '../../component/infinite-scroll';
 
 interface EventListProps {
   title: string;
@@ -14,6 +12,7 @@ interface EventListProps {
   infiniteScrollOn?: boolean;
   loading?: boolean;
   triggerNextPage?: () => void;
+  hasMore?: boolean;
 }
 
 function EventList({
@@ -22,29 +21,13 @@ function EventList({
   nbEventToDisplay,
   linkTo,
   linkOff,
-  infiniteScrollOn,
   triggerNextPage,
   loading,
+  hasMore,
 }: EventListProps) {
   const nbEvent: number | undefined = nbEventToDisplay
     ? nbEventToDisplay
     : undefined;
-
-  const bottomDivRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting === true) {
-        triggerNextPage && triggerNextPage();
-      }
-    });
-    if (bottomDivRef.current && infiniteScrollOn) {
-      observer.observe(bottomDivRef.current);
-    }
-    return () => {
-      if (bottomDivRef.current) observer.unobserve(bottomDivRef.current);
-    };
-  }, []);
 
   return (
     <>
@@ -53,7 +36,10 @@ function EventList({
         linkTo={linkTo}
         linkOff={linkOff}
       />
-      <div className="flex flex-col">
+      <InfiniteScroll
+        loading={loading ?? false}
+        triggerNextPage={triggerNextPage}
+        hasMore={hasMore ?? false}>
         {events &&
           events.length > 0 &&
           events.slice(0, nbEvent).map((event) => (
@@ -77,13 +63,7 @@ function EventList({
               eventStatus={event.status_name}
             />
           ))}
-        <div ref={bottomDivRef}></div>
-        {loading && (
-          <div className="py-5">
-            <Spinner />
-          </div>
-        )}
-      </div>
+      </InfiniteScroll>
     </>
   );
 }

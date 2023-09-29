@@ -16,7 +16,7 @@ function MyEvents() {
         return getOrganizeEventFn({ profileId, page: pageParam });
       },
       getNextPageParam: (lastPage) => {
-        if (lastPage) {
+        if (lastPage && lastPage.eventCount > lastPage.previousPage * 10) {
           return lastPage.previousPage + 1;
         }
       },
@@ -34,9 +34,9 @@ function MyEvents() {
         events={allEvents ?? null}
         title="My events"
         loading={loading}
-        infiniteScrollOn
         linkOff
         triggerNextPage={fetchNextPage}
+        hasMore={hasNextPage}
       />
     </div>
   );

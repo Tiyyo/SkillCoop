@@ -92,6 +92,7 @@ function EventCard({
         </div>
         <Link
           to={`/event/${eventId}`}
+          state={{ eventId }}
           className="text-xxs text-light">
           view details
         </Link>

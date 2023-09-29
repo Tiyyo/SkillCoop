@@ -75,15 +75,26 @@ export const sendEmailVerifyFn = async (email: string) => {
   return response.data;
 };
 
+export const getEventFn = async (eventId: number): Promise<EventType> => {
+  const response = await authApi.get(`api/event/${eventId}`);
+  return response.data;
+}
+
 export const getEventsFn = async (profileId: number): Promise<EventType[]> => {
   const response = await authApi.get(`api/event/user/${profileId}`);
   return response.data;
 };
 
+interface OrganizeEventQuery {
+  profileId: number;
+  page: number;
+}
+
 export const getOrganizeEventFn =
-  async (profileId: number): Promise<EventType[]> => {
-    const response = await authApi.get(`api/event/organizer/${profileId}`);
-    return response.data;
+  async (data: OrganizeEventQuery): Promise<{ events: EventType[], previousPage: number, eventCount: number }> => {
+    const response = await authApi.get(`api/event/organizer`, { params: data });
+
+    return { events: response.data.events, eventCount: response.data.eventCount, previousPage: data.page };
   }
 
 export const createEventFn = async (data: CreateEventData) => {

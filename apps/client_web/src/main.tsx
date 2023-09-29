@@ -36,6 +36,8 @@ const queryClient = new QueryClient({
       refetchOnReconnect: false,
       retry: 1,
       staleTime: 5 * 1000,
+      // turn off caching for dev mode
+      cacheTime: 0,
     },
   },
 });

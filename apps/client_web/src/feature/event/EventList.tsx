@@ -1,6 +1,9 @@
 import HeaderEventList from './HeaderEventList';
 import { EventType } from '../../types';
 import EventCard from './EventCard';
+import { useEffect, useRef } from 'react';
+import LoadingPage from '../../component/loading-page';
+import Spinner from '../../component/loading';
 
 interface EventListProps {
   title: string;
@@ -8,6 +11,9 @@ interface EventListProps {
   nbEventToDisplay?: number;
   linkTo?: string;
   linkOff?: boolean;
+  infiniteScrollOn?: boolean;
+  loading?: boolean;
+  triggerNextPage?: () => void;
 }
 
 function EventList({
@@ -16,10 +22,29 @@ function EventList({
   nbEventToDisplay,
   linkTo,
   linkOff,
+  infiniteScrollOn,
+  triggerNextPage,
+  loading,
 }: EventListProps) {
   const nbEvent: number | undefined = nbEventToDisplay
     ? nbEventToDisplay
     : undefined;
+
+  const bottomDivRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting === true) {
+        triggerNextPage && triggerNextPage();
+      }
+    });
+    if (bottomDivRef.current && infiniteScrollOn) {
+      observer.observe(bottomDivRef.current);
+    }
+    return () => {
+      if (bottomDivRef.current) observer.unobserve(bottomDivRef.current);
+    };
+  }, []);
 
   return (
     <>
@@ -52,6 +77,12 @@ function EventList({
               eventStatus={event.status_name}
             />
           ))}
+        <div ref={bottomDivRef}></div>
+        {loading && (
+          <div className="py-5">
+            <Spinner />
+          </div>
+        )}
       </div>
     </>
   );

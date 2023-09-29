@@ -50,18 +50,8 @@ export default {
     res.status(201).json(result)
   },
   async getOne(req: Request, res: Response) {
-    // get one event from the database
-    const { id: event_id } = req.params
-
-    const event = await cacheOrGetCacheData(`event${event_id}`, async () => {
-      try {
-        const event = await Event.findByPk(Number(event_id))
-        return event
-
-      } catch (error) {
-        logger.error(error)
-      }
-    })
+    const eventId = checkParams(req.params.id)
+    const event = await Event.getEventById(eventId)
 
     res.status(200).json(event)
   },
@@ -110,10 +100,10 @@ export default {
     res.status(200).json(events)
   },
   async getOrganizerEvents(req: Request, res: Response) {
-    const userId = checkParams(req.params.id)
-    const events = await Event.getOrganizerEvents(userId)
+    const profileId = checkParams(req.query.profileId)
+    const page = checkParams(req.query.page)
 
-    console.log(events.length);
+    const events = await Event.getOrganizerEvents(profileId, page)
 
     res.status(200).json(events)
   }

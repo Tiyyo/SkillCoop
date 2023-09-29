@@ -26,7 +26,7 @@ router
 
 router.route('/user/:id').get(factory(getAllByUser));
 
-router.route('/organizer/:id').get(factory(getOrganizerEvents));
+router.route('/organizer').get(factory(getOrganizerEvents));
 
 router.route('/:id').get(factory(getOne));
 

@@ -17,6 +17,7 @@ import SeparatorLine from '../../component/seperator-line';
 import Center from '../../layout/Center';
 import ErrorContainer from '../../component/error';
 import { useApp } from '../../store/app.store';
+import toast from '../../utils/toast';
 
 export type LoginUserData = {
   email: string;
@@ -49,6 +50,7 @@ function Login() {
   useEffect(() => {
     if (isSuccess && !loading) {
       setIsAuth(true);
+      toast.success('Welcome back!');
     }
   }, [isSuccess, loading]);
 

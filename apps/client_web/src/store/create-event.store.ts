@@ -2,6 +2,8 @@ import { useMutation } from "@tanstack/react-query";
 import { create } from "zustand";
 import { createEventFn } from "../api/authApi";
 import { CreateEventData } from "../types";
+import { useEffect } from "react";
+import toast from "../utils/toast";
 
 type State = {
   start_date: string | null;
@@ -96,7 +98,7 @@ export const useCreateEventStore = create<CreateEventStore>()((set) => ({
 }));
 
 export const useCreateEvent = () => {
-  const { mutate: createEvent } = useMutation((data: CreateEventData) =>
+  const { mutate: createEvent, isSuccess, isError } = useMutation((data: CreateEventData) =>
     createEventFn(data)
   );
   const updateStartDate = useCreateEventStore((state) => state.updateStartDate);
@@ -114,6 +116,12 @@ export const useCreateEvent = () => {
     (state) => state.updateOrganizerId
   );
   const data = useCreateEventStore((state) => state.event);
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Event created successfully");
+    }
+  }, [isSuccess])
 
   return {
     createEvent,

@@ -1,32 +1,36 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-function Hamburger() {
+function Hamburger({
+  getOpenState,
+}: {
+  getOpenState: (state: boolean) => void;
+}) {
   const [openMenu, setOpenMenu] = useState(false);
   const handleClickMenu = () => {
     setOpenMenu(!openMenu);
-  }
+    getOpenState(!openMenu);
+  };
 
   return (
-    <button className="flex flex-col gap-y-1.5 w-10" onClick={handleClickMenu}>
+    <button
+      className="relative z-30 flex flex-col gap-y-1.5 w-10"
+      onClick={handleClickMenu}>
       <span
-        className={`rounded-lg h-1 bg-white ease-cubic duration-300 w-1/2 ${
+        className={`rounded-lg h-1 ease-cubic duration-300 w-1/2 ${
           openMenu
-            ? "origin-bottom rotate-45 translate-x-[2px] translate-y-[1px]"
-            : ""
-        }`}
-      ></span>
+            ? 'origin-bottom rotate-45 translate-x-[2px] translate-y-[1px] bg-primary-800'
+            : 'bg-base-light'
+        }`}></span>
       <span
-        className={`rounded-lg h-1 bg-white ease-cubic duration-300 w-full ${
-          openMenu ? "origin-top -rotate-45" : ""
-        }`}
-      ></span>
+        className={`rounded-lg h-1  ease-cubic duration-300 w-full ${
+          openMenu ? 'origin-top -rotate-45 bg-primary-800' : 'bg-base-light'
+        }`}></span>
       <span
-        className={`rounded-lg h-1 bg-white ease-cubic duration-300 ${
+        className={`rounded-lg h-1 ease-cubic duration-300 ${
           openMenu
-            ? "origin-bottom w-1/2   translate-x-4 -translate-y-[4px] rotate-45 "
-            : "w-3/4"
-        }`}
-      ></span>
+            ? 'origin-bottom w-1/2 bg-primary-800 translate-x-4 -translate-y-[4px] rotate-45 '
+            : 'w-3/4 bg-base-light'
+        }`}></span>
     </button>
   );
 }

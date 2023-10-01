@@ -1,44 +1,44 @@
-import { useCookies } from "react-cookie";
-import { useQuery } from "@tanstack/react-query";
-import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { getMeFn } from "../api/authApi";
-import { useStateContext } from "../context/app.context";
-// import FullScreenLoader from "./FullScreenLoader";
+// import { useCookies } from "react-cookie";
+// import { useQuery } from "@tanstack/react-query";
+// import { Navigate, Outlet, useLocation } from "react-router-dom";
+// import { getMeFn } from "../api/authApi";
 
-const RequireUser = ({ allowedRoles }: { allowedRoles: string[] }) => {
-  const [cookies] = useCookies(["logged_in"]);
-  const location = useLocation();
-  const stateContext = useStateContext();
+// // import FullScreenLoader from "./FullScreenLoader";
 
-  // second time this query is called
-  // so need to be abstracted in a hook
-  const {
-    isLoading,
-    isFetching,
-    data: user,
-  } = useQuery(["authUser"], getMeFn, {
-    retry: 1,
-    select: (data) => data.data.user,
-    onSuccess: (data) => {
-      stateContext.dispatch({ type: "SET_USER", payload: data });
-    },
-  });
+// const RequireUser = ({ allowedRoles }: { allowedRoles: string[] }) => {
+//   const [cookies] = useCookies(["logged_in"]);
+//   const location = useLocation();
+//   const stateContext = useStateContext();
 
-  const loading = isLoading || isFetching;
+//   // second time this query is called
+//   // so need to be abstracted in a hook
+//   const {
+//     isLoading,
+//     isFetching,
+//     data: user,
+//   } = useQuery(["authUser"], getMeFn, {
+//     retry: 1,
+//     select: (data) => data.data.user,
+//     onSuccess: (data) => {
+//       stateContext.dispatch({ type: "SET_USER", payload: data });
+//     },
+//   });
 
-  if (loading) {
-    // replace by a spinnin loader
-    return <div>Loading...</div>;
-  }
+//   const loading = isLoading || isFetching;
 
-  return (cookies.logged_in || user) &&
-    allowedRoles.includes(user?.role as string) ? (
-    <Outlet />
-  ) : cookies.logged_in && user ? (
-    <Navigate to="/unauthorized" state={{ from: location }} replace />
-  ) : (
-    <Navigate to="/login" state={{ from: location }} replace />
-  );
-};
+//   if (loading) {
+//     // replace by a spinnin loader
+//     return <div>Loading...</div>;
+//   }
 
-export default RequireUser;
+//   return (cookies.logged_in || user) &&
+//     allowedRoles.includes(user?.role as string) ? (
+//     <Outlet />
+//   ) : cookies.logged_in && user ? (
+//     <Navigate to="/unauthorized" state={{ from: location }} replace />
+//   ) : (
+//     <Navigate to="/login" state={{ from: location }} replace />
+//   );
+// };
+
+// export default RequireUser;

@@ -1,6 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { getEventFn } from '../../api/authApi';
 import { useLocation } from 'react-router-dom';
+import ReturnBtn from '../../component/return';
+import DropdownEventMenu from './DropdownEventMenu';
 
 function EventPage() {
   const {
@@ -15,6 +17,11 @@ function EventPage() {
   );
   return (
     <div>
+      <div className="flex justify-between">
+        <ReturnBtn />
+        <DropdownEventMenu />
+      </div>
+
       {event && (
         <div>
           <p>{event.location}</p>

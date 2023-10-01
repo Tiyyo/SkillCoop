@@ -21,7 +21,7 @@ function ConfirmedFriends() {
     ['getFriends'],
     () => {
       if (!profileId) return;
-      return getFriendsFn(1);
+      return getFriendsFn(profileId);
     },
     {
       enabled: true,

@@ -40,7 +40,7 @@ export default {
       })
       return data
     } catch (error: any) {
-      console.log(error)
+      console.log('error getting token : ', error)
       throw new Error(error)
     }
   },
@@ -53,7 +53,6 @@ export default {
       })
       return data
     } catch (error: any) {
-      console.log(error)
       throw new Error(error)
     }
   }

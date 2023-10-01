@@ -103,21 +103,17 @@ export default {
 
     if (!verifiedUser) throw new ServerError("Couldn't update user")
 
-    res.status(300).redirect(`http://localhost:5173/login`)
+    res.status(300).redirect(`${process.env.CLIENT_URL}/login`)
   },
   async resendEmail(req: Request, res: Response) {
     const { email } = req.body
-
     const user = await User.findMany({ email })
 
     if (!user) throw new NotFoundError("Couldn't find user")
 
     const emailToken = createAccessToken('1h', { userId: user.id })
-
     const url = `${process.env.API_URL}/auth/${user.id}/verify/${emailToken}`
-
     const text = `Click on the link to verify your email: ${url}`
-
     await emailService.sendVerify(email, 'validate your email', text)
 
     return res.status(200).json({ message: "A new confirmation email has been sent" })

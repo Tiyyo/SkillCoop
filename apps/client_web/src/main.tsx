@@ -27,6 +27,8 @@ import PastEvents from './feature/event/PastEvents.tsx';
 import IncomingEvents from './feature/event/IncomingEvents.tsx';
 import MyEvents from './feature/event/MyEvents.tsx';
 import EventPage from './feature/event/EventPage.tsx';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -143,6 +145,7 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
+      <ToastContainer />
       <RouterProvider router={router} />
     </QueryClientProvider>
   </React.StrictMode>

@@ -21,7 +21,20 @@ export type LevelScale =
 
 export type EventStatus = "open" | "full" | "completed" | "cancelled";
 
+export const eventStatus = {
+  open : "open",
+  full : "full",
+  completed : "completed",
+  cancelled : "cancelled"
+} as const 
+
 export type InvitationStatus = "pending" | "confirmed" | "declined";
+
+export const invitationStatus = {
+    pending : "pending",
+    confirmed : "confirmed",
+    declined : "declined"
+} as const
 
 export type Score = {
   avg_pace: number;

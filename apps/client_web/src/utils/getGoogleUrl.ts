@@ -1,8 +1,6 @@
 const getGoogleUrl = (from: string): string => {
   const root = 'https://accounts.google.com/o/oauth2/v2/auth'
 
-  console.log('from :', from);
-
   const options = {
     redirect_uri: import.meta.env.VITE_GOOGLE_CALLBACK_URL,
     client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,

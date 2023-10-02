@@ -6,7 +6,7 @@ import schemas from 'schema';
 import updateEvent from '../../schemas/event/update.event';
 import { canals } from '../../@types/types';
 
-const { createEventSchema } = schemas;
+const { createEventSchema, updateEventSchema } = schemas;
 
 const {
   getOrganizerEvents,
@@ -23,7 +23,7 @@ const router: Router = express.Router();
 router
   .route('/')
   .post(validate(createEventSchema, canals.body), factory(createOne))
-  .patch(validate(updateEvent, canals.body), factory(updateOne));
+  .patch(validate(updateEventSchema, canals.body), factory(updateOne));
 
 router.route('/user/:id').get(factory(getAllByUser));
 
@@ -31,7 +31,7 @@ router.route('/organizer').get(factory(getOrganizerEvents));
 
 router.route('/past').get(factory(getPasts))
 
-router.route('/:id').get(factory(getOne));
+router.route('/details/:eventId/:profileId').get(factory(getOne));
 
 router.route('/:id/:profileId').delete(factory(deleteOne));
 

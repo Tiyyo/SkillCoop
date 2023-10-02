@@ -1,3 +1,4 @@
+import getDateUTC from '../utils/get-date-utc';
 import { Core } from './core'
 
 export class ProfileOnEvent extends Core {
@@ -7,18 +8,10 @@ export class ProfileOnEvent extends Core {
     super(client)
   }
 
-  async updateStatus(data: { event_id: number, profile_id: number, status_name: 'confirmed' | 'declined', updatedAt: undefined | string }) {
-
-    const today = new Intl.DateTimeFormat('en-Us', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-      hour: 'numeric',
-      minute: 'numeric',
-      timeZone: 'Europe/Paris'
-    }).format(new Date())
-
-    data.updatedAt = today
+  async updateStatus(data: { event_id: number, profile_id: number, status_name: 'confirmed' | 'declined', updated_at: undefined | string }) {
+    const today = new Date()
+    const utctoday = getDateUTC(today)
+    data.updated_at = utctoday
 
     const result = await this.client
       .updateTable(this.tableName)

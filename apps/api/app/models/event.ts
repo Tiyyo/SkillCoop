@@ -10,7 +10,7 @@ export class Event extends Core {
   constructor(client: any) {
     super(client);
   }
-  async getEventById(eventId: number) {
+  async getEventById(eventId: number, profileId: number) {
     try {
       const result = await sql<any>`
 SELECT 
@@ -34,7 +34,10 @@ SELECT
         )
       ) 
   ) AS participants,
-  (SELECT COUNT (*) FROM profile_on_event WHERE event_id = event.id AND status_name = 'confirmed') AS confirmed_participants
+  (SELECT COUNT (*) FROM profile_on_event WHERE event_id = event.id AND status_name = 'confirmed') AS confirmed_participants,
+ (SELECT participant.status_name
+  FROM profile_on_event AS participant
+  WHERE participant.profile_id = ${profileId} ) AS user_status
 FROM event
 LEFT JOIN score ON event.id = score.event_id
 JOIN profile_on_event AS participant ON event.id = participant.event_id

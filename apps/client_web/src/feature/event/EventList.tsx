@@ -29,13 +29,20 @@ function EventList({
     ? nbEventToDisplay
     : undefined;
 
+  const isEventsEmpty = events && events.length === 0;
+
   return (
     <>
       <HeaderEventList
         title={title}
         linkTo={linkTo}
-        linkOff={linkOff}
+        linkOff={isEventsEmpty ? true : linkOff}
       />
+      {isEventsEmpty && (
+        <div className="text-center italic text-xs py-4 text-light">
+          No event found.
+        </div>
+      )}
       <InfiniteScroll
         loading={loading ?? false}
         triggerNextPage={triggerNextPage}

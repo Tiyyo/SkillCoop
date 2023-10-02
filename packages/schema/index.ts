@@ -6,6 +6,9 @@ import createEventSchema from './event/createEventSchema';
 import searchFriendsSchema from './friends/searchSchema';
 import createInvitationSchema from './friends/createInvitationSchema';
 import updateFriendshipSchema from './friends/updateFriendshipSchema';
+import inviteParticipantSchema from './participant/inviteParticipantSchema';
+import updateParticipantSchema from './participant/updateParticipantSchema';
+import updateEventSchema from './event/updateEventSchema';
 
 export type { AnyZodObject, ZodError }
 export default {
@@ -13,7 +16,10 @@ export default {
   loginSchema,
   sendVerifEmailSchema,
   createEventSchema,
+  updateEventSchema,
   searchFriendsSchema,
   createInvitationSchema,
-  updateFriendshipSchema
+  updateFriendshipSchema,
+  inviteParticipantSchema,
+  updateParticipantSchema
 }

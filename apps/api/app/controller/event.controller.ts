@@ -50,23 +50,29 @@ export default {
     res.status(201).json(result)
   },
   async getOne(req: Request, res: Response) {
-    const eventId = checkParams(req.params.id)
-    const event = await Event.getEventById(eventId)
+    const eventId = checkParams(req.params.eventId)
+    const profileId = checkParams(req.params.profileId)
+
+    const event = await Event.getEventById(eventId, profileId)
 
     res.status(200).json(event)
   },
   async updateOne(req: Request, res: Response) {
     // update one event
     // only the organize can update the event
+    const { event_id, profile_id, ...data } = req.body
 
-    const { id: event_id, ...data } = req.body
+    const event = await Event.findByPk(event_id)
 
+    if (!event || event.organizer_id !== profile_id) throw new AuthorizationError("Operation not allowed")
+
+    console.log(data);
     const isUpdate = await Event.update(event_id, data)
 
-    await redisClient.del([`event${event_id}`, 'events'], (err, reply) => {
-      if (err) throw new ServerError('Could not delete cache')
-      logger.debug(`delete cache ${reply}`)
-    })
+    // await redisClient.del([`event${event_id}`, 'events'], (err, reply) => {
+    //   if (err) throw new ServerError('Could not delete cache')
+    //   logger.debug(`delete cache ${reply}`)
+    // })
 
     res.status(204).send(isUpdate)
 

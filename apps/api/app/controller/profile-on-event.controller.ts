@@ -6,6 +6,7 @@ import { event as Event } from '../models/index'
 import { Request, Response } from 'express'
 import redis from 'ioredis'
 import ServerError from '../helpers/errors/server.error';
+import { invitationStatus } from '../@types/types';
 
 const redisClient = new redis()
 
@@ -30,40 +31,32 @@ export default {
     const isConfirmed = "confirmed"
     let userMessage = "Status has been updated"
 
-    const data = { profile_id, event_id, status_name, updatedAt: undefined }
+    const data = { profile_id, event_id, status_name, updated_at: undefined }
 
     await redisClient.del(["participants", `event${event_id}`], (err, reply) => {
       if (err) throw new ServerError('Could not delete cache')
       logger.debug(`delete cache ${reply}`)
     })
+    //TODO need to check if participant exist
 
     if (status_name === "declined") {
-
       await ProfileOnEvent.updateStatus(data)
       return res.status(204).send('Status has been updated')
     }
     // check if the event is full
 
-    const participants = await ProfileOnEvent.findMany({ event_id: data.event_id })
+    const confirmedParticipants = await ProfileOnEvent.findBy({ event_id: data.event_id, status_name: invitationStatus.confirmed })
 
     const event = await Event.findByPk(data.event_id)
 
-    let count = 0;
-
-    participants.forEach((p) => {
-      if (p.status_name === isConfirmed) {
-        count += 1
-      }
-    })
 
     // check type number before strict equality
 
-    if (Number(event[0].required_particpants) === Number(count)) throw new UserInputError('Event is already full')
+    if (Number(event[0].required_particpants) === confirmedParticipants.length) throw new UserInputError('Event is already full')
 
+    await ProfileOnEvent.updateStatus(data)
 
-    const confirmed = await ProfileOnEvent.updateStatus(data)
-
-    if (Number(event[0].required_particpants) === Number(count) + 1) {
+    if (Number(event[0].required_particpants) === confirmedParticipants.length + 1) {
 
       userMessage = "Teams has been generated "
       logger.debug('Team has been generated')

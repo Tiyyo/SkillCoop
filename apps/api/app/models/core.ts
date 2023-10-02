@@ -38,29 +38,33 @@ export class Core {
 
       if (!result) throw new NotFoundError('Not found')
 
-      return result
+      return result[0]
 
     } catch (error) {
       throw new DatabaseError(error)
     }
   }
-  // this is not a find many but a find one
-  async findMany(data: Record<string, number | string | Date>) {
 
-    const key = Object.keys(data)[0].toString()
-    const value = Object.values(data)[0]
+  // accept several where clause in the form of {key: value}
+  async findBy(data: Record<string, number | string | Date>) {
+    const keys = Object.keys(data)
+    const values = Object.values(data)
 
     try {
 
-      const result = await this.client
+      let query = this.client
         .selectFrom(this.tableName)
         .selectAll()
-        .where(key, "=", value)
-        .execute()
+
+      keys.forEach((key, index) => {
+        query = query.where(key.toString(), "=", values[index])
+      })
+
+      const result = await query.execute()
 
       if (!result) throw new NotFoundError('Not found')
 
-      return result[0]
+      return result
 
     } catch (error) {
       throw new DatabaseError(error)

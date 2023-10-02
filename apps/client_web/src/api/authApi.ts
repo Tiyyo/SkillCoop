@@ -3,6 +3,7 @@ import {
   CreateEventData,
   EventType,
   Friend,
+  InvitationStatus,
   Profile,
   RegisterUser,
   SearchFriendQuery,
@@ -56,6 +57,7 @@ export const loginUserFn = async (user: User) => {
 };
 
 export const logoutUserFn = async () => {
+  console.log('is called');
   const response = await authApi.post('auth/logout');
   return response.data;
 };
@@ -75,8 +77,8 @@ export const sendEmailVerifyFn = async (email: string) => {
   return response.data;
 };
 
-export const getEventFn = async (eventId: number): Promise<EventType> => {
-  const response = await authApi.get(`api/event/${eventId}`);
+export const getEventFn = async (eventId: number, profileId: number): Promise<EventType> => {
+  const response = await authApi.get(`api/event/details/${eventId}/${profileId}`);
   return response.data;
 }
 
@@ -124,6 +126,11 @@ export const createEventFn = async (data: CreateEventData) => {
   const response = await authApi.post('api/event', data);
   return response.data;
 };
+
+export const updateEventFn = async (data: Record<string, string | number>) => {
+  const response = await authApi.patch('api/event', data);
+  return response.data;
+}
 
 export const getFriendsFn = async (profileId: number): Promise<Friend[]> => {
   const response = await authApi.get(`api/friends/${profileId}`);
@@ -175,3 +182,12 @@ export const acceptOrDeclinedFriendRequestFn = async (data: {
   const response = await authApi.patch(`api/friends`, data);
   return response.data;
 };
+
+export const updateParticipantFn = async (data: {
+  profile_id: number,
+  event_id: number,
+  status_name: InvitationStatus
+}) => {
+  const response = await authApi.patch(`api/profile_on_event`, data);
+  return response.data;
+}

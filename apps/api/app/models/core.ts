@@ -84,7 +84,6 @@ export class Core {
     } catch (error) {
       throw new DatabaseError(error)
     }
-
   }
   async createMany(data: Record<string, any>) {
     const today = new Date()

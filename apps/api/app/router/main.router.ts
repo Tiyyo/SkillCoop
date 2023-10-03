@@ -1,5 +1,4 @@
 import express, { Router } from 'express';
-
 import profileRouter from './api-router/profile.router'
 import authRouter from './auth.router'
 import eventRouter from './api-router/event.router'

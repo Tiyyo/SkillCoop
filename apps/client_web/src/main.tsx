@@ -66,6 +66,10 @@ const router = createBrowserRouter([
         element: <InvitationEvent />,
       },
       {
+        path: '/event/:id/invitation',
+        element: <InvitationEvent />,
+      },
+      {
         path: '/events/incoming',
         element: <IncomingEvents />,
       },

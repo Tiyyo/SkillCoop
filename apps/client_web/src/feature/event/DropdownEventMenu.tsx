@@ -43,6 +43,10 @@ function DropdownEventMenu({
             <span>Transfert ownership</span>
           </DropdownMenuItem>
           <DropdownMenuItem className={menuItemStyle}>
+            <FolderInput size="16" />
+            <span>Revoke participation</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem className={menuItemStyle}>
             <Trash2 size="16" />
             <span>Delete</span>
           </DropdownMenuItem>

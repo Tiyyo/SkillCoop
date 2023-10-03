@@ -14,6 +14,7 @@ import SelectInput from '../../component/select';
 import InputTime from '../../component/time-picker';
 import InputDate from '../../component/date-picker';
 import { useEvent } from '../../store/event.store';
+import { OPTION_DURATION, OPTION_FORMAT } from '../../constant/select.options';
 
 interface EventPageInfosProps {
   eventDuration: number;
@@ -56,20 +57,6 @@ function EventPageInfos({
     event_id: eventId,
   };
 
-  const optionsDuration = [
-    { label: '45 min', value: 45 },
-    { label: '1H', value: 60 },
-    { label: '1H30', value: 90 },
-    { label: '2H', value: 120 },
-  ];
-
-  const optionsFormat = [
-    { label: '3V3', value: 6 },
-    { label: '5V5', value: 10 },
-    { label: '7V7', value: 14 },
-    { label: '11V11', value: 22 },
-  ];
-
   const startTime = eventDate.split(' ')[1];
 
   useEffect(() => {
@@ -81,20 +68,20 @@ function EventPageInfos({
       start_time: eventDate.split(' ')[1],
       status_name: eventStatus,
     });
-  }, []);
+  }, [location.pathname]);
 
   return (
     <div className="bg-base-light mx-2 my-4 rounded-md shadow py-2 px-3">
-      {isAdmin && (
-        <div className="flex justify-between items-baseline my-1 text-primary-1100">
-          <h2 className="text-sm font-bold">Event# {eventId}</h2>
-          <p
+      <div className="flex justify-between items-baseline my-1 text-primary-1100">
+        <h2 className="text-sm font-bold">Event# {eventId}</h2>
+        {isAdmin && eventStatus !== 'completed' && (
+          <div
             onClick={handleClickEdit}
             className="my-auto relative -top-0.5 cursor-pointer">
             {isEditActive ? <Check size={16} /> : <Pencil size={16} />}
-          </p>
-        </div>
-      )}
+          </div>
+        )}
+      </div>
       <InputDate
         updateState={updateStartDate}
         defaultValue={event.start_date ?? eventDate}
@@ -122,7 +109,7 @@ function EventPageInfos({
         updateData={updateEventData}
         mutateKey="duration"
         mutateOnBlur={updateEventFn}
-        options={optionsDuration}
+        options={OPTION_DURATION}
         defaultValue={event.duration ?? eventDuration}
         disabled={!isEditActive}>
         <Clock />
@@ -141,7 +128,7 @@ function EventPageInfos({
       <SelectInput
         name="requiredParticipants"
         updateState={updateRequiredParticipants}
-        options={optionsFormat}
+        options={OPTION_FORMAT}
         defaultValue={event.required_participants ?? requiredParticipants}
         mutateOnBlur={updateEventFn}
         disabled={!isEditActive}

@@ -1,5 +1,4 @@
 import { useMutation } from '@tanstack/react-query';
-import { useCreateEvent } from '../../store/create-event.store';
 import { useEffect, useState } from 'react';
 import defaultAvatar from '../../../public/images/default-avatar.png';
 import { acceptOrDeclinedFriendRequestFn } from '../../api/authApi';
@@ -7,8 +6,12 @@ import OctogoneCross from '../../assets/icon/OctogoneCross';
 import Check from '../../assets/icon/Check';
 import schema from 'schema';
 import { useFriends } from '../../store/friend.store';
-import { invitationStatus } from '../../types';
+import { EventType, invitationStatus } from '../../types';
 const { updateFriendshipSchema } = schema;
+
+type EventTypeState = EventType & {
+  invited_participants_ids: number[];
+};
 
 interface FriendCardProps {
   avatar: string;
@@ -16,6 +19,9 @@ interface FriendCardProps {
   adderId: number;
   friendId: number;
   status: string;
+  dataFromState?: EventTypeState | null;
+  addFriendToState?: (friendId: any) => void;
+  removeFriendFromState?: (friendId: any) => void;
   activeSelected?: boolean;
   createdAt?: string;
 }
@@ -33,23 +39,24 @@ function FriendCard({
   friendId,
   status,
   activeSelected,
+  dataFromState,
+  addFriendToState,
+  removeFriendFromState,
 }: FriendCardProps) {
   const { mutate: acceptOrDeclinedInvitation } = useMutation(
     ['acceptOrDeclinedInvitation'],
     (data: updateInvitationStatus) => acceptOrDeclinedFriendRequestFn(data)
   );
-  const { addInvitedParticipantsIds, removeInvitedParticipantsIds, data } =
-    useCreateEvent();
   const { removePendingFriend, addConfirmedFriend } = useFriends();
   const [isSelected, setIsSelected] = useState(false);
 
   const handleClickSelectFriend = () => {
-    if (!activeSelected) return;
+    if (!activeSelected || !removeFriendFromState || !addFriendToState) return;
     if (isSelected) {
-      removeInvitedParticipantsIds(friendId);
+      removeFriendFromState(friendId);
       setIsSelected(false);
     } else {
-      addInvitedParticipantsIds(friendId);
+      addFriendToState(friendId);
     }
   };
 
@@ -80,17 +87,18 @@ function FriendCard({
     }
   };
 
+  console.log(dataFromState);
   useEffect(() => {
-    if (!data || !data.invited_participants_ids) return;
-    if (data.invited_participants_ids.find((id) => id === friendId)) {
+    if (!dataFromState || !dataFromState.invited_participants_ids) return;
+    if (dataFromState.invited_participants_ids.find((id) => id === friendId)) {
       setIsSelected(true);
     }
-  }, [data]);
+  }, [dataFromState]);
 
   if (status === 'declined') return null;
   return (
     <div
-      className={`flex py-2 px-3 gap-3 cursor-pointer rounded-md border-2 border-transparent ${
+      className={`flex py-2 px-3 gap-3 max-h-16 cursor-pointer rounded-md border-2 border-transparent ${
         isSelected
           ? ' border-opacity-50 border-primary-400 bg-primary-500 shadow-2xl'
           : 'bg-base-light'

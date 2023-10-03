@@ -164,7 +164,7 @@ async function seed() {
       await Participant.create({
         event_id: eventId,
         profile_id: index + 1,
-        team: index < 6 ? 1 : 2,
+        team: index < 5 ? 1 : 2,
         status_name: "confirmed",
       });
     });
@@ -200,7 +200,7 @@ async function seed() {
         event_id: Number(eventId),
         profile_id: index + 1,
         status_name: "confirmed",
-        team: index < 6 ? 1 : 2,
+        team: index < 5 ? 1 : 2,
       });
     });
   }
@@ -260,7 +260,7 @@ async function seed() {
         event_id: Number(eventId),
         profile_id: getIntUnused(),
         status_name: "confirmed",
-        team: index < 5 ? 1 : 2,
+        team: index < 4 ? 1 : 2,
       });
     });
   }
@@ -284,11 +284,6 @@ async function seed() {
       status_name: "full",
     });
 
-    await Score.create({
-      event_id: Number(eventId),
-      score_team_1: faker.number.int({ min: 0, max: 20 }),
-      score_team_2: faker.number.int({ min: 0, max: 20 }),
-    });
 
     await Participant.create({
       event_id: Number(eventId),
@@ -320,7 +315,7 @@ async function seed() {
         event_id: Number(eventId),
         profile_id: getIntUnused(),
         status_name: "confirmed",
-        team: index < 5 ? 1 : 2,
+        team: index < 4 ? 1 : 2,
       });
     });
   }

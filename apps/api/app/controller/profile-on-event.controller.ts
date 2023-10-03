@@ -71,15 +71,10 @@ export default {
 
   },
   async sendInvitationToEvent(req: Request, res: Response) {
-    const { profile_id, event_id } = req.body
-    const data = { profile_id, event_id, status_name: "pending" }
+    const { ids, event_id } = req.body
+    const data = ids.map((id: number) => ({ profile_id: id, event_id, status_name: "pending" }))
 
-    await redisClient.del("participants", (err, reply) => {
-      if (err) throw new ServerError('Could not delete cache')
-      logger.debug(`delete cache ${reply}`)
-    })
-
-    const isSend = ProfileOnEvent.create(data)
+    const isSend = ProfileOnEvent.createMany(data)
 
     res.status(201).send(isSend)
 

@@ -10,6 +10,12 @@ import {
   SearchProfileQuery,
   User,
 } from '../types';
+
+interface EventQuery {
+  profileId: number;
+  page: number;
+}
+
 const BASE_URL = 'http://localhost:8082';
 
 export const authApi = axios.create({
@@ -57,7 +63,6 @@ export const loginUserFn = async (user: User) => {
 };
 
 export const logoutUserFn = async () => {
-  console.log('is called');
   const response = await authApi.post('auth/logout');
   return response.data;
 };
@@ -87,10 +92,6 @@ export const getEventsFn = async (profileId: number): Promise<EventType[]> => {
   return response.data;
 };
 
-interface EventQuery {
-  profileId: number;
-  page: number;
-}
 
 export const getOrganizeEventFn =
   async (data: EventQuery): Promise<{
@@ -189,5 +190,19 @@ export const updateParticipantFn = async (data: {
   status_name: InvitationStatus
 }) => {
   const response = await authApi.patch(`api/profile_on_event`, data);
+  return response.data;
+}
+
+export const sendEventInvitationFn = async (data: { event_id: number, ids: number[] }) => {
+  const response = await authApi.post(`api/profile_on_event`, data);
+  return response.data;
+}
+
+export const saveScoreFn = async (data: {
+  score_team_1: number,
+  score_team_2: number,
+  event_id: number,
+}) => {
+  const response = await authApi.post(`api/score`, data);
   return response.data;
 }

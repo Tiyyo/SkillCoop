@@ -21,6 +21,8 @@ interface eventStore {
   updateRequiredParticipants: (args: number) => void;
   updateOrganizerId: (args: number) => void;
   updateStatusName: (args: string) => void;
+  addInvitedParticipantsIds: (args: number) => void;
+  removeInvitedParticipantsIds: (args: number) => void;
 
 }
 
@@ -75,6 +77,26 @@ export const useEventStore = create<eventStore>()((set) => ({
       ...state,
       event: { ...state.event, status_name: statusName },
     })),
+  addInvitedParticipantsIds: (invitedParticipantsIds: number) =>
+    set((state) => ({
+      ...state,
+      event: {
+        ...state.event,
+        invited_participants_ids: state.event.invited_participants_ids
+          ? [...state.event.invited_participants_ids, invitedParticipantsIds]
+          : [invitedParticipantsIds],
+      },
+    })),
+  removeInvitedParticipantsIds: (invitedParticipantsIds: number) =>
+    set((state) => ({
+      ...state,
+      event: {
+        ...state.event,
+        invited_participants_ids: state.event.invited_participants_ids?.filter(
+          (id) => id !== invitedParticipantsIds
+        ),
+      },
+    })),
 }));
 
 export const useEvent = () => {
@@ -84,7 +106,10 @@ export const useEvent = () => {
   const updateDuration = useEventStore((state) => state.updateDuration);
   const updateLocation = useEventStore((state) => state.updateLocation);
   const updateRequiredParticipants = useEventStore((state) => state.updateRequiredParticipants);
+  const addInvitedParticipantsIds = useEventStore((state) => state.addInvitedParticipantsIds);
+  const removeInvitedParticipantsIds = useEventStore((state) => state.removeInvitedParticipantsIds);
   const data = useEventStore((state) => state.event)
+
   return {
     initEventState,
     updateStartDate,
@@ -92,6 +117,8 @@ export const useEvent = () => {
     updateDuration,
     updateLocation,
     updateRequiredParticipants,
+    addInvitedParticipantsIds,
+    removeInvitedParticipantsIds,
     data
   }
 }

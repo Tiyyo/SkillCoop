@@ -9,6 +9,7 @@ import updateFriendshipSchema from './friends/updateFriendshipSchema';
 import inviteParticipantSchema from './participant/inviteParticipantSchema';
 import updateParticipantSchema from './participant/updateParticipantSchema';
 import updateEventSchema from './event/updateEventSchema';
+import saveScoreSchema from './score/saveScoreSchema'
 
 export type { AnyZodObject, ZodError }
 export default {
@@ -21,5 +22,6 @@ export default {
   createInvitationSchema,
   updateFriendshipSchema,
   inviteParticipantSchema,
-  updateParticipantSchema
+  updateParticipantSchema,
+  saveScoreSchema
 }

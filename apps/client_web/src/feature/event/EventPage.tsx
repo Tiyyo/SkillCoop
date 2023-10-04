@@ -11,6 +11,7 @@ import Plus from '../../assets/icon/Plus';
 import Button from '../../component/button';
 import schema from 'schema';
 import TeamComposition from './TeamComposition';
+import EventPageScore from './EventPage.score';
 
 const { saveScoreSchema } = schema;
 
@@ -63,54 +64,24 @@ function EventPage() {
         />
       </div>
       {event && (
-        <EventPageInfos
-          eventDuration={event.duration}
-          eventlocation={event?.location}
-          eventDate={event?.date}
-          requiredParticipants={event?.required_participants}
-          profileId={profileId ?? 0}
-          eventStatus={event?.status_name}
-          isAdmin={event?.organizer_id === profileId}
-        />
-      )}
-      {event && (
-        <form
-          className="bg-base-light mx-2 my-4 rounded-md shadow py-4 px-3 flex flex-col items-center justify-between"
-          onSubmit={handleSubmitScore}>
-          <p className="text-xs mb-4">Final Score</p>
-          <div>
-            <label
-              htmlFor="score_team_1"
-              className="px-3 text-xs">
-              Team A
-            </label>
-            <input
-              type="number"
-              name="score_team_1"
-              className="bg-primary-200 h-14 w-10 rounded-md shadow-inner border border-gray-950 border-opacity-40 text-primary-1100 font-semibold text-center text-2xl"
-              disabled={event?.organizer_id !== profileId}
-              defaultValue={event.score_team_1 ?? 'NC'}
-            />
-            <span className="font-semibold mx-2">-</span>
-            <input
-              type="number"
-              name="score_team_2"
-              className="bg-primary-200 h-14 w-10 rounded-md shadow-inner border border-gray-950 border-opacity-40 text-primary-1100 font-semibold text-center text-2xl"
-              disabled={event?.organizer_id !== profileId}
-              defaultValue={event.score_team_2 ?? 'NC'}
-            />
-            <label
-              htmlFor="score_team_2"
-              className="px-3 text-xs">
-              Team B
-            </label>
-          </div>
-          <Button
-            type="submit"
-            className="py-1 mt-8 w-20"
-            textContent="SAVE"
+        <>
+          <EventPageInfos
+            eventDuration={event.duration}
+            eventlocation={event?.location}
+            eventDate={event?.date}
+            requiredParticipants={event?.required_participants}
+            profileId={profileId ?? 0}
+            eventStatus={event?.status_name}
+            isAdmin={event?.organizer_id === profileId}
           />
-        </form>
+          <EventPageScore
+            eventId={eventId}
+            isAdmin={event.organizer_id === profileId}
+            scoreTeam1={event.score_team_1}
+            scoreTeam2={event.score_team_2}
+            eventStatus={event.status_name}
+          />
+        </>
       )}
       {event && event.status_name === 'open' && (
         <div className=" bg-base-light mx-2 my-4 rounded-md shadow py-4 px-3">
@@ -136,13 +107,15 @@ function EventPage() {
       {event && event.status_name !== 'open' && (
         <TeamComposition participants={event.participants} />
       )}
-      <Link
-        to="invitation"
-        state={{ eventId, variant: 'mutate' }}
-        className="flex items-center underline underline-offset-8 un gap-2 py-4 text-md text-primary-1100 font-semibold cursor-pointer w-full justify-center">
-        <p>INVITE FRIENDS </p>
-        <Plus />
-      </Link>
+      {event && event.status_name !== 'completed' && (
+        <Link
+          to="invitation"
+          state={{ eventId, variant: 'mutate' }}
+          className="flex items-center underline underline-offset-8 un gap-2 py-4 text-md text-primary-1100 font-semibold cursor-pointer w-full justify-center">
+          <p>INVITE FRIENDS </p>
+          <Plus />
+        </Link>
+      )}
     </div>
   );
 }

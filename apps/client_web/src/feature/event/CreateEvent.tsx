@@ -32,6 +32,7 @@ function CreateEvent() {
     updateStartDate,
     updateStartTime,
     updateRequiredParticipants,
+    clearEventState,
   } = useCreateEvent();
   const userId = userProfile?.user_id;
 
@@ -74,6 +75,7 @@ function CreateEvent() {
       dateHandler.dateShouldBeInTheFuture(data.date)
     ) {
       createEvent(data);
+      clearEventState();
     } else {
       setValidationErrors(isValid.error.issues);
     }

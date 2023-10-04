@@ -95,7 +95,7 @@ model profile_on_event {
 }
 
 model skill_foot {
-  id          Int       @id @default(autoincrement())
+  id          Int       @id @default(autoincrement()) 
   pace        Int
   shooting    Int
   passing     Int

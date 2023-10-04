@@ -27,6 +27,8 @@ interface CreateEventStore {
   updateStatusName: (args: string) => void;
   addInvitedParticipantsIds: (args: number) => void;
   removeInvitedParticipantsIds: (args: number) => void;
+  clearEventState: () => void;
+
 }
 
 export const useCreateEventStore = create<CreateEventStore>()((set) => ({
@@ -95,6 +97,7 @@ export const useCreateEventStore = create<CreateEventStore>()((set) => ({
         ),
       },
     })),
+  clearEventState: () => set((state) => ({ ...state, event: undefined })),
 }));
 
 export const useCreateEvent = () => {
@@ -115,6 +118,7 @@ export const useCreateEvent = () => {
   const updateOrganizerId = useCreateEventStore(
     (state) => state.updateOrganizerId
   );
+  const clearEventState = useCreateEventStore((state) => state.clearEventState);
   const data = useCreateEventStore((state) => state.event);
 
   useEffect(() => {
@@ -133,6 +137,7 @@ export const useCreateEvent = () => {
     addInvitedParticipantsIds,
     removeInvitedParticipantsIds,
     updateOrganizerId,
+    clearEventState,
     data,
   };
 };

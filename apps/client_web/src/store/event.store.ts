@@ -23,6 +23,7 @@ interface eventStore {
   updateStatusName: (args: string) => void;
   addInvitedParticipantsIds: (args: number) => void;
   removeInvitedParticipantsIds: (args: number) => void;
+  clearEventState: () => void;
 
 }
 
@@ -97,6 +98,7 @@ export const useEventStore = create<eventStore>()((set) => ({
         ),
       },
     })),
+
 }));
 
 export const useEvent = () => {
@@ -108,6 +110,7 @@ export const useEvent = () => {
   const updateRequiredParticipants = useEventStore((state) => state.updateRequiredParticipants);
   const addInvitedParticipantsIds = useEventStore((state) => state.addInvitedParticipantsIds);
   const removeInvitedParticipantsIds = useEventStore((state) => state.removeInvitedParticipantsIds);
+  const clearEventState = useEventStore((state) => state.clearEventState);
   const data = useEventStore((state) => state.event)
 
   return {
@@ -119,6 +122,7 @@ export const useEvent = () => {
     updateRequiredParticipants,
     addInvitedParticipantsIds,
     removeInvitedParticipantsIds,
+    clearEventState,
     data
   }
 }

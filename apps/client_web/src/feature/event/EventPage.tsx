@@ -8,12 +8,8 @@ import { useApp } from '../../store/app.store';
 import EventPageInfos from './EventPage.infos';
 import Participant from '../../component/participant';
 import Plus from '../../assets/icon/Plus';
-import Button from '../../component/button';
-import schema from 'schema';
 import TeamComposition from './TeamComposition';
 import EventPageScore from './EventPage.score';
-
-const { saveScoreSchema } = schema;
 
 function EventPage() {
   const {
@@ -31,23 +27,7 @@ function EventPage() {
     { enabled: true }
   );
 
-  const { mutate: saveScore } = useMutation(
-    (data: { event_id: number; score_team_1: number; score_team_2: number }) =>
-      saveScoreFn(data)
-  );
-
-  const handleSubmitScore = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const data = {
-      score_team_1: Number(e.currentTarget.score_team_1.value),
-      score_team_2: Number(e.currentTarget.score_team_2.value),
-      event_id: eventId,
-    };
-    const isValid = saveScoreSchema.safeParse(data);
-    if (!isValid.success) return;
-    saveScore(data);
-  };
-
+  console.log(event);
   return (
     <div>
       <div className="flex justify-between items-start py-2 bg-base-light mx-2 my-4 rounded-md shadow">

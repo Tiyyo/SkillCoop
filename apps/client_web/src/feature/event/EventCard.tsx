@@ -61,8 +61,8 @@ function EventCard({
         )}
         <Score
           eventStatus={eventStatus}
-          scoreTeamA={scoreTeamA ? scoreTeamA : null}
-          scoreTeamB={scoreTeamB ? scoreTeamB : null}
+          scoreTeamA={scoreTeamA}
+          scoreTeamB={scoreTeamB}
           date={date}
           duration={duration}
         />

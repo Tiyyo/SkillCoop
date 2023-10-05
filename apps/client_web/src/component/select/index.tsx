@@ -48,19 +48,19 @@ function SelectInput({
     // TODO abstract this logic in a switch case or something
     // like a pool of key and search if mutateKey is in the pool
     let value: number | string = '';
-    if (mutateKey === 'duration') value = Number(e.target.value);
-    if (mutateKey === 'required_participants') value = Number(e.target.value);
+    if (mutateKey === 'duration' || mutateKey === 'required_participants')
+      value = Number(e.target.value);
     updateData[mutateKey as keyof typeof updateData] = value;
-
     if (mutateOnBlur) {
       mutate(updateData);
-      return;
     }
   };
 
   useEffect(() => {
     setHasError(error);
   }, [error]);
+
+  console.log(props.defaultValue);
 
   return (
     <div className="w-full">

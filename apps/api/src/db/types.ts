@@ -4,6 +4,12 @@ export type Generated<T> = T extends ColumnType<infer S, infer I, infer U>
   : ColumnType<T, T | undefined, T>;
 export type Timestamp = ColumnType<Date, Date | string, Date | string>;
 
+export type best_striker_pool = {
+    event_id: number;
+    profile_id: number;
+    created_at: string;
+    updated_at: string | null;
+};
 export type event = {
     id: Generated<number>;
     date: string;
@@ -15,6 +21,8 @@ export type event = {
     status_name: string;
     created_at: string;
     updated_at: string | null;
+    mvp_id: number;
+    best_striker_id: number;
 };
 export type image = {
     id: Generated<number>;
@@ -24,10 +32,19 @@ export type image = {
     created_at: string;
     updated_at: string | null;
 };
+export type mvp_pool = {
+    event_id: number;
+    profile_id: number;
+    created_at: string;
+    updated_at: string | null;
+};
 export type profile = {
     id: Generated<number>;
     user_id: number;
     username: string;
+    first_name: string | null;
+    last_name: string | null;
+    location: string | null;
     date_of_birth: string | null;
     avatar_url: string | null;
     skill_foot_id: number | null;
@@ -90,8 +107,10 @@ export type user = {
     updated_at: string | null;
 };
 export type DB = {
+    best_striker_pool: best_striker_pool;
     event: event;
     image: image;
+    mvp_pool: mvp_pool;
     profile: profile;
     profile_on_event: profile_on_event;
     profile_on_profile: profile_on_profile;

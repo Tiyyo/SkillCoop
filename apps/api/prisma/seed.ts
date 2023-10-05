@@ -93,6 +93,8 @@ async function seed() {
     await Profile.create({
       user_id: user.id,
       username: faker.internet.userName().toLowerCase(),
+      first_name: faker.person.firstName(),
+      last_name: faker.person.lastName(),
       avatar_url: avatarUrl,
       date_of_birth: birthdate,
     });

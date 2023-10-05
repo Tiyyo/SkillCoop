@@ -21,7 +21,11 @@ export default {
     // create a status for the added pending
     const { adder_id, friend_id } = req.body;
 
-    const result = await Friendlist.sendRequest(adder_id, friend_id);
+    console.log(adder_id, friend_id);
+
+    await Friendlist.sendRequest(adder_id, friend_id);
+
+    console.log('is Success send request');
 
     res.status(200);
 

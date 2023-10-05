@@ -1,10 +1,10 @@
-import dateHandler from "../../utils/date.handler";
+import dateHandler from '../../utils/date.handler';
 
 interface ScoreProps {
   date: string;
   duration: number;
-  scoreTeamA: number | null;
-  scoreTeamB: number | null;
+  scoreTeamA?: number | null;
+  scoreTeamB?: number | null;
   eventStatus: string;
 }
 
@@ -15,11 +15,15 @@ function Score({
   scoreTeamB,
   eventStatus,
 }: ScoreProps) {
+  const isScoreValid = (score: number | null | undefined) => {
+    return score !== null && score !== undefined;
+  };
+
   const displayScore = (eventStatus: string, score?: number | null) => {
-    if (eventStatus === "completed" && score) {
+    if (eventStatus === 'completed' && isScoreValid(score)) {
       return score;
     }
-    return "";
+    return '';
   };
   return (
     <div className="text-xxs text-center">

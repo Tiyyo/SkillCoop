@@ -3,6 +3,7 @@ import defaultAvatar from '../../../public/images/default-avatar.png';
 import { sendFriendRequestFn } from '../../api/authApi';
 import schema from 'schema';
 import { useFriends } from '../../store/friend.store';
+import toast from '../../utils/toast';
 const { createInvitationSchema } = schema;
 
 interface ProfileCardProps {
@@ -27,9 +28,13 @@ function ProfileCard({
   friendId,
   relation,
 }: ProfileCardProps) {
-  const { mutate: sendInvitation } = useMutation(
-    ['sendFriendRequest'],
-    (data: CreateInvitation) => sendFriendRequestFn(data)
+  const {
+    mutate: sendInvitation,
+    isError,
+    isLoading,
+    isSuccess,
+  } = useMutation(['sendFriendRequest'], (data: CreateInvitation) =>
+    sendFriendRequestFn(data)
   );
   const { removeSearchProfile } = useFriends();
   const handleActionInviation = () => {
@@ -43,7 +48,19 @@ function ProfileCard({
       return;
     }
     sendInvitation(data);
-    removeSearchProfile(username);
+    console.log(
+      'is Error :',
+      isError,
+      'is Loading : ',
+      isLoading,
+      'is Success :',
+      isSuccess
+    );
+    if (isError) {
+      toast.error('There already is a pending request');
+    } else {
+      removeSearchProfile(username);
+    }
   };
 
   if (relation) return null;

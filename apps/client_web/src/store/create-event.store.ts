@@ -97,7 +97,18 @@ export const useCreateEventStore = create<CreateEventStore>()((set) => ({
         ),
       },
     })),
-  clearEventState: () => set((state) => ({ ...state, event: undefined })),
+  clearEventState: () => set((state) => ({
+    ...state, event: {
+      start_date: null,
+      start_time: null,
+      location: null,
+      duration: null,
+      required_participants: null,
+      organizer_id: null,
+      status_name: "open",
+      invited_participants_ids: null,
+    }
+  })),
 }));
 
 export const useCreateEvent = () => {
@@ -122,6 +133,7 @@ export const useCreateEvent = () => {
   const data = useCreateEventStore((state) => state.event);
 
   useEffect(() => {
+    console.log(isSuccess);
     if (isSuccess) {
       toast.success("Event created successfully");
     }

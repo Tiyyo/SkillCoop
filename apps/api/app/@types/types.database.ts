@@ -1,10 +1,15 @@
-
 import type { ColumnType } from "kysely";
 export type Generated<T> = T extends ColumnType<infer S, infer I, infer U>
   ? ColumnType<S, I | undefined, U>
   : ColumnType<T, T | undefined, T>;
 export type Timestamp = ColumnType<Date, Date | string, Date | string>;
 
+export type best_striker = {
+  event_id: number;
+  profile_id: number;
+  created_at: string;
+  updated_at: string | null;
+};
 export type event = {
   id: Generated<number>;
   date: string;
@@ -25,10 +30,19 @@ export type image = {
   created_at: string;
   updated_at: string | null;
 };
+export type mvp = {
+  event_id: number;
+  profile_id: number;
+  created_at: string;
+  updated_at: string | null;
+};
 export type profile = {
   id: Generated<number>;
   user_id: number;
   username: string;
+  first_name: string | null;
+  last_name: string | null;
+  location: string | null;
   date_of_birth: string | null;
   avatar_url: string | null;
   skill_foot_id: number | null;
@@ -37,12 +51,12 @@ export type profile_on_event = {
   id: Generated<number>;
   profile_id: number;
   event_id: number;
+  team: number | null;
   status_name: string;
   created_at: string;
   updated_at: string | null;
 };
 export type profile_on_profile = {
-  id: Generated<number>;
   adder_id: number;
   friend_id: number;
   status_name: string | null;
@@ -73,7 +87,7 @@ export type skill_foot = {
 export type sport = {
   id: Generated<number>;
   name: string;
-  created_at: Generated<string>;
+  created_at: string;
   updated_at: string | null;
 };
 export type status = {
@@ -91,8 +105,10 @@ export type user = {
   updated_at: string | null;
 };
 export type DB = {
+  best_striker: best_striker;
   event: event;
   image: image;
+  mvp: mvp;
   profile: profile;
   profile_on_event: profile_on_event;
   profile_on_profile: profile_on_profile;
@@ -102,5 +118,6 @@ export type DB = {
   status: status;
   user: user;
 };
+
 
 

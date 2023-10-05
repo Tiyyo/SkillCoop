@@ -1,8 +1,9 @@
 import { useMutation } from '@tanstack/react-query';
-import React from 'react';
-import { saveScoreFn } from '../../api/authApi';
+import React, { useState } from 'react';
+import { saveScoreFn, updateEventFn } from '../../api/authApi';
 import schema from 'schema';
 import Button from '../../component/button';
+import { useApp } from '../../store/app.store';
 const { saveScoreSchema } = schema;
 
 interface EventPageScoreProps {
@@ -10,7 +11,7 @@ interface EventPageScoreProps {
   isAdmin: boolean;
   scoreTeam1: number | null;
   scoreTeam2: number | null;
-  eventStatus: string;
+  eventStatus: 'full' | 'open' | 'completed';
 }
 
 function EventPageScore({
@@ -20,9 +21,17 @@ function EventPageScore({
   scoreTeam2,
   eventStatus,
 }: EventPageScoreProps) {
+  const [whichEventStatus, setWhichEventStatus] = useState<
+    'full' | 'open' | 'completed'
+  >(eventStatus);
+  const { userProfile } = useApp();
+  const profileId = userProfile?.profile_id;
   const { mutate: saveScore } = useMutation(
     (data: { event_id: number; score_team_1: number; score_team_2: number }) =>
       saveScoreFn(data)
+  );
+  const { mutate: updateStatusEvent } = useMutation(
+    (data: Record<string, string | number>) => updateEventFn(data)
   );
 
   const handleSubmitScore = (e: React.FormEvent<HTMLFormElement>) => {
@@ -33,8 +42,14 @@ function EventPageScore({
       event_id: eventId,
     };
     const isValid = saveScoreSchema.safeParse(data);
-    if (!isValid.success) return;
+    if (!isValid.success || !profileId) return;
     saveScore(data);
+    updateStatusEvent({
+      event_id: eventId,
+      status_name: 'completed',
+      profile_id: userProfile.profile_id,
+    });
+    setWhichEventStatus('completed');
   };
 
   return (
@@ -69,7 +84,7 @@ function EventPageScore({
           Team B
         </label>
       </div>
-      {eventStatus === 'full' && isAdmin && (
+      {whichEventStatus === 'full' && isAdmin && (
         <Button
           type="submit"
           className="py-1 mt-8 w-20"

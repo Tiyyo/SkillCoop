@@ -87,6 +87,7 @@ function InputDate({
 
   const getDefaultDate = (date?: string) => {
     if (!date) return '';
+    console.log(date);
     const formatDate = new Intl.DateTimeFormat('en-US', {
       month: 'long',
       day: 'numeric',

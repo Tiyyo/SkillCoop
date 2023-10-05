@@ -87,7 +87,6 @@ function FriendCard({
     }
   };
 
-  console.log(dataFromState);
   useEffect(() => {
     if (!dataFromState || !dataFromState.invited_participants_ids) return;
     if (dataFromState.invited_participants_ids.find((id) => id === friendId)) {

@@ -76,6 +76,7 @@ function CreateEvent() {
     ) {
       createEvent(data);
       clearEventState();
+      console.log('event created', eventCreatedState);
     } else {
       setValidationErrors(isValid.error.issues);
     }

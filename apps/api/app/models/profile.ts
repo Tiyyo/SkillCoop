@@ -120,7 +120,7 @@ export class Profile extends Core {
 
   // }
   // TODO define a type for data
-  async create(data) {
+  async create(data: Record<string, any>) {
     const result = await this.client
       .insertInto("profile")
       .values({ ...data })
@@ -130,7 +130,7 @@ export class Profile extends Core {
   }
   // TODO define a type for data
   async update(data) {
-    const { profile_d, ...rest } = data;
+    const { profile_id, ...rest } = data;
 
     const result = await this.client
       .updateTable("profile")

@@ -66,13 +66,7 @@ export default {
 
     if (!event || event.organizer_id !== profile_id) throw new AuthorizationError("Operation not allowed")
 
-    console.log(data);
     const isUpdate = await Event.update(event_id, data)
-
-    // await redisClient.del([`event${event_id}`, 'events'], (err, reply) => {
-    //   if (err) throw new ServerError('Could not delete cache')
-    //   logger.debug(`delete cache ${reply}`)
-    // })
 
     res.status(204).send(isUpdate)
 

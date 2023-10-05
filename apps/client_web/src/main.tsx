@@ -29,6 +29,8 @@ import MyEvents from './feature/event/MyEvents.tsx';
 import EventPage from './feature/event/EventPage.tsx';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ProfileInfos from './feature/profile/Profile.tsx';
+import HomePageUser from './feature/profile/index.tsx';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -109,7 +111,20 @@ const router = createBrowserRouter([
       },
     ],
   },
-
+  {
+    path: '/user',
+    element: (
+      <Protected>
+        <HomePageUser />
+      </Protected>
+    ),
+    children: [
+      {
+        path: 'profile',
+        element: <ProfileInfos />,
+      },
+    ],
+  },
   {
     path: '/login',
     element: (

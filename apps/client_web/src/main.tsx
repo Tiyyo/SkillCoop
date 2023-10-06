@@ -31,6 +31,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ProfileInfos from './feature/profile/Profile.tsx';
 import HomePageUser from './feature/profile/index.tsx';
+import Votes from './feature/event/Votes.tsx';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -86,6 +87,10 @@ const router = createBrowserRouter([
       {
         path: '/event/:id',
         element: <EventPage />,
+      },
+      {
+        path: '/event/:id/votes',
+        element: <Votes />,
       },
     ],
   },

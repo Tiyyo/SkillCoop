@@ -13,48 +13,50 @@ datasource db {
 }
 
 model user {
-  id        Int       @id @default(autoincrement())
-  email     String    @unique
-  password  String
-  verified  Int       @default(0)
-  created_at String
-  updated_at String? 
-  Profile    profile?
+  id          Int       @id @default(autoincrement())
+  email       String    @unique
+  password    String
+  verified    Int       @default(0)
+  created_at  String
+  updated_at  String? 
+  Profile     profile?
 }
 
 model profile {
-  id               Int                  @id @default(autoincrement())
-  user_id          Int                  @unique
-  user             user                 @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  username         String               @unique
-  first_name       String? 
-  last_name        String?
-  location         String?           
-  date_of_birth    String?
-  avatar           image?               @relation(fields: [avatar_url], references: [url], onDelete: Cascade, onUpdate: Cascade)
-  avatar_url       String?
-  organizer            event[]              @relation("organizer")            
-  mvp            event[]                      @relation("mvp")            
-  best_striker            event[]              @relation("best_striker")            
-  adder            profile_on_profile[] @relation("adder")
-  friend           profile_on_profile[] @relation("added")
-  skill_foot       skill_foot?          @relation(fields: [skill_foot_id], references: [id], onDelete: SetNull, onUpdate: Cascade)
-  skill_foot_id    Int?
-  rater_foot       skill_foot[]         @relation("rater_foot")
-  reviewee_foot    skill_foot[]         @relation("reviewee_foot")
-  profile_on_event profile_on_event[]
-  mvp_pool              mvp_pool[]
-  best_striker_pool     best_striker_pool[]
+  id                        Int                  @id @default(autoincrement())
+  user_id                   Int                  @unique
+  user                      user                 @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  username                  String               @unique
+  first_name                String? 
+  last_name                 String?
+  location                  String?           
+  date_of_birth             String?
+  avatar                    image?               @relation(fields: [avatar_url], references: [url], onDelete: Cascade, onUpdate: Cascade)
+  avatar_url                String?
+  organizer                 event[]              @relation("organizer")            
+  mvp                       event[]              @relation("mvp")            
+  best_striker              event[]              @relation("best_striker")            
+  adder                     profile_on_profile[] @relation("adder")
+  friend                    profile_on_profile[] @relation("added")
+  skill_foot                skill_foot?          @relation(fields: [skill_foot_id], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  skill_foot_id             Int?
+  rater_foot                skill_foot[]          @relation("rater_foot")
+  reviewee_foot             skill_foot[]          @relation("reviewee_foot")
+  profile_on_event          profile_on_event[]
+  mvp_pool_ratee            mvp_poll[]            @relation("ratee_mvp")
+  mvp_pool_rater            mvp_poll[]            @relation("rater_mvp")
+  best_striker_pool_ratee   best_striker_poll[]   @relation("ratee_best_striker")
+  best_striker_pool_rater   best_striker_poll[]   @relation("rater_best_striker")
 }
 
 model profile_on_profile {
   // id          Int       @id @default(autoincrement())
-  adder_id    Int
-  adder       profile   @relation("adder", fields: [adder_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  friend_id   Int
-  friend      profile   @relation("added", fields: [friend_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  status      status?   @relation(fields: [status_name], references: [name], onDelete: SetNull, onUpdate: Cascade)
-  status_name String?
+  adder_id     Int
+  adder        profile   @relation("adder", fields: [adder_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  friend_id    Int
+  friend       profile   @relation("added", fields: [friend_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  status       status?   @relation(fields: [status_name], references: [name], onDelete: SetNull, onUpdate: Cascade)
+  status_name  String?
   created_at   String
   updated_at   String?
 
@@ -67,7 +69,7 @@ model event {
   duration              Int
   location              String
   required_participants Int
-  nb_teams              Int                  @default(2)
+  nb_teams              Int                 @default(2)
   organizer_id          Int
   organizer             profile             @relation("organizer", fields: [organizer_id], references: [id], onDelete: NoAction, onUpdate: Cascade)
   status_name           String
@@ -76,12 +78,12 @@ model event {
   updated_at            String?
   profile_on_event      profile_on_event[]
   score                 score[]
-  mvp_id                Int 
-  mvp                   profile           @relation("mvp" , fields: [mvp_id], references: [id], onDelete: NoAction, onUpdate: Cascade)
-  best_striker_id       Int
-  best_striker          profile           @relation("best_striker" ,fields : [best_striker_id], references: [id], onDelete: NoAction, onUpdate: Cascade)
-  mvp_pool              mvp_pool[]
-  best_striker_pool     best_striker_pool[]
+  mvp_id                Int? 
+  mvp                   profile?             @relation("mvp" , fields: [mvp_id], references: [id], onDelete: NoAction, onUpdate: Cascade)
+  best_striker_id       Int?
+  best_striker          profile?             @relation("best_striker" ,fields : [best_striker_id], references: [id], onDelete: NoAction, onUpdate: Cascade)
+  mvp_poll              mvp_poll[]
+  best_striker_poll     best_striker_poll[]
 }
 
 model score {
@@ -89,22 +91,22 @@ model score {
   score_team_1    Int
   score_team_2    Int
   event_id        Int
-  event          event     @relation(fields: [event_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  event           event     @relation(fields: [event_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   created_at      String  
   updated_at      String?
 }
 
 model profile_on_event {
-  id          Int         @id @default(autoincrement())
-  profile_id  Int
-  profile     profile     @relation(fields: [profile_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  event_id    Int
-  event       event       @relation(fields: [event_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  team        Int?
-  status_name String
-  status      status      @relation(fields: [status_name], references: [name], onDelete: NoAction, onUpdate: Cascade)
-  created_at   String
-  updated_at   String?
+  id            Int         @id @default(autoincrement())
+  profile_id    Int
+  profile       profile     @relation(fields: [profile_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  event_id      Int
+  event         event       @relation(fields: [event_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  team          Int?
+  status_name   String
+  status        status      @relation(fields: [status_name], references: [name], onDelete: NoAction, onUpdate: Cascade)
+  created_at    String
+  updated_at    String?
 }
 
 model skill_foot {
@@ -126,9 +128,9 @@ model skill_foot {
 }
 
 model sport {
-  id         Int          @id @default(autoincrement())
-  name       String       @unique
-  skill_foot skill_foot[]
+  id          Int          @id @default(autoincrement())
+  name        String       @unique
+  skill_foot  skill_foot[]
   created_at  String     
   updated_at  String?    
 }
@@ -144,31 +146,37 @@ model status {
 }
 
 model image {
-  id        Int       @id @default(autoincrement())
-  url       String    @unique
-  key       String?   @unique
-  size      Int?
-  created_at String
-  updated_at String?
-  profile   profile[]
+  id          Int       @id @default(autoincrement())
+  url         String    @unique
+  key         String?   @unique
+  size        Int?
+  created_at  String
+  updated_at  String?
+  profile     profile[]
 }
 
-model mvp_pool {
-  event_id  Int
-  event     event     @relation(fields: [event_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  profile_id Int
-  profile   profile   @relation(fields: [profile_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  created_at String
-  updated_at String?
-  @@id([event_id, profile_id])
+model mvp_poll {
+  event_id    Int
+  event       event     @relation(fields: [event_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  profile_id  Int
+  profile     profile   @relation("ratee_mvp",fields: [profile_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  rater_id    Int
+  rater       profile   @relation("rater_mvp",fields: [rater_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  created_at  String
+  updated_at  String?
+  @@id([event_id, rater_id])
+
 }
 
-model best_striker_pool {
-  event_id  Int
-  event     event     @relation(fields: [event_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  profile_id Int
-  profile   profile   @relation(fields: [profile_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  created_at String
-  updated_at String?
-  @@id([event_id, profile_id])
+model best_striker_poll {
+  event_id    Int
+  event       event     @relation(fields: [event_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  profile_id  Int
+  profile     profile   @relation("ratee_best_striker",fields: [profile_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  rater_id    Int
+  rater       profile   @relation("rater_best_striker",fields: [rater_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  created_at  String
+  updated_at  String?
+
+  @@id([event_id, rater_id])
 }

@@ -20,8 +20,6 @@ export default {
   async register(req: Request, res: Response) {
     const { email, password } = req.body
     const newUser = await authService.createUser({ email, password })
-
-
     if (!newUser) throw new ServerError("Couldn't create user")
 
     const emailToken = createAccessToken('1h', { userId: newUser.id })
@@ -65,7 +63,7 @@ export default {
 
     const { email, given_name, family_name, picture } = await google.getUser({ access_token: googleToken, id_token })
 
-    const user = await User.findMany({ email })
+    const [user] = await User.findBy({ email })
 
     let accessToken = null
     let refreshToken = null
@@ -107,7 +105,7 @@ export default {
   },
   async resendEmail(req: Request, res: Response) {
     const { email } = req.body
-    const user = await User.findMany({ email })
+    const [user] = await User.findBy({ email })
 
     if (!user) throw new NotFoundError("Couldn't find user")
 

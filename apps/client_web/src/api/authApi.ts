@@ -9,6 +9,7 @@ import {
   SearchFriendQuery,
   SearchProfileQuery,
   User,
+  Vote,
 } from '../types';
 
 interface EventQuery {
@@ -204,5 +205,15 @@ export const saveScoreFn = async (data: {
   event_id: number,
 }) => {
   const response = await authApi.post(`api/score`, data);
+  return response.data;
+}
+
+export const voteMvpFn = async (data: Vote) => {
+  const response = await authApi.post(`api/mvp`, data);
+  return response.data;
+}
+
+export const voteBestStrikerFn = async (data: Vote) => {
+  const response = await authApi.post(`api/best_striker`, data);
   return response.data;
 }

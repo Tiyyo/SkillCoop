@@ -85,11 +85,6 @@ export default {
 
     const result = await Event.delete(Number(event_id))
 
-    await redisClient.del([`event${event_id}`, 'events'], (err, reply) => {
-      if (err) throw new ServerError('Could not delete cache')
-      logger.debug(`delete cache ${reply}`)
-    })
-
     res.status(204).send(result + 'Succesfully deleted')
 
   },

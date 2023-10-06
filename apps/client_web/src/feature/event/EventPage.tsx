@@ -1,5 +1,5 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { getEventFn, saveScoreFn } from '../../api/authApi';
+import { useQuery } from '@tanstack/react-query';
+import { getEventFn } from '../../api/authApi';
 import { Link, useLocation } from 'react-router-dom';
 import ReturnBtn from '../../component/return';
 import DropdownEventMenu from './DropdownEventMenu';
@@ -10,6 +10,7 @@ import Participant from '../../component/participant';
 import Plus from '../../assets/icon/Plus';
 import TeamComposition from './TeamComposition';
 import EventPageScore from './EventPage.score';
+import EventPageVotesBanner from './EventPage.votes';
 
 function EventPage() {
   const {
@@ -43,6 +44,13 @@ function EventPage() {
           eventId={eventId}
         />
       </div>
+      {event && event.status_name === 'completed' && (
+        <EventPageVotesBanner
+          eventId={eventId}
+          participants={event.participants}
+          profileId={profileId}
+        />
+      )}
       {event && (
         <>
           <EventPageInfos

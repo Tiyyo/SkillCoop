@@ -254,4 +254,65 @@ AND event.date < date('now')
     });
     return { events: parsedResult, eventCount: count.rows[0].total_event };
   }
+  async updateMvp(eventId: number) {
+    const today = new Date()
+    const todayUTC = getDateUTC(today)
+
+    const result = await sql<any>`
+UPDATE event 
+SET mvp_id = (
+    SELECT 
+      profile_id
+    FROM(
+        SELECT MAX(nb_votes) AS max_votes ,
+            profile_id,
+            event_id
+        FROM (
+            SELECT 
+                profile_id,
+                event_id,
+                COUNT(mvp_poll.profile_id) AS nb_votes
+            FROM mvp_poll
+            WHERE mvp_poll.event_id = ${eventId}
+            GROUP BY profile_id 
+            ) 
+        )
+  ) ,
+    updated_at = ${todayUTC}
+WHERE id = ${eventId}
+`.execute(this.client)
+
+    console.log(!!result.numAffectedRows);
+    return !!result.numAffectedRows
+
+  };
+  async updateBestStriker(eventId: number) {
+    const today = new Date()
+    const todayUTC = getDateUTC(today)
+
+    const result = await sql<any>`
+UPDATE event 
+SET best_striker_id = (
+    SELECT 
+      profile_id
+    FROM(
+        SELECT MAX(nb_votes) AS max_votes ,
+            profile_id,
+            event_id
+        FROM (
+            SELECT 
+                profile_id,
+                event_id,
+                COUNT(best_striker_poll.profile_id) AS nb_votes
+            FROM best_striker_poll
+            WHERE best_striker_poll.event_id = ${eventId}
+            GROUP BY profile_id 
+            ) 
+        )
+  ) ,
+    updated_at = ${todayUTC}
+WHERE id = ${eventId}
+`.execute(this.client)
+    return !!result.numAffectedRows
+  }
 }

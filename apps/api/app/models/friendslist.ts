@@ -57,7 +57,7 @@ export class Friendlist extends Core {
   }
   async findFriendByUsernameInUserFriendlist(
     profileId: number,
-    query: string,
+    query: any,
     page: number = 1
   ) {
     const offset = (page - 1) * 10;

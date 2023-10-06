@@ -7,6 +7,8 @@ import skilFootRouter from './api-router/skillFoot.router'
 import statusRouter from './api-router/status.router'
 import userRouter from './api-router/user.router'
 import scoreRouter from './api-router/score.router'
+import mvpRouter from './api-router/mvp.router'
+import bestStrikerRouter from './api-router/bestStriker.router'
 
 
 const router: Router = express.Router();
@@ -19,6 +21,8 @@ router.use('/profile_on_event', profileOnEventRouter)
 router.use('/skill_foot', skilFootRouter)
 router.use('/score', scoreRouter)
 router.use('/status', statusRouter)
+router.use('/mvp', mvpRouter)
+router.use('/best_striker', bestStrikerRouter)
 
 
 

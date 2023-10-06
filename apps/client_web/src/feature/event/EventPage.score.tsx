@@ -11,7 +11,7 @@ interface EventPageScoreProps {
   isAdmin: boolean;
   scoreTeam1: number | null;
   scoreTeam2: number | null;
-  eventStatus: 'full' | 'open' | 'completed';
+  eventStatus: 'full' | 'open' | 'completed' | 'cancelled';
 }
 
 function EventPageScore({
@@ -22,7 +22,7 @@ function EventPageScore({
   eventStatus,
 }: EventPageScoreProps) {
   const [whichEventStatus, setWhichEventStatus] = useState<
-    'full' | 'open' | 'completed'
+    'full' | 'open' | 'completed' | 'cancelled'
   >(eventStatus);
   const { userProfile } = useApp();
   const profileId = userProfile?.profile_id;

@@ -93,3 +93,9 @@ export type Friend = {
   avatar_url: string;
   status_name: InvitationStatus;
 };
+
+export type Vote = {
+  profile_id: number;
+  rater_id: number;
+  event_id: number;
+}

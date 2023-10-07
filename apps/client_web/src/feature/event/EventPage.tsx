@@ -93,7 +93,12 @@ function EventPage() {
         </div>
       )}
       {event && event.status_name !== 'open' && (
-        <TeamComposition participants={event.participants} />
+        <TeamComposition
+          participants={event.participants}
+          organizer={event.organizer_id}
+          mvp={event.mvp_id}
+          bestStriker={event.best_striker_id}
+        />
       )}
       {event && event.status_name !== 'completed' && (
         <Link

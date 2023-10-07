@@ -3,9 +3,17 @@ import { EventParticipant } from '../../types';
 
 interface TeamCompositionProps {
   participants: EventParticipant[] | string;
+  mvp?: number | null;
+  bestStriker?: number | null;
+  organizer?: number;
 }
 
-function TeamComposition({ participants }: TeamCompositionProps) {
+function TeamComposition({
+  participants,
+  mvp,
+  bestStriker,
+  organizer,
+}: TeamCompositionProps) {
   return (
     <div className="bg-base-light mx-2 my-4 rounded-md shadow py-4 px-3">
       <h2 className="text-sm font-semibold flex items-center py-1.5">
@@ -19,6 +27,9 @@ function TeamComposition({ participants }: TeamCompositionProps) {
             .filter((participant) => participant.team === 1)
             .map((participant) => (
               <Participant
+                isAdmin={participant.profile_id === organizer}
+                isMvp={participant.profile_id === mvp}
+                isBestStriker={participant.profile_id === bestStriker}
                 key={participant.profile_id}
                 {...participant}
               />
@@ -33,6 +44,9 @@ function TeamComposition({ participants }: TeamCompositionProps) {
             .map((participant) => (
               <Participant
                 key={participant.profile_id}
+                isAdmin={participant.profile_id === organizer}
+                isMvp={participant.profile_id === mvp}
+                isBestStriker={participant.profile_id === bestStriker}
                 {...participant}
               />
             ))}

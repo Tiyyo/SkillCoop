@@ -217,3 +217,9 @@ export const voteBestStrikerFn = async (data: Vote) => {
   const response = await authApi.post(`api/best_striker`, data);
   return response.data;
 }
+
+export const deleteEventFn = async (data: { eventId: number, profileId: number }) => {
+  const response = await authApi.delete(`api/event/${data.eventId}/${data.profileId}`, { data });
+  return response.data;
+}
+

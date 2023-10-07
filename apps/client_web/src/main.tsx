@@ -32,6 +32,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import ProfileInfos from './feature/profile/Profile.tsx';
 import HomePageUser from './feature/profile/index.tsx';
 import Votes from './feature/event/Votes.tsx';
+import UserResumeSkills from './feature/rating/index.tsx';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -127,6 +128,10 @@ const router = createBrowserRouter([
       {
         path: 'profile',
         element: <ProfileInfos />,
+      },
+      {
+        path: 'skills',
+        element: <UserResumeSkills />,
       },
     ],
   },

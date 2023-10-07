@@ -7,6 +7,7 @@ import { cacheOrGetCacheData } from '../helpers/cache-data';
 import logger from '../helpers/logger';
 import redis from 'ioredis'
 import checkParams from '../utils/check-params';
+import NotFoundError from '../helpers/errors/not-found.error';
 
 const redisClient = new redis()
 
@@ -74,16 +75,15 @@ export default {
   async deleteOne(req: Request, res: Response) {
     // delete one event
     // only the organizer can delete the event
+    const eventId = checkParams(req.params.id)
+    const profileId = checkParams(req.params.profileId)
 
-    const { id: event_id, profileId: profile_id } = req.params
+    const event = await Event.findByPk(eventId)
 
-    const event = await Event.findByPk(Number(event_id))
+    if (event.length === 0) throw new NotFoundError("No event")
+    if (event.organizer_id !== profileId) throw new AuthorizationError("Operation not allowed")
 
-    if (event.length === 0) throw new ServerError("No event")
-
-    if (event[0].organizer_id !== Number(profile_id)) throw new AuthorizationError("Operation not allowed")
-
-    const result = await Event.delete(Number(event_id))
+    const result = await Event.delete(eventId)
 
     res.status(204).send(result + 'Succesfully deleted')
 

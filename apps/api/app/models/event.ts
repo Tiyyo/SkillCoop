@@ -22,6 +22,8 @@ SELECT
   event.nb_teams,
   event.organizer_id,
   event.status_name,
+  event.mvp_id,
+  event.best_striker_id,
   score.score_team_1,
   score.score_team_2, 
   (json_group_array(

@@ -42,10 +42,10 @@ function NavUser({ userAvatar }: { userAvatar?: string | null }) {
               <span>Profile</span>
             </DropdownMenuItem>
           </NavLink>
-          <NavLink to="/user/rating">
+          <NavLink to="/user/skills">
             <DropdownMenuItem className={menuItemStyle}>
               <Trophy size={16} />
-              <span>Rating</span>
+              <span>Skills</span>
             </DropdownMenuItem>
           </NavLink>
           <NavLink to="/user/settings">

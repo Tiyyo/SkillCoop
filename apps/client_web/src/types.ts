@@ -72,6 +72,8 @@ export type EventType = {
   required_participants: number;
   nb_teams: number;
   organizer_id: number;
+  mvp_id?: number | null;
+  best_striker_id?: number | null;
   status_name: EventStatus;
   score_team_1: number | null;
   score_team_2: number | null;

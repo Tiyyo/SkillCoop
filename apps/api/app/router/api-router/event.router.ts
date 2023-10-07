@@ -25,14 +25,19 @@ router
   .post(validate(createEventSchema, canals.body), factory(createOne))
   .patch(validate(updateEventSchema, canals.body), factory(updateOne));
 
-router.route('/user/:id').get(factory(getAllByUser));
+router.route('/user/:id')
+  .get(factory(getAllByUser));
 
-router.route('/organizer').get(factory(getOrganizerEvents));
+router.route('/organizer')
+  .get(factory(getOrganizerEvents));
 
-router.route('/past').get(factory(getPasts))
+router.route('/past')
+  .get(factory(getPasts))
 
-router.route('/details/:eventId/:profileId').get(factory(getOne));
+router.route('/details/:eventId/:profileId')
+  .get(factory(getOne));
 
-router.route('/:id/:profileId').delete(factory(deleteOne));
+router.route('/:id/:profileId')
+  .delete(factory(deleteOne));
 
 export default router;

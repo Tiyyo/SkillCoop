@@ -38,8 +38,6 @@ model profile {
   best_striker              event[]              @relation("best_striker")            
   adder                     profile_on_profile[] @relation("adder")
   friend                    profile_on_profile[] @relation("added")
-  skill_foot                skill_foot?          @relation(fields: [skill_foot_id], references: [id], onDelete: SetNull, onUpdate: Cascade)
-  skill_foot_id             Int?
   rater_foot                skill_foot[]          @relation("rater_foot")
   reviewee_foot             skill_foot[]          @relation("reviewee_foot")
   profile_on_event          profile_on_event[]
@@ -84,6 +82,7 @@ model event {
   best_striker          profile?             @relation("best_striker" ,fields : [best_striker_id], references: [id], onDelete: NoAction, onUpdate: Cascade)
   mvp_poll              mvp_poll[]
   best_striker_poll     best_striker_poll[]
+  skills                skill_foot[]
 }
 
 model score {
@@ -110,7 +109,7 @@ model profile_on_event {
 }
 
 model skill_foot {
-  id          Int       @id @default(autoincrement()) 
+  id          Int       @id @default(autoincrement())
   pace        Int
   shooting    Int
   passing     Int
@@ -118,19 +117,18 @@ model skill_foot {
   defending   Int
   created_at  String
   updated_at  String?
-  sport_id    Int
-  sport       sport     @relation(fields: [sport_id], references: [id])
   rater_id    Int
   rater       profile   @relation("rater_foot", fields: [rater_id], references: [id])
   reviewee_id Int
   reviewee    profile   @relation("reviewee_foot", fields: [reviewee_id], references: [id])
-  profile     profile[]
+  event_id    Int?      
+  event       event?     @relation(fields: [event_id], references: [id])
+
 }
 
 model sport {
   id          Int          @id @default(autoincrement())
   name        String       @unique
-  skill_foot  skill_foot[]
   created_at  String     
   updated_at  String?    
 }

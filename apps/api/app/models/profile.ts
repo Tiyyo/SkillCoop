@@ -178,7 +178,7 @@ export class Profile extends Core {
       .leftJoin("skill_foot", "profile.id", "skill_foot.reviewee_id")
       .select(({ fn }) => [
         "profile.id",
-        fn.count("skill_foot.id").as("nb_review"),
+        fn.count("skill_foot.created_at").as("nb_review"),
         fn.avg("skill_foot.pace").as("avg_pace"),
         fn.avg("skill_foot.shooting").as("avg_shooting"),
         fn.avg("skill_foot.passing").as("avg_passing"),
@@ -188,6 +188,7 @@ export class Profile extends Core {
       .where("profile.user_id", "=", id)
       .groupBy("profile.id")
       .execute();
+
 
     profile[0].gb_rating = computeGbRating({
       avg_pace: profile[0].avg_pace,

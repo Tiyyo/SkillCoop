@@ -4,9 +4,10 @@ export type Generated<T> = T extends ColumnType<infer S, infer I, infer U>
   : ColumnType<T, T | undefined, T>;
 export type Timestamp = ColumnType<Date, Date | string, Date | string>;
 
-export type best_striker = {
+export type best_striker_poll = {
   event_id: number;
   profile_id: number;
+  rater_id: number;
   created_at: string;
   updated_at: string | null;
 };
@@ -21,6 +22,8 @@ export type event = {
   status_name: string;
   created_at: string;
   updated_at: string | null;
+  mvp_id: number | null;
+  best_striker_id: number | null;
 };
 export type image = {
   id: Generated<number>;
@@ -30,9 +33,10 @@ export type image = {
   created_at: string;
   updated_at: string | null;
 };
-export type mvp = {
+export type mvp_poll = {
   event_id: number;
   profile_id: number;
+  rater_id: number;
   created_at: string;
   updated_at: string | null;
 };
@@ -45,7 +49,6 @@ export type profile = {
   location: string | null;
   date_of_birth: string | null;
   avatar_url: string | null;
-  skill_foot_id: number | null;
 };
 export type profile_on_event = {
   id: Generated<number>;
@@ -72,7 +75,6 @@ export type score = {
   updated_at: string | null;
 };
 export type skill_foot = {
-  id: Generated<number>;
   pace: number;
   shooting: number;
   passing: number;
@@ -80,9 +82,9 @@ export type skill_foot = {
   defending: number;
   created_at: string;
   updated_at: string | null;
-  sport_id: number;
   rater_id: number;
   reviewee_id: number;
+  event_id: Generated<number>;
 };
 export type sport = {
   id: Generated<number>;
@@ -105,10 +107,10 @@ export type user = {
   updated_at: string | null;
 };
 export type DB = {
-  best_striker: best_striker;
+  best_striker_poll: best_striker_poll;
   event: event;
   image: image;
-  mvp: mvp;
+  mvp_poll: mvp_poll;
   profile: profile;
   profile_on_event: profile_on_event;
   profile_on_profile: profile_on_profile;
@@ -117,7 +119,7 @@ export type DB = {
   sport: sport;
   status: status;
   user: user;
-};
+}
 
 
 

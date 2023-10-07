@@ -11,6 +11,7 @@ import updateParticipantSchema from './participant/updateParticipantSchema';
 import updateEventSchema from './event/updateEventSchema';
 import saveScoreSchema from './score/saveScoreSchema'
 import voteSchema from './vote/voteSchema';
+import ownSkillSchema from './skills/ownSkillSchema';
 
 export type { AnyZodObject, ZodError }
 export default {
@@ -25,5 +26,6 @@ export default {
   inviteParticipantSchema,
   updateParticipantSchema,
   voteSchema,
-  saveScoreSchema
+  saveScoreSchema,
+  ownSkillSchema
 }

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {
   CreateEventData,
+  EvaluationOwnSkill,
   EventType,
   Friend,
   InvitationStatus,
@@ -220,6 +221,11 @@ export const voteBestStrikerFn = async (data: Vote) => {
 
 export const deleteEventFn = async (data: { eventId: number, profileId: number }) => {
   const response = await authApi.delete(`api/event/${data.eventId}/${data.profileId}`, { data });
+  return response.data;
+}
+
+export const evaluateOwnSkillsFn = async (data: EvaluationOwnSkill) => {
+  const response = await authApi.post(`api/skill_foot`, data);
   return response.data;
 }
 

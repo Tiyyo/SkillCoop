@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import capitalize from '../../utils/capitalize';
 import { cn } from '../../lib/utils';
 
@@ -18,19 +18,18 @@ function FieldsetRadioInput({ name, options }: FieldsetRadioInputProps) {
     <fieldset
       className="flex flex-col items-center justify-center"
       name={name}
-      id={name}
       onChange={handleChangeFieldset}>
       <legend className="mt-3 py-1 px-4 self-start font-semibold text-primary-1100">
         {capitalize(name)}
       </legend>
-      <div className="flex text-sm [&>*:nth-child(1)]:rounded-l-lg [&>*:nth-child(4)]:rounded-r-lg">
+      <div className="flex text-xxs">
         {options.length > 0 &&
           options.map((option) => (
             <label
               key={`${name}_${option}`}
               htmlFor={`${name}_${option}`}
               className={cn(
-                'px-4 py-2 border border-primary-500 bg-base-light',
+                'px-3 py-1.5 border border-primary-500 bg-base-light first-of-type:rounded-l-lg last-of-type:rounded-r-lg',
                 `${name}_${option}` === currentIDActive &&
                   'bg-primary-500 text-white'
               )}>

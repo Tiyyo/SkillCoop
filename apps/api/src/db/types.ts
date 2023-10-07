@@ -49,7 +49,6 @@ export type profile = {
     location: string | null;
     date_of_birth: string | null;
     avatar_url: string | null;
-    skill_foot_id: number | null;
 };
 export type profile_on_event = {
     id: Generated<number>;
@@ -84,9 +83,9 @@ export type skill_foot = {
     defending: number;
     created_at: string;
     updated_at: string | null;
-    sport_id: number;
     rater_id: number;
     reviewee_id: number;
+    event_id: number | null;
 };
 export type sport = {
     id: Generated<number>;

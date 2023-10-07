@@ -1,5 +1,4 @@
-import { LevelScale } from "../@types/types"
-
+import { LevelScale } from "../types"
 
 const associateStringToNumber = (level: LevelScale) => {
 

@@ -11,7 +11,7 @@ export default {
     // and return the skill with average rating
   },
   async createOne(req: Request, res: Response) {
-    const { pace, shooting, passing, dribbling, defending, sport_id, rater_id, reviewee_id } = req.body
+    const { pace, shooting, passing, dribbling, defending, sport_id, profile_id } = req.body
 
     const data = {
       pace: associateStringToNumber(pace),
@@ -19,21 +19,21 @@ export default {
       passing: associateStringToNumber(passing),
       dribbling: associateStringToNumber(dribbling),
       defending: associateStringToNumber(defending),
-      sport_id: sport_id,
-      rater_id: rater_id,
-      reviewee_id: reviewee_id
+      rater_id: profile_id,
+      reviewee_id: profile_id
     }
 
     const isAlereadyExist = await SkillFoot.findUniqueWithTwoClause({
-      rater_id,
-      reviewee_id
+      rater_id: profile_id,
+      reviewee_id: profile_id
     })
 
-    if (isAlereadyExist.length > 0) throw new UserInputError('Profile already rate')
+    if (isAlereadyExist.length > 0) throw new UserInputError('User can\'t rate himself twice')
 
     const skill = SkillFoot.create(data)
 
-    res.status(201).send(!!skill)
+    res.status(201)
+      .send(!!skill)
 
   },
   async getOne(req: Request, res: Response) {

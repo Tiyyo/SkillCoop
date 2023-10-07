@@ -37,7 +37,7 @@ function FieldsetRadioInput({ name, options }: FieldsetRadioInputProps) {
               {capitalize(option)}
               <input
                 type="radio"
-                name="defending"
+                name={name}
                 id={`${name}_${option}`}
                 value={option}
                 hidden

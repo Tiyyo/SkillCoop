@@ -10,21 +10,9 @@ import { EvaluationOwnSkill } from '../../types';
 import { useEffect, useState } from 'react';
 import RadarChart from '../../component/radar-chart';
 import associateStringToNumber from '../../utils/associate-string-number';
+import associateNumberToString from '../../utils/associate-number-stringscale';
+import capitalize from '../../utils/capitalize';
 const { ownSkillSchema } = schema;
-
-export const data = {
-  labels: ['defending', 'dribbling', 'passing', 'shooting', 'pace'],
-  datasets: [
-    {
-      data: [70, 45, 65, 85, 98],
-      backgroundColor: 'hsla(120, 98.7%, 31.5%, 0.126)',
-      borderColor: 'hsla(120, 98.7%, 31.5%, 0.350)',
-      borderWidth: 2,
-      clip: 10,
-      label: 'Distribution of skills',
-    },
-  ],
-};
 
 function UserResumeSkills() {
   const { userProfile } = useApp();
@@ -116,7 +104,26 @@ function UserResumeSkills() {
           </form>
         </>
       )}
-      {hasSkills && <RadarChart skills={skillValues} />}
+      {hasSkills && (
+        <>
+          <p>
+            You have participed to <span>0</span>
+          </p>
+          <p>
+            You received <span>1</span> rating or bonus
+          </p>
+
+          <p>
+            Here is your average skills:
+            <span>
+              {capitalize(
+                associateNumberToString(userProfile?.gb_rating as number)
+              )}
+            </span>
+          </p>
+          <RadarChart skills={skillValues} />
+        </>
+      )}
     </div>
   );
 }

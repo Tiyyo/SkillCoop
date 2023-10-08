@@ -49,6 +49,11 @@ function RadarChart({ skills }: RadarChartProps) {
             max: 100,
           },
         },
+        plugins: {
+          legend: {
+            display: false,
+          },
+        },
       }}
     />
   );

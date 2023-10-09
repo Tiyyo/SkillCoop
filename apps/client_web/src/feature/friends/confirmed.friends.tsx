@@ -47,6 +47,7 @@ function ConfirmedFriends() {
         loading={loading}
         friends={confirmedFriends}
         error={isError}
+        activeLinkProfile
       />
     </>
   );

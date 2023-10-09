@@ -41,7 +41,7 @@ function FriendCard({
   friendId,
   status,
   activeSelected,
-  activeLinkProfile = true,
+  activeLinkProfile = false,
   dataFromState,
   addFriendToState,
   removeFriendFromState,

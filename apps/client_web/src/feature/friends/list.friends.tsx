@@ -15,7 +15,7 @@ function Friendlist({
   loading,
   error,
   stringKey,
-  activeLinkProfile = true,
+  activeLinkProfile = false,
 }: FriendlistProps) {
   const NB_SKELETON = 14;
 

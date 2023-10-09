@@ -2,6 +2,7 @@ import axios from 'axios';
 import {
   CreateEventData,
   EvaluationOwnSkill,
+  EvaluationParticipantSkill,
   EventType,
   Friend,
   InvitationStatus,
@@ -147,6 +148,11 @@ export const getPendingFriendsFn = async (
   return response.data;
 };
 
+export const getProfileFn = async (profileId: number): Promise<Profile> => {
+  const response = await authApi.get(`api/profile/${profileId}`);
+  return response.data;
+}
+
 export const searchFriendsFn = async (
   data: SearchFriendQuery,
   signal?: AbortSignal
@@ -229,3 +235,16 @@ export const evaluateOwnSkillsFn = async (data: EvaluationOwnSkill) => {
   return response.data;
 }
 
+export const evaluateParticipantSkillsFn = async (data: EvaluationParticipantSkill) => {
+  const response = await authApi.post(`api/skill_foot/event`, data);
+  return response.data;
+}
+
+export const getAverageSkillFn = async (data: {
+  rater_id: number,
+  reviewee_id: number,
+  event_id: number
+}) => {
+  const response = await authApi.get(`api/skill_foot/event`, { params: data });
+  return response.data;
+}

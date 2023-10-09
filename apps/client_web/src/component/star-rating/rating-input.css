@@ -1,0 +1,15 @@
+.rating input:checked ~ label {
+  color: hsla(132, 99.9%, 24%, 0.761);
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  transform: scale(1.2);
+}
+.rating label:hover {
+  color: hsla(132, 99.9%, 24%, 0.761);
+  transition: all 0.3s cubic-bezier(0.39, 0.575, 0.565, 1);
+  transform: scale(1.2);
+}
+.rating label:hover ~ label {
+  color: hsla(132, 99.9%, 24%, 0.761);
+  transition: color 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  transform: scale(1);
+}

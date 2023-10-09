@@ -33,6 +33,7 @@ import ProfileInfos from './feature/profile/Profile.tsx';
 import HomePageUser from './feature/profile/index.tsx';
 import Votes from './feature/event/Votes.tsx';
 import UserResumeSkills from './feature/rating/index.tsx';
+import FriendProfile from './feature/friend-profile-page/index.tsx';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -114,6 +115,10 @@ const router = createBrowserRouter([
       {
         path: 'add',
         element: <AddFriends />,
+      },
+      {
+        path: 'profile/:id',
+        element: <FriendProfile />,
       },
     ],
   },

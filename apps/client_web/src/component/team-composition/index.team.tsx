@@ -30,6 +30,7 @@ function Team({
                 key={participant.profile_id}
                 name={nameInput}
                 activeId={currentIdActive}
+                profileId={participant.profile_id}
                 {...participant}
               />
             ))}

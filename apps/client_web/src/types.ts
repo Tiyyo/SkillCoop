@@ -113,3 +113,14 @@ export type EvaluationOwnSkill = {
   shooting: ScaleLevel;
   profile_id: number;
 }
+
+export type EvaluationParticipantSkill = {
+  defending: number;
+  dribbling: number;
+  pace: number;
+  passing: number;
+  shooting: number;
+  event_id: number;
+  rater_id: number;
+  reviewee_id: number;
+}

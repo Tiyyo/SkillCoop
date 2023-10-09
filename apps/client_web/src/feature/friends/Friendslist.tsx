@@ -7,9 +7,16 @@ interface FriendlistProps {
   loading: boolean;
   error: boolean;
   stringKey?: string;
+  activeLinkProfile?: boolean;
 }
 
-function Friendlist({ friends, loading, error, stringKey }: FriendlistProps) {
+function Friendlist({
+  friends,
+  loading,
+  error,
+  stringKey,
+  activeLinkProfile = true,
+}: FriendlistProps) {
   const NB_SKELETON = 14;
 
   //  TODO : handle error
@@ -41,6 +48,7 @@ function Friendlist({ friends, loading, error, stringKey }: FriendlistProps) {
               adderId={friend.adder_id}
               friendId={friend.friend_id}
               status={friend.status_name}
+              activeLinkProfile={activeLinkProfile}
             />
           ))}
         </div>

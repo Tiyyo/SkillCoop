@@ -14,6 +14,8 @@ function TeamComposition({
   bestStriker,
   organizer,
 }: TeamCompositionProps) {
+  // this is a different team comp and need to be refactored with the new one
+
   return (
     <div className="bg-base-light mx-2 my-4 rounded-md shadow py-4 px-3">
       <h2 className="text-sm font-semibold flex items-center py-1.5">
@@ -27,6 +29,7 @@ function TeamComposition({
             .filter((participant) => participant.team === 1)
             .map((participant) => (
               <Participant
+                profileId={participant.profile_id}
                 isAdmin={participant.profile_id === organizer}
                 isMvp={participant.profile_id === mvp}
                 isBestStriker={participant.profile_id === bestStriker}
@@ -43,6 +46,7 @@ function TeamComposition({
             .filter((participant) => participant.team === 2)
             .map((participant) => (
               <Participant
+                profileId={participant.profile_id}
                 key={participant.profile_id}
                 isAdmin={participant.profile_id === organizer}
                 isMvp={participant.profile_id === mvp}

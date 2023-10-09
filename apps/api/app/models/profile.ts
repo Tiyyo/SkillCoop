@@ -52,7 +52,7 @@ export class Profile extends Core {
   }
   async findOne(id: number) {
     const profile = await this.client
-      .selectFom("profile")
+      .selectFrom("profile")
       .select([
         "profile.user_id",
         "profile.avatar_url",
@@ -74,6 +74,30 @@ export class Profile extends Core {
       .groupBy("profile.id")
       .execute();
 
+    const nbAttendedEvents = await this.client
+      .selectFrom("profile_on_event")
+      .select(({ fn }) => [
+        fn.count("profile_on_event.id").as("nb_attended_events"),
+      ])
+      .innerJoin("event", "event.id", "profile_on_event.event_id")
+      .where("profile_on_event.profile_id", "=", id)
+      .where("event.status_name", "=", "completed")
+      .execute();
+
+    const nbBonus = await this.client
+      .selectFrom("event")
+      .select(({ fn }) => [(
+        fn.count("event.mvp_id").as("nb_mvp_bonus")
+      )])
+      .select(({ fn }) => [(
+        fn.count("event.best_striker_id").as("nb_best_striker_bonus")
+      )])
+      .where((eb) =>
+        eb('event.mvp_id', '=', id).or('event.best_striker_id', '=', id)
+      )
+      .execute();
+
+
     profile[0].gb_rating = computeGbRating({
       avg_pace: profile[0].avg_pace,
       avg_shooting: profile[0].avg_shooting,
@@ -82,6 +106,8 @@ export class Profile extends Core {
       avg_defending: profile[0].avg_defending,
     }) || null;
 
+    profile[0].nb_attended_events = nbAttendedEvents[0].nb_attended_events;
+    profile[0].nb_bonus = nbBonus[0];
     return profile[0];
   }
   // async findOne(id: number) {
@@ -189,6 +215,28 @@ export class Profile extends Core {
       .groupBy("profile.id")
       .execute();
 
+    const nbAttendedEvents = await this.client
+      .selectFrom("profile_on_event")
+      .select(({ fn }) => [
+        fn.count("profile_on_event.id").as("nb_attended_events"),
+      ])
+      .innerJoin("event", "event.id", "profile_on_event.event_id")
+      .where("profile_on_event.profile_id", "=", id)
+      .where("event.status_name", "=", "completed")
+      .execute();
+
+    const nbBonus = await this.client
+      .selectFrom("event")
+      .select(({ fn }) => [(
+        fn.count("event.mvp_id").as("nb_mvp_bonus")
+      )])
+      .select(({ fn }) => [(
+        fn.count("event.best_striker_id").as("nb_best_striker_bonus")
+      )])
+      .where((eb) =>
+        eb('event.mvp_id', '=', id).or('event.best_striker_id', '=', id)
+      )
+      .execute();
 
     profile[0].gb_rating = computeGbRating({
       avg_pace: profile[0].avg_pace,
@@ -198,6 +246,8 @@ export class Profile extends Core {
       avg_defending: profile[0].avg_defending,
     });
 
+    profile[0].nb_attended_events = nbAttendedEvents[0].nb_attended_events;
+    profile[0].nb_bonus = nbBonus[0];
     return profile[0];
   }
 

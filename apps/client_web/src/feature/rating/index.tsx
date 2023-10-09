@@ -70,6 +70,11 @@ function UserResumeSkills() {
     setSkillValues(userSkills);
   }, []);
 
+  const nbGratification =
+    userProfile?.nb_review +
+    userProfile?.nb_bonus.nb_mvp_bonus +
+    userProfile?.nb_bonus.nb_best_striker_bonus;
+
   return (
     <div>
       <ReturnBtn />
@@ -106,22 +111,35 @@ function UserResumeSkills() {
       )}
       {hasSkills && (
         <>
-          <p>
-            You have participed to <span>0</span>
-          </p>
-          <p>
-            You received <span>1</span> rating or bonus
-          </p>
+          <div className="text-xs text-light px-4">
+            <p>
+              You have participed to{' '}
+              <span className="font-semibold">
+                {userProfile?.nb_attended_events ?? 0}
+              </span>{' '}
+              event(s)
+            </p>
+            <p>
+              You received{' '}
+              <span className="font-semibold">{nbGratification ?? 0} </span>{' '}
+              rating or bonus
+            </p>
 
-          <p>
-            Here is your average skills:
-            <span>
-              {capitalize(
-                associateNumberToString(userProfile?.gb_rating as number)
-              )}
-            </span>
-          </p>
-          <RadarChart skills={skillValues} />
+            <p>
+              Here is your average skills:{' '}
+              <span className="font-semibold">
+                {capitalize(
+                  associateNumberToString(userProfile?.gb_rating as number)
+                )}
+              </span>
+            </p>
+          </div>
+          <RadarChart
+            skills={skillValues}
+            min={0}
+            max={100}
+            displayTicks
+          />
         </>
       )}
     </div>

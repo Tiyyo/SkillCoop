@@ -5,45 +5,55 @@ import { cn } from '../../lib/utils';
 import star from '../../assets/svg/star.svg';
 import soccerBall from '../../assets/svg/soccer-ball.svg';
 import capitalize from '../../utils/capitalize';
+import { Dialog, DialogContent, DialogTrigger } from '../../lib/ui/dialog';
+import ModalRatingParticipant from '../modal-rating-participant';
+import { useApp } from '../../store/app.store';
+import { useLocation } from 'react-router-dom';
 
 interface ParticipantProps {
   avatar: string;
   username: string;
   status: InvitationStatus;
-  profile_id: number;
+  profileId: number;
   activeId?: string;
   name?: string;
   isAdmin?: boolean;
   isMvp?: boolean;
   isBestStriker?: boolean;
+  isRatingActive?: boolean;
 }
 
 function Participant({
   avatar,
   username,
   status,
-  profile_id,
+  profileId,
   activeId,
   name,
   isAdmin,
   isMvp,
   isBestStriker,
+  isRatingActive = true,
 }: ParticipantProps) {
   const [isChecked, setIsChecked] = useState<boolean>(
-    activeId === name + profile_id.toString()
+    activeId === name + profileId.toString()
   );
+  const { userProfile } = useApp();
+  const location = useLocation();
+  const eventId = location.state.eventId;
+  const userConnecteProfileId = userProfile?.profile_id;
 
   useEffect(() => {
-    setIsChecked(activeId === name + profile_id.toString());
+    setIsChecked(activeId === name + profileId.toString());
   }, [activeId]);
 
   return (
     <>
-      <label htmlFor={name + profile_id.toString()}>
+      <label htmlFor={name + profileId.toString()}>
         <input
           type="radio"
-          id={name + profile_id.toString()}
-          value={profile_id}
+          id={name + profileId.toString()}
+          value={profileId}
           name={name}
           hidden
         />
@@ -73,11 +83,26 @@ function Participant({
                 )}
               </span>
             </p>
-            <img
-              src={avatar ? avatar : '/images/default-avatar.png'}
-              alt="avatar"
-              className="w-8 h-8 rounded-full"
-            />
+            <Dialog>
+              <DialogTrigger disabled={userConnecteProfileId === profileId}>
+                <img
+                  src={avatar ? avatar : '/images/default-avatar.png'}
+                  alt="avatar"
+                  className={cn(
+                    'w-8 h-8 rounded-full',
+                    isRatingActive && 'cursor-pointer'
+                  )}
+                />
+              </DialogTrigger>
+              <DialogContent className="bg-base-light">
+                <ModalRatingParticipant
+                  eventId={eventId}
+                  participantProfileId={profileId}
+                  participantUsername={username}
+                  participantAvatar={avatar}
+                />
+              </DialogContent>
+            </Dialog>
             <Status status={status} />
           </div>
         )}

@@ -7,6 +7,7 @@ import Check from '../../assets/icon/Check';
 import schema from 'schema';
 import { useFriends } from '../../store/friend.store';
 import { EventType, invitationStatus } from '../../types';
+import { Link } from 'react-router-dom';
 const { updateFriendshipSchema } = schema;
 
 type EventTypeState = EventType & {
@@ -23,6 +24,7 @@ interface FriendCardProps {
   addFriendToState?: (friendId: any) => void;
   removeFriendFromState?: (friendId: any) => void;
   activeSelected?: boolean;
+  activeLinkProfile?: boolean;
   createdAt?: string;
 }
 
@@ -39,6 +41,7 @@ function FriendCard({
   friendId,
   status,
   activeSelected,
+  activeLinkProfile = true,
   dataFromState,
   addFriendToState,
   removeFriendFromState,
@@ -96,41 +99,43 @@ function FriendCard({
 
   if (status === 'declined') return null;
   return (
-    <div
-      className={`flex py-2 px-3 gap-3 max-h-16 cursor-pointer rounded-md border-2 border-transparent ${
-        isSelected
-          ? ' border-opacity-50 border-primary-400 bg-primary-500 shadow-2xl'
-          : 'bg-base-light'
-      }}`}
-      onClick={handleClickSelectFriend}>
-      <img
-        src={avatar ?? defaultAvatar}
-        alt="avatar"
-        className="w-10 h-10 rounded-full"
-      />
-      <div className="flex flex-col gap-2">
-        <p className="text-xs">{username}</p>
-        <div className="flex items-center gap-x-3">
-          <p className="text-xxs text-light">Level</p>
-          {status === 'pending' ? (
-            <div className="flex items-center gap-1.5">
-              <button
-                value="declined"
-                className="text-error"
-                onClick={handleActionOnInviation}>
-                <OctogoneCross />
-              </button>
-              <button
-                value="confirmed"
-                className="text-primary-900"
-                onClick={handleActionOnInviation}>
-                <Check />
-              </button>
-            </div>
-          ) : null}
+    <Link to={activeLinkProfile ? `/contact/profile/${friendId}` : ''}>
+      <div
+        className={`flex py-2 px-3 gap-3 max-h-16 cursor-pointer rounded-md border-2 border-transparent ${
+          isSelected
+            ? ' border-opacity-50 border-primary-400 bg-primary-500 shadow-2xl'
+            : 'bg-base-light'
+        }}`}
+        onClick={handleClickSelectFriend}>
+        <img
+          src={avatar ?? defaultAvatar}
+          alt="avatar"
+          className="w-10 h-10 rounded-full"
+        />
+        <div className="flex flex-col gap-2">
+          <p className="text-xs">{username}</p>
+          <div className="flex items-center gap-x-3">
+            <p className="text-xxs text-light">Level</p>
+            {status === 'pending' ? (
+              <div className="flex items-center gap-1.5">
+                <button
+                  value="declined"
+                  className="text-error"
+                  onClick={handleActionOnInviation}>
+                  <OctogoneCross />
+                </button>
+                <button
+                  value="confirmed"
+                  className="text-primary-900"
+                  onClick={handleActionOnInviation}>
+                  <Check />
+                </button>
+              </div>
+            ) : null}
+          </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 

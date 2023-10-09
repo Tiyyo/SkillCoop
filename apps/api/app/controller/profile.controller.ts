@@ -9,6 +9,7 @@ import {
 import { cacheOrGetCacheData } from "../helpers/cache-data";
 import { Redis } from "ioredis";
 import ServerError from "../helpers/errors/server.error";
+import checkParams from "../utils/check-params";
 
 const redisClient = new Redis();
 
@@ -25,8 +26,8 @@ export default {
     return res.json(profiles);
   },
   async getOne(req: Request, res: Response) {
-    const { id } = req.params;
-    const profile = await Profile.findOne(Number(id));
+    const profileId = checkParams(req.params.id);
+    const profile = await Profile.findOne(profileId);
 
     return res.json(profile);
   },

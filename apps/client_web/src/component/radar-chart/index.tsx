@@ -20,9 +20,12 @@ ChartJS.register(
 
 type RadarChartProps = {
   skills: Record<string, number>;
+  min: number;
+  max: number;
+  displayTicks?: boolean;
 };
 
-function RadarChart({ skills }: RadarChartProps) {
+function RadarChart({ skills, min, max, displayTicks }: RadarChartProps) {
   const labels = Object.keys(skills);
   const dataSkills = Object.values(skills);
   const data = {
@@ -45,8 +48,11 @@ function RadarChart({ skills }: RadarChartProps) {
       options={{
         scales: {
           r: {
-            min: 0,
-            max: 100,
+            min,
+            max,
+            ticks: {
+              display: displayTicks ?? true,
+            },
           },
         },
         plugins: {

@@ -43,6 +43,7 @@ function PendingFriends() {
         friends={pendingFriends}
         error={isError}
         stringKey="adder_id"
+        activeLinkProfile={false}
       />
     </>
   );

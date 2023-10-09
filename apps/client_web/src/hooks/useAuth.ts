@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useStateContext } from "../context/app.context"
-import { getMeFn } from "../api/authApi";
+import { getMeFn } from "../api/api.fn";
 import { useEffect } from "react";
 
 function useAuth() {

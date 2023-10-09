@@ -1,4 +1,4 @@
-import { db } from '../helpers/database'
+import { db } from '../helpers/client.db'
 
 import { User } from './user'
 import { Event } from './event'

@@ -8,7 +8,7 @@ import {
 } from '../../lib/ui/dropdown';
 import { User, Trophy, Settings, LogOut } from 'lucide-react';
 import { useMutation } from '@tanstack/react-query';
-import { logoutUserFn } from '../../api/authApi';
+import { logoutUserFn } from '../../api/api.fn';
 import { useApp } from '../../store/app.store';
 
 function NavUser({ userAvatar }: { userAvatar?: string | null }) {

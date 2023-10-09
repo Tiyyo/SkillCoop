@@ -1,4 +1,4 @@
-import { db } from '../helpers/database'
+import { db } from '../helpers/client.db'
 import { profile as Profile } from '../models/index'
 
 

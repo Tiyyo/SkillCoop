@@ -1,11 +1,11 @@
 import express, { Router } from 'express';
-import factory from '../middleware/factory.controller';
+import factory from '../middleware/wrapper-controller';
 import authController from '../controller/auth.controller';
 import validate from '../middleware/schema-validator';
 // import registerSchema from '../schemas/user/register';
 // import loginSchema from '../schemas/user/login';
 import { canals } from '../@types/types';
-import validateToken from '../middleware/validate.token';
+import validateToken from '../middleware/validate-token';
 import schema from 'schema'
 import validateEmaiToken from '../middleware/validate-email-token';
 

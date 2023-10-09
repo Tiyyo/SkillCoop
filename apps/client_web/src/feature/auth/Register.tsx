@@ -1,14 +1,14 @@
 import { useMutation } from '@tanstack/react-query';
-import { signUpUserFn } from '../../api/authApi';
+import { signUpUserFn } from '../../api/api.fn';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import schemas from 'schema';
-import Page from '../../layout/Page';
-import Center from '../../layout/Center';
+import Page from '../../layout/page';
+import Center from '../../layout/center';
 import SocialButton from '../../component/social-link';
 import Google from '../../assets/icon/Google';
-import getGoogleUrl from '../../utils/getGoogleUrl';
+import getGoogleUrl from '../../utils/get-google-url';
 import SeparatorLine from '../../component/seperator-line';
 import FormField from '../../component/form-field';
 import Atsign from '../../assets/icon/Atsign';

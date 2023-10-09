@@ -1,5 +1,5 @@
 import express, { Router } from 'express';
-import factory from '../../middleware/factory.controller';
+import factory from '../../middleware/wrapper-controller';
 import statusController from '../../controller/status.controller';
 
 const { getAll, getOne, createOne, updateOne, deleteOne } = statusController;

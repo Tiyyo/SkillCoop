@@ -3,7 +3,7 @@ import {
   getFriendsFn,
   searchFriendsFn,
   sendEventInvitationFn,
-} from '../../api/authApi';
+} from '../../api/api.fn';
 import SearchInput from '../search-input';
 import { useEffect, useState } from 'react';
 import { useApp } from '../../store/app.store';

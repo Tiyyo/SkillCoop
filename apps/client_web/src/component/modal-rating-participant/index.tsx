@@ -8,7 +8,7 @@ import { EvaluationParticipantSkill } from '../../types';
 import {
   evaluateParticipantSkillsFn,
   getAverageSkillFn,
-} from '../../api/authApi';
+} from '../../api/api.fn';
 import { useApp } from '../../store/app.store';
 import schema from 'schema';
 import { useEffect, useState } from 'react';

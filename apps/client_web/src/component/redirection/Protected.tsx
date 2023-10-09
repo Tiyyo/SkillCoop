@@ -1,4 +1,4 @@
-import HomePage from '../../feature/home-page/HomePage';
+import HomePage from '../../feature/home-page/home.page';
 import { useApp } from '../../store/app.store';
 import LoadingPage from '../loading-page';
 

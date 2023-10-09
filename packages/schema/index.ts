@@ -2,17 +2,17 @@ import { ZodError, AnyZodObject } from 'zod';
 import registerSchema from './authentification/register';
 import loginSchema from './authentification/login';
 import sendVerifEmailSchema from './authentification/email';
-import createEventSchema from './event/createEventSchema';
-import searchFriendsSchema from './friends/searchSchema';
-import createInvitationSchema from './friends/createInvitationSchema';
-import updateFriendshipSchema from './friends/updateFriendshipSchema';
-import inviteParticipantSchema from './participant/inviteParticipantSchema';
-import updateParticipantSchema from './participant/updateParticipantSchema';
-import updateEventSchema from './event/updateEventSchema';
-import saveScoreSchema from './score/saveScoreSchema'
-import voteSchema from './vote/voteSchema';
-import ownSkillSchema from './skills/ownSkillSchema';
-import participantSkillSchema from './skills/participantSkillSchema';
+import createEventSchema from './event/create-event.schema';
+import searchFriendsSchema from './friends/search.schema';
+import createInvitationSchema from './friends/create-invitation.schema';
+import updateFriendshipSchema from './friends/update-friend-relation.schema';
+import inviteParticipantSchema from './participant/invite-participant.schema';
+import updateParticipantSchema from './participant/update-participant.schema';
+import updateEventSchema from './event/update-event.schema';
+import saveScoreSchema from './score/save-score.schema'
+import voteSchema from './vote/vote.schema';
+import ownSkillSchema from './skills/own-skill.schema';
+import participantSkillSchema from './skills/participant-skill.schema';
 
 export type { AnyZodObject, ZodError }
 export default {

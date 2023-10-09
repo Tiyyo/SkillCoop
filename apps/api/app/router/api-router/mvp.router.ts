@@ -1,5 +1,5 @@
 import express, { Router } from 'express';
-import factory from '../../middleware/factory.controller';
+import factory from '../../middleware/wrapper-controller';
 import mvpController from '../../controller/mvp.controller';
 import validate from '../../middleware/schema-validator';
 import { canals } from '../../@types/types';

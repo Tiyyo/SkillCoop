@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { create } from "zustand";
-import { createEventFn } from "../api/authApi";
+import { createEventFn } from "../api/api.fn";
 import { CreateEventData } from "../types";
 import { useEffect } from "react";
 import toast from "../utils/toast";

@@ -1,12 +1,12 @@
-import Page from '../../layout/Page'
-import Spinner from '../loading'
+import Page from '../../layout/page';
+import Spinner from '../loading';
 
 function LoadingPage() {
   return (
     <Page>
-      <Spinner/>
+      <Spinner />
     </Page>
-  )
+  );
 }
 
-export default LoadingPage
+export default LoadingPage;

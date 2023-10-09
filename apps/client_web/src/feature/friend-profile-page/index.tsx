@@ -4,7 +4,7 @@ import associateNumberToString from '../../utils/associate-number-stringscale';
 import capitalize from '../../utils/capitalize';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { getProfileFn } from '../../api/authApi';
+import { getProfileFn } from '../../api/api.fn';
 import ReturnBtn from '../../component/return';
 
 function FriendProfile() {

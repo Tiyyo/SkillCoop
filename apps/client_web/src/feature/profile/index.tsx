@@ -1,4 +1,4 @@
-import Page from '../../layout/Page';
+import Page from '../../layout/page';
 import Header from '../../component/header';
 import { Outlet } from 'react-router-dom';
 

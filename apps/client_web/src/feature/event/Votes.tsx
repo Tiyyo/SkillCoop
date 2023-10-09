@@ -3,7 +3,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../lib/ui/tabs';
 import { useEffect } from 'react';
 import { EventParticipant, Vote } from '../../types';
 import { useMutation } from '@tanstack/react-query';
-import { voteBestStrikerFn, voteMvpFn } from '../../api/authApi';
+import { voteBestStrikerFn, voteMvpFn } from '../../api/api.fn';
 import TeamComposition from '../../component/team-composition';
 import toast from '../../utils/toast';
 import ReturnBtn from '../../component/return';

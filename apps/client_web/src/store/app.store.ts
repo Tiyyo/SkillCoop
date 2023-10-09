@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { Profile } from "../types";
 import { useQuery } from "@tanstack/react-query";
-import { getMeFn } from "../api/authApi";
+import { getMeFn } from "../api/api.fn";
 import { useEffect } from "react";
 
 interface AppStoreProps {

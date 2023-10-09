@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import defaultAvatar from '../../../public/images/default-avatar.png';
-import { acceptOrDeclinedFriendRequestFn } from '../../api/authApi';
+import { acceptOrDeclinedFriendRequestFn } from '../../api/api.fn';
 import OctogoneCross from '../../assets/icon/OctogoneCross';
 import Check from '../../assets/icon/Check';
 import schema from 'schema';

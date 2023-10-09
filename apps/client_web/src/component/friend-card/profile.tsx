@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import defaultAvatar from '../../../public/images/default-avatar.png';
-import { sendFriendRequestFn } from '../../api/authApi';
+import { sendFriendRequestFn } from '../../api/api.fn';
 import schema from 'schema';
 import { useFriends } from '../../store/friend.store';
 import toast from '../../utils/toast';

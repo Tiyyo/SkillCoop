@@ -3,8 +3,8 @@ import profileRouter from './api-router/profile.router'
 import authRouter from './auth.router'
 import eventRouter from './api-router/event.router'
 import friendlistRouter from './api-router/friendslist.router'
-import profileOnEventRouter from './api-router/profileOnEvent.router'
-import skilFootRouter from './api-router/skillFoot.router'
+import profileOnEventRouter from './api-router/profile-on-event.router'
+import skilFootRouter from './api-router/skill-foot.router'
 import statusRouter from './api-router/status.router'
 import NotFoundError from '../helpers/errors/not-found.error';
 import { errorHandler } from '../middleware/errors-handler';

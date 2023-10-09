@@ -1,5 +1,5 @@
 import express, { Router } from 'express';
-import factory from '../../middleware/factory.controller';
+import factory from '../../middleware/wrapper-controller';
 import profileController from '../../controller/profile.controller';
 import upload from '../../service/upload/upload';
 import validate from '../../middleware/schema-validator';

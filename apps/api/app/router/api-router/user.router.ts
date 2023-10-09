@@ -1,5 +1,5 @@
 import express, { Router } from 'express';
-import factory from '../../middleware/factory.controller';
+import factory from '../../middleware/wrapper-controller';
 import validateToken from '../../middleware/validate-access-token';
 import userController from '../../controller/user.controller';
 

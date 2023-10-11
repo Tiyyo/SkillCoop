@@ -268,3 +268,14 @@ export const deleteUserFn = async (userid: number) => {
   const response = await authApi.delete(`api/user/${userid}`);
   return response.data;
 }
+
+export const updateAvatarFn = async (formData) => {
+  const response = await authApi.patch(`api/profile/avatar` , formData ,{
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    } )
+      // setUserImage(import.meta.env.VITE_SERVER_URL + res.data.data.image_url);
+    );
+  return response.data
+}

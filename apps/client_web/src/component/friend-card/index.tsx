@@ -8,6 +8,8 @@ import schema from 'schema';
 import { useFriends } from '../../store/friend.store';
 import { EventType, invitationStatus } from '../../types';
 import { Link } from 'react-router-dom';
+import associateNumberToString from '../../utils/associate-number-stringscale';
+import capitalize from '../../utils/capitalize';
 const { updateFriendshipSchema } = schema;
 
 type EventTypeState = EventType & {
@@ -20,6 +22,7 @@ interface FriendCardProps {
   adderId: number;
   friendId: number;
   status: string;
+  lastEvaluationRecorded?: number;
   dataFromState?: EventTypeState | null;
   addFriendToState?: (friendId: any) => void;
   removeFriendFromState?: (friendId: any) => void;
@@ -43,6 +46,7 @@ function FriendCard({
   activeSelected,
   activeLinkProfile = false,
   dataFromState,
+  lastEvaluationRecorded,
   addFriendToState,
   removeFriendFromState,
 }: FriendCardProps) {
@@ -115,7 +119,11 @@ function FriendCard({
         <div className="flex flex-col gap-2">
           <p className="text-xs">{username}</p>
           <div className="flex items-center gap-x-3">
-            <p className="text-xxs text-light">Level</p>
+            <p className="text-xxs text-light">
+              {lastEvaluationRecorded
+                ? capitalize(associateNumberToString(lastEvaluationRecorded))
+                : ''}
+            </p>
             {status === 'pending' ? (
               <div className="flex items-center gap-1.5">
                 <button

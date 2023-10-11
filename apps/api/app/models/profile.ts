@@ -109,45 +109,19 @@ export class Profile extends Core {
       avg_defending: profile[0].avg_defending,
     }) || null;
 
+    await this.client
+      .updateTable("profile")
+      .set({
+        last_evaluation: profile[0].gb_rating
+      })
+      .where("id", "=", profile[0].id)
+      .executeTakeFirst();
+
+
     profile[0].nb_attended_events = nbAttendedEvents[0].nb_attended_events;
     profile[0].nb_bonus = nbBonus[0];
     return profile[0];
   }
-  // async findOne(id: number) {
-
-  //   try {
-  //     const result = await this.client
-  //       .selectFrom('profile')
-  //       .select(['profile.user_id', 'profile.avatar_url', 'profile.username', 'profile.date_of_birth', 'profile.id as profile_id'])
-  //       .innerJoin('skill_foot', 'profile.id', 'skill_foot.reviewee_id')
-  //       //@ts-ignore
-  //       .select(({ fn }) => [
-  //         'profile.id',
-  //         fn.count('profile.id').as('nb_review'),
-  //         fn.avg('skill_foot.pace').as('avg_pace'),
-  //         fn.avg('skill_foot.shooting').as('avg_shooting'),
-  //         fn.avg('skill_foot.passing').as('avg_passing'),
-  //         fn.avg('skill_foot.dribbling').as('avg_dribbling'),
-  //         fn.avg('skill_foot.defending').as('avg_defending'),
-  //       ])
-  //       .where('profile_id', "=", id)
-  //       .groupBy('profile.id')
-  //       .execute()
-
-  //     result[0].gb_rating = computeGbRating({
-  //       avg_pace: result[0].avg_pace,
-  //       avg_shooting: result[0].avg_shooting,
-  //       avg_passing: result[0].avg_passing,
-  //       avg_dribbling: result[0].avg_dribbling,
-  //       avg_defending: result[0].avg_defending,
-  //     })
-
-  //     return result[0]
-  //   } catch (error) {
-  //     throw new DatabaseError(error)
-  //   }
-
-  // }
   // TODO define a type for data
   async create(data: Record<string, any>) {
     const result = await this.client

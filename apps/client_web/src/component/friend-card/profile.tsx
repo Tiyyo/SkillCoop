@@ -4,6 +4,7 @@ import { sendFriendRequestFn } from '../../api/api.fn';
 import schema from 'schema';
 import { useFriends } from '../../store/friend.store';
 import toast from '../../utils/toast';
+import associateNumberToString from '../../utils/associate-number-stringscale';
 const { createInvitationSchema } = schema;
 
 interface ProfileCardProps {
@@ -11,6 +12,7 @@ interface ProfileCardProps {
   username: string;
   profileId: number;
   friendId: number;
+  lastEvaluationRecorded?: number;
   relation?: number | null;
   createdAt?: string;
   refetch?: () => void;
@@ -27,6 +29,7 @@ function ProfileCard({
   profileId,
   friendId,
   relation,
+  lastEvaluationRecorded,
 }: ProfileCardProps) {
   const {
     mutate: sendInvitation,
@@ -75,7 +78,11 @@ function ProfileCard({
       <div className="flex flex-col">
         <p className="text-xs">{username}</p>
         <div className="flex items-baseline gap-x-3">
-          <p className="text-xxs text-light">Level</p>
+          <p className="text-xxs text-light">
+            {lastEvaluationRecorded
+              ? associateNumberToString(lastEvaluationRecorded)
+              : ''}
+          </p>
           {!relation ? (
             <div onClick={handleActionInviation}>
               <button className="text-xs mx-1 px-2 py-1 shadow-md rounded-md bg-primary-400 cursor-pointer hover:bg-primary-700 transition-all duration-300 ease-in-out">

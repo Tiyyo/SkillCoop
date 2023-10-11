@@ -28,7 +28,6 @@ const s3 = new S3Client({
 })
 
 export async function uploadImageToBucket(file: any, { height, width }: { height: number, width: number }) {
-  console.log('isWorkingHere');
   const resizeFileBuffer = await resizeImage(file.buffer, height, width)
   const imageKey = `${randomImageName()}_${file.originalName}_w${width}`
 
@@ -53,8 +52,6 @@ export async function uploadImageToBucket(file: any, { height, width }: { height
   const getCommand = new GetObjectCommand(getObjectParams)
 
   const link = await getSignedUrl(s3, getCommand)
-
-  console.log('Link signed with getCommand : ', link)
 
   return {
     key: imageKey,

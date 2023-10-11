@@ -47,6 +47,7 @@ function Friendlist({
               username={friend.username}
               adderId={friend.adder_id}
               friendId={friend.friend_id}
+              lastEvaluationRecorded={friend.last_evaluation}
               status={friend.status_name}
               activeLinkProfile={activeLinkProfile}
             />

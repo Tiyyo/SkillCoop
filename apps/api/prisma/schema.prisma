@@ -33,6 +33,7 @@ model profile {
   date_of_birth             String?
   avatar                    image?               @relation(fields: [avatar_url], references: [url], onDelete: SetNull, onUpdate: Cascade)
   avatar_url                String?
+  last_evaluation           Int?
   organizer                 event[]              @relation("organizer")            
   mvp                       event[]              @relation("mvp")            
   best_striker              event[]              @relation("best_striker")            

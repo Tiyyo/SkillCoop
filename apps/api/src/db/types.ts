@@ -49,6 +49,7 @@ export type profile = {
     location: string | null;
     date_of_birth: string | null;
     avatar_url: string | null;
+    last_evaluation: number | null;
 };
 export type profile_on_event = {
     id: Generated<number>;

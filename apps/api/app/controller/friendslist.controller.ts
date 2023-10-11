@@ -22,8 +22,6 @@ export default {
     const { adder_id, friend_id } = req.body;
     await Friendlist.sendRequest(adder_id, friend_id);
 
-    console.log('is Success send request');
-
     res.status(200);
 
   },

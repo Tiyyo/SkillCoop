@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react';
 import { updateAvatarFn } from '../../../api/api.fn';
 import { useMutation } from '@tanstack/react-query';
 import { useApp } from '../../../store/app.store';
-import { LucideGalleryHorizontal } from 'lucide-react';
 
 function AvatarEdit({ avatar }: { avatar: string | null }) {
   const { userProfile } = useApp();
@@ -10,7 +9,6 @@ function AvatarEdit({ avatar }: { avatar: string | null }) {
   const imageInputRef = useRef<HTMLInputElement>(null);
 
   const handleClickImage = (e: React.MouseEvent<HTMLLabelElement>) => {
-    console.log('is working');
     e.preventDefault();
     if (!imageInputRef.current) return;
     imageInputRef.current.click();
@@ -53,7 +51,6 @@ function AvatarEdit({ avatar }: { avatar: string | null }) {
   };
 
   useEffect(() => {
-    console.log(isSuccess);
     if (!isSuccess || !data || !data.link) return;
     setProfileAvatar(data.link);
   }, [isLoading]);

@@ -19,6 +19,7 @@ export class Friendlist extends Core {
           "status_name",
           "avatar_url",
           "username",
+          "profile.last_evaluation"
         ])
         .limit(20)
         .innerJoin("profile", "profile.id", "profile_on_profile.friend_id")
@@ -41,6 +42,7 @@ export class Friendlist extends Core {
           "status_name",
           "avatar_url",
           "username",
+          "profile.last_evaluation"
         ])
         .innerJoin("profile", "profile.id", "profile_on_profile.friend_id")
         .where("adder_id", "=", adder_id)
@@ -70,6 +72,7 @@ export class Friendlist extends Core {
           "status_name",
           "avatar_url",
           "username",
+          "profile.last_evaluation"
         ])
         .offset(offset)
         .limit(20)
@@ -161,6 +164,7 @@ export class Friendlist extends Core {
           "status_name",
           "avatar_url",
           "username",
+          "profile.last_evaluation"
         ])
         .innerJoin("profile", "profile.id", "profile_on_profile.adder_id")
         .where("friend_id", "=", id)

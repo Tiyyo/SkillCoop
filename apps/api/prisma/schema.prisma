@@ -31,7 +31,7 @@ model profile {
   last_name                 String?
   location                  String?           
   date_of_birth             String?
-  avatar                    image?               @relation(fields: [avatar_url], references: [url], onDelete: Cascade, onUpdate: Cascade)
+  avatar                    image?               @relation(fields: [avatar_url], references: [url], onDelete: SetNull, onUpdate: Cascade)
   avatar_url                String?
   organizer                 event[]              @relation("organizer")            
   mvp                       event[]              @relation("mvp")            

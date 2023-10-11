@@ -269,13 +269,12 @@ export const deleteUserFn = async (userid: number) => {
   return response.data;
 }
 
-export const updateAvatarFn = async (formData) => {
-  const response = await authApi.patch(`api/profile/avatar` , formData ,{
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    } )
-      // setUserImage(import.meta.env.VITE_SERVER_URL + res.data.data.image_url);
-    );
+export const updateAvatarFn = async (formData: FormData) => {
+  const response = await authApi.patch(`api/profile/avatar`, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  })
+  // setUserImage(import.meta.env.VITE_SERVER_URL + res.data.data.image_url);
   return response.data
 }

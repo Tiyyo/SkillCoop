@@ -1,6 +1,6 @@
 import ServerError from '../../helpers/errors/server.error'
 import logger from '../../helpers/logger'
-import { S3Client, PutObjectCommand, DeleteObjectCommand } from '@aws-sdk/client-s3'
+import { S3Client, PutObjectCommand, DeleteObjectCommand, GetObjectCommand } from '@aws-sdk/client-s3'
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
 import crypto from 'crypto'
 
@@ -28,7 +28,7 @@ const s3 = new S3Client({
 })
 
 export async function uploadImageToBucket(file: any, { height, width }: { height: number, width: number }) {
-
+  console.log('isWorkingHere');
   const resizeFileBuffer = await resizeImage(file.buffer, height, width)
   const imageKey = `${randomImageName()}_${file.originalName}_w${width}`
 
@@ -45,7 +45,16 @@ export async function uploadImageToBucket(file: any, { height, width }: { height
     throw new ServerError('Upload to bucket has failed : ' + err.message)
   })
 
-  const link = await getSignedUrl(s3, command)
+  const getObjectParams = {
+    Bucket: bucketName,
+    Key: imageKey
+  }
+
+  const getCommand = new GetObjectCommand(getObjectParams)
+
+  const link = await getSignedUrl(s3, getCommand)
+
+  console.log('Link signed with getCommand : ', link)
 
   return {
     key: imageKey,
@@ -66,7 +75,7 @@ export async function deleteImageFromBucket(imageKey: string) {
   try {
     await s3.send(new DeleteObjectCommand(params))
   } catch (error) {
-
+    console.log(error)
     logger.error('Object have not been delete from bucket')
   }
 }

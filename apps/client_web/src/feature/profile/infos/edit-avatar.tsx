@@ -1,49 +1,86 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react';
+import { updateAvatarFn } from '../../../api/api.fn';
+import { useMutation } from '@tanstack/react-query';
+import { useApp } from '../../../store/app.store';
+import { LucideGalleryHorizontal } from 'lucide-react';
 
 function AvatarEdit({ avatar }: { avatar: string | null }) {
-  const [ profileAvatar , setProfileAvatar] = useState<string | null>(avatar
-  const imageInputRef = useRef<HTMLInputElement>(null)                                                                  
+  const { userProfile } = useApp();
+  const [profileAvatar, setProfileAvatar] = useState<string | null>(avatar);
+  const imageInputRef = useRef<HTMLInputElement>(null);
 
-  const handleChangeImage = (e : any) => {
+  const handleClickImage = (e: React.MouseEvent<HTMLLabelElement>) => {
+    console.log('is working');
     e.preventDefault();
-    imageRef.current.click();
+    if (!imageInputRef.current) return;
+    imageInputRef.current.click();
   };
 
-  const { mutate , isSuccess } = useMutation((formData) => updateAvatarFn(formData))
+  const { mutate, isSuccess, data, isLoading } = useMutation(
+    (formData: FormData) => updateAvatarFn(formData)
+  );
 
-  
-
-    const handleChangeImageFile = async (e : any) => {
-    const validFilesTypes = ["image/png", "image/jpg", "image/jpeg","image/svg", "image/webp"];
-    const maxSize = 10 * 1024 * 1024 * 1024; // 1024 mo
-
-    if (!validFilesTypes.find((type) => type === e.target.files[0].type)) {
-      console.log("File must be an png or jpg type");
+  const handleChangeImageFile = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    if (!userProfile?.profile_id) return;
+    const validFilesTypes = [
+      'image/png',
+      'image/jpg',
+      'image/jpeg',
+      'image/svg',
+      'image/webp',
+    ];
+    const maxSize = 5242880; // 5 mo
+    if (!e.target.files) return;
+    if (
+      !validFilesTypes.find((type) => {
+        if (!e.target.files) return;
+        return type === e.target.files[0].type;
+      })
+    ) {
+      console.log('File must be an png or jpg type');
       return;
     } else if (e.target.files[0].size > maxSize) {
-      console.log("File must not exceded 1024 mo");
+      console.log('File must not exceded 5 mo');
       return;
+    } else {
+      const formData = new FormData();
+      formData.append('profile_id', userProfile?.profile_id.toString());
+      formData.append('avatar', e.target.files[0]);
+      mutate(formData);
     }
-    else {  
+  };
 
-    const formData = new FormData();
-    formData.append('id', userId.toString());
-    formData.append('image', e.target.files[0]);
+  useEffect(() => {
+    console.log(isSuccess);
+    if (!isSuccess || !data || !data.link) return;
+    setProfileAvatar(data.link);
+  }, [isLoading]);
 
-    mutate(formData)
-
-  }};
-  
   return (
-    <form encType="multipart/form-data" className="border flex-shrink-0 border-primary-500 overflow-hidden rounded-full h-20 w-20">
-      <labe htmlFor="image>
+    <form
+      encType="multipart/form-data"
+      className="border flex-shrink-0 border-primary-500 overflow-hidden rounded-full h-20 w-20">
+      <label
+        htmlFor="image"
+        onClick={handleClickImage}>
         <img
-        src={avatar ?? '/images/default-avatar.png'}
-        alt="avatar"
-        className="object-cover h-full w-full"
+          src={profileAvatar ?? '/images/default-avatar.png'}
+          alt="avatar"
+          className="object-cover h-full w-full"
         />
-        <input type="file" hidden ref={imageInputRef} id="image" name="image" onChange={handleChangeImageFile} />
       </label>
+      <p>Edit avatar</p>
+      <input
+        type="file"
+        hidden
+        ref={imageInputRef}
+        id="image"
+        name="image"
+        className="h-20 w-20 bg-violet-700"
+        onChange={handleChangeImageFile}
+      />
     </form>
   );
 }

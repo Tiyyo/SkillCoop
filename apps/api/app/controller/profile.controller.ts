@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { profile as Profile } from "../models/index";
+import { profile as Profile, image } from "../models/index";
 import { image as Image } from "../models/index";
 import logger from "../helpers/logger";
 import {
@@ -88,35 +88,53 @@ export default {
     res.send("ok");
   },
   async updateImage(req: Request, res: Response) {
-    const image = req.file;
+    const WIDTH_AVATAR = 100;
+    const avatar = req.file;
     const { profile_id } = req.body;
 
-    const [{ avatar_url }] = await Profile.findOne(profile_id);
+    // check if user has an avatar
+    // if not 
+    // create image
+    // update profile with image url
+    // return image url
+    // if yes
+    // delete old image from bucket
+    // delete old image from db
+    // create new image
+    // update profile with new image url
+    // return new image url
 
-    const { key, link } = await uploadImageToBucket(image, {
-      height: 100,
-      width: 100,
-    });
+    const { avatar_url, username } = await Profile.findOne(profile_id);
+    if (!avatar_url) {
+      avatar.originalName = `avatar_${username}`;
+      const { key, link } = await uploadImageToBucket(avatar, {
+        height: WIDTH_AVATAR,
+        width: WIDTH_AVATAR,
+      });
+      await Image.create({
+        url: link,
+        key: key,
+        size: WIDTH_AVATAR,
+      })
+      await Profile.update({ profile_id, avatar_url: link });
+      return res.status(200).json({ link })
+    } else {
+      const { key: keyNewImage, link: linkNewImage } = await uploadImageToBucket(avatar, {
+        height: WIDTH_AVATAR,
+        width: WIDTH_AVATAR,
+      });
+      const [imageToDelete] = await Image.findBy({ url: avatar_url })
 
-    const newImage = await Image.update(profile_id, {
-      url: key,
-      key: key,
-      size: 100,
-    });
-
-    const [{ key: keyToDelete }] = await Image.findMany({ url: avatar_url });
-
-    await deleteImageFromBucket(keyToDelete);
-
-    await redisClient.del(
-      [`profile${profile_id}`, "profiles"],
-      (err, reply) => {
-        if (err) throw new ServerError("Could not delete cache");
-        logger.debug(`delete cache ${reply}`);
-      }
-    );
-
-    res.status(204).send("Image succesfully updated");
+      await Image.delete(imageToDelete.id)
+      await deleteImageFromBucket(imageToDelete.key)
+      await Image.create({
+        url: linkNewImage,
+        key: keyNewImage,
+        size: WIDTH_AVATAR,
+      })
+      await Profile.update({ profile_id, avatar_url: linkNewImage });
+      return res.status(200).json({ link: linkNewImage })
+    }
   },
   async searchProfileByUsername(req: Request, res: Response) {
     const { username, userProfileId, page } = req.query;

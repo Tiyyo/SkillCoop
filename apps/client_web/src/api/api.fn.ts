@@ -248,3 +248,23 @@ export const getAverageSkillFn = async (data: {
   const response = await authApi.get(`api/skill_foot/event`, { params: data });
   return response.data;
 }
+
+export const updateProfileInfoFn = async (data) => {
+  const response = await authApi.patch(`api/profile`, data);
+  return response.data;
+}
+
+export const updateEmailFn = async (data) => {
+  const response = await authApi.patch(`api/user/email`, data);
+  return response.data;
+}
+
+export const updatePasswordFn = async (data) => {
+  const response = await authApi.patch(`api/user/password`, data);
+  return response.data;
+}
+
+export const deleteUserFn = async (userid: number) => {
+  const response = await authApi.delete(`api/user/${userid}`);
+  return response.data;
+}

@@ -29,10 +29,10 @@ import MyEvents from './feature/event/events/admin-event.tsx';
 import EventPage from './feature/event/event-page/index.tsx';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import ProfileInfos from './feature/profile/profile.page.tsx';
+import ProfileInfos from './feature/profile/infos/index.tsx';
 import HomePageUser from './feature/profile/index.tsx';
 import Votes from './feature/event/Votes.tsx';
-import UserResumeSkills from './feature/rating/index.tsx';
+import UserResumeSkills from './feature/profile/skills/index.tsx';
 import FriendProfile from './feature/friend-profile-page/index.tsx';
 
 const queryClient = new QueryClient({

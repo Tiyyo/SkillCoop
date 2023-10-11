@@ -1,14 +1,14 @@
-import * as zod from 'zod';
+import * as z from 'zod';
 
-const participantSkillSchema = zod.object({
-  event_id: zod.number(),
-  rater_id: zod.number(),
-  reviewee_id: zod.number(),
-  pace: zod.number().min(10).max(100),
-  shooting: zod.number().min(10).max(100),
-  passing: zod.number().min(10).max(100),
-  dribbling: zod.number().min(10).max(100),
-  defending: zod.number().min(10).max(100),
+const participantSkillSchema = z.object({
+  event_id: z.number().int().positive(),
+  rater_id: z.number().int().positive(),
+  reviewee_id: z.number().int().positive(),
+  pace: z.number().min(10).max(100),
+  shooting: z.number().min(10).max(100),
+  passing: z.number().min(10).max(100),
+  dribbling: z.number().min(10).max(100),
+  defending: z.number().min(10).max(100),
 });
 
 export default participantSkillSchema;

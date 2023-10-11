@@ -1,7 +1,7 @@
 import * as z from 'zod';
 
-const sendVerifEmailSchema = z.object({
+const emailSchema = z.object({
   email: z.string().email(),
 })
 
-export default sendVerifEmailSchema
+export default emailSchema

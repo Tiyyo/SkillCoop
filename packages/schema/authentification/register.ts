@@ -7,7 +7,6 @@ const registerSchema: ZodType = z
     password: z
       .string()
       .min(8, { message: "Must contains at least 8 characters" })
-      .max(36, { message: "Must be 36 or fewer characters long" })
       .trim()
       .refine((value) => /\w*[a-z]\w*/.test(value), {
         message: "Must contain one lowercase",

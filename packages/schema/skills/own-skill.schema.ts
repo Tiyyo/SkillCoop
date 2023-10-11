@@ -6,7 +6,7 @@ const ownSkillSchema = z.object({
   pace: z.enum(['beginner', 'novice', 'intermediate', 'advanced', 'expert']),
   passing: z.enum(['beginner', 'novice', 'intermediate', 'advanced', 'expert']),
   shooting: z.enum(['beginner', 'novice', 'intermediate', 'advanced', 'expert']),
-  profile_id: z.number(),
+  profile_id: z.number().int().positive(),
 });
 
 export default ownSkillSchema;

@@ -35,8 +35,13 @@ export type Profile = {
   user_id: number;
   avatar_url: string | null;
   username: string;
-  date_of_birth: Date | null;
+  date_of_birth: string | null;
   profile_id: number;
+  email?: string | null;
+  nb_events?: number | null;
+  first_name?: string | null;
+  last_name?: string | null;
+  location?: string | null;
   nb_reviews: number;
   avg_pace: number | null;
   avg_shooting: number | null;

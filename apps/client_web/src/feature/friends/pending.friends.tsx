@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
 import { getPendingFriendsFn } from '../../api/api.fn';
-import { useStateContext } from '../../context/app.context';
 import Friendlist from './list.friends';
 import { useFriends } from '../../store/friend.store';
 import { useEffect } from 'react';

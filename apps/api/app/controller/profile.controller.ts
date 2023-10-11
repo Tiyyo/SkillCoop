@@ -44,18 +44,9 @@ export default {
     return res.json(result);
   },
   async updateOne(req: Request, res: Response) {
-    const { id } = req.params;
-    const body = req.body;
-
-    const data = { user_id: id, ...body };
+    const data = req.body;
 
     const result = await Profile.update(data);
-
-    await redisClient.del([`profile${id}`, "profiles"], (err, reply) => {
-      if (err) throw new ServerError("Could not delete cache");
-      logger.debug(`delete cache ${reply}`);
-    });
-
     return res.json(result);
   },
   async deleteOne(req: Request, res: Response) {

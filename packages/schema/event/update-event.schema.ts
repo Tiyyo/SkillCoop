@@ -6,7 +6,7 @@ const updateEventSchema = z.object({
   duration: z.number().optional(),
   location: z.string().optional(),
   required_participants: z.number().optional(),
-  profile_id: z.number(),
+  profile_id: z.number().int().positive(),
   status_name: z.enum(["open", "full", "cancelled", "completed"]).optional(),
   participants: z.array(z.number()).optional(),
 });

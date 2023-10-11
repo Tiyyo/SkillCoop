@@ -13,12 +13,16 @@ import saveScoreSchema from './score/save-score.schema'
 import voteSchema from './vote/vote.schema';
 import ownSkillSchema from './skills/own-skill.schema';
 import participantSkillSchema from './skills/participant-skill.schema';
+import emailSchema from './authentification/email';
+import passwordSchema from './authentification/password';
+import editProfileInfosSchema from './profile/edit-profile-infos.schema';
 
 export type { AnyZodObject, ZodError }
 export default {
   registerSchema,
   loginSchema,
-  sendVerifEmailSchema,
+  emailSchema,
+  passwordSchema,
   createEventSchema,
   updateEventSchema,
   searchFriendsSchema,
@@ -29,5 +33,7 @@ export default {
   voteSchema,
   saveScoreSchema,
   ownSkillSchema,
-  participantSkillSchema
+  participantSkillSchema,
+  editProfileInfosSchema
+
 }

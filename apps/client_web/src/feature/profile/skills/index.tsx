@@ -1,17 +1,17 @@
 import { useMutation } from '@tanstack/react-query';
-import ReturnBtn from '../../component/return';
-import TitleH2 from '../../component/title-h2';
-import { useApp } from '../../store/app.store';
+import ReturnBtn from '../../../component/return';
+import TitleH2 from '../../../component/title-h2';
+import { useApp } from '../../../store/app.store';
 import FieldsetRadioInput from './fieldset-radio.input';
-import { evaluateOwnSkillsFn } from '../../api/api.fn';
+import { evaluateOwnSkillsFn } from '../../../api/api.fn';
 import schema from 'schema';
-import Button from '../../component/button';
-import { EvaluationOwnSkill } from '../../types';
+import Button from '../../../component/button';
+import { EvaluationOwnSkill } from '../../../types';
 import { useEffect, useState } from 'react';
-import RadarChart from '../../component/radar-chart';
-import associateStringToNumber from '../../utils/associate-string-number';
-import associateNumberToString from '../../utils/associate-number-stringscale';
-import capitalize from '../../utils/capitalize';
+import RadarChart from '../../../component/radar-chart';
+import associateStringToNumber from '../../../utils/associate-string-number';
+import associateNumberToString from '../../../utils/associate-number-stringscale';
+import capitalize from '../../../utils/capitalize';
 const { ownSkillSchema } = schema;
 
 function UserResumeSkills() {

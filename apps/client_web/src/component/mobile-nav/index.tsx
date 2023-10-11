@@ -29,7 +29,7 @@ function MobileNav({ menuIsOpen }: { menuIsOpen: boolean }) {
           <Chat size="8" />
         </NavMobileLink>
         <NavMobileLink
-          to="/profile"
+          to="/user/profile"
           value="Profile">
           <Users size="8" />
         </NavMobileLink>

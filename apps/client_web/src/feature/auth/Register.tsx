@@ -39,6 +39,7 @@ function Register() {
   });
 
   const onSubmit = async (data: RegisterUser) => {
+    console.log(data);
     const termAndServiceInString = data.termAndService ? 'on' : 'off';
     setCurrentEmail(data.email);
     try {

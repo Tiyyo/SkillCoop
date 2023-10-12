@@ -6,7 +6,7 @@ import { canals } from '../../@types/types';
 import schema from 'schema'
 const { searchFriendsSchema, createInvitationSchema, updateFriendshipSchema } = schema
 
-const { getFriends, sendFriendRequest, getRequestToAccept, acceptOrDeclined, searchFriends } = friendsList;
+const { getFriends, sendFriendRequest, getRequestToAccept, acceptOrDeclined, searchFriends, getSuggestProfile } = friendsList;
 
 
 const router: Router = express.Router();
@@ -17,6 +17,9 @@ router.route('/')
 
 router.route('/:id')
   .get(factory(getFriends))
+
+router.route('/suggest/:id')
+  .get(factory(getSuggestProfile))
 
 router.route('/search/friendlist')
   .get(validate(searchFriendsSchema, canals.query), factory(searchFriends))

@@ -148,10 +148,16 @@ export const getPendingFriendsFn = async (
   return response.data;
 };
 
+export const getSuggestProfileFn = async (profileId: number): Promise<any> => {
+  const response = await authApi.get(`api/friends/suggest/${profileId}`)
+  return response.data
+}
+
 export const getProfileFn = async (profileId: number): Promise<Profile> => {
   const response = await authApi.get(`api/profile/${profileId}`);
   return response.data;
 }
+
 
 export const searchFriendsFn = async (
   data: SearchFriendQuery,

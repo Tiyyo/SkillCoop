@@ -174,4 +174,63 @@ export class Friendlist extends Core {
       return pendingRequests;
     } catch (error) { }
   }
+  async findSuggestProfile(profileId: number) {
+    try {
+      const suggestProfiles = await sql <
+        {
+          friend_id: number,
+          username: string,
+          avatar_url: string | null,
+          last_evaluation: number | null
+        } > `
+SELECT 
+  friend_id,
+  username,
+  avatar_url,
+  last_evaluation
+FROM
+  (
+    SELECT friend_id
+    FROM profile_on_profile
+    WHERE profile_on_profile.adder_id IN 
+          (
+          SELECT friend_id
+          FROM profile_on_profile
+          WHERE profile_on_profile.adder_id = ${profileId}
+          AND profile_on_profile.status_name = 'confirmed'
+        )
+    AND profile_on_profile.status_name = 'confirmed'
+    UNION
+    SELECT profile_id
+      FROM profile_on_event
+      WHERE profile_on_event.event_id IN ( 
+          SELECT 
+            event.id
+          FROM event
+          WHERE event.status_name = 'completed'
+          AND EXISTS (
+            SELECT 1
+            FROM profile_on_event
+            WHERE event_id = event.id
+            AND profile_id = ${profileId}
+            )
+          ORDER BY event.date DESC
+          LIMIT 3
+        ) 
+    )
+  JOIN profile ON friend_id = profile.id
+  WHERE friend_id  NOT IN ( 
+        SELECT friend_id
+        FROM profile_on_profile
+        WHERE adder_id = ${profileId}
+        AND status_name = 'confirmed'
+      )
+AND friend_id <> ${profileId}
+LIMIT 14`
+        .execute(this.client)
+      return suggestProfiles.rows
+    } catch (error) {
+      throw new DatabaseError(error)
+    }
+  }
 }

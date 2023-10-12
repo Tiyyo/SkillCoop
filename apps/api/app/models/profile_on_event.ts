@@ -18,14 +18,14 @@ export class ProfileOnEvent extends Core {
     //TODO check if a pending invitation exist
     try {
 
-      const isPendingInvitationExist = await this.client
+      const participantExistence = await this.client
         .selectFrom(this.tableName)
         .selectAll()
         .where('event_id', "=", data.event_id)
         .where('profile_id', "=", data.profile_id)
         .executeTakeFirst()
 
-      const isExist = !!isPendingInvitationExist
+      const isExist = !!participantExistence
 
       if (!isExist) throw new UserInputError('User have not been invited yet')
 
@@ -41,6 +41,5 @@ export class ProfileOnEvent extends Core {
       if (error instanceof UserInputError) throw error
       throw new DatabaseError(error)
     }
-
   }
 }

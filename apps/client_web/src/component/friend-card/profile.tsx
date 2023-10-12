@@ -51,14 +51,6 @@ function ProfileCard({
       return;
     }
     sendInvitation(data);
-    console.log(
-      'is Error :',
-      isError,
-      'is Loading : ',
-      isLoading,
-      'is Success :',
-      isSuccess
-    );
     if (isError) {
       toast.error('There already is a pending request');
     } else {

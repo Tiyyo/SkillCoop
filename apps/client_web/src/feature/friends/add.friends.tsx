@@ -1,7 +1,7 @@
 import SearchInput from '../../component/search-input';
 import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { searchProfileFn } from '../../api/api.fn';
+import { getSuggestProfileFn, searchProfileFn } from '../../api/api.fn';
 import { SearchProfileQuery } from '../../types';
 import ProfileCard from '../../component/friend-card/profile';
 import { useFriends } from '../../store/friend.store';
@@ -11,13 +11,22 @@ import { useApp } from '../../store/app.store';
 
 function AddFriends() {
   const { userProfile } = useApp();
-  const profildId = userProfile?.profile_id;
+  const profiledId = userProfile?.profile_id;
   const { addSearchProfile, searchProfiles } = useFriends();
   const [searchValue, setSearchValue] = useState<SearchProfileQuery>({
     username: '',
     page: 1,
-    userProfileId: profildId ?? 0,
+    userProfileId: profiledId ?? 0,
   });
+
+  const { data: suggestProfiles } = useQuery({
+    queryKey: ['suggestProfiles'],
+    queryFn: () => {
+      if (!profiledId) return;
+      return getSuggestProfileFn(profiledId);
+    },
+  });
+
   const {
     data: profiles,
     refetch: refetchProfiles,
@@ -26,7 +35,10 @@ function AddFriends() {
     isError,
   } = useQuery({
     queryKey: ['searchProfile'],
-    queryFn: ({ signal }) => searchProfileFn(searchValue, signal),
+    queryFn: ({ signal }) => {
+      if (!searchValue.username) return;
+      return searchProfileFn(searchValue, signal);
+    },
     enabled: false,
   });
 
@@ -45,6 +57,12 @@ function AddFriends() {
     addSearchProfile(profiles);
   }, [profiles]);
 
+  useEffect(() => {
+    if (suggestProfiles) {
+      addSearchProfile(suggestProfiles);
+    }
+  }, [suggestProfiles]);
+
   return (
     <>
       <ReturnBtn />
@@ -53,17 +71,18 @@ function AddFriends() {
         <SearchInput onChange={getInputSearchValue} />
       </div>
       <div className="grid grid-cols-2 py-8 gap-2">
-        {searchProfiles?.map((profile) => (
-          <ProfileCard
-            key={profile.profile_id}
-            avatar={profile.avatar_url}
-            username={profile.username}
-            friendId={profile.profile_id}
-            relation={profile.relation_exists}
-            profileId={profildId ?? 0}
-            refetch={refetchProfiles}
-          />
-        ))}
+        {suggestProfiles &&
+          searchProfiles.map((profile) => (
+            <ProfileCard
+              key={profile.profile_id}
+              avatar={profile.avatar_url}
+              username={profile.username}
+              friendId={profile.profile_id}
+              relation={profile.relation_exists}
+              profileId={profiledId ?? 0}
+              refetch={refetchProfiles}
+            />
+          ))}
       </div>
     </>
   );

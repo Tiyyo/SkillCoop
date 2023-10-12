@@ -11,12 +11,11 @@ import validateEmaiToken from '../middleware/validate-email-token';
 
 
 const { signin, register, refresh, logout, googleAuth, verifyEmail, resendEmail } = authController;
-const { registerSchema, loginSchema, sendVerifEmailSchema } = schema
+const { registerSchema, loginSchema, emailSchema } = schema
 
 const router: Router = express.Router();
 
 router.route('/register')
-  // TS doesnt recognnize schema with a super refine as a valid type
   .post(validate(registerSchema, canals.body), factory(register))
 
 router.route('/login')
@@ -26,7 +25,7 @@ router.route('/refresh')
   .get(validateToken, factory(refresh))
 
 router.route('/email')
-  .post(validate(sendVerifEmailSchema, canals.body), factory(resendEmail))
+  .post(validate(emailSchema, canals.body), factory(resendEmail))
 
 router.route('/google/callback')
   .get(factory(googleAuth))

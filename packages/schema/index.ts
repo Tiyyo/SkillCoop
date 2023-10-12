@@ -1,7 +1,6 @@
-import { ZodError, AnyZodObject } from 'zod';
+import { ZodError, AnyZodObject, ZodType, ZodTypeDef } from 'zod';
 import registerSchema from './authentification/register';
 import loginSchema from './authentification/login';
-import sendVerifEmailSchema from './authentification/email';
 import createEventSchema from './event/create-event.schema';
 import searchFriendsSchema from './friends/search.schema';
 import createInvitationSchema from './friends/create-invitation.schema';
@@ -17,8 +16,9 @@ import emailSchema from './authentification/email';
 import passwordSchema from './authentification/password';
 import editProfileInfosSchema from './profile/edit-profile-infos.schema';
 
-export type { AnyZodObject, ZodError }
+export type { AnyZodObject, ZodType, ZodTypeDef }
 export default {
+  ZodError,
   registerSchema,
   loginSchema,
   emailSchema,

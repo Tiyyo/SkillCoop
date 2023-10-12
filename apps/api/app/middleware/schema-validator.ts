@@ -1,12 +1,11 @@
 import { NextFunction, Request, Response } from "express";
-import { AnyZodObject, ZodError } from "zod";
+import schema from "schema";
 import ServerError from "../helpers/errors/server.error";
 import ValidationError from "../helpers/errors/validation.error"
+import type { AnyZodObject, ZodType, ZodTypeDef } from "schema";
+const { ZodError } = schema
 
-// const { ZodError } = schemas
-
-// maybe AnyZodObject is not the best type
-export default (schema: AnyZodObject, canal: "body" | "params" | "query") => async (request: Request, _res: Response, next: NextFunction) => {
+export default (schema: ZodType<any, ZodTypeDef, any>, canal: "body" | "params" | "query") => async (request: Request, _res: Response, next: NextFunction) => {
 
   if (!schema) return next(new ServerError('No schema provided'));
   try {

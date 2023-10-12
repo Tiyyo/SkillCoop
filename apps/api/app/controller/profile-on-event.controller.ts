@@ -17,7 +17,7 @@ export default {
 
     const participantList = await cacheOrGetCacheData("participants", async () => {
       try {
-        const participantList = await ProfileOnEvent.findMany({ event_id })
+        const participantList = await ProfileOnEvent.findBy({ event_id })
         return participantList
       } catch (error) {
         logger.error(error)
@@ -32,11 +32,6 @@ export default {
     let userMessage = "Status has been updated"
 
     const data = { profile_id, event_id, status_name, updated_at: undefined }
-
-    await redisClient.del(["participants", `event${event_id}`], (err, reply) => {
-      if (err) throw new ServerError('Could not delete cache')
-      logger.debug(`delete cache ${reply}`)
-    })
     //TODO need to check if participant exist
 
     if (status_name === "declined") {
@@ -49,14 +44,15 @@ export default {
 
     const event = await Event.findByPk(data.event_id)
 
+    console.log(event, confirmedParticipants.length)
 
     // check type number before strict equality
 
-    if (Number(event[0].required_particpants) === confirmedParticipants.length) throw new UserInputError('Event is already full')
+    if (event.required_particpants === confirmedParticipants.length) throw new UserInputError('Event is already full')
 
     await ProfileOnEvent.updateStatus(data)
 
-    if (Number(event[0].required_particpants) === confirmedParticipants.length + 1) {
+    if (event.required_particpants === confirmedParticipants.length + 1) {
 
       userMessage = "Teams has been generated "
       logger.debug('Team has been generated')

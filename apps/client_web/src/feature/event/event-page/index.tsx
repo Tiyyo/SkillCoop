@@ -84,6 +84,7 @@ function EventPage() {
             {typeof event.participants !== 'string' &&
               event.participants.map((participant) => (
                 <Participant
+                  profileId={participant.profile_id}
                   key={participant.profile_id}
                   {...participant}
                 />

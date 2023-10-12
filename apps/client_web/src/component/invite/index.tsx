@@ -28,6 +28,8 @@ function Invite({ variant = 'update' }: InviteProps) {
   const { userProfile } = useApp();
   const { data: eventState } = useEvent();
   const location = useLocation();
+  const [eventId, setEventId] = useState<number | undefined>(undefined);
+  console.log('LOCATION :', location);
   const navigate = useNavigate();
   const profileId = userProfile?.profile_id;
   const [isOnFocus, setIsOnFocus] = useState<boolean>(false);
@@ -87,9 +89,9 @@ function Invite({ variant = 'update' }: InviteProps) {
 
   const handleClickSendInvitation = (e: any) => {
     e.preventDefault();
-    if (!eventState.invited_participants_ids) return;
+    if (!eventState.invited_participants_ids || !eventId) return;
     const data = {
-      event_id: location.state.eventId,
+      event_id: eventId,
       ids: eventState.invited_participants_ids,
     };
     const isValid = inviteParticipantSchema.safeParse(data);
@@ -105,8 +107,14 @@ function Invite({ variant = 'update' }: InviteProps) {
     isLoading || isSearchLoading || isFetching || isSearchFetching;
 
   useEffect(() => {
+    setEventId(location.state.eventId);
+  }, []);
+
+  useEffect(() => {
     refetchSearchFriends();
   }, [searchFriendQuery]);
+
+  console.log(variant);
   return (
     <>
       <ReturnBtn />

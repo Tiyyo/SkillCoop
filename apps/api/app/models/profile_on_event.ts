@@ -1,3 +1,5 @@
+import DatabaseError from '../helpers/errors/database.error';
+import UserInputError from '../helpers/errors/user-input.error';
 import getDateUTC from '../utils/get-date-utc';
 import { Core } from './core'
 
@@ -13,13 +15,32 @@ export class ProfileOnEvent extends Core {
     const utctoday = getDateUTC(today)
     data.updated_at = utctoday
 
-    const result = await this.client
-      .updateTable(this.tableName)
-      .set({ ...data })
-      .where('event_id', "=", data.event_id)
-      .where('profile_id', "=", data.profile_id)
-      .executeTakeFirst()
+    //TODO check if a pending invitation exist
+    try {
 
-    return !!result.numChangedRows
+      const isPendingInvitationExist = await this.client
+        .selectFrom(this.tableName)
+        .selectAll()
+        .where('event_id', "=", data.event_id)
+        .where('profile_id', "=", data.profile_id)
+        .executeTakeFirst()
+
+      const isExist = !!isPendingInvitationExist
+
+      if (!isExist) throw new UserInputError('User have not been invited yet')
+
+      const result = await this.client
+        .updateTable(this.tableName)
+        .set({ ...data })
+        .where('event_id', "=", data.event_id)
+        .where('profile_id', "=", data.profile_id)
+        .executeTakeFirst()
+
+      return !!result.numChangedRows
+    } catch (error) {
+      if (error instanceof UserInputError) throw error
+      throw new DatabaseError(error)
+    }
+
   }
 }

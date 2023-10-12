@@ -36,7 +36,7 @@ function Participant({
   isRatingActive = true,
 }: ParticipantProps) {
   const [isChecked, setIsChecked] = useState<boolean>(
-    activeId === name + profileId.toString()
+    activeId === name + profileId?.toString()
   );
   const { userProfile } = useApp();
   const location = useLocation();
@@ -44,15 +44,15 @@ function Participant({
   const userConnecteProfileId = userProfile?.profile_id;
 
   useEffect(() => {
-    setIsChecked(activeId === name + profileId.toString());
+    setIsChecked(activeId === name + profileId?.toString());
   }, [activeId]);
 
   return (
     <>
-      <label htmlFor={name + profileId.toString()}>
+      <label htmlFor={name + profileId?.toString()}>
         <input
           type="radio"
-          id={name + profileId.toString()}
+          id={name + profileId?.toString()}
           value={profileId}
           name={name}
           hidden

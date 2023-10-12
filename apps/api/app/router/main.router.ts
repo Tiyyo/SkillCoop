@@ -15,7 +15,7 @@ import validateToken from '../middleware/validate-access-token';
 const router: Router = express.Router();
 
 router.use('/api',
-  validateToken,
+  // validateToken,
   apiRouter)
 router.use('/auth', authRouter)
 

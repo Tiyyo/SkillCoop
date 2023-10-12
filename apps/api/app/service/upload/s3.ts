@@ -51,7 +51,7 @@ export async function uploadImageToBucket(file: any, { height, width }: { height
 
   const getCommand = new GetObjectCommand(getObjectParams)
 
-  const link = await getSignedUrl(s3, getCommand)
+  const link = await getSignedUrl(s3, getCommand, { expiresIn: 60 * 60 * 24 * 7 })
 
   return {
     key: imageKey,

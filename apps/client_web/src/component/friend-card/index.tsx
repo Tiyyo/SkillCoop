@@ -80,7 +80,6 @@ function FriendCard({
       return;
     }
     acceptOrDeclinedInvitation(data);
-
     removePendingFriend(username);
     if (action === 'confirmed') {
       const friend = {

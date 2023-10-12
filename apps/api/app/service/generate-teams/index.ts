@@ -53,6 +53,23 @@ export function divideInTeam(config: TeamGeneratorConfig) {
 
   useRandomConditionAtStart(config.participants, config.ids, valueTeam1, valueTeam2) ? config.team1.push(player) : config.team2.push(player)
 
+  // TODO : refactor this function
+  function checkIfValueIsZero() {
+    if (player.gb_rating === 0) {
+      config.team1.length < config.team2.length ? config.team1.push(player) : config.team2.push(player);
+    } else {
+      useRandomConditionAtStart(
+        config.participants,
+        config.ids,
+        valueTeam1,
+        valueTeam2,
+      )
+        ? config.team1.push(player)
+        : config.team2.push(player);
+    }
+  }
+  checkIfValueIsZero();
+
   deleteFromArrayAfterPush(config.ids, config.values, maxIndex)
 
   if (config.ids.length !== 0) {
@@ -93,7 +110,6 @@ export function getPlayerObject(maxIndex: number, ids: string[], values: number[
 
 export function getTeamValue(arrayTeam: Player[]): number {
   return arrayTeam.length > 0 ? arrayTeam.map((p) => {
-    let value = p.gb_rating
-    return value
+    return p.gb_rating
   }).reduce((a, b) => a + b) : 0
 }

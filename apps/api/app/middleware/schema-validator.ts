@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import schema from "schema";
 import ServerError from "../helpers/errors/server.error";
 import ValidationError from "../helpers/errors/validation.error"
-import type { AnyZodObject, ZodType, ZodTypeDef } from "schema";
+import type { ZodType, ZodTypeDef } from "schema";
 const { ZodError } = schema
 
 export default (schema: ZodType<any, ZodTypeDef, any>, canal: "body" | "params" | "query") => async (request: Request, _res: Response, next: NextFunction) => {

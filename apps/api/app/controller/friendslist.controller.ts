@@ -54,11 +54,7 @@ export default {
   },
   async getSuggestProfile(req: Request, res: Response) {
     const profileId = checkParams(req.params.id)
-
     const suggestProfiles = await Friendlist.findSuggestProfile(profileId)
-
-    console.log(suggestProfiles);
-
     res.status(200).json(suggestProfiles)
   }
 }

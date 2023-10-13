@@ -46,13 +46,16 @@ function ProfileCard({
       friend_id: friendId,
     };
     const isValid = createInvitationSchema.safeParse(data);
+    console.log(isValid);
     if (!isValid.success) {
       // toast.error(isValid.error.message)
       return;
     }
     sendInvitation(data);
     if (isError) {
+      console.log('isError');
       toast.error('There already is a pending request');
+      removeSearchProfile(username);
     } else {
       removeSearchProfile(username);
     }

@@ -184,7 +184,7 @@ export class Friendlist extends Core {
           last_evaluation: number | null
         } > `
 SELECT 
-  friend_id,
+  friend_id AS profile_id,
   username,
   avatar_url,
   last_evaluation
@@ -223,7 +223,7 @@ FROM
         SELECT friend_id
         FROM profile_on_profile
         WHERE adder_id = ${profileId}
-        AND status_name = 'confirmed'
+        AND (status_name = 'confirmed' OR status_name = 'pending')
       )
 AND friend_id <> ${profileId}
 LIMIT 14`

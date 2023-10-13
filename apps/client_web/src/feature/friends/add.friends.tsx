@@ -71,7 +71,7 @@ function AddFriends() {
         <SearchInput onChange={getInputSearchValue} />
       </div>
       <div className="grid grid-cols-2 py-8 gap-2">
-        {suggestProfiles &&
+        {searchProfiles &&
           searchProfiles.map((profile) => (
             <ProfileCard
               key={profile.profile_id}

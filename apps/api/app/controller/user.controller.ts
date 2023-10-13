@@ -3,12 +3,15 @@ import { profile as Profile } from '../models/index';
 import { user as User } from '../models/index';
 import bcrypt from 'bcrypt';
 import checkParams from '../utils/check-params';
+import computeRatingUser from '../service/compute-rating';
 
 export default {
   getMe: async (req: Request, res: Response) => {
     const { decoded } = req.body
     const userId = decoded[0].user_id
     const userProfile = await Profile.findByUserId(userId)
+
+    const ccomputedRatings = await computeRatingUser(userProfile.profile_id)
 
     res.status(200).json({ userProfile: userProfile ?? decoded[0] })
   },

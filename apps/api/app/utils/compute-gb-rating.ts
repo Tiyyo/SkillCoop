@@ -7,7 +7,7 @@ const computeGbRating = (score: Score): number => {
   const values = Object.values(score)
   const avg = values.reduce((a: number, b: number) => (a + b)) / values.length
 
-  return avg
+  return Math.floor(avg)
 }
 
 export default computeGbRating

@@ -14,12 +14,12 @@ const router: Router = express.Router();
 
 router.route('/')
   // useless
-  .get(factory(getAll))
+  // .get(factory(getAll))
   .post(validate(createProfileSchema, canals.body), factory(createOne))
   .patch(validate(editProfileInfosSchema, canals.body), factory(updateOne))
 
 router.route('/avatar')
-  .post(upload.single('avatar'), factory(createImage))
+  // .post(upload.single('avatar'), factory(createImage))
   .patch(upload.single('avatar'), factory(updateImage))
 
 router.route('/search')

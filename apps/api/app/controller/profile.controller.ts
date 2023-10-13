@@ -14,17 +14,6 @@ import checkParams from "../utils/check-params";
 const redisClient = new Redis();
 
 export default {
-  async getAll(req: Request, res: Response) {
-    const profiles = await cacheOrGetCacheData("profiles", async () => {
-      try {
-        const profiles = await Profile.findAll();
-        return profiles;
-      } catch (error) {
-        logger.error(error);
-      }
-    });
-    return res.json(profiles);
-  },
   async getOne(req: Request, res: Response) {
     const profileId = checkParams(req.params.id);
     const profile = await Profile.findOne(profileId);
@@ -33,13 +22,7 @@ export default {
   },
   async createOne(req: Request, res: Response) {
     const data = req.body;
-
     const result = await Profile.create(data);
-
-    await redisClient.del("profiles", (err, reply) => {
-      if (err) throw new ServerError("Could not delete cache");
-      logger.debug(`delete cache ${reply}`);
-    });
 
     return res.json(result);
   },
@@ -53,11 +36,6 @@ export default {
     const { id } = req.params;
 
     const result = await Profile.delete(Number(id));
-
-    await redisClient.del([`profile${id}`, "profiles"], (err, reply) => {
-      if (err) throw new ServerError("Could not delete cache");
-      logger.debug(`delete cache ${reply}`);
-    });
 
     return res.json(result);
   },

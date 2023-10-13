@@ -2,16 +2,13 @@ import { skillFoot as SkillFoot } from '../models/index';
 import { Request, Response } from 'express'
 import associateStringToNumber from '../utils/associate-string-number';
 import UserInputError from '../helpers/errors/user-input.error'
-import { cacheOrGetCacheData } from '../helpers/cache-data';
-import logger from '../helpers/logger';
 import checkParams from '../utils/check-params';
 import computeGbRating from '../utils/compute-gb-rating';
+import computeRatingUser from '../service/compute-rating';
+import ServerError from '../helpers/errors/server.error';
+import NotFoundError from '../helpers/errors/not-found.error';
 
 export default {
-  async getAll(req: Request, res: Response) {
-    // get all skill for a reviewee 
-    // and return the skill with average rating
-  },
   async createOwnRating(req: Request, res: Response) {
     const { pace, shooting, passing, dribbling, defending, profile_id } = req.body
 
@@ -34,11 +31,10 @@ export default {
 
     const skill = SkillFoot.create(data)
 
-    res.status(201)
-      .send(!!skill)
+    res.status(201).send(!!skill)
 
   },
-  async getAverage(req: Request, res: Response) {
+  async getProfileEvalByEvent(req: Request, res: Response) {
     const rater_id = checkParams(req.query.rater_id)
     const reviewee_id = checkParams(req.query.reviewee_id)
     const event_id = checkParams(req.query.event_id)
@@ -73,7 +69,18 @@ export default {
     res.status(201)
       .send(!!skill)
   },
-  async deleteOne(req: Request, res: Response) {
-    // not sure if we need this
-  }
+  async getProfileEval(req: Request, res: Response) {
+    const profileId = checkParams(req.params.id)
+
+    try {
+      const profileEval = await computeRatingUser(profileId)
+      res.status(200).json(profileEval)
+    } catch (error) {
+      if (error instanceof NotFoundError) {
+        res.status(200).json({ error: "User have to evaluate his skill" })
+      } else {
+        throw new ServerError('Error computation')
+      }
+    }
+  },
 }

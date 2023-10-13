@@ -4,7 +4,7 @@ import associateNumberToString from '../../utils/associate-number-stringscale';
 import capitalize from '../../utils/capitalize';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { getProfileFn } from '../../api/api.fn';
+import { getProfileEvalFn, getProfileFn } from '../../api/api.fn';
 import ReturnBtn from '../../component/return';
 import dateHandler from '../../utils/date.handler';
 import Container from '../../layout/container';
@@ -25,21 +25,29 @@ function FriendProfile() {
     return getProfileFn(profileId);
   });
 
+  const { data: skills, isLoading: isLoadingSkills } = useQuery(
+    [`skills${profileId}`],
+    () => {
+      if (!profileId) return;
+      return getProfileEvalFn(profileId);
+    }
+  );
+
   const values = Object.values(skillValues);
   const maxValue = Math.max(...values);
 
   useEffect(() => {
-    if (!profile) return;
+    if (!skills) return;
     setHasSkills(true);
     setSkillValues((prev) => ({
       ...prev,
-      defending: profile.avg_defending,
-      dribbling: profile.avg_dribbling,
-      passing: profile.avg_passing,
-      shooting: profile.avg_shooting,
-      pace: profile.avg_pace,
+      defending: skills.avg_defending,
+      dribbling: skills.avg_dribbling,
+      passing: skills.avg_passing,
+      shooting: skills.avg_shooting,
+      pace: skills.avg_pace,
     }));
-  }, [isLoading]);
+  }, [isLoadingSkills]);
 
   return (
     //TODO : refactor this component

@@ -7,8 +7,7 @@ import schema from 'schema'
 const { ownSkillSchema, participantSkillSchema } = schema
 
 
-const { getAverage, createOwnRating, createRating } = skillFootController;
-
+const { getProfileEvalByEvent, getProfileEval, createOwnRating, createRating } = skillFootController;
 
 const router: Router = express.Router();
 
@@ -17,7 +16,10 @@ router.route('/')
 
 router.route('/event')
   .post(validate(participantSkillSchema, canals.body), factory(createRating))
-  .get(factory(getAverage))
+  .get(factory(getProfileEvalByEvent))
+
+router.route('/:id')
+  .get(factory(getProfileEval))
 
 
 

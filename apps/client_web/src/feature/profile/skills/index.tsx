@@ -1,9 +1,9 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import ReturnBtn from '../../../component/return';
 import TitleH2 from '../../../component/title-h2';
 import { useApp } from '../../../store/app.store';
 import FieldsetRadioInput from './fieldset-radio.input';
-import { evaluateOwnSkillsFn } from '../../../api/api.fn';
+import { evaluateOwnSkillsFn, getProfileEvalFn } from '../../../api/api.fn';
 import schema from 'schema';
 import Button from '../../../component/button';
 import { EvaluationOwnSkill } from '../../../types';
@@ -22,6 +22,10 @@ function UserResumeSkills() {
   const { mutate: evaluateSkills } = useMutation((data: EvaluationOwnSkill) =>
     evaluateOwnSkillsFn(data)
   );
+  const { data: profileEval, isLoading } = useQuery(['profileEval'], () => {
+    if (!userProfile?.profile_id) return;
+    return getProfileEvalFn(userProfile?.profile_id);
+  });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -53,22 +57,23 @@ function UserResumeSkills() {
 
   useEffect(() => {
     if (
-      !userProfile?.avg_defending ||
-      !userProfile?.avg_dribbling ||
-      !userProfile?.avg_passing ||
-      !userProfile?.avg_shooting ||
-      !userProfile?.avg_pace
+      !profileEval?.avg_defending ||
+      !profileEval?.avg_dribbling ||
+      !profileEval?.avg_passing ||
+      !profileEval?.avg_shooting ||
+      !profileEval?.avg_pace
     )
       return;
     const userSkills = {
-      defending: userProfile?.avg_defending,
-      dribbling: userProfile?.avg_dribbling,
-      passing: userProfile?.avg_passing,
-      shooting: userProfile?.avg_shooting,
-      pace: userProfile?.avg_pace,
+      defending: profileEval?.avg_defending,
+      dribbling: profileEval?.avg_dribbling,
+      passing: profileEval?.avg_passing,
+      shooting: profileEval?.avg_shooting,
+      pace: profileEval?.avg_pace,
     };
+    setHasSkills(true);
     setSkillValues(userSkills);
-  }, []);
+  }, [isLoading]);
 
   const nbGratification =
     userProfile?.nb_review +

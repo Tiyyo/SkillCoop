@@ -42,15 +42,18 @@ export type Profile = {
   first_name?: string | null;
   last_name?: string | null;
   location?: string | null;
-  nb_reviews: number;
-  avg_pace: number | null;
-  avg_shooting: number | null;
-  avg_dribbling: number | null;
-  avg_defending: number | null;
-  avg_passing: number | null;
-  gb_rating: number | null;
   relation_exists: number | null;
+  last_evaluation: number | null
 };
+
+export type ProfileEval = {
+  gb_rating: number
+  avg_pace: number
+  avg_defending: number
+  avg_passing: number
+  avg_dribbling: number
+  avg_shooting: number
+}
 
 export type EventParticipant = {
   profile_id: number;

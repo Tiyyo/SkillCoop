@@ -7,6 +7,7 @@ import {
   Friend,
   InvitationStatus,
   Profile,
+  ProfileEval,
   RegisterUser,
   SearchFriendQuery,
   SearchProfileQuery,
@@ -281,6 +282,10 @@ export const updateAvatarFn = async (formData: FormData) => {
       'Content-Type': 'multipart/form-data'
     }
   })
-  // setUserImage(import.meta.env.VITE_SERVER_URL + res.data.data.image_url);
+  return response.data
+}
+
+export const getProfileEvalFn = async (profileId: number): Promise<ProfileEval> => {
+  const response = await authApi.get(`api/skill_foot/${profileId}`)
   return response.data
 }

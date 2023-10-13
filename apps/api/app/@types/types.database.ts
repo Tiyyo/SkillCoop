@@ -49,6 +49,7 @@ export type profile = {
   location: string | null;
   date_of_birth: string | null;
   avatar_url: string | null;
+  last_evaluation: number | null;
 };
 export type profile_on_event = {
   id: Generated<number>;
@@ -75,6 +76,7 @@ export type score = {
   updated_at: string | null;
 };
 export type skill_foot = {
+  id: Generated<number>;
   pace: number;
   shooting: number;
   passing: number;
@@ -84,7 +86,7 @@ export type skill_foot = {
   updated_at: string | null;
   rater_id: number;
   reviewee_id: number;
-  event_id: Generated<number>;
+  event_id: number | null;
 };
 export type sport = {
   id: Generated<number>;
@@ -119,7 +121,7 @@ export type DB = {
   sport: sport;
   status: status;
   user: user;
-}
+};
 
 
 

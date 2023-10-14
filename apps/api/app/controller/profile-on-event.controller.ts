@@ -7,6 +7,7 @@ import { Request, Response } from 'express'
 import redis from 'ioredis'
 import ServerError from '../helpers/errors/server.error';
 import { invitationStatus } from '../@types/types';
+import { generateBalancedTeam } from '../service/generate-teams';
 
 const redisClient = new redis()
 
@@ -41,19 +42,18 @@ export default {
     // check if the event is full
 
     const confirmedParticipants = await ProfileOnEvent.findBy({ event_id: data.event_id, status_name: invitationStatus.confirmed })
-
     const event = await Event.findByPk(data.event_id)
-
-    console.log(event, confirmedParticipants.length)
 
     // check type number before strict equality
 
-    if (event.required_particpants === confirmedParticipants.length) throw new UserInputError('Event is already full')
+    if (event.required_participants <= confirmedParticipants.length) throw new UserInputError('Event is already full')
 
     await ProfileOnEvent.updateStatus(data)
 
-    if (event.required_particpants === confirmedParticipants.length + 1) {
 
+    if (event.required_participants === confirmedParticipants.length + 1) {
+      await Event.update(event.id, { status_name: "full" })
+      await generateBalancedTeam(event.id)
       userMessage = "Teams has been generated "
       logger.debug('Team has been generated')
     }
@@ -63,7 +63,7 @@ export default {
     // generation team if needed
 
     // TODO check if we are actually casting a boolean
-    res.status(201).json(userMessage)
+    res.status(200).json(userMessage)
 
   },
   async sendInvitationToEvent(req: Request, res: Response) {

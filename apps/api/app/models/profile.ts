@@ -33,7 +33,7 @@ export class Profile extends Core {
     }
   }
   async findOne(id: number) {
-    const profile = await this.client
+    const [profile] = await this.client
       .selectFrom("profile")
       .select([
         "profile.user_id",
@@ -54,7 +54,7 @@ export class Profile extends Core {
       .groupBy("profile.id")
       .execute();
 
-    const nbAttendedEvents = await this.client
+    const [nbAttendedEvents] = await this.client
       .selectFrom("profile_on_event")
       .select(({ fn }) => [
         fn.count("profile_on_event.id").as("nb_attended_events"),
@@ -64,7 +64,7 @@ export class Profile extends Core {
       .where("event.status_name", "=", "completed")
       .execute();
 
-    const nbBonus = await this.client
+    const [nbBonus] = await this.client
       .selectFrom("event")
       .select(({ fn }) => [(
         fn.count("event.mvp_id").as("nb_mvp_bonus")
@@ -77,9 +77,11 @@ export class Profile extends Core {
       )
       .execute();
 
-    profile[0].nb_attended_events = nbAttendedEvents[0].nb_attended_events;
-    profile[0].nb_bonus = nbBonus[0];
-    return profile[0];
+    console.log(profile.user_id);
+
+    // profile.nb_attended_events = nbAttendedEvents;
+    // profile.nb_bonus = nbBonus;
+    return profile;
   }
   // TODO define a type for data
   async create(data: Record<string, any>) {

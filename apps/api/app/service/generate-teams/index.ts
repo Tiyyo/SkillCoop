@@ -1,115 +1,126 @@
-import getCompleteEventInfos from "../../models/teams";
-import { Player, TeamGeneratorConfig } from "../../@types/types";
+import getCompleteEventInfos from '../../models/teams';
+import { Player, TeamGeneratorConfig } from '../../@types/types';
+import { profileOnEvent as ProfileOnEvent } from '../../models/index';
 
-export async function generateBalancedTeam() {
-  console.info("Algo has started");
-  console.time("Algo time start");
-
-  // hardcoded event_id for now
-  // gonna be a parameter later
-  const event_id = 4;
-
-  const eventInfos = await getCompleteEventInfos(event_id)
-
-  const profiles = eventInfos.profiles
-
-  const newObject: Record<string, number> = {}
-
-  profiles.forEach((profile) => {
-    newObject[profile.profile_id as keyof typeof newObject] = profile.gb_rating
-  })
-
-  // const nbTeamsArray = new Array(eventInfos.num_teams).fill(1)
-  // nbTeamsArray.forEach((el, index) => {
-  // })
-  // remove those hardcoded variables for improvement
-  // especially for more than 2 teams
-
-  let team_1: Player[] = []
-  let team_2: Player[] = []
-
-  const config = {
-    team1: team_1,
-    team2: team_2,
-    ids: Object.keys(newObject),
-    values: Object.values(newObject) as number[],
-    participants: eventInfos.required_participants
+function assignTeam(position: number): number {
+  const TEAM_1 = 1
+  const TEAM_2 = 2
+  const HALF = 5
+  if (position < HALF) {
+    return TEAM_1
+  } else {
+    return TEAM_2
   }
+}
 
-  const result = divideInTeam(config)
+export async function generateBalancedTeam(eventId: number) {
+  console.info('Algo has started');
+  console.time('Algo time start');
 
-  console.log(result, 'this is the result')
-  console.timeEnd("Algo time end")
+  const config = await getCompleteEventInfos(eventId);
+
+  if (!config) throw new Error('Failed to config algorithm');
+
+  const { team1, team2 } = divideInTeam(config);
+  const participants = [...team1, ...team2]
+
+  const updateParticipantQueries = participants.map((p, index) => ProfileOnEvent.updateUnionFk(p.profile_id, eventId, { team: assignTeam(index) }))
+
+  await Promise.allSettled(updateParticipantQueries)
+
+  // console.log(result, 'this is the result')
+  console.timeEnd('Algo time start');
 
 }
 
 export function divideInTeam(config: TeamGeneratorConfig) {
-  const valueTeam1 = getTeamValue(config.team1)
-  const valueTeam2 = getTeamValue(config.team2)
+  const valueTeam1 = getTeamValue(config.team1);
+  const valueTeam2 = getTeamValue(config.team2);
+  const maxIndex = getMaxIndex(config.values);
+  const player = getPlayerObject(maxIndex, config.ids, config.values);
 
-  const maxIndex = getMaxIndex(config.values)
+  useRigthCondition(config, player, valueTeam1, valueTeam2)
+    ? config.team1.push(player)
+    : config.team2.push(player);
 
-  const player = getPlayerObject(maxIndex, config.ids, config.values)
-
-  useRandomConditionAtStart(config.participants, config.ids, valueTeam1, valueTeam2) ? config.team1.push(player) : config.team2.push(player)
-
-  // TODO : refactor this function
-  function checkIfValueIsZero() {
-    if (player.gb_rating === 0) {
-      config.team1.length < config.team2.length ? config.team1.push(player) : config.team2.push(player);
-    } else {
-      useRandomConditionAtStart(
-        config.participants,
-        config.ids,
-        valueTeam1,
-        valueTeam2,
-      )
-        ? config.team1.push(player)
-        : config.team2.push(player);
-    }
-  }
-  checkIfValueIsZero();
-
-  deleteFromArrayAfterPush(config.ids, config.values, maxIndex)
+  deleteFromArrayAfterPush(config.ids, config.values, maxIndex);
 
   if (config.ids.length !== 0) {
-    divideInTeam(config)
+    divideInTeam(config);
   }
-  return { team_1: config.team1, team_2: config.team2 }
+  return { team1: config.team1, team2: config.team2 };
 }
 
-export function useRandomConditionAtStart(participants: number, idsArray: string[], valueTeam1: number, valueTeam2: number) {
-  if (participants === idsArray.length) {
-    const randomNumberStart = getRandomArbitrary(0, 1)
-    return randomNumberStart > 0.5
-  }
-  return valueTeam1 < valueTeam2
+export function randomCondition(): boolean {
+  const randomNumberStart = getRandomArbitrary(0, 1);
+  return randomNumberStart > 0.5;
 }
 
-export function deleteFromArrayAfterPush(ids: string[], values: number[], index: number) {
-  ids.splice(index, 1)
-  values.splice(index, 1)
+export function regularCondition(
+  valueTeam1: number,
+  valueTeam2: number
+): boolean {
+  return valueTeam1 < valueTeam2;
+}
+
+export function conditionIfZero(
+  lengthTeam1: number,
+  lengthTeam2: number
+): boolean {
+  return lengthTeam1 < lengthTeam2;
+}
+
+export function useRigthCondition(
+  config: TeamGeneratorConfig,
+  player: Player,
+  valueTeam1: number,
+  valueTeam2: number
+): boolean {
+  if (config.participants === config.ids.length) {
+    return randomCondition();
+  }
+  if (player.gb_rating === 0) {
+    return conditionIfZero(config.team1.length, config.team2.length);
+  }
+  return regularCondition(valueTeam1, valueTeam2);
+}
+
+export function deleteFromArrayAfterPush(
+  ids: number[],
+  values: number[],
+  index: number
+) {
+  ids.splice(index, 1);
+  values.splice(index, 1);
 }
 
 export function getMaxIndex(values: number[]): number {
-  const maxValues = Math.max(...values)
-  return values.findIndex((v) => v === maxValues)
+  const maxValues = Math.max(...values);
+  return values.findIndex((v) => v === maxValues);
 }
 
 export function getRandomArbitrary(min: number, max: number): number {
   return Math.random() * (max - min) + min;
 }
 
-export function getPlayerObject(maxIndex: number, ids: string[], values: number[]): Player {
+export function getPlayerObject(
+  maxIndex: number,
+  ids: number[],
+  values: number[]
+): Player {
   const player: Player = {
-    profile_id: Number(ids[maxIndex]),
-    gb_rating: values[maxIndex]
-  }
-  return player
+    profile_id: ids[maxIndex],
+    gb_rating: values[maxIndex],
+  };
+  return player;
 }
 
 export function getTeamValue(arrayTeam: Player[]): number {
-  return arrayTeam.length > 0 ? arrayTeam.map((p) => {
-    return p.gb_rating
-  }).reduce((a, b) => a + b) : 0
+  return arrayTeam.length > 0
+    ? arrayTeam
+      .map((p) => {
+        return p.gb_rating;
+      })
+      .reduce((a, b) => a + b)
+    : 0;
 }

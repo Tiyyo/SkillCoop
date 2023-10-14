@@ -154,7 +154,6 @@ async function computeRatingUser(profileId: number) {
   ])
 
   const test = await userOwnEvalQuery
-  console.log('TEST : ', test.rows[0]);
 
   const WEIGHT_OWN_EVAL = 7
   const VALUE_BONUS = 100
@@ -163,12 +162,6 @@ async function computeRatingUser(profileId: number) {
   const NB_STRIKER = nbBestStrikerQueryResult.rows[0].nb_best_striker
   const avgEvalReceived = avgEvalsReceivedQueryResult.rows[0]
   const userOwnEval = userOwnEvalQueryResult.rows[0]
-
-  // console.log('NB_MVP : ', NB_MVP);
-  // console.log('NB_EVAL_RECEIVED :', NB_EVAL_RECEIVED);
-  // console.log('NB_STRIKER :', NB_STRIKER);
-  // console.log('avgEvalReceived :', avgEvalReceived);
-  console.log('userOwnEval :', userOwnEval);
 
   if (!userOwnEval) throw new NotFoundError('User have to evaluate his skill')
 
@@ -187,7 +180,7 @@ async function computeRatingUser(profileId: number) {
 
   const gbRatingBeforeBonus = computeGbRating(avg_skills)
   const gbRating = Math.floor((gbRatingBeforeBonus * WEIGHT_OWN_EVAL + NB_EVAL_RECEIVED + 100 * NB_MVP) / (WEIGHT_OWN_EVAL + NB_EVAL_RECEIVED + NB_MVP))
-  const profileSkills = { ...avg_skills, gb_rating: gbRating }
+  const profileSkills = { ...avg_skills, gb_rating: gbRating, profile_id: profileId }
 
   await db
     .updateTable('profile')
@@ -196,7 +189,6 @@ async function computeRatingUser(profileId: number) {
     .executeTakeFirst()
 
   console.timeEnd('start query')
-  console.log(profileSkills);
   return profileSkills
 
 }

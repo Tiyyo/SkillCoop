@@ -42,4 +42,19 @@ export class ProfileOnEvent extends Core {
       throw new DatabaseError(error)
     }
   }
+  async updateUnionFk(profileId: number, eventId: number, data: Record<string, any>) {
+    const today = new Date()
+    const todayUTC = getDateUTC(today)
+
+    data.updated_at = todayUTC
+
+    const result = await this.client
+      .updateTable(this.tableName)
+      .set({ ...data })
+      .where('profile_id', "=", profileId)
+      .where('event_id', '=', eventId)
+      .executeTakeFirst()
+
+    return !!result.numUpdatedRows
+  }
 }

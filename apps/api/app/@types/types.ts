@@ -22,18 +22,18 @@ export type LevelScale =
 export type EventStatus = "open" | "full" | "completed" | "cancelled";
 
 export const eventStatus = {
-  open : "open",
-  full : "full",
-  completed : "completed",
-  cancelled : "cancelled"
-} as const 
+  open: "open",
+  full: "full",
+  completed: "completed",
+  cancelled: "cancelled"
+} as const
 
 export type InvitationStatus = "pending" | "confirmed" | "declined";
 
 export const invitationStatus = {
-    pending : "pending",
-    confirmed : "confirmed",
-    declined : "declined"
+  pending: "pending",
+  confirmed: "confirmed",
+  declined: "declined"
 } as const
 
 export type Score = {
@@ -52,7 +52,7 @@ export type Player = {
 export type TeamGeneratorConfig = {
   team1: Player[];
   team2: Player[];
-  ids: string[];
+  ids: number[];
   values: number[];
   participants: number;
 };

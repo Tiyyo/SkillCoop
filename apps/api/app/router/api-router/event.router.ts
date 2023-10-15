@@ -24,12 +24,14 @@ router
   .post(validate(createEventSchema, canals.body), factory(createOne))
   .patch(validate(updateEventSchema, canals.body), factory(updateOne));
 
-router.route('/user/:id')
+router.route('/user/:profileId')
   .get(factory(getAllByUser));
 
+// query routes
 router.route('/organizer')
   .get(factory(getOrganizerEvents));
 
+// query routes
 router.route('/past')
   .get(factory(getPasts))
 

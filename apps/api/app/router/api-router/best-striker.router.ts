@@ -11,6 +11,7 @@ const { createOne } = bestStrikerController;
 
 const router: Router = express.Router();
 
+// Invalidate event id 
 router.route('/')
   .post(validate(voteSchema, canals.body), factory(createOne))
 

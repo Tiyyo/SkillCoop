@@ -71,11 +71,17 @@ export default {
     const isCreated = await this.createUser({ email, password })
     if (!isCreated) throw new Error('Error creating user')
 
-    const newUser = await User.findMany({ email })
+    const newUser = await User.findBy({ email })
     const username = `${given_name} ${family_name[0]}.`
     await User.update(newUser.id, { verified: 1 })
     await Image.create({ url: picture })
-    await Profile.create({ username, avatar_url: picture, user_id: newUser.id })
+    await Profile.create({
+      username,
+      avatar_url: picture,
+      frist_name: given_name,
+      last_name: family_name,
+      user_id: newUser.id
+    })
     return { user_id: newUser.id, email: newUser.email }
   }
 }

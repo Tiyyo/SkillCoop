@@ -45,7 +45,6 @@ export default {
   },
   async refresh(req: Request, res: Response) {
     const { decoded } = req.body
-
     const accessToken = createAccessToken("15m", decoded[0])
 
     res.status(200).json({ accessToken })
@@ -58,7 +57,6 @@ export default {
   },
   async googleAuth(req: Request, res: Response) {
     const { code, state } = req.query
-
     const { access_token: googleToken, id_token } = await google.getOAuthToken({ code })
 
     const { email, given_name, family_name, picture } = await google.getUser({ access_token: googleToken, id_token })

@@ -2,17 +2,17 @@ import { NextFunction, Request, Response } from 'express';
 import logger from '../helpers/logger.js';
 import Cache from '../utils/cache.js';
 
-export default (key: string) => async (
+export default (key: string, paramsKey?: string) => async (
   req: Request,
   res: Response,
   next: NextFunction,
 ) => {
   if (!key) next();
-  let paramsKey = key;
-  if (req.params.id) paramsKey = key + req.params.id;
+  let cacheKeyRef = key;
+  if (paramsKey) cacheKeyRef = key + req.params[paramsKey]
   try {
-    const cacheValue = await Cache.get(paramsKey);
-    req.body.cacheKey = paramsKey;
+    const cacheValue = await Cache.get(cacheKeyRef);
+    req.body.cacheKey = cacheKeyRef;
     if (req.method === 'GET' && cacheValue) {
       return res.status(200).json({ message: 'cached data', data: cacheValue });
     }

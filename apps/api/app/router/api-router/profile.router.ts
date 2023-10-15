@@ -22,11 +22,12 @@ router.route('/avatar')
   // .post(upload.single('avatar'), factory(createImage))
   .patch(upload.single('avatar'), factory(updateImage))
 
+// query routes
 router.route('/search')
   .get(factory(searchProfileByUsername))
 
 
-router.route('/:id')
+router.route('/:profileId')
   .get(factory(getOne))
   .delete(factory(deleteOne))
 

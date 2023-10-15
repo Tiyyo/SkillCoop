@@ -11,8 +11,6 @@ export default {
     const userId = decoded[0].user_id
     const userProfile = await Profile.findByUserId(userId)
 
-    const ccomputedRatings = await computeRatingUser(userProfile.profile_id)
-
     res.status(200).json({ userProfile: userProfile ?? decoded[0] })
   },
   updateEmail: async (req: Request, res: Response) => {

@@ -15,7 +15,7 @@ router.route('/')
   .post(validate(inviteParticipantSchema, canals.body), factory(sendInvitationToEvent))
   .patch(validate(updateParticipantSchema, canals.body), factory(updateStatus))
 
-router.route('/:event_id')
+router.route('/:eventId')
   .get(factory(getAllUserByEvent))
 
 

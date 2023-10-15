@@ -20,7 +20,7 @@ router.route('/password')
   // Type error with refine present in Schema
   .patch(validate(passwordSchema, canals.body), factory(updatePassword))
 
-router.route('/:id')
+router.route('/:userId')
   .delete(deleteUser)
 
 

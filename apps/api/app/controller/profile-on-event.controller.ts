@@ -55,7 +55,6 @@ export default {
       await Event.update(event.id, { status_name: "full" })
       await generateBalancedTeam(event.id)
       userMessage = "Teams has been generated "
-      logger.debug('Team has been generated')
     }
 
     logger.debug("status has been upload")

@@ -3,6 +3,7 @@ import factory from '../../middleware/wrapper-controller';
 import friendsList from '../../controller/friendslist.controller';
 import validate from '../../middleware/schema-validator';
 import { canals } from '../../@types/types';
+import cache from '../../middleware/cache';
 import schema from 'schema'
 const { searchFriendsSchema, createInvitationSchema, updateFriendshipSchema } = schema
 
@@ -15,16 +16,17 @@ router.route('/')
   .post(validate(createInvitationSchema, canals.body), factory(sendFriendRequest))
   .patch(validate(updateFriendshipSchema, canals.body), factory(acceptOrDeclined))
 
-router.route('/:id')
+router.route('/:profileId')
   .get(factory(getFriends))
 
-router.route('/suggest/:id')
+router.route('/suggest/:profileId')
   .get(factory(getSuggestProfile))
 
+//query routes
 router.route('/search/friendlist')
   .get(validate(searchFriendsSchema, canals.query), factory(searchFriends))
 
-router.route('/pending/:id')
+router.route('/pending/:profileId')
   .get(factory(getRequestToAccept))
 
 

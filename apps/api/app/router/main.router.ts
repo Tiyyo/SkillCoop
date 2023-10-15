@@ -15,20 +15,20 @@ import validateToken from '../middleware/validate-access-token';
 const router: Router = express.Router();
 
 router.use('/api',
-  // validateToken,
+  validateToken,
   apiRouter)
 router.use('/auth', authRouter)
 
 
 // test generate team alogrithm
-router.route('/test').get((req, res) => {
-  try {
-    generateBalancedTeam()
-  } catch (error) {
-    console.log(error)
-  }
-  res.send('ok')
-})
+// router.route('/test').get((req, res) => {
+//   try {
+//     generateBalancedTeam()
+//   } catch (error) {
+//     console.log(error)
+//   }
+//   res.send('ok')
+// })
 
 
 router.use((_req, _res, next) => {

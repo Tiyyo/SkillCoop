@@ -16,9 +16,10 @@ router.route('/')
 
 router.route('/event')
   .post(validate(participantSkillSchema, canals.body), factory(createRating))
+  // query routes
   .get(factory(getProfileEvalByEvent))
 
-router.route('/:id')
+router.route('/:profileId')
   .get(factory(getProfileEval))
 
 

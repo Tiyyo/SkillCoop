@@ -11,7 +11,7 @@ router.route('/')
   .get(factory(getAll))
   .post(factory(createOne))
 
-router.route('/:id')
+router.route('/:profileId')
   .get(factory(getOne))
   .patch(factory(updateOne))
   .delete(factory(deleteOne))

@@ -20,14 +20,14 @@ export default {
   async register(req: Request, res: Response) {
     const { email, password } = req.body
     const newUser = await authService.createUser({ email, password })
+    
     if (!newUser) throw new ServerError("Couldn't create user")
-
-    const emailToken = createAccessToken('1h', { userId: newUser.id })
-
+    // const emailToken = createAccessToken('1h', { userId: newUser.id })
+    
+    const emailToken = tokenHandler.createToken('1h' , process.env.JWT_EMAIL_TOKEN_KEY as string , { userId: newUser.id })
     await emailService.sendEmailToConfirmEmail({ emailToken, email, userId: newUser.id })
 
-    return res.status(201).json({ message: "User created successfully and confirmation email has been sent" })
-
+    return res.status(200).json({ message: "User created successfully and confirmation email has been sent" })
   },
   async signin(req: Request, res: Response) {
     const { email, password } = req.body
@@ -35,7 +35,6 @@ export default {
 
     try {
       const { accessToken, refreshToken } = await authService.login({ email, password })
-
       res.cookie("refreshToken", refreshToken, { httpOnly: true, sameSite: "none", secure: true, maxAge: MAX_AGE })
 
       res.status(200).json({ accessToken })
@@ -44,16 +43,16 @@ export default {
     }
   },
   async refresh(req: Request, res: Response) {
-    const { decoded } = req.body
-    const accessToken = createAccessToken("15m", decoded[0])
+    const { decodedInfos } = req.body
+    // const accessToken = createAccessToken("15m", decoded[0])
+    const accessToken = tokenHandler.createToken('15m' , process.env.JWT_TOKEN_KEY, decodedInfos)
 
     res.status(200).json({ accessToken })
-
   },
   async logout(_req: Request, res: Response) {
     res.clearCookie("refreshToken")
 
-    res.status(200).json({ message: "Logout successfully" })
+    res.status(204)
   },
   async googleAuth(req: Request, res: Response) {
     const { code, state } = req.query

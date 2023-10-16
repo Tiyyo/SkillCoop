@@ -153,29 +153,49 @@ async function computeRatingUser(profileId: number) {
     avgEvalsReceivedQuery
   ])
 
-  const test = await userOwnEvalQuery
-
   const WEIGHT_OWN_EVAL = 7
   const VALUE_BONUS = 100
   const NB_MVP = nbMvpQueryResult.rows[0].nb_mvp
-  const NB_EVAL_RECEIVED = avgEvalsReceivedQueryResult.rows[0].nb_eval_received
+  const NB_EVAL_RECEIVED = avgEvalsReceivedQueryResult.rows[0]?.nb_eval_received ?? 0
   const NB_STRIKER = nbBestStrikerQueryResult.rows[0].nb_best_striker
   const avgEvalReceived = avgEvalsReceivedQueryResult.rows[0]
   const userOwnEval = userOwnEvalQueryResult.rows[0]
 
   if (!userOwnEval) throw new NotFoundError('User have to evaluate his skill')
 
+
+  function avgIndividualSkill(userEval: number | undefined,
+    avgEvals: number | undefined,
+    valueBonus?: number, nbBonus?: number) {
+
+    const userHasEvaluateHimself = !!userEval
+    const userHasBeenEvaluated = !!avgEvals
+    const userHaveBonus = !!nbBonus && !!valueBonus
+
+    if (!userHasEvaluateHimself && !userHasBeenEvaluated) return 0
+    // Numerator 
+    const userEvalNumerator = userHasEvaluateHimself && userEval * WEIGHT_OWN_EVAL || 0
+    const receivedEvalNumerator = userHasBeenEvaluated && avgEvals || 0
+    const bonusNumerator = userHaveBonus && valueBonus * nbBonus || 0
+    const numerator = userEvalNumerator + receivedEvalNumerator + bonusNumerator
+    // Denominator
+    const userEvalDenomiator = userHasEvaluateHimself && WEIGHT_OWN_EVAL || 0
+    const receivedEvalDenominator = userHasBeenEvaluated && NB_EVAL_RECEIVED || 0
+    const bonusDenominator = userHaveBonus && nbBonus || 0
+    const denominator = userEvalDenomiator + receivedEvalDenominator
+
+    const result = numerator / denominator
+    return Math.floor(result)
+  }
+  const avg = avgIndividualSkill(userOwnEval?.pace, avgEvalReceived?.pace)
+  console.log(avg);
+
   const avg_skills = {
-    avg_pace: Math.floor(((userOwnEval.pace * WEIGHT_OWN_EVAL) + avgEvalReceived.pace)
-      / (WEIGHT_OWN_EVAL + NB_EVAL_RECEIVED)),
-    avg_defending: Math.floor(((userOwnEval.defending * WEIGHT_OWN_EVAL) + avgEvalReceived.defending)
-      / (WEIGHT_OWN_EVAL + NB_EVAL_RECEIVED)),
-    avg_passing: Math.floor(((userOwnEval.passing * WEIGHT_OWN_EVAL) + avgEvalReceived.passing)
-      / (WEIGHT_OWN_EVAL + NB_EVAL_RECEIVED)),
-    avg_dribbling: Math.floor(((userOwnEval.dribbling * WEIGHT_OWN_EVAL) + avgEvalReceived.dribbling)
-      / (WEIGHT_OWN_EVAL + NB_EVAL_RECEIVED)),
-    avg_shooting: Math.floor(((userOwnEval.shooting * WEIGHT_OWN_EVAL) + avgEvalReceived.shooting + (VALUE_BONUS * NB_STRIKER))
-      / (WEIGHT_OWN_EVAL + NB_EVAL_RECEIVED + NB_STRIKER))
+    avg_pace: avgIndividualSkill(userOwnEval?.pace, avgEvalReceived?.pace),
+    avg_defending: avgIndividualSkill(userOwnEval?.defending, avgEvalReceived?.defending),
+    avg_passing: avgIndividualSkill(userOwnEval?.passing, avgEvalReceived?.passing),
+    avg_dribbling: avgIndividualSkill(userOwnEval?.dribbling, avgEvalReceived?.dribbling),
+    avg_shooting: avgIndividualSkill(userOwnEval?.shooting, avgEvalReceived?.shooting, VALUE_BONUS, NB_STRIKER)
   }
 
   const gbRatingBeforeBonus = computeGbRating(avg_skills)
@@ -189,6 +209,7 @@ async function computeRatingUser(profileId: number) {
     .executeTakeFirst()
 
   console.timeEnd('start query')
+  console.log(profileSkills);
   return profileSkills
 
 }

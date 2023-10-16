@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react';
 import Spinner from '../../../component/loading';
 import { useApp } from '../../../store/app.store';
 import { Link } from 'react-router-dom';
-import ArrowRight from '../../../assets/icon/ArrowRight';
 
 function ResumeEvents() {
   const { userProfile } = useApp();
@@ -55,12 +54,13 @@ function ResumeEvents() {
         <Spinner />
       ) : (
         <>
-          <Link
-            to="/my-event"
-            className="flex justify-end text-xs cursor-pointer text-end py-2 px-3 gap-2 text-accent-700 underline-offset-4 underline">
-            My events
-            <ArrowRight />
-          </Link>
+          <div className="w-full flex justify-end px-3">
+            <Link
+              to="/my-event"
+              className="w-fit text-xs px-3 py-1 border border-primary-400 bg-primary-200 rounded-md my-3 cursor-pointer hover:bg-base duration-300 transition-all hover:border-primary-700">
+              My events
+            </Link>
+          </div>
           <EventList
             events={events.incoming}
             title="Incoming"

@@ -7,10 +7,10 @@ function MobileNav({ menuIsOpen }: { menuIsOpen: boolean }) {
   return (
     <div
       className={`absolute z-20 bg-base-light shadow-sm rounded-b-xl  ${
-        menuIsOpen ? 'h-72' : 'h-0'
+        menuIsOpen ? 'h-64' : 'h-0'
       } w-full transition-all duration-300`}>
       <ul
-        className={`pt-20 px-2 transition-opacity duration-500 ${
+        className={`pt-14 px-2 transition-opacity duration-500 ${
           menuIsOpen ? 'opacity-100' : 'opacity-0 -translate-y-96'
         }`}>
         <NavMobileLink

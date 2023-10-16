@@ -70,7 +70,7 @@ export default {
       .send(!!skill)
   },
   async getProfileEval(req: Request, res: Response) {
-    const profileId = checkParams(req.params.id)
+    const profileId = checkParams(req.params.profileId)
 
     try {
       const profileEval = await computeRatingUser(profileId)
@@ -79,6 +79,7 @@ export default {
       if (error instanceof NotFoundError) {
         res.status(200).json({ error: "User have to evaluate his skill" })
       } else {
+        console.log(error);
         throw new ServerError('Error computation')
       }
     }

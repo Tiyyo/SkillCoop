@@ -2,12 +2,9 @@ import express, { Router } from 'express';
 import factory from '../middleware/wrapper-controller';
 import authController from '../controller/auth.controller';
 import validate from '../middleware/schema-validator';
-// import registerSchema from '../schemas/user/register';
-// import loginSchema from '../schemas/user/login';
 import { canals } from '../@types/types';
-import validateToken from '../middleware/validate-token';
 import schema from 'schema'
-import validateEmaiToken from '../middleware/validate-email-token';
+import tokenHandler from '../helpers/token.handler';
 
 
 const { signin, register, refresh, logout, googleAuth, verifyEmail, resendEmail } = authController;
@@ -22,7 +19,7 @@ router.route('/login')
   .post(validate(loginSchema, canals.body), factory(signin))
 
 router.route('/refresh')
-  .get(validateToken, factory(refresh))
+  .get(tokenHandler.validate('refresh'), factory(refresh))
 
 router.route('/email')
   .post(validate(emailSchema, canals.body), factory(resendEmail))

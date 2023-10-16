@@ -11,6 +11,7 @@ import bcrypt from "bcrypt"
 import emailService from "../../utils/send-email"
 import generateTokens from "../../helpers/create-tokens"
 import randomBytes from 'randombytes'
+import tokenHandler from "../../helpers/token.handler"
 
 interface UserInfos {
   user_id: number,
@@ -48,7 +49,6 @@ export default {
   },
   async login(data: { email: string, password: string }): Promise<Record<string, string>> {
     const { email, password } = data
-
     const [user] = await User.findBy({ email: email })
 
     if (!user) throw new UserInputError("Can't find any user with this email", "wrong credentials")
@@ -57,13 +57,12 @@ export default {
 
     if (!user.verified) {
       // generate an new email to send to the user
-      const emailToken = createAccesToken('1h', { userId: user.id })
+      const emailToken = tokenHandler.createToken('1h', process.env.JWT_EMAIL_TOKEN_KEY as string, { user_id: user.id })
       await emailService.sendEmailToConfirmEmail({ emailToken, email, userId: user.id })
       throw new UserInputError("Email not verified")
     }
     const userInfos = { user_id: user.id, email: user.email }
-    const { accessToken, refreshToken } = generateTokens(userInfos)
-
+    const { accessToken, refreshToken } = tokenHandler.createPairAuthToken(userInfos)
     return { accessToken, refreshToken }
   },
   async createGoogleUser({ email, given_name, family_name, picture }: GoogleUserInfos): Promise<UserInfos> {
@@ -71,17 +70,20 @@ export default {
     const isCreated = await this.createUser({ email, password })
     if (!isCreated) throw new Error('Error creating user')
 
-    const newUser = await User.findBy({ email })
+    // We need to get user_id in order to update verified status
+    // TODO look if we cannot get insterd id when create a new user
+    const [userCreated] = await User.findBy({ email })
+
     const username = `${given_name} ${family_name[0]}.`
-    await User.update(newUser.id, { verified: 1 })
+    await User.update(userCreated.id, { verified: 1 })
     await Image.create({ url: picture })
     await Profile.create({
       username,
       avatar_url: picture,
-      frist_name: given_name,
+      first_name: given_name,
       last_name: family_name,
-      user_id: newUser.id
+      user_id: userCreated.id
     })
-    return { user_id: newUser.id, email: newUser.email }
+    return { user_id: userCreated.id, email: userCreated.email }
   }
 }

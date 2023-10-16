@@ -17,6 +17,10 @@ import EyeSlash from '../../assets/icon/EyeSlash';
 import Button from '../../component/button';
 import { RegisterUser } from '../../types';
 import { useEffect, useState } from 'react';
+import ReturnBtn from '../../component/return';
+import checkIfString from '../../utils/check-string';
+import ErrorContainer from '../../component/error';
+import ErrorNotification from '../../component/error/notification';
 const { registerSchema } = schemas;
 
 function Register() {
@@ -24,10 +28,12 @@ function Register() {
     mutate: signUpUser,
     isSuccess,
     isLoading,
+    error: queryError,
   } = useMutation((userData: RegisterUser) => signUpUserFn(userData));
   const navigate = useNavigate();
   const location = useLocation();
   const [currentEmail, setCurrentEmail] = useState<string | null>(null);
+  const [responseErrorServer, setResponseErrorServer] = useState('');
   const from = location.state?.from?.pathname || '/';
 
   const {
@@ -38,34 +44,36 @@ function Register() {
     resolver: zodResolver(registerSchema),
   });
 
-  const onSubmit = async (data: RegisterUser) => {
-    console.log(data);
+  // TODO find which type is needed
+  const onSubmit = async (data: any) => {
     const termAndServiceInString = data.termAndService ? 'on' : 'off';
     setCurrentEmail(data.email);
-    try {
-      signUpUser({
-        email: data.email,
-        password: data.password,
-        confirmedPassword: data.confirmedPassword,
-        termAndService: termAndServiceInString,
-      });
-    } catch (error) {
-      console.log(error);
-    }
+    signUpUser({
+      email: data.email,
+      password: data.password,
+      confirmedPassword: data.confirmedPassword,
+      termAndService: termAndServiceInString,
+    });
   };
 
   useEffect(() => {
-    if (isSuccess && !isLoading)
+    if (isSuccess && !isLoading) {
       navigate('/verify-email', { state: { email: currentEmail } });
-  }, [isSuccess, isLoading]);
+    }
+    if (queryError) {
+      setResponseErrorServer((queryError as any).response.data);
+    }
+  }, [isSuccess, isLoading, queryError]);
 
   return (
     <Page>
+      <ReturnBtn to="/" />
       <Center>
         <h1 className="py-4 text-xl font-bold text-primary-1100 text-center">
           Create your SkillCoop account
         </h1>
-        <div className="flex flex-col w-[90%] max-w-lg bg-base-light py-12 px-6 rounded-lg">
+        <div className="flex flex-col w-[90%] max-w-lg bg-base-light py-7 px-6 rounded-lg">
+          <ErrorNotification message={responseErrorServer} />
           <SocialButton
             value="Continue with google"
             href={getGoogleUrl(from)}>
@@ -79,7 +87,7 @@ function Register() {
               type="email"
               name="email"
               label="Email"
-              error={errors.email?.message}
+              error={checkIfString(errors.email?.message)}
               register={register}>
               <Atsign />
             </FormField>
@@ -88,7 +96,7 @@ function Register() {
               name="password"
               label="Password"
               subicon={<EyeSlash />}
-              error={errors.password?.message}
+              error={checkIfString(errors.password?.message)}
               register={register}>
               <EyeIcon />
             </FormField>
@@ -97,7 +105,7 @@ function Register() {
               name="confirmedPassword"
               label="Confirm your password"
               subicon={<EyeSlash />}
-              error={errors.confirm?.message}
+              error={checkIfString(errors.confirm?.message)}
               register={register}>
               <EyeIcon />
             </FormField>
@@ -127,14 +135,17 @@ function Register() {
                 Terms and Service
               </Link>
             </label>
-            <p>
-              {errors.termAndService
-                ? 'You have to accept Terms and Service'
-                : ''}
-            </p>
+            <ErrorContainer
+              errorValue={
+                errors.termAndService
+                  ? 'You have to accept Terms and Service'
+                  : ''
+              }
+            />
             <Button
               textContent="Register"
               type="submit"
+              isLoading={isLoading}
             />
           </form>
         </div>

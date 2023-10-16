@@ -10,6 +10,7 @@ import { User, Trophy, Settings, LogOut } from 'lucide-react';
 import { useMutation } from '@tanstack/react-query';
 import { logoutUserFn } from '../../api/api.fn';
 import { useApp } from '../../store/app.store';
+import { queryClient } from '../../main';
 
 function NavUser({ userAvatar }: { userAvatar?: string | null }) {
   const menuItemStyle =
@@ -19,17 +20,22 @@ function NavUser({ userAvatar }: { userAvatar?: string | null }) {
   const { setIsAuth } = useApp();
 
   const handleClickLogout = () => {
-    logout();
     setIsAuth(false);
+    logout();
+    // cache need to be clear on logout to avoid an user to still be able to access the app
+    // because of remaining data in cache
+    queryClient.clear();
+    queryClient.resetQueries({ queryKey: ['authUser'], exact: true });
+    queryClient.setQueryDefaults(['authUser'], { initialData: {} });
   };
 
   return (
-    <div className="relative">
+    <div className="relative  flex justify-center">
       <DropdownMenu>
         <DropdownMenuTrigger>
-          <div className="rounded-full overflow-hidden w-10 h-10 shadow-md border-2">
+          <div className="rounded-full overflow-hidden w-8 h-8 shadow-md  ">
             <img
-              src={userAvatar ? userAvatar : '/images/default-avatar.png'}
+              src={'/images/PlayerDefaultIcon.svg'}
               className="rounded-full"
               alt="user avatar"
             />

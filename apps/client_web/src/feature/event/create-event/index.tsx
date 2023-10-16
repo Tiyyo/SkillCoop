@@ -37,12 +37,12 @@ function CreateEvent() {
     updateRequiredParticipants,
     clearEventState,
   } = useCreateEvent();
-  const userId = userProfile?.user_id;
+  const profileId = userProfile?.profile_id;
 
   const handleFormSubmit = (e: any) => {
     e.preventDefault();
     const data: Partial<CreateEventData> | CreateEventData = {
-      organizer_id: userId,
+      organizer_id: profileId,
       status_name: 'open',
     };
 
@@ -71,7 +71,7 @@ function CreateEvent() {
     }
 
     const isValid = createEventSchema.safeParse(data);
-
+    console.log(isValid);
     if (
       isValid.success &&
       data.date &&
@@ -87,8 +87,9 @@ function CreateEvent() {
 
   // Not sure if this useEffect is needed
   useEffect(() => {
-    updateOrganizerId(userId);
-  }, []);
+    if (!profileId) return;
+    updateOrganizerId(profileId);
+  }, [profileId]);
 
   const inputHasError = (
     nameInput: string,

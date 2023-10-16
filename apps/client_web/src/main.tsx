@@ -13,7 +13,7 @@ import Protected from './component/redirection/Protected.tsx';
 import RedirectToHome from './component/redirection/RedirectToHome.tsx';
 import TermsAndService from './feature/terms-and-service/index';
 import Register from './feature/auth/register.tsx';
-import { authApi } from './api/api.fn.ts';
+import { api } from './api/api.fn.ts';
 import VerifyEmail from './feature/auth/verify-email.tsx';
 import HomePageEvent from './feature/event/index.tsx';
 import CreateEvent from './feature/event/create-event/index.tsx';
@@ -35,7 +35,7 @@ import Votes from './feature/event/Votes.tsx';
 import UserResumeSkills from './feature/profile/skills/index.tsx';
 import FriendProfile from './feature/friend-profile-page/index.tsx';
 
-const queryClient = new QueryClient({
+export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       refetchOnWindowFocus: false,
@@ -44,7 +44,7 @@ const queryClient = new QueryClient({
       retry: 1,
       staleTime: 5 * 1000,
       // turn off caching for dev mode
-      cacheTime: 0,
+      cacheTime: 10,
     },
   },
 });
@@ -164,9 +164,7 @@ const router = createBrowserRouter([
     path: '/auth/google',
     loader: async ({ request }) => {
       const accessToken = request.url.split('=')[1];
-      authApi.defaults.headers.common[
-        'Authorization'
-      ] = `Bearer ${accessToken}`;
+      api.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
       return redirect('/');
     },
   },

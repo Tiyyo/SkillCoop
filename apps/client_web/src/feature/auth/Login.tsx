@@ -18,6 +18,9 @@ import Center from '../../layout/center';
 import ErrorContainer from '../../component/error';
 import { useApp } from '../../store/app.store';
 import toast from '../../utils/toast';
+import ReturnBtn from '../../component/return';
+import checkIfString from '../../utils/check-string';
+import Button from '../../component/button';
 
 export type LoginUserData = {
   email: string;
@@ -43,12 +46,14 @@ function Login() {
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit = (data: LoginUserData) => {
+  // TODO : find correct typing
+  const onSubmit = (data: any) => {
     loginUser(data);
   };
 
   useEffect(() => {
     if (isSuccess && !loading) {
+      console.log('IS set is auth in login fn called');
       setIsAuth(true);
       toast.success('Welcome back!');
     }
@@ -56,6 +61,7 @@ function Login() {
 
   return (
     <Page>
+      <ReturnBtn to="/" />
       <Center>
         <h1 className="py-4 text-xl font-bold text-primary-1100 text-center">
           Log in to SkillCoop
@@ -74,7 +80,7 @@ function Login() {
               type="text"
               name="email"
               label="Email"
-              error={errors.email?.message}
+              error={checkIfString(errors.email?.message)}
               register={register}>
               <Atsign />
             </FormField>
@@ -83,16 +89,16 @@ function Login() {
               name="password"
               label="Password"
               subicon={<EyeSlash />}
-              error={errors.password?.message}
+              error={checkIfString(errors.password?.message)}
               register={register}>
               <EyeIcon />
             </FormField>
-            <button
+            <Button
+              textContent="Login"
+              isLoading={loading}
               type="submit"
-              className="bg-primary-800 hover:bg-primary-900 transition-colors text-white py-2 px-3 w-[70%] max-w-xs rounded-md cursor-pointer font-bold uppercase shadow-sm">
-              Login
-            </button>
-            <ErrorContainer errorValue={error?.response?.data.error} />
+            />
+            <ErrorContainer errorValue={(error as any)?.response?.data.error} />
           </form>
         </div>
         <p className="text-xs py-2">

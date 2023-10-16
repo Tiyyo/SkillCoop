@@ -9,6 +9,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import schema from 'schema';
 import { useMutation } from '@tanstack/react-query';
 import { updateProfileInfoFn } from '../../../api/api.fn';
+import Button from '../../../component/button';
 const { editProfileInfosSchema } = schema;
 
 interface FormEditProfileInfosProps {
@@ -69,7 +70,9 @@ function FormEditProfileInfos({
   } = useForm({
     resolver: zodResolver(editProfileInfosSchema),
   });
-  const { mutate } = useMutation((data) => updateProfileInfoFn(data));
+  const { mutate, isLoading } = useMutation((data) =>
+    updateProfileInfoFn(data)
+  );
 
   const getBirthDate = (date: string | null) => {
     if (!date) return '';
@@ -89,8 +92,8 @@ function FormEditProfileInfos({
       username: data.username,
       firstname: data.first_name,
       lastname: data.last_name,
-      age: data.date_of_birth,
-      location: data.location,
+      age: data.date_of_birth === '' ? null : data.date_of_birth,
+      location: data.location === '' ? null : data.location,
     });
   };
   return (
@@ -150,11 +153,12 @@ function FormEditProfileInfos({
         />
       </dl>
       {shouldEditInfos && (
-        <button
+        <Button
           type="submit"
-          className="text-primary-700 my-1 py-2.5 px-8 w-fit self-center cursor-pointer hover:bg-base duration-200 transition-all rounded-lg">
-          Edit informations
-        </button>
+          textContent="Edit informations"
+          variant="light"
+          isLoading={isLoading}
+        />
       )}
     </form>
   );

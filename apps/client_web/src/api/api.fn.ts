@@ -20,79 +20,86 @@ interface EventQuery {
   page: number;
 }
 
+// TODO user env variable
 const BASE_URL = 'http://localhost:8082';
 
-export const authApi = axios.create({
+export const api = axios.create({
   baseURL: BASE_URL,
   withCredentials: true,
 });
 
-authApi.defaults.headers.common['Content-Type'] = 'application/json';
+api.defaults.headers.common['Content-Type'] = 'application/json';
 
 export const refreshAccessToken = async () => {
-  const response = await authApi.get('/auth/refresh');
+  const response = await api.get('/auth/refresh');
   return response.data;
 };
 
-authApi.interceptors.response.use(
+api.interceptors.response.use(
   (response) => {
     return response;
   },
   async (error) => {
     const originalRequest = error.config;
     const errMessage = error.response.data.error as string;
-    if (errMessage.includes('unauthorized') && !originalRequest._retry) {
+    // errMessage should be unique and bind to validation access token error
+    // if errMessage is not unique, it will cause infinite loop
+    if (errMessage === 'No access' && !originalRequest._retry) {
       originalRequest._retry = true;
       const { accessToken } = await refreshAccessToken();
-      authApi.defaults.headers.common[
+      api.defaults.headers.common[
         'Authorization'
       ] = `Bearer ${accessToken}`;
-      return authApi(originalRequest);
+      return api(originalRequest);
     }
     return Promise.reject(error);
   }
 );
 
 export const signUpUserFn = async (user: RegisterUser) => {
-  const response = await authApi.post('auth/register', user);
+  const response = await api.post('auth/register', user);
   return response.data;
 };
 
 export const loginUserFn = async (user: User) => {
-  const response = await authApi.post('auth/login', user);
-  authApi.defaults.headers.common[
+  const response = await api.post('auth/login', user);
+  api.defaults.headers.common[
     'Authorization'
   ] = `Bearer ${response.data.accessToken}`;
   return response.data;
 };
 
 export const logoutUserFn = async () => {
-  const response = await authApi.post('auth/logout');
+  const response = await api.post('auth/logout');
+  api.defaults.headers.common[
+    'Authorization'
+  ] = '';
   return response.data;
 };
 
 export const getMeFn = async (): Promise<{ userProfile: Profile }> => {
-  const response = await authApi.get('api/user/me');
+  const response = await api.get('api/user/me');
+  console.log('response suer me : ', response.data);
   return response.data;
 };
 
 export const getAllEventsFn = async (): Promise<EventType[]> => {
-  const response = await authApi.get('api/events');
+  const response = await api.get('api/events');
   return response.data;
 };
 
 export const sendEmailVerifyFn = async (email: string) => {
-  const response = await authApi.post(`auth/email`, { email });
+  const response = await api.post(`auth/email`, { email });
   return response.data;
 };
 
 export const getEventFn = async (eventId: number, profileId: number): Promise<EventType> => {
-  const response = await authApi.get(`api/event/details/${eventId}/${profileId}`);
+  const response = await api.get(`api/event/details/${eventId}/${profileId}`);
   return response.data;
 }
 
 export const getEventsFn = async (profileId: number): Promise<EventType[]> => {
-  const response = await authApi.get(`api/event/user/${profileId}`);
+  const response = await api.get(`api/event/user/${profileId}`);
   return response.data;
 };
 
@@ -103,7 +110,7 @@ export const getOrganizeEventFn =
     previousPage: number,
     eventCount: number
   }> => {
-    const response = await authApi.get(`api/event/organizer`, { params: data });
+    const response = await api.get(`api/event/organizer`, { params: data });
 
     return {
       events: response.data.events,
@@ -118,7 +125,7 @@ export const getPastEventFn =
     previousPage: number,
     eventCount: number
   }> => {
-    const response = await authApi.get(`api/event/past`, { params: data });
+    const response = await api.get(`api/event/past`, { params: data });
 
     return {
       events: response.data.events,
@@ -128,34 +135,34 @@ export const getPastEventFn =
   }
 
 export const createEventFn = async (data: CreateEventData) => {
-  const response = await authApi.post('api/event', data);
+  const response = await api.post('api/event', data);
   return response.data;
 };
 
 export const updateEventFn = async (data: Record<string, string | number>) => {
-  const response = await authApi.patch('api/event', data);
+  const response = await api.patch('api/event', data);
   return response.data;
 }
 
 export const getFriendsFn = async (profileId: number): Promise<Friend[]> => {
-  const response = await authApi.get(`api/friends/${profileId}`);
+  const response = await api.get(`api/friends/${profileId}`);
   return response.data;
 };
 
 export const getPendingFriendsFn = async (
   profileId: number
 ): Promise<Friend[]> => {
-  const response = await authApi.get(`api/friends/pending/${profileId}`);
+  const response = await api.get(`api/friends/pending/${profileId}`);
   return response.data;
 };
 
 export const getSuggestProfileFn = async (profileId: number): Promise<any> => {
-  const response = await authApi.get(`api/friends/suggest/${profileId}`)
+  const response = await api.get(`api/friends/suggest/${profileId}`)
   return response.data
 }
 
 export const getProfileFn = async (profileId: number): Promise<Profile> => {
-  const response = await authApi.get(`api/profile/${profileId}`);
+  const response = await api.get(`api/profile/${profileId}`);
   return response.data;
 }
 
@@ -164,7 +171,7 @@ export const searchFriendsFn = async (
   data: SearchFriendQuery,
   signal?: AbortSignal
 ): Promise<Friend[]> => {
-  const response = await authApi.get(`api/friends/search/friendlist`, {
+  const response = await api.get(`api/friends/search/friendlist`, {
     params: data,
     signal,
   });
@@ -175,7 +182,7 @@ export const searchProfileFn = async (
   data: SearchProfileQuery,
   signal?: AbortSignal
 ): Promise<Profile[]> => {
-  const response = await authApi.get(`api/profile/search`, {
+  const response = await api.get(`api/profile/search`, {
     params: data,
     signal,
   });
@@ -186,7 +193,7 @@ export const sendFriendRequestFn = async (data: {
   adder_id: number;
   friend_id: number;
 }) => {
-  const response = await authApi.post(`api/friends`, data);
+  const response = await api.post(`api/friends`, data);
   return response.data;
 };
 
@@ -195,7 +202,7 @@ export const acceptOrDeclinedFriendRequestFn = async (data: {
   friend_id: number;
   status_name: string;
 }) => {
-  const response = await authApi.patch(`api/friends`, data);
+  const response = await api.patch(`api/friends`, data);
   return response.data;
 };
 
@@ -204,12 +211,12 @@ export const updateParticipantFn = async (data: {
   event_id: number,
   status_name: InvitationStatus
 }) => {
-  const response = await authApi.patch(`api/profile_on_event`, data);
+  const response = await api.patch(`api/profile_on_event`, data);
   return response.data;
 }
 
 export const sendEventInvitationFn = async (data: { event_id: number, ids: number[] }) => {
-  const response = await authApi.post(`api/profile_on_event`, data);
+  const response = await api.post(`api/profile_on_event`, data);
   return response.data;
 }
 
@@ -218,32 +225,32 @@ export const saveScoreFn = async (data: {
   score_team_2: number,
   event_id: number,
 }) => {
-  const response = await authApi.post(`api/score`, data);
+  const response = await api.post(`api/score`, data);
   return response.data;
 }
 
 export const voteMvpFn = async (data: Vote) => {
-  const response = await authApi.post(`api/mvp`, data);
+  const response = await api.post(`api/mvp`, data);
   return response.data;
 }
 
 export const voteBestStrikerFn = async (data: Vote) => {
-  const response = await authApi.post(`api/best_striker`, data);
+  const response = await api.post(`api/best_striker`, data);
   return response.data;
 }
 
 export const deleteEventFn = async (data: { eventId: number, profileId: number }) => {
-  const response = await authApi.delete(`api/event/${data.eventId}/${data.profileId}`, { data });
+  const response = await api.delete(`api/event/${data.eventId}/${data.profileId}`, { data });
   return response.data;
 }
 
 export const evaluateOwnSkillsFn = async (data: EvaluationOwnSkill) => {
-  const response = await authApi.post(`api/skill_foot`, data);
+  const response = await api.post(`api/skill_foot`, data);
   return response.data;
 }
 
 export const evaluateParticipantSkillsFn = async (data: EvaluationParticipantSkill) => {
-  const response = await authApi.post(`api/skill_foot/event`, data);
+  const response = await api.post(`api/skill_foot/event`, data);
   return response.data;
 }
 
@@ -252,32 +259,32 @@ export const getAverageSkillFn = async (data: {
   reviewee_id: number,
   event_id: number
 }) => {
-  const response = await authApi.get(`api/skill_foot/event`, { params: data });
+  const response = await api.get(`api/skill_foot/event`, { params: data });
   return response.data;
 }
 
 export const updateProfileInfoFn = async (data) => {
-  const response = await authApi.patch(`api/profile`, data);
+  const response = await api.patch(`api/profile`, { data });
   return response.data;
 }
 
 export const updateEmailFn = async (data) => {
-  const response = await authApi.patch(`api/user/email`, data);
+  const response = await api.patch(`api/user/email`, data);
   return response.data;
 }
 
 export const updatePasswordFn = async (data) => {
-  const response = await authApi.patch(`api/user/password`, data);
+  const response = await api.patch(`api/user/password`, data);
   return response.data;
 }
 
 export const deleteUserFn = async (userid: number) => {
-  const response = await authApi.delete(`api/user/${userid}`);
+  const response = await api.delete(`api/user/${userid}`);
   return response.data;
 }
 
 export const updateAvatarFn = async (formData: FormData) => {
-  const response = await authApi.patch(`api/profile/avatar`, formData, {
+  const response = await api.patch(`api/profile/avatar`, formData, {
     headers: {
       'Content-Type': 'multipart/form-data'
     }
@@ -286,6 +293,6 @@ export const updateAvatarFn = async (formData: FormData) => {
 }
 
 export const getProfileEvalFn = async (profileId: number): Promise<ProfileEval> => {
-  const response = await authApi.get(`api/skill_foot/${profileId}`)
+  const response = await api.get(`api/skill_foot/${profileId}`)
   return response.data
 }

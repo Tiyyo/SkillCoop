@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
-import ErrorIcon from '../../assets/icon/Error';
 import { ComponentPropsWithoutRef } from 'react';
 import { cn } from '../../lib/utils';
+import { XCircle } from 'lucide-react';
 
 interface FormFieldProps extends ComponentPropsWithoutRef<'input'> {
   name: string;
+  type?: string;
   label?: string;
   value?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -19,6 +20,7 @@ function FormField({
   error,
   name,
   label,
+  type,
   value,
   onChange,
   placeholder,
@@ -50,12 +52,12 @@ function FormField({
     <div className="w-full">
       <div className="relative my-1">
         <input
-          type={props.type === 'password' && !icon ? 'password' : 'text'}
+          type={type === 'password' && !icon ? 'password' : type}
           value={value}
           id={name}
           onChange={handleChange}
           placeholder={placeholder}
-          autoComplete={props.type === 'password' ? 'off' : 'on'}
+          autoComplete={type === 'password' ? 'off' : 'on'}
           className={cn(
             'autofill:shadow-[inset_0_0_0px_1000px_rgb(255 248 242)] focus:border-secondary-100 border-secondary-400 peer block w-full appearance-none rounded-lg border border-opacity-20 bg-transparent px-2.5 pb-1.5 pt-3 text-sm text-gray-900 focus:outline-none focus:ring-0',
             props.disabled && 'cursor-not-allowed border-none text-light'
@@ -70,14 +72,14 @@ function FormField({
           {label}
         </label>
         <div
-          className="absolute right-2 top-1/2 -translate-y-1/2 transform text-black-light peer-focus:text-secondary-300 text-primary-1000"
+          className="absolute right-2 top-1/2 -translate-y-1/2 transform text-black-light peer-focus:text-secondary-300 text-primary-700"
           onClick={() => toggleIcon()}>
           {!icon && subicon ? subicon : children}
         </div>
       </div>
       {errorText && (
-        <div className="text-red-600 flex w-full items-center gap-x-4 px-2 py-1 text-center text-xs font-semibold text-red">
-          <ErrorIcon />
+        <div className="text-error flex w-full items-center gap-x-2 px-2 py-1 text-center text-xs font-semibold ">
+          <XCircle size={16} />
           <p>{errorText}</p>
         </div>
       )}

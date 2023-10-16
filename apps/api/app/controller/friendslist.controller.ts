@@ -8,7 +8,7 @@ import ServerError from '../helpers/errors/server.error';
 export default {
   async getFriends(req: Request, res: Response) {
     // get all friend
-    const id = checkParams(req.params.id);
+    const id = checkParams(req.params.profileId);
 
     const friendlist = await Friendlist.findAllByPk(id);
 
@@ -38,7 +38,7 @@ export default {
     res.status(200).send(result);
   },
   async getRequestToAccept(req: Request, res: Response) {
-    const id = checkParams(req.params.id);
+    const id = checkParams(req.params.profileId);
     // get friendship where id = friend_id and status = pending
 
     const pendingRequests = await Friendlist.findPendingRequests(id);
@@ -53,7 +53,7 @@ export default {
     res.json(friends);
   },
   async getSuggestProfile(req: Request, res: Response) {
-    const profileId = checkParams(req.params.id)
+    const profileId = checkParams(req.params.profileId)
     const suggestProfiles = await Friendlist.findSuggestProfile(profileId)
     res.status(200).json(suggestProfiles)
   }

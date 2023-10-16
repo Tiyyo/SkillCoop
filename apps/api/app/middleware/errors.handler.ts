@@ -17,7 +17,6 @@ export const errorHandler = (error: any, _req: Request, res: Response, next: Nex
     });
   }
 
-
   if (error instanceof AuthorizationError || error instanceof ServerError || error instanceof NotFoundError || error instanceof UserInputError) {
     logger.error(error.name + " " + error.message);
     return res.status(error.status).json({ error: error.userMessage });

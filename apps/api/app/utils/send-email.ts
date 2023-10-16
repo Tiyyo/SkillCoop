@@ -32,6 +32,7 @@ export default {
   },
   async sendEmailToConfirmEmail({ emailToken, email, userId }: SendEmailToConfirmEmail) {
     const url = `${process.env.API_URL}/auth/${userId}/verify/${emailToken}`
+    console.log('Url to send to client email', url);
 
     const text = `Click on the link to verify your email: ${url}`
 

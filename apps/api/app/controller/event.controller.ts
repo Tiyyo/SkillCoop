@@ -2,50 +2,31 @@ import { event as Event } from '../models/index';
 import { profileOnEvent as ProfileOnEvent } from '../models/index';
 import { Request, Response } from 'express'
 import AuthorizationError from '../helpers/errors/unauthorized.error'
-import ServerError from '../helpers/errors/server.error'
-import { cacheOrGetCacheData } from '../helpers/cache-data';
-import logger from '../helpers/logger';
-import redis from 'ioredis'
 import checkParams from '../utils/check-params';
 import NotFoundError from '../helpers/errors/not-found.error';
+import deleteDecodedKey from '../utils/delete-decoded';
 
-const redisClient = new redis()
 
 export default {
-  async getAll(req: Request, res: Response) {
-    // get all events from the database
-
-    const events = await cacheOrGetCacheData("events", async () => {
-      try {
-        const events = await Event.findAll()
-        return events
-      } catch (error) {
-        logger.error(error)
-      }
-    })
-    res.status(200).json(events)
-
-  },
   async createOne(req: Request, res: Response) {
     // create one event
     // add organizer to the event
     // add organizer to the participant list to this event
+    deleteDecodedKey(req.body)
     const { ids, ...data } = req.body
-
+    console.log(data);
     const eventId = await Event.create(data)
-
     const result = ProfileOnEvent.create({ event_id: eventId, profile_id: data.organizer_id, status_name: "confirmed" })
 
-
     if (ids) {
-      const participantsToInvite = ids.map((id) => {
+      const participantsToInvite = ids.map((id: number) => {
         return {
           profile_id: id,
           event_id: eventId,
           status_name: 'pending'
         }
       })
-      const instertedParticipant = await ProfileOnEvent.createMany(participantsToInvite)
+      await ProfileOnEvent.createMany(participantsToInvite)
     }
 
     res.status(201).json(result)
@@ -64,13 +45,11 @@ export default {
     const { event_id, profile_id, ...data } = req.body
 
     const event = await Event.findByPk(event_id)
-
     if (!event || event.organizer_id !== profile_id) throw new AuthorizationError("Operation not allowed")
 
     const isUpdate = await Event.update(event_id, data)
 
     res.status(204).send(isUpdate)
-
   },
   async deleteOne(req: Request, res: Response) {
     // delete one event
@@ -83,13 +62,13 @@ export default {
     if (event.length === 0) throw new NotFoundError("No event")
     if (event.organizer_id !== profileId) throw new AuthorizationError("Operation not allowed")
 
-    const result = await Event.delete(eventId)
+    await Event.delete(eventId)
 
-    res.status(204).send(result + 'Succesfully deleted')
-
+    res.status(204)
   },
   async getAllByUser(req: Request, res: Response) {
-    const profileId = checkParams(req.params.id)
+    const profileId = checkParams(req.params.profileId)
+
     const events = await Event.getEventByUserId(profileId)
 
     res.status(200).json(events)

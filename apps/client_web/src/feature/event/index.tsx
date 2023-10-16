@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom';
 import Header from '../../component/header';
 
 function HomePageEvent() {
+  console.log('Home event is called');
   return (
     <Page>
       <Header

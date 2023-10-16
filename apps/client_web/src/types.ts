@@ -20,7 +20,9 @@ export type User = {
   password: string;
 };
 
-export type RegisterUser = User & {
+export type RegisterUser = {
+  email: string;
+  password: string;
   confirmedPassword: string;
   termAndService: boolean | string;
 };
@@ -103,6 +105,7 @@ export type Friend = {
   username: string;
   avatar_url: string;
   status_name: InvitationStatus;
+  last_evaluation?: number | null;
 };
 
 export type Vote = {

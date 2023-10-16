@@ -33,7 +33,9 @@ function Friendlist({
   return (
     <>
       {friends?.length === 0 ? (
-        <p className="text-center py-8">No friends found</p>
+        <div className="text-center italic text-xs py-4 text-light">
+          No friends found.
+        </div>
       ) : (
         <div className="grid grid-cols-2 py-8 gap-2">
           {friends?.map((friend) => (

@@ -36,7 +36,11 @@ export const useApp = () => {
 
   const loading = isLoading || isFetching;
 
+  console.log("is there remaining data :", data);
+
   useEffect(() => {
+    console.log('There is data :', data);
+    console.log('There is userProfile :', data?.userProfile)
     if (data && data.userProfile) {
       setProfile(data.userProfile)
       setIsAuth(true)

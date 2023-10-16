@@ -29,7 +29,6 @@ function Invite({ variant = 'update' }: InviteProps) {
   const { data: eventState } = useEvent();
   const location = useLocation();
   const [eventId, setEventId] = useState<number | undefined>(undefined);
-  console.log('LOCATION :', location);
   const navigate = useNavigate();
   const profileId = userProfile?.profile_id;
   const [isOnFocus, setIsOnFocus] = useState<boolean>(false);
@@ -107,14 +106,13 @@ function Invite({ variant = 'update' }: InviteProps) {
     isLoading || isSearchLoading || isFetching || isSearchFetching;
 
   useEffect(() => {
-    setEventId(location.state.eventId);
+    setEventId(location.state?.eventId);
   }, []);
 
   useEffect(() => {
     refetchSearchFriends();
   }, [searchFriendQuery]);
 
-  console.log(variant);
   return (
     <>
       <ReturnBtn />

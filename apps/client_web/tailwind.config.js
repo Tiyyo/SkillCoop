@@ -30,6 +30,8 @@ export default {
           700: '#850801',
         },
         error: 'hsl(348, 83.3%, 47.1%)',
+        'error-mid': '#C63A46',
+        'error-light': '#FCE8E8',
         success: 'hsl(128.8,27.9%,28.8%)',
         info: 'hsl(217, 59%, 41%)',
         light: 'rgba(61,65,63,0.7)',

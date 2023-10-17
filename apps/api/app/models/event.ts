@@ -111,6 +111,7 @@ ORDER BY date DESC
             JSON.parse(event.participants),
         };
       });
+      console.log(parsedResult);
       return parsedResult;
     } catch (error) {
       throw new DatabaseError(error);
@@ -284,7 +285,6 @@ SET mvp_id = (
 WHERE id = ${eventId}
 `.execute(this.client)
 
-    console.log(!!result.numAffectedRows);
     return !!result.numAffectedRows
 
   };

@@ -41,7 +41,7 @@ export default {
 
     const skill = await SkillFoot.findBy({ rater_id, reviewee_id, event_id })
 
-    if (skill.length === 0) return res.status(204)
+    if (skill.length === 0) return res.status(200).json({ rating: null })
 
     const average = computeGbRating({
       avg_pace: skill[0].pace,
@@ -64,7 +64,7 @@ export default {
 
     if (isAlereadyExist.length > 0) throw new UserInputError('User can\'t rate the same player twice per event')
 
-    const skill = SkillFoot.create({ pace, shooting, passing, dribbling, defending, rater_id, reviewee_id, event_id })
+    const skill = await SkillFoot.create({ pace, shooting, passing, dribbling, defending, rater_id, reviewee_id, event_id })
 
     res.status(201)
       .send(!!skill)
@@ -79,7 +79,6 @@ export default {
       if (error instanceof NotFoundError) {
         res.status(200).json({ error: "User have to evaluate his skill" })
       } else {
-        console.log(error);
         throw new ServerError('Error computation')
       }
     }

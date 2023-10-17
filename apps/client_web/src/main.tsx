@@ -34,6 +34,7 @@ import HomePageUser from './feature/profile/index.tsx';
 import Votes from './feature/event/Votes.tsx';
 import UserResumeSkills from './feature/profile/skills/index.tsx';
 import FriendProfile from './feature/friend-profile-page/index.tsx';
+import ModalRouteRatingEvent from './feature/event/event-page/modal-route-rating.tsx';
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -42,9 +43,9 @@ export const queryClient = new QueryClient({
       refetchOnMount: false,
       refetchOnReconnect: false,
       retry: 1,
-      staleTime: 5 * 1000,
+      staleTime: 0,
       // turn off caching for dev mode
-      cacheTime: 10,
+      cacheTime: 0,
     },
   },
 });
@@ -71,7 +72,7 @@ const router = createBrowserRouter([
         element: <InvitationEvent />,
       },
       {
-        path: '/event/:id/invitation',
+        path: '/event/:eventId/invitation',
         element: <InvitationEvent />,
       },
       {
@@ -87,11 +88,17 @@ const router = createBrowserRouter([
         element: <MyEvents />,
       },
       {
-        path: '/event/:id',
+        path: '/event/:eventId',
         element: <EventPage />,
+        children: [
+          {
+            path: 'evaluate/:profileId',
+            element: <ModalRouteRatingEvent />,
+          },
+        ],
       },
       {
-        path: '/event/:id/votes',
+        path: '/event/:eventId/votes',
         element: <Votes />,
       },
     ],

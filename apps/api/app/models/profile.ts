@@ -1,6 +1,7 @@
 import DatabaseError from "../helpers/errors/database.error";
 import { sql } from "kysely"
 import { Core } from "./core";
+import NotFoundError from "../helpers/errors/not-found.error";
 
 // TODO define a type for Profile
 
@@ -68,7 +69,7 @@ export class Profile extends Core {
       .select(({ fn }) => [(
         fn.count("event.mvp_id").as("nb_mvp_bonus")
       )])
-      .select(({ fn }) => [(
+      .select(({ fn }: { fn: any }) => [(
         fn.count("event.best_striker_id").as("nb_best_striker_bonus")
       )])
       .where((eb) =>
@@ -107,63 +108,71 @@ export class Profile extends Core {
       .where("profile.id", "=", profileIdConvertedNumber)
       .executeTakeFirst();
 
-    console.log('RESULT : ', result);
+
     return !!result.numUpdatedRows
   }
   async findByUserId(id: number) {
-    const [profile] = await this.client
-      .selectFrom("profile")
-      .select([
-        "profile.user_id",
-        "profile.avatar_url",
-        "profile.username",
-        "profile.date_of_birth",
-        "profile.first_name",
-        "profile.last_name",
-        "profile.location",
-        "user.email as email",
-        "profile.id as profile_id",
-      ])
-      .leftJoin("skill_foot", "profile_id", "skill_foot.reviewee_id")
-      .innerJoin("user", "user.id", "profile.user_id")
-      .select(({ fn }) => [
-        "profile.id",
-        fn.count("skill_foot.id").as("nb_review")
-      ])
-      .where("profile.user_id", "=", id)
-      .groupBy("profile.id")
-      .execute();
+    try {
+      const [profile] = await this.client
+        .selectFrom("profile")
+        .select([
+          "profile.user_id",
+          "profile.avatar_url",
+          "profile.username",
+          "profile.date_of_birth",
+          "profile.first_name",
+          "profile.last_name",
+          "profile.location",
+          "user.email as email",
+          "profile.id as profile_id",
+        ])
+        .leftJoin("skill_foot", "profile_id", "skill_foot.reviewee_id")
+        .innerJoin("user", "user.id", "profile.user_id")
+        .select(({ fn }) => [
+          "profile.id",
+          fn.count("skill_foot.id").as("nb_review")
+        ])
+        .where("profile.user_id", "=", id)
+        .groupBy("profile.id")
+        .execute();
+      if (!profile) return null;
 
-    const [nbAttendedEvents] = await this.client
-      .selectFrom("profile_on_event")
-      .select(({ fn }) => [
-        fn.count("profile_on_event.id").as("nb_attended_events"),
-      ])
-      .innerJoin("event", "event.id", "profile_on_event.event_id")
-      .where("profile_on_event.profile_id", "=", profile.profile_id)
-      .where("event.status_name", "=", "completed")
-      .execute();
+      const [nbAttendedEvents] = await this.client
+        .selectFrom("profile_on_event")
+        .select(({ fn }) => [
+          fn.count("profile_on_event.id").as("nb_attended_events"),
+        ])
+        .innerJoin("event", "event.id", "profile_on_event.event_id")
+        .where("profile_on_event.profile_id", "=", profile.profile_id)
+        .where("event.status_name", "=", "completed")
+        .execute();
 
-    const [nbBonus] = await this.client
-      .selectFrom("event")
-      .select(({ fn }) => [(
-        fn.count("event.mvp_id").as("nb_mvp_bonus")
-      )])
-      .select(({ fn }) => [(
-        fn.count("event.best_striker_id").as("nb_best_striker_bonus")
-      )])
-      .where((eb) =>
-        eb('event.mvp_id', '=', profile.profile_id).or('event.best_striker_id', '=', profile.profile_id)
-      )
-      .execute();
+      const [nbBonus] = await this.client
+        .selectFrom("event")
+        .select(({ fn }) => [(
+          fn.count("event.mvp_id").as("nb_mvp_bonus")
+        )])
+        .select(({ fn }) => [(
+          fn.count("event.best_striker_id").as("nb_best_striker_bonus")
+        )])
+        .where((eb) =>
+          eb('event.mvp_id', '=', profile.profile_id).or('event.best_striker_id', '=', profile.profile_id)
+        )
+        .execute();
 
-    if (profile) {
-      profile.nb_attended_events = nbAttendedEvents.nb_attended_events ?? 0;
-      profile.nb_bonus = nbBonus ?? 0;
+      if (profile) {
+        profile.nb_attended_events = nbAttendedEvents.nb_attended_events ?? 0;
+        profile.nb_bonus = nbBonus ?? 0;
+      }
+      return profile;
+
+    } catch (error) {
+      if (error instanceof NotFoundError) {
+        throw error
+      }
+      throw new DatabaseError(error);
     }
-    return profile;
   }
-
   async findManyByUsername(username: string, userProfileId: number, page: number = 1) {
     const offset = (page - 1) * 10
     const profiles = await sql<any>`

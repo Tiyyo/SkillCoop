@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 
 function ResumeEvents() {
   const { userProfile } = useApp();
-  const userId = userProfile?.user_id;
+  const profileId = userProfile?.profile_id;
 
   const [events, setEvents] = useState<{
     incoming: EventType[] | null;
@@ -26,8 +26,8 @@ function ResumeEvents() {
   } = useQuery(
     ['getEvents'],
     () => {
-      if (!userId) return;
-      return getEventsFn(userId);
+      if (!profileId) return;
+      return getEventsFn(profileId);
     },
     { enabled: true }
   );
@@ -39,7 +39,13 @@ function ResumeEvents() {
     setEvents((prev) => {
       return {
         ...prev,
-        incoming: allEvents?.filter((event) => today < new Date(event.date)),
+        incoming: allEvents
+          ?.filter((event) => today < new Date(event.date))
+          .sort(
+            (eventA, eventB) =>
+              Number(new Date(eventA.date).getTime()) -
+              Number(new Date(eventB.date).getTime())
+          ),
         past: allEvents?.filter((event) => today > new Date(event.date)),
       };
     });

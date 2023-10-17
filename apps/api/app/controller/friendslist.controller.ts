@@ -4,6 +4,7 @@ import logger from '../helpers/logger';
 import redis from 'ioredis'
 import checkParams from '../utils/check-params';
 import ServerError from '../helpers/errors/server.error';
+import deleteDecodedKey from '../utils/delete-decoded';
 
 export default {
   async getFriends(req: Request, res: Response) {
@@ -15,7 +16,7 @@ export default {
     res.status(200).json(friendlist);
   },
   async sendFriendRequest(req: Request, res: Response) {
-
+    deleteDecodedKey(req.body)
     // create a new friend request
     // status send 
     // create a status for the added pending
@@ -26,7 +27,7 @@ export default {
 
   },
   async acceptOrDeclined(req: Request, res: Response) {
-
+    deleteDecodedKey(req.body)
     const { adder_id, friend_id, status_name } = req.body;
     //friend_id is the id of the user who receive invitation and send the update request
     const isExist = await Friendlist.findOne(adder_id, friend_id, 'pending');

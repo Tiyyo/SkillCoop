@@ -4,7 +4,7 @@ import schema from 'schema';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import getGoogleUrl from '../../utils/get-google-url';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import SocialButton from '../../component/social-link';
 import Google from '../../assets/icon/Google';
 import Page from '../../layout/page';
@@ -28,6 +28,7 @@ export type LoginUserData = {
 };
 
 function Login() {
+  const navigate = useNavigate();
   const { setIsAuth } = useApp();
   const {
     mutate: loginUser,
@@ -53,8 +54,8 @@ function Login() {
 
   useEffect(() => {
     if (isSuccess && !loading) {
-      console.log('IS set is auth in login fn called');
       setIsAuth(true);
+      navigate('/');
       toast.success('Welcome back!');
     }
   }, [isSuccess, loading]);

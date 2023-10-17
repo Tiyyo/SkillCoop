@@ -17,8 +17,7 @@ interface MenuItemDialogProps {
   description?: string;
   mutateFn: UseMutateFunction<any, unknown, any, unknown>;
   children: React.ReactNode;
-  eventId?: number;
-  profileId?: number;
+  mutationData?: any;
   redirection?: string;
 }
 
@@ -26,8 +25,7 @@ function MenuItemDialog({
   children,
   description,
   mutateFn,
-  eventId,
-  profileId,
+  mutationData,
   redirection,
 }: MenuItemDialogProps) {
   const menuItemStyle =
@@ -37,12 +35,12 @@ function MenuItemDialog({
 
   const handleClick = () => {
     if (!mutateFn) return;
-    mutateFn({ eventId, profileId });
+    mutateFn(mutationData);
     if (redirection) navigate(redirection);
   };
   return (
     <AlertDialog>
-      <AlertDialogTrigger className={menuItemStyle}>
+      <AlertDialogTrigger className={menuItemStyle + 'w-full'}>
         {children}
       </AlertDialogTrigger>
       <AlertDialogContent className="bg-base-light w-4/5 rounded-lg">
@@ -51,9 +49,11 @@ function MenuItemDialog({
           <AlertDialogDescription>{description}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogCancel className="hover:text-primary-900 duration-200">
+            Cancel
+          </AlertDialogCancel>
           <AlertDialogAction
-            className="bg-primary-800"
+            className="bg-primary-800 hover:bg-primary-400 duration-300"
             onClick={handleClick}>
             Continue
           </AlertDialogAction>

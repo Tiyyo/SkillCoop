@@ -1,4 +1,9 @@
-import { useState, type ComponentPropsWithoutRef, useEffect } from 'react';
+import {
+  useState,
+  type ComponentPropsWithoutRef,
+  useEffect,
+  useId,
+} from 'react';
 import Choice from './index.choice';
 import { useMutation } from '@tanstack/react-query';
 
@@ -30,6 +35,8 @@ function InputTime({
   disabled,
   ...props
 }: InputTimeProps) {
+  const idHoursComponent = useId();
+  const idMinutesComponent = useId();
   const [hasError, setHasError] = useState<boolean | undefined>(error);
   const { mutate } = useMutation((data: Record<string, string | number>) => {
     if (!mutateOnBlur) return;
@@ -127,6 +134,7 @@ function InputTime({
             }>
             {avaiableHoursChoice.map((hour) => (
               <Choice
+                key={hour + idHoursComponent}
                 value={hour}
                 variant="hours"
               />
@@ -147,7 +155,10 @@ function InputTime({
               ) ?? ''
             }>
             {avaiableMinutesChoice.map((minute) => (
-              <Choice value={minute} />
+              <Choice
+                key={minute + idMinutesComponent}
+                value={minute}
+              />
             ))}
           </select>
         </div>

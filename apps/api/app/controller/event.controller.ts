@@ -14,7 +14,6 @@ export default {
     // add organizer to the participant list to this event
     deleteDecodedKey(req.body)
     const { ids, ...data } = req.body
-    console.log(data);
     const eventId = await Event.create(data)
     const result = ProfileOnEvent.create({ event_id: eventId, profile_id: data.organizer_id, status_name: "confirmed" })
 
@@ -42,6 +41,7 @@ export default {
   async updateOne(req: Request, res: Response) {
     // update one event
     // only the organize can update the event
+    deleteDecodedKey(req.body)
     const { event_id, profile_id, ...data } = req.body
 
     const event = await Event.findByPk(event_id)

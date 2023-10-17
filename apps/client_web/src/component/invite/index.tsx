@@ -25,13 +25,14 @@ interface InviteProps {
 // One component gonna update a state in store and will manage the mutation
 // The other gonna mutate data directyl without storing data in a store
 function Invite({ variant = 'update' }: InviteProps) {
+  const navigate = useNavigate();
   const { userProfile } = useApp();
   const { data: eventState } = useEvent();
   const location = useLocation();
   const [eventId, setEventId] = useState<number | undefined>(undefined);
-  const navigate = useNavigate();
-  const profileId = userProfile?.profile_id;
   const [isOnFocus, setIsOnFocus] = useState<boolean>(false);
+
+  const profileId = userProfile?.profile_id;
 
   const [searchFriendQuery, setSearchFriendQuery] = useState<SearchFriendQuery>(
     {
@@ -59,7 +60,6 @@ function Invite({ variant = 'update' }: InviteProps) {
   const {
     data: searchedFriends,
     refetch: refetchSearchFriends,
-    isError: isSearchError,
     isLoading: isSearchLoading,
     isFetching: isSearchFetching,
   } = useQuery({
@@ -71,8 +71,13 @@ function Invite({ variant = 'update' }: InviteProps) {
     enabled: false,
   });
 
-  const { mutate: sendInvitation, isSuccess } = useMutation(
-    (data: { event_id: number; ids: number[] }) => sendEventInvitationFn(data)
+  const {
+    mutate: sendInvitation,
+    isSuccess: isInvitationSuccess,
+    isError: isInvitationError,
+    isLoading: isInvitationLoading,
+  } = useMutation((data: { event_id: number; ids: number[] }) =>
+    sendEventInvitationFn(data)
   );
 
   const getFocusInputSearchState = (state: boolean) => {
@@ -88,22 +93,37 @@ function Invite({ variant = 'update' }: InviteProps) {
 
   const handleClickSendInvitation = (e: any) => {
     e.preventDefault();
-    if (!eventState.invited_participants_ids || !eventId) return;
+    if (!eventState.invited_participants_ids || !eventId) {
+      toast.error('Something went wrong ... Try agian later');
+      navigate(-1);
+      return;
+    }
     const data = {
       event_id: eventId,
       ids: eventState.invited_participants_ids,
     };
     const isValid = inviteParticipantSchema.safeParse(data);
-    if (!isValid.success) return;
-    sendInvitation(data);
-    if (isSuccess) {
-      toast.success('Invitation sent');
-      navigate(-1);
+    if (!isValid.success) {
+      toast.error('Something went wrong ... Try agian later');
+      return;
     }
+    sendInvitation(data);
   };
 
   const loading =
     isLoading || isSearchLoading || isFetching || isSearchFetching;
+
+  useEffect(() => {
+    if (isInvitationSuccess) {
+      toast.success('Invitation sent');
+      navigate(-1);
+      return;
+    }
+    if (isInvitationError) {
+      toast.error('Something went wrong ... Try agian later');
+      return;
+    }
+  }, [isInvitationLoading]);
 
   useEffect(() => {
     setEventId(location.state?.eventId);
@@ -133,6 +153,7 @@ function Invite({ variant = 'update' }: InviteProps) {
           <Button
             textContent="Send Invitation"
             type="submit"
+            isLoading={isInvitationLoading}
             onClick={handleClickSendInvitation}
           />
         </div>

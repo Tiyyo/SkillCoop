@@ -43,7 +43,7 @@ function EventCard({
   };
 
   return (
-    <div className=" h-32 border-t bg-base-light shadow-sm px-3 py-2">
+    <div className=" h-fit border-t bg-base-light shadow-sm px-3 py-2">
       <div className="flex justify-between">
         <DateAndLocation
           date={date}
@@ -83,7 +83,7 @@ function EventCard({
                 participants={participants}
                 nbAvatarToDisplay={3}
               />
-              <p className="relative -translate-x-4">
+              <p className="relative translate-x-1">
                 <span className="font-bold">{confirmedParticipants}</span> /{' '}
                 <span>{requiredParticipants}</span> are going
               </p>

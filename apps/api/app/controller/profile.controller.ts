@@ -24,7 +24,6 @@ export default {
   },
   async updateOne(req: Request, res: Response) {
     const data = req.body.data;
-    console.log(data);
     const result = await Profile.updateProfile(data);
 
     return res.json(result);

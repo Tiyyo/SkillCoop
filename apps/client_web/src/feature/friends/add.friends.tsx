@@ -12,7 +12,7 @@ import { useApp } from '../../store/app.store';
 function AddFriends() {
   const { userProfile } = useApp();
   const profiledId = userProfile?.profile_id;
-  const { addSearchProfile, searchProfiles } = useFriends();
+  const { addSearchProfile, searchProfiles, pendingFriends } = useFriends();
   const [searchValue, setSearchValue] = useState<SearchProfileQuery>({
     username: '',
     page: 1,
@@ -44,6 +44,14 @@ function AddFriends() {
 
   const loading = isLoading || isFetching;
 
+  const dataFilteredByPendingFriendIds = (
+    item: { profile_id: number },
+    pendingFriend: Record<string, any>[]
+  ) => {
+    const ids = pendingFriend.map((friend) => friend.adder_id);
+    return !ids.includes(item.profile_id);
+  };
+
   const getInputSearchValue = (value: string) => {
     setSearchValue({ ...searchValue, username: value });
   };
@@ -72,17 +80,21 @@ function AddFriends() {
       </div>
       <div className="grid grid-cols-2 py-8 gap-2">
         {searchProfiles &&
-          searchProfiles.map((profile) => (
-            <ProfileCard
-              key={profile.profile_id}
-              avatar={profile.avatar_url}
-              username={profile.username}
-              friendId={profile.profile_id}
-              relation={profile.relation_exists}
-              profileId={profiledId ?? 0}
-              refetch={refetchProfiles}
-            />
-          ))}
+          searchProfiles
+            .filter((item) =>
+              dataFilteredByPendingFriendIds(item, pendingFriends)
+            )
+            .map((profile) => (
+              <ProfileCard
+                key={profile.profile_id}
+                avatar={profile.avatar_url}
+                username={profile.username}
+                friendId={profile.profile_id}
+                relation={profile.relation_exists}
+                profileId={profiledId ?? 0}
+                refetch={refetchProfiles}
+              />
+            ))}
       </div>
     </>
   );

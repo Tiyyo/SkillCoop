@@ -50,12 +50,13 @@ function FriendCard({
   addFriendToState,
   removeFriendFromState,
 }: FriendCardProps) {
+  const { removePendingFriend, addConfirmedFriend } = useFriends();
+  const [isSelected, setIsSelected] = useState(false);
+
   const { mutate: acceptOrDeclinedInvitation } = useMutation(
     ['acceptOrDeclinedInvitation'],
     (data: updateInvitationStatus) => acceptOrDeclinedFriendRequestFn(data)
   );
-  const { removePendingFriend, addConfirmedFriend } = useFriends();
-  const [isSelected, setIsSelected] = useState(false);
 
   const handleClickSelectFriend = () => {
     if (!activeSelected || !removeFriendFromState || !addFriendToState) return;

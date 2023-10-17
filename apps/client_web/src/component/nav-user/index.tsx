@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,6 +13,7 @@ import { useApp } from '../../store/app.store';
 import { queryClient } from '../../main';
 
 function NavUser({ userAvatar }: { userAvatar?: string | null }) {
+  const navigate = useNavigate();
   const menuItemStyle =
     'flex gap-2 items-center hover:bg-primary-200 transition-colors duration-300 rounded-lg px-2 text-md';
 
@@ -27,6 +28,8 @@ function NavUser({ userAvatar }: { userAvatar?: string | null }) {
     queryClient.clear();
     queryClient.resetQueries({ queryKey: ['authUser'], exact: true });
     queryClient.setQueryDefaults(['authUser'], { initialData: {} });
+    console.log('is should logout');
+    navigate('/login');
   };
 
   return (

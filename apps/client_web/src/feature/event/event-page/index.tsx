@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { getEventFn } from '../../../api/api.fn';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 import ReturnBtn from '../../../component/return';
 import DropdownEventMenu from './dropdown-menu';
 import CallToActionInvitation from './call-to-action-invitation';
@@ -11,25 +11,55 @@ import Plus from '../../../assets/icon/Plus';
 import TeamComposition from '../TeamComposition';
 import EventPageScore from './score';
 import EventPageVotesBanner from './votes';
+import { useEffect } from 'react';
+import { useEvent } from '../../../store/event.store';
 
 function EventPage() {
-  const {
-    state: { eventId },
-  } = useLocation();
+  const location = useLocation();
+  const { eventId } = useParams<{ eventId: string }>();
+  const { initEventState } = useEvent();
   const { userProfile } = useApp();
   const profileId = userProfile?.profile_id;
 
   const { data: event } = useQuery(
-    ['event'],
+    [`event${eventId}`],
     () => {
-      if (!profileId) return;
-      return getEventFn(eventId, profileId);
+      if (!profileId || !eventId) return;
+      return getEventFn(Number(eventId), profileId);
     },
-    { enabled: true }
+    { enabled: true, refetchOnMount: 'always' }
   );
+
+  useEffect(() => {
+    if (!event) return;
+    if (typeof event.participants === 'string') return;
+    initEventState({
+      start_date: event.date,
+      duration: event.duration,
+      location: event.location,
+      required_participants: event.required_participants,
+      start_time: event.date.split(' ')[1],
+      invited_participants_ids: event.participants.map((p) => p.profile_id),
+      status_name: event.status_name,
+    });
+    // Clear store on unmount
+    return () => {
+      initEventState({
+        start_date: null,
+        start_time: null,
+        location: null,
+        duration: null,
+        required_participants: null,
+        organizer_id: null,
+        status_name: null,
+        invited_participants_ids: null,
+      });
+    };
+  }, [location.pathname, event, initEventState]);
 
   return (
     <div>
+      <Outlet />
       <div className="flex justify-between items-start py-2 bg-base-light mx-2 my-4 rounded-md shadow">
         <ReturnBtn />
         <CallToActionInvitation
@@ -39,13 +69,14 @@ function EventPage() {
         />
         <DropdownEventMenu
           profileId={profileId}
+          eventStatus={event?.status_name}
           isAdmin={event?.organizer_id === profileId}
-          eventId={eventId}
+          eventId={Number(eventId)}
         />
       </div>
       {event && event.status_name === 'completed' && (
         <EventPageVotesBanner
-          eventId={eventId}
+          eventId={Number(eventId)}
           participants={event.participants}
           profileId={profileId}
         />
@@ -62,7 +93,7 @@ function EventPage() {
             isAdmin={event?.organizer_id === profileId}
           />
           <EventPageScore
-            eventId={eventId}
+            eventId={Number(eventId)}
             isAdmin={event.organizer_id === profileId}
             scoreTeam1={event.score_team_1}
             scoreTeam2={event.score_team_2}
@@ -84,7 +115,9 @@ function EventPage() {
             {typeof event.participants !== 'string' &&
               event.participants.map((participant) => (
                 <Participant
+                  isAdmin={event.organizer_id === participant.profile_id}
                   profileId={participant.profile_id}
+                  eventStatus={event.status_name}
                   key={participant.profile_id}
                   {...participant}
                 />
@@ -94,6 +127,7 @@ function EventPage() {
       )}
       {event && event.status_name !== 'open' && (
         <TeamComposition
+          eventStatus={event.status_name}
           participants={event.participants}
           organizer={event.organizer_id}
           mvp={event.mvp_id}

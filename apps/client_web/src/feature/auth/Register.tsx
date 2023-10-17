@@ -109,7 +109,7 @@ function Register() {
               register={register}>
               <EyeIcon />
             </FormField>
-            <p className="text-xxs flex items-start self-start">
+            <div className="text-xxs flex items-start self-start">
               <p>Password must contains</p>
               <ul className="list-disc ml-7">
                 <li>8 characters</li>
@@ -118,7 +118,7 @@ function Register() {
                 <li>1 uppercase letter</li>
                 <li>1 special characters</li>
               </ul>
-            </p>
+            </div>
             <label
               htmlFor="termsAndService"
               className="text-xs text-opacity-70 text-center inline ">

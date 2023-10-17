@@ -49,11 +49,11 @@ export default {
   },
   async login(data: { email: string, password: string }): Promise<Record<string, string>> {
     const { email, password } = data
-    const [user] = await User.findBy({ email: email })
+    const [user] = await User.findBy({ email: email.trim() })
 
     if (!user) throw new UserInputError("Can't find any user with this email", "wrong credentials")
 
-    if (!await bcrypt.compare(password, user.password)) throw new UserInputError("Password didn't match", "wrong credentials")
+    if (!await bcrypt.compare(password.trim(), user.password)) throw new UserInputError("Password didn't match", "wrong credentials")
 
     if (!user.verified) {
       // generate an new email to send to the user

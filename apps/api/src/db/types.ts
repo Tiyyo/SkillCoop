@@ -18,7 +18,7 @@ export type event = {
     location: string;
     required_participants: number;
     nb_teams: Generated<number>;
-    organizer_id: number;
+    organizer_id: number | null;
     status_name: string;
     created_at: string;
     updated_at: string | null;
@@ -43,7 +43,7 @@ export type mvp_poll = {
 export type profile = {
     id: Generated<number>;
     user_id: number;
-    username: string;
+    username: string | null;
     first_name: string | null;
     last_name: string | null;
     location: string | null;

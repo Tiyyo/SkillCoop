@@ -8,6 +8,7 @@ import redis from 'ioredis'
 import ServerError from '../helpers/errors/server.error';
 import { invitationStatus } from '../@types/types';
 import { generateBalancedTeam } from '../service/generate-teams';
+import deleteDecodedKey from '../utils/delete-decoded';
 
 const redisClient = new redis()
 
@@ -27,6 +28,7 @@ export default {
     res.status(200).json(participantList)
   },
   async updateStatus(req: Request, res: Response) {
+    deleteDecodedKey(req.body)
     const { profile_id, event_id, status_name } = req.body
 
     const isConfirmed = "confirmed"
@@ -66,6 +68,7 @@ export default {
 
   },
   async sendInvitationToEvent(req: Request, res: Response) {
+    deleteDecodedKey(req.body)
     const { ids, event_id } = req.body
     const data = ids.map((id: number) => ({ profile_id: id, event_id, status_name: "pending" }))
 

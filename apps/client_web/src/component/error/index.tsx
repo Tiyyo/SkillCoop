@@ -1,5 +1,4 @@
 function ErrorContainer({ errorValue }: { errorValue: string | undefined }) {
-  console.log(errorValue);
   function displayErrorMessage(errorValue: string | undefined): string {
     if (!errorValue) return '';
     if (errorValue.includes('Email not verified')) {

@@ -79,7 +79,6 @@ export const logoutUserFn = async () => {
 
 export const getMeFn = async (): Promise<{ userProfile: Profile }> => {
   const response = await api.get('api/user/me');
-  console.log('response suer me : ', response.data);
   return response.data;
 };
 

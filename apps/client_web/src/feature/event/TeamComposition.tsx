@@ -3,6 +3,7 @@ import { EventParticipant } from '../../types';
 
 interface TeamCompositionProps {
   participants: EventParticipant[] | string;
+  eventStatus?: 'full' | 'open' | 'completed' | 'cancelled';
   mvp?: number | null;
   bestStriker?: number | null;
   organizer?: number;
@@ -13,6 +14,7 @@ function TeamComposition({
   mvp,
   bestStriker,
   organizer,
+  eventStatus = 'full',
 }: TeamCompositionProps) {
   // this is a different team comp and need to be refactored with the new one
 
@@ -29,6 +31,7 @@ function TeamComposition({
             .filter((participant) => participant.team === 1)
             .map((participant) => (
               <Participant
+                eventStatus={eventStatus}
                 profileId={participant.profile_id}
                 isAdmin={participant.profile_id === organizer}
                 isMvp={participant.profile_id === mvp}
@@ -46,6 +49,7 @@ function TeamComposition({
             .filter((participant) => participant.team === 2)
             .map((participant) => (
               <Participant
+                eventStatus={eventStatus}
                 profileId={participant.profile_id}
                 key={participant.profile_id}
                 isAdmin={participant.profile_id === organizer}

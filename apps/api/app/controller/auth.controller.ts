@@ -27,7 +27,7 @@ export default {
     }
 
 
-    const emailToken = tokenHandler.createToken('1h', process.env.JWT_EMAIL_TOKEN_KEY as string, { userId: newUser.id })
+    const emailToken = tokenHandler.createToken('1h', process.env.JWT_EMAIL_TOKEN_KEY as string, { user_id: newUser.id })
     await emailService.sendEmailToConfirmEmail({ emailToken, email, userId: newUser.id })
 
     return res.status(200).json({ message: "User created successfully and confirmation email has been sent" })

@@ -187,8 +187,6 @@ async function computeRatingUser(profileId: number) {
     const result = numerator / denominator
     return Math.floor(result)
   }
-  const avg = avgIndividualSkill(userOwnEval?.pace, avgEvalReceived?.pace)
-  console.log(avg);
 
   const avg_skills = {
     avg_pace: avgIndividualSkill(userOwnEval?.pace, avgEvalReceived?.pace),
@@ -209,7 +207,7 @@ async function computeRatingUser(profileId: number) {
     .executeTakeFirst()
 
   console.timeEnd('start query')
-  console.log(profileSkills);
+
   return profileSkills
 
 }

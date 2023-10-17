@@ -1,5 +1,5 @@
 import Button from '../../../component/button';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import schema from 'schema';
 import { CreateEventData } from '../../../types';
 import Input from '../../../component/input';
@@ -25,10 +25,12 @@ const { createEventSchema } = schema;
 
 function CreateEvent() {
   const { userProfile } = useApp();
+  const createEventFormRef = useRef<HTMLFormElement>(null);
   const [validationErrors, setValidationErrors] = useState(null); // TODO : handle error
   const {
     createEvent,
     data: eventCreatedState,
+    isLoading,
     updateDuration,
     updateLocation,
     updateOrganizerId,
@@ -72,14 +74,15 @@ function CreateEvent() {
 
     const isValid = createEventSchema.safeParse(data);
     console.log(isValid);
+
     if (
       isValid.success &&
       data.date &&
       dateHandler.dateShouldBeInTheFuture(data.date)
     ) {
       createEvent(data);
+      createEventFormRef.current?.reset();
       clearEventState();
-      console.log('event created', eventCreatedState);
     } else {
       setValidationErrors(isValid.error.issues);
     }
@@ -105,6 +108,7 @@ function CreateEvent() {
       <TitleH2 value="Create an new Event" />
       <form
         onSubmit={handleFormSubmit}
+        ref={createEventFormRef}
         className="px-3 flex flex-col items-center gap-y-4">
         <InputDate
           updateState={updateStartDate}
@@ -162,6 +166,7 @@ function CreateEvent() {
         <Button
           textContent="Create Event"
           type="submit"
+          isLoading={isLoading}
         />
       </form>
     </>

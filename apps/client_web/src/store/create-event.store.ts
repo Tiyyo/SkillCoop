@@ -112,7 +112,7 @@ export const useCreateEventStore = create<CreateEventStore>()((set) => ({
 }));
 
 export const useCreateEvent = () => {
-  const { mutate: createEvent, isSuccess, isError } = useMutation((data: CreateEventData) =>
+  const { mutate: createEvent, isSuccess, isLoading } = useMutation((data: CreateEventData) =>
     createEventFn(data)
   );
   const updateStartDate = useCreateEventStore((state) => state.updateStartDate);
@@ -133,7 +133,6 @@ export const useCreateEvent = () => {
   const data = useCreateEventStore((state) => state.event);
 
   useEffect(() => {
-    console.log(isSuccess);
     if (isSuccess) {
       toast.success("Event created successfully");
     }
@@ -150,6 +149,7 @@ export const useCreateEvent = () => {
     removeInvitedParticipantsIds,
     updateOrganizerId,
     clearEventState,
+    isLoading,
     data,
   };
 };

@@ -26,7 +26,7 @@ function EventPageScore({
   >(eventStatus);
   const { userProfile } = useApp();
   const profileId = userProfile?.profile_id;
-  const { mutate: saveScore } = useMutation(
+  const { mutate: saveScore, isLoading } = useMutation(
     (data: { event_id: number; score_team_1: number; score_team_2: number }) =>
       saveScoreFn(data)
   );
@@ -51,7 +51,8 @@ function EventPageScore({
     });
     setWhichEventStatus('completed');
   };
-
+  if (whichEventStatus === 'cancelled') return null;
+  if (whichEventStatus === 'open') return null;
   return (
     <form
       className="bg-base-light mx-2 my-4 rounded-md shadow py-4 px-3 flex flex-col items-center justify-between"
@@ -67,7 +68,7 @@ function EventPageScore({
           type="number"
           name="score_team_1"
           className="bg-primary-200 h-14 w-10 rounded-md shadow-inner border border-gray-950 border-opacity-40 text-primary-1100 font-semibold text-center text-2xl"
-          disabled={!isAdmin}
+          disabled={!isAdmin || whichEventStatus !== 'full'}
           defaultValue={scoreTeam1 ?? 'NC'}
         />
         <span className="font-semibold mx-2">-</span>
@@ -75,7 +76,7 @@ function EventPageScore({
           type="number"
           name="score_team_2"
           className="bg-primary-200 h-14 w-10 rounded-md shadow-inner border border-gray-950 border-opacity-40 text-primary-1100 font-semibold text-center text-2xl"
-          disabled={!isAdmin}
+          disabled={!isAdmin || whichEventStatus !== 'full'}
           defaultValue={scoreTeam2 ?? 'NC'}
         />
         <label
@@ -88,6 +89,7 @@ function EventPageScore({
         <Button
           type="submit"
           className="py-1 mt-8 w-20"
+          isLoading={isLoading}
           textContent="SAVE"
         />
       )}

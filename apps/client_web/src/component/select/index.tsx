@@ -1,5 +1,10 @@
 import { useMutation } from '@tanstack/react-query';
-import { useState, type ComponentPropsWithoutRef, useEffect } from 'react';
+import {
+  useState,
+  type ComponentPropsWithoutRef,
+  useEffect,
+  useId,
+} from 'react';
 
 type Option = {
   label: string;
@@ -33,6 +38,7 @@ function SelectInput({
   disabled,
   ...props
 }: SelectInputProps) {
+  const idComponent = useId();
   const [hasError, setHasError] = useState<boolean | undefined>(error);
   const { mutate } = useMutation((data: Record<string, string | number>) => {
     if (!mutateOnBlur) return;
@@ -59,8 +65,6 @@ function SelectInput({
   useEffect(() => {
     setHasError(error);
   }, [error]);
-
-  console.log(props.defaultValue);
 
   return (
     <div className="w-full">
@@ -95,8 +99,15 @@ function SelectInput({
             } text-sm rounded-lg focus:ring-primary-800 focus:border-primary-800 block w-full h-10.5 pl-10`}
             onChange={handleChange}
             {...props}>
-            {options.map((option: any) => (
-              <option value={option.value}>{option.label}</option>
+            <option className="text-xs font-light text-ligh">
+              Pick an option
+            </option>
+            {options.map((option: any, index) => (
+              <option
+                key={index + idComponent}
+                value={option.value}>
+                {option.label}
+              </option>
             ))}
           </select>
         )}

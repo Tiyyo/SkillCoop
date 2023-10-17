@@ -19,8 +19,13 @@ export default {
   },
   verifyTokenAndGetData: function (token: string, key: string) {
     let payload: Record<string, any> | null = null
-    verify(token, key, (err, decoded) => {
-      if (err) throw new Error('Invalid token')
+    verify(token, key, (err: any, decoded) => {
+      if (err && err.message === "jwt expired") {
+        throw new AuthorizationError('No access')
+      }
+      if (err) {
+        throw new Error('Invalid token')
+      }
       if (decoded && typeof decoded !== 'string') {
         payload = decoded.data
       }

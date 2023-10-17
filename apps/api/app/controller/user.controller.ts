@@ -3,15 +3,21 @@ import { profile as Profile } from '../models/index';
 import { user as User } from '../models/index';
 import bcrypt from 'bcrypt';
 import checkParams from '../utils/check-params';
-import computeRatingUser from '../service/compute-rating';
+
 
 export default {
   getMe: async (req: Request, res: Response) => {
     const { decoded } = req.body
     const userId = decoded.user_id
-    const userProfile = await Profile.findByUserId(userId)
 
-    res.status(200).json({ userProfile: userProfile ?? decoded })
+    const userProfile = await Profile.findByUserId(userId)
+    if (!userProfile) {
+      await Profile.create({ user_id: userId })
+      const createdUserProfile = await Profile.findByUserId(userId)
+      return res.status(200).json({ userProfile: createdUserProfile })
+    }
+
+    res.status(200).json({ userProfile: userProfile })
   },
   updateEmail: async (req: Request, res: Response) => {
     const { email, user_id } = req.body
@@ -41,10 +47,10 @@ export default {
 
   },
   deleteUser: async (req: Request, res: Response) => {
-    const user_id = checkParams(req.params.id)
+    const userId = checkParams(req.params.userId)
 
-    const user = await User.delete(user_id)
+    await User.delete(userId)
 
-    res.status(200).json({ user })
+    res.status(204)
   }
 } 

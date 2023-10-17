@@ -52,7 +52,7 @@ function FormField({
     <div className="w-full">
       <div className="relative my-1">
         <input
-          type={type === 'password' && !icon ? 'password' : type}
+          type={type === 'password' && icon ? 'text' : type}
           value={value}
           id={name}
           onChange={handleChange}

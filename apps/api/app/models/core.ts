@@ -82,7 +82,6 @@ export class Core {
 
       return result[0].insertId
     } catch (error) {
-      console.log(error);
       throw new DatabaseError(error)
     }
   }

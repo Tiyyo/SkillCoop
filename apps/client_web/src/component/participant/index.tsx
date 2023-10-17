@@ -5,16 +5,14 @@ import { cn } from '../../lib/utils';
 import star from '../../assets/svg/star.svg';
 import soccerBall from '../../assets/svg/soccer-ball.svg';
 import capitalize from '../../utils/capitalize';
-import { Dialog, DialogContent, DialogTrigger } from '../../lib/ui/dialog';
-import ModalRatingParticipant from '../modal-rating-participant';
-import { useApp } from '../../store/app.store';
-import { useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 interface ParticipantProps {
   avatar: string;
   username: string;
   status: InvitationStatus;
   profileId: number;
+  eventStatus?: 'full' | 'open' | 'completed' | 'cancelled';
   activeId?: string;
   name?: string;
   isAdmin?: boolean;
@@ -30,6 +28,7 @@ function Participant({
   profileId,
   activeId,
   name,
+  eventStatus = 'open',
   isAdmin,
   isMvp,
   isBestStriker,
@@ -38,10 +37,6 @@ function Participant({
   const [isChecked, setIsChecked] = useState<boolean>(
     activeId === name + profileId?.toString()
   );
-  const { userProfile } = useApp();
-  const location = useLocation();
-  const eventId = location.state.eventId;
-  const userConnecteProfileId = userProfile?.profile_id;
 
   useEffect(() => {
     setIsChecked(activeId === name + profileId?.toString());
@@ -67,6 +62,9 @@ function Participant({
               <span
                 className={cn('mr-2', isAdmin && 'text-primary-900 font-bold')}>
                 {capitalize(username)}
+                <span className="mx-0.5 text-xxs font-normal">
+                  {isAdmin && '(Organizer)'}
+                </span>
               </span>
               <span className="flex py-1">
                 {isMvp && (
@@ -83,26 +81,17 @@ function Participant({
                 )}
               </span>
             </p>
-            <Dialog>
-              <DialogTrigger disabled={userConnecteProfileId === profileId}>
-                <img
-                  src={avatar ? avatar : '/images/default-avatar.png'}
-                  alt="avatar"
-                  className={cn(
-                    'w-8 h-8 rounded-full',
-                    isRatingActive && 'cursor-pointer'
-                  )}
-                />
-              </DialogTrigger>
-              <DialogContent className="bg-base-light">
-                <ModalRatingParticipant
-                  eventId={eventId}
-                  participantProfileId={profileId}
-                  participantUsername={username}
-                  participantAvatar={avatar}
-                />
-              </DialogContent>
-            </Dialog>
+            <Link
+              to={eventStatus === 'completed' ? `evaluate/${profileId}` : ''}>
+              <img
+                src={avatar ? avatar : '/images/default-avatar.png'}
+                alt="avatar"
+                className={cn(
+                  'w-8 h-8 rounded-full',
+                  isRatingActive && 'cursor-pointer'
+                )}
+              />
+            </Link>
             <Status status={status} />
           </div>
         )}

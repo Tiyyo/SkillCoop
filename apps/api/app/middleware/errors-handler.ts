@@ -32,7 +32,6 @@ export const errorHandler = (error: any, _req: Request, res: Response, next: Nex
     return res.status(500).send('Internal Server Error');
   } else {
     logger.error("Unknow error" + " " + error.message);
-    console.log(error);
     return res.status(500).send({ error: error.message });
   }
 }

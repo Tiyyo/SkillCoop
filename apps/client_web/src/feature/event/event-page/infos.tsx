@@ -9,7 +9,7 @@ import {
   Check,
 } from 'lucide-react';
 import { updateEventFn } from '../../../api/api.fn';
-import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import SelectInput from '../../../component/select';
 import InputTime from '../../../component/time-picker';
 import InputDate from '../../../component/date-picker';
@@ -39,17 +39,15 @@ function EventPageInfos({
   profileId,
 }: EventPageInfosProps) {
   const [isEditActive, setIsEditActive] = useState<boolean>(false);
-  const location = useLocation();
+  const { eventId } = useParams<{ eventId: string }>();
   const {
     data: event,
-    initEventState,
     updateStartTime,
     updateLocation,
     updateDuration,
     updateStartDate,
     updateRequiredParticipants,
   } = useEvent();
-  const eventId = location.state.eventId;
 
   const handleClickEdit = () => {
     setIsEditActive(!isEditActive);
@@ -57,21 +55,10 @@ function EventPageInfos({
 
   const updateEventData = {
     profile_id: profileId,
-    event_id: eventId,
+    event_id: Number(eventId),
   };
 
   const startTime = eventDate.split(' ')[1];
-
-  useEffect(() => {
-    initEventState({
-      start_date: eventDate,
-      duration: eventDuration,
-      location: eventlocation,
-      required_participants: requiredParticipants,
-      start_time: eventDate.split(' ')[1],
-      status_name: eventStatus,
-    });
-  }, [location.pathname]);
 
   return (
     <div className="bg-base-light mx-2 my-4 rounded-md shadow py-2 px-3">

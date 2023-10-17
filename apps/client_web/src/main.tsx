@@ -9,8 +9,8 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 import Login from './feature/auth/login.tsx';
-import Protected from './component/redirection/Protected.tsx';
-import RedirectToHome from './component/redirection/RedirectToHome.tsx';
+import Protected from './component/redirection/protected-routes.tsx';
+import RedirectToHome from './component/redirection/redirect-to-home.tsx';
 import TermsAndService from './feature/terms-and-service/index';
 import Register from './feature/auth/register.tsx';
 import { api } from './api/api.fn.ts';
@@ -35,6 +35,7 @@ import Votes from './feature/event/Votes.tsx';
 import UserResumeSkills from './feature/profile/skills/index.tsx';
 import FriendProfile from './feature/friend-profile-page/index.tsx';
 import ModalRouteRatingEvent from './feature/event/event-page/modal-route-rating.tsx';
+import ControlAccesEventPage from './component/redirection/control-access-event.tsx';
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -89,7 +90,11 @@ const router = createBrowserRouter([
       },
       {
         path: '/event/:eventId',
-        element: <EventPage />,
+        element: (
+          <ControlAccesEventPage>
+            <EventPage />
+          </ControlAccesEventPage>
+        ),
         children: [
           {
             path: 'evaluate/:profileId',

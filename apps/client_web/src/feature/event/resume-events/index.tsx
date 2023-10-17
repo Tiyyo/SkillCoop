@@ -24,7 +24,7 @@ function ResumeEvents() {
     isLoading,
     isFetching,
   } = useQuery(
-    ['getEvents'],
+    [`events/profile/${profileId}`],
     () => {
       if (!profileId) return;
       return getEventsFn(profileId);

@@ -27,7 +27,7 @@ function EventPage() {
       if (!profileId || !eventId) return;
       return getEventFn(Number(eventId), profileId);
     },
-    { enabled: true, refetchOnMount: 'always' }
+    { enabled: true, refetchOnMount: false }
   );
 
   useEffect(() => {

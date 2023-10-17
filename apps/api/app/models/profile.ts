@@ -148,7 +148,7 @@ export class Profile extends Core {
       const [nbAttendedEvents] = await this.client
         .selectFrom("profile_on_event")
         .select(({ fn }) => [
-          fn.count("profile_on_event.id").as("nb_attended_events"),
+          fn.count("profile_on_event.event_id").as("nb_attended_events"),
         ])
         .innerJoin("event", "event.id", "profile_on_event.event_id")
         .where("profile_on_event.profile_id", "=", profile.profile_id)

@@ -28,7 +28,6 @@ export type LoginUserData = {
 };
 
 function Login() {
-  const navigate = useNavigate();
   const { setIsAuth } = useApp();
   const {
     mutate: loginUser,
@@ -55,7 +54,6 @@ function Login() {
   useEffect(() => {
     if (isSuccess && !loading) {
       setIsAuth(true);
-      navigate('/');
       toast.success('Welcome back!');
     }
   }, [isSuccess, loading]);

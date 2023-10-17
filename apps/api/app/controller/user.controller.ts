@@ -11,6 +11,7 @@ export default {
     const userId = decoded.user_id
 
     const userProfile = await Profile.findByUserId(userId)
+
     if (!userProfile) {
       await Profile.create({ user_id: userId })
       const createdUserProfile = await Profile.findByUserId(userId)

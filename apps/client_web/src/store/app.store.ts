@@ -41,6 +41,7 @@ export const useApp = () => {
     if (error) {
       setIsAuth(false)
     }
+
     if (data && data.userProfile) {
       setProfile(data.userProfile)
       setIsAuth(true)

@@ -9,6 +9,7 @@ import { status as Status } from "../app/models/index";
 import { profileOnEvent as Participant } from "../app/models/index";
 import { score as Score } from "../app/models/index";
 import { friendslist as Friendlist } from "../app/models/index";
+import { skillFoot as SkillFoot } from "../app/models/index";
 import getDateUTC from "../app/utils/get-date-utc";
 import authService from "../app/service/auth/auth";
 
@@ -90,7 +91,7 @@ async function seed() {
     const randomDate = faker.date.birthdate({ max: 2002, min: 1980 });
     const birthdate = getDateUTC(randomDate);
 
-    await Profile.create({
+    const profile = await Profile.create({
       user_id: user.id,
       username: faker.internet.userName().toLowerCase(),
       first_name: faker.person.firstName(),
@@ -98,6 +99,17 @@ async function seed() {
       avatar_url: avatarUrl,
       date_of_birth: birthdate,
     });
+
+    // console.log('Profile created', profile.id);
+    await SkillFoot.create({
+      pace: faker.number.int({ min: 10, max: 100 }),
+      shooting: faker.number.int({ min: 10, max: 100 }),
+      passing: faker.number.int({ min: 10, max: 100 }),
+      dribbling: faker.number.int({ min: 10, max: 100 }),
+      defending: faker.number.int({ min: 10, max: 100 }),
+      rater_id: profile.id,
+      reviewee_id: profile.id
+    })
   }
   // create friendship between users
 

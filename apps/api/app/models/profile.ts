@@ -85,12 +85,17 @@ export class Profile extends Core {
   }
   // TODO define a type for data
   async create(data: Record<string, any>) {
-    const result = await this.client
-      .insertInto("profile")
-      .values({ ...data })
-      .executeTakeFirst();
+    try {
+      const result = await this.client
+        .insertInto("profile")
+        .values({ ...data })
+        .returning("id")
+        .executeTakeFirst();
 
-    return !!result.numInsertedRows;
+      return result;
+    } catch (error) {
+      throw new DatabaseError(error);
+    }
   }
   // TODO define a type for data
   async updateProfile<T>(data: {
@@ -99,17 +104,20 @@ export class Profile extends Core {
   }) {
     const { profile_id, ...rest } = data;
     const profileIdConvertedNumber = Number(profile_id);
+    try {
+      const result = await this.client
+        .updateTable("profile")
+        .set({
+          ...rest,
+        })
+        .where("profile.id", "=", profileIdConvertedNumber)
+        .executeTakeFirst();
 
-    const result = await this.client
-      .updateTable("profile")
-      .set({
-        ...rest,
-      })
-      .where("profile.id", "=", profileIdConvertedNumber)
-      .executeTakeFirst();
 
-
-    return !!result.numUpdatedRows
+      return !!result.numUpdatedRows
+    } catch (error) {
+      throw new DatabaseError(error);
+    }
   }
   async findByUserId(id: number) {
     try {

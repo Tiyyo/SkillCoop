@@ -52,7 +52,6 @@ export type profile = {
     last_evaluation: number | null;
 };
 export type profile_on_event = {
-    id: Generated<number>;
     profile_id: number;
     event_id: number;
     team: number | null;

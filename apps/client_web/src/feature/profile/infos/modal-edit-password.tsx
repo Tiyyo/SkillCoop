@@ -38,25 +38,25 @@ function EditModalPassword() {
             name="old_password"
             type="password"
             label="your old password"
-            subicon={<EyeOff />}
+            subicon={<EyeOff size={18} />}
             register={register}>
-            <Eye />
+            <Eye size={18} />
           </FormField>
           <FormField
             name="new_password"
             type="password"
             label="New password"
-            subicon={<EyeOff />}
+            subicon={<EyeOff size={18} />}
             register={register}>
-            <Eye />
+            <Eye size={18} />
           </FormField>
           <FormField
             name="confirm_new_password"
             type="password"
             label="Confirm your new password"
-            subicon={<EyeOff />}
+            subicon={<EyeOff size={18} />}
             register={register}>
-            <Eye />
+            <Eye size={18} />
           </FormField>
           <button
             type="submit"

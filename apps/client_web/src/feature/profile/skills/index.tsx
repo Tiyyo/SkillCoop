@@ -7,7 +7,7 @@ import { evaluateOwnSkillsFn, getProfileEvalFn } from '../../../api/api.fn';
 import schema from 'schema';
 import Button from '../../../component/button';
 import { EvaluationOwnSkill } from '../../../types';
-import { useEffect, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 import RadarChart from '../../../component/radar-chart';
 import associateStringToNumber from '../../../utils/associate-string-number';
 import associateNumberToString from '../../../utils/associate-number-stringscale';
@@ -15,6 +15,7 @@ import capitalize from '../../../utils/capitalize';
 const { ownSkillSchema } = schema;
 
 function UserResumeSkills() {
+  const idComp = useId();
   const { userProfile } = useApp();
   const [hasSkills, setHasSkills] = useState<boolean>(!!userProfile?.gb_rating);
   const skills = ['defending', 'dribbling', 'passing', 'shooting', 'pace'];
@@ -77,8 +78,8 @@ function UserResumeSkills() {
 
   const nbGratification =
     userProfile?.nb_review +
-    userProfile?.nb_bonus.nb_mvp_bonus +
-    userProfile?.nb_bonus.nb_best_striker_bonus;
+    userProfile?.nb_bonus?.nb_mvp_bonus +
+    userProfile?.nb_bonus?.nb_best_striker_bonus;
 
   return (
     <div>
@@ -96,6 +97,7 @@ function UserResumeSkills() {
             className="flex flex-col py-4">
             {skills.map((skill) => (
               <FieldsetRadioInput
+                key={idComp + skill}
                 name={skill}
                 options={[
                   'beginner',

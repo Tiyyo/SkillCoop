@@ -15,7 +15,7 @@ export default {
     deleteDecodedKey(req.body)
     const { ids, ...data } = req.body
     const eventId = await Event.create(data)
-    const result = ProfileOnEvent.create({ event_id: eventId, profile_id: data.organizer_id, status_name: "confirmed" })
+    const result = await ProfileOnEvent.create({ event_id: eventId, profile_id: data.organizer_id, status_name: "confirmed" })
 
     if (ids) {
       const participantsToInvite = ids.map((id: number) => {
@@ -46,9 +46,9 @@ export default {
     const event = await Event.findByPk(event_id)
     if (!event || event.organizer_id !== profile_id) throw new AuthorizationError("Operation not allowed")
 
-    await Event.update(event_id, data)
+    const isUpdated = await Event.update(event_id, data)
 
-    res.status(204)
+    res.status(204).json({ succces: isUpdated })
   },
   async deleteOne(req: Request, res: Response) {
     // delete one event
@@ -60,9 +60,9 @@ export default {
     if (event.length === 0) throw new NotFoundError("No event")
     if (event.organizer_id !== profileId) throw new AuthorizationError("Operation not allowed")
 
-    await Event.delete(eventId)
+    const isDeleted = await Event.delete(eventId)
 
-    res.status(204)
+    res.status(204).json({ success: isDeleted })
   },
   async getAllByUser(req: Request, res: Response) {
     const [profileId] = checkParams(req.params.profileId)

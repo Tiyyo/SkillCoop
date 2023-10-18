@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useId, useState } from 'react';
 import capitalize from '../../../utils/capitalize';
 import { cn } from '../../../lib/utils';
 
@@ -8,9 +8,10 @@ interface FieldsetRadioInputProps {
 }
 
 function FieldsetRadioInput({ name, options }: FieldsetRadioInputProps) {
+  const idComponent = useId();
   const [currentIDActive, setCurrentIDActive] = useState<string>('');
 
-  const handleChangeFieldset = (e) => {
+  const handleChangeFieldset = (e: React.ChangeEvent<HTMLFieldSetElement>) => {
     setCurrentIDActive(e.target.id);
   };
 
@@ -24,9 +25,9 @@ function FieldsetRadioInput({ name, options }: FieldsetRadioInputProps) {
       </legend>
       <div className="flex text-xxs">
         {options.length > 0 &&
-          options.map((option) => (
+          options.map((option, index) => (
             <label
-              key={`${name}_${option}`}
+              key={index + idComponent}
               htmlFor={`${name}_${option}`}
               className={cn(
                 'px-3 py-1.5 border border-primary-500 bg-base-light first-of-type:rounded-l-lg last-of-type:rounded-r-lg cursor-pointer hover:bg-primary-200 duration-200',

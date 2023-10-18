@@ -8,8 +8,6 @@ export default {
   async getFriends(req: Request, res: Response) {
     // get all friend
     const [id] = checkParams(req.params.profileId);
-
-
     const friendlist = await Friendlist.findAllByPk(id);
 
     res.status(200).json(friendlist);
@@ -20,9 +18,9 @@ export default {
     // status send 
     // create a status for the added pending
     const { adder_id, friend_id } = req.body;
-    await Friendlist.sendRequest(adder_id, friend_id);
+    const isSent = await Friendlist.sendRequest(adder_id, friend_id);
 
-    res.status(200);
+    res.status(201).json({ success: isSent });
 
   },
   async acceptOrDeclined(req: Request, res: Response) {
@@ -35,20 +33,20 @@ export default {
 
     const result = await Friendlist.updateStatus({ adder_id, friend_id, status_name });
 
-    res.status(200).send(result);
+    res.status(200).json({ success: result });
   },
   async getRequestToAccept(req: Request, res: Response) {
     const [profileId] = checkParams(req.params.profileId);
     // get friendship where id = friend_id and status = pending
     const pendingRequests = await Friendlist.findPendingRequests(profileId);
 
-    res.json(pendingRequests);
+    res.status(200).json(pendingRequests);
   },
   async searchFriends(req: Request, res: Response) {
     const { username, profile, page } = req.query
     const friends = await Friendlist.findFriendByUsernameInUserFriendlist(Number(profile), username, Number(page));
 
-    res.json(friends);
+    res.status(200).json(friends);
   },
   async getSuggestProfile(req: Request, res: Response) {
     const [profileId] = checkParams(req.params.profileId)

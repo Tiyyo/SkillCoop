@@ -8,12 +8,11 @@ const PORT = process.env.PORT || 8080;
 
 const server = createServer(app);
 init(server, {
-    cors: {
-        origin: "*"
-    }
+  cors: {
+    origin: "*"
+  }
 })
 
-
 server.listen(PORT, () => {
-    logger.info(`Server is running on port ${PORT}`)
+  logger.info(`Server is running on port ${PORT}`)
 })

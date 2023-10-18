@@ -66,9 +66,9 @@ export default {
     const { ids, event_id } = req.body
     const data = ids.map((id: number) => ({ profile_id: id, event_id, status_name: "pending" }))
 
-    await ProfileOnEvent.createMany(data)
+    const isCreated = await ProfileOnEvent.createMany(data)
 
-    res.status(201)
+    res.status(201).send({ success: isCreated })
 
   },
 }

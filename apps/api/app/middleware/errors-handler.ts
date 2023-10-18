@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response } from "express";
-// import DatabaseError from "../helpers/errors/database.error";
 import ServerError from "../helpers/errors/server.error";
 import AuthorizationError from "../helpers/errors/unauthorized.error";
 import ValidationError from "../helpers/errors/validation.error";

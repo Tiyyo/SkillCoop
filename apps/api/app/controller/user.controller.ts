@@ -26,7 +26,7 @@ export default {
 
     const userProfile = await User.update(user_id, { email })
 
-    res.status(200).json({ userProfile })
+    res.status(200).json({ success: userProfile })
   },
   updatePassword: async (req: Request, res: Response) => {
     const { old_password, new_password, user_id } = req.body
@@ -43,9 +43,9 @@ export default {
     const saltRounds = 10
     const hashedPassword = await bcrypt.hash(new_password, saltRounds)
 
-    const updateUser = await User.update(user_id, { password: hashedPassword })
+    const isUpdate = await User.update(user_id, { password: hashedPassword })
 
-    res.status(200).json({ updateUser })
+    res.status(200).json({ success: isUpdate })
 
   },
   deleteUser: async (req: Request, res: Response) => {
@@ -58,7 +58,7 @@ export default {
       throw new AuthorizationError('Operation not allowed')
     }
 
-    await User.delete(userId)
-    res.status(204)
+    const isDeleted = await User.delete(userId)
+    res.status(204).json({ success: isDeleted })
   }
 } 

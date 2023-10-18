@@ -1,14 +1,14 @@
-import jwt from "jsonwebtoken"
-const { sign } = jwt
+// import jwt from "jsonwebtoken"
+// const { sign } = jwt
 
-function createToken(expireTime: string, ...props: any) {
+// function createToken(expireTime: string, ...props: any) {
 
-    const token = sign(
-        { ...props }, process.env.JWT_REFRESH_TOKEN_KEY as string, {
-        expiresIn: expireTime
-    }
-    )
-    return token
-}
+//     const token = sign(
+//         { ...props }, process.env.JWT_REFRESH_TOKEN_KEY as string, {
+//         expiresIn: expireTime
+//     }
+//     )
+//     return token
+// }
 
-export default createToken
+// export default createToken

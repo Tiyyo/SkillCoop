@@ -33,6 +33,17 @@ export type SearchProfileQuery = {
   userProfileId: number;
 };
 
+export type SearchEventQuery = {
+  location: string;
+  date: string;
+  page?: number;
+};
+
+export type Bonus = {
+  nb_mvp_bonus: number;
+  nb_best_striker_bonus: number;
+}
+
 export type Profile = {
   user_id: number;
   avatar_url: string | null;
@@ -44,6 +55,10 @@ export type Profile = {
   first_name?: string | null;
   last_name?: string | null;
   location?: string | null;
+  gb_rating?: number | null;
+  nb_review?: number | null;
+  nb_bonus?: Bonus;
+  nb_attended_events?: number | null;
   relation_exists: number | null;
   last_evaluation: number | null
 };

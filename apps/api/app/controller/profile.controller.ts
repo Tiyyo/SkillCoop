@@ -5,7 +5,6 @@ import {
   deleteImageFromBucket,
   uploadImageToBucket,
 } from "../service/upload/s3";
-import ServerError from "../helpers/errors/server.error";
 import checkParams from "../utils/check-params";
 import UserInputError from "../helpers/errors/user-input.error";
 import NotFoundError from "../helpers/errors/not-found.error";
@@ -22,20 +21,20 @@ export default {
     const data = req.body;
     const result = await Profile.create(data);
 
-    return res.status(201).json(result);
+    return res.status(201).json({ success: result });
   },
   async updateOne(req: Request, res: Response) {
     const data = req.body.data;
-    await Profile.updateProfile(data);
+    const isUpdate = await Profile.updateProfile(data);
 
-    return res.status(204);
+    return res.status(204).send({ success: isUpdate });
   },
-  async deleteOne(req: Request, res: Response) {
-    const [profileId] = checkParams(req.params.profileId)
-    await Profile.delete(profileId);
+  // async deleteOne(req: Request, res: Response) {
+  //   const [profileId] = checkParams(req.params.profileId)
+  //   const isDeleted = await Profile.delete(profileId);
 
-    return res.status(204);
-  },
+  //   return res.status(204).send({ success: isDeleted });;
+  // },
   async updateImage(req: Request, res: Response) {
     const WIDTH_AVATAR = 100;
     const avatarImage = req.file;

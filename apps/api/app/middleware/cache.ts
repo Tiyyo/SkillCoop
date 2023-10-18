@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import logger from '../helpers/logger.js';
 import Cache from '../utils/cache.js';
 
+// paramsKey should be used with pamameters in the route
 export default (key: string, paramsKey?: string) => async (
   req: Request,
   res: Response,

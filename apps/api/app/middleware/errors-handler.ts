@@ -17,7 +17,6 @@ export const errorHandler = (error: any, _req: Request, res: Response, next: Nex
     });
   }
 
-
   if (error instanceof AuthorizationError || error instanceof ServerError || error instanceof NotFoundError || error instanceof UserInputError) {
     logger.error(error.name + " " + error.message);
     return res.status(error.status).json({ error: error.userMessage });
@@ -26,6 +25,11 @@ export const errorHandler = (error: any, _req: Request, res: Response, next: Nex
   if (error instanceof DatabaseError) {
     logger.error(error.name + " " + error.message);
     return res.status(error.status).json({ error: error.userMessage });
+  }
+
+  if (error instanceof Error) {
+    logger.error(error.name + " " + error.message);
+    return res.status(500).json({ error: 'Somethign went wrong' });
   }
 
   if (res.app.get('env') !== 'development') {

@@ -258,10 +258,10 @@ async function seed() {
       NB_PARTICIPANTS_TO_CREATE
     ).fill(1);
 
-    function getIntUnused() {
+    function getIntUnused(): number | undefined {
       const nbToPush = getRandomIntInclusive(1, 53)
       if (intAlreadyUsed.find(int => int === nbToPush)) {
-        return getIntUnused()
+        getIntUnused()
       } else {
         intAlreadyUsed.push(nbToPush)
         return nbToPush
@@ -313,7 +313,7 @@ async function seed() {
       NB_PARTICIPANTS_TO_CREATE
     ).fill(1);
 
-    function getIntUnused() {
+    function getIntUnused(): number | undefined {
       const nbToPush = getRandomIntInclusive(1, 53)
       if (intAlreadyUsed.find(int => int === nbToPush)) {
         return getIntUnused()

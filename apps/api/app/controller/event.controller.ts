@@ -31,8 +31,7 @@ export default {
     res.status(201).json(result)
   },
   async getOne(req: Request, res: Response) {
-    const eventId = checkParams(req.params.eventId)
-    const profileId = checkParams(req.params.profileId)
+    const [eventId, profileId] = checkParams(req.params.eventId, req.params.profileId)
 
     const event = await Event.getEventById(eventId, profileId)
 
@@ -47,15 +46,14 @@ export default {
     const event = await Event.findByPk(event_id)
     if (!event || event.organizer_id !== profile_id) throw new AuthorizationError("Operation not allowed")
 
-    const isUpdate = await Event.update(event_id, data)
+    await Event.update(event_id, data)
 
-    res.status(204).send(isUpdate)
+    res.status(204)
   },
   async deleteOne(req: Request, res: Response) {
     // delete one event
     // only the organizer can delete the event
-    const eventId = checkParams(req.params.id)
-    const profileId = checkParams(req.params.profileId)
+    const [eventId, profileId] = checkParams(req.params.id, req.params.profileId)
 
     const event = await Event.findByPk(eventId)
 
@@ -67,23 +65,21 @@ export default {
     res.status(204)
   },
   async getAllByUser(req: Request, res: Response) {
-    const profileId = checkParams(req.params.profileId)
+    const [profileId] = checkParams(req.params.profileId)
 
     const events = await Event.getEventByUserId(profileId)
 
     res.status(200).json(events)
   },
   async getOrganizerEvents(req: Request, res: Response) {
-    const profileId = checkParams(req.query.profileId)
-    const page = checkParams(req.query.page)
+    const [profileId, page] = checkParams(req.query.profileId, req.query.page)
 
     const events = await Event.getOrganizerEvents(profileId, page)
 
     res.status(200).json(events)
   },
   async getPasts(req: Request, res: Response) {
-    const profileId = checkParams(req.query.profileId)
-    const page = checkParams(req.query.page)
+    const [profileId, page] = checkParams(req.query.profileId, req.query.page)
 
     const events = await Event.getPastEvents(profileId, page)
 

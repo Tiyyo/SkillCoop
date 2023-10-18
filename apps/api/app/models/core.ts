@@ -1,17 +1,22 @@
+import { TableExpression } from "kysely"
+import { DB, DBClientType } from "../@types/types.database"
 import DatabaseError from "../helpers/errors/database.error"
 import NotFoundError from "../helpers/errors/not-found.error"
 import getDateUTC from "../utils/get-date-utc"
+import ServerError from "../helpers/errors/server.error"
+
 
 export class Core {
-  //@ts-ignore
-  tableName: string
+  // Default value to satisfie typescript
+  tableName: string = ''
 
-  client: any
+  client
 
-  constructor(client: any,) {
+  constructor(client: any) {
     this.client = client
   }
   async findAll() {
+
     try {
       const result = await this.client
         .selectFrom(this.tableName)
@@ -21,14 +26,11 @@ export class Core {
       if (!result) throw new NotFoundError('Not found')
 
       return result
-
     } catch (error) {
       throw new DatabaseError(error)
     }
-
   }
   async findByPk(id: number) {
-
     try {
       const result = await this.client
         .selectFrom(this.tableName)
@@ -39,7 +41,6 @@ export class Core {
       if (!result) throw new NotFoundError('Not found')
 
       return result[0]
-
     } catch (error) {
       throw new DatabaseError(error)
     }
@@ -51,7 +52,6 @@ export class Core {
     const values = Object.values(data)
 
     try {
-
       let query = this.client
         .selectFrom(this.tableName)
         .selectAll()
@@ -61,11 +61,9 @@ export class Core {
       })
 
       const result = await query.execute()
-
       if (!result) throw new NotFoundError('Not found')
 
       return result
-
     } catch (error) {
       throw new DatabaseError(error)
     }
@@ -88,7 +86,7 @@ export class Core {
   async createMany(data: Record<string, any>) {
     const today = new Date()
     const utctoday = getDateUTC(today)
-    data.forEach(el => el.created_at = utctoday)
+    data.forEach((el: any) => el.created_at = utctoday)
 
     try {
       const result = await this.client

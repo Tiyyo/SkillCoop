@@ -2,11 +2,12 @@ import { sql } from "kysely";
 import DatabaseError from "../helpers/errors/database.error";
 import { Core } from "./core";
 import getDateUTC from "../utils/get-date-utc";
+import { DBClientType } from "../@types/types.database";
 
 export class Friendlist extends Core {
   tableName: string = "profile_on_profile";
 
-  constructor(client: any) {
+  constructor(client: DBClientType) {
     super(client);
   }
   async findAllByPk(id: number) {

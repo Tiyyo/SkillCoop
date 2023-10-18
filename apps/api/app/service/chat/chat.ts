@@ -1,9 +1,9 @@
-
+import { Server as ServerExpress } from 'http'
 import { Server } from 'socket.io'
 import logger from "../../helpers/logger"
 import { getHistory, storeHistory } from './history'
 
-const init = async (server, options) => {
+const init = async (server: ServerExpress, options: any) => {
   // get history from redis   
   // just one room for now so we can fetch all the history at start
   const history = await getHistory('history')

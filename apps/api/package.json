@@ -54,6 +54,7 @@
     "@types/express": "^4.17.17",
     "@types/express-session": "^1.17.7",
     "@types/jsonwebtoken": "^9.0.2",
+    "@types/multer": "^1.4.9",
     "@types/multer-s3": "^3.0.0",
     "@types/node": "^17.0.12",
     "@types/nodemailer": "^6.4.10",

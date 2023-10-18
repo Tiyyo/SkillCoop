@@ -7,36 +7,37 @@ import {
 } from "../service/upload/s3";
 import ServerError from "../helpers/errors/server.error";
 import checkParams from "../utils/check-params";
+import UserInputError from "../helpers/errors/user-input.error";
+import NotFoundError from "../helpers/errors/not-found.error";
 
 
 export default {
   async getOne(req: Request, res: Response) {
-    const profileId = checkParams(req.params.profileId);
+    const [profileId] = checkParams(req.params.profileId);
     const profile = await Profile.findOne(profileId);
 
-    return res.json(profile);
+    return res.status(200).json(profile);
   },
   async createOne(req: Request, res: Response) {
     const data = req.body;
     const result = await Profile.create(data);
 
-    return res.json(result);
+    return res.status(201).json(result);
   },
   async updateOne(req: Request, res: Response) {
     const data = req.body.data;
-    const result = await Profile.updateProfile(data);
+    await Profile.updateProfile(data);
 
-    return res.json(result);
+    return res.status(204);
   },
   async deleteOne(req: Request, res: Response) {
-    const profileId = checkParams(req.params.profileId)
-    const result = await Profile.delete(profileId);
+    const [profileId] = checkParams(req.params.profileId)
+    await Profile.delete(profileId);
 
-    return res.json(result);
+    return res.status(204);
   },
   async updateImage(req: Request, res: Response) {
     const WIDTH_AVATAR = 100;
-    // TODO add multer type
     const avatarImage = req.file;
     const { profile_id } = req.body;
 
@@ -53,8 +54,10 @@ export default {
     // return new image url
 
     const { avatar_url, username } = await Profile.findOne(profile_id);
+    if (!avatarImage) throw new UserInputError("No image provided")
 
-    avatarImage.originalName = `avatar_${username}`;
+    avatarImage.originalname = `avatar_${username}`;
+
     const { key, link } = await uploadImageToBucket(avatarImage, {
       height: WIDTH_AVATAR,
       width: WIDTH_AVATAR,
@@ -75,16 +78,19 @@ export default {
     return res.status(200).json({ link })
   },
   async searchProfileByUsername(req: Request, res: Response) {
-    const { username, userProfileId, page } = req.query;
+    const { username } = req.query;
+    // Reminder: checkParams can also be use to convert string to number
+    const [userProfileId, page] = checkParams(req.query.userProfileId, req.query.page);
     if (typeof username !== "string")
-      throw new ServerError("Username must be a string");
+      throw new UserInputError("Username must be a string");
 
     const profiles = await Profile.findManyByUsername(
       username,
-      Number(userProfileId),
-      Number(page)
+      userProfileId,
+      page
     );
+    if (profiles.length === 0) throw new NotFoundError('No profile found')
 
-    return res.json(profiles);
+    return res.status(200).json(profiles);
   },
 };

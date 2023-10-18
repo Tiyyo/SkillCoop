@@ -1,6 +1,4 @@
 import { db } from '../helpers/client.db'
-import { profile as Profile } from '../models/index'
-import { jsonArrayFrom } from 'kysely/helpers/postgres'
 import computeRatingUser from '../service/compute-rating'
 import { Player } from '../@types/types'
 
@@ -21,6 +19,7 @@ const getCompleteEventInfos = async (event_id: number) => {
 
   const [result] = await db
     .selectFrom("profile_on_event")
+    /*@ts-ignore*/
     .select(["profile_on_event.event_id", "event.required_participants", "event.nb_teams"])
     .select(({ fn }) => [
       "profile_on_event.event_id",

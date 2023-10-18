@@ -57,10 +57,10 @@ export default {
     res.status(204).send('Logged out')
   },
   async googleAuth(req: Request, res: Response) {
-    const { code, state } = req.query
+    const { code } = req.query
     if (typeof code !== 'string') throw new Error('Invalid type')
-    const { access_token: googleToken, id_token } = await google.getOAuthToken({ code })
 
+    const { access_token: googleToken, id_token } = await google.getOAuthToken({ code })
     const { email, given_name, family_name, picture } = await google.getUser({ access_token: googleToken, id_token })
 
     const [user] = await User.findBy({ email })
@@ -79,7 +79,7 @@ export default {
   },
   async verifyEmail(req: Request, res: Response) {
     const { token } = req.params
-    const userId = checkParams(req.params.userId)
+    const [userId] = checkParams(req.params.userId)
 
     const userInfos = tokenHandler.verifyTokenAndGetData(token, process.env.JWT_EMAIL_TOKEN_KEY as string)
     if (userInfos && userId !== (userInfos as any).user_id) throw new ServerError("Invalid user id")

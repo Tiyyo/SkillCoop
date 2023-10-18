@@ -9,44 +9,42 @@ import ServerError from '../helpers/errors/server.error';
 import { invitationStatus } from '../@types/types';
 import { generateBalancedTeam } from '../service/generate-teams';
 import deleteDecodedKey from '../utils/delete-decoded';
+import checkParams from '../utils/check-params';
 
 const redisClient = new redis()
 
 
 export default {
-  async getAllUserByEvent(req: Request, res: Response) {
-    const { event_id } = req.params
+  // async getAllUserByEvent(req: Request, res: Response) {
+  //   const [event_id] = checkParams(req.params.event_id)
 
-    const participantList = await cacheOrGetCacheData("participants", async () => {
-      try {
-        const participantList = await ProfileOnEvent.findBy({ event_id })
-        return participantList
-      } catch (error) {
-        logger.error(error)
-      }
-    })
-    res.status(200).json(participantList)
-  },
+  //   const participantList = await cacheOrGetCacheData("participants", async () => {
+  //     try {
+  //       const participantList = await ProfileOnEvent.findBy({ event_id })
+  //       return participantList
+  //     } catch (error) {
+  //       logger.error(error)
+  //     }
+  //   })
+  //   res.status(200).json(participantList)
+  // },
   async updateStatus(req: Request, res: Response) {
     deleteDecodedKey(req.body)
-    const { profile_id, event_id, status_name } = req.body
 
-    const isConfirmed = "confirmed"
+    const { profile_id, event_id, status_name } = req.body
     let userMessage = "Status has been updated"
 
     const data = { profile_id, event_id, status_name, updated_at: undefined }
-    //TODO need to check if participant exist
 
     if (status_name === "declined") {
       await ProfileOnEvent.updateStatus(data)
-      return res.status(204).send('Status has been updated')
-    }
-    // check if the event is full
 
+      return res.status(200).send(userMessage)
+    }
+
+    // check if the event is full
     const confirmedParticipants = await ProfileOnEvent.findBy({ event_id: data.event_id, status_name: invitationStatus.confirmed })
     const event = await Event.findByPk(data.event_id)
-
-    // check type number before strict equality
 
     if (event.required_participants <= confirmedParticipants.length) throw new UserInputError('Event is already full')
 
@@ -59,22 +57,18 @@ export default {
       userMessage = "Teams has been generated "
     }
 
-    logger.debug("status has been upload")
-    // launch generation team service
-    // generation team if needed
-
-    // TODO check if we are actually casting a boolean
     res.status(200).json(userMessage)
 
   },
   async sendInvitationToEvent(req: Request, res: Response) {
     deleteDecodedKey(req.body)
+
     const { ids, event_id } = req.body
     const data = ids.map((id: number) => ({ profile_id: id, event_id, status_name: "pending" }))
 
-    const isSend = ProfileOnEvent.createMany(data)
+    await ProfileOnEvent.createMany(data)
 
-    res.status(201).send(isSend)
+    res.status(201)
 
   },
 }

@@ -3,6 +3,7 @@ import { profile as Profile } from '../models/index';
 import { user as User } from '../models/index';
 import bcrypt from 'bcrypt';
 import checkParams from '../utils/check-params';
+import AuthorizationError from '../helpers/errors/unauthorized.error';
 
 
 export default {
@@ -48,10 +49,16 @@ export default {
 
   },
   deleteUser: async (req: Request, res: Response) => {
-    const userId = checkParams(req.params.userId)
+    const [userId] = checkParams(req.params.userId)
+    const tokenUserId = req.body.decoded.user_id
+
+    if (userId !== tokenUserId) {
+      // Just to be annoying and invalidate all tokens and forced user to logout
+      res.clearCookie('refreshToken')
+      throw new AuthorizationError('Operation not allowed')
+    }
 
     await User.delete(userId)
-
     res.status(204)
   }
 } 

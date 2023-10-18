@@ -1,7 +1,5 @@
 import { friendslist as Friendlist } from '../models/index';
 import { Request, Response } from 'express'
-import logger from '../helpers/logger';
-import redis from 'ioredis'
 import checkParams from '../utils/check-params';
 import ServerError from '../helpers/errors/server.error';
 import deleteDecodedKey from '../utils/delete-decoded';
@@ -9,7 +7,8 @@ import deleteDecodedKey from '../utils/delete-decoded';
 export default {
   async getFriends(req: Request, res: Response) {
     // get all friend
-    const id = checkParams(req.params.profileId);
+    const [id] = checkParams(req.params.profileId);
+
 
     const friendlist = await Friendlist.findAllByPk(id);
 
@@ -39,23 +38,22 @@ export default {
     res.status(200).send(result);
   },
   async getRequestToAccept(req: Request, res: Response) {
-    const id = checkParams(req.params.profileId);
+    const [profileId] = checkParams(req.params.profileId);
     // get friendship where id = friend_id and status = pending
-
-    const pendingRequests = await Friendlist.findPendingRequests(id);
+    const pendingRequests = await Friendlist.findPendingRequests(profileId);
 
     res.json(pendingRequests);
   },
   async searchFriends(req: Request, res: Response) {
     const { username, profile, page } = req.query
-
     const friends = await Friendlist.findFriendByUsernameInUserFriendlist(Number(profile), username, Number(page));
 
     res.json(friends);
   },
   async getSuggestProfile(req: Request, res: Response) {
-    const profileId = checkParams(req.params.profileId)
+    const [profileId] = checkParams(req.params.profileId)
     const suggestProfiles = await Friendlist.findSuggestProfile(profileId)
+
     res.status(200).json(suggestProfiles)
   }
 }

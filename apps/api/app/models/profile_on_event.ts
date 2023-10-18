@@ -1,3 +1,4 @@
+import { DBClientType } from '../@types/types.database';
 import DatabaseError from '../helpers/errors/database.error';
 import UserInputError from '../helpers/errors/user-input.error';
 import getDateUTC from '../utils/get-date-utc';
@@ -6,7 +7,7 @@ import { Core } from './core'
 export class ProfileOnEvent extends Core {
   tableName: string = 'profile_on_event';
 
-  constructor(client) {
+  constructor(client: DBClientType) {
     super(client)
   }
 

@@ -2,7 +2,7 @@ import getCompleteEventInfos from '../../models/teams';
 import { Player, TeamGeneratorConfig } from '../../@types/types';
 import { profileOnEvent as ProfileOnEvent } from '../../models/index';
 
-function assignTeam(position: number): number {
+export function assignTeam(position: number): number {
   const TEAM_1 = 1
   const TEAM_2 = 2
   const HALF = 5

@@ -35,9 +35,7 @@ export default {
 
   },
   async getProfileEvalByEvent(req: Request, res: Response) {
-    const rater_id = checkParams(req.query.rater_id)
-    const reviewee_id = checkParams(req.query.reviewee_id)
-    const event_id = checkParams(req.query.event_id)
+    const [rater_id, reviewee_id, event_id] = checkParams(req.params.rater_id, req.params.reviewee_id, req.params.event_id)
 
     const skill = await SkillFoot.findBy({ rater_id, reviewee_id, event_id })
 
@@ -70,7 +68,7 @@ export default {
       .send(!!skill)
   },
   async getProfileEval(req: Request, res: Response) {
-    const profileId = checkParams(req.params.profileId)
+    const [profileId] = checkParams(req.params.profileId)
 
     try {
       const profileEval = await computeRatingUser(profileId)

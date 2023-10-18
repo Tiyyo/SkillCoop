@@ -1,3 +1,4 @@
+import { DBClientType } from '../@types/types.database'
 import DatabaseError from '../helpers/errors/database.error'
 import getDateUTC from '../utils/get-date-utc'
 import { Core } from './core'
@@ -5,7 +6,7 @@ import { Core } from './core'
 export class User extends Core {
   tableName: string = 'user'
 
-  constructor(client: any) {
+  constructor(client: DBClientType) {
     super(client)
   }
   async create(data: any): Promise<{ id: number, email: string }> {

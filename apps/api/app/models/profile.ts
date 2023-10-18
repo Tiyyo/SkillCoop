@@ -1,9 +1,11 @@
+//@ts-nocheck
 import DatabaseError from "../helpers/errors/database.error";
 import { sql } from "kysely"
 import { Core } from "./core";
 import NotFoundError from "../helpers/errors/not-found.error";
 
 // TODO define a type for Profile
+// TODO fn is not type , need to find a way to type it other than any
 
 export class Profile extends Core {
   tableName: string = "profile";

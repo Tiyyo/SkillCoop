@@ -1,3 +1,4 @@
+import { DBClientType } from '../@types/types.database'
 import DatabaseError from '../helpers/errors/database.error'
 import NotFoundError from '../helpers/errors/not-found.error'
 import computeGbRating from '../utils/compute-gb-rating'
@@ -6,12 +7,13 @@ import { Core } from './core'
 export class SkillFoot extends Core {
   tableName: string = 'skill_foot'
 
-  constructor(client) {
+  constructor(client: DBClientType) {
     super(client)
   }
   async find(id: number) {
     const result = await this.client
       .selectFrom(this.tableName)
+      //@ts-ignore
       .select(({ fn }) => [
         fn.avg('skill_foot.pace').as('avg_pace'),
         fn.avg('skill_foot.shooting').as('avg_shooting'),

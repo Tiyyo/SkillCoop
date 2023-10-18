@@ -22,7 +22,7 @@ router.route('/password')
   .patch(validate(passwordSchema, canals.body), factory(updatePassword))
 
 router.route('/:userId')
-  .delete(deleteUser)
+  .delete(tokenHandler.validate('access'), deleteUser)
 
 
 export default router;

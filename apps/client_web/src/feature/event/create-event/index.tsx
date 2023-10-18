@@ -73,7 +73,6 @@ function CreateEvent() {
     }
 
     const isValid = createEventSchema.safeParse(data);
-    console.log(isValid);
 
     if (
       isValid.success &&

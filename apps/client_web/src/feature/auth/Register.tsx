@@ -11,9 +11,6 @@ import Google from '../../assets/icon/Google';
 import getGoogleUrl from '../../utils/get-google-url';
 import SeparatorLine from '../../component/seperator-line';
 import FormField from '../../component/form-field';
-import Atsign from '../../assets/icon/Atsign';
-import EyeIcon from '../../assets/icon/Eye';
-import EyeSlash from '../../assets/icon/EyeSlash';
 import Button from '../../component/button';
 import { RegisterUser } from '../../types';
 import { useEffect, useState } from 'react';
@@ -21,6 +18,7 @@ import ReturnBtn from '../../component/return';
 import checkIfString from '../../utils/check-string';
 import ErrorContainer from '../../component/error';
 import ErrorNotification from '../../component/error/notification';
+import { AtSign, Eye, EyeOff } from 'lucide-react';
 const { registerSchema } = schemas;
 
 function Register() {
@@ -89,25 +87,25 @@ function Register() {
               label="Email"
               error={checkIfString(errors.email?.message)}
               register={register}>
-              <Atsign />
+              <AtSign size={16} />
             </FormField>
             <FormField
               type="password"
               name="password"
               label="Password"
-              subicon={<EyeSlash />}
+              subicon={<EyeOff size={16} />}
               error={checkIfString(errors.password?.message)}
               register={register}>
-              <EyeIcon />
+              <Eye size={16} />
             </FormField>
             <FormField
               type="password"
               name="confirmedPassword"
               label="Confirm your password"
-              subicon={<EyeSlash />}
+              subicon={<EyeOff size={16} />}
               error={checkIfString(errors.confirm?.message)}
               register={register}>
-              <EyeIcon />
+              <Eye size={16} />
             </FormField>
             <div className="text-xxs flex items-start self-start">
               <p>Password must contains</p>

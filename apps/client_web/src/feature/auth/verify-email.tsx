@@ -25,7 +25,7 @@ function VerifyEmail() {
     if (isSuccess && !isLoading) {
       toast.info('A new email has been sent');
     }
-  }, [isLoading]);
+  }, [isLoading, isSuccess]);
 
   return (
     <>

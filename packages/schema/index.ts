@@ -16,7 +16,7 @@ import emailSchema from './authentification/email';
 import passwordSchema from './authentification/password';
 import editProfileInfosSchema from './profile/edit-profile-infos.schema';
 
-export type { AnyZodObject, ZodType, ZodTypeDef }
+export type { AnyZodObject, ZodType, ZodTypeDef, ZodError }
 export default {
   ZodError,
   registerSchema,

@@ -9,9 +9,9 @@ import toast from '../../utils/toast';
 import ReturnBtn from '../../component/return';
 
 type LocationState = {
-  eventId: number;
-  participants: EventParticipant[];
-  profileId: number;
+  eventId?: number;
+  participants?: EventParticipant[];
+  profileId?: number;
 };
 
 function Votes() {

@@ -40,7 +40,6 @@ function TeamComposition({
     };
     if (!mutationFn) return;
     const isValid = voteSchema.safeParse(data);
-    console.log(isValid);
     if (!isValid.success) return;
     mutationFn(data);
   };

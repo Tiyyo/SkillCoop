@@ -4,7 +4,7 @@ import schema from 'schema';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import getGoogleUrl from '../../utils/get-google-url';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import SocialButton from '../../component/social-link';
 import Google from '../../assets/icon/Google';
 import Page from '../../layout/page';
@@ -56,7 +56,7 @@ function Login() {
       setIsAuth(true);
       toast.success('Welcome back!');
     }
-  }, [isSuccess, loading]);
+  }, [isSuccess, loading, setIsAuth]);
 
   return (
     <Page>

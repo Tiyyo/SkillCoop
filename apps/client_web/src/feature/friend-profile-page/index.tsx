@@ -11,16 +11,10 @@ import Container from '../../layout/container';
 
 function FriendProfile() {
   const [hasSkills, setHasSkills] = useState<boolean>(false);
-  const [skillValues, setSkillValues] = useState<Record<string, number | null>>(
-    {}
-  );
+  const [skillValues, setSkillValues] = useState<Record<string, number>>({});
   const params = useParams<{ id: string }>();
   const profileId = Number(params.id);
-  const {
-    data: profile,
-    isSuccess,
-    isLoading,
-  } = useQuery(['profile', profileId], () => {
+  const { data: profile } = useQuery(['profile', profileId], () => {
     if (!profileId) return;
     return getProfileFn(profileId);
   });
@@ -34,7 +28,11 @@ function FriendProfile() {
   );
 
   const values = Object.values(skillValues);
-  const maxValue = Math.max(...values);
+  const getMaxValue = (values: any) => {
+    if (!values) return;
+    return Math.max(...values);
+  };
+  const maxValue = getMaxValue(values);
 
   useEffect(() => {
     if (!skills) return;
@@ -127,7 +125,7 @@ function FriendProfile() {
             <RadarChart
               skills={skillValues}
               min={0}
-              max={maxValue + 10}
+              max={maxValue ? maxValue + 10 : 100}
               displayTicks={false}
             />
           </Container>

@@ -65,7 +65,8 @@ function EventPageScore({
           Team A
         </label>
         <input
-          type="number"
+          type="text"
+          inputMode="numeric"
           name="score_team_1"
           className="bg-primary-200 h-14 w-10 rounded-md shadow-inner border border-gray-950 border-opacity-40 text-primary-1100 font-semibold text-center text-2xl"
           disabled={!isAdmin || whichEventStatus !== 'full'}
@@ -73,7 +74,8 @@ function EventPageScore({
         />
         <span className="font-semibold mx-2">-</span>
         <input
-          type="number"
+          type="text"
+          inputMode="numeric"
           name="score_team_2"
           className="bg-primary-200 h-14 w-10 rounded-md shadow-inner border border-gray-950 border-opacity-40 text-primary-1100 font-semibold text-center text-2xl"
           disabled={!isAdmin || whichEventStatus !== 'full'}

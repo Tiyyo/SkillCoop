@@ -55,20 +55,19 @@ function ModalRouteRatingEvent() {
   const handleSubmitEvaluation = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!userProfileId) return;
+    const target = e.target as HTMLFieldSetElement;
     const data = {
       defending: Number(
-        e.target['defending-rating' as keyof typeof e.target].value
+        target['defending-rating' as keyof typeof e.target].value
       ),
       dribbling: Number(
-        e.target['dribbling-rating' as keyof typeof e.target].value
+        target['dribbling-rating' as keyof typeof e.target].value
       ),
-      passing: Number(
-        e.target['passing-rating' as keyof typeof e.target].value
-      ),
+      passing: Number(target['passing-rating' as keyof typeof e.target].value),
       shooting: Number(
-        e.target['shooting-rating' as keyof typeof e.target].value
+        target['shooting-rating' as keyof typeof e.target].value
       ),
-      pace: Number(e.target['pace-rating' as keyof typeof e.target].value),
+      pace: Number(target['pace-rating' as keyof typeof e.target].value),
       reviewee_id: Number(participantProfileId),
       rater_id: userProfileId,
       event_id: Number(eventId),

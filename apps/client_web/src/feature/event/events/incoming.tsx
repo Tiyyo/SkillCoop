@@ -33,8 +33,8 @@ function IncomingEvents() {
     );
     setEvents(past);
   }, [allEvents, loading]);
-  if (isError) return <div>error</div>;
 
+  if (isError) return <div>error</div>;
   return (
     <div>
       <ReturnBtn />

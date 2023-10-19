@@ -1,30 +1,22 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
 import { getPastEventFn } from '../../../api/api.fn';
 import { useApp } from '../../../store/app.store';
 import ReturnBtn from '../../../component/return';
 import EventList from '../resume-events/list';
 import { EventType } from '../../../types';
+import useInfinite from '../../../hooks/useInfinite';
 
 function PastEvents() {
   //TODO : implement skeleton loading
   //TODO : implement error handling
+  const NB_ELEMETNS_PER_PAGE = 10;
   const { userProfile } = useApp();
   const profileId = userProfile?.profile_id;
-  const { data, isError, isLoading, isFetching, hasNextPage, fetchNextPage } =
-    useInfiniteQuery({
-      queryKey: ['pastEvents'],
-      queryFn: ({ pageParam = 1 }) => {
-        if (!profileId) return;
-        return getPastEventFn({ profileId, page: pageParam });
-      },
-      getNextPageParam: (lastPage) => {
-        if (lastPage && lastPage.eventCount > lastPage.previousPage * 10) {
-          return lastPage.previousPage + 1;
-        }
-      },
-    });
-
-  const loading = isLoading || isFetching;
+  const { data, isError, loading, hasNextPage, fetchNextPage } = useInfinite({
+    queryKey: 'pastEvents',
+    queryFn: getPastEventFn,
+    elementPerPage: NB_ELEMETNS_PER_PAGE,
+    argsFn: { profileId },
+  });
 
   const allEvents = data?.pages
     .map((page) => page?.events)

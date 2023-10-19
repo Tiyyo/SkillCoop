@@ -41,9 +41,10 @@ function CreateEvent() {
   } = useCreateEvent();
   const profileId = userProfile?.profile_id;
 
-  const handleFormSubmit = (e: any) => {
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const data: Partial<CreateEventData> | CreateEventData = {
+    if (!profileId) return;
+    const data: Partial<CreateEventData> = {
       organizer_id: profileId,
       status_name: 'open',
     };
@@ -75,7 +76,6 @@ function CreateEvent() {
         eventCreatedState.required_participants
       );
     }
-
     const isValid = createEventSchema.safeParse(data);
 
     if (
@@ -83,11 +83,12 @@ function CreateEvent() {
       data.date &&
       dateHandler.dateShouldBeInTheFuture(data.date)
     ) {
+      // TODO : handle type error causing by Partial<CreateEventData>
       createEvent(data);
       createEventFormRef.current?.reset();
       clearEventState();
     } else {
-      setValidationErrors(isValid.error.issues);
+      setValidationErrors((isValid as any).error.issues);
     }
   };
 

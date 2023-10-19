@@ -39,7 +39,7 @@ function EventPage() {
       location: event.location,
       required_participants: event.required_participants,
       start_time: event.date.split(' ')[1],
-      invited_participants_ids: event.participants.map((p) => p.profile_id),
+      participants: event.participants.map((p) => p.profile_id),
       status_name: event.status_name,
     });
     // Clear store on unmount
@@ -52,7 +52,7 @@ function EventPage() {
         required_participants: null,
         organizer_id: null,
         status_name: null,
-        invited_participants_ids: null,
+        participants: null,
       });
     };
   }, [location.pathname, event, initEventState]);

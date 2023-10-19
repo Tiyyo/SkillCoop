@@ -7,6 +7,10 @@ interface TeamProps {
   title?: string;
   teamTofileter?: number;
   nameInput?: string;
+  mvp?: number | null;
+  bestStriker?: number | null;
+  organizer?: number;
+  eventStatus?: 'full' | 'open' | 'completed' | 'cancelled';
 }
 
 function Team({
@@ -15,6 +19,10 @@ function Team({
   title,
   teamTofileter,
   nameInput,
+  mvp,
+  bestStriker,
+  organizer,
+  eventStatus = 'open',
 }: TeamProps) {
   return (
     <>
@@ -28,10 +36,14 @@ function Team({
             .filter((participant) => participant.team === teamTofileter)
             .map((participant) => (
               <Participant
+                eventStatus={eventStatus}
                 key={participant.profile_id}
                 name={nameInput}
                 activeId={currentIdActive}
                 profileId={participant.profile_id}
+                isAdmin={participant.profile_id === organizer}
+                isMvp={participant.profile_id === mvp}
+                isBestStriker={participant.profile_id === bestStriker}
                 {...participant}
               />
             ))}

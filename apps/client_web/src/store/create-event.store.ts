@@ -13,7 +13,7 @@ type State = {
   required_participants: number | null;
   organizer_id: number | null;
   status_name: string | null;
-  invited_participants_ids?: number[] | null;
+  participants?: number[] | null;
 };
 
 interface CreateEventStore {
@@ -40,7 +40,7 @@ export const useCreateEventStore = create<CreateEventStore>()((set) => ({
     required_participants: null,
     organizer_id: null,
     status_name: "open",
-    invited_participants_ids: null,
+    participants: null,
   },
   updateStartDate: (startDate: string) =>
     set((state) => ({
@@ -82,8 +82,8 @@ export const useCreateEventStore = create<CreateEventStore>()((set) => ({
       ...state,
       event: {
         ...state.event,
-        invited_participants_ids: state.event.invited_participants_ids
-          ? [...state.event.invited_participants_ids, invitedParticipantsIds]
+        participants: state.event.participants
+          ? [...state.event.participants, invitedParticipantsIds]
           : [invitedParticipantsIds],
       },
     })),
@@ -92,7 +92,7 @@ export const useCreateEventStore = create<CreateEventStore>()((set) => ({
       ...state,
       event: {
         ...state.event,
-        invited_participants_ids: state.event.invited_participants_ids?.filter(
+        participants: state.event.participants?.filter(
           (id) => id !== invitedParticipantsIds
         ),
       },
@@ -131,6 +131,7 @@ export const useCreateEvent = () => {
   );
   const clearEventState = useCreateEventStore((state) => state.clearEventState);
   const data = useCreateEventStore((state) => state.event);
+  console.log('Data create event store :', data);
 
   useEffect(() => {
     if (isSuccess) {

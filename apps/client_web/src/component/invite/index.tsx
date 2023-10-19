@@ -93,16 +93,17 @@ function Invite({ variant = 'update' }: InviteProps) {
 
   const handleClickSendInvitation = (e: any) => {
     e.preventDefault();
-    if (!eventState.invited_participants_ids || !eventId) {
+    if (!eventState.participants || !eventId) {
       toast.error('Something went wrong ... Try agian later');
       navigate(-1);
       return;
     }
     const data = {
-      event_id: eventId,
-      ids: eventState.invited_participants_ids,
+      event_id: Number(eventId),
+      ids: eventState.participants,
     };
     const isValid = inviteParticipantSchema.safeParse(data);
+    console.log(isValid);
     if (!isValid.success) {
       toast.error('Something went wrong ... Try agian later');
       return;

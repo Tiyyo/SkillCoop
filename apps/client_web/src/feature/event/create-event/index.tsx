@@ -55,6 +55,10 @@ function CreateEvent() {
       data.date = eventDate;
     }
 
+    if (eventCreatedState.participants) {
+      data.participants = eventCreatedState.participants;
+    }
+
     // validation duration
     if (eventCreatedState.duration) {
       data.duration = Number(eventCreatedState.duration);

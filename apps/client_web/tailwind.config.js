@@ -51,7 +51,7 @@ export default {
         cubic: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)',
       },
       gridTemplateColumns: {
-        'particpant-layout': 'repeat(auto-fill, minmax(120px, 2fr))',
+        'particpant-layout': 'repeat(auto-fill, minmax(150px, 2fr))',
       },
       animation: {
         'fade-in': '2s linear ',

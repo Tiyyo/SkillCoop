@@ -14,6 +14,8 @@ function InvitationEvent() {
     setVariant(variantToDisplay);
   }, []);
 
+  console.log('Which variant it is : ', variant);
+
   return <Invite variant={variant ? variant : 'update'} />;
 }
 

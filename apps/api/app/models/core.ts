@@ -78,7 +78,7 @@ export class Core {
         .values(data)
         .execute()
 
-      return result[0].insertId
+      return Number(result[0].insertId)
     } catch (error) {
       throw new DatabaseError(error)
     }
@@ -94,7 +94,7 @@ export class Core {
         .values(data)
         .execute()
 
-      return result
+      return !!result[0].numInsertedOrUpdatedRows
     } catch (error) {
       throw new DatabaseError(error)
     }

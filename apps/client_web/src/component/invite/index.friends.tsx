@@ -8,6 +8,7 @@ interface FriendCardProps {
   addFriendToState?: (friendId: number) => void;
   removeFriendsToState?: (friendId: number) => void;
   loading: boolean;
+  activeFilter?: boolean;
   dataFromState?: EventType | undefined | null;
 }
 
@@ -16,6 +17,7 @@ function FriendCards({
   addFriendToState,
   removeFriendsToState,
   dataFromState,
+  activeFilter = false,
   loading,
 }: FriendCardProps) {
   const { data: event } = useEvent();
@@ -32,8 +34,9 @@ function FriendCards({
         skeletons.map((_, index) => <FriendCardSkeleton key={index} />)}
       {data
         ?.filter((friend) => {
-          if (!event.invited_participants_ids) return true;
-          return !event.invited_participants_ids.includes(friend.friend_id);
+          if (!activeFilter) return true;
+          if (!event.participants) return true;
+          return !event.participants.includes(friend.friend_id);
         })
         .map((friend) => (
           <FriendCard

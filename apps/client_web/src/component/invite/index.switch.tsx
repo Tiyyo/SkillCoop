@@ -19,6 +19,7 @@ function SwitchMutateOrUpdate({
     removeInvitedParticipantsIds: removeFromEvent,
     data: event,
   } = useEvent();
+
   const {
     addInvitedParticipantsIds: addToCreateEvent,
     removeInvitedParticipantsIds: removeFromCreateEvent,

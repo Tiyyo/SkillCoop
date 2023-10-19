@@ -13,10 +13,12 @@ export default {
     // add organizer to the event
     // add organizer to the participant list to this event
     deleteDecodedKey(req.body)
-    const { ids, ...data } = req.body
+    console.log('Body ', req.body);
+    const { participants: ids, ...data } = req.body
     const eventId = await Event.create(data)
-    const result = await ProfileOnEvent.create({ event_id: eventId, profile_id: data.organizer_id, status_name: "confirmed" })
+    await ProfileOnEvent.create({ event_id: eventId, profile_id: data.organizer_id, status_name: "confirmed" })
 
+    console.log('Ids participant if exists', ids);
     if (ids) {
       const participantsToInvite = ids.map((id: number) => {
         return {
@@ -28,7 +30,7 @@ export default {
       await ProfileOnEvent.createMany(participantsToInvite)
     }
 
-    res.status(201).json(result)
+    res.status(201).json({ success: true })
   },
   async getOne(req: Request, res: Response) {
     const [eventId, profileId] = checkParams(req.params.eventId, req.params.profileId)

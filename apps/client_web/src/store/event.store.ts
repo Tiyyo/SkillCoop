@@ -8,7 +8,7 @@ type State = {
   required_participants: number | null;
   organizer_id?: number | null;
   status_name: string | null;
-  invited_participants_ids?: number[] | null;
+  participants?: number[] | null;
 };
 
 interface eventStore {
@@ -35,7 +35,7 @@ export const useEventStore = create<eventStore>()((set) => ({
     required_participants: null,
     organizer_id: null,
     status_name: null,
-    invited_participants_ids: null,
+    participants: null,
   },
   initEventState: (event: State) =>
     set((state) => ({
@@ -80,15 +80,15 @@ export const useEventStore = create<eventStore>()((set) => ({
   updateIdsParticipants: (idsParticipants: number[]) =>
     set((state) => ({
       ...state,
-      event: { ...state.event, invited_participants_ids: idsParticipants },
+      event: { ...state.event, participants: idsParticipants },
     })),
   addInvitedParticipantsIds: (invitedParticipantsIds: number) =>
     set((state) => ({
       ...state,
       event: {
         ...state.event,
-        invited_participants_ids: state.event.invited_participants_ids
-          ? [...state.event.invited_participants_ids, invitedParticipantsIds]
+        participants: state.event.participants
+          ? [...state.event.participants, invitedParticipantsIds]
           : [invitedParticipantsIds],
       },
     })),
@@ -97,7 +97,7 @@ export const useEventStore = create<eventStore>()((set) => ({
       ...state,
       event: {
         ...state.event,
-        invited_participants_ids: state.event.invited_participants_ids?.filter(
+        participants: state.event.participants?.filter(
           (id) => id !== invitedParticipantsIds
         ),
       },

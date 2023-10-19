@@ -13,7 +13,7 @@ import capitalize from '../../utils/capitalize';
 const { updateFriendshipSchema } = schema;
 
 type EventTypeState = EventType & {
-  invited_participants_ids: number[];
+  participants: number[];
 };
 
 interface FriendCardProps {
@@ -95,11 +95,13 @@ function FriendCard({
   };
 
   useEffect(() => {
-    if (!dataFromState || !dataFromState.invited_participants_ids) return;
-    if (dataFromState.invited_participants_ids.find((id) => id === friendId)) {
+    if (!dataFromState || !dataFromState.participants) return;
+    if (dataFromState.participants.find((id) => id === friendId)) {
       setIsSelected(true);
     }
   }, [dataFromState]);
+
+  console.log('Is selected', isSelected);
 
   if (status === 'declined') return null;
   return (

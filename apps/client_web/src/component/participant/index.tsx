@@ -40,7 +40,7 @@ function Participant({
 
   useEffect(() => {
     setIsChecked(activeId === name + profileId?.toString());
-  }, [activeId]);
+  }, [activeId, name, profileId]);
 
   return (
     <>

@@ -35,8 +35,7 @@ export default {
 
   },
   async getProfileEvalByEvent(req: Request, res: Response) {
-    const [rater_id, reviewee_id, event_id] = checkParams(req.params.rater_id, req.params.reviewee_id, req.params.event_id)
-
+    const [rater_id, reviewee_id, event_id] = checkParams(req.query.rater_id, req.query.reviewee_id, req.query.event_id)
     const skill = await SkillFoot.findBy({ rater_id, reviewee_id, event_id })
 
     if (skill.length === 0) return res.status(200).json({ rating: null })

@@ -122,4 +122,24 @@ export class Core {
 
     return !!result.numDeletedRows
   }
+  async deleteBy(data: Record<string, number | string | Date>) {
+    const keys = Object.keys(data)
+    const values = Object.values(data)
+
+    try {
+      let query = this.client
+        .deleteFrom(this.tableName)
+
+      keys.forEach((key, index) => {
+        query = query.where(key.toString(), "=", values[index])
+      })
+
+      const result = await query.executeTakeFirst()
+      if (!result) throw new NotFoundError('Not found')
+
+      return !!result.numDeletedRows
+    } catch (error) {
+      throw new DatabaseError(error)
+    }
+  }
 }

@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../lib/ui/tabs';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { EventParticipant, Vote } from '../../types';
 import { useMutation } from '@tanstack/react-query';
 import { voteBestStrikerFn, voteMvpFn } from '../../api/api.fn';
@@ -16,7 +16,13 @@ type LocationState = {
 
 function Votes() {
   const { state } = useLocation();
-  const { eventId, participants, profileId } = state as LocationState;
+  console.log('State', state);
+  const [locationStateInfos, setLocationStateInfos] = useState<LocationState>({
+    eventId: undefined,
+    participants: undefined,
+    profileId: undefined,
+  });
+  console.log(locationStateInfos);
 
   const {
     mutate: voteMvp,
@@ -45,6 +51,34 @@ function Votes() {
     }
   }, [loading]);
 
+  useEffect(() => {
+    if (!state) return;
+    if (state.eventId) {
+      setLocationStateInfos((prev) => {
+        return {
+          ...prev,
+          eventId: state.eventId,
+        };
+      });
+    }
+    if (state.participants) {
+      setLocationStateInfos((prev) => {
+        return {
+          ...prev,
+          participants: state.participants,
+        };
+      });
+    }
+    if (state.eventId) {
+      setLocationStateInfos((prev) => {
+        return {
+          ...prev,
+          profileId: state.profileId,
+        };
+      });
+    }
+  }, [state]);
+
   return (
     <>
       <ReturnBtn />
@@ -68,18 +102,18 @@ function Votes() {
         </TabsList>
         <TabsContent value="mvp">
           <TeamComposition
-            participants={participants}
-            eventId={eventId}
-            profileId={profileId}
+            participants={locationStateInfos.participants}
+            eventId={locationStateInfos.eventId}
+            profileId={locationStateInfos.profileId}
             nameInput="mvp"
             mutationFn={voteMvp}
           />
         </TabsContent>
         <TabsContent value="striker">
           <TeamComposition
-            participants={participants}
-            eventId={eventId}
-            profileId={profileId}
+            participants={locationStateInfos.participants}
+            eventId={locationStateInfos.eventId}
+            profileId={locationStateInfos.profileId}
             nameInput="striker"
             mutationFn={voteBestStriker}
           />

@@ -29,9 +29,9 @@ function ResumeEvents() {
       if (!profileId) return;
       return getEventsFn(profileId);
     },
-    { enabled: true, initialData: [] }
+    { enabled: true }
   );
-  console.log('4 Resume allEvents :', allEvents);
+
   const loading = isLoading || isFetching;
   const today = new Date();
 

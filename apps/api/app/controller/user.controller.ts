@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { profile as Profile } from '../models/index';
+import { image as Image } from '../models/index';
 import { user as User } from '../models/index';
 import bcrypt from 'bcrypt';
 import checkParams from '../utils/check-params';
@@ -10,15 +11,16 @@ export default {
   getMe: async (req: Request, res: Response) => {
     const { decoded } = req.body
     const userId = decoded.user_id
-
+    console.log('User infos stored in token : ', decoded);
     const userProfile = await Profile.findByUserId(userId)
 
     if (!userProfile) {
       await Profile.create({ user_id: userId })
       const createdUserProfile = await Profile.findByUserId(userId)
+      console.log('Created User profile if not exist :', createdUserProfile);
       return res.status(200).json({ userProfile: createdUserProfile })
     }
-
+    console.log('Profile already exist and is passed :', userProfile);
     res.status(200).json({ userProfile: userProfile })
   },
   updateEmail: async (req: Request, res: Response) => {
@@ -57,6 +59,8 @@ export default {
       res.clearCookie('refreshToken')
       throw new AuthorizationError('Operation not allowed')
     }
+    const profile = await Profile.findByUserId(userId)
+    await Image.deleteBy({ url: profile.avatar_url })
 
     const isDeleted = await User.delete(userId)
     res.status(204).json({ success: isDeleted })

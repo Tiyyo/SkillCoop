@@ -176,7 +176,12 @@ const router = createBrowserRouter([
     path: '/auth/google',
     loader: async ({ request }) => {
       const accessToken = request.url.split('=')[1];
+      console.log('Access Token received from server : ', accessToken);
       api.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+      console.log(
+        'Authorization header set with access token :',
+        api.defaults.headers.common['Authorization']
+      );
       return redirect('/');
     },
   },

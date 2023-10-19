@@ -151,7 +151,7 @@ model image {
   size        Int?
   created_at  String
   updated_at  String?
-  profile     profile[]
+  profile     profile[] 
 }
 
 model mvp_poll {

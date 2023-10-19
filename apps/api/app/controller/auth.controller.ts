@@ -12,6 +12,7 @@ import emailService from '../utils/send-email'
 import checkParams from '../utils/check-params'
 import NotFoundError from '../helpers/errors/not-found.error'
 import tokenHandler from '../helpers/token.handler'
+import AuthorizationError from '../helpers/errors/unauthorized.error'
 
 
 
@@ -47,6 +48,11 @@ export default {
   },
   async refresh(req: Request, res: Response) {
     const { decoded } = req.body
+    const user = await User.findByPk(decoded.user_id)
+    if (!user) {
+      res.clearCookie("refreshToken", { domain: "localhost", path: '/' })
+      throw new AuthorizationError('Unauthorized')
+    }
     const accessToken = tokenHandler.createToken('15m', process.env.JWT_TOKEN_KEY as string, decoded)
 
     res.status(200).json({ accessToken })
@@ -67,12 +73,15 @@ export default {
 
     let userInfos
     if (!user) {
-      userInfos = authService.createGoogleUser({ email, given_name, family_name, picture })
+      userInfos = await authService.createGoogleUser({ email, given_name, family_name, picture })
     } else {
       // TODO think about to automaticly update profile with google information 
       userInfos = { user_id: user.id, email: user.email }
     }
+    console.log('What i store in token : ', userInfos);
     const { accessToken, refreshToken } = tokenHandler.createPairAuthToken(userInfos)
+
+    console.log('Pair auth token : ', accessToken + ' ' + refreshToken);
 
     res.cookie("refreshToken", refreshToken, { httpOnly: true, sameSite: "none", secure: true, maxAge: 24 * 60 * 60 * 1000 })
     res.status(301).redirect(`${process.env.CLIENT_URL}/auth/google/?access_token=${accessToken}`)

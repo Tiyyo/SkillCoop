@@ -18,6 +18,6 @@ export default {
     if (!isCreated) throw new Error('Not created')
 
     const isUpdated = await Event.updateBestStriker(event_id)
-    res.status(201).json({ succces: isUpdated })
+    res.status(201).json({ success: isUpdated })
   },
 }

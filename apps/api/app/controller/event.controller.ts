@@ -13,12 +13,11 @@ export default {
     // add organizer to the event
     // add organizer to the participant list to this event
     deleteDecodedKey(req.body)
-    console.log('Body ', req.body);
+
     const { participants: ids, ...data } = req.body
     const eventId = await Event.create(data)
     await ProfileOnEvent.create({ event_id: eventId, profile_id: data.organizer_id, status_name: "confirmed" })
 
-    console.log('Ids participant if exists', ids);
     if (ids) {
       const participantsToInvite = ids.map((id: number) => {
         return {
@@ -29,12 +28,10 @@ export default {
       })
       await ProfileOnEvent.createMany(participantsToInvite)
     }
-
     res.status(201).json({ success: true })
   },
   async getOne(req: Request, res: Response) {
     const [eventId, profileId] = checkParams(req.params.eventId, req.params.profileId)
-
     const event = await Event.getEventById(eventId, profileId)
 
     res.status(200).json(event)
@@ -68,21 +65,18 @@ export default {
   },
   async getAllByUser(req: Request, res: Response) {
     const [profileId] = checkParams(req.params.profileId)
-
     const events = await Event.getEventByUserId(profileId)
 
     res.status(200).json(events)
   },
   async getOrganizerEvents(req: Request, res: Response) {
     const [profileId, page] = checkParams(req.query.profileId, req.query.page)
-
     const events = await Event.getOrganizerEvents(profileId, page)
 
     res.status(200).json(events)
   },
   async getPasts(req: Request, res: Response) {
     const [profileId, page] = checkParams(req.query.profileId, req.query.page)
-
     const events = await Event.getPastEvents(profileId, page)
 
     res.status(200).json(events)

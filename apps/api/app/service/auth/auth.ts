@@ -1,15 +1,11 @@
-import createAccesToken from "../../helpers/create-token"
-import createRefreshToken from "../../helpers/create-refresh-token"
 import DatabaseError from "../../helpers/errors/database.error"
 import ServerError from "../../helpers/errors/server.error"
 import UserInputError from "../../helpers/errors/user-input.error"
-import { db } from "../../helpers/client.db"
 import { user as User } from "../../models/index"
 import { image as Image } from "../../models/index"
 import { profile as Profile } from "../../models/index"
 import bcrypt from "bcrypt"
 import emailService from "../../utils/send-email"
-import generateTokens from "../../helpers/create-tokens"
 import randomBytes from 'randombytes'
 import tokenHandler from "../../helpers/token.handler"
 

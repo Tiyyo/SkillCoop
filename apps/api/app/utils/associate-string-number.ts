@@ -1,7 +1,7 @@
 import { LevelScale } from "../@types/types"
 
 
-const associateStringToNumber = (level: LevelScale) => {
+const associateStringToNumber = (level: LevelScale): number => {
 
   switch (level) {
     case 'beginner':

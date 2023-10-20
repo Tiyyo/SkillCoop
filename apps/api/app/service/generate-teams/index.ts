@@ -1,6 +1,7 @@
 import getCompleteEventInfos from '../../models/teams';
 import { Player, TeamGeneratorConfig } from '../../@types/types';
 import { profileOnEvent as ProfileOnEvent } from '../../models/index';
+import condition from './condition';
 
 export function assignTeam(position: number): number {
   const TEAM_1 = 1
@@ -18,7 +19,6 @@ export async function generateBalancedTeam(eventId: number) {
   console.time('Algo time start');
 
   const config = await getCompleteEventInfos(eventId);
-
   if (!config) throw new Error('Failed to config algorithm');
 
   const { team1, team2 } = divideInTeam(config);
@@ -51,25 +51,6 @@ export function divideInTeam(config: TeamGeneratorConfig) {
   return { team1: config.team1, team2: config.team2 };
 }
 
-export function randomCondition(): boolean {
-  const randomNumberStart = getRandomArbitrary(0, 1);
-  return randomNumberStart > 0.5;
-}
-
-export function regularCondition(
-  valueTeam1: number,
-  valueTeam2: number
-): boolean {
-  return valueTeam1 < valueTeam2;
-}
-
-export function conditionIfZero(
-  lengthTeam1: number,
-  lengthTeam2: number
-): boolean {
-  return lengthTeam1 < lengthTeam2;
-}
-
 export function useRigthCondition(
   config: TeamGeneratorConfig,
   player: Player,
@@ -77,12 +58,12 @@ export function useRigthCondition(
   valueTeam2: number
 ): boolean {
   if (config.participants === config.ids.length) {
-    return randomCondition();
+    return condition.random();
   }
   if (player.gb_rating === 0) {
-    return conditionIfZero(config.team1.length, config.team2.length);
+    return condition.ifZero(config.team1.length, config.team2.length);
   }
-  return regularCondition(valueTeam1, valueTeam2);
+  return condition.regular(valueTeam1, valueTeam2);
 }
 
 export function deleteFromArrayAfterPush(

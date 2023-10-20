@@ -22,7 +22,6 @@ function Votes() {
     participants: undefined,
     profileId: undefined,
   });
-  console.log(locationStateInfos);
 
   const {
     mutate: voteMvp,
@@ -49,7 +48,7 @@ function Votes() {
     if (success) {
       toast.success('Your vote has been recorded');
     }
-  }, [loading]);
+  }, [loading, error, success]);
 
   useEffect(() => {
     if (!state) return;
@@ -101,22 +100,30 @@ function Votes() {
           </TabsTrigger>
         </TabsList>
         <TabsContent value="mvp">
-          <TeamComposition
-            participants={locationStateInfos.participants}
-            eventId={locationStateInfos.eventId}
-            profileId={locationStateInfos.profileId}
-            nameInput="mvp"
-            mutationFn={voteMvp}
-          />
+          {locationStateInfos.participants &&
+            locationStateInfos.eventId &&
+            locationStateInfos.profileId && (
+              <TeamComposition
+                participants={locationStateInfos.participants}
+                eventId={locationStateInfos.eventId}
+                profileId={locationStateInfos.profileId}
+                nameInput="mvp"
+                mutationFn={voteMvp}
+              />
+            )}
         </TabsContent>
         <TabsContent value="striker">
-          <TeamComposition
-            participants={locationStateInfos.participants}
-            eventId={locationStateInfos.eventId}
-            profileId={locationStateInfos.profileId}
-            nameInput="striker"
-            mutationFn={voteBestStriker}
-          />
+          {locationStateInfos.participants &&
+            locationStateInfos.eventId &&
+            locationStateInfos.profileId && (
+              <TeamComposition
+                participants={locationStateInfos.participants}
+                eventId={locationStateInfos.eventId}
+                profileId={locationStateInfos.profileId}
+                nameInput="striker"
+                mutationFn={voteBestStriker}
+              />
+            )}
         </TabsContent>
       </Tabs>
     </>

@@ -44,12 +44,12 @@ export const useApp = () => {
 
     if (data && data.userProfile) {
       setProfile(data.userProfile)
-      setIsAuth(true)
+      // setIsAuth(true)
     } else {
       setProfile(null)
       setIsAuth(false)
     }
-  }, [data, isError, loading])
+  }, [data, isError, loading, isAuth])
 
 
   return { userProfile, isAuth, loading, setIsAuth, setProfile };

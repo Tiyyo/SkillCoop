@@ -36,6 +36,7 @@ import UserResumeSkills from './feature/profile/skills/index.tsx';
 import FriendProfile from './feature/friend-profile-page/index.tsx';
 import ModalRouteRatingEvent from './feature/event/event-page/modal-route-rating.tsx';
 import ControlAccesEventPage from './component/redirection/control-access-event.tsx';
+import Page404 from './component/404-page/index.tsx';
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -106,6 +107,7 @@ const router = createBrowserRouter([
         path: '/event/:eventId/votes',
         element: <Votes />,
       },
+      { path: '*', element: <Page404 /> },
     ],
   },
   {
@@ -132,6 +134,7 @@ const router = createBrowserRouter([
         path: 'profile/:id',
         element: <FriendProfile />,
       },
+      { path: '*', element: <Page404 /> },
     ],
   },
   {
@@ -150,6 +153,7 @@ const router = createBrowserRouter([
         path: 'skills',
         element: <UserResumeSkills />,
       },
+      { path: '*', element: <Page404 /> },
     ],
   },
   {
@@ -176,12 +180,7 @@ const router = createBrowserRouter([
     path: '/auth/google',
     loader: async ({ request }) => {
       const accessToken = request.url.split('=')[1];
-      console.log('Access Token received from server : ', accessToken);
       api.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-      console.log(
-        'Authorization header set with access token :',
-        api.defaults.headers.common['Authorization']
-      );
       return redirect('/');
     },
   },
@@ -189,6 +188,7 @@ const router = createBrowserRouter([
     path: '/terms-and-service',
     element: <TermsAndService />,
   },
+  { path: '*', element: <Page404 /> },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

@@ -1,6 +1,6 @@
 import eventController from '../event.controller';
 import { mockResponse } from './mock-response';
-import { Request, RequestParamHandler } from 'express';
+import { Request } from 'express';
 import { event as Event } from '../../models/index';
 import { profileOnEvent as ProfileOnEvent } from '../../models/index';
 

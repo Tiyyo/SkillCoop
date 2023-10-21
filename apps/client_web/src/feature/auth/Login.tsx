@@ -54,7 +54,7 @@ function Login() {
   useEffect(() => {
     if (isSuccess && !loading) {
       setIsAuth(true);
-      toast.success('Welcome back!');
+      // toast.success('Welcome back!');
     }
   }, [isSuccess, loading, setIsAuth]);
 

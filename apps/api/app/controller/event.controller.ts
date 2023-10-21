@@ -47,7 +47,7 @@ export default {
 
     const isUpdated = await Event.update(event_id, data)
 
-    res.status(204).json({ succces: isUpdated })
+    res.status(204).json({ success: isUpdated })
   },
   async deleteOne(req: Request, res: Response) {
     // delete one event
@@ -56,7 +56,7 @@ export default {
 
     const event = await Event.findByPk(eventId)
 
-    if (event.length === 0) throw new NotFoundError("No event")
+    if (!event || event.length === 0) throw new NotFoundError("No event")
     if (event.organizer_id !== profileId) throw new AuthorizationError("Operation not allowed")
 
     const isDeleted = await Event.delete(eventId)

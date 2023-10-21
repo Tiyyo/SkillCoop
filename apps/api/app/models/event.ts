@@ -4,6 +4,7 @@ import type { EventType } from '../@types/types';
 import DatabaseError from '../helpers/errors/database.error';
 import getDateUTC from '../utils/get-date-utc';
 import { DB, DBClientType } from '../@types/types.database';
+import NotFoundError from '../helpers/errors/not-found.error';
 
 export class Event extends Core {
   tableName: string = 'event';
@@ -104,6 +105,8 @@ GROUP BY event.id
 ORDER BY date DESC
       `.execute(this.client);
 
+      if (!result.rows.length) throw new NotFoundError('No event found')
+
       const parsedResult = result.rows.map((event: EventType) => {
         return {
           ...event,
@@ -112,7 +115,7 @@ ORDER BY date DESC
             JSON.parse(event.participants),
         };
       });
-      console.log(parsedResult);
+
       return parsedResult;
     } catch (error) {
       throw new DatabaseError(error);
@@ -169,6 +172,8 @@ SELECT
 FROM event
 WHERE event.organizer_id = ${profileId}
       `.execute(this.client);
+
+      if (!result.rows.length) throw new NotFoundError('No event found')
 
       const parsedResult = result.rows.map((event: EventType) => {
         return {
@@ -248,6 +253,8 @@ AND EXISTS(
 AND event.date < date('now')
       `.execute(this.client);
 
+    if (!result.rows.length) throw new NotFoundError('No event found')
+
     const parsedResult = result.rows.map((event: EventType) => {
       return {
         ...event,
@@ -261,8 +268,10 @@ AND event.date < date('now')
   async updateMvp(eventId: number) {
     const today = new Date()
     const todayUTC = getDateUTC(today)
+    try {
 
-    const result = await sql<any>`
+
+      const result = await sql<any>`
 UPDATE event 
 SET mvp_id = (
     SELECT 
@@ -286,14 +295,16 @@ SET mvp_id = (
 WHERE id = ${eventId}
 `.execute(this.client)
 
-    return !!result.numAffectedRows
-
+      return !!result.numAffectedRows
+    } catch (error) {
+      throw new DatabaseError(error);
+    }
   };
   async updateBestStriker(eventId: number) {
     const today = new Date()
     const todayUTC = getDateUTC(today)
-
-    const result = await sql<any>`
+    try {
+      const result = await sql<any>`
 UPDATE event 
 SET best_striker_id = (
     SELECT 
@@ -316,6 +327,9 @@ SET best_striker_id = (
     updated_at = ${todayUTC}
 WHERE id = ${eventId}
 `.execute(this.client)
-    return !!result.numAffectedRows
+      return !!result.numAffectedRows
+    } catch (error) {
+      throw new DatabaseError(error);
+    }
   }
 }

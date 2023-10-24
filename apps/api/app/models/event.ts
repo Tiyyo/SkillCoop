@@ -3,8 +3,8 @@ import { sql } from 'kysely';
 import type { EventType } from '../@types/types';
 import DatabaseError from '../helpers/errors/database.error';
 import getDateUTC from '../utils/get-date-utc';
-import { DB, DBClientType } from '../@types/types.database';
-import NotFoundError from '../helpers/errors/not-found.error';
+import { DBClientType } from '../@types/types.database';
+
 
 export class Event extends Core {
   tableName: string = 'event';
@@ -14,7 +14,7 @@ export class Event extends Core {
   }
   async getEventById(eventId: number, profileId: number) {
     try {
-      const result = await sql<any>`
+      const result = await sql<EventType>`
 SELECT 
   event.id AS event_id,
   event.date,
@@ -38,7 +38,10 @@ SELECT
         )
       ) 
   ) AS participants,
-  (SELECT COUNT (*) FROM profile_on_event WHERE event_id = event.id AND status_name = 'confirmed') AS confirmed_participants,
+  (SELECT COUNT (*) 
+  FROM profile_on_event 
+  WHERE event_id = event.id 
+  AND status_name = 'confirmed') AS confirmed_participants,
  (SELECT participant.status_name
   FROM profile_on_event AS participant
   WHERE participant.profile_id = ${profileId} ) AS user_status
@@ -63,8 +66,9 @@ WHERE event.id = ${eventId}
     }
   }
   async getEventByUserId(profileId: number) {
+    console.log('getEventByUserId is called');
     try {
-      const result = await sql<any>`
+      const result = await sql<EventType>`
 SELECT 
   event.id AS event_id,
   event.date,
@@ -89,7 +93,10 @@ SELECT
   (SELECT participant.status_name
   FROM profile_on_event AS participant
   WHERE participant.profile_id = ${profileId} ) AS user_status,
-  (SELECT COUNT (*) FROM profile_on_event WHERE event_id = event.id AND status_name = 'confirmed') AS confirmed_participants
+  (SELECT COUNT (*) 
+  FROM profile_on_event 
+  WHERE event_id = event.id 
+  AND status_name = 'confirmed') AS confirmed_participants
 FROM event
 LEFT JOIN score ON event.id = score.event_id
 JOIN profile_on_event AS participant ON event.id = participant.event_id
@@ -104,8 +111,6 @@ AND EXISTS(
 GROUP BY event.id
 ORDER BY date DESC
       `.execute(this.client);
-
-      if (!result.rows.length) throw new NotFoundError('No event found')
 
       const parsedResult = result.rows.map((event: EventType) => {
         return {
@@ -123,7 +128,7 @@ ORDER BY date DESC
   }
   async getOrganizerEvents(profileId: number, page: number = 1) {
     try {
-      const result = await sql<any>`
+      const result = await sql<EventType>`
 SELECT 
   event.id AS event_id,
   event.date,
@@ -148,7 +153,10 @@ SELECT
   (SELECT participant.status_name
   FROM profile_on_event AS participant
   WHERE participant.profile_id = ${profileId} ) AS user_status,
-  (SELECT COUNT (*) FROM profile_on_event WHERE event_id = event.id AND status_name = 'confirmed') AS confirmed_participants
+  (SELECT COUNT (*) 
+FROM profile_on_event 
+WHERE event_id = event.id 
+AND status_name = 'confirmed') AS confirmed_participants
 FROM event
 LEFT JOIN score ON event.id = score.event_id
 JOIN profile_on_event AS participant ON event.id = participant.event_id
@@ -166,14 +174,13 @@ ORDER BY date DESC
 LIMIT 10 OFFSET ${(page - 1) * 10}
       `.execute(this.client);
 
-      const count = await sql<any>`
+      const count = await sql<{ total_event: number }>`
 SELECT 
   COUNT (event.id) AS total_event 
 FROM event
 WHERE event.organizer_id = ${profileId}
       `.execute(this.client);
 
-      if (!result.rows.length) throw new NotFoundError('No event found')
 
       const parsedResult = result.rows.map((event: EventType) => {
         return {
@@ -189,10 +196,8 @@ WHERE event.organizer_id = ${profileId}
     }
   }
   async getPastEvents(profileId: number, page: number) {
-    const today = new Date();
-    const utctoday = getDateUTC(today)
 
-    const result = await sql<any>`
+    const result = await sql<EventType>`
 SELECT 
   event.id AS event_id,
   event.date,
@@ -217,7 +222,10 @@ SELECT
   (SELECT participant.status_name
   FROM profile_on_event AS participant
   WHERE participant.profile_id = ${profileId} ) AS user_status,
-  (SELECT COUNT (*) FROM profile_on_event WHERE event_id = event.id AND status_name = 'confirmed') AS confirmed_participants
+  (SELECT COUNT (*) 
+  FROM profile_on_event 
+  WHERE event_id = event.id 
+  AND status_name = 'confirmed') AS confirmed_participants
 FROM event
 LEFT JOIN score ON event.id = score.event_id
 JOIN profile_on_event AS participant ON event.id = participant.event_id
@@ -236,7 +244,7 @@ LIMIT 10 OFFSET ${(page - 1) * 10}
       `.execute(this.client);
 
 
-    const count = await sql<any>`
+    const count = await sql<{ total_event: number }>`
 SELECT 
   COUNT (event.id) AS total_event ,
  (SELECT participant.status_name
@@ -253,8 +261,6 @@ AND EXISTS(
 AND event.date < date('now')
       `.execute(this.client);
 
-    if (!result.rows.length) throw new NotFoundError('No event found')
-
     const parsedResult = result.rows.map((event: EventType) => {
       return {
         ...event,
@@ -266,12 +272,10 @@ AND event.date < date('now')
     return { events: parsedResult, eventCount: count.rows[0].total_event };
   }
   async updateMvp(eventId: number) {
-    const today = new Date()
-    const todayUTC = getDateUTC(today)
+    const today = new Date();
+    const todayUTC = getDateUTC(today);
     try {
-
-
-      const result = await sql<any>`
+      const result = await sql`
 UPDATE event 
 SET mvp_id = (
     SELECT 
@@ -293,18 +297,18 @@ SET mvp_id = (
   ) ,
     updated_at = ${todayUTC}
 WHERE id = ${eventId}
-`.execute(this.client)
+`.execute(this.client);
 
-      return !!result.numAffectedRows
+      return !!result.numAffectedRows;
     } catch (error) {
       throw new DatabaseError(error);
     }
-  };
+  }
   async updateBestStriker(eventId: number) {
-    const today = new Date()
-    const todayUTC = getDateUTC(today)
+    const today = new Date();
+    const todayUTC = getDateUTC(today);
     try {
-      const result = await sql<any>`
+      const result = await sql`
 UPDATE event 
 SET best_striker_id = (
     SELECT 
@@ -326,8 +330,8 @@ SET best_striker_id = (
   ) ,
     updated_at = ${todayUTC}
 WHERE id = ${eventId}
-`.execute(this.client)
-      return !!result.numAffectedRows
+`.execute(this.client);
+      return !!result.numAffectedRows;
     } catch (error) {
       throw new DatabaseError(error);
     }

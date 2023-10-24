@@ -4,7 +4,11 @@ export type Controller = (
   req: Request,
   res: Response,
   next?: NextFunction
-) => any | Promise<any>;
+) => any | Promise<any>;  // eslint-disable-line
+
+
+// find a less confusuing name
+export type ObjectRecordGeneric = Record<string, string | number | boolean>
 
 export const canals = {
   body: "body",
@@ -26,7 +30,7 @@ export const eventStatus = {
   full: "full",
   completed: "completed",
   cancelled: "cancelled"
-} as const
+} as const;
 
 export type InvitationStatus = "pending" | "confirmed" | "declined";
 
@@ -34,7 +38,7 @@ export const invitationStatus = {
   pending: "pending",
   confirmed: "confirmed",
   declined: "declined"
-} as const
+} as const;
 
 export type Score = {
   avg_pace: number;
@@ -80,3 +84,12 @@ export type EventType = {
   participants: EventParticipant[] | string;
   confirmed_participants: number;
 };
+
+export type ProfileType = {
+  profile_id: number
+  user_id?: number
+  avatar_url?: number
+  date_of_birth?: string
+  last_evaluation?: number
+  relation_exist?: boolean
+}

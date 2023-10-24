@@ -10,11 +10,11 @@ import cookieParser from 'cookie-parser';
 // const dirname = url.fileURLToPath(new URL('.', import.meta.url));
 const app: express.Application = express();
 
-app.use(accesHttp)
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
-app.use(cookieParser())
-app.use(cors({ credentials: true, origin: process.env.CLIENT_URL }))
-app.use(router)
+app.use(accesHttp);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(cors({ credentials: true, origin: process.env.CLIENT_URL }));
+app.use(router);
 
-export default app
+export default app;

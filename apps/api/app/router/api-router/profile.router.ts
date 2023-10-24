@@ -4,29 +4,29 @@ import profileController from '../../controller/profile.controller';
 import upload from '../../service/upload/upload';
 import validate from '../../middleware/schema-validator';
 import createProfileSchema from '../../schemas/profile/create.profile';
-import schema from 'schema'
+import schema from 'schema';
 import { canals } from '../../@types/types';
-const { editProfileInfosSchema } = schema
-const { getOne, createOne, updateOne, deleteOne, updateImage, searchProfileByUsername } = profileController;
-
+const { editProfileInfosSchema } = schema;
+const {
+  getOne,
+  createOne,
+  updateOne,
+  updateImage,
+  searchProfileByUsername,
+} = profileController;
 
 const router: Router = express.Router();
 
-router.route('/')
+router
+  .route('/')
   .post(validate(createProfileSchema, canals.body), factory(createOne))
-  .patch(validate(editProfileInfosSchema, canals.body), factory(updateOne))
+  .patch(validate(editProfileInfosSchema, canals.body), factory(updateOne));
 
-router.route('/avatar')
-  .patch(upload.single('avatar'), factory(updateImage))
+router.route('/avatar').patch(upload.single('avatar'), factory(updateImage));
 
 // query routes
-router.route('/search')
-  .get(factory(searchProfileByUsername))
+router.route('/search').get(factory(searchProfileByUsername));
 
-
-router.route('/:profileId')
-  .get(factory(getOne))
-  .delete(factory(deleteOne))
-
+router.route('/:profileId').get(factory(getOne)).delete(factory(deleteOne));
 
 export default router;

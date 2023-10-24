@@ -8,7 +8,8 @@
 //   let token: string = ""
 
 //   let authHeaders = req.headers.Authorization || req.headers.authorization
-//   if (authHeaders && typeof authHeaders === "string" && authHeaders.startsWith("Bearer")) {
+//   if (authHeaders && typeof authHeaders ===
+// "string" && authHeaders.startsWith("Bearer")) {
 //     token = authHeaders.split(" ")[1]
 
 //     verify(token, process.env.JWT_TOKEN_KEY as string, (err, decoded) => {

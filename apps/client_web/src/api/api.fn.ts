@@ -46,6 +46,7 @@ api.interceptors.response.use(
     // if errMessage is not unique, it will cause infinite loop
     if (errMessage === 'No access' && !originalRequest._retry) {
       originalRequest._retry = true;
+      console.log("How many times retry");
       const { accessToken } = await refreshAccessToken();
       api.defaults.headers.common[
         'Authorization'
@@ -74,6 +75,7 @@ export const logoutUserFn = async () => {
   api.defaults.headers.common[
     'Authorization'
   ] = '';
+  console.log(api.defaults.headers.common);
   return response.data;
 };
 

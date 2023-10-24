@@ -1,5 +1,5 @@
 import { DB as DatabaseType } from "../@types/types.database";
-import SQLite from "better-sqlite3"
+import SQLite from "better-sqlite3";
 import { Kysely, SqliteDialect } from "kysely";
 
 const dialect = new SqliteDialect(

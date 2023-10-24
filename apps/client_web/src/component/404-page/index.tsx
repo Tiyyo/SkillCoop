@@ -14,7 +14,7 @@ function Page404() {
           <p className="text-2xl font-semibold md:text-3xl text-primary-1100">
             Sorry, we couldn't find this page.
           </p>
-          <p className="mt-4 mb-8 font-medium text-light">
+          <p className="mt-4 mb-8 Animation">
             But dont worry, you can find plenty of other things on our homepage.
           </p>
           <Link

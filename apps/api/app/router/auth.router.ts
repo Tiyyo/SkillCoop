@@ -3,34 +3,42 @@ import factory from '../middleware/wrapper-controller';
 import authController from '../controller/auth.controller';
 import validate from '../middleware/schema-validator';
 import { canals } from '../@types/types';
-import schema from 'schema'
+import schema from 'schema';
 import tokenHandler from '../helpers/token.handler';
 
-
-const { signin, register, refresh, logout, googleAuth, verifyEmail, resendEmail } = authController;
-const { registerSchema, loginSchema, emailSchema } = schema
+const {
+  signin,
+  register,
+  refresh,
+  logout,
+  googleAuth,
+  verifyEmail,
+  resendEmail,
+} = authController;
+const { registerSchema, loginSchema, emailSchema } = schema;
 
 const router: Router = express.Router();
 
-router.route('/register')
-  .post(validate(registerSchema, canals.body), factory(register))
+router
+  .route('/register')
+  .post(validate(registerSchema, canals.body), factory(register));
 
-router.route('/login')
-  .post(validate(loginSchema, canals.body), factory(signin))
+router
+  .route('/login')
+  .post(validate(loginSchema, canals.body), factory(signin));
 
-router.route('/refresh')
-  .get(tokenHandler.validate('refresh'), factory(refresh))
+router
+  .route('/refresh')
+  .get(tokenHandler.validate('refresh'), factory(refresh));
 
-router.route('/email')
-  .post(validate(emailSchema, canals.body), factory(resendEmail))
+router
+  .route('/email')
+  .post(validate(emailSchema, canals.body), factory(resendEmail));
 
-router.route('/google/callback')
-  .get(factory(googleAuth))
+router.route('/google/callback').get(factory(googleAuth));
 
-router.route('/:userId/verify/:token')
-  .get(factory(verifyEmail))
+router.route('/:userId/verify/:token').get(factory(verifyEmail));
 
-router.route('/logout')
-  .post(factory(logout))
+router.route('/logout').post(factory(logout));
 
 export default router;

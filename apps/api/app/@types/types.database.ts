@@ -125,6 +125,3 @@ export type DB = {
 };
 
 export type DBClientType = Kysely<DB>;
-
-
-

@@ -41,13 +41,13 @@ import Page404 from './component/404-page/index.tsx';
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      refetchOnWindowFocus: false,
-      refetchOnMount: false,
-      refetchOnReconnect: false,
-      retry: 1,
-      staleTime: 0,
+      // refetchOnWindowFocus: false,
+      // refetchOnMount: false,
+      // refetchOnReconnect: false,
+      // retry: 1,
+      // staleTime: 0,
       // turn off caching for dev mode
-      cacheTime: 0,
+      // cacheTime: 0,
     },
   },
 });

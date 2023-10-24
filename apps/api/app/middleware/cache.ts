@@ -10,7 +10,7 @@ export default (key: string, paramsKey?: string) => async (
 ) => {
   if (!key) next();
   let cacheKeyRef = key;
-  if (paramsKey) cacheKeyRef = key + req.params[paramsKey]
+  if (paramsKey) cacheKeyRef = key + req.params[paramsKey];
   try {
     const cacheValue = await Cache.get(cacheKeyRef);
     req.body.cacheKey = cacheKeyRef;

@@ -1,11 +1,11 @@
-import { sql } from "kysely";
-import DatabaseError from "../helpers/errors/database.error";
-import { Core } from "./core";
-import getDateUTC from "../utils/get-date-utc";
-import { DBClientType } from "../@types/types.database";
+import { sql } from 'kysely';
+import DatabaseError from '../helpers/errors/database.error';
+import { Core } from './core';
+import getDateUTC from '../utils/get-date-utc';
+import { DBClientType } from '../@types/types.database';
 
 export class Friendlist extends Core {
-  tableName: string = "profile_on_profile";
+  tableName: string = 'profile_on_profile';
 
   constructor(client: DBClientType) {
     super(client);
@@ -15,17 +15,17 @@ export class Friendlist extends Core {
       const friendships = await this.client
         .selectFrom(this.tableName)
         .select([
-          "friend_id",
-          "adder_id",
-          "status_name",
-          "avatar_url",
-          "username",
-          "profile.last_evaluation"
+          'friend_id',
+          'adder_id',
+          'status_name',
+          'avatar_url',
+          'username',
+          'profile.last_evaluation',
         ])
         .limit(20)
-        .innerJoin("profile", "profile.id", "profile_on_profile.friend_id")
-        .where("adder_id", "=", id)
-        .where("status_name", "=", "confirmed")
+        .innerJoin('profile', 'profile.id', 'profile_on_profile.friend_id')
+        .where('adder_id', '=', id)
+        .where('status_name', '=', 'confirmed')
         .execute();
 
       return friendships;
@@ -38,49 +38,49 @@ export class Friendlist extends Core {
       let query = this.client
         .selectFrom(this.tableName)
         .select([
-          "friend_id",
-          "adder_id",
-          "status_name",
-          "avatar_url",
-          "username",
-          "profile.last_evaluation"
+          'friend_id',
+          'adder_id',
+          'status_name',
+          'avatar_url',
+          'username',
+          'profile.last_evaluation',
         ])
-        .innerJoin("profile", "profile.id", "profile_on_profile.friend_id")
-        .where("adder_id", "=", adder_id)
-        .where("friend_id", "=", friend_id);
+        .innerJoin('profile', 'profile.id', 'profile_on_profile.friend_id')
+        .where('adder_id', '=', adder_id)
+        .where('friend_id', '=', friend_id);
 
       if (status_name) {
-        query = query.where("status_name", "=", status_name);
+        query = query.where('status_name', '=', status_name);
       }
       const friend = await query.executeTakeFirst();
-      return friend
+      return friend;
     } catch (error) {
       throw new DatabaseError(error);
     }
   }
   async findFriendByUsernameInUserFriendlist(
     profileId: number,
-    query: any,
-    page: number = 1
+    query: string,
+    page: number = 1,
   ) {
     const offset = (page - 1) * 10;
     try {
       const friends = await this.client
         .selectFrom(this.tableName)
         .select([
-          "friend_id",
-          "adder_id",
-          "status_name",
-          "avatar_url",
-          "username",
-          "profile.last_evaluation"
+          'friend_id',
+          'adder_id',
+          'status_name',
+          'avatar_url',
+          'username',
+          'profile.last_evaluation',
         ])
         .offset(offset)
         .limit(20)
-        .innerJoin("profile", "profile.id", "profile_on_profile.friend_id")
-        .where("profile_on_profile.adder_id ", "=", profileId)
-        .where("status_name", "=", "confirmed")
-        .where("username", "like", `%${query.toLowerCase()}%`)
+        .innerJoin('profile', 'profile.id', 'profile_on_profile.friend_id')
+        .where('profile_on_profile.adder_id ', '=', profileId)
+        .where('status_name', '=', 'confirmed')
+        .where('username', 'like', `%${query.toLowerCase()}%`)
         .execute();
       return friends;
     } catch (error) {
@@ -89,7 +89,7 @@ export class Friendlist extends Core {
   }
   async sendRequest(adder_id: number, friend_id: number) {
     try {
-      const friendshipExist = await sql<any>`
+      const friendshipExist = await sql`
           SELECT *
           FROM profile_on_profile
           WHERE (adder_id = ${adder_id} AND friend_id = ${friend_id})
@@ -107,7 +107,7 @@ export class Friendlist extends Core {
         .values({
           adder_id,
           friend_id: friend_id,
-          status_name: "pending",
+          status_name: 'pending',
           created_at: utctoday,
         })
         .execute();
@@ -126,8 +126,8 @@ export class Friendlist extends Core {
     adder_id: number;
     status_name: string;
   }) {
-    const today = new Date()
-    const utctoday = getDateUTC(today)
+    const today = new Date();
+    const utctoday = getDateUTC(today);
 
     try {
       await this.client
@@ -146,8 +146,8 @@ export class Friendlist extends Core {
           status_name,
           updated_at: utctoday,
         })
-        .where("adder_id", "=", adder_id)
-        .where("friend_id", "=", friend_id)
+        .where('adder_id', '=', adder_id)
+        .where('friend_id', '=', friend_id)
         .executeTakeFirst();
 
       return !!acceptFriendship.affectedRows;
@@ -160,30 +160,31 @@ export class Friendlist extends Core {
       const pendingRequests = await this.client
         .selectFrom(this.tableName)
         .select([
-          "friend_id",
-          "adder_id",
-          "status_name",
-          "avatar_url",
-          "username",
-          "profile.last_evaluation"
+          'friend_id',
+          'adder_id',
+          'status_name',
+          'avatar_url',
+          'username',
+          'profile.last_evaluation',
         ])
-        .innerJoin("profile", "profile.id", "profile_on_profile.adder_id")
-        .where("friend_id", "=", id)
-        .where("status_name", "=", "pending")
+        .innerJoin('profile', 'profile.id', 'profile_on_profile.adder_id')
+        .where('friend_id', '=', id)
+        .where('status_name', '=', 'pending')
         .execute();
 
       return pendingRequests;
-    } catch (error) { }
+    } catch (error) {
+      throw new DatabaseError(error);
+    }
   }
   async findSuggestProfile(profileId: number) {
     try {
-      const suggestProfiles = await sql <
-        {
-          friend_id: number,
-          username: string,
-          avatar_url: string | null,
-          last_evaluation: number | null
-        } > `
+      const suggestProfiles = await sql<{
+        friend_id: number;
+        username: string;
+        avatar_url: string | null;
+        last_evaluation: number | null;
+      }>`
 SELECT 
   friend_id AS profile_id,
   username,
@@ -227,11 +228,10 @@ FROM
         AND (status_name = 'confirmed' OR status_name = 'pending')
       )
 AND friend_id <> ${profileId}
-LIMIT 14`
-        .execute(this.client)
-      return suggestProfiles.rows
+LIMIT 14`.execute(this.client);
+      return suggestProfiles.rows;
     } catch (error) {
-      throw new DatabaseError(error)
+      throw new DatabaseError(error);
     }
   }
 }

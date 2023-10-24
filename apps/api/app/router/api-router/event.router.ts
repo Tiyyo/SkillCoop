@@ -33,7 +33,7 @@ router.route('/organizer')
 
 // query routes
 router.route('/past')
-  .get(factory(getPasts))
+  .get(factory(getPasts));
 
 router.route('/details/:eventId/:profileId')
   .get(factory(getOne));

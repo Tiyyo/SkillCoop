@@ -24,9 +24,9 @@ function ResumeEvents() {
     isLoading,
     isFetching,
   } = useQuery(
-    [`events/profile/${profileId}`],
+    [`events/profile`],
     () => {
-      if (!profileId) return;
+      if (!profileId) return { data: null };
       return getEventsFn(profileId);
     },
     { enabled: true }

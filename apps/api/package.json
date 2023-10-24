@@ -60,7 +60,6 @@
     "@types/nodemailer": "^6.4.10",
     "@types/qs": "^6.9.8",
     "@types/randombytes": "^2.0.0",
-    "eslint-config-custom": "workspace:*",
     "ts-node": "^10.9.1",
     "tsconfig": "workspace:*",
     "typescript": "^4.5.3",

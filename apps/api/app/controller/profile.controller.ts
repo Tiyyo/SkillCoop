@@ -1,14 +1,13 @@
-import { Request, Response } from "express";
-import { profile as Profile, image } from "../models/index";
-import { image as Image } from "../models/index";
+import { Request, Response } from 'express';
+import { profile as Profile } from '../models/index';
+import { image as Image } from '../models/index';
 import {
   deleteImageFromBucket,
   uploadImageToBucket,
-} from "../service/upload/s3";
-import checkParams from "../utils/check-params";
-import UserInputError from "../helpers/errors/user-input.error";
-import NotFoundError from "../helpers/errors/not-found.error";
-
+} from '../service/upload/s3';
+import checkParams from '../utils/check-params';
+import UserInputError from '../helpers/errors/user-input.error';
+import NotFoundError from '../helpers/errors/not-found.error';
 
 export default {
   async getOne(req: Request, res: Response) {
@@ -41,7 +40,7 @@ export default {
     const { profile_id } = req.body;
 
     // check if user has an avatar
-    // if not 
+    // if not
     // create image
     // update profile with image url
     // return image url
@@ -53,7 +52,7 @@ export default {
     // return new image url
 
     const { avatar_url, username } = await Profile.findOne(profile_id);
-    if (!avatarImage) throw new UserInputError("No image provided")
+    if (!avatarImage) throw new UserInputError('No image provided');
 
     avatarImage.originalname = `avatar_${username}`;
 
@@ -65,30 +64,34 @@ export default {
       url: link,
       key: key,
       size: WIDTH_AVATAR,
-    })
+    });
 
     if (avatar_url) {
-      const [imageToDelete] = await Image.findBy({ url: avatar_url })
-      await Image.delete(imageToDelete.id)
-      await deleteImageFromBucket(imageToDelete.key)
+      const [imageToDelete] = await Image.findBy({ url: avatar_url });
+      await Image.delete(imageToDelete.id);
+      await deleteImageFromBucket(imageToDelete.key);
     }
     await Profile.updateProfile({ profile_id, avatar_url: link });
 
-    return res.status(200).json({ link })
+    return res.status(200).json({ link });
   },
   async searchProfileByUsername(req: Request, res: Response) {
     const { username } = req.query;
     // Reminder: checkParams can also be use to convert string to number
-    const [userProfileId, page] = checkParams(req.query.userProfileId, req.query.page);
-    if (typeof username !== "string")
-      throw new UserInputError("Username must be a string");
+    const [userProfileId, page] = checkParams(
+      req.query.userProfileId,
+      req.query.page,
+    );
+    if (typeof username !== 'string')
+      throw new UserInputError('Username must be a string');
 
     const profiles = await Profile.findManyByUsername(
       username,
       userProfileId,
-      page
+      page,
     );
-    if (profiles.length === 0) throw new NotFoundError('No profile found')
+    if (!profiles || profiles.length === 0)
+      throw new NotFoundError('No profile found');
 
     return res.status(200).json(profiles);
   },

@@ -1,4 +1,5 @@
 import { Redis } from 'ioredis';
+import { ObjectRecordGeneric } from '../@types/types';
 
 const redis = new Redis();
 
@@ -10,7 +11,11 @@ export default class Cache {
     return cacheValue ? JSON.parse(cacheValue) : null;
   }
 
-  static async set(key: string, data: any, expiration: number = Cache.DEFAULT_EXPIRATION) {
+  static async set(
+    key: string,
+    data: ObjectRecordGeneric | Array<ObjectRecordGeneric>,
+    expiration: number = Cache.DEFAULT_EXPIRATION,
+  ) {
     redis.set(key, JSON.stringify(data), 'EX', expiration);
   }
 

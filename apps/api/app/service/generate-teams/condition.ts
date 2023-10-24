@@ -17,5 +17,5 @@ export default {
   ): boolean {
     return lengthTeam1 < lengthTeam2;
   }
-}
+};
 

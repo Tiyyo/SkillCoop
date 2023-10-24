@@ -12,23 +12,27 @@ import { logoutUserFn } from '../../api/api.fn';
 import { useApp } from '../../store/app.store';
 import { queryClient } from '../../main';
 
-function NavUser({ userAvatar }: { userAvatar?: string | null }) {
+function NavUser() {
   const navigate = useNavigate();
   const menuItemStyle =
     'flex gap-2 items-center hover:bg-primary-200 transition-colors duration-300 rounded-lg px-2 text-md';
 
   const { mutate: logout } = useMutation(() => logoutUserFn());
-  const { setIsAuth } = useApp();
+  const {userProfile, signout } = useApp();
 
-  const handleClickLogout = () => {
-    setIsAuth(false);
+  const handleClickLogout = async () => {
+    // setIsAuth(false);
+    signout();
+    console.log(userProfile);
     logout();
     // cache need to be clear on logout to avoid an user to still be able to access the app
     // because of remaining data in cache
     queryClient.clear();
-    queryClient.resetQueries({ queryKey: ['authUser'], exact: true });
-    queryClient.setQueryDefaults(['authUser'], { initialData: {} });
+    await queryClient.invalidateQueries({ queryKey: ['authUser'] });
+    await queryClient.resetQueries({ queryKey: ['authUser'], exact: true });
+    queryClient.removeQueries({ queryKey: ['authUser'], exact: true });
     console.log('is should logout');
+    console.log(navigate('/login'));
     navigate('/login');
   };
 

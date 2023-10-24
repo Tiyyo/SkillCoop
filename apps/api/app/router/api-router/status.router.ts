@@ -9,12 +9,12 @@ const router: Router = express.Router();
 
 router.route('/')
   .get(factory(getAll))
-  .post(factory(createOne))
+  .post(factory(createOne));
 
 router.route('/:profileId')
   .get(factory(getOne))
   .patch(factory(updateOne))
-  .delete(factory(deleteOne))
+  .delete(factory(deleteOne));
 
 
 export default router;

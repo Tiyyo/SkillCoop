@@ -1,22 +1,22 @@
-import { LevelScale } from "../@types/types"
+import { LevelScale } from "../@types/types";
 
 
 const associateStringToNumber = (level: LevelScale): number => {
 
   switch (level) {
     case 'beginner':
-      return 20
+      return 20;
     case 'novice':
-      return 35
+      return 35;
     case 'intermediate':
-      return 55
+      return 55;
     case 'advanced':
-      return 75
+      return 75;
     case 'expert':
-      return 90
+      return 90;
     default:
-      return 50
+      return 50;
   }
-}
+};
 
-export default associateStringToNumber
+export default associateStringToNumber;

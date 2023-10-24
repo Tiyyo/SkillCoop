@@ -6,12 +6,9 @@ import { canals } from '../../@types/types';
 import schema from 'schema';
 import tokenHandler from '../../helpers/token.handler';
 const { emailSchema, passwordSchema } = schema;
-const { getMe, updateEmail, updatePassword, deleteUser } = userController;
+const { updateEmail, updatePassword, deleteUser } = userController;
 
 const router: Router = express.Router();
-
-router.route('/me')
-  .get(tokenHandler.validate('access'), factory(getMe));
 
 router.route('/email')
   .patch(validate(emailSchema, canals.body), factory(updateEmail));

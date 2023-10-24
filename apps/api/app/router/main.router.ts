@@ -4,22 +4,28 @@ import NotFoundError from '../helpers/errors/not-found.error';
 import { errorHandler } from '../middleware/errors.handler';
 import apiRouter from './api.router';
 import tokenHandler from '../helpers/token.handler';
+import factory from '../middleware/wrapper-controller';
+import userController from '../controller/user.controller';
 
-
+const { getMe } = userController;
 const router: Router = express.Router();
 
+// this route need to be outsite of the apiRouter
+// to let the app access to it without 2 tokens
+// because it doesn't need to be protected by validateInfosTokens
+router
+  .route('/api/user/me')
+  .get(tokenHandler.validate('access'), factory(getMe));
+
 router.use('/api',
-  tokenHandler.validate('access'),
+  tokenHandler.validateInfosTokens(),
   apiRouter);
 router.use('/auth', authRouter);
-
 
 router.use((_req, _res, next) => {
   next(new NotFoundError("Request couldn't match any routes"));
 });
 
-
 router.use(errorHandler);
-
 
 export default router;

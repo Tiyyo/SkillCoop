@@ -27,6 +27,6 @@ router.route('/avatar').patch(upload.single('avatar'), factory(updateImage));
 // query routes
 router.route('/search').get(factory(searchProfileByUsername));
 
-router.route('/:profileId').get(factory(getOne)).delete(factory(deleteOne));
+router.route('/:profileId').get(factory(getOne));
 
 export default router;

@@ -8,7 +8,7 @@ import updateFriendshipSchema from './friends/update-friend-relation.schema';
 import inviteParticipantSchema from './participant/invite-participant.schema';
 import updateParticipantSchema from './participant/update-participant.schema';
 import updateEventSchema from './event/update-event.schema';
-import saveScoreSchema from './score/save-score.schema'
+import saveScoreSchema from './score/save-score.schema';
 import voteSchema from './vote/vote.schema';
 import ownSkillSchema from './skills/own-skill.schema';
 import participantSkillSchema from './skills/participant-skill.schema';
@@ -16,7 +16,8 @@ import emailSchema from './authentification/email';
 import passwordSchema from './authentification/password';
 import editProfileInfosSchema from './profile/edit-profile-infos.schema';
 
-export type { AnyZodObject, ZodType, ZodTypeDef, ZodError }
+
+export type { AnyZodObject, ZodType, ZodTypeDef, ZodError };
 export default {
   ZodError,
   registerSchema,
@@ -34,6 +35,6 @@ export default {
   saveScoreSchema,
   ownSkillSchema,
   participantSkillSchema,
-  editProfileInfosSchema
+  editProfileInfosSchema,
 
-}
+};

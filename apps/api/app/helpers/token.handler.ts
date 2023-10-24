@@ -4,7 +4,7 @@ import AuthorizationError from './errors/unauthorized.error';
 import { ObjectRecordGeneric } from '../@types/types';
 const { sign, verify } = jwt;
 
-export default {
+const tokenHandler = {
   createToken: function (
     expireTime: string,
     key: string,
@@ -28,7 +28,10 @@ export default {
     );
     return { accessToken, refreshToken };
   },
-  verifyTokenAndGetData: function (token: string, key: string) {
+  verifyTokenAndGetData: function (
+    token: string,
+    key: string,
+  ): ObjectRecordGeneric | null {
     let payload: ObjectRecordGeneric | null = null;
     verify(token, key, (err, decoded) => {
       if (err && err.message === 'jwt expired') {
@@ -39,6 +42,7 @@ export default {
       }
       if (decoded && typeof decoded !== 'string') {
         payload = decoded.data;
+        return payload;
       }
     });
     return payload;
@@ -50,7 +54,7 @@ export default {
     if (tokenType === 'access') {
       errMessage = 'No access';
     }
-    return async function (req: Request, res: Response, next: NextFunction) {
+    return async function (req: Request, _res: Response, next: NextFunction) {
       const token = getToken(req, tokenType);
       if (!token) return next(new AuthorizationError(errMessage));
       try {
@@ -63,25 +67,54 @@ export default {
       }
     };
   },
+  validateInfosTokens: function () {
+    return async function (req: Request, res: Response, next: NextFunction) {
+      const accessToken = tokenHandler.getAccessToken(req);
+      const refreshToken = tokenHandler.getRefreshToken(req);
+
+      if (!accessToken || !refreshToken) {
+        return next(new AuthorizationError('Unauthorized'));
+      }
+
+      try {
+        const payloadAccess = tokenHandler.verifyTokenAndGetData(
+          accessToken,
+          process.env.JWT_TOKEN_KEY as string,
+        );
+        const payloadRefresh = tokenHandler.verifyTokenAndGetData(
+          refreshToken,
+          process.env.JWT_REFRESH_TOKEN_KEY as string,
+        );
+        if (!payloadAccess || !payloadRefresh) {
+          return next(new AuthorizationError('Unauthorized'));
+        }
+        if (payloadAccess.user_id !== payloadRefresh.user_id) {
+          return next(new AuthorizationError('Unauthorized'));
+        }
+        next();
+      } catch (error) {
+        return next(error);
+      }
+    };
+  },
   validateToken: (token: string, tokenType: 'email' | 'refresh' | 'access') => {
     let payload;
     switch (tokenType) {
       case 'email':
-        return (payload = (this as any).default.verifyTokenAndGetData( // eslint-disable-line
+        return (payload = tokenHandler.verifyTokenAndGetData(
           token,
           process.env.JWT_EMAIL_TOKEN_KEY as string,
         ));
       case 'refresh':
-        return (payload = (this as any).default.verifyTokenAndGetData( // eslint-disable-line
+        return (payload = tokenHandler.verifyTokenAndGetData(
           token,
           process.env.JWT_REFRESH_TOKEN_KEY as string,
         ));
       case 'access':
-        const payloadAccess = (this as any).default.verifyTokenAndGetData( // eslint-disable-line
+        return tokenHandler.verifyTokenAndGetData(
           token,
           process.env.JWT_TOKEN_KEY as string,
         );
-        return payloadAccess;
       default:
         return payload;
     }
@@ -90,14 +123,13 @@ export default {
     request: Request,
     type: 'email' | 'refresh' | 'access',
   ): string | null => {
-    let token;
     switch (type) {
       case 'email':
-        return (token = (this as any).default.getEmailToken(request)); // eslint-disable-line
+        return tokenHandler.getEmailToken(request);
       case 'refresh':
-        return (token = (this as any).default.getRefreshToken(request)); // eslint-disable-line
+        return tokenHandler.getRefreshToken(request);
       case 'access':
-        return (token = (this as any).default.getAccessToken(request)); // eslint-disable-line
+        return tokenHandler.getAccessToken(request);
       default:
         return null;
     }
@@ -125,3 +157,6 @@ export default {
     }
   },
 };
+
+export default tokenHandler;
+

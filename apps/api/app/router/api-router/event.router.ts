@@ -5,7 +5,8 @@ import validate from '../../middleware/schema-validator';
 import schemas from 'schema';
 import { canals } from '../../@types/types';
 
-const { createEventSchema, updateEventSchema } = schemas;
+const { createEventSchema, updateEventSchema, getOrganizeOrPastEventSchema } =
+  schemas;
 
 const {
   getOrganizerEvents,
@@ -24,21 +25,22 @@ router
   .post(validate(createEventSchema, canals.body), factory(createOne))
   .patch(validate(updateEventSchema, canals.body), factory(updateOne));
 
-router.route('/user/:profileId')
-  .get(factory(getAllByUser));
+router.route('/user/:profileId').get(factory(getAllByUser));
 
 // query routes
-router.route('/organizer')
-  .get(factory(getOrganizerEvents));
+router
+  .route('/organizer')
+  .get(
+    factory(getOrganizerEvents),
+  );
 
 // query routes
-router.route('/past')
+router
+  .route('/past')
   .get(factory(getPasts));
 
-router.route('/details/:eventId/:profileId')
-  .get(factory(getOne));
+router.route('/details/:eventId/:profileId').get(factory(getOne));
 
-router.route('/:id/:profileId')
-  .delete(factory(deleteOne));
+router.route('/:id/:profileId').delete(factory(deleteOne));
 
 export default router;

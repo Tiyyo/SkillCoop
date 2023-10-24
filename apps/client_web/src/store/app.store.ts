@@ -1,9 +1,9 @@
-import { create } from "zustand";
-import { Profile } from "../types";
-import { useQuery } from "@tanstack/react-query";
-import { getMeFn } from "../api/api.fn";
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { create } from 'zustand';
+import { Profile } from '../types';
+import { useQuery } from '@tanstack/react-query';
+import { getMeFn } from '../api/api.fn';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface AppStoreProps {
   userProfile: Profile | null;
@@ -12,7 +12,6 @@ interface AppStoreProps {
   setProfile: (userProfile: any) => void;
   signout: () => void;
 }
-
 
 const useAppStore = create<AppStoreProps>()((set) => ({
   userProfile: null,
@@ -30,15 +29,20 @@ export const useApp = () => {
   const setProfile = useAppStore((state) => state.setProfile);
   const signout = useAppStore((state) => state.signout);
 
-  const { data, isError, isLoading, isFetching, isSuccess, error, isPreviousData, status } = useQuery(
-    ['authUser'],
-    () => getMeFn(),
-    {
-      enabled: true,
-      cacheTime: 0,
-      retry: 1,
-    }
-  );
+  const {
+    data,
+    isError,
+    isLoading,
+    isFetching,
+    isSuccess,
+    error,
+    isPreviousData,
+    status,
+  } = useQuery(['authUser'], () => getMeFn(), {
+    enabled: true,
+    cacheTime: 0,
+    retry: 1,
+  });
 
   // const loading = isLoading || isFetching;
 
@@ -76,7 +80,6 @@ export const useApp = () => {
   console.log('Data from getMe query : ', data);
   console.log('App store data user : ', userProfile);
 
-
   // useEffect(() => {
   //   console.log('user get me :', data);
   //   // if (error) {
@@ -91,7 +94,6 @@ export const useApp = () => {
   //   // }
   //   console.log('Status auth : ', isAuth);
   // }, [data, isError, loading, setIsAuth, setProfile, error])
-
 
   return { userProfile, isAuth, setIsAuth, setProfile, signout };
 };

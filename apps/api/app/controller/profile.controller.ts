@@ -28,12 +28,6 @@ export default {
 
     return res.status(204).send({ success: isUpdate });
   },
-  // async deleteOne(req: Request, res: Response) {
-  //   const [profileId] = checkParams(req.params.profileId)
-  //   const isDeleted = await Profile.delete(profileId);
-
-  //   return res.status(204).send({ success: isDeleted });;
-  // },
   async updateImage(req: Request, res: Response) {
     const WIDTH_AVATAR = 100;
     const avatarImage = req.file;

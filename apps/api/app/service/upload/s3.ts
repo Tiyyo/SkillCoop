@@ -34,11 +34,11 @@ const s3 = new S3Client({
 
 export async function uploadImageToBucket(
   // TODO search for the type file in multer documentation
-  file: any,
+  file: Express.Multer.File,
   { height, width }: { height: number; width: number },
 ) {
   const resizeFileBuffer = await resizeImage(file.buffer, height, width);
-  const imageKey = `${randomImageName()}_${file.originalName}_w${width}`;
+  const imageKey = `${randomImageName()}_${file.originalname}_w${width}`;
 
   const params = {
     Bucket: bucketName,

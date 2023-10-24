@@ -17,7 +17,6 @@ import SeparatorLine from '../../component/seperator-line';
 import Center from '../../layout/center';
 import ErrorContainer from '../../component/error';
 import { useApp } from '../../store/app.store';
-import toast from '../../utils/toast';
 import ReturnBtn from '../../component/return';
 import checkIfString from '../../utils/check-string';
 import Button from '../../component/button';
@@ -54,10 +53,7 @@ function Login() {
 
   useEffect(() => {
     if (isSuccess && !loading) {
-      console.log('login has been successful');
       navigate('/');
-      // setIsAuth(true);
-      toast.success('Welcome back!');
     }
   }, [isSuccess, loading, setIsAuth]);
 
@@ -68,7 +64,9 @@ function Login() {
         <h1 className="py-4 text-xl font-bold text-primary-1100 text-center">
           Log in to SkillCoop
         </h1>
-        <div className="flex flex-col w-[90%] max-w-lg bg-base-light py-12 px-6 rounded-lg">
+        <div
+          className="flex flex-col w-[90%] 
+              max-w-lg bg-base-light py-12 px-6 rounded-lg">
           <SocialButton
             value="Login with Google"
             href={getGoogleUrl(from)}>

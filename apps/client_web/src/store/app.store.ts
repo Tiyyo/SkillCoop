@@ -20,7 +20,7 @@ const useAppStore = create<AppStoreProps>()((set) => ({
   setIsAuth: (isAuth: boolean) => set({ isAuth }),
   setProfile: (userProfile: any) => set({ userProfile }),
   signout: () => set({ isAuth: false, userProfile: null }),
-}))
+}));
 
 export const useApp = () => {
   const navigate = useNavigate();
@@ -58,20 +58,20 @@ export const useApp = () => {
     console.log('Status from useQuery : ', status);
     console.log('isPreviousData from useQuery : ', isPreviousData);
     if (isSuccess) {
-      setProfile(data.userProfile)
+      setProfile(data.userProfile);
     } else {
-      setProfile(null)
+      setProfile(null);
     }
-  }, [isLoading, isFetching])
+  }, [isLoading, isFetching]);
 
   useEffect(() => {
     if (userProfile) {
-      setIsAuth(true)
+      setIsAuth(true);
     } else {
-      setIsAuth(false)
+      setIsAuth(false);
     }
     console.log(isAuth);
-  }, [userProfile])
+  }, [userProfile]);
 
   console.log('Data from getMe query : ', data);
   console.log('App store data user : ', userProfile);
@@ -94,4 +94,4 @@ export const useApp = () => {
 
 
   return { userProfile, isAuth, setIsAuth, setProfile, signout };
-}
+};

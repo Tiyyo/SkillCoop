@@ -14,6 +14,7 @@ const {
   getPasts,
   getAllByUser,
   createOne,
+  generateTeams,
   updateOne,
   deleteOne,
 } = eventController;
@@ -40,6 +41,8 @@ router
   .get(factory(getPasts));
 
 router.route('/details/:eventId/:profileId').get(factory(getOne));
+
+router.route('/teams').post(factory(generateTeams));
 
 router.route('/:id/:profileId').delete(factory(deleteOne));
 

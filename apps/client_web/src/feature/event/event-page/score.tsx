@@ -55,7 +55,8 @@ function EventPageScore({
   if (whichEventStatus === 'open') return null;
   return (
     <form
-      className="bg-base-light mx-2 my-4 rounded-md shadow py-4 px-3 flex flex-col items-center justify-between"
+      className={`bg-base-light mx-2 my-4 rounded-md 
+      shadow py-4 px-3 flex flex-col items-center justify-between`}
       onSubmit={handleSubmitScore}>
       <p className="text-xs mb-4">Final Score</p>
       <div>
@@ -68,18 +69,22 @@ function EventPageScore({
           type="text"
           inputMode="numeric"
           name="score_team_1"
-          className="bg-primary-200 h-14 w-10 rounded-md shadow-inner border border-gray-950 border-opacity-40 text-primary-1100 font-semibold text-center text-2xl"
+          className={`bg-primary-200 h-14 w-10 rounded-md shadow-inner 
+          border border-gray-950 border-opacity-40 text-primary-1100 
+          font-semibold text-center text-2xl`}
           disabled={!isAdmin || whichEventStatus !== 'full'}
-          defaultValue={scoreTeam1 ?? 'NC'}
+          defaultValue={scoreTeam1 ?? ''}
         />
         <span className="font-semibold mx-2">-</span>
         <input
           type="text"
           inputMode="numeric"
           name="score_team_2"
-          className="bg-primary-200 h-14 w-10 rounded-md shadow-inner border border-gray-950 border-opacity-40 text-primary-1100 font-semibold text-center text-2xl"
+          className={`bg-primary-200 h-14 w-10 rounded-md shadow-inner 
+          border border-gray-950 border-opacity-40 text-primary-1100 
+          font-semibold text-center text-2xl`}
           disabled={!isAdmin || whichEventStatus !== 'full'}
-          defaultValue={scoreTeam2 ?? 'NC'}
+          defaultValue={scoreTeam2 ?? ''}
         />
         <label
           htmlFor="score_team_2"

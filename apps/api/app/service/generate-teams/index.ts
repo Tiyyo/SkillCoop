@@ -31,7 +31,6 @@ export async function generateBalancedTeam(eventId: number) {
   );
 
   await Promise.allSettled(updateParticipantQueries);
-
   console.timeEnd('Algo time start');
 }
 

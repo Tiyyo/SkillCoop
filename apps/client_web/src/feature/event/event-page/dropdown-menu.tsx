@@ -7,7 +7,7 @@ import {
   DropdownMenuTrigger,
 } from '../../../lib/ui/dropdown';
 import { Trash2, Dices, FolderInput } from 'lucide-react';
-import { deleteEventFn } from '../../../api/api.fn';
+import { deleteEventFn, generateTeamsFn } from '../../../api/api.fn';
 
 interface DropdownEventMenuProps {
   eventStatus?: string;
@@ -25,9 +25,18 @@ function DropdownEventMenu({
   const { mutate: deleteEvent } = useMutation(
     (data: { eventId: number; profileId: number }) => deleteEventFn(data)
   );
+  const { mutate: generateTeams } = useMutation((eventId: number) =>
+    generateTeamsFn(eventId)
+  );
 
-  const menuItemStyle =
-    'flex gap-2 items-center hover:bg-primary-200 transition-colors duration-300 rounded-lg px-2 text-md';
+  const handleClickGenerateTeams = () => {
+    if (!eventId) return;
+    generateTeams(eventId);
+    window.location.reload();
+  };
+
+  const menuItemStyle = `flex gap-2 items-center hover:bg-primary-200 
+    transition-colors duration-300 rounded-lg px-2 text-md`;
   return (
     <>
       <DropdownMenu>
@@ -38,23 +47,30 @@ function DropdownEventMenu({
             xmlns="http://www.w3.org/2000/svg"
             fill="currentColor"
             viewBox="0 0 4 15">
-            <path d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" />
+            <path
+              d={`M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 
+            6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 
+            1 1-3 0 1.5 1.5 0 0 1 3 0Z`}
+            />
           </svg>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="bg-base-light mx-2 border z-10 flex flex-col">
+        <DropdownMenuContent
+          className={`bg-base-light mx-2 border 
+          z-10 flex flex-col`}>
           <DropdownMenuItem className={menuItemStyle}>
             <FolderInput size="16" />
             <span>Revoke participation</span>
           </DropdownMenuItem>
           {isAdmin && (
             <>
-              {eventStatus === 'full' ||
-                (eventStatus === 'completed' && (
-                  <DropdownMenuItem className={menuItemStyle}>
-                    <Dices size="16" />
-                    <span>Generate teams</span>
-                  </DropdownMenuItem>
-                ))}
+              {eventStatus === 'full' && (
+                <DropdownMenuItem className={menuItemStyle}>
+                  <Dices size="16" />
+                  <button onClick={handleClickGenerateTeams}>
+                    Generate teams
+                  </button>
+                </DropdownMenuItem>
+              )}
               <DropdownMenuItem className={menuItemStyle}>
                 <FolderInput size="16" />
                 <span>Transfert ownership</span>
@@ -62,8 +78,8 @@ function DropdownEventMenu({
               <MenuItemDialog
                 mutateFn={deleteEvent}
                 mutationData={{ eventId, profileId }}
-                description="This action cannot be undone. This will permanently delete your
-            event."
+                description={`This action cannot be undone. 
+                his will permanently delete your event.`}
                 redirection="/">
                 <div className="text-error flex items-center gap-2">
                   <Trash2 size="16" />

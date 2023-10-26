@@ -5,6 +5,7 @@ import AuthorizationError from '../helpers/errors/unauthorized.error';
 import checkParams from '../utils/check-params';
 import NotFoundError from '../helpers/errors/not-found.error';
 import deleteDecodedKey from '../utils/delete-decoded';
+import { generateBalancedTeam } from '../service/generate-teams';
 
 export default {
   async createOne(req: Request, res: Response) {
@@ -91,5 +92,13 @@ export default {
     const events = await Event.getPastEvents(profileId, page);
 
     res.status(200).json(events);
+  },
+  async generateTeams(req: Request, res: Response) {
+    deleteDecodedKey(req.body);
+    const { eventId } = req.body;
+
+    await generateBalancedTeam(eventId);
+
+    res.status(200).json({ success: true });
   },
 };

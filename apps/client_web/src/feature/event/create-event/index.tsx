@@ -26,7 +26,8 @@ const { createEventSchema } = schema;
 function CreateEvent() {
   const { userProfile } = useApp();
   const createEventFormRef = useRef<HTMLFormElement>(null);
-  const [validationErrors, setValidationErrors] = useState(null); // TODO : handle error
+  const [validationErrors, setValidationErrors] = useState(null);
+  // TODO : handle error
   const {
     createEvent,
     data: eventCreatedState,
@@ -49,10 +50,12 @@ function CreateEvent() {
       status_name: 'open',
     };
 
-    // TODO need to handle the case where user select today date but time is in the past
+    // TODO need to handle the case
+    // where user select today date but time is in the past
     // validation date and time
     if (eventCreatedState.start_time && eventCreatedState.start_date) {
-      const eventDate = `${eventCreatedState.start_date} ${eventCreatedState.start_time}`;
+      const eventDate = `${eventCreatedState.start_date} 
+                         ${eventCreatedState.start_time}`;
       data.date = eventDate;
     }
 
@@ -163,7 +166,9 @@ function CreateEvent() {
         </SelectInput>
         <Link
           to="invitation"
-          className="flex items-center underline underline-offset-8 un gap-2 py-4 text-md text-primary-1100 font-semibold cursor-pointer">
+          className={`flex items-center underline 
+            underline-offset-8 un gap-2 py-4 text-md
+           text-primary-1100 font-semibold cursor-pointer`}>
           <p>INVITE FRIENDS </p>
           <Plus />
         </Link>

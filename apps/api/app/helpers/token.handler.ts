@@ -68,14 +68,13 @@ const tokenHandler = {
     };
   },
   validateInfosTokens: function () {
-    return async function (req: Request, res: Response, next: NextFunction) {
+    return async function (req: Request, _res: Response, next: NextFunction) {
       const accessToken = tokenHandler.getAccessToken(req);
       const refreshToken = tokenHandler.getRefreshToken(req);
 
       if (!accessToken || !refreshToken) {
         return next(new AuthorizationError('Unauthorized'));
       }
-
       try {
         const payloadAccess = tokenHandler.verifyTokenAndGetData(
           accessToken,

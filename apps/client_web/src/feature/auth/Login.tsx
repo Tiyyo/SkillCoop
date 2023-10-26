@@ -16,10 +16,10 @@ import EyeSlash from '../../assets/icon/EyeSlash';
 import SeparatorLine from '../../component/seperator-line';
 import Center from '../../layout/center';
 import ErrorContainer from '../../component/error';
-import { useApp } from '../../store/app.store';
 import ReturnBtn from '../../component/return';
 import checkIfString from '../../utils/check-string';
 import Button from '../../component/button';
+import dompurify from 'dompurify';
 
 export type LoginUserData = {
   email: string;
@@ -28,34 +28,39 @@ export type LoginUserData = {
 
 function Login() {
   const navigate = useNavigate();
-  const { setIsAuth } = useApp();
+  const { loginSchema } = schema;
+  const location = useLocation();
+  const from = location.state?.from?.pathname || '/';
   const {
     mutate: loginUser,
     isLoading: loading,
     isSuccess,
     error,
   } = useMutation((userData: LoginUserData) => loginUserFn(userData));
-  const location = useLocation();
-  const from = location.state?.from?.pathname || '/';
-  const { loginSchema } = schema;
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<LoginUserData>({
     resolver: zodResolver(loginSchema),
   });
 
-  // TODO : find correct typing
-  const onSubmit = (data: any) => {
-    loginUser(data);
+  // TODO : build a function who sanitize and
+  // infer the type of the data
+  const onSubmit = (data: LoginUserData) => {
+    const sanitizeData = {
+      email: dompurify.sanitize(data.email) as string,
+      password: dompurify.sanitize(data.password) as string,
+    };
+    loginUser(sanitizeData);
   };
 
   useEffect(() => {
     if (isSuccess && !loading) {
       navigate('/');
     }
-  }, [isSuccess, loading, setIsAuth]);
+  }, [isSuccess, loading]);
 
   return (
     <Page>
@@ -98,7 +103,9 @@ function Login() {
               isLoading={loading}
               type="submit"
             />
-            <ErrorContainer errorValue={(error as any)?.response?.data.error} />
+            <ErrorContainer
+              errorValue={(error as any)?.response?.data.error} //eslint-disable-line
+            />
           </form>
         </div>
         <p className="text-xs py-2">

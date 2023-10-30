@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-import logger from '../helpers/logger.js';
-import Cache from '../utils/cache.js';
+import logger from '../helpers/logger';
+import Cache from '../utils/cache';
 
 // paramsKey should be used with pamameters in the route
 export default (key: string, paramsKey?: string) => async (
@@ -15,7 +15,7 @@ export default (key: string, paramsKey?: string) => async (
     const cacheValue = await Cache.get(cacheKeyRef);
     req.body.cacheKey = cacheKeyRef;
     if (req.method === 'GET' && cacheValue) {
-      return res.status(200).json({ message: 'cached data', data: cacheValue });
+      return res.status(200).json({ message: 'cached data', cacheValue });
     }
     return next();
   } catch (error) {

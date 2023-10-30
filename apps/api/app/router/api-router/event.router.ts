@@ -5,6 +5,7 @@ import validate from '../../middleware/schema-validator';
 import schemas from 'schema';
 import { canals } from '../../@types/types';
 
+
 const { createEventSchema, updateEventSchema } =
   schemas;
 

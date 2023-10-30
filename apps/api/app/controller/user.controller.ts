@@ -9,7 +9,6 @@ import AuthorizationError from '../helpers/errors/unauthorized.error';
 
 export default {
   getMe: async (req: Request, res: Response) => {
-    console.log('count getMe is called');
     const { decoded } = req.body;
     const userId = decoded.user_id;
     const userProfile = await Profile.findByUserId(userId);

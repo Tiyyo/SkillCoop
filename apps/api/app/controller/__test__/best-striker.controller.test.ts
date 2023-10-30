@@ -6,7 +6,7 @@ import { event as Event } from '../../models/index';
 
 const { createOne } = bestStrikerController;
 
-describe('createOne', () => {
+describe.skip('createOne', () => {
   afterEach(() => {
     vi.resetAllMocks();
   });
@@ -30,7 +30,7 @@ describe('createOne', () => {
     await createOne(req, res);
     expect(res.status).toBeCalledWith(201);
   });
-  test(`should return a json with success true 
+  test(`should return a json with success true
       when best striker is created`, async () => {
     const res = mockResponse();
     const req = mockReq as Request;

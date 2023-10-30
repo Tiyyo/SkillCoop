@@ -191,6 +191,7 @@ async function computeRatingUser(profileId: number) {
     const bonusNumerator = (userHaveBonus && valueBonus * nbBonus) || 0;
     const numerator =
       userEvalNumerator + receivedEvalNumerator + bonusNumerator;
+
     // Denominator
     const userEvalDenomiator = (userHasEvaluateHimself && WEIGHT_OWN_EVAL) || 0;
     const receivedEvalDenominator =

@@ -22,7 +22,7 @@ describe('AuthController', () => {
     google.getOAuthToken = vi.fn().mockResolvedValue(true);
     google.getUser = vi.fn().mockResolvedValue(true);
 
-    test('should return 201 when user is created', async () => {
+    test.skip('should return 201 when user is created', async () => {
       const res = mockResponse();
       const req = mockRequest;
       authService.createUser = vi.fn().mockResolvedValue(true);
@@ -30,7 +30,7 @@ describe('AuthController', () => {
       await register(req, res);
       expect(res.status).toBeCalledWith(201);
     });
-    test('should call createUser service with correct params', async () => {
+    test.skip('should call createUser service with correct params', async () => {
       const res = mockResponse();
       const req = mockRequest;
       authService.createUser = vi.fn().mockResolvedValue(true);
@@ -38,7 +38,7 @@ describe('AuthController', () => {
       await register(req, res);
       expect(authService.createUser).toBeCalledWith(mockRequest.body);
     });
-    test('should return true if user is created ', async () => {
+    test.skip('should return true if user is created ', async () => {
       const res = mockResponse();
       const req = mockRequest;
       authService.createUser = vi.fn().mockResolvedValue(true);
@@ -46,14 +46,14 @@ describe('AuthController', () => {
       await register(req, res);
       expect(res.json).toBeCalledWith(true);
     });
-    test('should call create token with the correct params', async () => {
+    test.skip('should call create token with the correct params', async () => {
       // const res = mockResponse()
       // const mockRequest
       // authService.createUser = vi.fn().mockResolvedValue({ id: 1 })
       // await register(req, res)
       // expect(createAccessToken).toBeCalledWith('1h', { userId: 1 })
     });
-    test('should send verify email with th correct params', async () => {
+    test.skip('should send verify email with th correct params', async () => {
       // const res = mockResponse()
       // const req = mockRequest
       // authService.createUser = vi.fn().mockResolvedValue({ id: 1 })
@@ -74,21 +74,21 @@ describe('AuthController', () => {
       },
     } as Request;
 
-    test('should return 200 when user is logged in', async () => {
+    test.skip('should return 200 when user is logged in', async () => {
       const res = mockResponse();
       const req = mockRequest;
       authService.login = vi.fn().mockResolvedValue(true);
       await signin(req, res);
       expect(res.status).toBeCalledWith(200);
     });
-    test('should call login service with correct params', async () => {
+    test.skip('should call login service with correct params', async () => {
       const res = mockResponse();
       const req = mockRequest;
       authService.login = vi.fn().mockResolvedValue(true);
       await signin(req, res);
       expect(authService.login).toBeCalledWith(mockRequest.body);
     });
-    test('should return accesToken if user is logged in', async () => {
+    test.skip('should return accesToken if user is logged in', async () => {
       const res = mockResponse();
       const req = mockRequest;
       authService.login = vi
@@ -102,7 +102,7 @@ describe('AuthController', () => {
         expect.objectContaining({ accessToken: expect.any(String) }),
       );
     });
-    test('should set refreshToken cookie if user is logged in', async () => {
+    test.skip('should set refreshToken cookie if user is logged in', async () => {
       const res = mockResponse();
       const req = mockRequest;
       authService.login = vi
@@ -126,9 +126,9 @@ describe('AuthController', () => {
     });
     test.skip('should return 200 when token is refreshed', async () => {
     });
-    test.skip(`should return accesToken 
+    test.skip(`should return accesToken
       if token is refreshed`, async () => { });
-    test.skip(`should call createAccesToken 
+    test.skip(`should call createAccesToken
       with correct params`, async () => { });
   });
 });

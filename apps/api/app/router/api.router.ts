@@ -4,7 +4,6 @@ import eventRouter from './api-router/event.router';
 import friendlistRouter from './api-router/friendslist.router';
 import profileOnEventRouter from './api-router/profile-on-event.router';
 import skilFootRouter from './api-router/skill-foot.router';
-import statusRouter from './api-router/status.router';
 import userRouter from './api-router/user.router';
 import scoreRouter from './api-router/score.router';
 import mvpRouter from './api-router/mvp.router';
@@ -20,7 +19,6 @@ router.use('/friends', friendlistRouter);
 router.use('/profile_on_event', profileOnEventRouter);
 router.use('/skill_foot', skilFootRouter);
 router.use('/score', scoreRouter);
-router.use('/status', statusRouter);
 router.use('/mvp', mvpRouter);
 router.use('/best_striker', bestStrikerRouter);
 

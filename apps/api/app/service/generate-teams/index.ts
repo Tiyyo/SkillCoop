@@ -1,7 +1,7 @@
 import getCompleteEventInfos from '../../models/teams';
 import { Player, TeamGeneratorConfig } from '../../@types/types';
 import { profileOnEvent as ProfileOnEvent } from '../../models/index';
-import condition from './condition';
+import condition, { Conditions } from './condition';
 
 export function assignTeam(position: number): number {
   const TEAM_1 = 1;
@@ -40,7 +40,7 @@ export function divideInTeam(config: TeamGeneratorConfig) {
   const maxIndex = getMaxIndex(config.values);
   const player = getPlayerObject(maxIndex, config.ids, config.values);
 
-  useRigthCondition(config, player, valueTeam1, valueTeam2) // eslint-disable-line
+  useRigthCondition(config, player, valueTeam1, valueTeam2, condition) // eslint-disable-line
     ? config.team1.push(player)
     : config.team2.push(player);
 
@@ -57,14 +57,16 @@ export function useRigthCondition(
   player: Player,
   valueTeam1: number,
   valueTeam2: number,
+  conditions: Conditions
 ): boolean {
   if (config.participants === config.ids.length) {
-    return condition.random();
+    return conditions.random();
   }
   if (player.gb_rating === 0) {
-    return condition.ifZero(config.team1.length, config.team2.length);
+    return conditions.ifZero(config.team1.length, config.team2.length);
   }
-  return condition.regular(valueTeam1, valueTeam2);
+  console.log(conditions);
+  return conditions.regular(valueTeam1, valueTeam2);
 }
 
 export function deleteFromArrayAfterPush(

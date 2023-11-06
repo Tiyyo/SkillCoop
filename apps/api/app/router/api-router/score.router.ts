@@ -3,8 +3,8 @@ import factory from '../../middleware/wrapper-controller';
 import scoreController from '../../controller/score.controller';
 import validate from '../../middleware/schema-validator';
 import { canals } from '../../@types/types';
-import schema from 'schema';
-const { saveScoreSchema } = schema;
+import { saveScoreSchema } from 'schema';
+
 
 const { createOne } = scoreController;
 

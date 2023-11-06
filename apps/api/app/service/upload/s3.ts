@@ -50,7 +50,9 @@ export async function uploadImageToBucket(
   const command = new PutObjectCommand(params);
 
   await s3.send(command).catch((err) => {
-    throw new ServerError('Upload to bucket has failed : ' + err.message);
+    if (err instanceof Error) {
+      throw new ServerError('Upload to bucket has failed : ' + err.message);
+    }
   });
 
   const getObjectParams = {

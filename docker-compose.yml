@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  api:
+    container_name: skillcoop_api
+    build:
+      context: .
+      dockerfile: ./apps/api/Dockerfile
+    restart: always
+    env_file:
+      - ./apps/api/.env
+    volumes:
+      - ./apps/api/prisma:/app/prisma/
+    ports:
+      - 8082:8082
+  web:
+    container_name: skillcoop_client
+    build:
+      context: .
+      dockerfile: ./apps/client/Dockerfile
+    restart: always
+    env_file:
+      - ./apps/client/.env
+    ports:
+      - 5004:5004

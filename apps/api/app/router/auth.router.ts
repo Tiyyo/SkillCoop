@@ -3,7 +3,7 @@ import factory from '../middleware/wrapper-controller';
 import authController from '../controller/auth.controller';
 import validate from '../middleware/schema-validator';
 import { canals } from '../@types/types';
-import schema from 'schema';
+import { registerSchema, loginSchema, emailSchema } from 'schema';
 import tokenHandler from '../helpers/token.handler';
 
 const {
@@ -15,7 +15,6 @@ const {
   verifyEmail,
   resendEmail,
 } = authController;
-const { registerSchema, loginSchema, emailSchema } = schema;
 
 const router: Router = express.Router();
 

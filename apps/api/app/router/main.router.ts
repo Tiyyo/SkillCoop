@@ -6,6 +6,7 @@ import apiRouter from './api.router';
 import tokenHandler from '../helpers/token.handler';
 import factory from '../middleware/wrapper-controller';
 import userController from '../controller/user.controller';
+import logger from '../helpers/logger';
 
 const { getMe } = userController;
 const router: Router = express.Router();
@@ -23,6 +24,7 @@ router.use('/api',
 router.use('/auth', authRouter);
 
 router.use((_req, _res, next) => {
+  logger.info('404');
   next(new NotFoundError("Request couldn't match any routes"));
 });
 

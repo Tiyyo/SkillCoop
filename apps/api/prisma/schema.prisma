@@ -3,13 +3,13 @@
 
 generator client {
   provider = "prisma-kysely"
-  output   = "../src/db"
-  fileName = "types.ts"
+  output   = "../app/@types"
+  fileName = "database.ts"
 }
 
 datasource db {
   provider = "sqlite"
-  url      = "file:./dev.db"
+  url      = "file:./sqlite.db"
 }
 
 model user {

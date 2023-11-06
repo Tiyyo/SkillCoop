@@ -3,9 +3,7 @@ import factory from '../../middleware/wrapper-controller';
 import friendsList from '../../controller/friendslist.controller';
 import validate from '../../middleware/schema-validator';
 import { canals } from '../../@types/types';
-import schema from 'schema';
-const { searchFriendsSchema, createInvitationSchema, updateFriendshipSchema } =
-  schema;
+import { searchFriendsSchema, createInvitationSchema, updateFriendshipSchema } from 'schema';
 
 const {
   getFriends,

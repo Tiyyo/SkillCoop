@@ -3,13 +3,13 @@ import { sql } from 'kysely';
 import type { EventType } from '../@types/types';
 import DatabaseError from '../helpers/errors/database.error';
 import getDateUTC from '../utils/get-date-utc';
-import { DBClientType } from '../@types/types.database';
+// import { DBClientType } from '../@types/types.database';
 
 
 export class Event extends Core {
   tableName: string = 'event';
-
-  constructor(client: DBClientType) {
+  //@ts-ignore
+  constructor(client) {
     super(client);
   }
   async getEventById(eventId: number, profileId: number) {

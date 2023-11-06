@@ -1,6 +1,8 @@
 import qs from 'qs';
 import axios from 'axios';
 import ServerError from '../../helpers/errors/server.error';
+// TODO replace axios by fetch when avaiable in LTS
+
 
 interface GoogleOAuthToken {
   access_token: string;

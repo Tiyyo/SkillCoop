@@ -6,9 +6,9 @@ import getDateUTC from "../utils/get-date-utc";
 
 export class Core {
   // Default value to satisfie typescript
-  tableName: string = ''
+  tableName: string = '';
 
-  client
+  client;
 
   constructor(client: any) { // eslint-disable-line
     this.client = client;

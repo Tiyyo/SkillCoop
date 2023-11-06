@@ -3,8 +3,7 @@ import factory from '../../middleware/wrapper-controller';
 import bestStrikerController from '../../controller/best-striker.controller';
 import validate from '../../middleware/schema-validator';
 import { canals } from '../../@types/types';
-import schema from 'schema';
-const { voteSchema } = schema;
+import { voteSchema } from 'schema';
 
 const { createOne } = bestStrikerController;
 

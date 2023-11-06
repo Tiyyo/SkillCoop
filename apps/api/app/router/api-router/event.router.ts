@@ -2,12 +2,8 @@ import express, { Router } from 'express';
 import factory from '../../middleware/wrapper-controller';
 import eventController from '../../controller/event.controller';
 import validate from '../../middleware/schema-validator';
-import schemas from 'schema';
+import { createEventSchema, updateEventSchema } from 'schema';
 import { canals } from '../../@types/types';
-
-
-const { createEventSchema, updateEventSchema } =
-  schemas;
 
 const {
   getOrganizerEvents,

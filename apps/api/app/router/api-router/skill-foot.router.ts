@@ -3,8 +3,7 @@ import factory from '../../middleware/wrapper-controller';
 import skillFootController from '../../controller/skill-foot.controller';
 import validate from '../../middleware/schema-validator';
 import { canals } from '../../@types/types';
-import schema from 'schema';
-const { ownSkillSchema, participantSkillSchema } = schema;
+import { ownSkillSchema, participantSkillSchema } from 'schema';
 
 const { getProfileEvalByEvent, getProfileEval, createOwnRating, createRating } =
   skillFootController;

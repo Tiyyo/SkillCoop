@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
-import schema from 'schema';
+import { ZodError } from 'schema';
 import ServerError from '../helpers/errors/server.error';
 import ValidationError from '../helpers/errors/validation.error';
 import type { ZodType, ZodTypeDef } from 'schema';
-const { ZodError } = schema;
+
 
 export default (
   schema: ZodType<any, ZodTypeDef, any>, //eslint-disable-line

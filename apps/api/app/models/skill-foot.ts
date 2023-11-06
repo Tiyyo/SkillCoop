@@ -1,13 +1,13 @@
-import { DBClientType } from '../@types/types.database';
+// import { DBClientType } from '../@types/types.database';
 import DatabaseError from '../helpers/errors/database.error';
 import NotFoundError from '../helpers/errors/not-found.error';
 import computeGbRating from '../utils/compute-gb-rating';
 import { Core } from './core';
 
 export class SkillFoot extends Core {
-  tableName: string = 'skill_foot'
-
-  constructor(client: DBClientType) {
+  tableName: string = 'skill_foot';
+  //@ts-ignore
+  constructor(client) {
     super(client);
   }
   async find(id: number) {

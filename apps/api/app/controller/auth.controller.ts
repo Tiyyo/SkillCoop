@@ -64,14 +64,7 @@ export default {
       //   maxAge: MAX_AGE,
       // });
       // testing cookie
-      res.cookie('refreshToken', refreshToken, {
-        httpOnly: true,
-        sameSite: 'none',
-        secure: false,
-        maxAge: MAX_AGE,
-        domain: HOST,
-        path: '/'
-      });
+      res.cookie('refreshToken', refreshToken);
 
       res.status(200).json({ accessToken });
     } catch (error: unknown) {

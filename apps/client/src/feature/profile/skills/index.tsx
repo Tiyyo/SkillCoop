@@ -5,7 +5,7 @@ import TitleH2 from '../../../component/title-h2';
 import { useApp } from '../../../store/app.store';
 import FieldsetRadioInput from './fieldset-radio.input';
 import { evaluateOwnSkillsFn, getProfileEvalFn } from '../../../api/api.fn';
-import type { ownSkillSchema } from 'schema';
+import { ownSkillSchema } from 'schema';
 import Button from '../../../component/button';
 import { EvaluationOwnSkill } from '../../../types';
 import { useEffect, useId, useState } from 'react';

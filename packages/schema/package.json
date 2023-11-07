@@ -1,7 +1,8 @@
 {
   "name": "schema",
   "version": "1.0.0",
-  "main": "./index.js",
+  "main": "dist/index.js",
+  "module": "ts-schema/index.ts",
   "scripts": {
     "build": "tsc"
   },
@@ -10,13 +11,6 @@
   "license": "ISC",
   "dependencies": {
     "zod": "^3.22.4"
-  },
-  "exports": {
-    ".": {
-      "import": "./index.js",
-      "require": "./index.js",
-      "types": "./index.d.ts"
-    }
   },
   "devDependencies": {
     "@types/node": "^20.8.10",

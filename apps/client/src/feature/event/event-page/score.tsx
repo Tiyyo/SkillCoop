@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import { saveScoreFn, updateEventFn } from '../../../api/api.fn';
-import type { saveScoreSchema } from 'schema';
+import { saveScoreSchema } from 'schema';
 import Button from '../../../component/button';
 import { useApp } from '../../../store/app.store';
 

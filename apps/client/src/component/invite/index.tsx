@@ -14,7 +14,7 @@ import Button from '../button';
 import { useEvent } from '../../store/event.store';
 import SwitchMutateOrUpdate from './index.switch';
 import { useLocation, useNavigate } from 'react-router-dom';
-import type { inviteParticipantSchema } from 'schema';
+import { inviteParticipantSchema } from 'schema';
 import toast from '../../utils/toast';
 
 interface InviteProps {

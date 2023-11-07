@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { updateParticipantFn } from '../../../api/api.fn';
 import { InvitationStatus, invitationStatus } from '../../../types';
-import type { updateParticipantSchema } from 'schema';
+import { updateParticipantSchema } from 'schema';
 import toast from '../../../utils/toast';
 
 interface CallToActionInvitationProps {

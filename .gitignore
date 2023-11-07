@@ -18,6 +18,9 @@ logs
 out/
 build
 
+#db
+*.db
+sqlite.db
 
 # misc
 .DS_Store

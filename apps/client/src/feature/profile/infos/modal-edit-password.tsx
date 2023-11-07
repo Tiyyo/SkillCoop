@@ -3,7 +3,7 @@ import FormField from '../../../component/form-field';
 import { Dialog, DialogContent, DialogTrigger } from '../../../lib/ui/dialog';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import type { passwordUpdateSchema } from 'schema';
+import { passwordUpdateSchema } from 'schema';
 import { useMutation } from '@tanstack/react-query';
 import { updatePasswordFn } from '../../../api/api.fn';
 import { useApp } from '../../../store/app.store';

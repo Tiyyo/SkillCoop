@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { Infos } from './resume-profile';
 import dateHandler from '../../../utils/date.handler';
 import { zodResolver } from '@hookform/resolvers/zod';
-import type { editProfileInfosSchema } from 'schema';
+import { editProfileInfosSchema } from 'schema';
 import { useMutation } from '@tanstack/react-query';
 import { updateProfileInfoFn } from '../../../api/api.fn';
 import Button from '../../../component/button';

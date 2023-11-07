@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { loginUserFn } from '../../api/api.fn';
 // Workaround : Import type to resolve error with rollup plugin
-import type { loginSchema } from 'schema';
+import { loginSchema } from 'schema';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import getGoogleUrl from '../../utils/get-google-url';

@@ -8,9 +8,6 @@ import { useEffect } from 'react';
 import { SERVER_URL } from '../../utils/server';
 
 function HomePage() {
-  const checkLocalHost = () => {
-    console.log('windows location :' + window.location.href);
-  };
   const fetchToLocalHost = async () => {
     const res = await fetch('http://localhost:8082/check');
     const data = await res.json();
@@ -30,13 +27,12 @@ function HomePage() {
     const res = await fetch(SERVER_URL + '/check');
     const data = await res.json();
     console.log(
-      'Heal check server url from environement:',
+      'Health check server url from environement:',
       data.message ?? 'NOT OK'
     );
   };
 
   useEffect(() => {
-    checkLocalHost();
     fetchToLocalHost();
     fetchWithoutHost();
     fetchServerUrl();

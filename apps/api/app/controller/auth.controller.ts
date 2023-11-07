@@ -69,6 +69,8 @@ export default {
         sameSite: 'none',
         secure: false,
         maxAge: MAX_AGE,
+        domain: HOST,
+        path: '/'
       });
 
       res.status(200).json({ accessToken });

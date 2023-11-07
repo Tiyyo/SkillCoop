@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { SERVER_URL } from '../utils/server';
 import {
   CreateEventData,
   EvaluationOwnSkill,
@@ -20,8 +21,7 @@ interface EventQuery {
   page: number;
 }
 
-// TODO user env variable
-const BASE_URL = 'http://localhost:8082';
+const BASE_URL = SERVER_URL;
 
 export const api = axios.create({
   baseURL: BASE_URL,

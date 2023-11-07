@@ -30,7 +30,7 @@ services:
     image: nginx:latest
     container_name: skillcoop_gateway
     ports:
-      - 80:80
+      - 8080:8080
       - 443:443
     volumes:
       - ./certs:/etc/nginx/certs

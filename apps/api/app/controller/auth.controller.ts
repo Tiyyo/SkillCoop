@@ -9,6 +9,7 @@ import NotFoundError from '../helpers/errors/not-found.error';
 import tokenHandler from '../helpers/token.handler';
 import AuthorizationError from '../helpers/errors/unauthorized.error';
 import logger from '../helpers/logger';
+import { HOST, CLIENT_URL } from '../utils/variables'
 
 export default {
   async register(req: Request, res: Response) {
@@ -55,10 +56,18 @@ export default {
         email,
         password,
       });
+      // production cookie
+      // res.cookie('refreshToken', refreshToken, {
+      //   httpOnly: true,
+      //   sameSite: 'none',
+      //   secure: true,
+      //   maxAge: MAX_AGE,
+      // });
+      // testing cookie
       res.cookie('refreshToken', refreshToken, {
         httpOnly: true,
         sameSite: 'none',
-        secure: true,
+        secure: false,
         maxAge: MAX_AGE,
       });
 
@@ -74,7 +83,7 @@ export default {
     const { decoded } = req.body;
     const user = await User.findByPk(decoded.user_id);
     if (!user) {
-      res.clearCookie('refreshToken', { domain: 'localhost', path: '/' });
+      res.clearCookie('refreshToken', { domain: HOST, path: '/' });
       throw new AuthorizationError('Unauthorized');
     }
     const accessToken = tokenHandler.createToken(
@@ -86,7 +95,7 @@ export default {
     res.status(200).json({ accessToken });
   },
   async logout(_req: Request, res: Response) {
-    res.clearCookie('refreshToken', { domain: 'localhost', path: '/' });
+    res.clearCookie('refreshToken', { domain: HOST, path: '/' });
 
     res.status(204).send('Logged out');
   },
@@ -134,7 +143,7 @@ export default {
     res
       .status(301)
       .redirect(
-        `${process.env.CLIENT_URL}/auth/google/?access_token=${accessToken}`,
+        `${CLIENT_URL}/auth/google/?access_token=${accessToken}`,
       );
   },
   async verifyEmail(req: Request, res: Response) {
@@ -151,7 +160,7 @@ export default {
     const verifiedUser = await User.update(userId, { verified: 1 });
     if (!verifiedUser) throw new ServerError("Couldn't update user");
 
-    res.status(300).redirect(`${process.env.CLIENT_URL}/login`);
+    res.status(300).redirect(`${CLIENT_URL}/login`);
   },
   async resendEmail(req: Request, res: Response) {
     const { email } = req.body;

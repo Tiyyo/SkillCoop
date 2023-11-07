@@ -32,7 +32,7 @@ export default {
       code,
       client_id: process.env.GOOGLE_CLIENT_ID,
       client_secret: process.env.GOOGLE_CLIENT_SECRET,
-      redirect_uri: process.env.GOOGLE_CALLBACK_URL,
+      redirect_uri: process.env.API_URL + "/auth/google/callback",
       grant_type: 'authorization_code',
     };
     try {

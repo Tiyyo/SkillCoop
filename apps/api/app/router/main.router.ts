@@ -18,6 +18,10 @@ router
   .route('/api/user/me')
   .get(tokenHandler.validate('access'), factory(getMe));
 
+router.route('/check').get((_req, res) => {
+  res.status(200).json({ message: 'OK' });
+});
+
 router.use('/api',
   tokenHandler.validateInfosTokens(),
   apiRouter);

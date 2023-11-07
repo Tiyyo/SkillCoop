@@ -4,8 +4,43 @@ import Insta from '../../assets/icon/Insta';
 import Xtwitter from '../../assets/icon/Xtwitter';
 import './homepage.css';
 import Center from '../../layout/center';
+import { useEffect } from 'react';
+import { SERVER_URL } from '../../utils/server';
 
 function HomePage() {
+  const checkLocalHost = () => {
+    console.log('windows location :' + window.location.href);
+  };
+  const fetchToLocalHost = async () => {
+    const res = await fetch('http://localhost:8082/check');
+    const data = await res.json();
+    console.log(
+      'Health check message from localhost :',
+      data.message ?? 'NOT OK'
+    );
+  };
+
+  const fetchWithoutHost = async () => {
+    const res = await fetch('/check');
+    const data = await res.json();
+    console.log('Health check without :', data.message ?? 'NOT OK');
+  };
+
+  const fetchServerUrl = async () => {
+    const res = await fetch(SERVER_URL + '/check');
+    const data = await res.json();
+    console.log(
+      'Heal check server url from environement:',
+      data.message ?? 'NOT OK'
+    );
+  };
+
+  useEffect(() => {
+    checkLocalHost();
+    fetchToLocalHost();
+    fetchWithoutHost();
+    fetchServerUrl();
+  }, []);
   return (
     <Center>
       <div className="homepage"></div>

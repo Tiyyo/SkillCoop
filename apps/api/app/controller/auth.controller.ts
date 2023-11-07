@@ -64,7 +64,9 @@ export default {
       //   maxAge: MAX_AGE,
       // });
       // testing cookie
-      res.cookie('refreshToken', refreshToken);
+      console.log("host where cookies goes", HOST);
+      console.log("client url", CLIENT_URL);
+      res.cookie('refreshToken', refreshToken, { domain: "http://13.37.229.142:5004/", path: '/', maxAge: MAX_AGE, sameSite: 'none' });
 
       res.status(200).json({ accessToken });
     } catch (error: unknown) {

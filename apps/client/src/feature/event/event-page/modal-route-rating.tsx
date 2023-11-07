@@ -13,7 +13,7 @@ import { useApp } from '../../../store/app.store';
 import capitalize from '../../../utils/capitalize';
 import associateNumberToString from '../../../utils/associate-number-stringscale';
 import { useNavigate, useParams } from 'react-router-dom';
-import { participantSkillSchema } from 'schema';
+import { participantSkillSchema } from 'schema/ts-schema';
 import { EvaluationParticipantSkill } from '../../../types';
 import { cn } from '../../../lib/utils';
 

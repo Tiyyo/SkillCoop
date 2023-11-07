@@ -3,7 +3,7 @@ import { signUpUserFn } from '../../api/api.fn';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import type { registerSchema } from 'schema';
+import { registerSchema } from 'schema/ts-schema';
 import Page from '../../layout/page';
 import Center from '../../layout/center';
 import SocialButton from '../../component/social-link';

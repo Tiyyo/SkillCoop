@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import FormField from '../../../component/form-field';
 import EditModalPassword from './modal-edit-password';
 import { SendIcon } from 'lucide-react';
-import { emailSchema } from 'schema';
+import { emailSchema } from 'schema/ts-schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import { updateEmailFn } from '../../../api/api.fn';

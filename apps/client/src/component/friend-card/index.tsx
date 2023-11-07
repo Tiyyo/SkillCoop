@@ -4,7 +4,7 @@ import defaultAvatar from '../../../public/images/default-avatar.png';
 import { acceptOrDeclinedFriendRequestFn } from '../../api/api.fn';
 import OctogoneCross from '../../assets/icon/OctogoneCross';
 import Check from '../../assets/icon/Check';
-import { updateFriendshipSchema } from 'schema';
+import { updateFriendshipSchema } from 'schema/ts-schema';
 import { useFriends } from '../../store/friend.store';
 import { EventType, invitationStatus } from '../../types';
 import { Link } from 'react-router-dom';

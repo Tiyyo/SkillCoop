@@ -7,12 +7,7 @@
       "zod"
     ],
     "outDir": "./dist",
-    "rootDir": "dist/ts-schema",
+    "rootDir": "./ts-schema",
     "composite": true
   },
-  "include": [
-    "**/*.ts",
-    "**/*.d.ts",
-    "dist/ts-schema/**/*.ts"
-  ],
 }

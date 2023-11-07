@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import defaultAvatar from '../../../public/images/default-avatar.png';
 import { sendFriendRequestFn } from '../../api/api.fn';
-import { createInvitationSchema } from 'schema';
+import { createInvitationSchema } from 'schema/ts-schema';
 import { useFriends } from '../../store/friend.store';
 import toast from '../../utils/toast';
 import associateNumberToString from '../../utils/associate-number-stringscale';

@@ -1,6 +1,6 @@
 import Button from '../../../component/button';
 import { useEffect, useRef, useState } from 'react';
-import { createEventSchema } from 'schema';
+import { createEventSchema } from 'schema/ts-schema';
 import type { CreateEventData } from '../../../types';
 import Input from '../../../component/input';
 import SelectInput from '../../../component/select';

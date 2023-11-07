@@ -15,7 +15,7 @@ app.use(accesHttp);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(cors({ credentials: true, origin: "http://13.37.229.142:5004" }));
+app.use(cors({ credentials: true, origin: ["http://13.37.229.142:5004", "http://localhost:5004"] }));
 app.use(router);
 
 export default app;

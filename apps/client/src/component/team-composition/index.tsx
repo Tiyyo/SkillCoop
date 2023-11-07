@@ -3,7 +3,7 @@ import Team from './index.team';
 import Button from '../button';
 import { EventParticipant } from '../../types';
 import { UseMutateFunction } from '@tanstack/react-query';
-import { voteSchema } from 'schema';
+import { voteSchema } from 'schema/ts-schema';
 
 interface TeamCompositionProps {
   participants: EventParticipant[] | string;

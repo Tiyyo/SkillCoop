@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 // app.use(cors({ credentials: true, origin: ["http://13.37.229.142:5004", "http://localhost:5004"] }));
 // accept all origins for testing purpose
-app.use(cors({ credentials: true, origin: ["http://localhost:5004", " http://13.36.166.35:5004", "https://654b87516e1db116439bc4be--vermillion-torrone-9e95be.netlify.app"] }));
+app.use(cors({ credentials: true, origin: ["http://localhost:5004", " http://13.36.166.35:5004", process.env.CLIENT_PROD_URL as string] }));
 app.use(router);
 
 export default app;

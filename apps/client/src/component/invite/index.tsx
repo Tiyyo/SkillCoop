@@ -64,7 +64,8 @@ function Invite({ variant = 'update' }: InviteProps) {
   } = useQuery({
     queryKey: ['searchFriends'],
     queryFn: ({ signal }) => {
-      if (searchFriendQuery.profile === 0) return;
+      if (searchFriendQuery.profile === 0 || !searchFriendQuery.username)
+        return;
       return searchFriendsFn(searchFriendQuery, signal);
     },
     enabled: false,
@@ -138,7 +139,7 @@ function Invite({ variant = 'update' }: InviteProps) {
     <>
       <ReturnBtn />
       <TitleH2 value="Invite your friends" />
-      <div className="px-4">
+      <div className="px-4 h-[65vh]">
         <SearchInput
           getFocusState={getFocusInputSearchState}
           onChange={getSearchValue}

@@ -28,26 +28,30 @@ function SwitchMutateOrUpdate({
 
   if (variant === 'mutate') {
     return (
-      <FriendCards
-        data={data}
-        //@ts-ignore
-        dataFromState={event}
-        addFriendToState={addToEvent}
-        removeFriendsToState={removeFromEvent}
-        loading={loading}
-      />
+      <div className="overflow-scroll">
+        <FriendCards
+          data={data}
+          //@ts-ignore
+          dataFromState={event}
+          addFriendToState={addToEvent}
+          removeFriendsToState={removeFromEvent}
+          loading={loading}
+        />
+      </div>
     );
   }
   if (variant === 'update') {
     return (
-      <FriendCards
-        data={data}
-        //@ts-ignore
-        dataFromState={createdEvent}
-        addFriendToState={addToCreateEvent}
-        removeFriendsToState={removeFromCreateEvent}
-        loading={loading}
-      />
+      <div className="overflow-scroll">
+        <FriendCards
+          data={data}
+          //@ts-ignore
+          dataFromState={createdEvent}
+          addFriendToState={addToCreateEvent}
+          removeFriendsToState={removeFromCreateEvent}
+          loading={loading}
+        />
+      </div>
     );
   }
 }

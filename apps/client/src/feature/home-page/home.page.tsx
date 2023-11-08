@@ -8,21 +8,6 @@ import { useEffect } from 'react';
 import { SERVER_URL } from '../../utils/server';
 
 function HomePage() {
-  const fetchToLocalHost = async () => {
-    const res = await fetch('http://localhost:8082/check');
-    const data = await res.json();
-    console.log(
-      'Health check message from localhost :',
-      data.message ?? 'NOT OK'
-    );
-  };
-
-  const fetchWithoutHost = async () => {
-    const res = await fetch('/check');
-    const data = await res.json();
-    console.log('Health check without :', data.message ?? 'NOT OK');
-  };
-
   const fetchServerUrl = async () => {
     const res = await fetch(SERVER_URL + '/check');
     const data = await res.json();
@@ -33,8 +18,6 @@ function HomePage() {
   };
 
   useEffect(() => {
-    fetchToLocalHost();
-    fetchWithoutHost();
     fetchServerUrl();
   }, []);
   return (

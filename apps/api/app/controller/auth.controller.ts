@@ -80,7 +80,7 @@ export default {
     const { decoded } = req.body;
     const user = await User.findByPk(decoded.user_id);
     if (!user) {
-      res.clearCookie('refreshToken', { domain: process.env.HOST, path: '/' });
+      res.clearCookie('refreshToken', { sameSite: 'none', secure: true });
       throw new AuthorizationError('Unauthorized');
     }
     const accessToken = tokenHandler.createToken(
@@ -92,7 +92,7 @@ export default {
     res.status(200).json({ accessToken });
   },
   async logout(_req: Request, res: Response) {
-    res.clearCookie('refreshToken');
+    res.clearCookie('refreshToken', { sameSite: 'none', secure: true });
 
     res.status(204).send('Logged out');
   },

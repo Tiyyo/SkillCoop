@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
 import AuthorizationError from './errors/unauthorized.error';
 import { ObjectRecordGeneric } from '../@types/types';
+import logger from './logger';
 const { sign, verify } = jwt;
 
 const tokenHandler = {
@@ -48,17 +49,17 @@ const tokenHandler = {
     return payload;
   },
   validate: function (tokenType: 'email' | 'refresh' | 'access') {
-    const getToken = this.getToken;
-    const validateToken = this.validateToken;
     let errMessage = 'Unauthorized';
     if (tokenType === 'access') {
       errMessage = 'No access';
     }
     return async function (req: Request, _res: Response, next: NextFunction) {
-      const token = getToken(req, tokenType);
+      logger.info('header request :' + req.headers)
+      console.log('header request :' + req.headers)
+      const token = tokenHandler.getToken(req, tokenType);
       if (!token) return next(new AuthorizationError(errMessage));
       try {
-        const payload = validateToken(token, tokenType);
+        const payload = tokenHandler.validateToken(token, tokenType);
         if (!payload) throw new Error('No payload');
         req.body.decoded = payload;
         next();

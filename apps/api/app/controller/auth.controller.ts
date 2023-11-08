@@ -57,16 +57,16 @@ export default {
         password,
       });
       // production cookie
-      // res.cookie('refreshToken', refreshToken, {
-      //   httpOnly: true,
-      //   sameSite: 'none',
-      //   secure: true,
-      //   maxAge: MAX_AGE,
-      // });
-      // testing cookie
-      console.log("host where cookies goes", HOST);
-      console.log("client url", CLIENT_URL);
-      res.cookie('refreshToken', refreshToken, { domain: HOST, path: '/', maxAge: MAX_AGE, sameSite: 'none', secure: true });
+      res.cookie('refreshToken', refreshToken, {
+        httpOnly: true,
+        sameSite: 'none',
+        secure: true,
+        maxAge: MAX_AGE,
+      });
+      // // testing cookie
+      // console.log("host where cookies goes", HOST);
+      // console.log("client url", CLIENT_URL);
+      // res.cookie('refreshToken', refreshToken, { domain: HOST, path: '/', maxAge: MAX_AGE, sameSite: 'none', secure: true });
 
       res.status(200).json({ accessToken });
     } catch (error: unknown) {

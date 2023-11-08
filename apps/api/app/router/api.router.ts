@@ -8,9 +8,11 @@ import userRouter from './api-router/user.router';
 import scoreRouter from './api-router/score.router';
 import mvpRouter from './api-router/mvp.router';
 import bestStrikerRouter from './api-router/best-striker.router';
+import logger from '../helpers/logger';
 
 
 const router: Router = express.Router();
+logger.info('Entry API router')
 
 router.use('/user', userRouter);
 router.use('/profile', profileRouter);

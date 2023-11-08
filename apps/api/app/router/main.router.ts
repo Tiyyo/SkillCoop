@@ -22,10 +22,16 @@ router.route('/check').get((_req, res) => {
   res.status(200).json({ message: 'OK' });
 });
 
+
+
 router.use('/api',
   tokenHandler.validateInfosTokens(),
   apiRouter);
 router.use('/auth', authRouter);
+
+router.route('/').get((_req, res) => {
+  res.status(200).json({ message: 'Server is ok' });
+});
 
 router.use((_req, _res, next) => {
   logger.info('404');

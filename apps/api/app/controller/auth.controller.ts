@@ -9,7 +9,7 @@ import NotFoundError from '../helpers/errors/not-found.error';
 import tokenHandler from '../helpers/token.handler';
 import AuthorizationError from '../helpers/errors/unauthorized.error';
 import logger from '../helpers/logger';
-import { HOST, CLIENT_URL } from '../utils/variables'
+import { CLIENT_URL } from '../utils/variables'
 
 export default {
   async register(req: Request, res: Response) {
@@ -92,7 +92,7 @@ export default {
     res.status(200).json({ accessToken });
   },
   async logout(_req: Request, res: Response) {
-    res.clearCookie('refreshToken', { domain: process.env.HOST, path: '/' });
+    res.clearCookie('refreshToken');
 
     res.status(204).send('Logged out');
   },

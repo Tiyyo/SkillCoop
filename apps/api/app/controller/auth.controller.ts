@@ -66,7 +66,7 @@ export default {
       // testing cookie
       console.log("host where cookies goes", HOST);
       console.log("client url", CLIENT_URL);
-      res.cookie('refreshToken', refreshToken, { domain: "13.37.229.142", path: '/', maxAge: MAX_AGE, sameSite: 'none' });
+      res.cookie('refreshToken', refreshToken, { domain: HOST, path: '/', maxAge: MAX_AGE, sameSite: 'none' });
 
       res.status(200).json({ accessToken });
     } catch (error: unknown) {

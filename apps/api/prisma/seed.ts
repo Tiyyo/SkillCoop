@@ -10,6 +10,7 @@ import { score as Score } from '../app/models/index';
 import { friendslist as Friendlist } from '../app/models/index';
 import { skillFoot as SkillFoot } from '../app/models/index';
 import getDateUTC from '../app/utils/get-date-utc';
+import authService from '../app/service/auth/auth'
 
 
 function getRandomIntInclusive(min: number, max: number): number {
@@ -106,11 +107,11 @@ async function seed() {
   ]
 
   for await (const infos of userToCreateInfos) {
-    const user = await User.createUser({
+    const user = await authService.createUser({
       email: infos.email,
       password: infos.password,
     });
-
+    if (!user) return logger.error('Error while creating user');
     await User.update(user.id, { verified: 1 });
 
     const profile = await Profile.create({

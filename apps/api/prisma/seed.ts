@@ -10,7 +10,7 @@ import { score as Score } from '../app/models/index';
 import { friendslist as Friendlist } from '../app/models/index';
 import { skillFoot as SkillFoot } from '../app/models/index';
 import getDateUTC from '../app/utils/get-date-utc';
-import authService from '../app/service/auth/auth';
+
 
 function getRandomIntInclusive(min: number, max: number): number {
   min = Math.ceil(min);
@@ -46,49 +46,90 @@ async function seed() {
     await Status.create({ name: item.name });
   }
 
+
   // create 1 admin
-  const admin = {
-    email: 'admin@admin.com',
-    password: 'admin',
-  };
+  // const admin = {
+  //   email: 'admin@admin.com',
+  //   password: 'admin',
+  // };
 
-  const createdAdmin = await authService.createUser({
-    email: admin.email,
-    password: admin.password,
-  });
+  // const createdAdmin = await authService.createUser({
+  //   email: admin.email,
+  //   password: admin.password,
+  // });
 
-  if (createdAdmin) {
-    await User.update(createdAdmin.id, { verified: 1 });
-    await Profile.create({ user_id: createdAdmin.id, username: 'admin' });
-  }
+  // if (createdAdmin) {
+  //   await User.update(createdAdmin.id, { verified: 1 });
+  //   await Profile.create({ user_id: createdAdmin.id, username: 'admin' });
+  // }
 
-  const test = {
-    email: 'test@test.com',
-    password: 'test',
-  };
+  // const test = {
+  //   email: 'test@test.com',
+  //   password: 'test',
+  // };
 
-  const createdTest = await authService.createUser({
-    email: test.email,
-    password: test.password,
-  });
-  if (createdTest) {
-    await User.update(createdTest.id, { verified: 1 });
-    await Profile.create({ user_id: createdTest.id, username: 'test' });
-  }
+  // const createdTest = await authService.createUser({
+  //   email: test.email,
+  //   password: test.password,
+  // });
+  // if (createdTest) {
+  //   await User.update(createdTest.id, { verified: 1 });
+  //   await Profile.create({ user_id: createdTest.id, username: 'test' });
+  // }
 
-  const test2 = {
-    email: 'test2@test.com',
-    password: 'test2',
-  };
+  // const test2 = {
+  //   email: 'test2@test.com',
+  //   password: 'test2',
+  // };
 
-  const createdTest2 = await authService.createUser({
-    email: test2.email,
-    password: test2.password,
-  });
+  // const createdTest2 = await authService.createUser({
+  //   email: test2.email,
+  //   password: test2.password,
+  // });
 
-  if (createdTest2) {
-    await User.update(createdTest2.id, { verified: 1 });
-    await Profile.create({ user_id: createdTest2.id, username: 'test2' });
+  // if (createdTest2) {
+  //   await User.update(createdTest2.id, { verified: 1 });
+  //   await Profile.create({ user_id: createdTest2.id, username: 'test2' });
+  // }
+
+  const userToCreateInfos = [
+    { email: 'admin@admin.com', password: 'admin', username: 'Tiyyo', date_of_birth: '1992-12-09', first_name: 'steeve', last_name: 'matou' },
+    { email: 'haaland@haaland.com', password: 'haaland', username: 'Haaland', first_name: 'Erling', last_name: 'Haaland' },
+    { email: 'mbappe@mbappe.com', password: 'mbappe', username: 'Mbappe', first_name: 'Kylian', last_name: 'Mbappe' },
+    { email: 'bellingham@bellingham.com', password: 'bellingham', username: 'Bellingham', first_name: 'Jude', last_name: 'Bellingham' },
+    { email: 'vinicius@vinicius.com', password: 'vinicius', username: 'Vinicius', first_name: 'Vinicius', last_name: 'Junior' },
+    { email: 'saka@saka.com', password: 'saka', username: 'Saka', first_name: 'Bukayo', last_name: 'Saka' },
+    { email: 'osimhen@osimhen.com', password: 'osimhen', username: 'Osimhen', first_name: 'Victor', last_name: 'Osimhen' },
+    { email: 'musiala@musiala.com', password: 'musiala', username: 'Musiala', first_name: 'Jamal', last_name: 'Musiala' },
+    { email: 'foden@foden.com', password: 'foden', username: 'Foden', first_name: 'Phil', last_name: 'Foden' },
+    { email: 'kane@kane.com', password: 'kane', username: 'Kane', first_name: 'Harry', last_name: 'Kane' },
+  ]
+
+  for await (const infos of userToCreateInfos) {
+    const user = await User.createUser({
+      email: infos.email,
+      password: infos.password,
+    });
+
+    await User.update(user.id, { verified: 1 });
+
+    const profile = await Profile.create({
+      user_id: user.id,
+      username: infos.username,
+      first_name: infos.first_name,
+      last_name: infos.last_name,
+    });
+
+    // console.log('Profile created', profile.id);
+    await SkillFoot.create({
+      pace: faker.number.int({ min: 50, max: 100 }),
+      shooting: faker.number.int({ min: 50, max: 100 }),
+      passing: faker.number.int({ min: 50, max: 100 }),
+      dribbling: faker.number.int({ min: 50, max: 100 }),
+      defending: faker.number.int({ min: 50, max: 100 }),
+      rater_id: profile.id,
+      reviewee_id: profile.id,
+    });
   }
 
   // create 50 users
@@ -129,30 +170,29 @@ async function seed() {
     });
   }
   // create friendship between users
-  if (createdTest && createdTest2 && createdAdmin) {
-    const twoAndThree = [createdTest.id, createdTest2.id];
 
-    const dataPendingRequestsTest = twoAndThree.map((id) => {
-      return {
-        adder_id: createdAdmin.id,
-        friend_id: id,
-        status_name: 'pending',
-      };
-    });
-    await Friendlist.createMany(dataPendingRequestsTest);
-  }
+  const twoAndThree = [2, 3];
+
+  const dataPendingRequestsTest = twoAndThree.map((id) => {
+    return {
+      adder_id: 1,
+      friend_id: id,
+      status_name: 'pending',
+    };
+  });
+  await Friendlist.createMany(dataPendingRequestsTest);
+
 
   const arrayFourtoThriteen = new Array(10).fill(1);
-  if (createdAdmin) {
-    const dataConfirmedRequests = arrayFourtoThriteen.map((_, index) => {
-      return {
-        adder_id: createdAdmin.id,
-        friend_id: index + 4,
-        status_name: 'confirmed',
-      };
-    });
-    await Friendlist.createMany(dataConfirmedRequests);
-  }
+  const dataConfirmedRequests = arrayFourtoThriteen.map((_, index) => {
+    return {
+      adder_id: 1,
+      friend_id: index + 4,
+      status_name: 'confirmed',
+    };
+  });
+  await Friendlist.createMany(dataConfirmedRequests);
+
 
   const array20 = new Array(20).fill(1);
   const dataPendingRequestsAdmin = array20.map((_, index) => {
@@ -172,38 +212,37 @@ async function seed() {
     const randomDate = faker.date.past();
     const date = getDateUTC(randomDate);
 
-    if (createdAdmin) {
-      const eventId = await Event.create({
-        date,
-        duration: 90,
-        location: faker.location.city(),
-        required_participants: 10,
-        organizer_id: createdAdmin.id,
-        status_name: 'completed',
-      });
+    const eventId = await Event.create({
+      date,
+      duration: 90,
+      location: faker.location.city(),
+      required_participants: 10,
+      organizer_id: 1,
+      status_name: 'completed',
+    });
 
-      // add score to each event
-      await Score.create({
-        event_id: Number(eventId),
-        score_team_1: faker.number.int({ min: 0, max: 20 }),
-        score_team_2: faker.number.int({ min: 0, max: 20 }),
-      });
+    // add score to each event
+    await Score.create({
+      event_id: Number(eventId),
+      score_team_1: faker.number.int({ min: 0, max: 20 }),
+      score_team_2: faker.number.int({ min: 0, max: 20 }),
+    });
 
-      // add 10 participants to each event
-      const NB_PARTICIPANTS_TO_CREATE = 10;
-      const arrayToIterateOnParticipants = new Array(
-        NB_PARTICIPANTS_TO_CREATE,
-      ).fill(1);
+    // add 10 participants to each event
+    const NB_PARTICIPANTS_TO_CREATE = 10;
+    const arrayToIterateOnParticipants = new Array(
+      NB_PARTICIPANTS_TO_CREATE,
+    ).fill(1);
 
-      arrayToIterateOnParticipants.forEach(async (_, index) => {
-        await Participant.create({
-          event_id: eventId,
-          profile_id: index + 1,
-          team: index < 5 ? 1 : 2,
-          status_name: 'confirmed',
-        });
+    arrayToIterateOnParticipants.forEach(async (_, index) => {
+      await Participant.create({
+        event_id: eventId,
+        profile_id: index + 1,
+        team: index < 5 ? 1 : 2,
+        status_name: 'confirmed',
       });
-    }
+    });
+
   }
 
   // create 3 future events
@@ -217,31 +256,29 @@ async function seed() {
     const randomDate = faker.date.future();
     const date = getDateUTC(randomDate);
 
-    if (createdAdmin) {
-      const eventId = await Event.create({
-        date,
-        duration: 90,
-        location: faker.location.city(),
-        required_participants: 10,
-        organizer_id: createdAdmin.id,
-        status_name: 'full',
-      });
+    const eventId = await Event.create({
+      date,
+      duration: 90,
+      location: faker.location.city(),
+      required_participants: 10,
+      organizer_id: 1,
+      status_name: 'full',
+    });
 
-      // add 10 participants to each event
-      const NB_PARTICIPANTS_TO_CREATE = 10;
-      const arrayToIterateOnParticipants = new Array(
-        NB_PARTICIPANTS_TO_CREATE,
-      ).fill(1);
+    // add 10 participants to each event
+    const NB_PARTICIPANTS_TO_CREATE = 10;
+    const arrayToIterateOnParticipants = new Array(
+      NB_PARTICIPANTS_TO_CREATE,
+    ).fill(1);
 
-      arrayToIterateOnParticipants.forEach(async (_, index) => {
-        await Participant.create({
-          event_id: Number(eventId),
-          profile_id: index + 1,
-          status_name: 'confirmed',
-          team: index < 5 ? 1 : 2,
-        });
+    arrayToIterateOnParticipants.forEach(async (_, index) => {
+      await Participant.create({
+        event_id: Number(eventId),
+        profile_id: index + 1,
+        status_name: 'confirmed',
+        team: index < 5 ? 1 : 2,
       });
-    }
+    });
   }
   const NB_EVENTS_PAST_TO_CREATE_2 = 50;
   const arrayToIterateOnFutureEvents2 = new Array(
@@ -287,7 +324,7 @@ async function seed() {
 
 
     arrayToIterateOnParticipants.forEach(async (_, index) => {
-      await Participant.create({
+      Participant.create({
         event_id: Number(eventId),
         profile_id: getIntUnused(intAlreadyUsed),
         status_name: 'confirmed',
@@ -353,24 +390,22 @@ async function seed() {
   for await (const _ of arrayToIterateOnOpenEvents) {
     const randomDate = faker.date.future();
     const date = getDateUTC(randomDate);
-    if (createdAdmin) {
-      const eventId = await Event.create({
-        date,
-        duration: 90,
-        location: faker.location.city(),
-        required_participants: 10,
-        organizer_id: createdAdmin.id,
-        status_name: 'open',
-      });
+    const eventId = await Event.create({
+      date,
+      duration: 90,
+      location: faker.location.city(),
+      required_participants: 10,
+      organizer_id: 1,
+      status_name: 'open',
+    });
 
-      openParticipants.forEach(async (_, index) => {
-        await Participant.create({
-          event_id: Number(eventId),
-          profile_id: index + 1,
-          status_name: index < 3 ? 'confirmed' : 'pending',
-        });
+    openParticipants.forEach(async (_, index) => {
+      await Participant.create({
+        event_id: Number(eventId),
+        profile_id: index + 1,
+        status_name: index < 3 ? 'confirmed' : 'pending',
       });
-    }
+    });
   }
 
   logger.info('Database has been seed');

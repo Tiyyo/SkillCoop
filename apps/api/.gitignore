@@ -1,3 +1,9 @@
 node_modules
+dist
+coverage
+logs
+*.log
+/logs
+*.db
 # Keep environment variables out of version control
 .env

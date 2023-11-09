@@ -1,6 +1,7 @@
 import qs from 'qs';
 import axios from 'axios';
 import ServerError from '../../helpers/errors/server.error';
+import logger from '../../helpers/logger';
 // TODO replace axios by fetch when avaiable in LTS
 
 
@@ -28,7 +29,8 @@ export default {
   async getOAuthToken({ code }: { code: string }) {
     const rootURL = 'https://oauth2.googleapis.com/token';
 
-    console.log(process.env.API_URL);
+    console.log('line 31 getOAuthToken :' + process.env.API_URL);
+    logger.info('line 32 getOAuthToken :' + process.env.API_URL);
 
     const options = {
       code,
@@ -51,7 +53,7 @@ export default {
     } catch (error) {
       if (error instanceof Error) {
         throw new ServerError(
-          'Error getting google auth token' + error.message,
+          'getOAuthToken failed to get OAuth Token' + error.message,
         );
       }
       return { access_token: null, id_token: null };

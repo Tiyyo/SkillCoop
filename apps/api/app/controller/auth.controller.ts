@@ -103,6 +103,8 @@ export default {
     const { access_token: googleToken, id_token } = await google.getOAuthToken({
       code,
     });
+    console.log('line 106 authController  :  googleToken : ', googleToken, 'id_token : ', id_token);
+
     if (!googleToken || !id_token)
       throw new ServerError('Error getting token from google ');
 

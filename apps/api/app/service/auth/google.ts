@@ -28,6 +28,8 @@ export default {
   async getOAuthToken({ code }: { code: string }) {
     const rootURL = 'https://oauth2.googleapis.com/token';
 
+    console.log(process.env.API_URL);
+
     const options = {
       code,
       client_id: process.env.GOOGLE_CLIENT_ID,

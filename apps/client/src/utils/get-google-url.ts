@@ -1,4 +1,5 @@
 import { SERVER_URL } from "./server"
+console.log(SERVER_URL);
 
 const getGoogleUrl = (from: string): string => {
   const root = 'https://accounts.google.com/o/oauth2/v2/auth'

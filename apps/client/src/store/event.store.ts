@@ -9,7 +9,7 @@ type State = {
   organizer_id?: number | null;
   status_name: string | null;
   participants?: number[] | null;
-  userStatus? : any
+  user_status?: string | null;
 };
 
 interface eventStore {
@@ -25,7 +25,7 @@ interface eventStore {
   updateIdsParticipants: (args: number[]) => void;
   addInvitedParticipantsIds: (args: number) => void;
   removeInvitedParticipantsIds: (args: number) => void;
-  updateUserStatus : (args : number ) => void;
+  updateUserStatus: (args: string) => void;
 }
 
 export const useEventStore = create<eventStore>()((set) => ({
@@ -38,7 +38,7 @@ export const useEventStore = create<eventStore>()((set) => ({
     organizer_id: null,
     status_name: null,
     participants: null,
-    user_status : null,
+    user_status: null,
   },
   initEventState: (event: State) =>
     set((state) => ({
@@ -80,10 +80,10 @@ export const useEventStore = create<eventStore>()((set) => ({
       ...state,
       event: { ...state.event, status_name: statusName },
     })),
-  updateUserStatus: (statusName : string) => 
+  updateUserStatus: (statusName: string) =>
     set((state) => ({
       ...state,
-      event: {...state.event, user_status : statusName},
+      event: { ...state.event, user_status: statusName },
     })),
   updateIdsParticipants: (idsParticipants: number[]) =>
     set((state) => ({

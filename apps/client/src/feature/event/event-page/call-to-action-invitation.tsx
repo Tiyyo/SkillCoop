@@ -3,9 +3,9 @@ import { updateParticipantFn } from '../../../api/api.fn';
 import { InvitationStatus, invitationStatus } from '../../../types';
 import { updateParticipantSchema } from 'schema/ts-schema';
 import toast from '../../../utils/toast';
+import { useEvent } from '../../../store/event.store';
 
 interface CallToActionInvitationProps {
-  userStatus?: InvitationStatus;
   eventId?: number;
   profileId?: number;
 }
@@ -17,7 +17,6 @@ interface UpdateParticipantProps {
 }
 
 function CallToActionInvitation({
-  userStatus,
   eventId,
   profileId,
 }: CallToActionInvitationProps) {
@@ -25,6 +24,7 @@ function CallToActionInvitation({
     (data: UpdateParticipantProps) => updateParticipantFn(data)
   );
 
+  const { data: event, updateUserStatus } = useEvent();
   //  Should be abstract to another hook
   const handleClickInvitation = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -42,12 +42,13 @@ function CallToActionInvitation({
       toast.error('Something went wrong..., Try again later');
     } else {
       updateParticipant(data);
+      updateUserStatus(status);
     }
   };
 
   return (
     <>
-      {userStatus === 'pending' && (
+      {event.user_status === 'pending' && (
         <div className=" text-xs text-center self-start">
           <p>You have been invited to this event</p>
           <p>Do you want to confirm your participation</p>

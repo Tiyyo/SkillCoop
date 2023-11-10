@@ -41,7 +41,7 @@ function EventPage() {
       start_time: event.date.split(' ')[1],
       participants: event.participants.map((p) => p.profile_id),
       status_name: event.status_name,
-      user_status : event.user_status,
+      user_status: event.user_status,
     });
     // Clear store on unmount
     return () => {
@@ -54,7 +54,7 @@ function EventPage() {
         organizer_id: null,
         status_name: null,
         participants: null,
-        user_status : null,
+        user_status: null,
       });
     };
   }, [location.pathname, event, initEventState]);
@@ -66,7 +66,6 @@ function EventPage() {
       <div className="flex justify-between items-start py-2 bg-base-light mx-2 my-4 rounded-md shadow">
         <ReturnBtn />
         <CallToActionInvitation
-          userStatus={event?.user_status}
           eventId={event?.event_id}
           profileId={profileId}
         />

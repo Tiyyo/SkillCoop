@@ -92,7 +92,7 @@ SELECT
   ) AS participants,
   (SELECT participant.status_name
   FROM profile_on_event AS participant
-  WHERE participant.profile_id = ${profileId} ) AS user_status,
+  WHERE participant.profile_id = ${profileId} AND participant.event_id = event.id) AS user_status,
   (SELECT COUNT (*) 
   FROM profile_on_event 
   WHERE event_id = event.id 
@@ -221,7 +221,7 @@ SELECT
   ) AS participants,
   (SELECT participant.status_name
   FROM profile_on_event AS participant
-  WHERE participant.profile_id = ${profileId} ) AS user_status,
+  WHERE participant.profile_id = ${profileId} AND participant.event_id = event.id ) AS user_status,
   (SELECT COUNT (*) 
   FROM profile_on_event 
   WHERE event_id = event.id 
@@ -249,7 +249,7 @@ SELECT
   COUNT (event.id) AS total_event ,
  (SELECT participant.status_name
   FROM profile_on_event AS participant
-  WHERE participant.profile_id = ${profileId} ) AS user_status
+  WHERE participant.profile_id = ${profileId} AND participant.event_id = event.id) AS user_status
 FROM event
 WHERE user_status <> 'declined'
 AND EXISTS(

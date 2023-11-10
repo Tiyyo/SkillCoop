@@ -12,17 +12,17 @@ describe('assignTeam', () => {
     });
   test('should return 1 if inferior to 5',
     () => {
-      expect(assignTeam(1)).toBe(1);
-      expect(assignTeam(4)).toBe(1);
+      expect(assignTeam(1, 10)).toBe(1);
+      expect(assignTeam(4, 10)).toBe(1);
     });
   test('should return 2 if superior to 5',
     () => {
-      expect(assignTeam(5)).toBe(2);
-      expect(assignTeam(9)).toBe(2);
+      expect(assignTeam(5, 10)).toBe(2);
+      expect(assignTeam(9 ,10)).toBe(2);
     });
   test('should return 2 if equal to 5',
     () => {
-      expect(assignTeam(5)).toBe(2);
+      expect(assignTeam(5, 10)).toBe(2);
     });
 });
 

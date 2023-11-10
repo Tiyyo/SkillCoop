@@ -3,10 +3,10 @@ import { Player, TeamGeneratorConfig } from '../../@types/types';
 import { profileOnEvent as ProfileOnEvent } from '../../models/index';
 import condition, { Conditions } from './condition';
 
-export function assignTeam(position: number): number {
+export function assignTeam(position: number, requiredParticipant : number): number {
   const TEAM_1 = 1;
   const TEAM_2 = 2;
-  const HALF = 5;
+  const HALF = requiredParticipant / 2;
   if (position < HALF) {
     return TEAM_1;
   } else {
@@ -26,7 +26,7 @@ export async function generateBalancedTeam(eventId: number) {
 
   const updateParticipantQueries = participants.map((p, index) =>
     ProfileOnEvent.updateUnionFk(p.profile_id, eventId, {
-      team: assignTeam(index),
+      team: assignTeam(index , config.participants),
     }),
   );
 

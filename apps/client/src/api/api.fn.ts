@@ -73,7 +73,7 @@ export const logoutUserFn = async () => {
   return response.data;
 };
 
-export const getMeFn = async (): Promise<{ userProfile: Profile }> => {
+export const getMeFn = async (): Promise<{ userProfile: Profile } | 'Unecessary call'> => {
   const response = await api.get('api/user/me');
   return response.data;
 };

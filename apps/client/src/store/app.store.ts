@@ -29,22 +29,28 @@ export const useApp = () => {
 
   const {
     data,
-    isLoading: loading,
+    isLoading,
     isFetching,
     isSuccess,
-  } = useQuery(['authUser'], () => getMeFn(), {
+  } = useQuery(['authUser'], () => {
+    if (userProfile) {
+      return 'Unecessary call';
+    }
+    return getMeFn()
+  }, {
     enabled: true,
     cacheTime: 0,
-    retry: 1,
+    retry: 0,
   });
 
   useEffect(() => {
-    if (isSuccess) {
+    if (data === 'Unecessary call') return;
+    if (isSuccess && data) {
       setProfile(data.userProfile);
     } else {
-      setProfile(null);
+      setProfile(null)
     }
-  }, [loading, isFetching]);
+  }, [isLoading, isFetching]);
 
   useEffect(() => {
     if (userProfile) {
@@ -54,5 +60,7 @@ export const useApp = () => {
     }
   }, [userProfile]);
 
-  return { userProfile, isAuth, loading, setIsAuth, setProfile, signout };
+
+
+  return { userProfile, isAuth, loading: isLoading, setIsAuth, setProfile, signout };
 };

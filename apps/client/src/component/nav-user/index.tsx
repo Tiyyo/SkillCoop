@@ -11,30 +11,34 @@ import { useMutation } from '@tanstack/react-query';
 import { logoutUserFn } from '../../api/api.fn';
 import { useApp } from '../../store/app.store';
 import { queryClient } from '../../main';
+import { useEffect } from 'react';
 
 function NavUser() {
   const navigate = useNavigate();
   const menuItemStyle =
     'flex gap-2 items-center hover:bg-primary-200 transition-colors duration-300 rounded-lg px-2 text-md';
 
-  const { mutate: logout } = useMutation(() => logoutUserFn());
-  const {userProfile, signout } = useApp();
+  const {
+    mutate: logout,
+    isSuccess,
+    isLoading,
+  } = useMutation(() => logoutUserFn());
+  const { signout } = useApp();
 
   const handleClickLogout = async () => {
-    // setIsAuth(false);
     signout();
-    console.log(userProfile);
     logout();
-    // cache need to be clear on logout to avoid an user to still be able to access the app
-    // because of remaining data in cache
-    queryClient.clear();
-    await queryClient.invalidateQueries({ queryKey: ['authUser'] });
-    await queryClient.resetQueries({ queryKey: ['authUser'], exact: true });
-    queryClient.removeQueries({ queryKey: ['authUser'], exact: true });
-    console.log('is should logout');
-    console.log(navigate('/login'));
-    navigate('/login');
   };
+  useEffect(() => {
+    if (isSuccess) {
+      // cache need to be clear on logout to avoid an user to still be able to access the app
+      // because of remaining data in cache
+      queryClient.clear();
+      queryClient.invalidateQueries({ queryKey: ['authUser'] });
+      queryClient.removeQueries({ queryKey: ['authUser'], exact: true });
+      navigate('/login');
+    }
+  }, [isLoading]);
 
   return (
     <div className="relative  flex justify-center">

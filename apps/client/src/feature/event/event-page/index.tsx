@@ -59,7 +59,7 @@ function EventPage() {
     };
   }, [location.pathname, event, initEventState]);
 
-  console.log(event);
+  console.log('Line 62 Event Page :', event);
   return (
     <div>
       <Outlet />

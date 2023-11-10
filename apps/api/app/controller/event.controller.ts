@@ -15,6 +15,7 @@ export default {
     deleteDecodedKey(req.body);
 
     const { participants: ids, ...data } = req.body;
+    console.log('Line 18 event controller : ', data);
     const eventId = await Event.create(data);
     await ProfileOnEvent.create({
       event_id: eventId,
@@ -40,7 +41,7 @@ export default {
       req.params.profileId,
     );
     const event = await Event.getEventById(eventId, profileId);
-
+    console.log('Line 43 event controller : ', event);
     res.status(200).json(event);
   },
   async updateOne(req: Request, res: Response) {

@@ -53,8 +53,8 @@ function CreateEvent() {
     // where user select today date but time is in the past
     // validation date and time
     if (eventCreatedState.start_time && eventCreatedState.start_date) {
-      const eventDate = `${eventCreatedState.start_date} 
-                         ${eventCreatedState.start_time}`;
+      const eventDate = `${eventCreatedState.start_date} ${eventCreatedState.start_time}`;
+      console.log('Line 58 Create Event :', eventDate);
       data.date = eventDate;
     }
 

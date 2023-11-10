@@ -1,6 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 import { getEventFn } from '../../../api/api.fn';
-import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
+import {
+  Link,
+  Outlet,
+  useLocation,
+  useNavigate,
+  useParams,
+} from 'react-router-dom';
 import ReturnBtn from '../../../component/return';
 import DropdownEventMenu from './dropdown-menu';
 import CallToActionInvitation from './call-to-action-invitation';
@@ -11,13 +17,14 @@ import Plus from '../../../assets/icon/Plus';
 import TeamComposition from '../TeamComposition';
 import EventPageScore from './score';
 import EventPageVotesBanner from './votes';
-import { useEffect } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 import { useEvent } from '../../../store/event.store';
 
 function EventPage() {
   const location = useLocation();
+  const navigate = useNavigate();
   const { eventId } = useParams<{ eventId: string }>();
-  const { initEventState } = useEvent();
+  const { initEventState, data: eventStore } = useEvent();
   const { userProfile } = useApp();
   const profileId = userProfile?.profile_id;
 
@@ -60,6 +67,12 @@ function EventPage() {
   }, [location.pathname, event, initEventState]);
 
   console.log('Line 62 Event Page :', event);
+
+  useLayoutEffect(() => {
+    if (eventStore && eventStore.user_status === 'declined') {
+      navigate('/');
+    }
+  }, [eventStore.user_status]);
   return (
     <div>
       <Outlet />

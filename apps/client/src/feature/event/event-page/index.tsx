@@ -41,6 +41,7 @@ function EventPage() {
       start_time: event.date.split(' ')[1],
       participants: event.participants.map((p) => p.profile_id),
       status_name: event.status_name,
+      user_status : event.user_status,
     });
     // Clear store on unmount
     return () => {
@@ -53,6 +54,7 @@ function EventPage() {
         organizer_id: null,
         status_name: null,
         participants: null,
+        user_status : null,
       });
     };
   }, [location.pathname, event, initEventState]);

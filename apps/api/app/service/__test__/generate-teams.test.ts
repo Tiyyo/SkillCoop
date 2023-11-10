@@ -8,7 +8,7 @@ import { assignTeam } from '../generate-teams';
 describe('assignTeam', () => {
   test('should return a number',
     () => {
-      expect(typeof assignTeam(1)).toBe('number');
+      expect(typeof assignTeam(1 , 10)).toBe('number');
     });
   test('should return 1 if inferior to 5',
     () => {

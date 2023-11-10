@@ -44,7 +44,7 @@ SELECT
   AND status_name = 'confirmed') AS confirmed_participants,
  (SELECT participant.status_name
   FROM profile_on_event AS participant
-  WHERE participant.profile_id = ${profileId} ) AS user_status
+  WHERE participant.profile_id = ${profileId} AND participant.event_id = ${eventId} ) AS user_status
 FROM event
 LEFT JOIN score ON event.id = score.event_id
 JOIN profile_on_event AS participant ON event.id = participant.event_id

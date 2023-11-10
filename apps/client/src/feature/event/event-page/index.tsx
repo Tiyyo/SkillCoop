@@ -57,6 +57,7 @@ function EventPage() {
     };
   }, [location.pathname, event, initEventState]);
 
+  console.log(event);
   return (
     <div>
       <Outlet />

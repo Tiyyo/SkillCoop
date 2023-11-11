@@ -8,6 +8,7 @@ import {
 } from '../../../lib/ui/dropdown';
 import { Trash2, Dices, FolderInput } from 'lucide-react';
 import { deleteEventFn, generateTeamsFn } from '../../../api/api.fn';
+import UpdateStatusModal from '../../../component/update-status-modal';
 
 interface DropdownEventMenuProps {
   eventStatus?: string;
@@ -57,10 +58,14 @@ function DropdownEventMenu({
         <DropdownMenuContent
           className={`bg-base-light mx-2 border 
           z-10 flex flex-col`}>
-          <DropdownMenuItem className={menuItemStyle}>
-            <FolderInput size="16" />
-            <span>Revoke participation</span>
-          </DropdownMenuItem>
+          {eventStatus !== 'completed' && (
+            <UpdateStatusModal
+              eventId={eventId}
+              profileId={profileId}>
+              <FolderInput size="16" />
+              <span>Revoke participation</span>
+            </UpdateStatusModal>
+          )}
           {isAdmin && (
             <>
               {eventStatus === 'full' && (

@@ -4,7 +4,7 @@ import profileOnEventController
   from '../../controller/profile-on-event.controller';
 import validate from '../../middleware/schema-validator';
 import { canals } from '../../@types/types';
-import { updateParticipantSchema, inviteParticipantSchema } from 'schema';
+import { inviteParticipantSchema, updateParticipantSchema } from 'schema';
 
 const { sendInvitationToEvent, updateStatus } =
   profileOnEventController;

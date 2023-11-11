@@ -28,10 +28,21 @@ export default {
     let userMessage = 'Status has been updated';
 
     const data = { profile_id, event_id, status_name, updated_at: undefined };
+    const event = await Event.findByPk(data.event_id);
 
-    if (status_name === 'declined') {
+    if (status_name === 'pending' || status_name === 'declined') {
+      if (event.organizer_id === profile_id) {
+        console.log('User cannon change his status')
+        return res.status(200).json({ message: 'Organizer cannot change his status' })
+      }
+      if (event.status_name === 'completed') {
+        console.log('Event is already completed')
+        return res.status(200).json({ message: 'Event is already completed' })
+      }
+      if (event.status_name === 'full') {
+        await Event.update(event.id, { status_name: 'open' });
+      }
       await ProfileOnEvent.updateStatus(data);
-
       return res.status(200).send(userMessage);
     }
 
@@ -40,10 +51,10 @@ export default {
       event_id: data.event_id,
       status_name: invitationStatus.confirmed,
     });
-    const event = await Event.findByPk(data.event_id);
 
-    if (event.required_participants <= confirmedParticipants.length)
+    if (event.required_participants <= confirmedParticipants.length) {
       throw new UserInputError('Event is already full');
+    }
 
     await ProfileOnEvent.updateStatus(data);
 
@@ -52,6 +63,7 @@ export default {
       await generateBalancedTeam(event.id);
       userMessage = 'Teams has been generated ';
     }
+
 
     res.status(200).json(userMessage);
   },

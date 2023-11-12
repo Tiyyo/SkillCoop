@@ -27,7 +27,7 @@ function Avatars({
           .map((participant) => (
             <img
               key={participant.profile_id}
-              className="w-8 h-8 border-2 border-primary-1000 overflow-hidden rounded-full "
+              className="w-10 h-10 border border-primary-700 overflow-hidden rounded-full "
               src={
                 participant.avatar
                   ? participant.avatar

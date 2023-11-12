@@ -11,7 +11,7 @@ function HeaderEventList({
 }) {
   return (
     <div className="flex justify-between pt-6 pb-2 px-3">
-      <h2 className="text-sm">{title}</h2>
+      <h2 className="text-sm font-semibold text-primary-1100">{title}</h2>
       {!linkOff &&
         (linkTo ? (
           <Link

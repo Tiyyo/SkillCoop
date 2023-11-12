@@ -113,7 +113,7 @@ function CreateEvent() {
   return (
     <>
       <ReturnBtn to="/" />
-      <TitleH2 value="Create an new Event" />
+      <TitleH2 value="Create a new Event" />
       <form
         onSubmit={handleFormSubmit}
         ref={createEventFormRef}

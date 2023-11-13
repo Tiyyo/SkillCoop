@@ -36,7 +36,7 @@ import ControlAccesEventPage from './component/redirection/control-access-event.
 import Page404 from './component/404-page/index.tsx';
 import ControlAccessOwnership from './component/redirection/control-access-ownership.tsx';
 import { Toaster } from 'sonner';
-import EndOfGameAwards from './feature/event/votes.tsx';
+import EndOfGameAwards from './feature/event/awards.tsx';
 
 export const queryClient = new QueryClient({
   defaultOptions: {

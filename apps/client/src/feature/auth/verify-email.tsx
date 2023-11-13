@@ -6,7 +6,7 @@ import { useMutation } from '@tanstack/react-query';
 import { Link, useLocation } from 'react-router-dom';
 import { sendEmailVerifyFn } from '../../api/api.fn';
 import { useEffect } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import toast from '../../utils/toast';
 
 function VerifyEmail() {
   const location = useLocation();
@@ -23,13 +23,12 @@ function VerifyEmail() {
 
   useEffect(() => {
     if (isSuccess && !isLoading) {
-      toast.info('A new email has been sent');
+      toast.emailSent();
     }
   }, [isLoading, isSuccess]);
 
   return (
     <>
-      <ToastContainer />
       <Page>
         <nav className="text-sm flex items-center gap-6 w-full justify-end font-semibold text-primary-1100 py-3 px-4">
           <Link to="/">

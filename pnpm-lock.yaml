@@ -275,6 +275,8 @@ importers:
         specifier: ^4.4.5
         version: 4.5.0(@types/node@20.8.10)
 
+  packages/eslint-config: {}
+
   packages/schema:
     dependencies:
       zod:
@@ -287,6 +289,8 @@ importers:
       typescript:
         specifier: ^5.2.2
         version: 5.2.2
+
+  packages/types: {}
 
 packages:
 

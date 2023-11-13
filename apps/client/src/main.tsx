@@ -27,7 +27,6 @@ import PastEvents from './feature/event/events/past.tsx';
 import IncomingEvents from './feature/event/events/incoming.tsx';
 import MyEvents from './feature/event/events/admin-event.tsx';
 import EventPage from './feature/event/event-page/index.tsx';
-import 'react-toastify/dist/ReactToastify.css';
 import ProfileInfos from './feature/profile/infos/index.tsx';
 import HomePageUser from './feature/profile/index.tsx';
 import Votes from './feature/event/votes.tsx';

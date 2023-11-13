@@ -6,6 +6,7 @@ import star from '../../assets/svg/star.svg';
 import soccerBall from '../../assets/svg/soccer-ball.svg';
 import capitalize from '../../utils/capitalize';
 import { Link } from 'react-router-dom';
+import Avatar from '../avatar';
 
 interface ParticipantProps {
   avatar: string;
@@ -18,7 +19,6 @@ interface ParticipantProps {
   isAdmin?: boolean;
   isMvp?: boolean;
   isBestStriker?: boolean;
-  isRatingActive?: boolean;
 }
 
 function Participant({
@@ -32,7 +32,6 @@ function Participant({
   isAdmin,
   isMvp,
   isBestStriker,
-  isRatingActive = true,
 }: ParticipantProps) {
   const [isChecked, setIsChecked] = useState<boolean>(
     activeId === name + profileId?.toString()
@@ -85,16 +84,16 @@ function Participant({
               )}
             </span>
           </p>
-          <Link to={eventStatus === 'completed' ? `evaluate/${profileId}` : ''}>
-            <img
-              src={avatar ? avatar : '/images/default-avatar.png'}
-              alt="avatar"
-              className={cn(
-                'w-8 h-8 rounded-full',
-                isRatingActive && 'cursor-pointer'
-              )}
-            />
-          </Link>
+          {eventStatus === 'completed' ? (
+            <Link to={`evaluate/${profileId}`}>
+              <Avatar
+                avatar={avatar}
+                isRatingActive
+              />
+            </Link>
+          ) : (
+            <Avatar avatar={avatar} />
+          )}
           <Status status={status} />
         </div>
       )}

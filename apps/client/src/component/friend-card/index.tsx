@@ -10,6 +10,7 @@ import { EventType, invitationStatus } from '../../types';
 import { Link } from 'react-router-dom';
 import associateNumberToString from '../../utils/associate-number-stringscale';
 import capitalize from '../../utils/capitalize';
+import toast from '../../utils/toast';
 
 type EventTypeState = EventType & {
   participants: number[];
@@ -51,8 +52,13 @@ function FriendCard({
 }: FriendCardProps) {
   const { removePendingFriend, addConfirmedFriend } = useFriends();
   const [isSelected, setIsSelected] = useState(false);
+  const currentAction = '';
 
-  const { mutate: acceptOrDeclinedInvitation } = useMutation(
+  const {
+    mutate: acceptOrDeclinedInvitation,
+    isSuccess,
+    isLoading,
+  } = useMutation(
     ['acceptOrDeclinedInvitation'],
     (data: updateInvitationStatus) => acceptOrDeclinedFriendRequestFn(data)
   );
@@ -77,10 +83,11 @@ function FriendCard({
     //@ts-ignore
     const isValid = updateFriendshipSchema.safeParse(data);
     if (!isValid.success) {
-      // toast.error(isValid.error.message)
+      toast.error('Something went wrong');
       return;
     }
     acceptOrDeclinedInvitation(data);
+    toast.addFriend(username);
     removePendingFriend(username);
     if (action === 'confirmed') {
       const friend = {

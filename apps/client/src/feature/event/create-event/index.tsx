@@ -90,7 +90,6 @@ function CreateEvent() {
       // @ts-ignore
       createEvent(data);
       createEventFormRef.current?.reset();
-      clearEventState();
     } else {
       setValidationErrors((isValid as any).error.issues);
     }

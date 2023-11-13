@@ -5,6 +5,7 @@ import { createInvitationSchema } from 'schema/ts-schema';
 import { useFriends } from '../../store/friend.store';
 import toast from '../../utils/toast';
 import associateNumberToString from '../../utils/associate-number-stringscale';
+import { useEffect } from 'react';
 
 interface ProfileCardProps {
   avatar: string | null;
@@ -30,9 +31,14 @@ function ProfileCard({
   relation,
   lastEvaluationRecorded,
 }: ProfileCardProps) {
-  const { mutate: sendInvitation, isError } = useMutation(
-    ['sendFriendRequest'],
-    (data: CreateInvitation) => sendFriendRequestFn(data)
+  const {
+    mutate: sendInvitation,
+    isError,
+    isSuccess,
+    isLoading,
+    isFetching,
+  } = useMutation(['sendFriendRequest'], (data: CreateInvitation) =>
+    sendFriendRequestFn(data)
   );
   const { removeSearchProfile } = useFriends();
   const handleActionInviation = () => {
@@ -43,16 +49,15 @@ function ProfileCard({
     //@ts-ignore
     const isValid = createInvitationSchema.safeParse(data);
     if (!isValid.success) {
-      // toast.error(isValid.error.message)
+      toast.error('Something went wrong');
       return;
     }
     sendInvitation(data);
     if (isError) {
       toast.error('There already is a pending request');
-      removeSearchProfile(username);
-    } else {
-      removeSearchProfile(username);
     }
+    toast.invitationSent(username);
+    removeSearchProfile(username);
   };
 
   if (relation) return null;

@@ -16,7 +16,6 @@ type LocationState = {
 
 function Votes() {
   const { state } = useLocation();
-  console.log('State', state);
   const [locationStateInfos, setLocationStateInfos] = useState<LocationState>({
     eventId: undefined,
     participants: undefined,

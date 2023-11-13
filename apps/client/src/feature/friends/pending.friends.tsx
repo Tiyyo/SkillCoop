@@ -27,7 +27,7 @@ function PendingFriends() {
     }
   );
   const loading = isLoading || isFetching;
-  console.log('Friends pendind waiting for an action :', friends);
+
   useEffect(() => {
     if (!friends) return;
     addPendingFriend(friends);

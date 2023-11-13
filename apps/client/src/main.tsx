@@ -27,18 +27,17 @@ import PastEvents from './feature/event/events/past.tsx';
 import IncomingEvents from './feature/event/events/incoming.tsx';
 import MyEvents from './feature/event/events/admin-event.tsx';
 import EventPage from './feature/event/event-page/index.tsx';
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ProfileInfos from './feature/profile/infos/index.tsx';
 import HomePageUser from './feature/profile/index.tsx';
-import Votes from './feature/event/Votes.tsx';
+import Votes from './feature/event/votes.tsx';
 import UserResumeSkills from './feature/profile/skills/index.tsx';
 import FriendProfile from './feature/friend-profile-page/index.tsx';
 import ModalRouteRatingEvent from './feature/event/event-page/modal-route-rating.tsx';
 import ControlAccesEventPage from './component/redirection/control-access-event.tsx';
 import Page404 from './component/404-page/index.tsx';
-import TransfertOwnership from './feature/event/event-page/ownership.tsx';
 import ControlAccessOwnership from './component/redirection/control-access-ownership.tsx';
+import { Toaster } from 'sonner';
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -200,7 +199,7 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <ToastContainer />
+      <Toaster />
       <RouterProvider router={router} />
     </QueryClientProvider>
   </React.StrictMode>

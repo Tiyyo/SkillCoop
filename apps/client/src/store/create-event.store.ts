@@ -135,7 +135,15 @@ export const useCreateEvent = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success("Event created successfully");
+      const date = new Date(data.start_date!);
+      const startTime = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      const startDate = new Intl.DateTimeFormat('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      }).format(new Date());
+      toast.eventSuccess("Event set", `At ${startTime} on ${startDate}`);
+      clearEventState();
     }
   }, [isSuccess])
 

@@ -116,7 +116,7 @@ function Invite({ variant = 'update' }: InviteProps) {
 
   useEffect(() => {
     if (isInvitationSuccess) {
-      toast.success('Invitation sent');
+      toast.invitationSent();
       navigate(-1);
       return;
     }

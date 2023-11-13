@@ -47,6 +47,7 @@ export class Profile extends Core {
         'profile.first_name',
         'profile.last_name',
         'profile.location',
+        'profile.last_evaluation',
         'profile.id as profile_id',
       ])
       .innerJoin('skill_foot', 'profile_id', 'skill_foot.reviewee_id')
@@ -79,11 +80,12 @@ export class Profile extends Core {
       )
       .execute();
 
+    let spreadProfile
+
     if (profile) {
-      profile.nb_attended_events = nbAttendedEvents;
-      profile.nb_bonus = nbBonus;
+      spreadProfile = { ...profile, ...nbAttendedEvents, ...nbBonus }
     }
-    return profile;
+    return spreadProfile;
   }
   // TODO define a type for data
   async create(data: Record<string, string | number>) {

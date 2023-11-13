@@ -15,7 +15,7 @@ function FriendProfile() {
   const [skillValues, setSkillValues] = useState<Record<string, number>>({});
   const params = useParams<{ id: string }>();
   const profileId = Number(params.id);
-  const { data: profile } = useQuery(['profile', profileId], () => {
+  const { data: profile } = useQuery([`profile/${profileId}`], () => {
     if (!profileId) return;
     return getProfileFn(profileId);
   });
@@ -107,17 +107,27 @@ function FriendProfile() {
             <div className="flex flex-col gap-y-0.5 text-xs text-light px-4">
               <p>
                 <span>{capitalize(profile?.username)}</span> have participed to{' '}
-                <span className="font-semibold">0</span> event
+                <span className="font-semibold">
+                  {profile?.nb_attended_events}
+                </span>{' '}
+                event
               </p>
               <p>
                 <span>{capitalize(profile?.username)}</span> received{' '}
-                <span className="font-semibold">1</span> rating or bonus
+                <span className="font-semibold">
+                  {profile?.nb_mvp_bonus +
+                    profile.nb_review +
+                    profile?.nb_best_striker_bonus}
+                </span>{' '}
+                rating or bonus
               </p>
 
               <p>
                 Here is <span>{profile?.username}</span> average skills:{' '}
                 <span className="font-semibold">
-                  {capitalize(associateNumberToString(profile?.gb_rating ?? 0))}
+                  {capitalize(
+                    associateNumberToString(profile?.last_evaluation ?? 0)
+                  )}
                 </span>
               </p>
             </div>

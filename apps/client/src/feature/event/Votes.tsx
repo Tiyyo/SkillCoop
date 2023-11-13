@@ -14,7 +14,7 @@ type LocationState = {
   profileId?: number;
 };
 
-function Votes() {
+function EndOfGameAwards() {
   const { state } = useLocation();
   const [locationStateInfos, setLocationStateInfos] = useState<LocationState>({
     eventId: undefined,
@@ -129,4 +129,4 @@ function Votes() {
   );
 }
 
-export default Votes;
+export default EndOfGameAwards;

@@ -29,7 +29,6 @@ import MyEvents from './feature/event/events/admin-event.tsx';
 import EventPage from './feature/event/event-page/index.tsx';
 import ProfileInfos from './feature/profile/infos/index.tsx';
 import HomePageUser from './feature/profile/index.tsx';
-import Votes from './feature/event/votes.tsx';
 import UserResumeSkills from './feature/profile/skills/index.tsx';
 import FriendProfile from './feature/friend-profile-page/index.tsx';
 import ModalRouteRatingEvent from './feature/event/event-page/modal-route-rating.tsx';
@@ -37,6 +36,7 @@ import ControlAccesEventPage from './component/redirection/control-access-event.
 import Page404 from './component/404-page/index.tsx';
 import ControlAccessOwnership from './component/redirection/control-access-ownership.tsx';
 import { Toaster } from 'sonner';
+import EndOfGameAwards from './feature/event/votes.tsx';
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -109,7 +109,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/event/:eventId/votes',
-        element: <Votes />,
+        element: <EndOfGameAwards />,
       },
       { path: '*', element: <Page404 /> },
     ],

@@ -2,6 +2,12 @@ import { BadgeCheck, Send } from 'lucide-react';
 import { toast } from 'sonner';
 
 export default {
+  success(message: string) {
+    toast.success(message, {
+      position: 'top-right',
+      duration: 2500,
+    });
+  },
   eventSuccess(message: string, description?: string) {
     toast(message, {
       description: description,

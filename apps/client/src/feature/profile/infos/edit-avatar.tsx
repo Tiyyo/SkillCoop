@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { updateAvatarFn } from '../../../api/api.fn';
 import { useMutation } from '@tanstack/react-query';
 import { useApp } from '../../../store/app.store';
+import toast from '../../../utils/toast';
 
 function AvatarEdit({ avatar }: { avatar: string | null }) {
   const { userProfile } = useApp();
@@ -14,7 +15,7 @@ function AvatarEdit({ avatar }: { avatar: string | null }) {
     imageInputRef.current.click();
   };
 
-  const { mutate, isSuccess, data, isLoading } = useMutation(
+  const { mutate, isSuccess, data, isLoading, isError } = useMutation(
     (formData: FormData) => updateAvatarFn(formData)
   );
 
@@ -37,10 +38,12 @@ function AvatarEdit({ avatar }: { avatar: string | null }) {
         return type === e.target.files[0].type;
       })
     ) {
+      toast.error('File must be an png or jpg type');
       console.log('File must be an png or jpg type');
       return;
     } else if (e.target.files[0].size > maxSize) {
       console.log('File must not exceded 5 mo');
+      toast.error('File must not exceded 5 mo');
       return;
     } else {
       const formData = new FormData();
@@ -51,7 +54,12 @@ function AvatarEdit({ avatar }: { avatar: string | null }) {
   };
 
   useEffect(() => {
-    if (!isSuccess || !data || !data.link) return;
+    if (isError) {
+      toast.error('Error while updating avatar');
+    }
+    if (!isSuccess || !data || !data.link) {
+      return;
+    }
     setProfileAvatar(data.link);
   }, [isLoading]);
 

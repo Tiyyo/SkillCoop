@@ -104,7 +104,6 @@ function Invite({ variant = 'update' }: InviteProps) {
     };
     //@ts-ignore
     const isValid = inviteParticipantSchema.safeParse(data);
-    console.log(isValid);
     if (!isValid.success) {
       toast.error('Something went wrong ... Try agian later');
       return;

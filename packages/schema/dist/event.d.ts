@@ -49,3 +49,16 @@ export declare const updateEventSchema: z.ZodObject<{
     status_name?: "open" | "full" | "cancelled" | "completed";
     participants?: number[];
 }>;
+export declare const updateOrganizerSchema: z.ZodObject<{
+    event_id: z.ZodNumber;
+    organizer_id: z.ZodNumber;
+    new_organizer_id: z.ZodNumber;
+}, "strip", z.ZodTypeAny, {
+    event_id?: number;
+    organizer_id?: number;
+    new_organizer_id?: number;
+}, {
+    event_id?: number;
+    organizer_id?: number;
+    new_organizer_id?: number;
+}>;

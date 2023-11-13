@@ -14,7 +14,7 @@ import { useApp } from '../../../store/app.store';
 import EventPageInfos from './infos';
 import Participant from '../../../component/participant';
 import Plus from '../../../assets/icon/Plus';
-import TeamComposition from '../TeamComposition';
+import TeamComposition from '../team-composition';
 import EventPageScore from './score';
 import EventPageVotesBanner from './votes';
 import { useEffect, useLayoutEffect } from 'react';

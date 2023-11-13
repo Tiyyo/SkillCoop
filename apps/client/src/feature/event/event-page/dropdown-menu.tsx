@@ -9,6 +9,7 @@ import {
 import { Trash2, Dices, FolderInput } from 'lucide-react';
 import { deleteEventFn, generateTeamsFn } from '../../../api/api.fn';
 import UpdateStatusModal from '../../../component/update-status-modal';
+import { Link } from 'react-router-dom';
 
 interface DropdownEventMenuProps {
   eventStatus?: string;
@@ -78,7 +79,9 @@ function DropdownEventMenu({
               )}
               <DropdownMenuItem className={menuItemStyle}>
                 <FolderInput size="16" />
-                <span>Transfert ownership</span>
+                <Link to="ownership">
+                  <span>Transfert ownership</span>
+                </Link>
               </DropdownMenuItem>
               <MenuItemDialog
                 mutateFn={deleteEvent}

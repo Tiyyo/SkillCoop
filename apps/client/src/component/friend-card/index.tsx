@@ -101,8 +101,6 @@ function FriendCard({
     }
   }, [dataFromState]);
 
-  console.log('Is selected', isSelected);
-
   if (status === 'declined') return null;
   return (
     <Link to={activeLinkProfile ? `/contact/profile/${friendId}` : ''}>

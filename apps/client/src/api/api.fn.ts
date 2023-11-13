@@ -312,3 +312,8 @@ export const generateTeamsFn = async (eventId: number) => {
   const response = await api.post(`api/event/teams`, { eventId });
   return response.data;
 };
+
+export const transfertOwnershipEventFn = async (data: { event_id: number, organizer_id: number, new_organizer_id: number }) => {
+  const response = await api.patch(`api/event/organizer`, data);
+  return response.data;
+}

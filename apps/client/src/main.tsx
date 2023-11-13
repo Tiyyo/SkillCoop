@@ -37,6 +37,8 @@ import FriendProfile from './feature/friend-profile-page/index.tsx';
 import ModalRouteRatingEvent from './feature/event/event-page/modal-route-rating.tsx';
 import ControlAccesEventPage from './component/redirection/control-access-event.tsx';
 import Page404 from './component/404-page/index.tsx';
+import TransfertOwnership from './feature/event/event-page/ownership.tsx';
+import ControlAccessOwnership from './component/redirection/control-access-ownership.tsx';
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -88,6 +90,10 @@ const router = createBrowserRouter([
       {
         path: '/my-event',
         element: <MyEvents />,
+      },
+      {
+        path: '/event/:eventId/ownership',
+        element: <ControlAccessOwnership />,
       },
       {
         path: '/event/:eventId',

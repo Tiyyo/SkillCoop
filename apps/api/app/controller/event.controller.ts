@@ -58,6 +58,18 @@ export default {
 
     res.status(204).json({ success: isUpdated });
   },
+  async updateOrganizer(req: Request, res: Response) {
+    deleteDecodedKey(req.body);
+    const { event_id, organizer_id, new_organizer_id } = req.body;
+
+    const event = await Event.findByPk(event_id);
+    if (!event || event.organizer_id !== organizer_id)
+      throw new AuthorizationError('Operation not allowed');
+
+    const isUpdated = await Event.update(event_id, { organizer_id: new_organizer_id });
+
+    res.status(204).json({ success: isUpdated });
+  },
   async deleteOne(req: Request, res: Response) {
     // delete one event
     // only the organizer can delete the event

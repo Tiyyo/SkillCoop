@@ -21,3 +21,9 @@ export const updateEventSchema = z.object({
   status_name: z.enum(["open", "full", "cancelled", "completed"]).optional(),
   participants: z.array(z.number()).optional(),
 });
+
+export const updateOrganizerSchema = z.object({
+  event_id: z.number().int().positive(),
+  organizer_id: z.number().int().positive(),
+  new_organizer_id: z.number().int().positive(),
+});

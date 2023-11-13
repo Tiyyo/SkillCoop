@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateEventSchema = exports.createEventSchema = void 0;
+exports.updateOrganizerSchema = exports.updateEventSchema = exports.createEventSchema = void 0;
 const z = require("zod");
 exports.createEventSchema = z.object({
     // TODO make a custom regex for the date in string format
@@ -21,4 +21,9 @@ exports.updateEventSchema = z.object({
     profile_id: z.number().int().positive(),
     status_name: z.enum(["open", "full", "cancelled", "completed"]).optional(),
     participants: z.array(z.number()).optional(),
+});
+exports.updateOrganizerSchema = z.object({
+    event_id: z.number().int().positive(),
+    organizer_id: z.number().int().positive(),
+    new_organizer_id: z.number().int().positive(),
 });

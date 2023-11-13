@@ -43,8 +43,8 @@ function EventCard({
   };
 
   return (
-    <div className=" h-fit border-t bg-base-light shadow-sm px-3 py-2">
-      <div className="flex justify-between">
+    <div className=" h-fit border-t bg-base-light shadow-sm px-3 py-3">
+      <div className="flex justify-between pb-6 pt-2">
         <DateAndLocation
           date={date}
           location={location}

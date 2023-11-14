@@ -113,12 +113,21 @@ function ModalRouteRatingEvent() {
   }, [eventId, participantProfileId]);
 
   return (
-    <div className="fixed max-h-screen overflow-hidden inset-0 z-50 bg-background/80 backdrop-blur-sm ">
-      <div className="bg-base-light  fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 animate-in sm:rounded-lg md:w-full animate-in animate-fade-in">
+    <div
+      className="fixed max-h-screen overflow-hidden inset-0 z-50 
+          bg-background/80 backdrop-blur-sm "
+    >
+      <div
+        className="bg-base-light  fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg 
+          translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 
+          shadow-lg duration-200 
+          animate-in sm:rounded-lg md:w-full animate-in animate-fade-in"
+      >
         <div className="flex justify-end">
           <X
             size={24}
-            className="cursor-pointer hover:opacity-75 hover:text-primary-1000 duration-300 transition-color"
+            className="cursor-pointer hover:opacity-75 hover:text-primary-1000 
+duration-300 transition-color"
             onClick={() => navigate(-1)}
           />
         </div>

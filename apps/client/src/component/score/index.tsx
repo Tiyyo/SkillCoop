@@ -1,4 +1,5 @@
 import dateHandler from '../../utils/date.handler';
+import { eventStatus as eventStatusType } from '../../types';
 
 interface ScoreProps {
   date: string;
@@ -27,7 +28,9 @@ function Score({
   };
   return (
     <div className="text-xxs text-center">
-      <p>Kick off</p>
+      <p>
+        {eventStatus === eventStatusType.completed ? 'Final score' : 'Kick off'}
+      </p>
       <div>
         <p className="text-lg font-semibold">
           {displayScore(eventStatus, scoreTeamA)}

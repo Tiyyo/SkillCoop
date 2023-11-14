@@ -38,7 +38,6 @@ function TeamComposition({
       rater_id: profileId,
     };
     if (!mutationFn) return;
-    //@ts-ignore
     const isValid = voteSchema.safeParse(data);
     if (!isValid.success) return;
     mutationFn(data);

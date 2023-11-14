@@ -1,9 +1,11 @@
+// Event page team composition
+
 import Team from '../../component/team-composition/index.team';
-import { EventParticipant } from '../../types';
+import { EventParticipant, EventStatus } from '../../types';
 
 interface TeamCompositionProps {
   participants: EventParticipant[] | string;
-  eventStatus?: 'full' | 'open' | 'completed' | 'cancelled';
+  eventStatus?: EventStatus;
   mvp?: number | null;
   bestStriker?: number | null;
   organizer?: number;

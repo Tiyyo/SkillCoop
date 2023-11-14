@@ -11,7 +11,6 @@ import SocialButton from '../../component/social-link';
 import Google from '../../assets/icon/Google';
 import Page from '../../layout/page';
 import FormField from '../../component/form-field';
-import { useEffect } from 'react';
 import Atsign from '../../assets/icon/Atsign';
 import { Eye, EyeOff } from 'lucide-react';
 import SeparatorLine from '../../component/seperator-line';
@@ -20,8 +19,6 @@ import ErrorContainer from '../../component/error';
 import ReturnBtn from '../../component/return';
 import checkIfString from '../../utils/check-string';
 import Button from '../../component/button';
-// TODO : add @types/dompurify
-//@ts-ignore
 import dompurify from 'dompurify';
 
 export type LoginUserData = {
@@ -36,16 +33,19 @@ function Login() {
   const {
     mutate: loginUser,
     isLoading: loading,
-    isSuccess,
     error,
-  } = useMutation((userData: LoginUserData) => loginUserFn(userData));
+  } = useMutation({
+    mutationFn: async (userData: LoginUserData) => loginUserFn(userData),
+    onSuccess: () => {
+      navigate('/', { replace: true });
+    },
+  });
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<LoginUserData>({
-    //@ts-ignore
     resolver: zodResolver(loginSchema),
   });
 
@@ -58,12 +58,6 @@ function Login() {
     };
     loginUser(sanitizeData);
   };
-
-  useEffect(() => {
-    if (isSuccess && !loading) {
-      navigate('/');
-    }
-  }, [isSuccess, loading]);
 
   return (
     <Page>

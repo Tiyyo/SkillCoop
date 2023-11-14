@@ -24,7 +24,8 @@ function DeleteUser() {
         description="This action cannot be undone. This will permanently delete your
             account."
         mutationData={userProfile?.user_id}
-        redirection="/">
+        redirection="/"
+      >
         <Trash2 />
         <span>Delete your acccount</span>
       </MenuItemDialog>

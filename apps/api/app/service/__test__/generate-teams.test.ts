@@ -6,24 +6,20 @@ import { divideInTeam } from '../generate-teams';
 import { assignTeam } from '../generate-teams';
 
 describe('assignTeam', () => {
-  test('should return a number',
-    () => {
-      expect(typeof assignTeam(1 , 10)).toBe('number');
-    });
-  test('should return 1 if inferior to 5',
-    () => {
-      expect(assignTeam(1, 10)).toBe(1);
-      expect(assignTeam(4, 10)).toBe(1);
-    });
-  test('should return 2 if superior to 5',
-    () => {
-      expect(assignTeam(5, 10)).toBe(2);
-      expect(assignTeam(9 ,10)).toBe(2);
-    });
-  test('should return 2 if equal to 5',
-    () => {
-      expect(assignTeam(5, 10)).toBe(2);
-    });
+  test('should return a number', () => {
+    expect(typeof assignTeam(1, 10)).toBe('number');
+  });
+  test('should return 1 if inferior to 5', () => {
+    expect(assignTeam(1, 10)).toBe(1);
+    expect(assignTeam(4, 10)).toBe(1);
+  });
+  test('should return 2 if superior to 5', () => {
+    expect(assignTeam(5, 10)).toBe(2);
+    expect(assignTeam(9, 10)).toBe(2);
+  });
+  test('should return 2 if equal to 5', () => {
+    expect(assignTeam(5, 10)).toBe(2);
+  });
 });
 
 describe('useRigthCondition', () => {
@@ -34,7 +30,7 @@ describe('useRigthCondition', () => {
   const mockConditions = {
     random: vi.fn(),
     regular: vi.fn(),
-    ifZero: vi.fn()
+    ifZero: vi.fn(),
   };
 
   test(`should call random condition if 
@@ -59,7 +55,8 @@ describe('useRigthCondition', () => {
       mockPlayer,
       mockValueTeam1,
       mockValueTeam2,
-      mockConditions);
+      mockConditions,
+    );
     expect(mockConditions.random).toHaveBeenCalled();
   });
   test('should call random condition ifZero if player have 0 as rating', () => {
@@ -83,7 +80,8 @@ describe('useRigthCondition', () => {
       mockPlayer,
       mockValueTeam1,
       mockValueTeam2,
-      mockConditions);
+      mockConditions,
+    );
     expect(mockConditions.ifZero).toHaveBeenCalled();
     expect(mockConditions.ifZero).toHaveBeenCalledWith(
       mockConfig.team1.length,
@@ -114,7 +112,8 @@ describe('useRigthCondition', () => {
       mockPlayer,
       mockValueTeam1,
       mockValueTeam2,
-      mockConditions);
+      mockConditions,
+    );
     expect(mockConditions.regular).toHaveBeenCalled();
     expect(mockConditions.regular).toHaveBeenCalledWith(
       mockValueTeam1,
@@ -133,15 +132,14 @@ describe('getMaxIndex', () => {
 });
 
 describe('deleteFromArrayAfterPush', () => {
-  test('should delete the index from the array',
-    () => {
-      const mockIds = [1, 2, 3];
-      const mockValues = [1, 2, 3];
-      const mockIndex = 0;
-      deleteFromArrayAfterPush(mockIds, mockValues, mockIndex);
-      expect(mockIds).toEqual([2, 3,]);
-      expect(mockValues).toEqual([2, 3,]);
-    });
+  test('should delete the index from the array', () => {
+    const mockIds = [1, 2, 3];
+    const mockValues = [1, 2, 3];
+    const mockIndex = 0;
+    deleteFromArrayAfterPush(mockIds, mockValues, mockIndex);
+    expect(mockIds).toEqual([2, 3]);
+    expect(mockValues).toEqual([2, 3]);
+  });
 });
 
 describe('getTeamValue', () => {
@@ -149,11 +147,10 @@ describe('getTeamValue', () => {
     { gb_rating: 1, profile_id: 2 },
     { gb_rating: 2, profile_id: 1 },
   ];
-  test('should return the sum of the gb_rating of each player',
-    () => {
-      expect(typeof getTeamValue(mockTeams)).toBe('number');
-      expect(getTeamValue(mockTeams)).toBe(3);
-    });
+  test('should return the sum of the gb_rating of each player', () => {
+    expect(typeof getTeamValue(mockTeams)).toBe('number');
+    expect(getTeamValue(mockTeams)).toBe(3);
+  });
 });
 
 describe('getPlayerObject', () => {
@@ -169,31 +166,29 @@ describe('getPlayerObject', () => {
 });
 
 describe('divideInTeam', () => {
-  test('should return an object with the two teams',
-    () => {
-      const mockConfig = {
-        team1: [{ gb_rating: 1, profile_id: 2 }],
-        team2: [{ gb_rating: 2, profile_id: 1 }],
-        ids: [3, 4, 5, 6],
-        values: [1, 2, 3, 8],
-        participants: 6,
-      };
-      expect(typeof divideInTeam(mockConfig)).toBe('object');
-      expect(divideInTeam(mockConfig)).toHaveProperty('team1');
-      expect(divideInTeam(mockConfig)).toHaveProperty('team2');
-    });
-  test('should return an object with the two of same length',
-    () => {
-      const mockConfig = {
-        team1: [],
-        team2: [],
-        ids: [1, 2, 3, 4, 5, 6],
-        values: [25, 13, 47, 33, 12, 1],
-        participants: 6,
-      };
-      const result = divideInTeam(mockConfig);
-      expect(result.team1.length).toBe(3);
-      expect(result.team2.length).toBe(3);
-      expect(result.team1.length).toBe(result.team2.length);
-    });
+  test('should return an object with the two teams', () => {
+    const mockConfig = {
+      team1: [{ gb_rating: 1, profile_id: 2 }],
+      team2: [{ gb_rating: 2, profile_id: 1 }],
+      ids: [3, 4, 5, 6],
+      values: [1, 2, 3, 8],
+      participants: 6,
+    };
+    expect(typeof divideInTeam(mockConfig)).toBe('object');
+    expect(divideInTeam(mockConfig)).toHaveProperty('team1');
+    expect(divideInTeam(mockConfig)).toHaveProperty('team2');
+  });
+  test('should return an object with the two of same length', () => {
+    const mockConfig = {
+      team1: [],
+      team2: [],
+      ids: [1, 2, 3, 4, 5, 6],
+      values: [25, 13, 47, 33, 12, 1],
+      participants: 6,
+    };
+    const result = divideInTeam(mockConfig);
+    expect(result.team1.length).toBe(3);
+    expect(result.team2.length).toBe(3);
+    expect(result.team1.length).toBe(result.team2.length);
+  });
 });

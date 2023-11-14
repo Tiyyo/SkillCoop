@@ -5,7 +5,6 @@ import DatabaseError from '../helpers/errors/database.error';
 import getDateUTC from '../utils/get-date-utc';
 // import { DBClientType } from '../@types/types.database';
 
-
 export class Event extends Core {
   tableName: string = 'event';
   //@ts-ignore
@@ -44,7 +43,8 @@ SELECT
   AND status_name = 'confirmed') AS confirmed_participants,
  (SELECT participant.status_name
   FROM profile_on_event AS participant
-  WHERE participant.profile_id = ${profileId} AND participant.event_id = ${eventId} ) AS user_status
+  WHERE participant.profile_id = ${profileId} 
+  AND participant.event_id = ${eventId} ) AS user_status
 FROM event
 LEFT JOIN score ON event.id = score.event_id
 JOIN profile_on_event AS participant ON event.id = participant.event_id
@@ -92,7 +92,8 @@ SELECT
   ) AS participants,
   (SELECT participant.status_name
   FROM profile_on_event AS participant
-  WHERE participant.profile_id = ${profileId} AND participant.event_id = event.id) AS user_status,
+  WHERE participant.profile_id = ${profileId} 
+  AND participant.event_id = event.id) AS user_status,
   (SELECT COUNT (*) 
   FROM profile_on_event 
   WHERE event_id = event.id 
@@ -181,7 +182,6 @@ FROM event
 WHERE event.organizer_id = ${profileId}
       `.execute(this.client);
 
-
       const parsedResult = result.rows.map((event: EventType) => {
         return {
           ...event,
@@ -196,7 +196,6 @@ WHERE event.organizer_id = ${profileId}
     }
   }
   async getPastEvents(profileId: number, page: number) {
-
     const result = await sql<EventType>`
 SELECT 
   event.id AS event_id,
@@ -221,7 +220,8 @@ SELECT
   ) AS participants,
   (SELECT participant.status_name
   FROM profile_on_event AS participant
-  WHERE participant.profile_id = ${profileId} AND participant.event_id = event.id ) AS user_status,
+  WHERE participant.profile_id = ${profileId} 
+  AND participant.event_id = event.id ) AS user_status,
   (SELECT COUNT (*) 
   FROM profile_on_event 
   WHERE event_id = event.id 
@@ -243,13 +243,13 @@ ORDER BY date DESC
 LIMIT 10 OFFSET ${(page - 1) * 10}
       `.execute(this.client);
 
-
     const count = await sql<{ total_event: number }>`
 SELECT 
   COUNT (event.id) AS total_event ,
  (SELECT participant.status_name
   FROM profile_on_event AS participant
-  WHERE participant.profile_id = ${profileId} AND participant.event_id = event.id) AS user_status
+  WHERE participant.profile_id = ${profileId} 
+  AND participant.event_id = event.id) AS user_status
 FROM event
 WHERE user_status <> 'declined'
 AND EXISTS(

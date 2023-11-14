@@ -14,9 +14,7 @@ function HeaderEventList({
       <h2 className="text-sm font-semibold text-primary-1100">{title}</h2>
       {!linkOff &&
         (linkTo ? (
-          <Link
-            to={linkTo}
-            className="text-xs text-light">
+          <Link to={linkTo} className="text-xs text-light">
             See more
           </Link>
         ) : (

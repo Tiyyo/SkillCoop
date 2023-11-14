@@ -42,17 +42,15 @@ function VerifyEmail() {
               className="object-contain aspect-square h-11 absolute -top-2.5 -right-2"
             />
             <h1>An Email has been sent</h1>
-            <img
-              src={envelope}
-              className="h-14"
-            />
+            <img src={envelope} className="h-14" />
             <p>Please verify your Email</p>
           </div>
           <p className="text-xs py-4 text-primary-1100">
             Your mailbox is empty ?{' '}
             <span
               className="text-accent-700 cursor-pointer"
-              onClick={handleClick}>
+              onClick={handleClick}
+            >
               click here to resend an email
             </span>
           </p>

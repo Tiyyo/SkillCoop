@@ -27,28 +27,27 @@ export const useApp = () => {
   const setProfile = useAppStore((state) => state.setProfile);
   const signout = useAppStore((state) => state.signout);
 
-  const {
-    data,
-    isLoading,
-    isFetching,
-    isSuccess,
-  } = useQuery(['authUser'], () => {
-    if (userProfile) {
-      return 'Unecessary call';
-    }
-    return getMeFn()
-  }, {
-    enabled: true,
-    cacheTime: 0,
-    retry: 0,
-  });
+  const { data, isLoading, isFetching, isSuccess } = useQuery(
+    ['authUser'],
+    () => {
+      if (userProfile) {
+        return 'Unecessary call';
+      }
+      return getMeFn();
+    },
+    {
+      enabled: true,
+      cacheTime: 0,
+      retry: 0,
+    },
+  );
 
   useEffect(() => {
     if (data === 'Unecessary call') return;
     if (isSuccess && data) {
       setProfile(data.userProfile);
     } else {
-      setProfile(null)
+      setProfile(null);
     }
   }, [isLoading, isFetching]);
 
@@ -60,7 +59,12 @@ export const useApp = () => {
     }
   }, [userProfile]);
 
-
-
-  return { userProfile, isAuth, loading: isLoading, setIsAuth, setProfile, signout };
+  return {
+    userProfile,
+    isAuth,
+    loading: isLoading,
+    setIsAuth,
+    setProfile,
+    signout,
+  };
 };

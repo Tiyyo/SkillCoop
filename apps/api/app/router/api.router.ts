@@ -10,9 +10,8 @@ import mvpRouter from './api-router/mvp.router';
 import bestStrikerRouter from './api-router/best-striker.router';
 import logger from '../helpers/logger';
 
-
 const router: Router = express.Router();
-logger.info('Entry API router')
+logger.info('Entry API router');
 
 router.use('/user', userRouter);
 router.use('/profile', profileRouter);
@@ -23,6 +22,5 @@ router.use('/skill_foot', skilFootRouter);
 router.use('/score', scoreRouter);
 router.use('/mvp', mvpRouter);
 router.use('/best_striker', bestStrikerRouter);
-
 
 export default router;

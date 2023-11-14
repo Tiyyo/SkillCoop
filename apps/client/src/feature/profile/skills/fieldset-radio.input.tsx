@@ -19,7 +19,8 @@ function FieldsetRadioInput({ name, options }: FieldsetRadioInputProps) {
     <fieldset
       className="flex flex-col items-center justify-center"
       name={name}
-      onChange={handleChangeFieldset}>
+      onChange={handleChangeFieldset}
+    >
       <legend className="mt-3 py-1 px-4 self-start font-semibold text-primary-1100">
         {capitalize(name)}
       </legend>
@@ -32,8 +33,9 @@ function FieldsetRadioInput({ name, options }: FieldsetRadioInputProps) {
               className={cn(
                 'px-3 py-1.5 border border-primary-500 bg-base-light first-of-type:rounded-l-lg last-of-type:rounded-r-lg cursor-pointer hover:bg-primary-200 duration-200',
                 `${name}_${option}` === currentIDActive &&
-                  'bg-primary-500 text-white hover:bg-primary-500'
-              )}>
+                  'bg-primary-500 text-white hover:bg-primary-500',
+              )}
+            >
               {capitalize(option)}
               <input
                 type="radio"

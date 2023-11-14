@@ -13,8 +13,9 @@ function Status({ status, className }: StatusProps) {
       <div
         className={cn(
           'text-light text-xxs flex items-center gap-x-1 py-1',
-          className
-        )}>
+          className,
+        )}
+      >
         <p className="">Confirmed</p>
         <CheckCircle size={10} />
       </div>
@@ -25,8 +26,9 @@ function Status({ status, className }: StatusProps) {
       <div
         className={cn(
           'text-light text-xxs flex items-center gap-x-1 py-1',
-          className
-        )}>
+          className,
+        )}
+      >
         <p className="">Pending</p>
         <Loader size={10} />
       </div>

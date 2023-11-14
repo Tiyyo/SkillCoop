@@ -66,7 +66,9 @@ export default {
     if (!event || event.organizer_id !== organizer_id)
       throw new AuthorizationError('Operation not allowed');
 
-    const isUpdated = await Event.update(event_id, { organizer_id: new_organizer_id });
+    const isUpdated = await Event.update(event_id, {
+      organizer_id: new_organizer_id,
+    });
 
     res.status(204).json({ success: isUpdated });
   },

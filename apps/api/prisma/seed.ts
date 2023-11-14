@@ -10,8 +10,7 @@ import { score as Score } from '../app/models/index';
 import { friendslist as Friendlist } from '../app/models/index';
 import { skillFoot as SkillFoot } from '../app/models/index';
 import getDateUTC from '../app/utils/get-date-utc';
-import authService from '../app/service/auth/auth'
-
+import authService from '../app/service/auth/auth';
 
 function getRandomIntInclusive(min: number, max: number): number {
   min = Math.ceil(min);
@@ -26,7 +25,6 @@ function getIntUnused(intAlreadyUsed: number[]): number {
   }
   intAlreadyUsed.push(nbToPush);
   return nbToPush;
-
 }
 
 async function seed() {
@@ -46,7 +44,6 @@ async function seed() {
   for await (const item of status) {
     await Status.create({ name: item.name });
   }
-
 
   // create 1 admin
   // const admin = {
@@ -94,17 +91,78 @@ async function seed() {
   // }
 
   const userToCreateInfos = [
-    { email: 'admin@admin.com', password: 'admin', username: 'Tiyyo', date_of_birth: '1992-12-09', first_name: 'steeve', last_name: 'matou' },
-    { email: 'haaland@haaland.com', password: 'haaland', username: 'Haaland', first_name: 'Erling', last_name: 'Haaland' },
-    { email: 'mbappe@mbappe.com', password: 'mbappe', username: 'Mbappe', first_name: 'Kylian', last_name: 'Mbappe' },
-    { email: 'bellingham@bellingham.com', password: 'bellingham', username: 'Bellingham', first_name: 'Jude', last_name: 'Bellingham' },
-    { email: 'vinicius@vinicius.com', password: 'vinicius', username: 'Vinicius', first_name: 'Vinicius', last_name: 'Junior' },
-    { email: 'saka@saka.com', password: 'saka', username: 'Saka', first_name: 'Bukayo', last_name: 'Saka' },
-    { email: 'osimhen@osimhen.com', password: 'osimhen', username: 'Osimhen', first_name: 'Victor', last_name: 'Osimhen' },
-    { email: 'musiala@musiala.com', password: 'musiala', username: 'Musiala', first_name: 'Jamal', last_name: 'Musiala' },
-    { email: 'foden@foden.com', password: 'foden', username: 'Foden', first_name: 'Phil', last_name: 'Foden' },
-    { email: 'kane@kane.com', password: 'kane', username: 'Kane', first_name: 'Harry', last_name: 'Kane' },
-  ]
+    {
+      email: 'admin@admin.com',
+      password: 'admin',
+      username: 'Tiyyo',
+      date_of_birth: '1992-12-09',
+      first_name: 'steeve',
+      last_name: 'matou',
+    },
+    {
+      email: 'haaland@haaland.com',
+      password: 'haaland',
+      username: 'Haaland',
+      first_name: 'Erling',
+      last_name: 'Haaland',
+    },
+    {
+      email: 'mbappe@mbappe.com',
+      password: 'mbappe',
+      username: 'Mbappe',
+      first_name: 'Kylian',
+      last_name: 'Mbappe',
+    },
+    {
+      email: 'bellingham@bellingham.com',
+      password: 'bellingham',
+      username: 'Bellingham',
+      first_name: 'Jude',
+      last_name: 'Bellingham',
+    },
+    {
+      email: 'vinicius@vinicius.com',
+      password: 'vinicius',
+      username: 'Vinicius',
+      first_name: 'Vinicius',
+      last_name: 'Junior',
+    },
+    {
+      email: 'saka@saka.com',
+      password: 'saka',
+      username: 'Saka',
+      first_name: 'Bukayo',
+      last_name: 'Saka',
+    },
+    {
+      email: 'osimhen@osimhen.com',
+      password: 'osimhen',
+      username: 'Osimhen',
+      first_name: 'Victor',
+      last_name: 'Osimhen',
+    },
+    {
+      email: 'musiala@musiala.com',
+      password: 'musiala',
+      username: 'Musiala',
+      first_name: 'Jamal',
+      last_name: 'Musiala',
+    },
+    {
+      email: 'foden@foden.com',
+      password: 'foden',
+      username: 'Foden',
+      first_name: 'Phil',
+      last_name: 'Foden',
+    },
+    {
+      email: 'kane@kane.com',
+      password: 'kane',
+      username: 'Kane',
+      first_name: 'Harry',
+      last_name: 'Kane',
+    },
+  ];
 
   for await (const infos of userToCreateInfos) {
     const user = await authService.createUser({
@@ -183,7 +241,6 @@ async function seed() {
   });
   await Friendlist.createMany(dataPendingRequestsTest);
 
-
   const arrayFourtoThriteen = new Array(10).fill(1);
   const dataConfirmedRequests = arrayFourtoThriteen.map((_, index) => {
     return {
@@ -193,7 +250,6 @@ async function seed() {
     };
   });
   await Friendlist.createMany(dataConfirmedRequests);
-
 
   const array20 = new Array(20).fill(1);
   const dataPendingRequestsAdmin = array20.map((_, index) => {
@@ -243,7 +299,6 @@ async function seed() {
         status_name: 'confirmed',
       });
     });
-
   }
 
   // create 3 future events
@@ -322,7 +377,6 @@ async function seed() {
     ).fill(1);
 
     getIntUnused(intAlreadyUsed);
-
 
     arrayToIterateOnParticipants.forEach(async (_, index) => {
       Participant.create({

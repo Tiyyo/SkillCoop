@@ -1,4 +1,4 @@
-import dateHandler from "../../utils/date.handler"
+import dateHandler from '../../utils/date.handler';
 
 interface DateLocationProps {
   date: string;

@@ -30,7 +30,8 @@ describe('AuthController', () => {
       await register(req, res);
       expect(res.status).toBeCalledWith(201);
     });
-    test.skip('should call createUser service with correct params', async () => {
+    test.skip(`should call createUser
+      service with correct params`, async () => {
       const res = mockResponse();
       const req = mockRequest;
       authService.createUser = vi.fn().mockResolvedValue(true);
@@ -91,26 +92,23 @@ describe('AuthController', () => {
     test.skip('should return accesToken if user is logged in', async () => {
       const res = mockResponse();
       const req = mockRequest;
-      authService.login = vi
-        .fn()
-        .mockResolvedValue({
-          accessToken: 'validAccessToken',
-          refreshToken: 'validRefreshToken',
-        });
+      authService.login = vi.fn().mockResolvedValue({
+        accessToken: 'validAccessToken',
+        refreshToken: 'validRefreshToken',
+      });
       await signin(req, res);
       expect(res.json).toBeCalledWith(
         expect.objectContaining({ accessToken: expect.any(String) }),
       );
     });
-    test.skip('should set refreshToken cookie if user is logged in', async () => {
+    test.skip(`should set refreshToken 
+      cookie if user is logged in`, async () => {
       const res = mockResponse();
       const req = mockRequest;
-      authService.login = vi
-        .fn()
-        .mockResolvedValue({
-          accessToken: 'validAccessToken',
-          refreshToken: 'validRefreshToken',
-        });
+      authService.login = vi.fn().mockResolvedValue({
+        accessToken: 'validAccessToken',
+        refreshToken: 'validRefreshToken',
+      });
       await signin(req, res);
       expect(res.cookie).toBeCalledWith('refreshToken', 'validRefreshToken', {
         httpOnly: true,
@@ -125,10 +123,15 @@ describe('AuthController', () => {
       vi.resetAllMocks();
     });
     test.skip('should return 200 when token is refreshed', async () => {
+      // test skipped
     });
     test.skip(`should return accesToken
-      if token is refreshed`, async () => { });
+      if token is refreshed`, async () => {
+      // test skipped
+    });
     test.skip(`should call createAccesToken
-      with correct params`, async () => { });
+      with correct params`, async () => {
+      // test skipped
+    });
   });
 });

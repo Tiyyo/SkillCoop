@@ -31,7 +31,7 @@ function ModalRouteRatingEvent() {
   const skills = ['defending', 'dribbling', 'passing', 'shooting', 'pace'];
 
   const { data: participantProfile } = useQuery(['test'], () =>
-    getProfileFn(Number(participantProfileId))
+    getProfileFn(Number(participantProfileId)),
   );
 
   const {
@@ -48,7 +48,7 @@ function ModalRouteRatingEvent() {
   });
 
   const { mutate: evaluateSkills } = useMutation(
-    (data: EvaluationParticipantSkill) => evaluateParticipantSkillsFn(data)
+    (data: EvaluationParticipantSkill) => evaluateParticipantSkillsFn(data),
   );
 
   // TODO : fix type or find another way to do it
@@ -60,17 +60,17 @@ function ModalRouteRatingEvent() {
     const data = {
       defending: Number(
         //@ts-ignore
-        target['defending-rating' as keyof typeof e.target].value
+        target['defending-rating' as keyof typeof e.target].value,
       ),
       dribbling: Number(
         //@ts-ignore
-        target['dribbling-rating' as keyof typeof e.target].value
+        target['dribbling-rating' as keyof typeof e.target].value,
       ),
       //@ts-ignore
       passing: Number(target['passing-rating' as keyof typeof e.target].value),
       shooting: Number(
         //@ts-ignore
-        target['shooting-rating' as keyof typeof e.target].value
+        target['shooting-rating' as keyof typeof e.target].value,
       ),
       //@ts-ignore
       pace: Number(target['pace-rating' as keyof typeof e.target].value),
@@ -88,7 +88,7 @@ function ModalRouteRatingEvent() {
         data.passing +
         data.shooting +
         data.pace) /
-        5
+        5,
     );
     setEvaluation(average);
     setHasBeenRated(true);
@@ -161,7 +161,8 @@ function ModalRouteRatingEvent() {
               {!hasBeenRated && (
                 <form
                   className="flex flex-col items-center"
-                  onSubmit={handleSubmitEvaluation}>
+                  onSubmit={handleSubmitEvaluation}
+                >
                   {skills.map((skill, index) => (
                     <GroupedStars
                       key={index}
@@ -172,7 +173,8 @@ function ModalRouteRatingEvent() {
                   <Button
                     type="submit"
                     variant="light"
-                    textContent="Send evaluation">
+                    textContent="Send evaluation"
+                  >
                     Send evaluation
                   </Button>
                 </form>

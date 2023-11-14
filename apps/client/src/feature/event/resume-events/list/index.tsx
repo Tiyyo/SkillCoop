@@ -46,7 +46,8 @@ function EventList({
       <InfiniteScroll
         loading={loading ?? false}
         triggerNextPage={triggerNextPage}
-        hasMore={hasMore ?? false}>
+        hasMore={hasMore ?? false}
+      >
         {events &&
           events.length > 0 &&
           events.slice(0, nbEvent).map((event) => (

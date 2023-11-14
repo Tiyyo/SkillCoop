@@ -17,9 +17,7 @@ export type Eval = {
 const getCompleteEventInfos = async (event_id: number) => {
   const [result] = await db
     .selectFrom(['profile_on_event'])
-    .select([
-      'profile_on_event.event_id',
-    ])
+    .select(['profile_on_event.event_id'])
     .select(({ fn }) => [
       'profile_on_event.event_id',
       fn
@@ -27,10 +25,7 @@ const getCompleteEventInfos = async (event_id: number) => {
         .as('ids_participants'),
     ])
     .leftJoin('event', 'profile_on_event.event_id', 'event.id')
-    .select([
-      'event.required_participants',
-      'event.nb_teams',
-    ])
+    .select(['event.required_participants', 'event.nb_teams'])
     .where('profile_on_event.event_id', '=', event_id)
     .where('profile_on_event.status_name', '=', 'confirmed')
     .groupBy(['profile_on_event.event_id', 'event.required_participants'])

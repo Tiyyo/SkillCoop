@@ -19,7 +19,8 @@ function Page404() {
           </p>
           <Link
             className="px-8 py-3 font-semibold cursor-pointer text-primary-900"
-            to="/">
+            to="/"
+          >
             Back to homepage
           </Link>
         </div>

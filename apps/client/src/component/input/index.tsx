@@ -58,7 +58,8 @@ function Input({
   return (
     <label
       htmlFor={name}
-      className="block text-md font-semibold text-primary-1100 w-full">
+      className="block text-md font-semibold text-primary-1100 w-full"
+    >
       <p className="py-2">{label}</p>
       <div className="relative">
         <input
@@ -75,13 +76,14 @@ function Input({
             `bg-base-light border border-gray-300 text-primary-1100 text-xs rounded-lg block w-full h-10.5 pl-10 `,
             disabled && 'border-none',
             hasError && 'border-2 border-error',
-            className
+            className,
           )}
         />
         <div
           className={`absolute top-1/2 left-2 -translate-y-1/2  ${
             hasError ? 'text-error' : 'text-primary-600'
-          }`}>
+          }`}
+        >
           {children}
         </div>
       </div>

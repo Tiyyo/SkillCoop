@@ -1,5 +1,3 @@
-
-
 function Search() {
   return (
     <svg

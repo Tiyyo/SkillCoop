@@ -25,10 +25,10 @@ function DropdownEventMenu({
   eventStatus = 'open',
 }: DropdownEventMenuProps) {
   const { mutate: deleteEvent } = useMutation(
-    (data: { eventId: number; profileId: number }) => deleteEventFn(data)
+    (data: { eventId: number; profileId: number }) => deleteEventFn(data),
   );
   const { mutate: generateTeams } = useMutation((eventId: number) =>
-    generateTeamsFn(eventId)
+    generateTeamsFn(eventId),
   );
 
   const handleClickGenerateTeams = () => {
@@ -48,7 +48,8 @@ function DropdownEventMenu({
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="currentColor"
-            viewBox="0 0 4 15">
+            viewBox="0 0 4 15"
+          >
             <path
               d={`M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 
             6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 
@@ -58,11 +59,10 @@ function DropdownEventMenu({
         </DropdownMenuTrigger>
         <DropdownMenuContent
           className={`bg-base-light mx-2 border 
-          z-10 flex flex-col`}>
+          z-10 flex flex-col`}
+        >
           {eventStatus !== 'completed' && (
-            <UpdateStatusModal
-              eventId={eventId}
-              profileId={profileId}>
+            <UpdateStatusModal eventId={eventId} profileId={profileId}>
               <FolderInput size="16" />
               <span>Revoke participation</span>
             </UpdateStatusModal>
@@ -88,7 +88,8 @@ function DropdownEventMenu({
                 mutationData={{ eventId, profileId }}
                 description={`This action cannot be undone. 
                 his will permanently delete your event.`}
-                redirection="/">
+                redirection="/"
+              >
                 <div className="text-error flex items-center gap-2">
                   <Trash2 size="16" />
                   <span>Delete</span>

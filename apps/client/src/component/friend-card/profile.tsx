@@ -38,7 +38,7 @@ function ProfileCard({
     isLoading,
     isFetching,
   } = useMutation(['sendFriendRequest'], (data: CreateInvitation) =>
-    sendFriendRequestFn(data)
+    sendFriendRequestFn(data),
   );
   const { removeSearchProfile } = useFriends();
   const handleActionInviation = () => {
@@ -63,7 +63,8 @@ function ProfileCard({
   if (relation) return null;
   return (
     <div
-      className={`flex py-2 px-3 gap-3 cursor-pointer bg-base-light rounded-md border-2 border-transparent`}>
+      className={`flex py-2 px-3 gap-3 cursor-pointer bg-base-light rounded-md border-2 border-transparent`}
+    >
       <img
         src={avatar ?? defaultAvatar}
         alt="avatar"

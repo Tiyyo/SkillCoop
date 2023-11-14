@@ -5,10 +5,7 @@ import { Outlet } from 'react-router-dom';
 function HomePageUser() {
   return (
     <Page>
-      <Header
-        title="Profile"
-        isPlusExist={false}
-      />
+      <Header title="Profile" isPlusExist={false} />
       <Outlet />
     </Page>
   );

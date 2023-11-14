@@ -6,7 +6,6 @@ import bcrypt from 'bcrypt';
 import checkParams from '../utils/check-params';
 import AuthorizationError from '../helpers/errors/unauthorized.error';
 
-
 export default {
   getMe: async (req: Request, res: Response) => {
     const { decoded } = req.body;
@@ -32,7 +31,7 @@ export default {
 
     const user = await User.findByPk(user_id);
 
-    // check if old password match 
+    // check if old password match
     // create a new hash password
     // update the user with the new hash password
 
@@ -45,7 +44,6 @@ export default {
     const isUpdate = await User.update(user_id, { password: hashedPassword });
 
     res.status(200).json({ success: isUpdate });
-
   },
   deleteUser: async (req: Request, res: Response) => {
     const [userId] = checkParams(req.params.userId);
@@ -61,5 +59,5 @@ export default {
 
     const isDeleted = await User.delete(userId);
     res.status(204).json({ success: isDeleted });
-  }
-}; 
+  },
+};

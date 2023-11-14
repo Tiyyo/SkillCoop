@@ -41,7 +41,8 @@ function SearchInput({ getFocusState, onChange }: SearchInputProps) {
       <div
         className={`absolute top-1/2 right-2 -translate-y-1/2 text-primary-600 transition-opacity duration-300 ${
           shouldShowIcon ? 'opacity-95' : 'opacity-0'
-        }`}>
+        }`}
+      >
         <Search />
       </div>
     </div>

@@ -21,13 +21,13 @@ function CallToActionInvitation({
   profileId,
 }: CallToActionInvitationProps) {
   const { mutate: updateParticipant } = useMutation(
-    (data: UpdateParticipantProps) => updateParticipantFn(data)
+    (data: UpdateParticipantProps) => updateParticipantFn(data),
   );
 
   const { data: event, updateUserStatus } = useEvent();
   //  Should be abstract to another hook
   const handleClickInvitation = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     const status = (e.target as HTMLButtonElement).value;
     if (!profileId || !eventId) return;
@@ -57,13 +57,15 @@ function CallToActionInvitation({
             <button
               value="confirmed"
               className="py-1.5 bg-primary-700 px-2.5 rounded-md shadow-lg font-semibold"
-              onClick={handleClickInvitation}>
+              onClick={handleClickInvitation}
+            >
               Yes
             </button>
             <button
               value="declined"
               className="py-1.5 bg-white px-2.5 rounded-md shadow-md font-semibold"
-              onClick={handleClickInvitation}>
+              onClick={handleClickInvitation}
+            >
               No
             </button>
           </div>

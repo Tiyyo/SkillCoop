@@ -70,14 +70,16 @@ function SelectInput({
     <div className="w-full">
       <label
         htmlFor={name}
-        className="block py-2 text-md font-semibold text-primary-1100">
+        className="block py-2 text-md font-semibold text-primary-1100"
+      >
         {label}
       </label>
       <div className={`relative `}>
         <div
           className={`absolute top-1/2 left-2 -translate-y-1/2  ${
             hasError ? 'text-error' : 'text-primary-600'
-          }`}>
+          }`}
+        >
           {children}
         </div>
         {disabled ? (
@@ -98,14 +100,13 @@ function SelectInput({
               hasError ? 'border-2 border-error' : ''
             } text-sm rounded-lg focus:ring-primary-800 focus:border-primary-800 block w-full h-10.5 pl-10`}
             onChange={handleChange}
-            {...props}>
+            {...props}
+          >
             <option className="text-xs font-light text-ligh">
               Pick an option
             </option>
             {options.map((option: any, index) => (
-              <option
-                key={index + idComponent}
-                value={option.value}>
+              <option key={index + idComponent} value={option.value}>
                 {option.label}
               </option>
             ))}

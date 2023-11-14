@@ -21,7 +21,7 @@ function UserResumeSkills() {
   const skills = ['defending', 'dribbling', 'passing', 'shooting', 'pace'];
   const [skillValues, setSkillValues] = useState<Record<string, number>>({});
   const { mutate: evaluateSkills } = useMutation((data: EvaluationOwnSkill) =>
-    evaluateOwnSkillsFn(data)
+    evaluateOwnSkillsFn(data),
   );
   const { data: profileEval, isLoading } = useQuery(['profileEval'], () => {
     if (!userProfile?.profile_id) return;
@@ -92,9 +92,7 @@ function UserResumeSkills() {
             the algorithm to more accurately match users during event
             matchmaking.
           </p>
-          <form
-            onSubmit={handleSubmit}
-            className="flex flex-col py-4">
+          <form onSubmit={handleSubmit} className="flex flex-col py-4">
             {skills.map((skill) => (
               <FieldsetRadioInput
                 key={idComp + skill}
@@ -136,17 +134,12 @@ function UserResumeSkills() {
               Here is your average skills:{' '}
               <span className="font-semibold">
                 {capitalize(
-                  associateNumberToString(userProfile?.gb_rating as number)
+                  associateNumberToString(userProfile?.gb_rating as number),
                 )}
               </span>
             </p>
           </div>
-          <RadarChart
-            skills={skillValues}
-            min={0}
-            max={100}
-            displayTicks
-          />
+          <RadarChart skills={skillValues} min={0} max={100} displayTicks />
         </>
       )}
     </div>

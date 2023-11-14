@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 function InvitationEvent() {
   const [variant, setVariant] = useState<'update' | 'mutate' | undefined>(
-    undefined
+    undefined,
   );
   const location = useLocation();
   const variantToDisplay: 'update' | 'mutate' | undefined =

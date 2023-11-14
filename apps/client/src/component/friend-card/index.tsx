@@ -52,15 +52,10 @@ function FriendCard({
 }: FriendCardProps) {
   const { removePendingFriend, addConfirmedFriend } = useFriends();
   const [isSelected, setIsSelected] = useState(false);
-  const currentAction = '';
 
-  const {
-    mutate: acceptOrDeclinedInvitation,
-    isSuccess,
-    isLoading,
-  } = useMutation(
+  const { mutate: acceptOrDeclinedInvitation } = useMutation(
     ['acceptOrDeclinedInvitation'],
-    (data: updateInvitationStatus) => acceptOrDeclinedFriendRequestFn(data)
+    (data: updateInvitationStatus) => acceptOrDeclinedFriendRequestFn(data),
   );
 
   const handleClickSelectFriend = () => {
@@ -117,7 +112,8 @@ function FriendCard({
             ? ' border-opacity-50 border-primary-400 bg-primary-500 shadow-2xl'
             : 'bg-base-light'
         }}`}
-        onClick={handleClickSelectFriend}>
+        onClick={handleClickSelectFriend}
+      >
         <img
           src={avatar ?? defaultAvatar}
           alt="avatar"
@@ -136,13 +132,15 @@ function FriendCard({
                 <button
                   value="declined"
                   className="text-error"
-                  onClick={handleActionOnInviation}>
+                  onClick={handleActionOnInviation}
+                >
                   <OctogoneCross />
                 </button>
                 <button
                   value="confirmed"
                   className="text-primary-900"
-                  onClick={handleActionOnInviation}>
+                  onClick={handleActionOnInviation}
+                >
                   <Check />
                 </button>
               </div>

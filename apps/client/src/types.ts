@@ -1,18 +1,18 @@
 export type LevelScale =
-  | "beginner"
-  | "novice"
-  | "intermediate"
-  | "advanced"
-  | "expert";
+  | 'beginner'
+  | 'novice'
+  | 'intermediate'
+  | 'advanced'
+  | 'expert';
 
-export type EventStatus = "open" | "full" | "completed" | "cancelled";
+export type EventStatus = 'open' | 'full' | 'completed' | 'cancelled';
 
-export type InvitationStatus = "pending" | "confirmed" | "declined";
+export type InvitationStatus = 'pending' | 'confirmed' | 'declined';
 
 export const invitationStatus = {
-  pending: "pending",
-  confirmed: "confirmed",
-  declined: "declined",
+  pending: 'pending',
+  confirmed: 'confirmed',
+  declined: 'declined',
 } as const;
 
 export type User = {
@@ -42,7 +42,7 @@ export type SearchEventQuery = {
 export type Bonus = {
   nb_mvp_bonus: number;
   nb_best_striker_bonus: number;
-}
+};
 
 export type Profile = {
   user_id: number;
@@ -60,17 +60,17 @@ export type Profile = {
   nb_bonus?: Bonus;
   nb_attended_events?: number | null;
   relation_exists: number | null;
-  last_evaluation: number | null
+  last_evaluation: number | null;
 };
 
 export type ProfileEval = {
-  gb_rating: number
-  avg_pace: number
-  avg_defending: number
-  avg_passing: number
-  avg_dribbling: number
-  avg_shooting: number
-}
+  gb_rating: number;
+  avg_pace: number;
+  avg_defending: number;
+  avg_passing: number;
+  avg_dribbling: number;
+  avg_shooting: number;
+};
 
 export type EventParticipant = {
   profile_id: number;
@@ -86,7 +86,7 @@ export type CreateEventData = {
   location: string;
   required_participants: number;
   organizer_id: number;
-  status_name: "open";
+  status_name: 'open';
   participants?: number[];
 };
 
@@ -127,9 +127,14 @@ export type Vote = {
   profile_id: number;
   rater_id: number;
   event_id: number;
-}
+};
 
-export type ScaleLevel = 'beginner' | 'novice' | 'intermediate' | 'advanced' | 'expert'
+export type ScaleLevel =
+  | 'beginner'
+  | 'novice'
+  | 'intermediate'
+  | 'advanced'
+  | 'expert';
 
 export type EvaluationOwnSkill = {
   defending: ScaleLevel;
@@ -138,7 +143,7 @@ export type EvaluationOwnSkill = {
   passing: ScaleLevel;
   shooting: ScaleLevel;
   profile_id: number;
-}
+};
 
 export type EvaluationParticipantSkill = {
   defending: number;
@@ -149,4 +154,4 @@ export type EvaluationParticipantSkill = {
   event_id: number;
   rater_id: number;
   reviewee_id: number;
-}
+};

@@ -49,7 +49,8 @@ function Field({
           type={type}
           name={name}
           register={register}
-          defaultValue={valueForm ?? undefined}>
+          defaultValue={valueForm ?? undefined}
+        >
           {Icon}
         </FormField>
       )}
@@ -68,7 +69,7 @@ function FormEditProfileInfos({
   });
   const { mutate, isLoading } = useMutation((data) =>
     //@ts-ignore
-    updateProfileInfoFn(data)
+    updateProfileInfoFn(data),
   );
 
   const getBirthDate = (date: string | null) => {
@@ -97,13 +98,10 @@ function FormEditProfileInfos({
   return (
     <form
       className="flex flex-col justify-between rounded-lg border border-gray-100 py-3 shadow-sm w-full"
-      onSubmit={handleSubmit(onSubmit)}>
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <dl className="-my-3 divide-y divide-gray-100 text-sm ">
-        <input
-          hidden
-          value={infos.profileId}
-          {...register('profile_id')}
-        />
+        <input hidden value={infos.profileId} {...register('profile_id')} />
         <Field
           label="Username"
           type="text"

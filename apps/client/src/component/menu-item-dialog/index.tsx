@@ -54,7 +54,8 @@ function MenuItemDialog({
           </AlertDialogCancel>
           <AlertDialogAction
             className="bg-primary-800 hover:bg-primary-400 duration-300"
-            onClick={handleClick}>
+            onClick={handleClick}
+          >
             Continue
           </AlertDialogAction>
         </AlertDialogFooter>

@@ -34,7 +34,7 @@ function EventPage() {
       if (!profileId || !eventId) return;
       return getEventFn(Number(eventId), profileId);
     },
-    { enabled: true, refetchOnMount: false }
+    { enabled: true, refetchOnMount: false },
   );
 
   useEffect(() => {
@@ -153,7 +153,8 @@ function EventPage() {
         <Link
           to="invitation"
           state={{ eventId, variant: 'mutate' }}
-          className="flex items-center underline underline-offset-8 un gap-2 py-4 text-md text-primary-1100 font-semibold cursor-pointer w-full justify-center">
+          className="flex items-center underline underline-offset-8 un gap-2 py-4 text-md text-primary-1100 font-semibold cursor-pointer w-full justify-center"
+        >
           <p>INVITE FRIENDS </p>
           <Plus />
         </Link>

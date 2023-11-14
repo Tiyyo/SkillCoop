@@ -1,4 +1,3 @@
-
 function Globe() {
   return (
     <svg

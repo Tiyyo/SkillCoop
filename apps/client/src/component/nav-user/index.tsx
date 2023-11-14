@@ -74,7 +74,8 @@ function NavUser() {
           <DropdownMenuSeparator className="bg-light" />
           <DropdownMenuItem
             className={menuItemStyle}
-            onClick={handleClickLogout}>
+            onClick={handleClickLogout}
+          >
             <LogOut size={16} />
             <span>Logout</span>
           </DropdownMenuItem>

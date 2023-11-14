@@ -1,6 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { loginUserFn } from '../../api/api.fn';
-// Workaround : Create a ts-schema folder in the schema lib to avoid rollup plugin error
+// Workaround : Create a ts-schema folder
+//in the schema lib to avoid rollup plugin error
 import { loginSchema } from 'schema/ts-schema';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -12,8 +13,7 @@ import Page from '../../layout/page';
 import FormField from '../../component/form-field';
 import { useEffect } from 'react';
 import Atsign from '../../assets/icon/Atsign';
-import EyeIcon from '../../assets/icon/Eye';
-import EyeSlash from '../../assets/icon/EyeSlash';
+import { Eye, EyeOff } from 'lucide-react';
 import SeparatorLine from '../../component/seperator-line';
 import Center from '../../layout/center';
 import ErrorContainer from '../../component/error';
@@ -74,38 +74,36 @@ function Login() {
         </h1>
         <div
           className="flex flex-col w-[90%] 
-              max-w-lg bg-base-light py-12 px-6 rounded-lg">
-          <SocialButton
-            value="Login with Google"
-            href={getGoogleUrl(from)}>
+              max-w-lg bg-base-light py-12 px-6 rounded-lg"
+        >
+          <SocialButton value="Login with Google" href={getGoogleUrl(from)}>
             <Google />
           </SocialButton>
           <SeparatorLine />
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col items-center gap-y-5">
+            className="flex flex-col items-center gap-y-5"
+          >
             <FormField
               type="text"
               name="email"
               label="Email"
               error={checkIfString(errors.email?.message)}
-              register={register}>
+              register={register}
+            >
               <Atsign />
             </FormField>
             <FormField
               type="password"
               name="password"
               label="Password"
-              subicon={<EyeSlash />}
+              subicon={<EyeOff size={18} />}
               error={checkIfString(errors.password?.message)}
-              register={register}>
-              <EyeIcon />
+              register={register}
+            >
+              <Eye size={18} />
             </FormField>
-            <Button
-              textContent="Login"
-              isLoading={loading}
-              type="submit"
-            />
+            <Button textContent="Login" isLoading={loading} type="submit" />
             <ErrorContainer
               errorValue={(error as any)?.response?.data.error} //eslint-disable-line
             />
@@ -113,9 +111,7 @@ function Login() {
         </div>
         <p className="text-xs py-2">
           Don't have an account ?{' '}
-          <Link
-            to="/register"
-            className="text-primary-1000 font-bold">
+          <Link to="/register" className="text-primary-1000 font-bold">
             Join us
           </Link>
         </p>

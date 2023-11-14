@@ -3,7 +3,11 @@ import factory from '../../middleware/wrapper-controller';
 import friendsList from '../../controller/friendslist.controller';
 import validate from '../../middleware/schema-validator';
 import { canals } from '../../@types/types';
-import { searchFriendsSchema, createInvitationSchema, updateFriendshipSchema } from 'schema';
+import {
+  searchFriendsSchema,
+  createInvitationSchema,
+  updateFriendshipSchema,
+} from 'schema';
 
 const {
   getFriends,
@@ -20,11 +24,11 @@ router
   .route('/')
   .post(
     validate(createInvitationSchema, canals.body),
-    factory(sendFriendRequest)
+    factory(sendFriendRequest),
   )
   .patch(
     validate(updateFriendshipSchema, canals.body),
-    factory(acceptOrDeclined)
+    factory(acceptOrDeclined),
   );
 
 router.route('/:profileId').get(factory(getFriends));

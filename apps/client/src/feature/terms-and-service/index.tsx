@@ -1,9 +1,5 @@
-
-
 function TermsAndService() {
-  return (
-    <h1>Terms of service</h1>
-  )
+  return <h1>Terms of service</h1>;
 }
 
-export default TermsAndService
+export default TermsAndService;

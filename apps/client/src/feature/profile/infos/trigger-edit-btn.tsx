@@ -18,24 +18,12 @@ function TriggerEditBtn({
   return (
     <>
       {!isEditing ? (
-        <button
-          type="button"
-          className={className}
-          onClick={handleClickToggle}>
-          <Edit2
-            className="text-light"
-            size={18}
-          />
+        <button type="button" className={className} onClick={handleClickToggle}>
+          <Edit2 className="text-light" size={18} />
         </button>
       ) : (
-        <button
-          type="button"
-          className={className}
-          onClick={handleClickToggle}>
-          <Check
-            className="text-light"
-            size={18}
-          />
+        <button type="button" className={className} onClick={handleClickToggle}>
+          <Check className="text-light" size={18} />
         </button>
       )}
     </>

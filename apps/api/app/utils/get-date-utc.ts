@@ -1,5 +1,4 @@
 function getDateUTC(date: Date) {
-
   const year = date.getUTCFullYear();
   const month = date.getUTCMonth();
   const day = date.getUTCDate();
@@ -9,7 +8,6 @@ function getDateUTC(date: Date) {
   const millisecond = date.getUTCMilliseconds();
 
   return `${year}-${month}-${day} ${hour}:${minute}:${second}.${millisecond}`;
-
 }
 
 export default getDateUTC;

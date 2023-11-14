@@ -38,7 +38,7 @@ function Invite({ variant = 'update' }: InviteProps) {
       username: '',
       profile: profileId ? profileId : 0,
       page: 1,
-    }
+    },
   );
 
   const {
@@ -53,7 +53,7 @@ function Invite({ variant = 'update' }: InviteProps) {
     },
     {
       enabled: true,
-    }
+    },
   );
 
   const {
@@ -77,7 +77,7 @@ function Invite({ variant = 'update' }: InviteProps) {
     isError: isInvitationError,
     isLoading: isInvitationLoading,
   } = useMutation((data: { event_id: number; ids: number[] }) =>
-    sendEventInvitationFn(data)
+    sendEventInvitationFn(data),
   );
 
   const getFocusInputSearchState = (state: boolean) => {

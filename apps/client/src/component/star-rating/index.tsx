@@ -21,7 +21,8 @@ function Star<T extends HTMLInputTypeAttribute>({
       />
       <label
         htmlFor={`${name}_star${value}`}
-        className=" float-right cursor-pointer text-primary-500 transition-colors duration-300 after:text-3xl after:content-['\2605'] "></label>
+        className=" float-right cursor-pointer text-primary-500 transition-colors duration-300 after:text-3xl after:content-['\2605'] "
+      ></label>
     </>
   );
 }
@@ -34,9 +35,7 @@ function GroupedStars({ name, legend }: { name: string; legend: string }) {
   const id = useId();
 
   return (
-    <fieldset
-      name={name}
-      className="flex flex-row-reverse gap-1 rating w-fit">
+    <fieldset name={name} className="flex flex-row-reverse gap-1 rating w-fit">
       <legend className="text-sm font-semibold">{legend}</legend>
       {stars.map((_, index) => (
         <Star

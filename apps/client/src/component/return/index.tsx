@@ -16,9 +16,7 @@ function ReturnBtn({ to }: ReturnBtnProps) {
     navigate(destination);
   };
   return (
-    <button
-      onClick={handleClickReturn}
-      className="py-2 px-3 text-light">
+    <button onClick={handleClickReturn} className="py-2 px-3 text-light">
       <Return />
     </button>
   );

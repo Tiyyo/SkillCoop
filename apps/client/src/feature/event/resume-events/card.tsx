@@ -45,19 +45,12 @@ function EventCard({
   return (
     <div className=" h-fit border-t bg-base-light shadow-sm px-3 py-3">
       <div className="flex justify-between pb-6 pt-2">
-        <DateAndLocation
-          date={date}
-          location={location}
-        />
+        <DateAndLocation date={date} location={location} />
         <Badge content={displayCorrectStatus(userStatus, eventStatus)} />
       </div>
       <div className="flex items-center justify-center">
         {shouldDisplayAvatars(eventStatus) && (
-          <Avatars
-            participants={participants}
-            nbAvatarToDisplay={3}
-            team={1}
-          />
+          <Avatars participants={participants} nbAvatarToDisplay={3} team={1} />
         )}
         <Score
           eventStatus={eventStatus}
@@ -79,10 +72,7 @@ function EventCard({
         <div>
           {!shouldDisplayAvatars(eventStatus) && (
             <div className="flex text-xxs items-end ">
-              <Avatars
-                participants={participants}
-                nbAvatarToDisplay={3}
-              />
+              <Avatars participants={participants} nbAvatarToDisplay={3} />
               <p className="relative translate-x-1">
                 <span className="font-bold">{confirmedParticipants}</span> /{' '}
                 <span>{requiredParticipants}</span> are going
@@ -93,7 +83,8 @@ function EventCard({
         <Link
           to={`/event/${eventId}`}
           state={{ eventId }}
-          className="text-xxs text-light">
+          className="text-xxs text-light"
+        >
           view details
         </Link>
       </div>

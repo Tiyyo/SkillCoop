@@ -1,8 +1,7 @@
-import { SERVER_URL } from "./server"
-
+import { SERVER_URL } from './server';
 
 const getGoogleUrl = (from: string): string => {
-  const root = 'https://accounts.google.com/o/oauth2/v2/auth'
+  const root = 'https://accounts.google.com/o/oauth2/v2/auth';
 
   const options = {
     redirect_uri: SERVER_URL + import.meta.env.VITE_GOOGLE_CALLBACK_URL,
@@ -15,11 +14,11 @@ const getGoogleUrl = (from: string): string => {
       'https://www.googleapis.com/auth/userinfo.email',
     ].join(' '),
     state: from,
-  }
+  };
 
-  const qs = new URLSearchParams(options).toString()
+  const qs = new URLSearchParams(options).toString();
 
-  return `${root}?${qs}`
-}
+  return `${root}?${qs}`;
+};
 
-export default getGoogleUrl
+export default getGoogleUrl;

@@ -12,24 +12,14 @@ export default {
     toast(message, {
       description: description,
 
-      icon: (
-        <BadgeCheck
-          size={24}
-          className="text-primary-600"
-        />
-      ),
+      icon: <BadgeCheck size={24} className="text-primary-600" />,
       position: 'top-right',
       duration: 2500,
     });
   },
   addFriend(username: string) {
     toast(`${username} has been added to your friend list`, {
-      icon: (
-        <BadgeCheck
-          size={24}
-          className="text-primary-600"
-        />
-      ),
+      icon: <BadgeCheck size={24} className="text-primary-600" />,
       position: 'top-right',
       duration: 2500,
     });
@@ -39,29 +29,22 @@ export default {
       ? `Invitation sent to ${username}`
       : `Invitation sent`;
     toast(message, {
-      icon: (
-        <Send
-          size={24}
-          className="text-primary-600"
-        />
-      ),
+      icon: <Send size={24} className="text-primary-600" />,
       position: 'top-right',
       duration: 2000,
     });
   },
   emailSent() {
     toast('Email sent', {
-      icon: (
-        <Send
-          size={24}
-          className="text-primary-600"
-        />
-      ),
+      icon: <Send size={24} className="text-primary-600" />,
       position: 'top-right',
       duration: 2000,
     });
   },
   error(message: string) {
-    toast.error(message);
+    toast.error(message, {
+      position: 'top-right',
+      duration: 2500,
+    });
   },
 };

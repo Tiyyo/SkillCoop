@@ -12,7 +12,7 @@ export class User extends Core {
   async createUser(data: {
     password: string;
     email: string;
-    created_at?: string
+    created_at?: string;
   }): Promise<{ id: number; email: string }> {
     const today = new Date();
     const utctoday = getDateUTC(today);

@@ -82,19 +82,16 @@ function EndOfGameAwards() {
       <ReturnBtn />
       <Tabs
         defaultValue="account"
-        className="w-full flex flex-col justify-center">
+        className="w-full flex flex-col justify-center"
+      >
         <h2 className="p-4 font-semibold text-primary-1100">
           Vote now for the best :
         </h2>
         <TabsList className="flex">
-          <TabsTrigger
-            value="mvp"
-            className="w-1/2 max-w-xl border">
+          <TabsTrigger value="mvp" className="w-1/2 max-w-xl border">
             Player
           </TabsTrigger>
-          <TabsTrigger
-            value="striker"
-            className="w-1/2 max-w-xl border">
+          <TabsTrigger value="striker" className="w-1/2 max-w-xl border">
             Striker
           </TabsTrigger>
         </TabsList>

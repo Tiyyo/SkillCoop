@@ -88,7 +88,8 @@ function InputTime({
   return (
     <label
       htmlFor={name}
-      className="block text-md font-semibold text-primary-1100 w-full">
+      className="block text-md font-semibold text-primary-1100 w-full"
+    >
       <p className="py-2">{label}</p>
       {disabled ? (
         <div className="relative">
@@ -115,7 +116,8 @@ function InputTime({
           <div
             className={`absolute top-1/2 left-2 -translate-y-1/2  ${
               hasError ? 'text-error' : 'text-primary-600'
-            }`}>
+            }`}
+          >
             {children}
           </div>
           <select
@@ -129,9 +131,10 @@ function InputTime({
             }
             defaultValue={
               displayNumberWithZeroBehind(
-                Number(defaultValues?.split(':')[0])
+                Number(defaultValues?.split(':')[0]),
               ) ?? ''
-            }>
+            }
+          >
             {avaiableHoursChoice.map((hour) => (
               <Choice
                 key={hour + idHoursComponent}
@@ -151,14 +154,12 @@ function InputTime({
             }
             defaultValue={
               displayNumberWithZeroBehind(
-                Number(defaultValues?.split(':')[1])
+                Number(defaultValues?.split(':')[1]),
               ) ?? ''
-            }>
+            }
+          >
             {avaiableMinutesChoice.map((minute) => (
-              <Choice
-                key={minute + idMinutesComponent}
-                value={minute}
-              />
+              <Choice key={minute + idMinutesComponent} value={minute} />
             ))}
           </select>
         </div>

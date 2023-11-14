@@ -8,29 +8,23 @@ function MobileNav({ menuIsOpen }: { menuIsOpen: boolean }) {
     <div
       className={`absolute z-20 bg-base-light shadow-sm rounded-b-xl  ${
         menuIsOpen ? 'h-64' : 'h-0'
-      } w-full transition-all duration-300`}>
+      } w-full transition-all duration-300`}
+    >
       <ul
         className={`pt-14 px-2 transition-opacity duration-500 ${
           menuIsOpen ? 'opacity-100' : 'opacity-0 -translate-y-96'
-        }`}>
-        <NavMobileLink
-          to="/"
-          value="Events">
+        }`}
+      >
+        <NavMobileLink to="/" value="Events">
           <Calendar size="8" />
         </NavMobileLink>
-        <NavMobileLink
-          to="/contact"
-          value="Friends">
+        <NavMobileLink to="/contact" value="Friends">
           <Users size="8" />
         </NavMobileLink>
-        <NavMobileLink
-          to="/chat"
-          value="Chat">
+        <NavMobileLink to="/chat" value="Chat">
           <Chat size="8" />
         </NavMobileLink>
-        <NavMobileLink
-          to="/user/profile"
-          value="Profile">
+        <NavMobileLink to="/user/profile" value="Profile">
           <Users size="8" />
         </NavMobileLink>
       </ul>

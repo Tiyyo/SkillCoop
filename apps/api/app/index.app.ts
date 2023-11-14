@@ -7,19 +7,27 @@ import accesHttp from './middleware/acces-http';
 import logger from './helpers/logger';
 // import * as url from 'url';
 
-
 // const dirname = url.fileURLToPath(new URL('.', import.meta.url));
 const app: express.Application = express();
-
 
 app.use(accesHttp);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-// app.use(cors({ credentials: true, origin: ["http://13.37.229.142:5004", "http://localhost:5004"] }));
+// app.use(cors({ credentials: true, origin:
+//["http://13.37.229.142:5004", "http://localhost:5004"] }));
 // accept all origins for testing purpose
-app.use(cors({ credentials: true, origin: ["http://localhost:5004", " http://13.36.166.35:5004", process.env.CLIENT_PROD_URL as string] }));
-logger.info(`environment: ${process.env.NODE_ENV}`)
+app.use(
+  cors({
+    credentials: true,
+    origin: [
+      'http://localhost:5004',
+      ' http://13.36.166.35:5004',
+      process.env.CLIENT_PROD_URL as string,
+    ],
+  }),
+);
+logger.info(`environment: ${process.env.NODE_ENV}`);
 app.use(router);
 
 export default app;

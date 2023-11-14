@@ -34,13 +34,15 @@ function EditModalPassword() {
       <DialogContent className="bg-base-light">
         <form
           className="py-4 flex flex-col gap-4"
-          onSubmit={handleSubmit(onSubmit)}>
+          onSubmit={handleSubmit(onSubmit)}
+        >
           <FormField
             name="old_password"
             type="password"
             label="your old password"
             subicon={<EyeOff size={18} />}
-            register={register}>
+            register={register}
+          >
             <Eye size={18} />
           </FormField>
           <FormField
@@ -48,7 +50,8 @@ function EditModalPassword() {
             type="password"
             label="New password"
             subicon={<EyeOff size={18} />}
-            register={register}>
+            register={register}
+          >
             <Eye size={18} />
           </FormField>
           <FormField
@@ -56,12 +59,14 @@ function EditModalPassword() {
             type="password"
             label="Confirm your new password"
             subicon={<EyeOff size={18} />}
-            register={register}>
+            register={register}
+          >
             <Eye size={18} />
           </FormField>
           <button
             type="submit"
-            className="text-primary-700 my-1 py-2.5 px-8 w-fit self-center cursor-pointer hover:bg-base duration-200 transition-all rounded-lg">
+            className="text-primary-700 my-1 py-2.5 px-8 w-fit self-center cursor-pointer hover:bg-base duration-200 transition-all rounded-lg"
+          >
             Edit password
           </button>
         </form>

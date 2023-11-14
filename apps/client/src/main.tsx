@@ -201,5 +201,5 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <Toaster />
       <RouterProvider router={router} />
     </QueryClientProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );

@@ -24,7 +24,7 @@ function PendingFriends() {
     },
     {
       enabled: true,
-    }
+    },
   );
   const loading = isLoading || isFetching;
 

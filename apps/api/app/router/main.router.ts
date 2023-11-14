@@ -22,11 +22,7 @@ router.route('/check').get((_req, res) => {
   res.status(200).json({ message: 'OK' });
 });
 
-
-
-router.use('/api',
-  tokenHandler.validateInfosTokens(),
-  apiRouter);
+router.use('/api', tokenHandler.validateInfosTokens(), apiRouter);
 router.use('/auth', authRouter);
 
 router.route('/').get((_req, res) => {

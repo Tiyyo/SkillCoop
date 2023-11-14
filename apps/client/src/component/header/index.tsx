@@ -30,7 +30,8 @@ function Header({ title, isPlusExist, linkFromPlus }: HeaderProps) {
         {isPlusExist && linkFromPlus && (
           <Link
             to={linkFromPlus}
-            className="text-primary-800 border-2 border-primary-800 rounded-full p-0.5">
+            className="text-primary-800 border-2 border-primary-800 rounded-full p-0.5"
+          >
             <Plus />
           </Link>
         )}

@@ -1,5 +1,5 @@
 const checkIfString = (value: any): string | undefined => {
-  if (typeof value === 'string') return value
-}
+  if (typeof value === 'string') return value;
+};
 
-export default checkIfString
+export default checkIfString;

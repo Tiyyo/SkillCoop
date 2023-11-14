@@ -5,12 +5,12 @@ import validate from '../../middleware/schema-validator';
 import { canals } from '../../@types/types';
 import { saveScoreSchema } from 'schema';
 
-
 const { createOne } = scoreController;
 
 const router: Router = express.Router();
 
-router.route('/')
+router
+  .route('/')
   .post(validate(saveScoreSchema, canals.body), factory(createOne));
 
 export default router;

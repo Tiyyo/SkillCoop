@@ -25,7 +25,7 @@ function FriendProfile() {
     () => {
       if (!profileId) return;
       return getProfileEvalFn(profileId);
-    }
+    },
   );
 
   const values = Object.values(skillValues);
@@ -126,7 +126,7 @@ function FriendProfile() {
                 Here is <span>{profile?.username}</span> average skills:{' '}
                 <span className="font-semibold">
                   {capitalize(
-                    associateNumberToString(profile?.last_evaluation ?? 0)
+                    associateNumberToString(profile?.last_evaluation ?? 0),
                   )}
                 </span>
               </p>

@@ -7,12 +7,9 @@ import { voteSchema } from 'schema';
 
 const { createOne } = bestStrikerController;
 
-
 const router: Router = express.Router();
 
-// Invalidate event id 
-router.route('/')
-  .post(validate(voteSchema, canals.body), factory(createOne));
-
+// Invalidate event id
+router.route('/').post(validate(voteSchema, canals.body), factory(createOne));
 
 export default router;

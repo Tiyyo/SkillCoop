@@ -11,8 +11,9 @@ function Container({
     <div
       className={cn(
         'bg-base-light mx-2 my-1 rounded-md shadow py-4 px-3 ',
-        className
-      )}>
+        className,
+      )}
+    >
       {children}
     </div>
   );

@@ -40,7 +40,7 @@ function AddFriends() {
 
   const dataFilteredByPendingFriendIds = (
     item: { profile_id: number },
-    pendingFriend: Record<string, any>[]
+    pendingFriend: Record<string, any>[],
   ) => {
     const ids = pendingFriend.map((friend) => friend.adder_id);
     return !ids.includes(item.profile_id);
@@ -76,7 +76,7 @@ function AddFriends() {
         {searchProfiles &&
           searchProfiles
             .filter((item) =>
-              dataFilteredByPendingFriendIds(item, pendingFriends)
+              dataFilteredByPendingFriendIds(item, pendingFriends),
             )
             .map((profile) => (
               <ProfileCard

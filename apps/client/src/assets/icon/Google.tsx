@@ -1,4 +1,3 @@
-
 function Google() {
   return (
     <svg
@@ -8,7 +7,7 @@ function Google() {
       preserveAspectRatio="xMidYMid"
       viewBox="0 0 256 262"
       id="google"
-      style={{height : '24px' , width : '24px'}}
+      style={{ height: '24px', width: '24px' }}
     >
       <path
         fill="#4285F4"

@@ -3,7 +3,10 @@ import { Player, TeamGeneratorConfig } from '../../@types/types';
 import { profileOnEvent as ProfileOnEvent } from '../../models/index';
 import condition, { Conditions } from './condition';
 
-export function assignTeam(position: number, requiredParticipant : number): number {
+export function assignTeam(
+  position: number,
+  requiredParticipant: number,
+): number {
   const TEAM_1 = 1;
   const TEAM_2 = 2;
   const HALF = requiredParticipant / 2;
@@ -26,7 +29,7 @@ export async function generateBalancedTeam(eventId: number) {
 
   const updateParticipantQueries = participants.map((p, index) =>
     ProfileOnEvent.updateUnionFk(p.profile_id, eventId, {
-      team: assignTeam(index , config.participants),
+      team: assignTeam(index, config.participants),
     }),
   );
 
@@ -57,7 +60,7 @@ export function useRigthCondition(
   player: Player,
   valueTeam1: number,
   valueTeam2: number,
-  conditions: Conditions
+  conditions: Conditions,
 ): boolean {
   if (config.participants === config.ids.length) {
     return conditions.random();
@@ -102,9 +105,9 @@ export function getPlayerObject(
 export function getTeamValue(arrayTeam: Player[]): number {
   return arrayTeam.length > 0
     ? arrayTeam
-      .map((p) => {
-        return p.gb_rating;
-      })
-      .reduce((a, b) => a + b)
+        .map((p) => {
+          return p.gb_rating;
+        })
+        .reduce((a, b) => a + b)
     : 0;
 }

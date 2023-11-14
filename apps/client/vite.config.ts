@@ -1,5 +1,5 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react-swc'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react-swc';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -7,13 +7,11 @@ export default defineConfig({
   server: {
     port: 5004,
     strictPort: true,
-    host: true
+    host: true,
   },
   build: {
     // outDir: resolve(__dirname, 'dist'),
-    outDir: "./dist",
-    rollupOptions: {
-
-    }
-  }
-})
+    outDir: './dist',
+    rollupOptions: {},
+  },
+});

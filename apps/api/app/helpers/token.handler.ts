@@ -54,8 +54,8 @@ const tokenHandler = {
       errMessage = 'No access';
     }
     return async function (req: Request, _res: Response, next: NextFunction) {
-      logger.info('header request :' + req.headers)
-      console.log('header request :' + req.headers)
+      logger.info('header request :' + req.headers);
+      console.log('header request :' + req.headers);
       const token = tokenHandler.getToken(req, tokenType);
       if (!token) return next(new AuthorizationError(errMessage));
       try {
@@ -159,4 +159,3 @@ const tokenHandler = {
 };
 
 export default tokenHandler;
-

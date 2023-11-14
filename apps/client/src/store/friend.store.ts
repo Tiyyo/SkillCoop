@@ -1,5 +1,5 @@
-import { create } from "zustand";
-import { InvitationStatus, Profile } from "../types";
+import { create } from 'zustand';
+import { InvitationStatus, Profile } from '../types';
 
 type Friend = {
   adder_id: number;
@@ -33,12 +33,12 @@ export const useFriendStore = create<FriendStoreProps>()((set) => ({
   addPendingFriend: (friends: PendingFriend) =>
     set((state) => ({
       ...state,
-      pendingFriends: friends
+      pendingFriends: friends,
     })),
   addSearchProfile: (profiles: Profiles) =>
     set((state) => ({
       ...state,
-      searchProfiles: profiles
+      searchProfiles: profiles,
     })),
   addConfirmedFriends: (friends: ConfirmedFriend) =>
     set((state) => ({
@@ -54,14 +54,14 @@ export const useFriendStore = create<FriendStoreProps>()((set) => ({
     set((state) => ({
       ...state,
       pendingFriends: state.pendingFriends.filter(
-        (pendingFriend) => pendingFriend.username !== username
+        (pendingFriend) => pendingFriend.username !== username,
       ),
     })),
   removeSearchProfile: (username: string) =>
     set((state) => ({
       ...state,
       searchProfiles: state.searchProfiles.filter(
-        (searchProfile) => searchProfile.username !== username
+        (searchProfile) => searchProfile.username !== username,
       ),
     })),
   updateFriendStatus: (friend: Friend) =>
@@ -81,21 +81,21 @@ export const useFriends = () => {
   const pendingFriends = useFriendStore((state) => state.pendingFriends);
   const searchProfiles = useFriendStore((state) => state.searchProfiles);
   const addConfirmedFriend = useFriendStore(
-    (state) => state.addConfirmedFriend
+    (state) => state.addConfirmedFriend,
   );
   const addConfirmedFriends = useFriendStore(
-    (state) => state.addConfirmedFriends
+    (state) => state.addConfirmedFriends,
   );
   const addPendingFriend = useFriendStore((state) => state.addPendingFriend);
   const addSearchProfile = useFriendStore((state) => state.addSearchProfile);
   const removePendingFriend = useFriendStore(
-    (state) => state.removePendingFriend
+    (state) => state.removePendingFriend,
   );
   const removeSearchProfile = useFriendStore(
-    (state) => state.removeSearchProfile
+    (state) => state.removeSearchProfile,
   );
   const updateFriendStatus = useFriendStore(
-    (state) => state.updateFriendStatus
+    (state) => state.updateFriendStatus,
   );
 
   return {
@@ -108,6 +108,6 @@ export const useFriends = () => {
     addSearchProfile,
     removePendingFriend,
     removeSearchProfile,
-    updateFriendStatus
-  }
+    updateFriendStatus,
+  };
 };

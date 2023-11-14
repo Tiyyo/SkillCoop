@@ -48,7 +48,8 @@ function TeamComposition({
     <form
       className="bg-base-light mx-2 my-4 rounded-md shadow py-4 px-3 flex flex-col"
       onSubmit={handleSubmit}
-      onChange={handleChangeForm}>
+      onChange={handleChangeForm}
+    >
       <h2 className="text-sm font-semibold flex items-center py-1.5">
         Team composition
       </h2>
@@ -66,10 +67,7 @@ function TeamComposition({
         currentIdActive={currentIdpActive}
         nameInput={nameInput}
       />
-      <Button
-        type="submit"
-        textContent="Vote"
-        className="my-4 mx-auto">
+      <Button type="submit" textContent="Vote" className="my-4 mx-auto">
         Submit
       </Button>
     </form>

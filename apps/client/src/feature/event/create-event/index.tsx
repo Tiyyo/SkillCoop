@@ -75,7 +75,7 @@ function CreateEvent() {
     // validation required participants
     if (eventCreatedState.required_participants) {
       data.required_participants = Number(
-        eventCreatedState.required_participants
+        eventCreatedState.required_participants,
       );
     }
     //@ts-ignore
@@ -103,7 +103,7 @@ function CreateEvent() {
 
   const inputHasError = (
     nameInput: string,
-    errors: Record<string, string>[] | null
+    errors: Record<string, string>[] | null,
   ): boolean => {
     if (!validationErrors) return false;
     return errors?.find((error) => error.path[0] === nameInput) ? true : false;
@@ -116,7 +116,8 @@ function CreateEvent() {
       <form
         onSubmit={handleFormSubmit}
         ref={createEventFormRef}
-        className="px-3 flex flex-col items-center gap-y-4">
+        className="px-3 flex flex-col items-center gap-y-4"
+      >
         <InputDate
           updateState={updateStartDate}
           actionType="SET_DATE"
@@ -132,7 +133,8 @@ function CreateEvent() {
           placeholder="HH:mm"
           updateState={updateStartTime}
           defaultValues={eventCreatedState.start_time ?? ''}
-          error={inputHasError('date', validationErrors)}>
+          error={inputHasError('date', validationErrors)}
+        >
           <CalendarClock />
         </InputTime>
         <SelectInput
@@ -142,7 +144,8 @@ function CreateEvent() {
           updateState={updateDuration}
           options={OPTION_DURATION}
           defaultValue={eventCreatedState.duration ?? ''}
-          error={inputHasError('duration', validationErrors)}>
+          error={inputHasError('duration', validationErrors)}
+        >
           <Clock />
         </SelectInput>
         <Input
@@ -152,7 +155,8 @@ function CreateEvent() {
           placeholder="City"
           updateState={updateLocation}
           defaultValue={eventCreatedState.location ?? ''}
-          error={inputHasError('location', validationErrors)}>
+          error={inputHasError('location', validationErrors)}
+        >
           <Globe />
         </Input>
         <SelectInput
@@ -161,14 +165,16 @@ function CreateEvent() {
           updateState={updateRequiredParticipants}
           options={OPTION_FORMAT}
           defaultValue={eventCreatedState.required_participants ?? ''}
-          error={inputHasError('duration', validationErrors)}>
+          error={inputHasError('duration', validationErrors)}
+        >
           <Users />
         </SelectInput>
         <Link
           to="invitation"
           className={`flex items-center underline 
             underline-offset-8 un gap-2 py-4 text-md
-           text-primary-1100 font-semibold cursor-pointer`}>
+           text-primary-1100 font-semibold cursor-pointer`}
+        >
           <p>INVITE FRIENDS </p>
           <Plus />
         </Link>

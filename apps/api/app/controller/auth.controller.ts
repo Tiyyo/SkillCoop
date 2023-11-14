@@ -9,7 +9,7 @@ import NotFoundError from '../helpers/errors/not-found.error';
 import tokenHandler from '../helpers/token.handler';
 import AuthorizationError from '../helpers/errors/unauthorized.error';
 import logger from '../helpers/logger';
-import { CLIENT_URL } from '../utils/variables'
+import { CLIENT_URL } from '../utils/variables';
 
 export default {
   async register(req: Request, res: Response) {
@@ -23,9 +23,7 @@ export default {
       });
       if (shouldCreateNewUser) {
         newUser = shouldCreateNewUser;
-      }
-      else throw new ServerError('Failed create user');
-
+      } else throw new ServerError('Failed create user');
     } catch (error) {
       return res
         .status(400)
@@ -63,11 +61,6 @@ export default {
         secure: true,
         maxAge: MAX_AGE,
       });
-      // // testing cookie
-      // console.log("host where cookies goes", HOST);
-      // console.log("client url", CLIENT_URL);
-      // res.cookie('refreshToken', refreshToken, { domain: HOST, path: '/', maxAge: MAX_AGE, sameSite: 'none', secure: true });
-
       res.status(200).json({ accessToken });
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -103,7 +96,12 @@ export default {
     const { access_token: googleToken, id_token } = await google.getOAuthToken({
       code,
     });
-    console.log('line 106 authController  :  googleToken : ', googleToken, 'id_token : ', id_token);
+    console.log(
+      'line 106 authController  :  googleToken : ',
+      googleToken,
+      'id_token : ',
+      id_token,
+    );
 
     if (!googleToken || !id_token)
       throw new ServerError('Error getting token from google ');
@@ -141,9 +139,7 @@ export default {
     });
     res
       .status(301)
-      .redirect(
-        `${CLIENT_URL}/auth/google/?access_token=${accessToken}`,
-      );
+      .redirect(`${CLIENT_URL}/auth/google/?access_token=${accessToken}`);
   },
   async verifyEmail(req: Request, res: Response) {
     const { token } = req.params;

@@ -25,12 +25,12 @@ function TransfertOwnership({
   const [selectedProfile, setSelectedProfile] = useState<number | null>(null);
   const navigate = useNavigate();
   const { mutate: transfertOwnership, isLoading } = useMutation(
-    (data: UpdateOwnership) => transfertOwnershipEventFn(data)
+    (data: UpdateOwnership) => transfertOwnershipEventFn(data),
   );
   const participants =
     typeof event.participants !== 'string' &&
     event.participants.filter(
-      (participant) => participant.profile_id !== profileId
+      (participant) => participant.profile_id !== profileId,
     );
 
   return (
@@ -56,7 +56,8 @@ function TransfertOwnership({
             transfertOwnership(data);
             navigate(`/event/${event.event_id}`, { replace: true });
           }
-        }}>
+        }}
+      >
         <div className="w-full h-[60vh]">
           {participants && (
             <div className="grid grid-cols-2 py-8 gap-2 my-2 content-start ">
@@ -72,7 +73,8 @@ function TransfertOwnership({
                       ? ' border-opacity-50 border-primary-400 bg-primary-500 shadow-2xl'
                       : 'bg-base-light'
                   }}`}
-                  onClick={() => setSelectedProfile(participant.profile_id)}>
+                  onClick={() => setSelectedProfile(participant.profile_id)}
+                >
                   <Avatar avatar={participant.avatar} />
                   <div className="flex flex-col gap-2">
                     <p className="text-xs">{participant.username}</p>

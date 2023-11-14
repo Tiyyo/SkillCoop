@@ -67,7 +67,8 @@ function EventPageInfos({
         {isAdmin && eventStatus !== 'completed' && (
           <div
             onClick={handleClickEdit}
-            className="my-auto relative -top-0.5 cursor-pointer">
+            className="my-auto relative -top-0.5 cursor-pointer"
+          >
             {isEditActive ? <Check size={16} /> : <Pencil size={16} />}
           </div>
         )}
@@ -90,7 +91,8 @@ function EventPageInfos({
         updateData={updateEventData}
         mutateKey="date"
         mutateOnBlur={updateEventFn}
-        disabled={!isEditActive}>
+        disabled={!isEditActive}
+      >
         <CalendarClock />
       </InputTime>
       <SelectInput
@@ -101,7 +103,8 @@ function EventPageInfos({
         mutateOnBlur={updateEventFn}
         options={OPTION_DURATION}
         defaultValue={event.duration ?? eventDuration}
-        disabled={!isEditActive}>
+        disabled={!isEditActive}
+      >
         <Clock />
       </SelectInput>
       <Input
@@ -112,7 +115,8 @@ function EventPageInfos({
         disabled={!isEditActive}
         updateData={updateEventData}
         mutateKey="location"
-        defaultValue={event.location ?? eventlocation}>
+        defaultValue={event.location ?? eventlocation}
+      >
         <Globe />
       </Input>
       <SelectInput
@@ -123,7 +127,8 @@ function EventPageInfos({
         mutateOnBlur={updateEventFn}
         disabled={!isEditActive}
         updateData={updateEventData}
-        mutateKey="required_participants">
+        mutateKey="required_participants"
+      >
         <Users />
       </SelectInput>
     </div>

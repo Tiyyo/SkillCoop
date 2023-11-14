@@ -72,21 +72,21 @@ function Register() {
         </h1>
         <div className="flex flex-col w-[90%] max-w-lg bg-base-light py-7 px-6 rounded-lg">
           <ErrorNotification message={responseErrorServer} />
-          <SocialButton
-            value="Continue with google"
-            href={getGoogleUrl(from)}>
+          <SocialButton value="Continue with google" href={getGoogleUrl(from)}>
             <Google />
           </SocialButton>
           <SeparatorLine />
           <form
             className="flex flex-col items-center gap-y-5"
-            onSubmit={handleSubmit(onSubmit)}>
+            onSubmit={handleSubmit(onSubmit)}
+          >
             <FormField
               type="email"
               name="email"
               label="Email"
               error={checkIfString(errors.email?.message)}
-              register={register}>
+              register={register}
+            >
               <AtSign size={16} />
             </FormField>
             <FormField
@@ -95,7 +95,8 @@ function Register() {
               label="Password"
               subicon={<EyeOff size={16} />}
               error={checkIfString(errors.password?.message)}
-              register={register}>
+              register={register}
+            >
               <Eye size={16} />
             </FormField>
             <FormField
@@ -104,7 +105,8 @@ function Register() {
               label="Confirm your password"
               subicon={<EyeOff size={16} />}
               error={checkIfString(errors.confirm?.message)}
-              register={register}>
+              register={register}
+            >
               <Eye size={16} />
             </FormField>
             <div className="text-xxs flex items-start self-start">
@@ -119,7 +121,8 @@ function Register() {
             </div>
             <label
               htmlFor="termsAndService"
-              className="text-xs text-opacity-70 text-center inline ">
+              className="text-xs text-opacity-70 text-center inline "
+            >
               <input
                 type="checkbox"
                 value="on"
@@ -129,7 +132,8 @@ function Register() {
               By signing up, you agree to the
               <Link
                 to="/terms-and-service"
-                className="underline underline-offset-2 ml-1 text-primary-800 inline">
+                className="underline underline-offset-2 ml-1 text-primary-800 inline"
+              >
                 Terms and Service
               </Link>
             </label>
@@ -149,9 +153,7 @@ function Register() {
         </div>
         <p className="text-xs py-2">
           Already have an account ?{' '}
-          <Link
-            to="/login"
-            className="text-primary-1000 font-bold">
+          <Link to="/login" className="text-primary-1000 font-bold">
             Log in
           </Link>
         </p>

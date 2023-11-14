@@ -21,7 +21,7 @@ function IncomingEvents() {
       if (!userId) return;
       return getEventsFn(userId);
     },
-    { enabled: true }
+    { enabled: true },
   );
 
   const loading = isLoading || isFetching;
@@ -29,7 +29,7 @@ function IncomingEvents() {
   useEffect(() => {
     if (!allEvents) return;
     const past = allEvents?.filter(
-      (event) => new Date() < new Date(event.date)
+      (event) => new Date() < new Date(event.date),
     );
     setEvents(past);
   }, [allEvents, loading]);
@@ -38,11 +38,7 @@ function IncomingEvents() {
   return (
     <div>
       <ReturnBtn />
-      <EventList
-        events={events}
-        title="Incoming Events"
-        linkOff
-      />
+      <EventList events={events} title="Incoming Events" linkOff />
     </div>
   );
 }

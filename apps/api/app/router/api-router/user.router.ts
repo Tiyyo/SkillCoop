@@ -10,14 +10,14 @@ const { updateEmail, updatePassword, deleteUser } = userController;
 
 const router: Router = express.Router();
 
-router.route('/email')
+router
+  .route('/email')
   .patch(validate(emailSchema, canals.body), factory(updateEmail));
 
-router.route('/password')
+router
+  .route('/password')
   .patch(validate(passwordUpdateSchema, canals.body), factory(updatePassword));
 
-router.route('/:userId')
-  .delete(tokenHandler.validate('access'), deleteUser);
-
+router.route('/:userId').delete(tokenHandler.validate('access'), deleteUser);
 
 export default router;

@@ -1,8 +1,7 @@
-import { ObjectRecordGeneric } from "../@types/types";
-import DatabaseError from "../helpers/errors/database.error";
-import NotFoundError from "../helpers/errors/not-found.error";
-import getDateUTC from "../utils/get-date-utc";
-
+import { ObjectRecordGeneric } from '../@types/types';
+import DatabaseError from '../helpers/errors/database.error';
+import NotFoundError from '../helpers/errors/not-found.error';
+import getDateUTC from '../utils/get-date-utc';
 
 export class Core {
   // Default value to satisfie typescript
@@ -14,7 +13,6 @@ export class Core {
     this.client = client;
   }
   async findAll() {
-
     try {
       const result = await this.client
         .selectFrom(this.tableName)
@@ -33,7 +31,7 @@ export class Core {
       const result = await this.client
         .selectFrom(this.tableName)
         .selectAll()
-        .where('id', "=", id)
+        .where('id', '=', id)
         .execute();
 
       if (!result) throw new NotFoundError('Not found');
@@ -50,12 +48,10 @@ export class Core {
     const values = Object.values(data);
 
     try {
-      let query = this.client
-        .selectFrom(this.tableName)
-        .selectAll();
+      let query = this.client.selectFrom(this.tableName).selectAll();
 
       keys.forEach((key, index) => {
-        query = query.where(key.toString(), "=", values[index]);
+        query = query.where(key.toString(), '=', values[index]);
       });
 
       const result = await query.execute();
@@ -84,7 +80,7 @@ export class Core {
   async createMany(data: Array<ObjectRecordGeneric>) {
     const today = new Date();
     const utctoday = getDateUTC(today);
-    data.forEach((el: ObjectRecordGeneric) => el.created_at = utctoday);
+    data.forEach((el: ObjectRecordGeneric) => (el.created_at = utctoday));
 
     try {
       const result = await this.client
@@ -106,16 +102,15 @@ export class Core {
     const result = await this.client
       .updateTable(this.tableName)
       .set({ ...data })
-      .where('id', "=", id)
+      .where('id', '=', id)
       .executeTakeFirst();
 
     return !!result.numUpdatedRows;
   }
   async delete(id: number) {
-
     const result = await this.client
       .deleteFrom(this.tableName)
-      .where('id', "=", id)
+      .where('id', '=', id)
       .executeTakeFirst();
 
     return !!result.numDeletedRows;
@@ -125,11 +120,10 @@ export class Core {
     const values = Object.values(data);
 
     try {
-      let query = this.client
-        .deleteFrom(this.tableName);
+      let query = this.client.deleteFrom(this.tableName);
 
       keys.forEach((key, index) => {
-        query = query.where(key.toString(), "=", values[index]);
+        query = query.where(key.toString(), '=', values[index]);
       });
 
       const result = await query.executeTakeFirst();

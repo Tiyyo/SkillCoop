@@ -27,10 +27,10 @@ function EventPageScore({
   const profileId = userProfile?.profile_id;
   const { mutate: saveScore, isLoading } = useMutation(
     (data: { event_id: number; score_team_1: number; score_team_2: number }) =>
-      saveScoreFn(data)
+      saveScoreFn(data),
   );
   const { mutate: updateStatusEvent } = useMutation(
-    (data: Record<string, string | number>) => updateEventFn(data)
+    (data: Record<string, string | number>) => updateEventFn(data),
   );
 
   const handleSubmitScore = (e: React.FormEvent<HTMLFormElement>) => {
@@ -57,12 +57,11 @@ function EventPageScore({
     <form
       className={`bg-base-light mx-2 my-4 rounded-md 
       shadow py-4 px-3 flex flex-col items-center justify-between`}
-      onSubmit={handleSubmitScore}>
+      onSubmit={handleSubmitScore}
+    >
       <p className="text-xs mb-4">Final Score</p>
       <div>
-        <label
-          htmlFor="score_team_1"
-          className="px-3 text-xs">
+        <label htmlFor="score_team_1" className="px-3 text-xs">
           Team A
         </label>
         <input
@@ -86,9 +85,7 @@ function EventPageScore({
           disabled={!isAdmin || whichEventStatus !== 'full'}
           defaultValue={scoreTeam2 ?? ''}
         />
-        <label
-          htmlFor="score_team_2"
-          className="px-3 text-xs">
+        <label htmlFor="score_team_2" className="px-3 text-xs">
           Team B
         </label>
       </div>

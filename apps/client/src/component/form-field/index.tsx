@@ -63,7 +63,7 @@ function FormField({
              w-full appearance-none rounded-lg border border-opacity-20 
              bg-transparent px-2.5 pb-1.5 pt-3 text-sm text-gray-900 
              focus:outline-none focus:ring-0`,
-            props.disabled && 'cursor-not-allowed border-none text-light'
+            props.disabled && 'cursor-not-allowed border-none text-light',
           )}
           defaultValue={props.defaultValue}
           {...props}
@@ -78,14 +78,16 @@ function FormField({
           peer-placeholder-shown:-translate-y-1/2
           peer-placeholder-shown:scale-100 
           peer-focus:top-2 peer-focus:-translate-y-4 
-          peer-focus:scale-75 peer-focus:px-2`}>
+          peer-focus:scale-75 peer-focus:px-2`}
+        >
           {label}
         </label>
         <div
           className={`absolute right-2 top-1/2 -translate-y-1/2 
           transform text-black-light peer-focus:text-secondary-300
           text-primary-700`}
-          onClick={() => toggleIcon()}>
+          onClick={() => toggleIcon()}
+        >
           {!icon && subicon ? subicon : children}
         </div>
       </div>
@@ -93,7 +95,8 @@ function FormField({
         <div
           className={`text-error flex w-full 
               items-center gap-x-2 px-2 py-1 text-center 
-              text-xs font-semibold`}>
+              text-xs font-semibold`}
+        >
           <XCircle size={16} />
           <p>{errorText}</p>
         </div>

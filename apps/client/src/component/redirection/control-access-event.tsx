@@ -14,7 +14,7 @@ function ControlAccesEventPage({ children }: { children: React.ReactNode }) {
       if (!profileId || !eventId) return;
       return getEventFn(Number(eventId), profileId);
     },
-    { enabled: true, refetchOnMount: 'always' }
+    { enabled: true, refetchOnMount: 'always' },
   );
   const profileId = userProfile?.profile_id;
 

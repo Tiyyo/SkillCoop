@@ -1,12 +1,12 @@
 import sharp from 'sharp';
 
 function resizeImage(buffer: Buffer, height: number, width: number) {
-  const resizedBuffer = sharp(buffer).resize(
-    {
+  const resizedBuffer = sharp(buffer)
+    .resize({
       height,
-      width
-    }
-  ).toBuffer();
+      width,
+    })
+    .toBuffer();
   return resizedBuffer;
 }
 

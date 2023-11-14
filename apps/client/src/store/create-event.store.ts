@@ -1,9 +1,9 @@
-import { useMutation } from "@tanstack/react-query";
-import { create } from "zustand";
-import { createEventFn } from "../api/api.fn";
-import { CreateEventData } from "../types";
-import { useEffect } from "react";
-import toast from "../utils/toast";
+import { useMutation } from '@tanstack/react-query';
+import { create } from 'zustand';
+import { createEventFn } from '../api/api.fn';
+import { CreateEventData } from '../types';
+import { useEffect } from 'react';
+import toast from '../utils/toast';
 
 type State = {
   start_date: string | null;
@@ -28,7 +28,6 @@ interface CreateEventStore {
   addInvitedParticipantsIds: (args: number) => void;
   removeInvitedParticipantsIds: (args: number) => void;
   clearEventState: () => void;
-
 }
 
 export const useCreateEventStore = create<CreateEventStore>()((set) => ({
@@ -39,7 +38,7 @@ export const useCreateEventStore = create<CreateEventStore>()((set) => ({
     duration: null,
     required_participants: null,
     organizer_id: null,
-    status_name: "open",
+    status_name: 'open',
     participants: null,
   },
   updateStartDate: (startDate: string) =>
@@ -93,41 +92,47 @@ export const useCreateEventStore = create<CreateEventStore>()((set) => ({
       event: {
         ...state.event,
         participants: state.event.participants?.filter(
-          (id) => id !== invitedParticipantsIds
+          (id) => id !== invitedParticipantsIds,
         ),
       },
     })),
-  clearEventState: () => set((state) => ({
-    ...state, event: {
-      start_date: null,
-      start_time: null,
-      location: null,
-      duration: null,
-      required_participants: null,
-      organizer_id: null,
-      status_name: "open",
-      invited_participants_ids: null,
-    }
-  })),
+  clearEventState: () =>
+    set((state) => ({
+      ...state,
+      event: {
+        start_date: null,
+        start_time: null,
+        location: null,
+        duration: null,
+        required_participants: null,
+        organizer_id: null,
+        status_name: 'open',
+        invited_participants_ids: null,
+      },
+    })),
 }));
 
 export const useCreateEvent = () => {
-  const { mutate: createEvent, isSuccess, isLoading } = useMutation((data: CreateEventData) =>
-    createEventFn(data)
-  );
+  const {
+    mutate: createEvent,
+    isSuccess,
+    isLoading,
+  } = useMutation((data: CreateEventData) => createEventFn(data));
   const updateStartDate = useCreateEventStore((state) => state.updateStartDate);
   const updateStartTime = useCreateEventStore((state) => state.updateStartTime);
   const updateDuration = useCreateEventStore((state) => state.updateDuration);
   const updateLocation = useCreateEventStore((state) => state.updateLocation);
-  const updateRequiredParticipants = useCreateEventStore((state) => state.updateRequiredParticipants);
+  const updateRequiredParticipants = useCreateEventStore(
+    (state) => state.updateRequiredParticipants,
+  );
   const addInvitedParticipantsIds = useCreateEventStore(
-    (state) => state.addInvitedParticipantsIds
+    (state) => state.addInvitedParticipantsIds,
   );
   const removeInvitedParticipantsIds = useCreateEventStore(
-    (state) => state.removeInvitedParticipantsIds
+    (state) => state.removeInvitedParticipantsIds,
   );
   const updateOrganizerId = useCreateEventStore(
-    (state) => state.updateOrganizerId
+    (state) => state.updateOrganizerId,
   );
   const clearEventState = useCreateEventStore((state) => state.clearEventState);
   const data = useCreateEventStore((state) => state.event);
@@ -136,16 +141,19 @@ export const useCreateEvent = () => {
   useEffect(() => {
     if (isSuccess) {
       const date = new Date(data.start_date!);
-      const startTime = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      const startTime = date.toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit',
+      });
       const startDate = new Intl.DateTimeFormat('en-US', {
         year: 'numeric',
         month: 'short',
-        day: 'numeric'
+        day: 'numeric',
       }).format(new Date());
-      toast.eventSuccess("Event set", `At ${startTime} on ${startDate}`);
+      toast.eventSuccess('Event set', `At ${startTime} on ${startDate}`);
       clearEventState();
     }
-  }, [isSuccess])
+  }, [isSuccess]);
 
   return {
     createEvent,

@@ -13,7 +13,7 @@ function HomePage() {
     const data = await res.json();
     console.log(
       'Health check server url from environement:',
-      data.message ?? 'NOT OK'
+      data.message ?? 'NOT OK',
     );
   };
 
@@ -51,12 +51,14 @@ function HomePage() {
           <div className="self-center flex gap-4 text-sm lg:text-lg py-4">
             <Link
               to="/register"
-              className="bg-primary-300 py-2 px-4 lg:px-6 border border-primary-800 text-primary-1000 font-bold rounded-lg cursor-pointer shadow-md hover:bg-transparent duration-300 hover:border-primary-800">
+              className="bg-primary-300 py-2 px-4 lg:px-6 border border-primary-800 text-primary-1000 font-bold rounded-lg cursor-pointer shadow-md hover:bg-transparent duration-300 hover:border-primary-800"
+            >
               Create an account
             </Link>
             <Link
               to="/login"
-              className=" py-2 px-4 lg:px-6 border border-primary-600 text-primary-1000 font-bold rounded-lg  cursor-pointer shadow-md hover:bg-primary-600 duration-300 hover:text-white ">
+              className=" py-2 px-4 lg:px-6 border border-primary-600 text-primary-1000 font-bold rounded-lg  cursor-pointer shadow-md hover:bg-primary-600 duration-300 hover:text-white "
+            >
               Sign in
             </Link>
           </div>

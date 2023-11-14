@@ -22,7 +22,7 @@ const colors = {
   warn: 'yellow',
   info: 'blue',
   http: 'magenta',
-  debug: 'white'
+  debug: 'white',
 };
 
 winston.addColors(colors);
@@ -42,7 +42,7 @@ const transports = [
     zippedArchive: true,
     frequency: '24h',
     maxFiles: 5,
-    format
+    format,
   }),
   new winston.transports.DailyRotateFile({
     filename: 'logs/error-%DATE%.log',
@@ -51,7 +51,7 @@ const transports = [
     frequency: '24h',
     maxFiles: 5,
     level: 'error',
-    format
+    format,
   }),
   new winston.transports.DailyRotateFile({
     filename: 'logs/access-%DATE%.log',
@@ -60,8 +60,7 @@ const transports = [
     frequency: '24h',
     maxFiles: 5,
     level: 'http',
-    format
-
+    format,
   }),
 ];
 
@@ -73,10 +72,12 @@ const logger = createLogger({
 });
 
 if (process.env.NODE_ENV !== 'production') {
-  logger.add(new winston.transports.Console({
-    level: 'debug',
-    format
-  }));
+  logger.add(
+    new winston.transports.Console({
+      level: 'debug',
+      format,
+    }),
+  );
 }
 
 export default logger;

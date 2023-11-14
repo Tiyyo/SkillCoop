@@ -1,43 +1,43 @@
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Request, Response } from 'express';
 
 export type Controller = (
   req: Request,
   res: Response,
-  next?: NextFunction
+  next?: NextFunction,
 ) => any | Promise<any>;  // eslint-disable-line
 
 
 // find a less confusuing name
-export type ObjectRecordGeneric = Record<string, string | number | boolean>
+export type ObjectRecordGeneric = Record<string, string | number | boolean>;
 
 export const canals = {
-  body: "body",
-  params: "params",
-  query: "query",
+  body: 'body',
+  params: 'params',
+  query: 'query',
 } as const;
 
 export type LevelScale =
-  | "beginner"
-  | "novice"
-  | "intermediate"
-  | "advanced"
-  | "expert";
+  | 'beginner'
+  | 'novice'
+  | 'intermediate'
+  | 'advanced'
+  | 'expert';
 
-export type EventStatus = "open" | "full" | "completed" | "cancelled";
+export type EventStatus = 'open' | 'full' | 'completed' | 'cancelled';
 
 export const eventStatus = {
-  open: "open",
-  full: "full",
-  completed: "completed",
-  cancelled: "cancelled"
+  open: 'open',
+  full: 'full',
+  completed: 'completed',
+  cancelled: 'cancelled',
 } as const;
 
-export type InvitationStatus = "pending" | "confirmed" | "declined";
+export type InvitationStatus = 'pending' | 'confirmed' | 'declined';
 
 export const invitationStatus = {
-  pending: "pending",
-  confirmed: "confirmed",
-  declined: "declined"
+  pending: 'pending',
+  confirmed: 'confirmed',
+  declined: 'declined',
 } as const;
 
 export type Score = {
@@ -86,10 +86,10 @@ export type EventType = {
 };
 
 export type ProfileType = {
-  profile_id: number
-  user_id?: number
-  avatar_url?: number
-  date_of_birth?: string
-  last_evaluation?: number
-  relation_exist?: boolean
-}
+  profile_id: number;
+  user_id?: number;
+  avatar_url?: number;
+  date_of_birth?: string;
+  last_evaluation?: number;
+  relation_exist?: boolean;
+};

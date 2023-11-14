@@ -7,11 +7,8 @@ import { voteSchema } from 'schema';
 
 const { createOne } = mvpController;
 
-
 const router: Router = express.Router();
 
-router.route('/')
-  .post(validate(voteSchema, canals.body), factory(createOne));
-
+router.route('/').post(validate(voteSchema, canals.body), factory(createOne));
 
 export default router;

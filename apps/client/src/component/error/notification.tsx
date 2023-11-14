@@ -31,8 +31,9 @@ function ErrorNotification({
     <div
       className={cn(
         'relative py-4 px-2 my-4 bg-error-light rounded-md',
-        !isOpen && 'hidden'
-      )}>
+        !isOpen && 'hidden',
+      )}
+    >
       <X
         size={16}
         className="absolute top-2 right-2 text-error cursor-pointer h-6 w-6 py-0.5 hover:bg-opacity-5 hover:bg-gray-600 rounded"

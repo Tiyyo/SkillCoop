@@ -28,10 +28,7 @@ function ResumeProfile({ infos }: { infos: Infos }) {
       />
       <div className="flex items-start gap-4 py-8">
         <AvatarEdit avatar={infos.avatar} />
-        <FormEditProfileInfos
-          shouldEditInfos={isEditing}
-          infos={infos}
-        />
+        <FormEditProfileInfos shouldEditInfos={isEditing} infos={infos} />
       </div>
     </Container>
   );

@@ -14,7 +14,7 @@ function Avatar({
       alt="avatar"
       className={cn(
         'w-10 h-10 rounded-full',
-        isRatingActive && 'cursor-pointer'
+        isRatingActive && 'cursor-pointer',
       )}
     />
   );

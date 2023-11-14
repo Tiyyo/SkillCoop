@@ -4,7 +4,6 @@ import ServerError from '../../helpers/errors/server.error';
 import logger from '../../helpers/logger';
 // TODO replace axios by fetch when avaiable in LTS
 
-
 interface GoogleOAuthToken {
   access_token: string;
   id_token: string;
@@ -36,7 +35,7 @@ export default {
       code,
       client_id: process.env.GOOGLE_CLIENT_ID,
       client_secret: process.env.GOOGLE_CLIENT_SECRET,
-      redirect_uri: process.env.API_URL + "/auth/google/callback",
+      redirect_uri: process.env.API_URL + '/auth/google/callback',
       grant_type: 'authorization_code',
     };
     try {

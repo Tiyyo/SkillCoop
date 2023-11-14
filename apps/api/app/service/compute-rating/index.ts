@@ -76,13 +76,13 @@ type AvgEval = Eval & {
 //     avg_pace: Math.floor(((userOwnEval.pace *
 // WEIGHT_OWN_EVAL) + avgEvalReceived.pace)
 //       / (WEIGHT_OWN_EVAL + NB_EVAL_RECEIVED)),
-//     avg_defending: Math.floor(((userOwnEval.defending * 
+//     avg_defending: Math.floor(((userOwnEval.defending *
 //WEIGHT_OWN_EVAL) + avgEvalReceived.defending)
 //       / (WEIGHT_OWN_EVAL + NB_EVAL_RECEIVED)),
-//     avg_passing: Math.floor(((userOwnEval.passing * 
+//     avg_passing: Math.floor(((userOwnEval.passing *
 // WEIGHT_OWN_EVAL) + avgEvalReceived.passing)
 //       / (WEIGHT_OWN_EVAL + NB_EVAL_RECEIVED)),
-//     avg_dribbling: Math.floor(((userOwnEval.dribbling * 
+//     avg_dribbling: Math.floor(((userOwnEval.dribbling *
 //WEIGHT_OWN_EVAL) + avgEvalReceived.dribbling)
 //       / (WEIGHT_OWN_EVAL + NB_EVAL_RECEIVED)),
 //     avg_shooting: Math.floor(((userOwnEval.shooting *
@@ -91,8 +91,8 @@ type AvgEval = Eval & {
 //   }
 
 //   const gbRatingBeforeBonus = computeGbRating(avg_skills)
-//   const gbRating = Math.floor((gbRatingBeforeBonus 
-// * WEIGHT_OWN_EVAL + NB_EVAL_RECEIVED + 100 * NB_MVP) 
+//   const gbRating = Math.floor((gbRatingBeforeBonus
+// * WEIGHT_OWN_EVAL + NB_EVAL_RECEIVED + 100 * NB_MVP)
 //       / (WEIGHT_OWN_EVAL + NB_EVAL_RECEIVED + NB_MVP))
 //   const profileSkills = { ...avg_skills, gb_rating: gbRating }
 
@@ -104,7 +104,7 @@ async function computeRatingUser(profileId: number) {
   // benchmark query took around 1ms without Promise.all
   // benchmark query took around 1ms with Promise.all
   // TODO generate +1000 rows and update result of benchmarks
-  // TODO consider to first 
+  // TODO consider to first
   // user Promise.all to make this async/await in parallel
   // In second to migrate to Postgres to move this logic into SQL function
   // If there is any error this function will not work and crash server
@@ -229,7 +229,7 @@ async function computeRatingUser(profileId: number) {
   const gbRatingBeforeBonus = computeGbRating(avg_skills);
   const gbRating = Math.floor(
     (gbRatingBeforeBonus * WEIGHT_OWN_EVAL + NB_EVAL_RECEIVED + 100 * NB_MVP) /
-    (WEIGHT_OWN_EVAL + NB_EVAL_RECEIVED + NB_MVP),
+      (WEIGHT_OWN_EVAL + NB_EVAL_RECEIVED + NB_MVP),
   );
   const profileSkills = {
     ...avg_skills,

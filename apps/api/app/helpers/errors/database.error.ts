@@ -1,5 +1,3 @@
-
-
 export default class DatabaseError extends Error {
   message: string;
   userMessage: string;
@@ -12,7 +10,7 @@ export default class DatabaseError extends Error {
     this.userMessage = 'Internal server error';
     this.message = error.message;
     this.message = `Code ${error.code} : ${error.message} `;
-    this.name = "DatabaseError";
+    this.name = 'DatabaseError';
     this.status = 500;
   }
 }

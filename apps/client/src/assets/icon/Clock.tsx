@@ -1,5 +1,3 @@
-
-
 function Clock() {
   return (
     <svg

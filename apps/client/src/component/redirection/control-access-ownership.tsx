@@ -27,10 +27,7 @@ function ControlAccessOwnership() {
   return userProfile?.profile_id !== event?.organizer_id ? (
     <Navigate to={`/event/${eventId}`} />
   ) : (
-    <TransfertOwnership
-      data={event}
-      profileId={userProfile.profile_id}
-    />
+    <TransfertOwnership data={event} profileId={userProfile.profile_id} />
   );
 }
 

@@ -80,10 +80,10 @@ export class Profile extends Core {
       )
       .execute();
 
-    let spreadProfile
+    let spreadProfile;
 
     if (profile) {
-      spreadProfile = { ...profile, ...nbAttendedEvents, ...nbBonus }
+      spreadProfile = { ...profile, ...nbAttendedEvents, ...nbBonus };
     }
     return spreadProfile;
   }

@@ -24,7 +24,7 @@ function ResumeAuthInfos({ email }: { email?: string | null }) {
   });
   const { mutate, error, isError, isLoading } = useMutation((data) =>
     //@ts-ignore
-    updateEmailFn(data)
+    updateEmailFn(data),
   );
 
   const getEditState = (state: boolean) => {
@@ -48,9 +48,7 @@ function ResumeAuthInfos({ email }: { email?: string | null }) {
   return (
     <Container className="relative pt-10">
       <ErrorNotification message={errorText} />
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col">
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
         <TriggerEditBtn
           getCurrentState={getEditState}
           className="absolute top-3 right-3"
@@ -61,7 +59,8 @@ function ResumeAuthInfos({ email }: { email?: string | null }) {
           name="email"
           defaultValue={currentEmail ?? ''}
           disabled={!editActiveState}
-          register={register}>
+          register={register}
+        >
           <SendIcon size={18} />
         </FormField>
         {editActiveState && (

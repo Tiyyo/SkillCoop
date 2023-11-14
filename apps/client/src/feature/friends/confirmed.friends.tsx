@@ -25,7 +25,7 @@ function ConfirmedFriends() {
     },
     {
       enabled: true,
-    }
+    },
   );
   const loading = isLoading || isFetching;
 
@@ -39,7 +39,8 @@ function ConfirmedFriends() {
       <Link
         to="pending-request"
         className="text-end px-3 text-xs py-2 text-primary-900 underline-offset-4 underline transition-all duration-300 hover:text-primary-1100 cursor-pointer
-      ">
+      "
+      >
         See pending request
       </Link>
       <TitleH2 value="My friends" />

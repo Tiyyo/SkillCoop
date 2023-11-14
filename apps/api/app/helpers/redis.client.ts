@@ -2,7 +2,6 @@
 // import type { RedisOptions, Redis as IRedis } from 'ioredis';
 // import logger from './logger';
 
-
 // let redis: IRedis | null = null;
 // const redisConfig: RedisOptions = {
 //   port: 6379,

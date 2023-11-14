@@ -51,7 +51,7 @@ api.interceptors.response.use(
       return api(originalRequest);
     }
     return Promise.reject(error);
-  }
+  },
 );
 
 export const signUpUserFn = async (user: RegisterUser) => {
@@ -73,7 +73,9 @@ export const logoutUserFn = async () => {
   return response.data;
 };
 
-export const getMeFn = async (): Promise<{ userProfile: Profile } | 'Unecessary call'> => {
+export const getMeFn = async (): Promise<
+  { userProfile: Profile } | 'Unecessary call'
+> => {
   const response = await api.get('api/user/me');
   return response.data;
 };
@@ -90,7 +92,7 @@ export const sendEmailVerifyFn = async (email: string) => {
 
 export const getEventFn = async (
   eventId: number,
-  profileId: number
+  profileId: number,
 ): Promise<EventType> => {
   const response = await api.get(`api/event/details/${eventId}/${profileId}`);
   return response.data;
@@ -102,7 +104,7 @@ export const getEventsFn = async (profileId: number): Promise<EventType[]> => {
 };
 
 export const getOrganizeEventFn = async (
-  data: EventQuery
+  data: EventQuery,
 ): Promise<{
   events: EventType[];
   previousPage: number;
@@ -118,7 +120,7 @@ export const getOrganizeEventFn = async (
 };
 
 export const getPastEventFn = async (
-  data: EventQuery
+  data: EventQuery,
 ): Promise<{
   events: EventType[];
   previousPage: number;
@@ -149,7 +151,7 @@ export const getFriendsFn = async (profileId: number): Promise<Friend[]> => {
 };
 
 export const getPendingFriendsFn = async (
-  profileId: number
+  profileId: number,
 ): Promise<Friend[]> => {
   const response = await api.get(`api/friends/pending/${profileId}`);
   return response.data;
@@ -167,7 +169,7 @@ export const getProfileFn = async (profileId: number): Promise<Profile> => {
 
 export const searchFriendsFn = async (
   data: SearchFriendQuery,
-  signal?: AbortSignal
+  signal?: AbortSignal,
 ): Promise<Friend[]> => {
   const response = await api.get(`api/friends/search/friendlist`, {
     params: data,
@@ -178,7 +180,7 @@ export const searchFriendsFn = async (
 
 export const searchProfileFn = async (
   data: SearchProfileQuery,
-  signal?: AbortSignal
+  signal?: AbortSignal,
 ): Promise<Profile[]> => {
   const response = await api.get(`api/profile/search`, {
     params: data,
@@ -246,7 +248,7 @@ export const deleteEventFn = async (data: {
 }) => {
   const response = await api.delete(
     `api/event/${data.eventId}/${data.profileId}`,
-    { data }
+    { data },
   );
   return response.data;
 };
@@ -257,7 +259,7 @@ export const evaluateOwnSkillsFn = async (data: EvaluationOwnSkill) => {
 };
 
 export const evaluateParticipantSkillsFn = async (
-  data: EvaluationParticipantSkill
+  data: EvaluationParticipantSkill,
 ) => {
   const response = await api.post(`api/skill_foot/event`, data);
   return response.data;
@@ -282,7 +284,11 @@ export const updateEmailFn = async (data: { email: string }) => {
   return response.data;
 };
 
-export const updatePasswordFn = async (data: { old_password: string, new_password: string, user_id: number }) => {
+export const updatePasswordFn = async (data: {
+  old_password: string;
+  new_password: string;
+  user_id: number;
+}) => {
   const response = await api.patch(`api/user/password`, data);
   return response.data;
 };
@@ -302,7 +308,7 @@ export const updateAvatarFn = async (formData: FormData) => {
 };
 
 export const getProfileEvalFn = async (
-  profileId: number
+  profileId: number,
 ): Promise<ProfileEval> => {
   const response = await api.get(`api/skill_foot/${profileId}`);
   return response.data;
@@ -313,7 +319,11 @@ export const generateTeamsFn = async (eventId: number) => {
   return response.data;
 };
 
-export const transfertOwnershipEventFn = async (data: { event_id: number, organizer_id: number, new_organizer_id: number }) => {
+export const transfertOwnershipEventFn = async (data: {
+  event_id: number;
+  organizer_id: number;
+  new_organizer_id: number;
+}) => {
   const response = await api.patch(`api/event/organizer`, data);
   return response.data;
-}
+};

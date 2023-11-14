@@ -118,7 +118,8 @@ function UpdateStatusModal({
                     baseButtonStyle +
                     ' bg-primary-800 hover:text-white duration-200'
                   }
-                  onClick={handleClickStatus}>
+                  onClick={handleClickStatus}
+                >
                   Yes, I do
                 </button>
                 <button
@@ -128,7 +129,8 @@ function UpdateStatusModal({
                   className={
                     baseButtonStyle + ' hover:bg-primary-400 duration-300'
                   }
-                  onClick={handleClickStatus}>
+                  onClick={handleClickStatus}
+                >
                   No, I don't
                 </button>
               </div>

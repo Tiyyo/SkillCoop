@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
 type State = {
   start_date: string | null;
@@ -14,7 +14,7 @@ type State = {
 
 interface eventStore {
   event: State;
-  initEventState: (args: State) => void
+  initEventState: (args: State) => void;
   updateStartDate: (args: string) => void;
   updateStartTime: (args: string) => void;
   updateLocation: (args: string) => void;
@@ -106,11 +106,10 @@ export const useEventStore = create<eventStore>()((set) => ({
       event: {
         ...state.event,
         participants: state.event.participants?.filter(
-          (id) => id !== invitedParticipantsIds
+          (id) => id !== invitedParticipantsIds,
         ),
       },
     })),
-
 }));
 
 export const useEvent = () => {
@@ -119,12 +118,20 @@ export const useEvent = () => {
   const updateStartTime = useEventStore((state) => state.updateStartTime);
   const updateDuration = useEventStore((state) => state.updateDuration);
   const updateLocation = useEventStore((state) => state.updateLocation);
-  const updateRequiredParticipants = useEventStore((state) => state.updateRequiredParticipants);
-  const updateIdsParticipants = useEventStore((state) => state.updateIdsParticipants);
-  const addInvitedParticipantsIds = useEventStore((state) => state.addInvitedParticipantsIds);
-  const removeInvitedParticipantsIds = useEventStore((state) => state.removeInvitedParticipantsIds);
+  const updateRequiredParticipants = useEventStore(
+    (state) => state.updateRequiredParticipants,
+  );
+  const updateIdsParticipants = useEventStore(
+    (state) => state.updateIdsParticipants,
+  );
+  const addInvitedParticipantsIds = useEventStore(
+    (state) => state.addInvitedParticipantsIds,
+  );
+  const removeInvitedParticipantsIds = useEventStore(
+    (state) => state.removeInvitedParticipantsIds,
+  );
   const updateUserStatus = useEventStore((state) => state.updateUserStatus);
-  const data = useEventStore((state) => state.event)
+  const data = useEventStore((state) => state.event);
 
   return {
     initEventState,
@@ -137,6 +144,6 @@ export const useEvent = () => {
     addInvitedParticipantsIds,
     removeInvitedParticipantsIds,
     updateUserStatus,
-    data
-  }
-}
+    data,
+  };
+};

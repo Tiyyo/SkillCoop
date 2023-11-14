@@ -26,7 +26,7 @@ export default {
   async acceptOrDeclined(req: Request, res: Response) {
     deleteDecodedKey(req.body);
     const { adder_id, friend_id, status_name } = req.body;
-    //friend_id is the id of the user who receive invitation 
+    //friend_id is the id of the user who receive invitation
     //and send the update request
     const isExist = await Friendlist.findOne(adder_id, friend_id, 'pending');
 

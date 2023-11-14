@@ -16,11 +16,11 @@ function AvatarEdit({ avatar }: { avatar: string | null }) {
   };
 
   const { mutate, isSuccess, data, isLoading, isError } = useMutation(
-    (formData: FormData) => updateAvatarFn(formData)
+    (formData: FormData) => updateAvatarFn(formData),
   );
 
   const handleChangeImageFile = async (
-    e: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement>,
   ) => {
     if (!userProfile?.profile_id) return;
     const validFilesTypes = [
@@ -66,10 +66,9 @@ function AvatarEdit({ avatar }: { avatar: string | null }) {
   return (
     <form
       encType="multipart/form-data"
-      className="border flex-shrink-0 border-primary-500 overflow-hidden rounded-full h-20 w-20">
-      <label
-        htmlFor="image"
-        onClick={handleClickImage}>
+      className="border flex-shrink-0 border-primary-500 overflow-hidden rounded-full h-20 w-20"
+    >
+      <label htmlFor="image" onClick={handleClickImage}>
         <img
           src={profileAvatar ?? '/images/default-avatar.png'}
           alt="avatar"

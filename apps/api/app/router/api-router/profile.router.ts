@@ -6,12 +6,8 @@ import validate from '../../middleware/schema-validator';
 import { editProfileInfosSchema } from 'schema';
 import { canals } from '../../@types/types';
 
-const {
-  getOne,
-  updateOne,
-  updateImage,
-  searchProfileByUsername,
-} = profileController;
+const { getOne, updateOne, updateImage, searchProfileByUsername } =
+  profileController;
 
 const router: Router = express.Router();
 

@@ -1,8 +1,6 @@
-import { LevelScale } from "../@types/types";
-
+import { LevelScale } from '../@types/types';
 
 const associateStringToNumber = (level: LevelScale): number => {
-
   switch (level) {
     case 'beginner':
       return 20;

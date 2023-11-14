@@ -84,6 +84,7 @@ export type EventParticipant = {
   username: string;
   avatar: string;
   status: InvitationStatus;
+  last_evaluation?: number;
   team?: number;
 };
 
@@ -184,4 +185,10 @@ export type SaveScore = {
   event_id: number;
   score_team_1: number;
   score_team_2: number;
+};
+
+export type TransfertOwnership = {
+  event_id: number;
+  organizer_id: number;
+  new_organizer_id: number;
 };

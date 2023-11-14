@@ -4,15 +4,18 @@ import {
   generateTeamsFn,
   getEventFn,
   saveScoreFn,
+  transfertOwnershipEventFn,
   updateEventFn,
   updateParticipantFn,
 } from '../api/api.fn';
 import {
   DeleteEventData,
   SaveScore,
+  TransfertOwnership,
   UpdateEventData,
   UpdateParticipant,
 } from '../types';
+import TransfertOwnership from '../feature/event/event-page/ownership';
 
 const keys = {
   getEvent: ['events'],
@@ -99,6 +102,23 @@ export function useUpdateSingleEvent(options: {
   return useMutation({
     mutationFn: async (data: Partial<UpdateEventData>) => {
       return updateEventFn(data);
+    },
+    onSuccess: () => {
+      if (!options.eventId) return;
+      queryClient.invalidateQueries(keys.getEventId(options.eventId));
+      if (options.onSuccess) options.onSuccess();
+    },
+  });
+}
+
+export function useTransfertOwnership(options: {
+  eventId: number;
+  onSuccess?: () => void;
+}) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (data: TransfertOwnership) => {
+      return transfertOwnershipEventFn(data);
     },
     onSuccess: () => {
       if (!options.eventId) return;

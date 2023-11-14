@@ -118,6 +118,7 @@ export const useEvent = () => {
   const updateStartTime = useEventStore((state) => state.updateStartTime);
   const updateDuration = useEventStore((state) => state.updateDuration);
   const updateLocation = useEventStore((state) => state.updateLocation);
+  const updateOrganizerId = useEventStore((state) => state.updateOrganizerId);
   const updateRequiredParticipants = useEventStore(
     (state) => state.updateRequiredParticipants,
   );
@@ -144,6 +145,7 @@ export const useEvent = () => {
     addInvitedParticipantsIds,
     removeInvitedParticipantsIds,
     updateUserStatus,
+    updateOrganizerId,
     data,
   };
 };

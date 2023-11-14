@@ -12,6 +12,7 @@ import {
   RegisterUser,
   SearchFriendQuery,
   SearchProfileQuery,
+  TransfertOwnership,
   UpdateEventData,
   User,
   Vote,
@@ -320,11 +321,7 @@ export const generateTeamsFn = async (eventId: number) => {
   return response.data;
 };
 
-export const transfertOwnershipEventFn = async (data: {
-  event_id: number;
-  organizer_id: number;
-  new_organizer_id: number;
-}) => {
+export const transfertOwnershipEventFn = async (data: TransfertOwnership) => {
   const response = await api.patch(`api/event/organizer`, data);
   return response.data;
 };

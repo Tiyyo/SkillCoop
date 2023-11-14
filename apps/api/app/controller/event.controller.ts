@@ -40,7 +40,6 @@ export default {
       req.params.profileId,
     );
     const event = await Event.getEventById(eventId, profileId);
-    console.log('Line 43 event controller : ', event);
     res.status(200).json(event);
   },
   async updateOne(req: Request, res: Response) {

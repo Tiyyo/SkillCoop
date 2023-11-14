@@ -33,6 +33,7 @@ SELECT
           'username' , profile.username	,
           'avatar', profile.avatar_url,
           'status', participant.status_name,
+          'last_evaluation', profile.last_evaluation,
           'team', participant.team
         )
       ) 
@@ -86,6 +87,7 @@ SELECT
           'username' , profile.username	,
           'avatar', profile.avatar_url,
           'status', participant.status_name,
+          'last_evaluation', profile.last_evaluation,
           'team', participant.team
         )
       ) 

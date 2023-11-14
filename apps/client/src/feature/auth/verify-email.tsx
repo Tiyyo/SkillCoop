@@ -5,38 +5,40 @@ import paperPlane from '../../assets/svg/paper-plane.svg';
 import { useMutation } from '@tanstack/react-query';
 import { Link, useLocation } from 'react-router-dom';
 import { sendEmailVerifyFn } from '../../api/api.fn';
-import { useEffect } from 'react';
 import toast from '../../utils/toast';
 
 function VerifyEmail() {
   const location = useLocation();
   const email = location.state?.email;
-  const {
-    mutate: sendEmailVerify,
-    isSuccess,
-    isLoading,
-  } = useMutation((email: string) => sendEmailVerifyFn(email));
+  const { mutate: sendEmailVerify } = useMutation({
+    mutationFn: async (email: string) => {
+      return sendEmailVerifyFn(email);
+    },
+    onSuccess: () => {
+      toast.emailSent();
+    },
+  });
 
   const handleClick = () => {
     sendEmailVerify(email);
   };
 
-  useEffect(() => {
-    if (isSuccess && !isLoading) {
-      toast.emailSent();
-    }
-  }, [isLoading, isSuccess]);
-
   return (
     <>
       <Page>
-        <nav className="text-sm flex items-center gap-6 w-full justify-end font-semibold text-primary-1100 py-3 px-4">
+        <nav
+          className="text-sm flex items-center gap-6 w-full justify-end 
+          font-semibold text-primary-1100 py-3 px-4"
+        >
           <Link to="/">
             <p className="hover:text-primary-600 cursor-pointer">HOME</p>
           </Link>
         </nav>
         <Center>
-          <div className="relative flex flex-col font-bold text-primary-1000 justify-center gap-8 text-lg bg-box px-8 py-12 shadow-lg rounded-xl">
+          <div
+            className="relative flex flex-col font-bold text-primary-1000 
+            justify-center gap-8 text-lg bg-box px-8 py-12 shadow-lg rounded-xl"
+          >
             <img
               src={paperPlane}
               className="object-contain aspect-square h-11 absolute -top-2.5 -right-2"

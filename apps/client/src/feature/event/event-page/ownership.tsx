@@ -1,4 +1,4 @@
-import { EventType } from '../../../types';
+import { EventType, invitationStatus } from '../../../types';
 import { updateOrganizerSchema } from 'schema/ts-schema';
 import Avatar from '../../../component/avatar';
 import { useState } from 'react';
@@ -34,9 +34,12 @@ function TransfertOwnership({
 
   const participants =
     typeof event.participants !== 'string' &&
-    event.participants.filter(
-      (participant) => participant.profile_id !== profileId,
-    );
+    event.participants.filter((participant) => {
+      return (
+        participant.profile_id !== profileId &&
+        participant.status === invitationStatus.confirmed
+      );
+    });
 
   const handleSubmitTransfert = (e: React.FormEvent) => {
     e.preventDefault();

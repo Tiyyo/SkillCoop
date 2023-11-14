@@ -9,6 +9,8 @@ export type EventStatus = 'open' | 'full' | 'completed' | 'cancelled';
 
 export type InvitationStatus = 'pending' | 'confirmed' | 'declined';
 
+export type InvitationPageVariant = 'update' | 'mutate';
+
 export const invitationStatus = {
   pending: 'pending',
   confirmed: 'confirmed',
@@ -20,6 +22,11 @@ export const eventStatus = {
   full: 'full',
   completed: 'completed',
   cancelled: 'cancelled',
+} as const;
+
+export const invitationPageVariant = {
+  update: 'update',
+  mutate: 'mutate',
 } as const;
 
 export type User = {
@@ -191,4 +198,9 @@ export type TransfertOwnership = {
   event_id: number;
   organizer_id: number;
   new_organizer_id: number;
+};
+
+export type EventInvitation = {
+  event_id: number;
+  ids: number[];
 };

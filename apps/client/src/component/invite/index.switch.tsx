@@ -5,7 +5,7 @@ import FriendCards from './index.friends';
 
 interface SwitchMutateOrUpdateProps {
   variant: 'mutate' | 'update';
-  data: Friend[] | undefined;
+  data: Friend[] | undefined | null;
   loading: boolean;
 }
 

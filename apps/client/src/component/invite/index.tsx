@@ -1,13 +1,6 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
-import {
-  getFriendsFn,
-  searchFriendsFn,
-  sendEventInvitationFn,
-} from '../../api/api.fn';
 import SearchInput from '../search-input';
 import { useEffect, useState } from 'react';
 import { useApp } from '../../store/app.store';
-import { SearchFriendQuery } from '../../types';
 import ReturnBtn from '../return';
 import TitleH2 from '../title-h2';
 import Button from '../button';
@@ -16,6 +9,8 @@ import SwitchMutateOrUpdate from './index.switch';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { inviteParticipantSchema } from 'schema/ts-schema';
 import toast from '../../utils/toast';
+import { useSendEventInvitation } from '../../hooks/useSingleEvent';
+import { useSearchResultOrDefault } from '../../hooks/useSearchResultOrDefault';
 
 interface InviteProps {
   variant: 'mutate' | 'update';
@@ -29,69 +24,24 @@ function Invite({ variant = 'update' }: InviteProps) {
   const { data: eventState } = useEvent();
   const location = useLocation();
   const [eventId, setEventId] = useState<number | undefined>(undefined);
-  const [isOnFocus, setIsOnFocus] = useState<boolean>(false);
-
   const profileId = userProfile?.profile_id;
 
-  const [searchFriendQuery, setSearchFriendQuery] = useState<SearchFriendQuery>(
-    {
-      username: '',
-      profile: profileId ? profileId : 0,
-      page: 1,
-    },
-  );
-
-  const {
-    data: friends,
-    isLoading,
-    isFetching,
-  } = useQuery(
-    ['getFriends'],
-    () => {
-      if (!profileId) return;
-      return getFriendsFn(profileId);
-    },
-    {
-      enabled: true,
-    },
-  );
-
-  const {
-    data: searchedFriends,
-    refetch: refetchSearchFriends,
-    isLoading: isSearchLoading,
-    isFetching: isSearchFetching,
-  } = useQuery({
-    queryKey: ['searchFriends'],
-    queryFn: ({ signal }) => {
-      if (searchFriendQuery.profile === 0 || !searchFriendQuery.username)
-        return;
-      return searchFriendsFn(searchFriendQuery, signal);
-    },
-    enabled: false,
+  const { getSearchValue, data, loading } = useSearchResultOrDefault({
+    profileId,
   });
 
-  const {
-    mutate: sendInvitation,
-    isSuccess: isInvitationSuccess,
-    isError: isInvitationError,
-    isLoading: isInvitationLoading,
-  } = useMutation((data: { event_id: number; ids: number[] }) =>
-    sendEventInvitationFn(data),
-  );
-
-  const getFocusInputSearchState = (state: boolean) => {
-    setIsOnFocus(state);
-  };
-
-  const getSearchValue = (value: string) => {
-    setSearchFriendQuery({
-      ...searchFriendQuery,
-      username: value,
+  const { mutate: sendInvitation, isLoading: isInvitationLoading } =
+    useSendEventInvitation({
+      eventId,
+      onSuccess: () => {
+        toast.invitationSent();
+      },
+      onError: () => {
+        toast.error('Something went wrong ... Try agian later');
+      },
     });
-  };
 
-  const handleClickSendInvitation = (e: any) => {
+  const handleClickSendInvitation = (e: React.MouseEvent) => {
     e.preventDefault();
     if (!eventState.participants || !eventId) {
       toast.error('Something went wrong ... Try agian later');
@@ -102,7 +52,6 @@ function Invite({ variant = 'update' }: InviteProps) {
       event_id: Number(eventId),
       ids: eventState.participants,
     };
-    //@ts-ignore
     const isValid = inviteParticipantSchema.safeParse(data);
     if (!isValid.success) {
       toast.error('Something went wrong ... Try agian later');
@@ -111,40 +60,20 @@ function Invite({ variant = 'update' }: InviteProps) {
     sendInvitation(data);
   };
 
-  const loading =
-    isLoading || isSearchLoading || isFetching || isSearchFetching;
-
-  useEffect(() => {
-    if (isInvitationSuccess) {
-      toast.invitationSent();
-      navigate(-1);
-      return;
-    }
-    if (isInvitationError) {
-      toast.error('Something went wrong ... Try agian later');
-      return;
-    }
-  }, [isInvitationLoading]);
-
   useEffect(() => {
     setEventId(location.state?.eventId);
   }, []);
-
-  useEffect(() => {
-    refetchSearchFriends();
-  }, [searchFriendQuery]);
 
   return (
     <>
       <ReturnBtn />
       <TitleH2 value="Invite your friends" />
       <div className="px-4 h-[65vh]">
-        <SearchInput
-          getFocusState={getFocusInputSearchState}
-          onChange={getSearchValue}
-        />
+        <SearchInput onChange={getSearchValue} />
         <SwitchMutateOrUpdate
-          data={isOnFocus ? searchedFriends : friends}
+          // display data accorting to the focus state
+          // is really bad for acccessibility
+          data={data}
           loading={loading}
           variant={variant}
         />

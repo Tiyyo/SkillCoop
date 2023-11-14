@@ -4,6 +4,7 @@ import {
   generateTeamsFn,
   getEventFn,
   saveScoreFn,
+  sendEventInvitationFn,
   transfertOwnershipEventFn,
   updateEventFn,
   updateParticipantFn,
@@ -12,6 +13,7 @@ import {
 } from '../api/api.fn';
 import {
   DeleteEventData,
+  EventInvitation,
   SaveScore,
   TransfertOwnership,
   UpdateEventData,
@@ -164,6 +166,27 @@ export function useVoteForbestStriker(options: {
   return useMutation({
     mutationFn: async (data: Vote) => {
       return voteBestStrikerFn(data);
+    },
+    onSuccess: () => {
+      if (!options.eventId) return;
+      queryClient.invalidateQueries(keys.getEventId(options.eventId));
+      if (options.onSuccess) options.onSuccess();
+    },
+    onError: () => {
+      if (options.onError) options.onError();
+    },
+  });
+}
+
+export function useSendEventInvitation(options: {
+  eventId?: number;
+  onSuccess?: () => void;
+  onError?: () => void;
+}) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (data: EventInvitation) => {
+      return sendEventInvitationFn(data);
     },
     onSuccess: () => {
       if (!options.eventId) return;

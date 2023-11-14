@@ -4,6 +4,7 @@ import {
   CreateEventData,
   EvaluationOwnSkill,
   EvaluationParticipantSkill,
+  EventInvitation,
   EventType,
   Friend,
   InvitationStatus,
@@ -217,10 +218,7 @@ export const updateParticipantFn = async (data: {
   return response.data;
 };
 
-export const sendEventInvitationFn = async (data: {
-  event_id: number;
-  ids: number[];
-}) => {
+export const sendEventInvitationFn = async (data: EventInvitation) => {
   const response = await api.post(`api/profile_on_event`, data);
   return response.data;
 };

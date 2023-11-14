@@ -1,22 +1,9 @@
-import { useLocation } from 'react-router-dom';
 import Invite from '../../../component/invite/index';
-import { useEffect, useState } from 'react';
+import { useSetInvitationVariant } from '../../../hooks/useSetInvitationVariant';
+import { invitationPageVariant } from '../../../types';
 
 function InvitationEvent() {
-  const [variant, setVariant] = useState<'update' | 'mutate' | undefined>(
-    undefined,
-  );
-  const location = useLocation();
-  const variantToDisplay: 'update' | 'mutate' | undefined =
-    location.state?.variant;
-
-  useEffect(() => {
-    setVariant(variantToDisplay);
-  }, []);
-
-  console.log('Which variant it is : ', variant);
-
-  return <Invite variant={variant ? variant : 'update'} />;
+  const { variant } = useSetInvitationVariant();
+  return <Invite variant={variant ? variant : invitationPageVariant.update} />;
 }
-
 export default InvitationEvent;

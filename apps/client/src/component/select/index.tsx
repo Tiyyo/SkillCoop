@@ -25,6 +25,8 @@ interface SelectInputProps extends ComponentPropsWithoutRef<'select'> {
   updateData?: Record<string, string | number>;
 }
 
+const nameSelectInput = ['duration', 'required_participants'];
+
 function SelectInput({
   label,
   name,
@@ -53,8 +55,10 @@ function SelectInput({
     if (!updateData) return;
     // TODO abstract this logic in a switch case or something
     // like a pool of key and search if mutateKey is in the pool
+
+    // No idea why I have to do this
     let value: number | string = '';
-    if (mutateKey === 'duration' || mutateKey === 'required_participants')
+    if (mutateKey && nameSelectInput.includes(mutateKey))
       value = Number(e.target.value);
     updateData[mutateKey as keyof typeof updateData] = value;
     if (mutateOnBlur) {
@@ -85,7 +89,8 @@ function SelectInput({
         {disabled ? (
           <input
             type="text"
-            className="bg-base-light border border-gray-300 font-semibold text-primary-1100 text-xs rounded-lg block w-full h-10.5 pl-10 border-none"
+            className="bg-base-light border border-gray-300 font-semibold text-primary-1100 
+            text-xs rounded-lg block w-full h-10.5 pl-10 border-none"
             disabled={disabled}
             defaultValue={
               mutateKey === 'duration'
@@ -98,7 +103,8 @@ function SelectInput({
             name={name}
             className={`bg-base-light border text-primary-1100 ${
               hasError ? 'border-2 border-error' : ''
-            } text-sm rounded-lg focus:ring-primary-800 focus:border-primary-800 block w-full h-10.5 pl-10`}
+            } text-sm rounded-lg focus:ring-primary-800 focus:border-primary-800 
+            block w-full h-10.5 pl-10`}
             onChange={handleChange}
             {...props}
           >

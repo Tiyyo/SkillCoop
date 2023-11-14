@@ -155,3 +155,9 @@ export type EvaluationParticipantSkill = {
   rater_id: number;
   reviewee_id: number;
 };
+
+export type UpdateParticipant = {
+  event_id: number;
+  profile_id: number;
+  status_name: InvitationStatus;
+};

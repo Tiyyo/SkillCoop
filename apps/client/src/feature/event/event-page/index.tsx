@@ -19,6 +19,7 @@ import EventPageScore from './score';
 import EventPageVotesBanner from './votes';
 import { useEffect, useLayoutEffect } from 'react';
 import { useEvent } from '../../../store/event.store';
+import { useGetSingleEvent } from '../../../hooks/useSingleEvent';
 
 function EventPage() {
   const location = useLocation();
@@ -28,14 +29,10 @@ function EventPage() {
   const { userProfile } = useApp();
   const profileId = userProfile?.profile_id;
 
-  const { data: event } = useQuery(
-    [`event${eventId}`],
-    () => {
-      if (!profileId || !eventId) return;
-      return getEventFn(Number(eventId), profileId);
-    },
-    { enabled: true, refetchOnMount: false },
-  );
+  const { data: event } = useGetSingleEvent({
+    eventId: Number(eventId),
+    profileId: profileId,
+  });
 
   useEffect(() => {
     if (!event) return;
@@ -66,17 +63,18 @@ function EventPage() {
     };
   }, [location.pathname, event, initEventState]);
 
-  console.log('Line 62 Event Page :', event);
-
   useLayoutEffect(() => {
     if (eventStore && eventStore.user_status === 'declined') {
-      navigate('/');
+      navigate('/', { replace: true });
     }
   }, [eventStore.user_status]);
   return (
     <div>
       <Outlet />
-      <div className="flex justify-between items-start py-2 bg-base-light mx-2 my-4 rounded-md shadow">
+      <div
+        className="flex justify-between items-start py-2
+       bg-base-light mx-2 my-4 rounded-md shadow"
+      >
         <ReturnBtn />
         <CallToActionInvitation
           eventId={event?.event_id}
@@ -153,7 +151,8 @@ function EventPage() {
         <Link
           to="invitation"
           state={{ eventId, variant: 'mutate' }}
-          className="flex items-center underline underline-offset-8 un gap-2 py-4 text-md text-primary-1100 font-semibold cursor-pointer w-full justify-center"
+          className="flex items-center underline underline-offset-8 un gap-2 py-4
+           text-md text-primary-1100 font-semibold cursor-pointer w-full justify-center"
         >
           <p>INVITE FRIENDS </p>
           <Plus />

@@ -1,31 +1,21 @@
-import { useMutation } from '@tanstack/react-query';
-import { updateParticipantFn } from '../../../api/api.fn';
-import { InvitationStatus, invitationStatus } from '../../../types';
+import { invitationStatus } from '../../../types';
 import { updateParticipantSchema } from 'schema/ts-schema';
 import toast from '../../../utils/toast';
 import { useEvent } from '../../../store/event.store';
+import { useUpdateParticipant } from '../../../hooks/useSingleEvent';
 
 interface CallToActionInvitationProps {
   eventId?: number;
   profileId?: number;
 }
 
-interface UpdateParticipantProps {
-  event_id: number;
-  profile_id: number;
-  status_name: InvitationStatus;
-}
-
 function CallToActionInvitation({
   eventId,
   profileId,
 }: CallToActionInvitationProps) {
-  const { mutate: updateParticipant } = useMutation(
-    (data: UpdateParticipantProps) => updateParticipantFn(data),
-  );
+  const { mutate: updateParticipant } = useUpdateParticipant({ eventId });
 
   const { data: event, updateUserStatus } = useEvent();
-  //  Should be abstract to another hook
   const handleClickInvitation = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
@@ -36,7 +26,6 @@ function CallToActionInvitation({
       profile_id: profileId,
       status_name: invitationStatus[status as keyof typeof invitationStatus],
     };
-    //@ts-ignore
     const isValid = updateParticipantSchema.safeParse(data);
     if (!isValid.success) {
       toast.error('Something went wrong..., Try again later');
@@ -51,8 +40,7 @@ function CallToActionInvitation({
       {event.user_status === 'pending' && (
         <div className=" text-xs text-center self-start">
           <p>You have been invited to this event</p>
-          <p>Do you want to confirm your participation</p>
-          <p>in this event?</p>
+          <p>Would you like to confirm your participation ?</p>
           <div className="flex gap-3 justify-center py-1">
             <button
               value="confirmed"

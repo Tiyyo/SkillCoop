@@ -102,7 +102,8 @@ function InputTime({
             id={name}
             defaultValue={defaultTime}
             disabled={disabled}
-            className={`bg-base-light border border-gray-300 text-primary-1100 text-xs rounded-lg block w-full h-10.5 pl-10 border-none`}
+            className={`bg-base-light border border-gray-300 text-primary-1100 
+            text-xs rounded-lg block w-full h-10.5 pl-10 border-none`}
           />
         </div>
       ) : (
@@ -111,7 +112,8 @@ function InputTime({
             name={name}
             id={name}
             {...props}
-            className={`bg-base-light border text-primary-1100 text-xs rounded-lg focus:ring-primary-800 focus:border-primary-800 block w-full h-10.5 pl-10`}
+            className={`bg-base-light border text-primary-1100 text-xs rounded-lg
+           focus:ring-primary-800 focus:border-primary-800 block w-full h-10.5 pl-10`}
           />
           <div
             className={`absolute top-1/2 left-2 -translate-y-1/2  ${
@@ -122,7 +124,8 @@ function InputTime({
           </div>
           <select
             id="hours"
-            className="absolute top-0 left-0 w-1/2 max-h-28 overflow-y-auto h-10.5 flex text-end pr-10 bg-transparent"
+            className="absolute top-0 left-0 w-1/2 max-h-28 overflow-y-auto 
+            h-10.5 flex text-end pr-10 bg-transparent"
             onChange={(e) =>
               setSelectedTime({
                 ...selectedTime,

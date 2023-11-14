@@ -113,24 +113,6 @@ export const useCreateEventStore = create<CreateEventStore>()((set) => ({
 }));
 
 export const useCreateEvent = () => {
-  const { mutate: createEvent, isLoading } = useMutation({
-    mutationFn: async (data: CreateEventData) => createEventFn(data),
-    onSuccess: () => {
-      const date = new Date(data.start_date!);
-      const startTime = date.toLocaleTimeString([], {
-        hour: '2-digit',
-        minute: '2-digit',
-      });
-      const startDate = new Intl.DateTimeFormat('en-US', {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
-      }).format(new Date());
-      toast.eventSuccess('Event set', `At ${startTime} on ${startDate}`);
-      queryClient.invalidateQueries(['events']);
-      clearEventState();
-    },
-  });
   const updateStartDate = useCreateEventStore((state) => state.updateStartDate);
   const updateStartTime = useCreateEventStore((state) => state.updateStartTime);
   const updateDuration = useCreateEventStore((state) => state.updateDuration);
@@ -149,6 +131,24 @@ export const useCreateEvent = () => {
   );
   const clearEventState = useCreateEventStore((state) => state.clearEventState);
   const data = useCreateEventStore((state) => state.event);
+  const { mutate: createEvent, isLoading } = useMutation({
+    mutationFn: async (data: CreateEventData) => createEventFn(data),
+    onSuccess: () => {
+      const date = new Date(`${data.start_date} ${data.start_time}`);
+      const startTime = new Intl.DateTimeFormat('en-Us', {
+        hour: '2-digit',
+        minute: '2-digit',
+      }).format(date);
+      const startDate = new Intl.DateTimeFormat('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+      }).format(date);
+      toast.eventSuccess('Event set', `At ${startTime} on ${startDate}`);
+      queryClient.invalidateQueries(['events']);
+      clearEventState();
+    },
+  });
 
   return {
     createEvent,

@@ -1,5 +1,5 @@
 import Button from '../../../component/button';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { createEventSchema } from 'schema/ts-schema';
 import type { CreateEventData } from '../../../types';
 import Input from '../../../component/input';
@@ -21,6 +21,7 @@ import {
   OPTION_DURATION,
   OPTION_FORMAT,
 } from '../../../constant/select.options';
+import toast from '../../../utils/toast';
 
 function CreateEvent() {
   const { userProfile } = useApp();
@@ -32,7 +33,6 @@ function CreateEvent() {
     isLoading,
     updateDuration,
     updateLocation,
-    updateOrganizerId,
     updateStartDate,
     updateStartTime,
     updateRequiredParticipants,
@@ -42,40 +42,17 @@ function CreateEvent() {
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!profileId) return;
-    const data: Partial<CreateEventData> = {
+    if (!eventCreatedState.start_date || !eventCreatedState.start_time) return;
+    const data: Partial<CreateEventData> | CreateEventData = {
       organizer_id: profileId,
       status_name: 'open',
+      date: `${eventCreatedState.start_date} ${eventCreatedState.start_time}`,
+      participants: eventCreatedState.participants ?? undefined,
+      duration: Number(eventCreatedState.duration) ?? undefined,
+      location: eventCreatedState.location ?? undefined,
+      required_participants:
+        Number(eventCreatedState.required_participants) ?? undefined,
     };
-
-    // TODO need to handle the case
-    // where user select today date but time is in the past
-    // validation date and time
-    if (eventCreatedState.start_time && eventCreatedState.start_date) {
-      const eventDate = `${eventCreatedState.start_date} ${eventCreatedState.start_time}`;
-      console.log('Line 58 Create Event :', eventDate);
-      data.date = eventDate;
-    }
-
-    if (eventCreatedState.participants) {
-      data.participants = eventCreatedState.participants;
-    }
-
-    // validation duration
-    if (eventCreatedState.duration) {
-      data.duration = Number(eventCreatedState.duration);
-    }
-
-    // validation location
-    if (eventCreatedState.location) {
-      data.location = eventCreatedState.location;
-    }
-
-    // validation required participants
-    if (eventCreatedState.required_participants) {
-      data.required_participants = Number(
-        eventCreatedState.required_participants,
-      );
-    }
     //@ts-ignore
     const isValid = createEventSchema.safeParse(data);
 
@@ -89,16 +66,15 @@ function CreateEvent() {
       createEvent(data);
       createEventFormRef.current?.reset();
     } else {
+      if ((isValid as any).error.issues[0]) {
+        toast.error((isValid as any).error.issues[0].message);
+      }
       setValidationErrors((isValid as any).error.issues);
     }
   };
 
-  // Not sure if this useEffect is needed
-  useEffect(() => {
-    if (!profileId) return;
-    updateOrganizerId(profileId);
-  }, [profileId]);
-
+  // find if an input has an error
+  //to display an UI indication to the user
   const inputHasError = (
     nameInput: string,
     errors: Record<string, string>[] | null,
@@ -163,7 +139,7 @@ function CreateEvent() {
           updateState={updateRequiredParticipants}
           options={OPTION_FORMAT}
           defaultValue={eventCreatedState.required_participants ?? ''}
-          error={inputHasError('duration', validationErrors)}
+          error={inputHasError('required_participants', validationErrors)}
         >
           <Users />
         </SelectInput>

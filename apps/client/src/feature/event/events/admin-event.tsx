@@ -4,6 +4,7 @@ import ReturnBtn from '../../../component/return';
 import EventList from '../resume-events/list';
 import { EventType } from '../../../types';
 import useInfinite from '../../../hooks/useInfinite';
+import { Link } from 'react-router-dom';
 
 function MyEvents() {
   const NB_ELEMETNS_PER_PAGE = 10;
@@ -20,7 +21,15 @@ function MyEvents() {
     .map((page) => page?.events)
     .flat() as EventType[];
 
-  if (isError) return <div>error</div>;
+  if (isError)
+    return (
+      <div className="flex flex-col justify-center items-center">
+        <p className="text-sm text-primary-1100">Something went wrong</p>
+        <Link to="/" className="text-xs">
+          Go back to home
+        </Link>
+      </div>
+    );
   return (
     <div>
       <ReturnBtn />

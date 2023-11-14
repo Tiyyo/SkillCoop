@@ -1,60 +1,25 @@
-import { useQuery } from '@tanstack/react-query';
-import { EventType } from '../../../types';
 import EventList from './list';
-import { getEventsFn } from '../../../api/api.fn';
-import { useEffect, useState } from 'react';
 import Spinner from '../../../component/loading';
 import { useApp } from '../../../store/app.store';
 import { Link } from 'react-router-dom';
+import { useResumeEvents } from '../../../hooks/useResumeEvents';
 
 function ResumeEvents() {
   const { userProfile } = useApp();
   const profileId = userProfile?.profile_id;
-
-  const [events, setEvents] = useState<{
-    incoming: EventType[] | null;
-    past: EventType[] | null;
-  }>({
-    incoming: null,
-    past: null,
+  const { events, loading, isError } = useResumeEvents({
+    profileId,
   });
-  const {
-    data: allEvents,
-    isError,
-    isLoading,
-    isFetching,
-  } = useQuery(
-    [`events`],
-    //@ts-ignore
-    () => {
-      if (!profileId) return { data: null };
-      return getEventsFn(profileId);
-    },
-    { enabled: true, staleTime: 10 },
-  );
-
-  const loading = isLoading || isFetching;
-  const today = new Date();
-
-  useEffect(() => {
-    if (!allEvents) return;
-    setEvents((prev) => {
-      return {
-        ...prev,
-        incoming: allEvents
-          ?.filter((event) => today < new Date(event.date))
-          .sort(
-            (eventA, eventB) =>
-              Number(new Date(eventA.date).getTime()) -
-              Number(new Date(eventB.date).getTime()),
-          ),
-        past: allEvents?.filter((event) => today > new Date(event.date)),
-      };
-    });
-  }, [allEvents, loading]);
-
   //  TODO : handle error
-  if (isError) return <div>error</div>;
+  if (isError)
+    return (
+      <div className="flex flex-col justify-center items-center">
+        <p className="text-sm text-primary-1100">Something went wrong</p>
+        <Link to="/" className="text-xs">
+          Go back to home
+        </Link>
+      </div>
+    );
 
   return (
     <>

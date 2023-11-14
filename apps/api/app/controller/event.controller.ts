@@ -15,7 +15,6 @@ export default {
     deleteDecodedKey(req.body);
 
     const { participants: ids, ...data } = req.body;
-    console.log('Line 18 event controller : ', data);
     const eventId = await Event.create(data);
     await ProfileOnEvent.create({
       event_id: eventId,
@@ -75,6 +74,7 @@ export default {
   async deleteOne(req: Request, res: Response) {
     // delete one event
     // only the organizer can delete the event
+    console.log(req.params);
     const [eventId, profileId] = checkParams(
       req.params.id,
       req.params.profileId,

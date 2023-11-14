@@ -1,9 +1,14 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { getEventFn, updateParticipantFn } from '../api/api.fn';
-import { UpdateParticipant } from '../types';
+import {
+  deleteEventFn,
+  generateTeamsFn,
+  getEventFn,
+  updateParticipantFn,
+} from '../api/api.fn';
+import { DeleteEventData, UpdateParticipant } from '../types';
 
 const keys = {
-  getEvent: ['event'],
+  getEvent: ['events'],
   getEventId: (eventId: number | string) => [
     ...keys.getEvent,
     `${keys.getEvent}/${eventId}}`,
@@ -37,11 +42,31 @@ export function useUpdateParticipant(options: { eventId?: number }) {
   });
 }
 
-// export function useUpdateSingleEvent(options) {
-//   const queryClient = useQueryClient();
-//   return useMutation({
-//     mutationFn: async (data) => { }),
-//     onSuccess: (data) => {
-//     }
-// });
-// }
+export function useGenerateTeams(options: {
+  eventId?: number;
+  onSuccess?: () => void;
+}) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (eventId: number) => {
+      return generateTeamsFn(eventId);
+    },
+    onSuccess: () => {
+      if (!options.eventId) return;
+      queryClient.invalidateQueries(keys.getEventId(options.eventId));
+    },
+  });
+}
+
+export function useDeleteSingleEvent(options: { eventId?: number }) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (data: DeleteEventData) => {
+      return deleteEventFn(data);
+    },
+    onSuccess: () => {
+      if (!options.eventId) return;
+      queryClient.invalidateQueries(keys.getEventId(options.eventId));
+    },
+  });
+}

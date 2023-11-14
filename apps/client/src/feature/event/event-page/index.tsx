@@ -8,7 +8,7 @@ import {
   useParams,
 } from 'react-router-dom';
 import ReturnBtn from '../../../component/return';
-import DropdownEventMenu from './dropdown-menu';
+import DropdownEventMenu from './dropdown-menu/index';
 import CallToActionInvitation from './call-to-action-invitation';
 import { useApp } from '../../../store/app.store';
 import EventPageInfos from './infos';

@@ -161,3 +161,7 @@ export type UpdateParticipant = {
   profile_id: number;
   status_name: InvitationStatus;
 };
+export type DeleteEventData = {
+  event_id: number;
+  profile_id: number;
+};

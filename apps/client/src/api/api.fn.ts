@@ -243,11 +243,11 @@ export const voteBestStrikerFn = async (data: Vote) => {
 };
 
 export const deleteEventFn = async (data: {
-  eventId: number;
-  profileId: number;
+  event_id: number;
+  profile_id: number;
 }) => {
   const response = await api.delete(
-    `api/event/${data.eventId}/${data.profileId}`,
+    `api/event/${data.event_id}/${data.profile_id}`,
     { data },
   );
   return response.data;

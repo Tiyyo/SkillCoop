@@ -24,13 +24,13 @@ function ResumeEvents() {
     isLoading,
     isFetching,
   } = useQuery(
-    [`events/profile`],
+    [`events`],
     //@ts-ignore
     () => {
       if (!profileId) return { data: null };
       return getEventsFn(profileId);
     },
-    { enabled: true },
+    { enabled: true, staleTime: 10 },
   );
 
   const loading = isLoading || isFetching;

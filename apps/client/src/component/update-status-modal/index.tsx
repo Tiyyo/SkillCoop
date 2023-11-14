@@ -1,28 +1,18 @@
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
-  AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '../../lib/ui/alert-dialog';
-import { UseMutateFunction, useMutation } from '@tanstack/react-query';
-import { useNavigate } from 'react-router-dom';
 import { useEvent } from '../../store/event.store';
-import { updateParticipantFn } from '../../api/api.fn';
 import { InvitationStatus, invitationStatus } from '../../types';
-import { useApp } from '../../store/app.store';
-import { ButtonHTMLAttributes, useEffect, useState } from 'react';
+import { useState } from 'react';
 import { X } from 'lucide-react';
-
-type UpdateUserStatus = {
-  status_name: InvitationStatus;
-  event_id: number;
-  profile_id: number;
-};
+import { useUpdateParticipant } from '../../hooks/useSingleEvent';
+import toast from '../../utils/toast';
 
 interface UpdateStatusModalProps {
   children?: React.ReactNode;
@@ -30,11 +20,15 @@ interface UpdateStatusModalProps {
   profileId: number | undefined;
 }
 
-const menuItemStyle =
-  'flex gap-2 items-center hover:bg-primary-200 transition-colors duration-300 rounded-lg px-2 text-md';
+const menuItemStyle = `flex gap-2 items-center hover:bg-primary-200 transition-colors 
+          duration-300 rounded-lg px-2 text-md h-10`;
 
-const baseButtonStyle =
-  'inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 text-primary-foreground hover:bg-primary/90 h-10 w-24 py-2 m-0';
+const baseButtonStyle = `inline-flex items-center justify-center 
+rounded-md text-sm font-medium ring-offset-background 
+transition-colors focus-visible:outline-none focus-visible:ring-2 
+focus-visible:ring-ring focus-visible:ring-offset-2 
+disabled:pointer-events-none disabled:opacity-50 text-primary-foreground 
+hover:bg-primary/90 h-10 w-24 py-2 m-0;`;
 
 function UpdateStatusModal({
   children,
@@ -45,12 +39,21 @@ function UpdateStatusModal({
   const [nextStatus, setNextStatus] = useState<InvitationStatus | null>(null);
   const [isOrganizer, setIsOrganizer] = useState(false);
 
-  const {
-    mutate: updateUserStatusInDb,
-    data: apiResponse,
-    isLoading,
-    isSuccess,
-  } = useMutation((data: UpdateUserStatus) => updateParticipantFn(data));
+  const { mutate: updateUserStatusInDb } = useUpdateParticipant({
+    eventId,
+    onSuccess: (response: any) => {
+      if (!nextStatus) return;
+      if (response?.message) {
+        updateUserStatusInStore(nextStatus);
+      }
+      if (response?.message === 'Event is already completed') {
+        toast.error('Event is already completed');
+      }
+      if (response?.message === 'Organizer cannot change his status') {
+        setIsOrganizer(true);
+      }
+    },
+  });
 
   const handleClickStatus = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (!eventId || !profileId) return;
@@ -64,22 +67,9 @@ function UpdateStatusModal({
     setNextStatus(e.currentTarget.value as InvitationStatus);
   };
 
-  useEffect(() => {
-    if (!nextStatus) return;
-    if (isSuccess && !apiResponse?.message) {
-      updateUserStatusInStore(nextStatus);
-    }
-    if (apiResponse?.message === 'Event is already completed') {
-      console.log('Event is already completed');
-    }
-    if (apiResponse?.message === 'Organizer cannot change his status') {
-      setIsOrganizer(true);
-    }
-  }, [isLoading, apiResponse]);
-
   return (
     <AlertDialog>
-      <AlertDialogTrigger className={menuItemStyle + 'w-full'}>
+      <AlertDialogTrigger className={menuItemStyle + 'w-full h-10'}>
         {children}
       </AlertDialogTrigger>
       <AlertDialogContent className="bg-base-light w-4/5 rounded-lg ">

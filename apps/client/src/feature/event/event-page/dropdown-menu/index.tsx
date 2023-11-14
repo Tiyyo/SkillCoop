@@ -8,6 +8,7 @@ import { EventStatus } from '../../../../types';
 import GenerateTeamsMenuItem from './generate-teams';
 import TransfertOwnershipMenuItem from './transfert-ownership';
 import DeleteEventMenuItem from './delete-event';
+import CancelEventMenuItem from './cancel-event';
 
 interface DropdownEventMenuProps {
   eventStatus?: EventStatus;
@@ -59,6 +60,12 @@ function DropdownEventMenu({
             eventId={eventId}
           />
           <TransfertOwnershipMenuItem isAdmin={isAdmin} />
+          <CancelEventMenuItem
+            eventStatus={eventStatus}
+            isAdmin={isAdmin}
+            eventId={eventId}
+            profileId={profileId}
+          />
           <DeleteEventMenuItem
             isAdmin={isAdmin}
             eventId={eventId}

@@ -9,7 +9,7 @@ interface GenerateTeamsMenuItemProps {
   eventStatus?: EventStatus;
 }
 const menuItemStyle = `flex gap-2 items-center hover:bg-primary-200 
-    transition-colors duration-300 rounded-lg px-2 text-md`;
+    transition-colors duration-300 rounded-lg px-2 text-md h-10`;
 
 function GenerateTeamsMenuItem({
   isAdmin,

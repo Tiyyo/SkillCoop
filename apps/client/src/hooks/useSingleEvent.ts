@@ -41,14 +41,18 @@ export function useGetSingleEvent(options: {
   );
 }
 
-export function useUpdateParticipant(options: { eventId?: number }) {
+export function useUpdateParticipant(options: {
+  eventId?: number;
+  onSuccess?: (response: unknown) => void;
+}) {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: UpdateParticipant) => {
       return updateParticipantFn(data);
     },
-    onSuccess: () => {
+    onSuccess: (response) => {
       if (!options.eventId) return;
+      if (options.onSuccess) options.onSuccess(response);
       queryClient.invalidateQueries(keys.getEventId(options.eventId));
     },
   });
@@ -97,7 +101,7 @@ export function useUpdateScoreEvent(options: { eventId?: number }) {
 }
 
 export function useUpdateSingleEvent(options: {
-  eventId: number;
+  eventId?: number;
   onSuccess?: () => void;
 }) {
   const queryClient = useQueryClient();

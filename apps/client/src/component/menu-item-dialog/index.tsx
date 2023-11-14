@@ -28,8 +28,8 @@ function MenuItemDialog({
   mutationData,
   redirection,
 }: MenuItemDialogProps) {
-  const menuItemStyle =
-    'flex gap-2 items-center hover:bg-primary-200 transition-colors duration-300 rounded-lg px-2 text-md';
+  const menuItemStyle = ` flex gap-2 items-center hover:bg-primary-200 
+  transition-colors duration-300 rounded-lg px-2 text-md`;
 
   const navigate = useNavigate();
 
@@ -40,7 +40,7 @@ function MenuItemDialog({
   };
   return (
     <AlertDialog>
-      <AlertDialogTrigger className={menuItemStyle + 'w-full'}>
+      <AlertDialogTrigger className={menuItemStyle + 'w-full h-10'}>
         {children}
       </AlertDialogTrigger>
       <AlertDialogContent className="bg-base-light w-4/5 rounded-lg">

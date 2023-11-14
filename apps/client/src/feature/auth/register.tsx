@@ -13,7 +13,7 @@ import SeparatorLine from '../../component/seperator-line';
 import FormField from '../../component/form-field';
 import Button from '../../component/button';
 import { RegisterUser } from '../../types';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import ReturnBtn from '../../component/return';
 import checkIfString from '../../utils/check-string';
 import ErrorContainer from '../../component/error';
@@ -21,12 +21,15 @@ import ErrorNotification from '../../component/error/notification';
 import { AtSign, Eye, EyeOff } from 'lucide-react';
 
 function Register() {
-  const {
-    mutate: signUpUser,
-    isSuccess,
-    isLoading,
-    error: queryError,
-  } = useMutation((userData: RegisterUser) => signUpUserFn(userData));
+  const { mutate: signUpUser, isLoading } = useMutation({
+    mutationFn: async (userData: RegisterUser) => signUpUserFn(userData),
+    onSuccess: () => {
+      navigate('/verify-email', { state: { email: currentEmail } });
+    },
+    onError: (error: any) => {
+      setResponseErrorServer(error.response.data);
+    },
+  });
   const navigate = useNavigate();
   const location = useLocation();
   const [currentEmail, setCurrentEmail] = useState<string | null>(null);
@@ -37,13 +40,11 @@ function Register() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
-    //@ts-ignore
+  } = useForm<RegisterUser>({
     resolver: zodResolver(registerSchema),
   });
 
-  // TODO find which type is needed
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: RegisterUser) => {
     const termAndServiceInString = data.termAndService ? 'on' : 'off';
     setCurrentEmail(data.email);
     signUpUser({
@@ -53,15 +54,6 @@ function Register() {
       termAndService: termAndServiceInString,
     });
   };
-
-  useEffect(() => {
-    if (isSuccess && !isLoading) {
-      navigate('/verify-email', { state: { email: currentEmail } });
-    }
-    if (queryError) {
-      setResponseErrorServer((queryError as any).response.data);
-    }
-  }, [isSuccess, isLoading, queryError]);
 
   return (
     <Page>
@@ -104,7 +96,8 @@ function Register() {
               name="confirmedPassword"
               label="Confirm your password"
               subicon={<EyeOff size={16} />}
-              error={checkIfString(errors.confirm?.message)}
+              //TODO: find the right type
+              error={checkIfString((errors as any).confirm?.message)}
               register={register}
             >
               <Eye size={16} />

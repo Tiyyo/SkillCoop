@@ -7,6 +7,8 @@ import {
   transfertOwnershipEventFn,
   updateEventFn,
   updateParticipantFn,
+  voteBestStrikerFn,
+  voteMvpFn,
 } from '../api/api.fn';
 import {
   DeleteEventData,
@@ -14,8 +16,8 @@ import {
   TransfertOwnership,
   UpdateEventData,
   UpdateParticipant,
+  Vote,
 } from '../types';
-import TransfertOwnership from '../feature/event/event-page/ownership';
 
 const keys = {
   getEvent: ['events'],
@@ -124,6 +126,48 @@ export function useTransfertOwnership(options: {
       if (!options.eventId) return;
       queryClient.invalidateQueries(keys.getEventId(options.eventId));
       if (options.onSuccess) options.onSuccess();
+    },
+  });
+}
+
+export function useVoteForMvp(options: {
+  eventId?: number;
+  onSuccess?: () => void;
+  onError?: () => void;
+}) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (data: Vote) => {
+      return voteMvpFn(data);
+    },
+    onSuccess: () => {
+      if (!options.eventId) return;
+      queryClient.invalidateQueries(keys.getEventId(options.eventId));
+      if (options.onSuccess) options.onSuccess();
+    },
+    onError: () => {
+      if (options.onError) options.onError();
+    },
+  });
+}
+
+export function useVoteForbestStriker(options: {
+  eventId?: number;
+  onSuccess?: () => void;
+  onError?: () => void;
+}) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (data: Vote) => {
+      return voteBestStrikerFn(data);
+    },
+    onSuccess: () => {
+      if (!options.eventId) return;
+      queryClient.invalidateQueries(keys.getEventId(options.eventId));
+      if (options.onSuccess) options.onSuccess();
+    },
+    onError: () => {
+      if (options.onError) options.onError();
     },
   });
 }

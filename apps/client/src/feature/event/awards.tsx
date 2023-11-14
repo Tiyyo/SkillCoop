@@ -1,12 +1,14 @@
 import { useLocation } from 'react-router-dom';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../lib/ui/tabs';
 import { useEffect, useState } from 'react';
-import { EventParticipant, Vote } from '../../types';
-import { useMutation } from '@tanstack/react-query';
-import { voteBestStrikerFn, voteMvpFn } from '../../api/api.fn';
+import { EventParticipant } from '../../types';
 import TeamComposition from '../../component/team-composition';
 import toast from '../../utils/toast';
 import ReturnBtn from '../../component/return';
+import {
+  useVoteForMvp,
+  useVoteForbestStriker,
+} from '../../hooks/useSingleEvent';
 
 type LocationState = {
   eventId?: number;
@@ -21,33 +23,23 @@ function EndOfGameAwards() {
     participants: undefined,
     profileId: undefined,
   });
-
-  const {
-    mutate: voteMvp,
-    isError: errorMvp,
-    isSuccess: successMvp,
-    isLoading: loadMvp,
-  } = useMutation((data: Vote) => voteMvpFn(data));
-  const {
-    mutate: voteBestStriker,
-    isError: errorStriker,
-    isSuccess: successStriker,
-    isLoading: loadStriker,
-  } = useMutation((data: Vote) => voteBestStrikerFn(data));
-
-  const loading = loadMvp || loadStriker;
-  const error = errorMvp || errorStriker;
-  const success = successMvp || successStriker;
-
-  useEffect(() => {
-    if (loading) return;
-    if (error) {
-      toast.error('You already voted for this category');
-    }
-    if (success) {
+  const { mutate: voteMvp } = useVoteForMvp({
+    eventId: locationStateInfos.eventId,
+    onSuccess: () => {
       toast.success('Your vote has been recorded');
-    }
-  }, [loading, error, success]);
+    },
+    onError: () => {
+      toast.error('You already voted for this category');
+    },
+  });
+
+  const { mutate: voteBestStriker } = useVoteForbestStriker({
+    eventId: locationStateInfos.eventId,
+    onSuccess: () => {},
+    onError: () => {
+      toast.error('You already voted for this category');
+    },
+  });
 
   useEffect(() => {
     if (!state) return;

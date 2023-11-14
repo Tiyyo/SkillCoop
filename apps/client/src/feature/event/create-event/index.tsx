@@ -26,7 +26,6 @@ function CreateEvent() {
   const { userProfile } = useApp();
   const createEventFormRef = useRef<HTMLFormElement>(null);
   const [validationErrors, setValidationErrors] = useState(null);
-  // TODO : handle error
   const {
     createEvent,
     data: eventCreatedState,
@@ -37,7 +36,6 @@ function CreateEvent() {
     updateStartDate,
     updateStartTime,
     updateRequiredParticipants,
-    clearEventState,
   } = useCreateEvent();
   const profileId = userProfile?.profile_id;
 

@@ -15,6 +15,13 @@ export const invitationStatus = {
   declined: 'declined',
 } as const;
 
+export const eventStatus = {
+  open: 'open',
+  full: 'full',
+  completed: 'completed',
+  cancelled: 'cancelled',
+} as const;
+
 export type User = {
   email: string;
   password: string;
@@ -90,6 +97,12 @@ export type CreateEventData = {
   participants?: number[];
 };
 
+export type UpdateEventData = Omit<CreateEventData, 'status_name'> & {
+  status_name: EventStatus;
+  event_id: number;
+  profile_id: number;
+};
+
 export type EventType = {
   event_id: number;
   date: string;
@@ -161,7 +174,14 @@ export type UpdateParticipant = {
   profile_id: number;
   status_name: InvitationStatus;
 };
+
 export type DeleteEventData = {
   event_id: number;
   profile_id: number;
+};
+
+export type SaveScore = {
+  event_id: number;
+  score_team_1: number;
+  score_team_2: number;
 };

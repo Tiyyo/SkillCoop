@@ -74,7 +74,6 @@ export default {
   async deleteOne(req: Request, res: Response) {
     // delete one event
     // only the organizer can delete the event
-    console.log(req.params);
     const [eventId, profileId] = checkParams(
       req.params.id,
       req.params.profileId,

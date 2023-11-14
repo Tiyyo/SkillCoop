@@ -103,11 +103,12 @@ function EventPage() {
             requiredParticipants={event?.required_participants}
             profileId={profileId ?? 0}
             eventStatus={event?.status_name}
-            isAdmin={event?.organizer_id === profileId}
+            isAdmin={eventStore?.organizer_id === profileId}
           />
           <EventPageScore
             eventId={Number(eventId)}
             isAdmin={event.organizer_id === profileId}
+            eventDate={event.date}
             scoreTeam1={event.score_team_1}
             scoreTeam2={event.score_team_2}
             eventStatus={event.status_name}
@@ -128,7 +129,7 @@ function EventPage() {
             {typeof event.participants !== 'string' &&
               event.participants.map((participant) => (
                 <Participant
-                  isAdmin={event.organizer_id === participant.profile_id}
+                  isAdmin={eventStore?.organizer_id === participant.profile_id}
                   profileId={participant.profile_id}
                   eventStatus={event.status_name}
                   key={participant.profile_id}

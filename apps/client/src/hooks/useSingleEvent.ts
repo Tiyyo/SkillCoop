@@ -3,9 +3,16 @@ import {
   deleteEventFn,
   generateTeamsFn,
   getEventFn,
+  saveScoreFn,
+  updateEventFn,
   updateParticipantFn,
 } from '../api/api.fn';
-import { DeleteEventData, UpdateParticipant } from '../types';
+import {
+  DeleteEventData,
+  SaveScore,
+  UpdateEventData,
+  UpdateParticipant,
+} from '../types';
 
 const keys = {
   getEvent: ['events'],
@@ -25,7 +32,7 @@ export function useGetSingleEvent(options: {
       if (!options.profileId || !options.eventId) return;
       return getEventFn(Number(options.eventId), options.profileId);
     },
-    { enabled: true, refetchOnMount: false },
+    { enabled: true, refetchOnMount: true, staleTime: 0 },
   );
 }
 
@@ -67,6 +74,36 @@ export function useDeleteSingleEvent(options: { eventId?: number }) {
     onSuccess: () => {
       if (!options.eventId) return;
       queryClient.invalidateQueries(keys.getEventId(options.eventId));
+    },
+  });
+}
+
+export function useUpdateScoreEvent(options: { eventId?: number }) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (data: SaveScore) => {
+      return saveScoreFn(data);
+    },
+    onSuccess: () => {
+      if (!options.eventId) return;
+      queryClient.invalidateQueries(keys.getEventId(options.eventId));
+    },
+  });
+}
+
+export function useUpdateSingleEvent(options: {
+  eventId: number;
+  onSuccess?: () => void;
+}) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (data: Partial<UpdateEventData>) => {
+      return updateEventFn(data);
+    },
+    onSuccess: () => {
+      if (!options.eventId) return;
+      queryClient.invalidateQueries(keys.getEventId(options.eventId));
+      if (options.onSuccess) options.onSuccess();
     },
   });
 }

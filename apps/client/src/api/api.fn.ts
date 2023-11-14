@@ -12,6 +12,7 @@ import {
   RegisterUser,
   SearchFriendQuery,
   SearchProfileQuery,
+  UpdateEventData,
   User,
   Vote,
 } from '../types';
@@ -140,7 +141,7 @@ export const createEventFn = async (data: CreateEventData) => {
   return response.data;
 };
 
-export const updateEventFn = async (data: Record<string, string | number>) => {
+export const updateEventFn = async (data: Partial<UpdateEventData>) => {
   const response = await api.patch('api/event', data);
   return response.data;
 };

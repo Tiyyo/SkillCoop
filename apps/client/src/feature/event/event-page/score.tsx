@@ -1,16 +1,21 @@
-import { useMutation } from '@tanstack/react-query';
 import React, { useState } from 'react';
-import { saveScoreFn, updateEventFn } from '../../../api/api.fn';
 import { saveScoreSchema } from 'schema/ts-schema';
 import Button from '../../../component/button';
 import { useApp } from '../../../store/app.store';
+import { EventStatus } from '../../../types';
+import {
+  useUpdateScoreEvent,
+  useUpdateSingleEvent,
+} from '../../../hooks/useSingleEvent';
+import toast from '../../../utils/toast';
 
 interface EventPageScoreProps {
   eventId: number;
   isAdmin: boolean;
   scoreTeam1: number | null;
   scoreTeam2: number | null;
-  eventStatus: 'full' | 'open' | 'completed' | 'cancelled';
+  eventDate: string;
+  eventStatus: EventStatus;
 }
 
 function EventPageScore({
@@ -18,20 +23,29 @@ function EventPageScore({
   isAdmin,
   scoreTeam1,
   scoreTeam2,
+  eventDate,
   eventStatus,
 }: EventPageScoreProps) {
-  const [whichEventStatus, setWhichEventStatus] = useState<
-    'full' | 'open' | 'completed' | 'cancelled'
-  >(eventStatus);
+  const [whichEventStatus, setWhichEventStatus] =
+    useState<EventStatus>(eventStatus);
   const { userProfile } = useApp();
   const profileId = userProfile?.profile_id;
-  const { mutate: saveScore, isLoading } = useMutation(
-    (data: { event_id: number; score_team_1: number; score_team_2: number }) =>
-      saveScoreFn(data),
-  );
-  const { mutate: updateStatusEvent } = useMutation(
-    (data: Record<string, string | number>) => updateEventFn(data),
-  );
+
+  const { mutate: saveScore, isLoading } = useUpdateScoreEvent({
+    eventId: eventId,
+  });
+
+  const { mutate: updateStatusEvent } = useUpdateSingleEvent({
+    eventId: eventId,
+    onSuccess: () => {
+      updateStatusEvent({
+        event_id: eventId,
+        status_name: 'completed',
+        profile_id: userProfile?.profile_id,
+      });
+      setWhichEventStatus('completed');
+    },
+  });
 
   const handleSubmitScore = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -40,17 +54,17 @@ function EventPageScore({
       score_team_2: Number(e.currentTarget.score_team_2.value),
       event_id: eventId,
     };
-    //@ts-ignore
     const isValid = saveScoreSchema.safeParse(data);
     if (!isValid.success || !profileId) return;
+    if (new Date(eventDate) > new Date()) {
+      toast.error(
+        'You cannot save a score for an event that has not happened yet',
+      );
+      return;
+    }
     saveScore(data);
-    updateStatusEvent({
-      event_id: eventId,
-      status_name: 'completed',
-      profile_id: userProfile.profile_id,
-    });
-    setWhichEventStatus('completed');
   };
+
   if (whichEventStatus === 'cancelled') return null;
   if (whichEventStatus === 'open') return null;
   return (

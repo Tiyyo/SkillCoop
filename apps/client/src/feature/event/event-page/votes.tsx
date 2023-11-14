@@ -15,10 +15,13 @@ function EventPageVotesBanner({
   return (
     <div className="bg-base-light mx-2 my-4 rounded-md shadow py-2 px-3">
       <p className=" text-xs text-center font-semibold ">
-        Election for Mvp and Best Striker are now avaible for this event
+        Elections for MVP and Best Striker are now available for this event.
       </p>
       <Link to="votes" state={{ eventId, participants, profileId }}>
-        <p className="text-xs text-end text-primary-1000 underline-offset-4 underline cursor-pointer">
+        <p
+          className="text-xs text-center py-2.5 text-primary-1000 
+          underline-offset-4 underline cursor-pointer"
+        >
           Go to vote page
         </p>
       </Link>

@@ -35,7 +35,7 @@ function CancelEventMenuItem({
         status_name: 'cancelled',
       }}
       description={`This action cannot be undone. 
-                his will permanently delete your event.`}
+                this will permanently delete your event.`}
       redirection="/"
     >
       <div className="flex items-center gap-2">

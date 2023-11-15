@@ -9,6 +9,7 @@ import { useEvent } from '../../../store/event.store';
 import capitalize from '../../../utils/capitalize';
 import associateNumberToString from '../../../utils/associate-number-stringscale';
 import ReturnBtn from '../../../component/return';
+import { cn } from '../../../lib/utils';
 
 interface TransfertOwnershipProps {
   data: EventType;
@@ -66,9 +67,14 @@ function TransfertOwnership({
       >
         <div className="w-full h-[60vh]">
           {participants && (
-            <div className="grid grid-cols-2 py-8 gap-2 my-2 content-start ">
-              {!participants && (
-                <div className="text-center italic text-xs py-4 text-light">
+            <div
+              className={cn(
+                'grid grid-cols-2 py-8 gap-2 my-2 content-start',
+                participants.length === 0 && 'grid-cols-1',
+              )}
+            >
+              {participants.length === 0 && (
+                <div className="text-center w-full italic text-xs py-4 text-light">
                   No participants found
                 </div>
               )}

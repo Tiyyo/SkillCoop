@@ -70,13 +70,7 @@ function Invite({ variant = 'update' }: InviteProps) {
       <TitleH2 value="Invite your friends" />
       <div className="px-4 h-[65vh]">
         <SearchInput onChange={getSearchValue} />
-        <SwitchMutateOrUpdate
-          // display data accorting to the focus state
-          // is really bad for acccessibility
-          data={data}
-          loading={loading}
-          variant={variant}
-        />
+        <SwitchMutateOrUpdate data={data} loading={loading} variant={variant} />
       </div>
       {variant === 'mutate' && (
         <div className="flex w-full justify-center px-2">

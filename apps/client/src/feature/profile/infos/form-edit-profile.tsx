@@ -41,7 +41,10 @@ function Field({
     <div className="grid grid-cols-1 sm:grid-cols-3 sm:gap-4 p-2">
       <dt className=" text-primary-1100 font-semibold">{label}</dt>
       {!shouldEditInfos ? (
-        <dd className="flex items-center text-light sm:col-span-2 border-t-primary-300 border-t h-12 my-auto ml-1 p-1">
+        <dd
+          className="flex items-center text-light sm:col-span-2 border-t-primary-300 
+            border-t h-12 my-auto ml-1 p-1"
+        >
           {capitalize(value)}
         </dd>
       ) : (
@@ -97,7 +100,8 @@ function FormEditProfileInfos({
   };
   return (
     <form
-      className="flex flex-col justify-between rounded-lg border border-gray-100 py-3 shadow-sm w-full"
+      className="flex flex-col justify-between rounded-lg border
+           border-gray-100 py-3 shadow-sm w-full"
       onSubmit={handleSubmit(onSubmit)}
     >
       <dl className="-my-3 divide-y divide-gray-100 text-sm ">

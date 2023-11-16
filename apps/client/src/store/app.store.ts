@@ -3,6 +3,7 @@ import { Profile } from '../types';
 import { useQuery } from '@tanstack/react-query';
 import { getMeFn } from '../api/api.fn';
 import { useEffect } from 'react';
+import { useGetMe } from '../hooks/useProfile';
 
 interface AppStoreProps {
   userProfile: Profile | null;
@@ -27,20 +28,7 @@ export const useApp = () => {
   const setProfile = useAppStore((state) => state.setProfile);
   const signout = useAppStore((state) => state.signout);
 
-  const { data, isLoading, isFetching, isSuccess } = useQuery(
-    ['authUser'],
-    () => {
-      if (userProfile) {
-        return 'Unecessary call';
-      }
-      return getMeFn();
-    },
-    {
-      enabled: true,
-      cacheTime: 0,
-      retry: 0,
-    },
-  );
+  const { data, isLoading, isFetching, isSuccess } = useGetMe({ userProfile });
 
   useEffect(() => {
     if (data === 'Unecessary call') return;

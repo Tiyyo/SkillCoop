@@ -4,30 +4,25 @@ import Insta from '../../assets/icon/Insta';
 import Xtwitter from '../../assets/icon/Xtwitter';
 import './homepage.css';
 import Center from '../../layout/center';
-import { useEffect } from 'react';
-import { SERVER_URL } from '../../utils/server';
+import { useHealthCheckServer } from '../../hooks/useHealthCheckServer';
 
 function HomePage() {
-  const fetchServerUrl = async () => {
-    const res = await fetch(SERVER_URL + '/check');
-    const data = await res.json();
-    console.log(
-      'Health check server url from environement:',
-      data.message ?? 'NOT OK',
-    );
-  };
-
-  useEffect(() => {
-    fetchServerUrl();
-  }, []);
+  useHealthCheckServer();
   return (
     <Center>
       <div className="homepage"></div>
-      <div className="relative flex flex-col justify-between items-end px-10 py-12 h-screen lg:h-[90vh] w-full lg:w-[80%] max-w-[1600px] lg:border lg:border-opacity-50 border-gray-700 lg:shadow-xl rounded-2xl ">
+      <div
+        className="relative flex flex-col justify-between items-end px-10 py-12 h-screen 
+           lg:h-[90vh] w-full lg:w-[80%] max-w-[1600px] lg:border lg:border-opacity-50
+         border-gray-700 lg:shadow-xl rounded-2xl "
+      >
         <p className="absolute bottom-12 -left-6 -rotate-90 font-normal text-light lg:text-white">
           SKILL<span className="text-primary-1000 font-bold">COOP</span>
         </p>
-        <nav className="text-sm flex items-center gap-6 w-full justify-end font-semibold text-primary-1100">
+        <nav
+          className="text-sm flex items-center gap-6 w-full justify-end font-semibold
+             text-primary-1100"
+        >
           <p className="hover:text-primary-600 cursor-pointer">HOME</p>
           <p className="hover:text-primary-600 cursor-pointer">ABOUT US</p>
         </nav>
@@ -51,13 +46,17 @@ function HomePage() {
           <div className="self-center flex gap-4 text-sm lg:text-lg py-4">
             <Link
               to="/register"
-              className="bg-primary-300 py-2 px-4 lg:px-6 border border-primary-800 text-primary-1000 font-bold rounded-lg cursor-pointer shadow-md hover:bg-transparent duration-300 hover:border-primary-800"
+              className="bg-primary-300 py-2 px-4 lg:px-6 border border-primary-800
+                 text-primary-1000 font-bold rounded-lg cursor-pointer shadow-md 
+                  hover:bg-transparent duration-300 hover:border-primary-800"
             >
               Create an account
             </Link>
             <Link
               to="/login"
-              className=" py-2 px-4 lg:px-6 border border-primary-600 text-primary-1000 font-bold rounded-lg  cursor-pointer shadow-md hover:bg-primary-600 duration-300 hover:text-white "
+              className=" py-2 px-4 lg:px-6 border border-primary-600 text-primary-1000 font-bold 
+                rounded-lg  cursor-pointer shadow-md hover:bg-primary-600 
+                duration-300 hover:text-white "
             >
               Sign in
             </Link>

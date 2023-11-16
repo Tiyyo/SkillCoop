@@ -50,9 +50,11 @@ function FriendCard({
   addFriendToState,
   removeFriendFromState,
 }: FriendCardProps) {
+  // Need a good refactoring
   const { removePendingFriend, addConfirmedFriend } = useFriends();
   const [isSelected, setIsSelected] = useState(false);
 
+  // should be in a custom hook
   const { mutate: acceptOrDeclinedInvitation } = useMutation(
     ['acceptOrDeclinedInvitation'],
     (data: updateInvitationStatus) => acceptOrDeclinedFriendRequestFn(data),
@@ -107,11 +109,12 @@ function FriendCard({
   return (
     <Link to={activeLinkProfile ? `/contact/profile/${friendId}` : ''}>
       <div
-        className={`flex py-2 px-3 gap-3 max-h-16 cursor-pointer rounded-md border-2 border-transparent ${
-          isSelected
-            ? ' border-opacity-50 border-primary-400 bg-primary-500 shadow-2xl'
-            : 'bg-base-light'
-        }}`}
+        className={`flex py-2 px-3 gap-3 max-h-16 cursor-pointer 
+          rounded-md border-2 border-transparent ${
+            isSelected
+              ? ' border-opacity-50 border-primary-400 bg-primary-500 shadow-2xl'
+              : 'bg-base-light'
+          }}`}
         onClick={handleClickSelectFriend}
       >
         <img

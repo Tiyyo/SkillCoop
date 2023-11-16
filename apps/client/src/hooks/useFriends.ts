@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   getFriendsFn,
+  getPendingFriendsFn,
   searchFriendsFn,
   sendFriendRequestFn,
 } from '../api/api.fn';
@@ -8,6 +9,7 @@ import { CreateFriendsInvitation } from '../types';
 
 const keys = {
   getFriends: ['confirmed-friends'],
+  getPendingFriends: ['pending-friends'],
   searchFriends: ['search-friends'],
 };
 
@@ -39,6 +41,17 @@ export function useSearchInFriendlist(options: {
         },
         signal,
       );
+    },
+    { enabled: true },
+  );
+}
+
+export function useGetPendingFriendsRequest(options: { profileId?: number }) {
+  return useQuery(
+    keys.getPendingFriends,
+    async () => {
+      if (!options.profileId) return null;
+      return getPendingFriendsFn(options.profileId);
     },
     { enabled: true },
   );

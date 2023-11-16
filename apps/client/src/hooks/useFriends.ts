@@ -1,11 +1,13 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
+  acceptOrDeclinedFriendRequestFn,
   getFriendsFn,
   getPendingFriendsFn,
   searchFriendsFn,
   sendFriendRequestFn,
 } from '../api/api.fn';
-import { CreateFriendsInvitation } from '../types';
+import { CreateFriendsInvitation, UpdateFriendsInvitation } from '../types';
+import { AxiosResponse } from 'axios';
 
 const keys = {
   getFriends: ['confirmed-friends'],
@@ -72,6 +74,25 @@ export function useInviteFriend(options: {
     },
     onError: () => {
       if (options.onError) options.onError();
+    },
+  });
+}
+
+export function useFriendInvitationActions(options: {
+  onSuccess?: (response: AxiosResponse) => void;
+  onError?: () => void;
+}) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (data: UpdateFriendsInvitation) => {
+      return acceptOrDeclinedFriendRequestFn(data);
+    },
+    onSuccess: (response) => {
+      queryClient.invalidateQueries([
+        ...keys.getPendingFriends,
+        ...keys.getFriends,
+      ]);
+      if (options.onSuccess) options.onSuccess(response);
     },
   });
 }

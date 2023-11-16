@@ -209,3 +209,9 @@ export type CreateFriendsInvitation = {
   adder_id: number;
   friend_id: number;
 };
+
+export type UpdateFriendsInvitation = {
+  adder_id: number;
+  friend_id: number;
+  status_name: InvitationStatus;
+};

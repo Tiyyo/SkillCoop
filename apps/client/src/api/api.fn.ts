@@ -15,6 +15,7 @@ import {
   SearchProfileQuery,
   TransfertOwnership,
   UpdateEventData,
+  UpdateFriendsInvitation,
   User,
   Vote,
 } from '../types';
@@ -200,11 +201,9 @@ export const sendFriendRequestFn = async (data: {
   return response.data;
 };
 
-export const acceptOrDeclinedFriendRequestFn = async (data: {
-  adder_id: number;
-  friend_id: number;
-  status_name: string;
-}) => {
+export const acceptOrDeclinedFriendRequestFn = async (
+  data: UpdateFriendsInvitation,
+) => {
   const response = await api.patch(`api/friends`, data);
   return response.data;
 };

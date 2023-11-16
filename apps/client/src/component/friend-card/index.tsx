@@ -1,16 +1,12 @@
-import { useMutation } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
-import defaultAvatar from '../../../public/images/default-avatar.png';
-import { acceptOrDeclinedFriendRequestFn } from '../../api/api.fn';
 import OctogoneCross from '../../assets/icon/OctogoneCross';
 import Check from '../../assets/icon/Check';
-import { updateFriendshipSchema } from 'schema/ts-schema';
-import { useFriends } from '../../store/friend.store';
 import { EventType, invitationStatus } from '../../types';
 import { Link } from 'react-router-dom';
 import associateNumberToString from '../../utils/associate-number-stringscale';
 import capitalize from '../../utils/capitalize';
-import toast from '../../utils/toast';
+import Avatar from '../avatar';
+import { useActionsPendingFriendCard } from '../../hooks/useActionsPendingFriendCard';
+import { useSelectionOfFriends } from '../../hooks/useSelectionOfFriends';
 
 type EventTypeState = EventType & {
   participants: number[];
@@ -31,12 +27,6 @@ interface FriendCardProps {
   createdAt?: string;
 }
 
-interface updateInvitationStatus {
-  adder_id: number;
-  friend_id: number;
-  status_name: string;
-}
-
 function FriendCard({
   avatar,
   username,
@@ -50,60 +40,23 @@ function FriendCard({
   addFriendToState,
   removeFriendFromState,
 }: FriendCardProps) {
-  // Need a good refactoring
-  const { removePendingFriend, addConfirmedFriend } = useFriends();
-  const [isSelected, setIsSelected] = useState(false);
+  // Accept or decline invitation
+  const { handleActionOnInviation } = useActionsPendingFriendCard({
+    friendId,
+    adderId,
+    username,
+    avatar,
+  });
 
-  // should be in a custom hook
-  const { mutate: acceptOrDeclinedInvitation } = useMutation(
-    ['acceptOrDeclinedInvitation'],
-    (data: updateInvitationStatus) => acceptOrDeclinedFriendRequestFn(data),
-  );
-
-  const handleClickSelectFriend = () => {
-    if (!activeSelected || !removeFriendFromState || !addFriendToState) return;
-    if (isSelected) {
-      removeFriendFromState(friendId);
-      setIsSelected(false);
-    } else {
-      addFriendToState(friendId);
-    }
-  };
-
-  const handleActionOnInviation = (e: any) => {
-    const action = e.currentTarget.value;
-    const data = {
-      adder_id: adderId,
-      friend_id: friendId,
-      status_name: action,
-    };
-    //@ts-ignore
-    const isValid = updateFriendshipSchema.safeParse(data);
-    if (!isValid.success) {
-      toast.error('Something went wrong');
-      return;
-    }
-    acceptOrDeclinedInvitation(data);
-    toast.addFriend(username);
-    removePendingFriend(username);
-    if (action === 'confirmed') {
-      const friend = {
-        friend_id: friendId,
-        username: username,
-        avatar_url: avatar,
-        status_name: invitationStatus.confirmed,
-        adder_id: adderId,
-      };
-      addConfirmedFriend(friend);
-    }
-  };
-
-  useEffect(() => {
-    if (!dataFromState || !dataFromState.participants) return;
-    if (dataFromState.participants.find((id) => id === friendId)) {
-      setIsSelected(true);
-    }
-  }, [dataFromState]);
+  // handle selection of friends to invite to event
+  const { isSelected, handleClickEvent: handleClickSelectFriend } =
+    useSelectionOfFriends({
+      friendId,
+      addFriendToState,
+      removeFriendFromState,
+      dataFromState,
+      activeSelected,
+    });
 
   if (status === 'declined') return null;
   return (
@@ -117,37 +70,34 @@ function FriendCard({
           }}`}
         onClick={handleClickSelectFriend}
       >
-        <img
-          src={avatar ?? defaultAvatar}
-          alt="avatar"
-          className="w-10 h-10 rounded-full"
-        />
+        <Avatar avatar={avatar} />
         <div className="flex flex-col gap-2">
           <p className="text-xs">{username}</p>
           <div className="flex items-center gap-x-3">
             <p className="text-xxs text-light">
-              {lastEvaluationRecorded
-                ? capitalize(associateNumberToString(lastEvaluationRecorded))
-                : ''}
+              {lastEvaluationRecorded &&
+                capitalize(associateNumberToString(lastEvaluationRecorded))}
             </p>
-            {status === 'pending' ? (
+            {status === 'pending' && (
               <div className="flex items-center gap-1.5">
                 <button
-                  value="declined"
+                  type="button"
+                  value={invitationStatus.declined}
                   className="text-error"
                   onClick={handleActionOnInviation}
                 >
                   <OctogoneCross />
                 </button>
                 <button
-                  value="confirmed"
+                  type="button"
+                  value={invitationStatus.confirmed}
                   className="text-primary-900"
                   onClick={handleActionOnInviation}
                 >
                   <Check />
                 </button>
               </div>
-            ) : null}
+            )}
           </div>
         </div>
       </div>

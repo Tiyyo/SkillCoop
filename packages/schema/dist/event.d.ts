@@ -1,11 +1,11 @@
 import * as z from "zod";
 export declare const createEventSchema: z.ZodObject<{
-    date: z.ZodString;
+    date: z.ZodEffects<z.ZodString, string, string>;
     duration: z.ZodNumber;
     location: z.ZodString;
-    required_participants: z.ZodNumber;
+    required_participants: z.ZodEffects<z.ZodNumber, number, number>;
     organizer_id: z.ZodNumber;
-    status_name: z.ZodOptional<z.ZodEnum<["open", "full"]>>;
+    status_name: z.ZodOptional<z.ZodEnum<["open"]>>;
     participants: z.ZodOptional<z.ZodArray<z.ZodNumber, "many">>;
 }, "strip", z.ZodTypeAny, {
     date?: string;
@@ -13,7 +13,7 @@ export declare const createEventSchema: z.ZodObject<{
     location?: string;
     required_participants?: number;
     organizer_id?: number;
-    status_name?: "open" | "full";
+    status_name?: "open";
     participants?: number[];
 }, {
     date?: string;
@@ -21,14 +21,14 @@ export declare const createEventSchema: z.ZodObject<{
     location?: string;
     required_participants?: number;
     organizer_id?: number;
-    status_name?: "open" | "full";
+    status_name?: "open";
     participants?: number[];
 }>;
 export declare const updateEventSchema: z.ZodObject<{
     date: z.ZodOptional<z.ZodString>;
     duration: z.ZodOptional<z.ZodNumber>;
     location: z.ZodOptional<z.ZodString>;
-    required_participants: z.ZodOptional<z.ZodNumber>;
+    required_participants: z.ZodOptional<z.ZodEffects<z.ZodNumber, number, number>>;
     profile_id: z.ZodNumber;
     status_name: z.ZodOptional<z.ZodEnum<["open", "full", "cancelled", "completed"]>>;
     participants: z.ZodOptional<z.ZodArray<z.ZodNumber, "many">>;

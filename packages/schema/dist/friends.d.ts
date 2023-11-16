@@ -25,13 +25,16 @@ export declare const searchFriendsSchema: z.ZodObject<{
 export declare const updateFriendshipSchema: z.ZodObject<{
     adder_id: z.ZodNumber;
     friend_id: z.ZodNumber;
+    username: z.ZodOptional<z.ZodString>;
     status_name: z.ZodEnum<["pending", "confirmed", "declined"]>;
 }, "strip", z.ZodTypeAny, {
     adder_id?: number;
     friend_id?: number;
+    username?: string;
     status_name?: "pending" | "confirmed" | "declined";
 }, {
     adder_id?: number;
     friend_id?: number;
+    username?: string;
     status_name?: "pending" | "confirmed" | "declined";
 }>;

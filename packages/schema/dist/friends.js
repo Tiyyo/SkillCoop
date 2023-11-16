@@ -14,5 +14,6 @@ exports.searchFriendsSchema = z.object({
 exports.updateFriendshipSchema = z.object({
     adder_id: z.number().int().positive(),
     friend_id: z.number().int().positive(),
+    username: z.string().optional(),
     status_name: z.enum(["pending", "confirmed", "declined"]),
 });

@@ -17,9 +17,8 @@ function FriendProfile() {
   const { hasBeenEvaluated, evaluateProfile } = useProfileEval({ profileId });
   const values = Object.values(evaluateProfile);
   const maxValue = getMaxValue(values);
-
   return (
-    <div>
+    <>
       <ReturnBtn />
       <h2 className="text-lg font-semibold px-3 py-2">Infos</h2>
       <Container>
@@ -62,7 +61,6 @@ function FriendProfile() {
           </div>
         </div>
       </Container>
-
       <>
         <h2 className="text-lg font-semibold px-3 py-2">Skills</h2>
         <ProfileSkillsResume
@@ -85,7 +83,7 @@ function FriendProfile() {
           />
         </Container>
       )}
-    </div>
+    </>
   );
 }
 

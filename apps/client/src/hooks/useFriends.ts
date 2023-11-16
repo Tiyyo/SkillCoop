@@ -1,5 +1,10 @@
-import { useQuery } from '@tanstack/react-query';
-import { getFriendsFn, searchFriendsFn } from '../api/api.fn';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import {
+  getFriendsFn,
+  searchFriendsFn,
+  sendFriendRequestFn,
+} from '../api/api.fn';
+import { CreateFriendsInvitation } from '../types';
 
 const keys = {
   getFriends: ['confirmed-friends'],
@@ -37,4 +42,23 @@ export function useSearchInFriendlist(options: {
     },
     { enabled: true },
   );
+}
+
+export function useInviteFriend(options: {
+  onSuccess?: () => void;
+  onError?: () => void;
+}) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (data: CreateFriendsInvitation) => {
+      return sendFriendRequestFn(data);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(keys.getFriends);
+      if (options.onSuccess) options.onSuccess();
+    },
+    onError: () => {
+      if (options.onError) options.onError();
+    },
+  });
 }

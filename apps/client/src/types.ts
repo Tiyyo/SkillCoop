@@ -204,3 +204,8 @@ export type EventInvitation = {
   event_id: number;
   ids: number[];
 };
+
+export type CreateFriendsInvitation = {
+  adder_id: number;
+  friend_id: number;
+};

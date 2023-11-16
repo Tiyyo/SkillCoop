@@ -5,7 +5,7 @@ function Avatar({
   avatar,
   isRatingActive,
 }: {
-  avatar?: string;
+  avatar?: string | null;
   isRatingActive?: boolean;
 }) {
   return (

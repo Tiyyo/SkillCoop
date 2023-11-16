@@ -1,5 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
-import { getProfileEvalFn, getProfileFn } from '../api/api.fn';
+import {
+  getProfileEvalFn,
+  getProfileFn,
+  getSuggestProfileFn,
+  searchProfileFn,
+} from '../api/api.fn';
+import { SearchProfileQuery } from '../types';
 
 const keys = {
   getProfile: ['profile'],
@@ -34,4 +40,18 @@ export function useGetProfileEval(options: { profileId?: number }) {
     },
     { enabled: true },
   );
+}
+
+export function useGetSearchProfile(options: SearchProfileQuery) {
+  return useQuery([`search-profile`], async ({ signal }) => {
+    if (!options.username) return;
+    return searchProfileFn(options, signal);
+  });
+}
+
+export function useGetSuggestProfile(options: { profileId?: number }) {
+  return useQuery([`suggest-profile`], async () => {
+    if (!options.profileId) return;
+    return getSuggestProfileFn(options.profileId);
+  });
 }

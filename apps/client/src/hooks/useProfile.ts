@@ -6,8 +6,10 @@ import {
   getProfileFn,
   getSuggestProfileFn,
   searchProfileFn,
+  updateAvatarFn,
 } from '../api/api.fn';
 import { SearchProfileQuery } from '../types';
+import { AxiosResponse } from 'axios';
 
 const keys = {
   getProfile: ['profile'],
@@ -88,6 +90,28 @@ export function useDeleteUser(options: { onSuccess?: () => void }) {
       queryClient.invalidateQueries(keys.getMe);
       queryClient.clear();
       if (options.onSuccess) options.onSuccess();
+    },
+  });
+}
+
+export function useUpdateAvatar(options: {
+  onSuccess?: (response: AxiosResponse) => void;
+  onError?: () => void;
+  profileId?: number;
+}) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (data: FormData) => {
+      return updateAvatarFn(data);
+    },
+    onSuccess: (response) => {
+      if (options?.onSuccess) options.onSuccess(response);
+      if (options.profileId) {
+        queryClient.invalidateQueries(keys.getProfileId(options.profileId));
+      }
+    },
+    onError: () => {
+      if (options?.onError) options.onError();
     },
   });
 }

@@ -149,7 +149,7 @@ export const useCreateEvent = () => {
       clearEventState();
     },
   });
-
+  console.log('Create event store :', data);
   return {
     createEvent,
     updateStartDate,

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { EventType } from '../types';
 
 type EventTypeState = EventType & {
@@ -17,6 +17,7 @@ export function useSelectionOfFriends({
   activeSelected,
   removeFriendFromState,
   addFriendToState,
+  dataFromState,
   friendId,
 }: UseSelectionOfFriendsProps) {
   const [isSelected, setIsSelected] = useState(false);
@@ -24,17 +25,18 @@ export function useSelectionOfFriends({
     if (!activeSelected || !removeFriendFromState || !addFriendToState) return;
     if (isSelected) {
       removeFriendFromState(friendId);
+      setIsSelected(false);
     } else {
       addFriendToState(friendId);
     }
-    setIsSelected(!isSelected);
   };
-  // commented because suspecting this is not needed
-  // useEffect(() => {
-  //   if (!dataFromState || !dataFromState.participants) return;
-  //   if (dataFromState.participants.find((id) => id === friendId)) {
-  //     setIsSelected(true);
-  //   }
-  // }, [dataFromState])
+  // this is needed to avoid an obscur bug
+  // we take on reference data we updated in the store to update the state
+  useEffect(() => {
+    if (!dataFromState || !dataFromState.participants) return;
+    if (dataFromState.participants.find((id) => id === friendId)) {
+      setIsSelected(true);
+    }
+  }, [dataFromState]);
   return { isSelected, handleClickEvent };
 }

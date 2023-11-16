@@ -21,6 +21,7 @@ function Friendlist({
 
   //  TODO : handle error
   if (error) return <div>An expected error occurs</div>;
+
   if (loading)
     return (
       <div className="grid grid-cols-2 py-8 gap-2">
@@ -49,7 +50,6 @@ function Friendlist({
               username={friend.username}
               adderId={friend.adder_id}
               friendId={friend.friend_id}
-              //@ts-ignore
               lastEvaluationRecorded={friend.last_evaluation}
               status={friend.status_name}
               activeLinkProfile={activeLinkProfile}

@@ -10,6 +10,7 @@ export function useConfirmedfriends({ profileId }: { profileId?: number }) {
 
   const loading = isLoading || isFetching;
 
+  // add fetch friends to store
   useEffect(() => {
     if (!data) return;
     addConfirmedFriends(data);

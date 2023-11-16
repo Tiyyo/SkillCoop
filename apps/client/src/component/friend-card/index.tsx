@@ -22,7 +22,7 @@ interface FriendCardProps {
   adderId: number;
   friendId: number;
   status: string;
-  lastEvaluationRecorded?: number;
+  lastEvaluationRecorded?: number | null;
   dataFromState?: EventTypeState | null;
   addFriendToState?: (friendId: any) => void;
   removeFriendFromState?: (friendId: any) => void;

@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   deleteUserFn,
+  evaluateOwnSkillsFn,
   getMeFn,
   getProfileEvalFn,
   getProfileFn,
@@ -10,7 +11,12 @@ import {
   updateEmailFn,
   updateProfileInfoFn,
 } from '../api/api.fn';
-import { Profile, SearchProfileQuery, UpdateEmail } from '../types';
+import {
+  EvaluationOwnSkill,
+  Profile,
+  SearchProfileQuery,
+  UpdateEmail,
+} from '../types';
 import { AxiosResponse } from 'axios';
 
 const keys = {
@@ -21,7 +27,6 @@ const keys = {
   ],
   getMe: ['auth-user'],
   getProfileEvalId: (profileId: number | string) => [
-    ...keys.getProfile,
     `${keys.getProfile}/${profileId}}`,
     `${keys.getProfile}/${profileId}/eval`,
   ],
@@ -56,7 +61,6 @@ export function useGetProfile(options: { profileId?: number }) {
 export function useGetProfileEval(options: { profileId?: number }) {
   return useQuery(
     [
-      ...keys.getProfile,
       `${keys.getProfile}/${options.profileId}}`,
       `${keys.getProfile}/${options.profileId}/eval`,
     ],
@@ -152,5 +156,25 @@ export function useUpdateEmail(options: {
     onError: () => {
       if (options?.onError) options.onError();
     },
+  });
+}
+
+export function useAutoEvaluateSkill(options: {
+  onSuccess?: () => void;
+  onError?: () => void;
+  profileId?: number;
+}) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (data: EvaluationOwnSkill) => {
+      return evaluateOwnSkillsFn(data);
+    },
+    onSuccess: () => {
+      if (options.profileId) {
+        queryClient.invalidateQueries(keys.getProfileEvalId(options.profileId));
+      }
+      if (options?.onSuccess) options.onSuccess();
+    },
+    onError: () => { },
   });
 }

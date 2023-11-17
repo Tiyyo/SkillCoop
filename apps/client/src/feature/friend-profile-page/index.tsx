@@ -6,7 +6,7 @@ import dateHandler from '../../utils/date.handler';
 import Container from '../../layout/container';
 import { useGetProfile } from '../../hooks/useProfile';
 import { getMaxValue } from '../../utils/get-max';
-import { useProfileEval } from '../../hooks/useProfileEval';
+import { useProfileEval } from '../../hooks/useFriendEval';
 import InfosFieldFriendProfile from './infos-field';
 import ProfileSkillsResume from '../../component/profile-skills-resume';
 

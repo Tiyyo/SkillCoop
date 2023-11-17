@@ -31,7 +31,10 @@ function FieldsetRadioInput({ name, options }: FieldsetRadioInputProps) {
               key={index + idComponent}
               htmlFor={`${name}_${option}`}
               className={cn(
-                'px-3 py-1.5 border border-primary-500 bg-base-light first-of-type:rounded-l-lg last-of-type:rounded-r-lg cursor-pointer hover:bg-primary-200 duration-200',
+                ` px-3 py-1.5 border border-primary-500
+                 bg-base-light first-of-type:rounded-l-lg 
+                  last-of-type:rounded-r-lg cursor-pointer
+                hover:bg-primary-200 duration-200`,
                 `${name}_${option}` === currentIDActive &&
                   'bg-primary-500 text-white hover:bg-primary-500',
               )}

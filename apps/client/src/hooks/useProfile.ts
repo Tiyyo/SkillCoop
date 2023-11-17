@@ -7,8 +7,10 @@ import {
   getSuggestProfileFn,
   searchProfileFn,
   updateAvatarFn,
+  updateEmailFn,
+  updateProfileInfoFn,
 } from '../api/api.fn';
-import { SearchProfileQuery } from '../types';
+import { Profile, SearchProfileQuery, UpdateEmail } from '../types';
 import { AxiosResponse } from 'axios';
 
 const keys = {
@@ -109,6 +111,43 @@ export function useUpdateAvatar(options: {
       if (options.profileId) {
         queryClient.invalidateQueries(keys.getProfileId(options.profileId));
       }
+    },
+    onError: () => {
+      if (options?.onError) options.onError();
+    },
+  });
+}
+
+export function useUpdateProfile(options: {
+  profileId?: number;
+  onSuccess?: () => void;
+}) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (data: Partial<Profile>) => {
+      return updateProfileInfoFn(data);
+    },
+    onSuccess: () => {
+      if (options.profileId) {
+        queryClient.invalidateQueries(keys.getProfileId(options.profileId));
+      }
+      if (options?.onSuccess) options.onSuccess();
+    },
+  });
+}
+
+export function useUpdateEmail(options: {
+  onSuccess?: (response: AxiosResponse) => void;
+  onError?: () => void;
+}) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (data: UpdateEmail) => {
+      return updateEmailFn(data);
+    },
+    onSuccess: (response) => {
+      queryClient.invalidateQueries(keys.getMe);
+      if (options?.onSuccess) options.onSuccess(response);
     },
     onError: () => {
       if (options?.onError) options.onError();

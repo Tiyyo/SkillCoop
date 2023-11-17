@@ -20,9 +20,12 @@ function UserResumeSkills() {
   const [hasSkills, setHasSkills] = useState<boolean>(!!userProfile?.gb_rating);
   const skills = ['defending', 'dribbling', 'passing', 'shooting', 'pace'];
   const [skillValues, setSkillValues] = useState<Record<string, number>>({});
+  // should be in a hook
   const { mutate: evaluateSkills } = useMutation((data: EvaluationOwnSkill) =>
     evaluateOwnSkillsFn(data),
   );
+
+  // should be in the same hook as the one in friend profile skills
   const { data: profileEval, isLoading } = useQuery(['profileEval'], () => {
     if (!userProfile?.profile_id) return;
     return getProfileEvalFn(userProfile?.profile_id);
@@ -115,6 +118,7 @@ function UserResumeSkills() {
         </>
       )}
       {hasSkills && (
+        // use component create in friend profile skills
         <>
           <div className="text-xs text-light px-4">
             <p>

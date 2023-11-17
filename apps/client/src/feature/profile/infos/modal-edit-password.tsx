@@ -11,6 +11,7 @@ import { useApp } from '../../../store/app.store';
 function EditModalPassword() {
   const { userProfile } = useApp();
   //@ts-ignore
+  //should be in a hook
   const { mutate } = useMutation((data) => updatePasswordFn(data));
   const {
     register,

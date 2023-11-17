@@ -7,9 +7,8 @@ import { Infos } from './resume-profile';
 import dateHandler from '../../../utils/date.handler';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { editProfileInfosSchema } from 'schema/ts-schema';
-import { useMutation } from '@tanstack/react-query';
-import { updateProfileInfoFn } from '../../../api/api.fn';
 import Button from '../../../component/button';
+import { useUpdateProfile } from '../../../hooks/useProfile';
 
 interface FormEditProfileInfosProps {
   shouldEditInfos: boolean;
@@ -67,13 +66,11 @@ function FormEditProfileInfos({
 }: FormEditProfileInfosProps) {
   const [profileInfos, setProfileInfos] = useState(infos);
   const { register, handleSubmit } = useForm({
-    //@ts-ignore
     resolver: zodResolver(editProfileInfosSchema),
   });
-  const { mutate, isLoading } = useMutation((data) =>
-    //@ts-ignore
-    updateProfileInfoFn(data),
-  );
+  const { mutate: updateProfileInfos, isLoading } = useUpdateProfile({
+    profileId: infos.profileId,
+  });
 
   const getBirthDate = (date: string | null) => {
     if (!date) return '';
@@ -88,7 +85,7 @@ function FormEditProfileInfos({
   //@ts-ignore
   const onSubmit = (data) => {
     data.profile_id = infos.profileId;
-    mutate(data);
+    updateProfileInfos(data);
     setProfileInfos({
       ...profileInfos,
       username: data.username,

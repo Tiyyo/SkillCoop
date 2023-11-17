@@ -14,6 +14,7 @@ import {
   SearchFriendQuery,
   SearchProfileQuery,
   TransfertOwnership,
+  UpdateEmail,
   UpdateEventData,
   UpdateFriendsInvitation,
   User,
@@ -278,7 +279,7 @@ export const updateProfileInfoFn = async (data: Partial<Profile>) => {
   return response.data;
 };
 
-export const updateEmailFn = async (data: { email: string }) => {
+export const updateEmailFn = async (data: UpdateEmail) => {
   const response = await api.patch(`api/user/email`, data);
   return response.data;
 };

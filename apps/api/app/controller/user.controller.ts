@@ -24,7 +24,7 @@ export default {
 
     const userProfile = await User.update(user_id, { email });
 
-    res.status(200).json({ success: userProfile });
+    res.status(200).json({ success: userProfile, new_email: email });
   },
   updatePassword: async (req: Request, res: Response) => {
     const { old_password, new_password, user_id } = req.body;

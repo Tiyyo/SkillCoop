@@ -215,3 +215,8 @@ export type UpdateFriendsInvitation = {
   friend_id: number;
   status_name: InvitationStatus;
 };
+
+export type UpdateEmail = {
+  email: string;
+  user_id: number;
+};

@@ -1,12 +1,7 @@
 import ServerError from '../../helpers/errors/server.error';
 import logger from '../../helpers/logger';
-import {
-  S3Client,
-  PutObjectCommand,
-  DeleteObjectCommand,
-  GetObjectCommand,
-} from '@aws-sdk/client-s3';
-import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
+import { S3Client, PutObjectCommand, DeleteObjectCommand } from '@aws-sdk/client-s3';
+import { CloudFrontClient, CreateInvalidationCommand } from '@aws-sdk/client-cloudfront';
 import crypto from 'crypto';
 
 import resizeImage from '../../helpers/resize-image';
@@ -16,6 +11,7 @@ const bucketName = process.env.BUCKET_NAME;
 const accessKeyId = process.env.ACCESS_KEY_BUCKET;
 const secretAccessKey = process.env.ACCESS_SECRET_KEY_S3;
 const cloudFrontDomain = process.env.CLOUDFRONT_DOMAIN;
+const cloudFrontDistributionId = process.env.CLOUDFRONT_DISTRIBUTION_ID;
 
 if (!region) throw new ServerError('BUCKET_REGION env is not set');
 if (!bucketName) throw new ServerError('BUCKET_NAME env is not set');
@@ -30,6 +26,13 @@ const s3 = new S3Client({
     secretAccessKey,
   },
   region,
+});
+
+const cloudFront = new CloudFrontClient({
+  credentials: {
+    accessKeyId,
+    secretAccessKey,
+  },
 });
 
 export async function uploadImageToBucket(
@@ -54,16 +57,6 @@ export async function uploadImageToBucket(
       throw new ServerError('Upload to bucket has failed : ' + err.message);
     }
   });
-
-  // const getObjectParams = {
-  //   Bucket: bucketName,
-  //   Key: imageKey,
-  // };
-  // const getCommand = new GetObjectCommand(getObjectParams);
-  // const link = await getSignedUrl(s3, getCommand, {
-  //   expiresIn: 60 * 60 * 24 * 7,
-  // });
-
   const link = `${cloudFrontDomain}/${imageKey}`;
 
   return {
@@ -71,6 +64,20 @@ export async function uploadImageToBucket(
     link: link,
   };
 }
+
+export const invalidateCache = async (imageKey: string) => {
+  const invalidationParams = {
+    DistributionId: process.env.CLOUDFRONT_DISTRIBUTION_ID,
+    InvalidationBatch: {
+      CallerReference: imageKey,
+      Paths: {
+        Quantity: 1,
+        Items: [`/${imageKey}`],
+      },
+    },
+  };
+  await cloudFront.send(new CreateInvalidationCommand(invalidationParams));
+};
 
 export async function deleteImageFromBucket(imageKey: string) {
   if (!bucketName) throw new ServerError('BUCKET_NAME env is not set');
@@ -85,6 +92,7 @@ export async function deleteImageFromBucket(imageKey: string) {
 
   try {
     await s3.send(new DeleteObjectCommand(params));
+    invalidateCache(imageKey);
   } catch (error) {
     console.log(error);
     logger.error('Object have not been delete from bucket');

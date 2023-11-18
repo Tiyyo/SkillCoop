@@ -20,6 +20,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@aws-sdk/client-cloudfront": "^3.454.0",
     "@aws-sdk/client-s3": "^3.441.0",
     "@aws-sdk/s3-request-presigner": "^3.441.0",
     "@prisma/client": "5.5.2",

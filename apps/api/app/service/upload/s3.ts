@@ -15,14 +15,14 @@ const region = process.env.BUCKET_REGION;
 const bucketName = process.env.BUCKET_NAME;
 const accessKeyId = process.env.ACCESS_KEY_BUCKET;
 const secretAccessKey = process.env.ACCESS_SECRET_KEY_S3;
+const cloudFrontDomain = process.env.CLOUDFRONT_DOMAIN;
 
 if (!region) throw new ServerError('BUCKET_REGION env is not set');
 if (!bucketName) throw new ServerError('BUCKET_NAME env is not set');
 if (!accessKeyId) throw new ServerError('ACCESS_KEY_BUCKET env is not set');
 if (!secretAccessKey) throw new ServerError('ACCESS_SECRET_KEY_S3 is not set');
 
-const randomImageName = (bytes = 16) =>
-  crypto.randomBytes(bytes).toString('hex');
+const randomImageName = (bytes = 16) => crypto.randomBytes(bytes).toString('hex');
 
 const s3 = new S3Client({
   credentials: {
@@ -55,16 +55,16 @@ export async function uploadImageToBucket(
     }
   });
 
-  const getObjectParams = {
-    Bucket: bucketName,
-    Key: imageKey,
-  };
+  // const getObjectParams = {
+  //   Bucket: bucketName,
+  //   Key: imageKey,
+  // };
+  // const getCommand = new GetObjectCommand(getObjectParams);
+  // const link = await getSignedUrl(s3, getCommand, {
+  //   expiresIn: 60 * 60 * 24 * 7,
+  // });
 
-  const getCommand = new GetObjectCommand(getObjectParams);
-
-  const link = await getSignedUrl(s3, getCommand, {
-    expiresIn: 60 * 60 * 24 * 7,
-  });
+  const link = `${cloudFrontDomain}/${imageKey}`;
 
   return {
     key: imageKey,

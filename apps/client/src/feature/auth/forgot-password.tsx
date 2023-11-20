@@ -31,7 +31,6 @@ function ForgotPassword() {
       email: e.currentTarget.email.value,
     };
     const isValid = emailSchema.safeParse(data);
-    console.log(isValid);
     if (!isValid.success) setError('This is not a valid email');
     if (isValid.success) {
       mutate(data.email);
@@ -40,6 +39,9 @@ function ForgotPassword() {
   return (
     <Page>
       <Center>
+        <h1 className="text-lg my-4 font-semibold opacity-30 text-primary-1100">
+          Reset your password
+        </h1>
         {!hasBeenSent ? (
           <form
             className="flex flex-col items-center gap-y-5 p-6 bg-base-light 

@@ -9,7 +9,7 @@ interface ErrorNotificationProps {
 
 function ErrorNotification({
   message,
-  interval = 3500,
+  interval = 300500,
 }: ErrorNotificationProps) {
   const [errorMessage, setErrorMessage] = useState<string | undefined>();
   const [isOpen, setIsOpen] = useState(false);
@@ -19,8 +19,6 @@ function ErrorNotification({
   }, interval);
 
   useEffect(() => {
-    console.log('message', message);
-    console.log('errorMessage', errorMessage);
     if (message) {
       setIsOpen(true);
       setErrorMessage(message);
@@ -35,13 +33,13 @@ function ErrorNotification({
   return (
     <div
       className={cn(
-        'relative py-4 px-2 my-4 bg-error-light rounded-md',
+        'relative py-5 px-8 my-4 bg-error-light rounded-md w-full',
         !isOpen && 'hidden',
       )}
     >
       <X
-        size={16}
-        className="absolute top-2 right-2 text-error cursor-pointer 
+        size={10}
+        className="absolute top-1 right-1 text-error cursor-pointer 
           h-6 w-6 py-0.5 hover:bg-opacity-5 hover:bg-gray-600 rounded"
         onClick={() => setIsOpen(false)}
       />

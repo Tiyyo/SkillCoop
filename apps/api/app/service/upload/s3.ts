@@ -33,6 +33,7 @@ const cloudFront = new CloudFrontClient({
     accessKeyId,
     secretAccessKey,
   },
+  region,
 });
 
 export async function uploadImageToBucket(
@@ -67,7 +68,7 @@ export async function uploadImageToBucket(
 
 export const invalidateCache = async (imageKey: string) => {
   const invalidationParams = {
-    DistributionId: process.env.CLOUDFRONT_DISTRIBUTION_ID,
+    DistributionId: cloudFrontDistributionId,
     InvalidationBatch: {
       CallerReference: imageKey,
       Paths: {

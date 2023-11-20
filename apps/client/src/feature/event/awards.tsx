@@ -35,7 +35,9 @@ function EndOfGameAwards() {
 
   const { mutate: voteBestStriker } = useVoteForbestStriker({
     eventId: locationStateInfos.eventId,
-    onSuccess: () => {},
+    onSuccess: () => {
+      toast.success('Your vote has been recorded');
+    },
     onError: () => {
       toast.error('You already voted for this category');
     },

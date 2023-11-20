@@ -67,7 +67,7 @@ function FormField({
           )}
           defaultValue={props.defaultValue}
           {...props}
-          {...register(name)}
+          {...(register ? { ...register(name) } : null)}
         />
         <label
           htmlFor={name}

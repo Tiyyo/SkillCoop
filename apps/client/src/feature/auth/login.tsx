@@ -97,6 +97,14 @@ function Login() {
             >
               <Eye size={18} />
             </FormField>
+            <Link
+              to="/forgot-password"
+              className="text-xs text-primary-1100  self-end cursor-pointer
+                 hover:text-primary-1100 hover:underline duration-600
+                   transition-all"
+            >
+              Forgot password ?
+            </Link>
             <Button textContent="Login" isLoading={loading} type="submit" />
             <ErrorContainer
               errorValue={(error as any)?.response?.data.error} //eslint-disable-line

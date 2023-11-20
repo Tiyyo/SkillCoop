@@ -37,6 +37,7 @@ import Page404 from './component/404-page/index.tsx';
 import ControlAccessOwnership from './component/redirection/control-access-ownership.tsx';
 import { Toaster } from 'sonner';
 import EndOfGameAwards from './feature/event/awards.tsx';
+import ForgotPassword from './feature/auth/forgot-password.tsx';
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -180,6 +181,7 @@ const router = createBrowserRouter([
     path: '/verify-email',
     element: <VerifyEmail />,
   },
+  { path: '/forgot-password', element: <ForgotPassword /> },
   {
     path: '/auth/google',
     loader: async ({ request }) => {

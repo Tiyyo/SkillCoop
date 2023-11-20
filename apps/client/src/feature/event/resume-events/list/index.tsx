@@ -32,14 +32,14 @@ function EventList({
   const isEventsEmpty = events && events.length === 0;
 
   return (
-    <>
+    <div className="flex flex-col w-full justify-center items-center">
       <HeaderEventList
         title={title}
         linkTo={linkTo}
         linkOff={isEventsEmpty ? true : linkOff}
       />
       {isEventsEmpty && (
-        <div className="text-center italic text-xs py-4 text-light">
+        <div className="w-full text-center italic text-xs py-4 text-light">
           No event found.
         </div>
       )}
@@ -72,7 +72,7 @@ function EventList({
             />
           ))}
       </InfiniteScroll>
-    </>
+    </div>
   );
 }
 

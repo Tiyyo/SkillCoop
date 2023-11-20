@@ -30,8 +30,8 @@ function ResumeEvents() {
           <div className="w-full flex justify-end px-3">
             <Link
               to="/my-event"
-              className="w-fit text-xs px-3 py-1 border border-primary-400
-               bg-primary-200 rounded-md my-3 cursor-pointer
+              className="w-fit text-xs lg:text-sm px-3 py-1 border border-primary-400
+               bg-primary-200 rounded-md shadow-md my-3 cursor-pointer
                  hover:bg-base duration-300 transition-all
                    hover:border-primary-700"
             >

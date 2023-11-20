@@ -10,7 +10,7 @@ function Badge({ content }: BadgeProps) {
     <div
       className={cn(
         `uppercase text-xxs font-semibold border
-     border-primary-600 py-0.5 px-1.5 bg-primary-300 rounded-lg`,
+     border-primary-600 py-0.5 px-1.5 bg-primary-300 rounded-lg lg:text-xs lg:px-2.5 lg:py-1`,
         content === eventStatus.cancelled && 'bg-red-100 border-red-300',
       )}
     >

@@ -46,6 +46,9 @@ function ResetPassword() {
   return (
     <Page>
       <Center>
+        <h1 className="text-lg my-4 font-semibold opacity-30 text-primary-1100">
+          Reset your password
+        </h1>
         <form
           className="flex flex-col items-center gap-y-5 p-6 bg-base-light 
             max-w-lg rounded-sm w-3/4"

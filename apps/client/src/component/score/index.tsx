@@ -27,12 +27,12 @@ function Score({
     return '';
   };
   return (
-    <div className="text-xxs text-center">
+    <div className="text-xxs text-center lg:text-xs">
       <p>
         {eventStatus === eventStatusType.completed ? 'Final score' : 'Kick off'}
       </p>
       <div>
-        <p className="text-lg font-semibold">
+        <p className="text-lg font-semibold lg:py-1.5">
           {displayScore(eventStatus, scoreTeamA)}
           <span className="text-sm mx-2">-</span>
           {displayScore(eventStatus, scoreTeamB)}

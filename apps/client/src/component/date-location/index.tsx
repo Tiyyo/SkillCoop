@@ -7,7 +7,7 @@ interface DateLocationProps {
 
 function DateAndLocation({ date, location }: DateLocationProps) {
   return (
-    <div className="flex text-xs">
+    <div className="flex text-xs lg:text-sm">
       <p>{dateHandler.getFormatedDate(date)}</p>
       <span className="px-1">-</span>
       <p>{location}</p>

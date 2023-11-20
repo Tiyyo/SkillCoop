@@ -43,7 +43,10 @@ function EventCard({
   };
 
   return (
-    <div className=" h-fit border-t bg-base-light shadow-sm px-3 py-3">
+    <div
+      className=" h-fit border-t bg-base-light shadow-sm lg:shadow-lg 
+          px-3 py-3 max-w-6xl w-full lg:rounded-3xl lg:my-4 lg:px-9 lg:h-56"
+    >
       <div className="flex justify-between pb-6 pt-2">
         <DateAndLocation date={date} location={location} />
         <Badge content={displayCorrectStatus(userStatus, eventStatus)} />
@@ -68,7 +71,7 @@ function EventCard({
           />
         )}
       </div>
-      <div className="flex items-end justify-between">
+      <div className="flex items-end justify-between h-max h-[25%]">
         <div>
           {!shouldDisplayAvatars(eventStatus) && (
             <div className="flex text-xxs items-end ">
@@ -83,9 +86,10 @@ function EventCard({
         <Link
           to={`/event/${eventId}`}
           state={{ eventId }}
-          className="text-xxs text-light"
+          className="text-xxs text-light lg:text-xs hover:text-primary-700 
+              duration-300 transition-colors"
         >
-          view details
+          View details
         </Link>
       </div>
     </div>

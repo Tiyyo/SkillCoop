@@ -41,6 +41,7 @@ function Participant({
     setIsChecked(activeId === name + profileId?.toString());
   }, [activeId, name, profileId]);
 
+  console.log('Is admin :', username, isAdmin);
   return (
     <label htmlFor={name + profileId?.toString()} className="whitespace-normal">
       <input

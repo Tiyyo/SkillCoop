@@ -34,6 +34,8 @@ function EventPage() {
     profileId: profileId,
   });
 
+  console.log(eventStore);
+
   useEffect(() => {
     if (!event) return;
     if (typeof event.participants === 'string') return;
@@ -42,6 +44,7 @@ function EventPage() {
       duration: event.duration,
       location: event.location,
       required_participants: event.required_participants,
+      organizer_id: event.organizer_id,
       start_time: event.date.split(' ')[1],
       participants: event.participants.map((p) => p.profile_id),
       status_name: event.status_name,

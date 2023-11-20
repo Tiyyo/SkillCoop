@@ -45,31 +45,45 @@ function EndOfGameAwards() {
 
   useEffect(() => {
     if (!state) return;
-    if (state.eventId) {
+    if (state.eventId && state.participants && state.profileId) {
       setLocationStateInfos((prev) => {
         return {
           ...prev,
           eventId: state.eventId,
-        };
-      });
-    }
-    if (state.participants) {
-      setLocationStateInfos((prev) => {
-        return {
-          ...prev,
           participants: state.participants,
-        };
-      });
-    }
-    if (state.eventId) {
-      setLocationStateInfos((prev) => {
-        return {
-          ...prev,
           profileId: state.profileId,
         };
       });
     }
   }, [state]);
+
+  // useEffect(() => {
+  //   if (!state) return;
+  //   if (state.eventId) {
+  //     setLocationStateInfos((prev) => {
+  //       return {
+  //         ...prev,
+  //         eventId: state.eventId,
+  //       };
+  //     });
+  //   }
+  //   if (state.participants) {
+  //     setLocationStateInfos((prev) => {
+  //       return {
+  //         ...prev,
+  //         participants: state.participants,
+  //       };
+  //     });
+  //   }
+  //   if (state.eventId) {
+  //     setLocationStateInfos((prev) => {
+  //       return {
+  //         ...prev,
+  //         profileId: state.profileId,
+  //       };
+  //     });
+  //   }
+  // }, [state]);
 
   return (
     <>

@@ -7,6 +7,7 @@ import soccerBall from '../../assets/svg/soccer-ball.svg';
 import capitalize from '../../utils/capitalize';
 import { Link } from 'react-router-dom';
 import Avatar from '../avatar';
+import { useApp } from '../../store/app.store';
 
 interface ParticipantProps {
   avatar: string;
@@ -33,15 +34,18 @@ function Participant({
   isMvp,
   isBestStriker,
 }: ParticipantProps) {
+  const { userProfile } = useApp();
+  const userProfileId = userProfile?.profile_id;
   const [isChecked, setIsChecked] = useState<boolean>(
     activeId === name + profileId?.toString(),
   );
 
   useEffect(() => {
+    //ensure that the user can't vote for or select himself
+    if (profileId === userProfileId) return;
     setIsChecked(activeId === name + profileId?.toString());
   }, [activeId, name, profileId]);
 
-  console.log('Is admin :', username, isAdmin);
   return (
     <label htmlFor={name + profileId?.toString()} className="whitespace-normal">
       <input
@@ -54,7 +58,8 @@ function Participant({
       {status !== 'declined' && (
         <div
           className={cn(
-            'flex flex-col items-center bg-base p-1 gap-1 flex-shrink-0 min-w-[120px] min-h-[120px]',
+            `flex flex-col items-center bg-base p-1 gap-1 
+            flex-shrink-0 min-w-[120px] min-h-[120px]`,
             isChecked && 'bg-primary-500',
           )}
         >

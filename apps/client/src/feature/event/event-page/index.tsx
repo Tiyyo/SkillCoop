@@ -1,5 +1,3 @@
-import { useQuery } from '@tanstack/react-query';
-import { getEventFn } from '../../../api/api.fn';
 import {
   Link,
   Outlet,
@@ -33,8 +31,6 @@ function EventPage() {
     eventId: Number(eventId),
     profileId: profileId,
   });
-
-  console.log(eventStore);
 
   useEffect(() => {
     if (!event) return;

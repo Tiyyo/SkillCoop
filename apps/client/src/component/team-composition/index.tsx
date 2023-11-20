@@ -4,6 +4,7 @@ import Button from '../button';
 import { EventParticipant } from '../../types';
 import { UseMutateFunction } from '@tanstack/react-query';
 import { voteSchema } from 'schema/ts-schema';
+import { useApp } from '../../store/app.store';
 
 interface TeamCompositionProps {
   participants: EventParticipant[] | string;
@@ -20,6 +21,8 @@ function TeamComposition({
   nameInput,
   mutationFn,
 }: TeamCompositionProps) {
+  const { userProfile } = useApp();
+  const userProfileId = userProfile?.profile_id;
   const [currentIdpActive, setCurrentIdActive] = useState<string>();
   const handleChangeForm = (e: React.FormEvent<HTMLFormElement>) => {
     setCurrentIdActive((e.target as HTMLElement).id);
@@ -27,7 +30,8 @@ function TeamComposition({
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    //ensure that the user can't vote for or select himself
+    if (profileId === userProfileId) return;
     // rater_id is the profileId from the user who is voting
     // so the user connected
     // profile_id is the profileId from the user who is voted for

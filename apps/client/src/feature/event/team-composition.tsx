@@ -21,7 +21,7 @@ function TeamComposition({
   // this is a different team comp and need to be refactored with the new one
 
   return (
-    <div className="bg-base-light mx-2 my-4 rounded-md shadow py-4 px-3">
+    <div className="bg-base-light mx-2 rounded-md shadow py-4 px-3 w-full">
       <h2 className="text-sm font-semibold flex items-center py-1.5">
         Team composition
       </h2>

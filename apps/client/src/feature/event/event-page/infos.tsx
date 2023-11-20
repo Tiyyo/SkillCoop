@@ -61,9 +61,9 @@ function EventPageInfos({
   const startTime = eventDate.split(' ')[1];
 
   return (
-    <div className="bg-base-light mx-2 my-4 rounded-md shadow py-2 px-3">
-      <div className="flex justify-between items-baseline my-1 text-primary-1100">
-        <h2 className="text-sm font-bold">Event# {eventId}</h2>
+    <div className="bg-base-light mx-2 lg:py-4 rounded-md shadow py-2 px-3 w-full">
+      <div className="flex justify-between items-baseline my-1 text-primary-1100 lg:px-6">
+        <h2 className="text-sm lg:text-md font-bold">Event# {eventId}</h2>
         {isAdmin && eventStatus !== 'completed' && (
           <div
             onClick={handleClickEdit}
@@ -73,64 +73,69 @@ function EventPageInfos({
           </div>
         )}
       </div>
-      <InputDate
-        updateState={updateStartDate}
-        defaultValue={event.start_date ?? eventDate}
-        updateData={updateEventData}
-        mutateKey="date"
-        mutateOnBlur={updateEventFn}
-        disabled={!isEditActive}
-      />
-      <InputTime
-        name="time"
-        type="text"
-        readOnly
-        updateState={updateStartTime}
-        defaultValues={event.start_time ?? startTime}
-        date={eventDate}
-        updateData={updateEventData}
-        mutateKey="date"
-        mutateOnBlur={updateEventFn}
-        disabled={!isEditActive}
+      <div
+        className="lg:flex lg:justify-center gap-x-3 items-center 
+        w-full lg:px-6 sm:grid sm:grid-cols-2"
       >
-        <CalendarClock />
-      </InputTime>
-      <SelectInput
-        name="duration"
-        updateState={updateDuration}
-        updateData={updateEventData}
-        mutateKey="duration"
-        mutateOnBlur={updateEventFn}
-        options={OPTION_DURATION}
-        defaultValue={event.duration ?? eventDuration}
-        disabled={!isEditActive}
-      >
-        <Clock />
-      </SelectInput>
-      <Input
-        name="location"
-        type="text"
-        updateState={updateLocation}
-        mutateOnBlur={updateEventFn}
-        disabled={!isEditActive}
-        updateData={updateEventData}
-        mutateKey="location"
-        defaultValue={event.location ?? eventlocation}
-      >
-        <Globe />
-      </Input>
-      <SelectInput
-        name="requiredParticipants"
-        updateState={updateRequiredParticipants}
-        options={OPTION_FORMAT}
-        defaultValue={event.required_participants ?? requiredParticipants}
-        mutateOnBlur={updateEventFn}
-        disabled={!isEditActive}
-        updateData={updateEventData}
-        mutateKey="required_participants"
-      >
-        <Users />
-      </SelectInput>
+        <InputDate
+          updateState={updateStartDate}
+          defaultValue={event.start_date ?? eventDate}
+          updateData={updateEventData}
+          mutateKey="date"
+          mutateOnBlur={updateEventFn}
+          disabled={!isEditActive}
+        />
+        <InputTime
+          name="time"
+          type="text"
+          readOnly
+          updateState={updateStartTime}
+          defaultValues={event.start_time ?? startTime}
+          date={eventDate}
+          updateData={updateEventData}
+          mutateKey="date"
+          mutateOnBlur={updateEventFn}
+          disabled={!isEditActive}
+        >
+          <CalendarClock />
+        </InputTime>
+        <SelectInput
+          name="duration"
+          updateState={updateDuration}
+          updateData={updateEventData}
+          mutateKey="duration"
+          mutateOnBlur={updateEventFn}
+          options={OPTION_DURATION}
+          defaultValue={event.duration ?? eventDuration}
+          disabled={!isEditActive}
+        >
+          <Clock />
+        </SelectInput>
+        <Input
+          name="location"
+          type="text"
+          updateState={updateLocation}
+          mutateOnBlur={updateEventFn}
+          disabled={!isEditActive}
+          updateData={updateEventData}
+          mutateKey="location"
+          defaultValue={event.location ?? eventlocation}
+        >
+          <Globe />
+        </Input>
+        <SelectInput
+          name="requiredParticipants"
+          updateState={updateRequiredParticipants}
+          options={OPTION_FORMAT}
+          defaultValue={event.required_participants ?? requiredParticipants}
+          mutateOnBlur={updateEventFn}
+          disabled={!isEditActive}
+          updateData={updateEventData}
+          mutateKey="required_participants"
+        >
+          <Users />
+        </SelectInput>
+      </div>
     </div>
   );
 }

@@ -13,8 +13,8 @@ function EventPageVotesBanner({
   profileId,
 }: EventPageVotesBannerProps) {
   return (
-    <div className="bg-base-light mx-2 my-4 rounded-md shadow py-2 px-3">
-      <p className=" text-xs text-center font-semibold ">
+    <div className="bg-base-light mx-2 rounded-md shadow py-2 px-3 lg:py-4 w-full ">
+      <p className=" text-xs lg:text-md text-center font-semibold ">
         Elections for MVP and Best Striker are now available for this event.
       </p>
       <Link to="votes" state={{ eventId, participants, profileId }}>

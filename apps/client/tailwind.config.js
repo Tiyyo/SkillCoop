@@ -10,9 +10,6 @@ export default {
       height: {
         10.5: '42px',
       },
-      fontSize: {
-        md: '1rem',
-      },
       colors: {
         'base-light': 'hsl(110, 20.0%, 99.0%)',
         base: 'hsl(120, 16.7%, 97.6%)',
@@ -46,6 +43,7 @@ export default {
       },
       fontSize: {
         xxs: '0.625rem',
+        md: '1rem',
       },
       fontFamily: {
         paytone: ['Paytone One', 'sans-serif'],
@@ -54,7 +52,7 @@ export default {
         cubic: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)',
       },
       gridTemplateColumns: {
-        'particpant-layout': 'repeat(auto-fill, minmax(150px, 2fr))',
+        'particpant-layout': 'repeat(auto-fit, minmax(150px, 2fr))',
       },
       animation: {
         'fade-in': '2s linear ',

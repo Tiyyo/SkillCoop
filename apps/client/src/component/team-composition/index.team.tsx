@@ -28,8 +28,10 @@ function Team({
     <>
       {' '}
       <h3 className="text-xs ml-4 py-6">{title}</h3>
-      {/* <ul className="flex justify-center gap-2 flex-wrap whitespace-nowrap"> */}
-      <ul className="grid gap-2 grid-cols-particpant-layout justify-center">
+      <ul
+        className="flex flex-wrap lg:grid gap-2 
+          lg:grid-cols-particpant-layout justify-center lg:justify-between whitespace-nowrap"
+      >
         {/* particpants can be a string if backend failed to parsed data */}
         {typeof participants !== 'string' &&
           participants

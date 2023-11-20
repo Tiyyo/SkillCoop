@@ -71,7 +71,7 @@ function EventCard({
           />
         )}
       </div>
-      <div className="flex items-end justify-between h-max h-[25%]">
+      <div className="flex items-end justify-between h-[25%]">
         <div>
           {!shouldDisplayAvatars(eventStatus) && (
             <div className="flex text-xxs items-end ">

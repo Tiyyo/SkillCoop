@@ -68,11 +68,14 @@ function EventPage() {
     }
   }, [eventStore.user_status]);
   return (
-    <div>
+    <div
+      className="flex flex-col py-4 gap-y-1 lg:gap-y-2 justify-center 
+      items-center w-full max-w-6xl self-center"
+    >
       <Outlet />
       <div
         className="flex justify-between items-start py-2
-       bg-base-light mx-2 my-4 rounded-md shadow"
+       bg-base-light mx-2 rounded-md shadow w-full"
       >
         <ReturnBtn />
         <CallToActionInvitation
@@ -115,7 +118,7 @@ function EventPage() {
         </>
       )}
       {event && event.status_name === 'open' && (
-        <div className=" bg-base-light mx-2 my-4 rounded-md shadow py-4 px-3">
+        <div className=" bg-base-light mx-2 rounded-md shadow py-4 px-3 w-full">
           <h2 className="text-sm font-semibold flex items-center py-1.5">
             Participants{' '}
             <p className="text-xs ml-2 text-light font-normal">
@@ -123,7 +126,10 @@ function EventPage() {
               <span>{event.required_participants}</span> are confirmed
             </p>
           </h2>
-          <ul className="grid grid-cols-particpant-layout gap-2">
+          <ul
+            className="flex flex-wrap lg:grid gap-2 
+          lg:grid-cols-particpant-layout justify-center"
+          >
             {/* particpants can be a string if backend failed to parsed data */}
             {typeof event.participants !== 'string' &&
               event.participants.map((participant) => (

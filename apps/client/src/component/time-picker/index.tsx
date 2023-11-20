@@ -88,7 +88,7 @@ function InputTime({
   return (
     <label
       htmlFor={name}
-      className="block text-md font-semibold text-primary-1100 w-full"
+      className="block text-md font-semibold text-primary-1100 min-w-[260px] w-full"
     >
       <p className="py-2">{label}</p>
       {disabled ? (

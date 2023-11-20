@@ -4,6 +4,7 @@ import { ComponentPropsWithRef } from 'react';
 interface ButtonProps extends ComponentPropsWithRef<'button'> {
   textContent: string;
   type: 'button' | 'submit' | undefined;
+  children?: React.ReactNode;
   variant?: 'solid' | 'light';
   isLoading?: boolean;
   className?: string;
@@ -50,6 +51,7 @@ function Button({
   textContent,
   className,
   isLoading,
+  children,
   variant = 'solid',
   ...props
 }: ButtonProps) {
@@ -75,7 +77,10 @@ function Button({
       {isLoading ? (
         <span className="text-xs lowercase">...Loading</span>
       ) : (
-        textContent
+        <>
+          {textContent}
+          {children}
+        </>
       )}
     </button>
   );

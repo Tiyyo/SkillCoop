@@ -1,11 +1,6 @@
 import nodemailer from 'nodemailer';
 import ServerError from '../helpers/errors/server.error';
-
-interface SendEmailToConfirmEmail {
-  emailToken: string;
-  email: string;
-  userId: number;
-}
+import { SendConfirmationEmail, SendResetPasswordEmail } from '../@types/types';
 
 export default {
   async sendVerify(email: string, subject: string, text: string) {
@@ -32,15 +27,18 @@ export default {
       }
     }
   },
-  async sendEmailToConfirmEmail({
-    emailToken,
-    email,
-    userId,
-  }: SendEmailToConfirmEmail) {
+  async sendEmailToConfirmEmail({ emailToken, email, userId }: SendConfirmationEmail) {
     const url = `${process.env.API_URL}/auth/${userId}/verify/${emailToken}`;
 
     const text = `Click on the link to verify your email: ${url}`;
 
     await this.sendVerify(email, 'validate your email', text);
+  },
+  async sendLinkRestPassword({ resetToken, email, userId }: SendResetPasswordEmail) {
+    const url = `${process.env.API_URL}/auth/${userId}/reset-password/${resetToken}`;
+
+    const text = `You asked to reset your password. To continue, click on the link below. : ${url}`;
+
+    await this.sendVerify(email, 'Reset your password', text);
   },
 };

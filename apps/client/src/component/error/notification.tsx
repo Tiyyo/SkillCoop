@@ -11,7 +11,7 @@ function ErrorNotification({
   message,
   interval = 3500,
 }: ErrorNotificationProps) {
-  const [errorMessage, setErrorMessage] = useState<string>();
+  const [errorMessage, setErrorMessage] = useState<string | undefined>();
   const [isOpen, setIsOpen] = useState(false);
 
   const closeAfterXSeconds = setTimeout(() => {
@@ -19,13 +19,18 @@ function ErrorNotification({
   }, interval);
 
   useEffect(() => {
+    console.log('message', message);
+    console.log('errorMessage', errorMessage);
     if (message) {
       setIsOpen(true);
       setErrorMessage(message);
     }
     closeAfterXSeconds;
-    () => clearTimeout(closeAfterXSeconds);
-  }, [message]);
+    () => {
+      clearTimeout(closeAfterXSeconds);
+      return setErrorMessage(undefined);
+    };
+  }, [message, errorMessage]);
 
   return (
     <div

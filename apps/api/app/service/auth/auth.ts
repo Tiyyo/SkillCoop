@@ -30,11 +30,9 @@ export default {
     const saltRouds = 10;
 
     try {
-      const hashedPassword = await bcrypt
-        .hash(password, saltRouds)
-        .catch((err) => {
-          if (err) throw new ServerError("Couldn't hash user password");
-        });
+      const hashedPassword = await bcrypt.hash(password, saltRouds).catch((err) => {
+        if (err) throw new ServerError("Couldn't hash user password");
+      });
 
       if (!hashedPassword) throw new ServerError('hash password is missing');
 
@@ -50,29 +48,20 @@ export default {
       }
     }
   },
-  async login(data: {
-    email: string;
-    password: string;
-  }): Promise<Record<string, string>> {
+  async login(data: { email: string; password: string }): Promise<Record<string, string>> {
     const { email, password } = data;
     const [user] = await User.findBy({ email: email.trim() });
 
-    if (!user)
-      throw new UserInputError(
-        "Can't find any user with this email",
-        'wrong credentials',
-      );
+    if (!user) throw new UserInputError("Can't find any user with this email", 'wrong credentials');
 
     if (!(await bcrypt.compare(password.trim(), user.password)))
       throw new UserInputError("Password didn't match", 'wrong credentials');
 
     if (!user.verified) {
       // generate an new email to send to the user
-      const emailToken = tokenHandler.createToken(
-        '1h',
-        process.env.JWT_EMAIL_TOKEN_KEY as string,
-        { user_id: user.id },
-      );
+      const emailToken = tokenHandler.createToken('1h', process.env.JWT_EMAIL_TOKEN_KEY as string, {
+        user_id: user.id,
+      });
       await emailService.sendEmailToConfirmEmail({
         emailToken,
         email,
@@ -81,8 +70,7 @@ export default {
       throw new UserInputError('Email not verified');
     }
     const userInfos = { user_id: user.id, email: user.email };
-    const { accessToken, refreshToken } =
-      tokenHandler.createPairAuthToken(userInfos);
+    const { accessToken, refreshToken } = tokenHandler.createPairAuthToken(userInfos);
     return { accessToken, refreshToken };
   },
   async createGoogleUser({

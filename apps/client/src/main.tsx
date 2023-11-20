@@ -38,6 +38,7 @@ import ControlAccessOwnership from './component/redirection/control-access-owner
 import { Toaster } from 'sonner';
 import EndOfGameAwards from './feature/event/awards.tsx';
 import ForgotPassword from './feature/auth/forgot-password.tsx';
+import ResetPasswordMiddleware from './component/redirection/control-reset-password.tsx';
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -182,6 +183,7 @@ const router = createBrowserRouter([
     element: <VerifyEmail />,
   },
   { path: '/forgot-password', element: <ForgotPassword /> },
+  { path: '/reset-password', element: <ResetPasswordMiddleware /> },
   {
     path: '/auth/google',
     loader: async ({ request }) => {

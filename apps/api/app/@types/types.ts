@@ -1,11 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 
-export type Controller = (
-  req: Request,
-  res: Response,
-  next?: NextFunction,
-) => any | Promise<any>;  // eslint-disable-line
-
+export type Controller = (req: Request, res: Response, next?: NextFunction) => any | Promise<any>; // eslint-disable-line
 
 // find a less confusuing name
 export type ObjectRecordGeneric = Record<string, string | number | boolean>;
@@ -16,12 +11,7 @@ export const canals = {
   query: 'query',
 } as const;
 
-export type LevelScale =
-  | 'beginner'
-  | 'novice'
-  | 'intermediate'
-  | 'advanced'
-  | 'expert';
+export type LevelScale = 'beginner' | 'novice' | 'intermediate' | 'advanced' | 'expert';
 
 export type EventStatus = 'open' | 'full' | 'completed' | 'cancelled';
 
@@ -92,4 +82,16 @@ export type ProfileType = {
   date_of_birth?: string;
   last_evaluation?: number;
   relation_exist?: boolean;
+};
+
+export type SendConfirmationEmail = {
+  emailToken: string;
+  email: string;
+  userId: number;
+};
+
+export type SendResetPasswordEmail = {
+  resetToken: string;
+  email: string;
+  userId: number;
 };

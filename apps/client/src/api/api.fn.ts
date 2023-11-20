@@ -323,3 +323,21 @@ export const transfertOwnershipEventFn = async (data: TransfertOwnership) => {
   const response = await api.patch(`api/event/organizer`, data);
   return response.data;
 };
+
+export const forgotPasswordFn = async (email: string) => {
+  const response = await api.post(`auth/forgot-password`, { email });
+  return response.data;
+};
+
+export const verifyResetPasswordTokenFn = async () => {
+  const response = await api.get(`auth/reset-password`);
+  return response.data;
+};
+
+export const resetPasswordFn = async (data: {
+  password: string;
+  confirmPassword: string;
+}) => {
+  const response = await api.post(`auth/reset-password`, data);
+  return response.data;
+};

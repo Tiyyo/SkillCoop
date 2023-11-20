@@ -35,10 +35,7 @@ export default {
     res.status(201).json({ success: true });
   },
   async getOne(req: Request, res: Response) {
-    const [eventId, profileId] = checkParams(
-      req.params.eventId,
-      req.params.profileId,
-    );
+    const [eventId, profileId] = checkParams(req.params.eventId, req.params.profileId);
     const event = await Event.getEventById(eventId, profileId);
     res.status(200).json(event);
   },
@@ -73,16 +70,12 @@ export default {
   async deleteOne(req: Request, res: Response) {
     // delete one event
     // only the organizer can delete the event
-    const [eventId, profileId] = checkParams(
-      req.params.id,
-      req.params.profileId,
-    );
+    const [eventId, profileId] = checkParams(req.params.id, req.params.profileId);
 
     const event = await Event.findByPk(eventId);
 
     if (!event || event.length === 0) throw new NotFoundError('No event');
-    if (event.organizer_id !== profileId)
-      throw new AuthorizationError('Operation not allowed');
+    if (event.organizer_id !== profileId) throw new AuthorizationError('Operation not allowed');
 
     const isDeleted = await Event.delete(eventId);
 

@@ -22,7 +22,6 @@ function EditModalPassword() {
     resolver: zodResolver(passwordUpdateSchema),
   });
 
-  console.log(errors);
   const onSubmit = async (data: any) => {
     data.user_id = userProfile?.user_id;
     mutate(data);
@@ -51,6 +50,10 @@ function EditModalPassword() {
             type="password"
             label="New password"
             subicon={<EyeOff size={18} />}
+            error={
+              (errors?.new_password?.message as string) ||
+              (errors?.newPassword?.message as string)
+            }
             register={register}
           >
             <Eye size={18} />
@@ -60,13 +63,15 @@ function EditModalPassword() {
             type="password"
             label="Confirm your new password"
             subicon={<EyeOff size={18} />}
+            error={errors?.confirmPassword?.message as string}
             register={register}
           >
             <Eye size={18} />
           </FormField>
           <button
             type="submit"
-            className="text-primary-700 my-1 py-2.5 px-8 w-fit self-center cursor-pointer hover:bg-base duration-200 transition-all rounded-lg"
+            className="text-primary-700 my-1 py-2.5 px-8 w-fit self-center cursor-pointer
+             hover:bg-base duration-200 transition-all rounded-lg"
           >
             Edit password
           </button>

@@ -4,7 +4,7 @@ import FriendCard from '../friend-card';
 import FriendCardSkeleton from '../friend-card/skeleton';
 
 interface FriendCardProps {
-  data: Friend[] | undefined;
+  data: Friend[] | undefined | null;
   addFriendToState?: (friendId: number) => void;
   removeFriendsToState?: (friendId: number) => void;
   loading: boolean;
@@ -24,7 +24,10 @@ function FriendCards({
   const NB_SKELTON = 10;
   const skeletons = Array(NB_SKELTON).fill(0);
   return (
-    <div className="grid grid-cols-2 py-8 gap-2 my-2 h-[55vh] content-start">
+    <div
+      className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4
+     py-8 gap-2 my-2 h-[55vh] content-start max-w-7xl mx-auto"
+    >
       {!data && (
         <div className="text-center italic text-xs py-4 text-light">
           No friends found

@@ -28,7 +28,7 @@ function SwitchMutateOrUpdate({
 
   if (variant === 'mutate') {
     return (
-      <div className="overflow-scroll">
+      <div className="overflow-scroll self-center w-full">
         <FriendCards
           data={data}
           //@ts-ignore

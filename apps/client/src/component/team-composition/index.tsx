@@ -70,9 +70,11 @@ function TeamComposition({
         currentIdActive={currentIdpActive}
         nameInput={nameInput}
       />
-      <Button type="submit" textContent="Vote" className="my-4 mx-auto">
-        Submit
-      </Button>
+      <Button
+        type="submit"
+        textContent="Submit your vote"
+        className="my-4 mx-auto"
+      />
     </form>
   );
 }

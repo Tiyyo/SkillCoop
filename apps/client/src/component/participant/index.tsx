@@ -59,7 +59,7 @@ function Participant({
         <div
           className={cn(
             `flex flex-col items-center bg-base p-1 gap-1 
-            flex-shrink-0 min-w-[160px] min-h-[120px]`,
+            flex-shrink-0 min-w-[160px] min-h-[130px]`,
             isChecked && 'bg-primary-500',
           )}
         >

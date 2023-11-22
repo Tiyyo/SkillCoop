@@ -68,7 +68,7 @@ function Invite({ variant = 'update' }: InviteProps) {
     <>
       <ReturnBtn />
       <TitleH2 value="Invite your friends" />
-      <div className="px-4 h-[65vh]">
+      <div className="px-4 h-[65vh] flex flex-col justify-center">
         <SearchInput onChange={getSearchValue} />
         <SwitchMutateOrUpdate data={data} loading={loading} variant={variant} />
       </div>

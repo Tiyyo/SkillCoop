@@ -43,14 +43,15 @@ function UpdateStatusModal({
     eventId,
     onSuccess: (response: any) => {
       if (!nextStatus) return;
+      if (response?.message === 'Organizer cannot change his status') {
+        setIsOrganizer(true);
+        return;
+      }
       if (response?.message) {
         updateUserStatusInStore(nextStatus);
       }
       if (response?.message === 'Event is already completed') {
         toast.error('Event is already completed');
-      }
-      if (response?.message === 'Organizer cannot change his status') {
-        setIsOrganizer(true);
       }
     },
   });

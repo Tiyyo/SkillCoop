@@ -4,6 +4,8 @@ import checkParams from '../utils/check-params';
 import ServerError from '../helpers/errors/server.error';
 import deleteDecodedKey from '../utils/delete-decoded';
 import UserInputError from '../helpers/errors/user-input.error';
+import { notifyUserReceivedFriendRequest } from '../service/notification/friend-request';
+import { notifyUserHasBeenAddedToFriendlist } from '../service/notification/added-friendlist';
 
 export default {
   async getFriends(req: Request, res: Response) {
@@ -20,6 +22,9 @@ export default {
     // create a status for the added pending
     const { adder_id, friend_id } = req.body;
     const isSent = await Friendlist.sendRequest(adder_id, friend_id);
+    if (isSent) {
+      await notifyUserReceivedFriendRequest(adder_id, friend_id);
+    }
 
     res.status(201).json({ success: isSent });
   },
@@ -37,6 +42,12 @@ export default {
       friend_id,
       status_name,
     });
+
+    if (status_name === 'confirmed' && result) {
+      // adder is the user who will receive the notification
+      // friend_id is the instigator of the response
+      notifyUserHasBeenAddedToFriendlist(friend_id, adder_id);
+    }
 
     res.status(200).json({ success: result, username, status: status_name });
   },

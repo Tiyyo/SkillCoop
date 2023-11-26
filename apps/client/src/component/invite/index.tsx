@@ -51,6 +51,7 @@ function Invite({ variant = 'update' }: InviteProps) {
     const data = {
       event_id: Number(eventId),
       ids: eventState.participants,
+      initiator: profileId,
     };
     const isValid = inviteParticipantSchema.safeParse(data);
     if (!isValid.success) {

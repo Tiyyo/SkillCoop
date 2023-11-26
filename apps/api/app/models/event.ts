@@ -339,8 +339,9 @@ FROM event
 INNER JOIN profile_on_event AS participant ON event.id = participant.event_id
 INNER JOIN profile ON participant.profile_id = profile.id
 WHERE participant.event_id = ${eventId}
-AND (participant.status_name = 'confirmed' OR participant.status_name = 'pending') 
-AND profile.active_notification = 1
+AND profile.id <> event.organizer_id
+AND (participant.status_name = 'confirmed' 
+OR (profile.active_notification = 1 AND participant.status_name = 'pending'))
 GROUP BY participant.event_id`.execute(this.client);
       const parsedJson: number[] = JSON.parse(result.rows[0].profile_ids);
       return parsedJson;

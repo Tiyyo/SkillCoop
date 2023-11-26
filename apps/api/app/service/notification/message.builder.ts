@@ -1,4 +1,5 @@
 import { BuildersNotificationMessage, NotificationType, notificationType } from './types';
+import dateHandller from '../../utils/date-format';
 
 export class BuildNotificationMessage {
   type: NotificationType;
@@ -16,11 +17,13 @@ export class BuildNotificationMessage {
     return builders[type];
   }
   buildEventInfosHasBeenUpdatedMessage(eventDate: string) {
-    return `Certain details for the event scheduled on ${eventDate},
+    const formatedEventDate = dateHandller.formatDateAndTime(eventDate);
+    return `Certain details for the event scheduled on ${formatedEventDate},
 in which you are participating, have been updated`;
   }
   buildUserHasBeenInvitedToEventMessage(username: string, eventDate: string) {
-    return `You have been invited by ${username} to an event on ${eventDate}`;
+    const formatedEventDate = dateHandller.formatDateAndTime(eventDate);
+    return `You have been invited by ${username} to an event on ${formatedEventDate}`;
   }
   buildUserReceivedFriendRequestMessage(username: string) {
     return `You have received a friend request from ${username}`;

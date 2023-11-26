@@ -21,8 +21,14 @@ export function useActionsPendingFriendCard({
   //store
   const { removePendingFriend, addConfirmedFriend } = useFriends();
   const { mutate: respondToInvitation } = useFriendInvitationActions({
-    onSuccess: (response: AxiosResponse) => {
-      if (response.data.status === 'confirmed') {
+    onSuccess: (response: {
+      status: string;
+      success: true;
+      username: string;
+    }) => {
+      console.log('Response :', response);
+      const status = response.status as string;
+      if (status === 'confirmed') {
         const friend = {
           friend_id: friendId,
           username: username,
@@ -31,7 +37,7 @@ export function useActionsPendingFriendCard({
           adder_id: adderId,
         };
         addConfirmedFriend(friend);
-        toast.addFriend(response.data.username);
+        toast.addFriend(username);
       }
       removePendingFriend(username);
     },
@@ -47,6 +53,7 @@ export function useActionsPendingFriendCard({
       status_name: action,
       username: username,
     };
+    console.log('Data :', data);
     const isValid = updateFriendshipSchema.safeParse(data);
     if (!isValid.success) return;
     respondToInvitation(data);

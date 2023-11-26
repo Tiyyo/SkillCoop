@@ -2,6 +2,7 @@ import { sql } from 'kysely';
 import DatabaseError from '../helpers/errors/database.error';
 import { Core } from './core';
 import getDateUTC from '../utils/get-date-utc';
+import UserInputError from '../helpers/errors/user-input.error';
 // import { DBClientType } from '../@types/types.database';
 
 export class Friendlist extends Core {
@@ -58,11 +59,7 @@ export class Friendlist extends Core {
       throw new DatabaseError(error);
     }
   }
-  async findFriendByUsernameInUserFriendlist(
-    profileId: number,
-    query: string,
-    page: number = 1,
-  ) {
+  async findFriendByUsernameInUserFriendlist(profileId: number, query: string, page: number = 1) {
     const offset = (page - 1) * 10;
     try {
       const friends = await this.client
@@ -97,7 +94,7 @@ export class Friendlist extends Core {
           `.execute(this.client);
 
       if (friendshipExist.rows.length > 0)
-        throw new Error("You can't send a friend request to this user");
+        throw new UserInputError("You can't send a friend request to this user");
 
       const today = new Date();
       const utctoday = getDateUTC(today);
@@ -112,7 +109,7 @@ export class Friendlist extends Core {
         })
         .execute();
 
-      return !!addPendingFriendship.insertId;
+      return !!Number(addPendingFriendship[0].numInsertedOrUpdatedRows);
     } catch (error) {
       throw new DatabaseError(error);
     }
@@ -150,7 +147,7 @@ export class Friendlist extends Core {
         .where('friend_id', '=', friend_id)
         .executeTakeFirst();
 
-      return !!acceptFriendship.affectedRows;
+      return !!Number(acceptFriendship.numUpdatedRows);
     } catch (error) {
       throw new DatabaseError(error);
     }

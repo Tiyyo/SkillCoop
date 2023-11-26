@@ -42,6 +42,7 @@ export class Profile extends Core {
       .selectFrom('profile')
       .select([
         'profile.user_id',
+        'profile.active_notification',
         'profile.avatar_url',
         'profile.username',
         'profile.date_of_birth',

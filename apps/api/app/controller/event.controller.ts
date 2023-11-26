@@ -7,6 +7,7 @@ import NotFoundError from '../helpers/errors/not-found.error';
 import deleteDecodedKey from '../utils/delete-decoded';
 import { generateBalancedTeam } from '../service/generate-teams';
 import { notifyEventInfosHasBeenUpdated } from '../service/notification/infos-event';
+import { notifyUserHasBeenInvitedToEvent } from '../service/notification/user-invited-event';
 
 export default {
   async createOne(req: Request, res: Response) {
@@ -32,6 +33,8 @@ export default {
         };
       });
       await ProfileOnEvent.createMany(participantsToInvite);
+      notifyUserHasBeenInvitedToEvent(eventId, data.organizer_id, ids);
+      // send notification to invited users here
     }
     res.status(201).json({ success: true });
   },

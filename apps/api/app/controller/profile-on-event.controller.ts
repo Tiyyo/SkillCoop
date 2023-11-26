@@ -5,22 +5,9 @@ import { Request, Response } from 'express';
 import { invitationStatus } from '../@types/types';
 import { generateBalancedTeam } from '../service/generate-teams';
 import deleteDecodedKey from '../utils/delete-decoded';
+import { notifyUserHasBeenInvitedToEvent } from '../service/notification/user-invited-event';
 
 export default {
-  // async getAllUserByEvent(req: Request, res: Response) {
-  //   const [event_id] = checkParams(req.params.event_id)
-
-  //   const participantList =
-  //await cacheOrGetCacheData("participants", async () => {
-  //     try {
-  //       const participantList = await ProfileOnEvent.findBy({ event_id })
-  //       return participantList
-  //     } catch (error) {
-  //       logger.error(error)
-  //     }
-  //   })
-  //   res.status(200).json(participantList)
-  // },
   async updateStatus(req: Request, res: Response) {
     deleteDecodedKey(req.body);
 
@@ -32,10 +19,8 @@ export default {
 
     if (status_name === 'pending' || status_name === 'declined') {
       if (event.organizer_id === profile_id) {
-        console.log('User cannon change his status');
-        return res
-          .status(200)
-          .json({ message: 'Organizer cannot change his status' });
+        console.log('User cannot change his status');
+        return res.status(200).json({ message: 'Organizer cannot change his status' });
       }
       if (event.status_name === 'completed') {
         console.log('Event is already completed');
@@ -71,15 +56,14 @@ export default {
   async sendInvitationToEvent(req: Request, res: Response) {
     deleteDecodedKey(req.body);
 
-    const { ids, event_id } = req.body;
+    const { ids, event_id, initiator: profile_id } = req.body;
     const data = ids.map((id: number) => ({
       profile_id: id,
       event_id,
       status_name: 'pending',
     }));
-
     const isCreated = await ProfileOnEvent.createMany(data);
-
+    notifyUserHasBeenInvitedToEvent(event_id, profile_id, ids);
     res.status(201).send({ success: isCreated });
   },
 };

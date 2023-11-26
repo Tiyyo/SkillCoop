@@ -202,6 +202,7 @@ export type TransfertOwnership = {
 
 export type EventInvitation = {
   event_id: number;
+  initiator?: number;
   ids: number[];
 };
 

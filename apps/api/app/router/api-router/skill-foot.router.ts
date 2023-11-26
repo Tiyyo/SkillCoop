@@ -10,9 +10,7 @@ const { getProfileEvalByEvent, getProfileEval, createOwnRating, createRating } =
 
 const router: Router = express.Router();
 
-router
-  .route('/')
-  .post(validate(ownSkillSchema, canals.body), factory(createOwnRating));
+router.route('/').post(validate(ownSkillSchema, canals.body), factory(createOwnRating));
 
 router
   .route('/event')

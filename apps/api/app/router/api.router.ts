@@ -8,6 +8,7 @@ import userRouter from './api-router/user.router';
 import scoreRouter from './api-router/score.router';
 import mvpRouter from './api-router/mvp.router';
 import bestStrikerRouter from './api-router/best-striker.router';
+import subscriptionPathwayRouter from './api-router/subscription-pathway';
 import logger from '../helpers/logger';
 
 const router: Router = express.Router();
@@ -22,5 +23,6 @@ router.use('/skill_foot', skilFootRouter);
 router.use('/score', scoreRouter);
 router.use('/mvp', mvpRouter);
 router.use('/best_striker', bestStrikerRouter);
+router.use('/subscription_pathway', subscriptionPathwayRouter);
 
 export default router;

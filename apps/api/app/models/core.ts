@@ -14,10 +14,7 @@ export class Core {
   }
   async findAll() {
     try {
-      const result = await this.client
-        .selectFrom(this.tableName)
-        .selectAll()
-        .execute();
+      const result = await this.client.selectFrom(this.tableName).selectAll().execute();
 
       if (!result) throw new NotFoundError('Not found');
 
@@ -67,10 +64,7 @@ export class Core {
     const utctoday = getDateUTC(today);
     data.created_at = utctoday;
     try {
-      const result = await this.client
-        .insertInto(this.tableName)
-        .values(data)
-        .execute();
+      const result = await this.client.insertInto(this.tableName).values(data).execute();
 
       return Number(result[0].insertId);
     } catch (error) {
@@ -83,10 +77,7 @@ export class Core {
     data.forEach((el: ObjectRecordGeneric) => (el.created_at = utctoday));
 
     try {
-      const result = await this.client
-        .insertInto(this.tableName)
-        .values(data)
-        .execute();
+      const result = await this.client.insertInto(this.tableName).values(data).execute();
 
       return !!result[0].numInsertedOrUpdatedRows;
     } catch (error) {

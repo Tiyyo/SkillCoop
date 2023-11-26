@@ -9,8 +9,6 @@ const { createOne } = scoreController;
 
 const router: Router = express.Router();
 
-router
-  .route('/')
-  .post(validate(saveScoreSchema, canals.body), factory(createOne));
+router.route('/').post(validate(saveScoreSchema, canals.body), factory(createOne));
 
 export default router;

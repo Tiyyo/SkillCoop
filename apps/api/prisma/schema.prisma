@@ -34,6 +34,7 @@ model profile {
   avatar                    image?                @relation(fields: [avatar_url], references: [url], onDelete: SetNull, onUpdate: Cascade)
   avatar_url                String?
   last_evaluation           Int?
+  active_notification       Int                   @default(0)
   organizer                 event[]               @relation("organizer")            
   mvp                       event[]               @relation("mvp")            
   best_striker              event[]               @relation("best_striker")            
@@ -46,6 +47,8 @@ model profile {
   mvp_pool_rater            mvp_poll[]            @relation("rater_mvp")
   best_striker_pool_ratee   best_striker_poll[]   @relation("ratee_best_striker")
   best_striker_pool_rater   best_striker_poll[]   @relation("rater_best_striker")
+  notification_sub          notification[]        @relation("subscriber")
+  notification_instigator   notification[]        @relation("instigator")
 }
 
 model profile_on_profile {
@@ -84,6 +87,7 @@ model event {
   mvp_poll              mvp_poll[]
   best_striker_poll     best_striker_poll[]
   skills                skill_foot[]
+  notification          notification[]
 }
 
 model score {
@@ -178,4 +182,19 @@ model best_striker_poll {
   updated_at  String?
 
   @@id([event_id, rater_id])
+}
+
+model notification {
+  id          Int       @id @default(autoincrement())
+  profile_id  Int
+  profile     profile   @relation("subscriber",fields: [profile_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  instigator_id  Int?
+  instigator     profile?  @relation("instigator", fields: [instigator_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  event_id    Int?
+  event       event?    @relation(fields: [event_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  type        String
+  message     String
+  is_read     Int       @default(0)
+  created_at  String
+  updated_at  String?
 }

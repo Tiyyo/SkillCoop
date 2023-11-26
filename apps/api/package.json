@@ -31,6 +31,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "eslint-config": "workspace:^",
+    "events": "^3.3.0",
     "express": "^4.18.2",
     "i18next": "^23.7.6",
     "jsonwebtoken": "^9.0.2",

@@ -40,6 +40,20 @@ import EndOfGameAwards from './feature/event/awards.tsx';
 import ForgotPassword from './feature/auth/forgot-password.tsx';
 import ResetPasswordMiddleware from './component/redirection/control-reset-password.tsx';
 
+const sseEvent = new EventSource(
+  'http://localhost:8082/api/subscription_pathway',
+  {
+    withCredentials: true,
+  },
+);
+sseEvent.onmessage = (event) => {
+  console.log('Line 45 event argument :', event);
+};
+sseEvent.onerror = (event) => {
+  console.log('Line 47 event argument :', event);
+  sseEvent.close();
+};
+
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {

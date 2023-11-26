@@ -37,7 +37,6 @@ const cloudFront = new CloudFrontClient({
 });
 
 export async function uploadImageToBucket(
-  // TODO search for the type file in multer documentation
   file: Express.Multer.File,
   { height, width }: { height: number; width: number },
 ) {

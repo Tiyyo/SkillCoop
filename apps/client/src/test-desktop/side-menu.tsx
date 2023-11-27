@@ -1,5 +1,8 @@
-import { Calendar } from 'lucide-react';
+import { CalendarClock, History, Home } from 'lucide-react';
 import NavButtonDesktop from './nav-button-desktop';
+import Profile from '../assets/icon/Profile';
+import Friends from '../assets/icon/Friends';
+import Calendar from '../assets/icon/Calendar';
 
 function SideMenuDesktop() {
   return (
@@ -12,26 +15,27 @@ function SideMenuDesktop() {
       </div>
       <ul className="w-full">
         <NavButtonDesktop path="/" content="Home">
-          <Calendar size={14} />
+          <Home size={20} />
         </NavButtonDesktop>
-        <NavButtonDesktop path="/events/incoming" content="Upcoming Events">
-          <Calendar size={14} />
-        </NavButtonDesktop>
-        <NavButtonDesktop path="/events/past" content="Past Events">
-          <Calendar size={14} />
-        </NavButtonDesktop>
-        <NavButtonDesktop path="/my-event" content="My Events">
-          <Calendar size={14} />
+        <NavButtonDesktop path="/user/profile" content="Profile">
+          <Profile />
         </NavButtonDesktop>
         <NavButtonDesktop path="/contact" content="Friends">
-          <Calendar size={14} />
+          <Friends />
         </NavButtonDesktop>
+        <NavButtonDesktop path="/my-event" content="My Events">
+          <Calendar />
+        </NavButtonDesktop>
+        <NavButtonDesktop path="/events/incoming" content="Upcoming Events">
+          <CalendarClock size={20} />
+        </NavButtonDesktop>
+        <NavButtonDesktop path="/events/past" content="Past Events">
+          <History size={20} />
+        </NavButtonDesktop>
+
         {/* <NavButtonDesktop path="/my-event" content="Chat">
           <Calendar size={14} />
         </NavButtonDesktop> */}
-        <NavButtonDesktop path="/user/profile" content="Profile">
-          <Calendar size={14} />
-        </NavButtonDesktop>
       </ul>
     </aside>
   );

@@ -13,7 +13,7 @@ function Avatar({
       src={avatar ?? defaultAvatar}
       alt="avatar"
       className={cn(
-        'w-10 h-10 rounded-full',
+        'w-9 h-9 lg:w-11 lg:h-11 aspect-square rounded-full',
         isRatingActive && 'cursor-pointer',
       )}
     />

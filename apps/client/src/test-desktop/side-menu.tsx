@@ -1,5 +1,4 @@
 import { Calendar } from 'lucide-react';
-import { Link, NavLink } from 'react-router-dom';
 import NavButtonDesktop from './nav-button-desktop';
 
 function SideMenuDesktop() {

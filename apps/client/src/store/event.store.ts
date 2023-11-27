@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { EventStatus } from '../types';
 
 type State = {
   start_date: string | null;
@@ -7,7 +8,7 @@ type State = {
   duration: number | null;
   required_participants: number | null;
   organizer_id?: number | null;
-  status_name: string | null;
+  status_name: EventStatus | null;
   participants?: number[] | null;
   user_status?: string | null;
 };
@@ -21,7 +22,7 @@ interface eventStore {
   updateDuration: (args: number) => void;
   updateRequiredParticipants: (args: number) => void;
   updateOrganizerId: (args: number) => void;
-  updateStatusName: (args: string) => void;
+  updateStatusName: (args: EventStatus) => void;
   updateIdsParticipants: (args: number[]) => void;
   addInvitedParticipantsIds: (args: number) => void;
   removeInvitedParticipantsIds: (args: number) => void;
@@ -75,7 +76,7 @@ export const useEventStore = create<eventStore>()((set) => ({
       ...state,
       event: { ...state.event, organizer_id: organizerId },
     })),
-  updateStatusName: (statusName: string) =>
+  updateStatusName: (statusName: EventStatus) =>
     set((state) => ({
       ...state,
       event: { ...state.event, status_name: statusName },

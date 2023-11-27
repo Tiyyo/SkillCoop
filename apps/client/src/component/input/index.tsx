@@ -56,39 +56,41 @@ function Input({
     setHasError(error);
   }, [error]);
   return (
-    <label
-      htmlFor={name}
-      className="block text-md font-semibold text-primary-1100 w-full"
-    >
-      <p className="py-2">{label}</p>
-      <div className="relative">
-        <input
-          name={name}
-          placeholder={placeholder}
-          id={name}
-          onChange={handleChange}
-          onFocus={(e) => (e.target.type = type)}
-          onBlur={handleBlur}
-          step={3600}
-          disabled={disabled}
-          {...props}
-          className={cn(
-            `bg-base-light border border-gray-300 text-primary-1100 
-            text-xs rounded-lg block w-full h-10.5 pl-10 `,
-            disabled && 'border-none',
-            hasError && 'border-2 border-error',
-            className,
-          )}
-        />
+    <>
+      <div className="w-full flex gap-x-2.5 items-center py-4">
         <div
-          className={`absolute top-1/2 left-2 -translate-y-1/2  ${
-            hasError ? 'text-error' : 'text-primary-600'
-          }`}
+          className={`basis-7 ${hasError ? 'text-error' : 'text-primary-100'}`}
         >
           {children}
         </div>
+        <div className="flex flex-col gap-y-1 flex-grow">
+          <label
+            htmlFor={name}
+            className="block h-4 ml-2 text-xs font-medium text-grey-sub-text "
+          >
+            {label}
+          </label>
+          <input
+            name={name}
+            placeholder={placeholder}
+            id={name}
+            onChange={handleChange}
+            onFocus={(e) => (e.target.type = type)}
+            onBlur={handleBlur}
+            step={3600}
+            disabled={disabled}
+            {...props}
+            className={cn(
+              `bg-base-light border border-gray-300 font-medium text-primary-1100 
+            text-sm rounded-lg block w-full h-7 pl-2`,
+              disabled && 'border-none',
+              hasError && 'border-2 border-error',
+              className,
+            )}
+          />
+        </div>
       </div>
-    </label>
+    </>
   );
 }
 

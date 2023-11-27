@@ -9,6 +9,12 @@ export default {
     extend: {
       height: {
         10.5: '42px',
+        18: '72px',
+        18.5: '76px',
+      },
+      width: {
+        18: '72px',
+        18.5: '76px',
       },
       colors: {
         dark: '#12161F',
@@ -16,8 +22,9 @@ export default {
         base: 'hsl(120, 16.7%, 97.6%)',
         grey: {
           regular: '#B6B7BA',
-          off: '#D9D9D9',
+          off: '#F6F6F6',
           constrast: ' #F8FBFF',
+          'sub-text': '#717379',
         },
         primary: {
           100: 'hsla(131, 42%, 46%, 1)',

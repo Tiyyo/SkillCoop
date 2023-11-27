@@ -1,39 +1,23 @@
-import { CheckCircle, Loader } from 'lucide-react';
-import { cn } from '../../lib/utils';
 import { InvitationStatus } from '../../types';
+import questionMark from '../../assets/svg/question-mark-13228.svg';
+import confirmedMark from '../../assets/svg/green-check-mark-correct-tick-16237.svg';
 
 interface StatusProps {
   status: InvitationStatus;
   className?: string;
 }
 
-function Status({ status, className }: StatusProps) {
-  if (status === 'confirmed') {
-    return (
-      <div
-        className={cn(
-          'text-light text-xxs flex items-center gap-x-1 py-1',
-          className,
-        )}
-      >
-        <p className="">Confirmed</p>
-        <CheckCircle size={10} />
-      </div>
-    );
-  }
-  if (status === 'pending') {
-    return (
-      <div
-        className={cn(
-          'text-light text-xxs flex items-center gap-x-1 py-1',
-          className,
-        )}
-      >
-        <p className="">Pending</p>
-        <Loader size={10} />
-      </div>
-    );
-  }
+function ParticipantStatusMark({ status }: StatusProps) {
+  const displayParticipantStatusMark = (status: InvitationStatus) => {
+    if (status === 'pending') return questionMark;
+    if (status === 'confirmed') return confirmedMark;
+  };
+  return (
+    <img
+      src={displayParticipantStatusMark(status)}
+      alt="participant status mark"
+    />
+  );
 }
 
-export default Status;
+export default ParticipantStatusMark;

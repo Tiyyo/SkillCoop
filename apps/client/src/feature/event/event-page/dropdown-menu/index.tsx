@@ -9,6 +9,7 @@ import GenerateTeamsMenuItem from './generate-teams';
 import TransfertOwnershipMenuItem from './transfert-ownership';
 import DeleteEventMenuItem from './delete-event';
 import CancelEventMenuItem from './cancel-event';
+import InviteFriendsMeuItems from './Invite-friends';
 
 interface DropdownEventMenuProps {
   eventStatus?: EventStatus;
@@ -30,7 +31,7 @@ function DropdownEventMenu({
   return (
     <>
       <DropdownMenu>
-        <DropdownMenuTrigger className="py-2">
+        <DropdownMenuTrigger className="py-2 basis-[34px]">
           <svg
             className="w-5 h-5"
             aria-hidden="true"
@@ -49,6 +50,7 @@ function DropdownEventMenu({
           className={`bg-base-light mx-2 border 
           z-10 flex flex-col`}
         >
+          <InviteFriendsMeuItems eventStatus={eventStatus} eventId={eventId} />
           <RevokeParticipationMenuItem
             eventStatus={eventStatus}
             eventId={eventId}

@@ -15,8 +15,8 @@ import { useEffect } from 'react';
 
 function NavUser({ children }: { children: JSX.Element }) {
   const navigate = useNavigate();
-  const menuItemStyle =
-    'flex gap-2 items-center hover:bg-primary-200 transition-colors duration-300 rounded-lg px-2 text-md';
+  const menuItemStyle = `'flex gap-2 items-center hover:bg-primary-200 transition-colors 
+          duration-300 rounded-lg px-2 text-md'`;
 
   const {
     mutate: logout,

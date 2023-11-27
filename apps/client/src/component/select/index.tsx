@@ -71,26 +71,24 @@ function SelectInput({
   }, [error]);
 
   return (
-    <div className="w-full">
-      <label
-        htmlFor={name}
-        className="block py-2 text-md font-semibold text-primary-1100"
+    <div className="w-full flex gap-x-2.5 items-center py-4">
+      <div
+        className={`basis-7 ${hasError ? 'text-error' : 'text-primary-100'}`}
       >
-        {label}
-      </label>
-      <div className={`relative `}>
-        <div
-          className={`absolute top-1/2 left-2 -translate-y-1/2  ${
-            hasError ? 'text-error' : 'text-primary-600'
-          }`}
+        {children}
+      </div>
+      <div className="flex flex-col gap-y-1 flex-grow">
+        <label
+          htmlFor={name}
+          className="block h-4 ml-2 text-xs font-medium text-grey-sub-text"
         >
-          {children}
-        </div>
+          {label}
+        </label>
         {disabled ? (
           <input
             type="text"
-            className="bg-base-light border border-gray-300 font-semibold text-primary-1100 
-            text-xs rounded-lg block w-full h-10.5 pl-10 border-none"
+            className="bg-base-light border border-gray-300 font-semibold text-primary-1100
+            text-xs rounded-lg block w-full h-7 pl-2  border-none"
             disabled={disabled}
             defaultValue={
               mutateKey === 'duration'
@@ -103,8 +101,8 @@ function SelectInput({
             name={name}
             className={`bg-base-light border text-primary-1100 ${
               hasError ? 'border-2 border-error' : ''
-            } text-sm rounded-lg focus:ring-primary-800 focus:border-primary-800 
-            block w-full h-10.5 pl-10`}
+            } text-sm font-medium rounded-lg focus:ring-primary-800 focus:border-primary-800
+            block w-full h-7 pl-2`}
             onChange={handleChange}
             {...props}
           >

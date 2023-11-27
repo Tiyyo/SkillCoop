@@ -18,6 +18,8 @@ import {
   OPTION_DURATION,
   OPTION_FORMAT,
 } from '../../../constant/select.options';
+import Container from '../../../layout/container';
+import TitleH2 from '../../../component/title-h2';
 
 interface EventPageInfosProps {
   eventDuration: number;
@@ -60,18 +62,29 @@ function EventPageInfos({
 
   const startTime = eventDate.split(' ')[1];
 
+  // mutateOnBlur cause too many  notification send
+  // mutate only once on validate button
+  // So create 2 seperate button for each function
+  // first to enable edit mode
+  // second to mutate data and disable edit mode
+
   return (
-    <div className="bg-base-light mx-2 lg:py-4 rounded-md shadow py-2 px-3 w-full">
-      <div className="flex justify-between items-baseline my-1 text-primary-1100 lg:px-6">
-        <h2 className="text-sm lg:text-md font-bold">Event# {eventId}</h2>
-        {isAdmin && eventStatus !== 'completed' && (
-          <div
-            onClick={handleClickEdit}
-            className="my-auto relative -top-0.5 cursor-pointer"
-          >
-            {isEditActive ? <Check size={16} /> : <Pencil size={16} />}
-          </div>
-        )}
+    <Container className="flex-grow">
+      <div className="flex justify-between items-center">
+        <TitleH2
+          title={`Event# ${eventId}`}
+          legend="Event details informations"
+        />
+        <div className="flex justify-between items-baseline my-1 text-primary-1100 lg:px-6">
+          {isAdmin && eventStatus !== 'completed' && (
+            <div
+              onClick={handleClickEdit}
+              className="my-auto relative -top-0.5 cursor-pointer"
+            >
+              {isEditActive ? <Check size={16} /> : <Pencil size={16} />}
+            </div>
+          )}
+        </div>
       </div>
       <div
         className="lg:flex lg:justify-center gap-x-3 items-center 
@@ -83,9 +96,11 @@ function EventPageInfos({
           updateData={updateEventData}
           mutateKey="date"
           mutateOnBlur={updateEventFn}
+          label="Date"
           disabled={!isEditActive}
         />
         <InputTime
+          label="Schedule Time"
           name="time"
           type="text"
           readOnly
@@ -101,6 +116,7 @@ function EventPageInfos({
         </InputTime>
         <SelectInput
           name="duration"
+          label="Duration"
           updateState={updateDuration}
           updateData={updateEventData}
           mutateKey="duration"
@@ -113,6 +129,7 @@ function EventPageInfos({
         </SelectInput>
         <Input
           name="location"
+          label="Location"
           type="text"
           updateState={updateLocation}
           mutateOnBlur={updateEventFn}
@@ -125,6 +142,7 @@ function EventPageInfos({
         </Input>
         <SelectInput
           name="requiredParticipants"
+          label="Participants"
           updateState={updateRequiredParticipants}
           options={OPTION_FORMAT}
           defaultValue={event.required_participants ?? requiredParticipants}
@@ -136,7 +154,7 @@ function EventPageInfos({
           <Users />
         </SelectInput>
       </div>
-    </div>
+    </Container>
   );
 }
 

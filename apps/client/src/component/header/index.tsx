@@ -13,9 +13,16 @@ interface HeaderProps {
   isPlusExist?: boolean;
   linkFromPlus?: string;
   textButton?: string;
+  legend?: string;
 }
 
-function Header({ title, isPlusExist, linkFromPlus, textButton }: HeaderProps) {
+function Header({
+  title,
+  isPlusExist,
+  linkFromPlus,
+  textButton,
+  legend,
+}: HeaderProps) {
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
   const getOpenStateMobileMenu = (state: boolean) => {
     setMenuIsOpen(state);
@@ -24,7 +31,7 @@ function Header({ title, isPlusExist, linkFromPlus, textButton }: HeaderProps) {
   return (
     <>
       <div
-        className="flex justify-between bg-base w-full h-20 lg:rounded-lg lg:mt-2 shadow-md 
+        className="flex justify-between bg-base-light w-full h-20 lg:rounded-lg lg:mt-2 shadow-md 
               lg:p-5"
       >
         <Hamburger getOpenState={getOpenStateMobileMenu} />
@@ -63,20 +70,18 @@ function Header({ title, isPlusExist, linkFromPlus, textButton }: HeaderProps) {
         </div>
       </div>
       <Container className="lg:my-2 flex justify-between">
-        <TitleH1
-          title={title}
-          legend="Brief summary of the events you have participated in and your
-            upcoming scheduled events"
-        />
+        <TitleH1 title={title} legend={legend} />
         {isPlusExist && linkFromPlus && textButton && (
           <Link
             to={linkFromPlus}
-            className="flex self-center items-center h-11 px-5 py-4 rounded-3xl
+            className="flex self-center items-center justify-center h-7 w-7 
+              lg:w-fit lg:h-11 lg:px-5 
+              lg:py-4 rounded-full sm:rounded-3xl
              bg-primary-100 text-white hover:bg-primary-600 hover:text-dark 
-              duration-300 font-medium"
+              duration-300 font-medium text-xs lg:text-sm "
           >
             <PlusIcon size={24} />
-            <p>{textButton}</p>
+            <p className="hidden lg:block text-center">{textButton}</p>
           </Link>
         )}
       </Container>

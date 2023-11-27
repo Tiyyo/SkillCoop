@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Datepicker from 'tailwind-datepicker-react';
 import dateHandler from '../../utils/date.handler';
-import { Calendar } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Calendar } from 'lucide-react';
 import { useMutation } from '@tanstack/react-query';
 
 interface InputDateProps {
@@ -36,18 +36,21 @@ function InputDate({
     minDate: new Date(dateHandler.getTodayFormatedForInput()),
     theme: {
       background: 'bg-base-light',
-      todayBtn: 'bg-primary-800',
+      todayBtn:
+        'bg-primary-100 hover:bg-primary-500 duration-300 hover:text-dark',
       clearBtn: 'bg-base border border-primary-500',
-      icons: '',
+      icons: 'none',
       text: 'text-primary-1100',
-      input: `w-full ${hasError ? 'border-2 border-error' : ''}`,
+      input: `w-full h-7 font-semibold text-sm bg-base-light ${
+        hasError ? 'border-2 border-error' : ''
+      }`,
       inputIcon: `${hasError ? 'text-error' : 'text-primary-600'}`,
       selected: 'bg-primary-800',
       disabledText: 'text-gray-200',
     },
     icons: {
-      prev: '',
-      next: '',
+      prev: () => <ArrowLeft size={14} />,
+      next: () => <ArrowRight size={14} />,
     },
     datepickerClassNames: 'top-12 left-1/2 -translate-x-1/2 ',
     defaultDate: new Date(defaultValue || today),
@@ -100,31 +103,34 @@ function InputDate({
     setHasError(error);
   }, [error]);
   return (
-    <div className="relative w-full">
-      <p className="block py-2 text-md font-semibold text-primary-1100">
-        {label}
-      </p>
-      {disabled ? (
-        <div className="relative">
-          <div className="absolute top-1/2 left-2 -translate-y-1/2 text-primary-600">
-            <Calendar />
-          </div>
+    <div className="relative w-full flex gap-x-2.5 items-center py-4">
+      <div
+        className={`basis-7 ${hasError ? 'text-error' : 'text-primary-100'}`}
+      >
+        <Calendar />
+      </div>
+      <div className="flex flex-col gap-y-1 flex-grow">
+        <div className="block h-4 ml-2 text-xs font-medium text-grey-sub-text">
+          {label}
+        </div>
+        {disabled ? (
           <input
             type="text"
             defaultValue={getDefaultDate(defaultValue)}
             disabled={disabled}
-            className={`bg-base-light border border-gray-300 font-semibold text-primary-1100 text-xs rounded-lg block w-full h-10.5 pl-10 border-none`}
+            className={`bg-base-light border border-gray-300 
+            font-semibold text-primary-1100 text-xs rounded-lg block w-full 
+            h-7 pl-2 border-none`}
           />
-        </div>
-      ) : (
-        <Datepicker
-          // @ts-ignore
-          options={options}
-          onChange={handleChange}
-          show={show}
-          setShow={handleClose}
-        />
-      )}
+        ) : (
+          <Datepicker
+            options={options}
+            onChange={handleChange}
+            show={show}
+            setShow={handleClose}
+          />
+        )}
+      </div>
     </div>
   );
 }

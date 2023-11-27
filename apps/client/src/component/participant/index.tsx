@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { InvitationStatus } from '../../types';
-import Status from '../status';
 import { cn } from '../../lib/utils';
 import star from '../../assets/svg/star.svg';
 import soccerBall from '../../assets/svg/soccer-ball.svg';
@@ -8,13 +7,14 @@ import capitalize from '../../utils/capitalize';
 import { Link } from 'react-router-dom';
 import Avatar from '../avatar';
 import { useApp } from '../../store/app.store';
+import ParticipantStatusMark from '../status';
 
 interface ParticipantProps {
   avatar: string;
   username: string;
   status: InvitationStatus;
   profileId: number;
-  eventStatus?: 'full' | 'open' | 'completed' | 'cancelled';
+  eventStatus?: 'full' | 'open' | 'completed' | 'cancelled' | null;
   activeId?: string;
   name?: string;
   isAdmin?: boolean;
@@ -45,7 +45,7 @@ function Participant({
     if (profileId === userProfileId) return;
     setIsChecked(activeId === name + profileId?.toString());
   }, [activeId, name, profileId]);
-
+  console.log('How many participant');
   return (
     <label htmlFor={name + profileId?.toString()} className="whitespace-normal">
       <input
@@ -58,36 +58,54 @@ function Participant({
       {status !== 'declined' && (
         <div
           className={cn(
-            `flex flex-col items-center bg-base p-1 gap-1 
+            `flex flex-col items-center justify-centerp-1 gap-1
             flex-shrink-0 min-w-[160px] min-h-[130px]`,
             isChecked && 'bg-primary-500',
           )}
         >
-          <p className="text-xs flex flex-col items-center py-1">
-            <span
-              className={cn(
-                'mr-2 whitespace-pre',
-                isAdmin && 'text-primary-900 font-bold',
-              )}
-            >
-              {capitalize(username)}
-              <span className="mx-0.5 text-xxs font-normal">
-                {isAdmin && '(Organizer)'}
-              </span>
-            </span>
-            <span className="flex py-1">
-              {isMvp && <img src={star} className="relative -top-[1px] h-4" />}
-              {isBestStriker && <img src={soccerBall} className="h-4" />}
-            </span>
-          </p>
           {eventStatus === 'completed' ? (
             <Link to={`evaluate/${profileId}`}>
-              <Avatar avatar={avatar} isRatingActive />
+              <div className="relative bg-primary-400 h-18.5 w-18.5 rounded-full z-10">
+                <div className="rounded-full bottom-1 right-1 h-4 w-4 bg-white absolute z-10">
+                  <ParticipantStatusMark status={status} />
+                </div>
+                <Avatar
+                  avatar={avatar}
+                  isRatingActive
+                  className="h-18 w-18 lg:h-18 lg:w-18 border-2 border-base-light 
+                absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full"
+                />
+              </div>
             </Link>
           ) : (
-            <Avatar avatar={avatar} />
+            <div className="relative bg-primary-400 h-18.5 w-18.5 rounded-full z-10">
+              <div className="rounded-full bottom-1 right-1 h-4 w-4 bg-white absolute z-10">
+                <ParticipantStatusMark status={status} />
+              </div>
+              <Avatar
+                avatar={avatar}
+                className="h-18 w-18 lg:h-18 lg:w-18 border-2 border-base-light 
+                absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full"
+              />
+            </div>
           )}
-          <Status status={status} />
+          <legend
+            className={cn('mr-2 whitespace-pre font-medium text-sm w-full ')}
+          >
+            <p className="text-center flex items-center justify-center">
+              {capitalize(username)}
+            </p>
+            <p
+              className="mx-0.5 flex justify-center items-center text-xs text-center font-light
+               text-grey-sub-text"
+            >
+              <span>{isAdmin ? 'Organizer' : 'Member'}</span>
+              <span>
+                {isBestStriker && <img src={soccerBall} className="h-4" />}
+              </span>
+              <span>{isMvp && <img src={star} className="h-4" />}</span>
+            </p>
+          </legend>
         </div>
       )}
     </label>

@@ -11,6 +11,8 @@ function HomePageEvent() {
         isPlusExist={true}
         linkFromPlus="/new-event"
         textButton="Add New Event"
+        legend="Brief summary of the events you have participated in and your
+            upcoming scheduled events"
       />
       <ReturnBtn />
       <Outlet />

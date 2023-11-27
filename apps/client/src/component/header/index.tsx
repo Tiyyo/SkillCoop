@@ -4,9 +4,12 @@ import TitleH1 from '../title-h1';
 import { useState } from 'react';
 import MobileNav from '../mobile-nav';
 import NavUser from '../nav-user';
-import { Bell, ChevronDown, PlusIcon, Settings } from 'lucide-react';
+import { ChevronDown, PlusIcon } from 'lucide-react';
 import Avatar from '../avatar';
 import Container from '../../layout/container';
+import notificationBellIcon from '../../assets/svg/notification-bell.svg';
+import settingsIcon from '../../assets/svg/settings-wheel.svg';
+import { useApp } from '../../store/app.store';
 
 interface HeaderProps {
   title: string;
@@ -27,6 +30,7 @@ function Header({
   const getOpenStateMobileMenu = (state: boolean) => {
     setMenuIsOpen(state);
   };
+  const { userProfile } = useApp();
 
   return (
     <>
@@ -39,27 +43,37 @@ function Header({
         <div className="hidden md:flex flex-col justify-center">
           <p className="font-light">Welcome Back !</p>
           <p className="font-semibold">
-            <span>Steeve</span> <span>Matou</span>
+            <span>{userProfile?.username}</span>
           </p>
         </div>
         <div className="flex items-center gap-x-4">
           <div
-            className="flex justify-center items-center h-11 
+            className="flex justify-center items-center h-8 lg:h-11 
           aspect-square rounded-full  bg-primary-210 text-primary-100"
           >
-            <Settings size={20} />
+            <img
+              src={settingsIcon}
+              alt="setting wheel"
+              className="h-5 lg:h-7"
+            />
           </div>
           <div
-            className="flex justify-center items-center h-11 
+            className="flex justify-center items-center h-8 lg:h-11 
         aspect-square rounded-full bg-primary-210 text-primary-100"
           >
-            <Bell size={20} />
+            <img
+              src={notificationBellIcon}
+              alt="notification bell"
+              className="h-5 lg:h-7"
+            />
           </div>
           <div className="flex gap-x-2.5 items-center">
-            <Avatar />
+            <Avatar avatar={userProfile?.avatar_url} />
             <div className="hidden lg:flex flex-col justify-between">
-              <p className="font-medium">Steeve Matou</p>
-              <p className="font-light text-sm">steeve.matou@gmail.com</p>
+              <p className="font-medium">
+                {userProfile?.first_name + ' ' + userProfile?.last_name}
+              </p>
+              <p className="font-light text-sm">{userProfile?.email}</p>
             </div>
           </div>
           <NavUser>

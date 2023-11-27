@@ -26,13 +26,12 @@ function SideMenuDesktop() {
         <NavButtonDesktop path="/my-event" content="My Events">
           <Calendar />
         </NavButtonDesktop>
-        <NavButtonDesktop path="/events/incoming" content="Upcoming Events">
+        <NavButtonDesktop path="/events/incoming" content="Incoming Events">
           <CalendarClock size={20} />
         </NavButtonDesktop>
         <NavButtonDesktop path="/events/past" content="Past Events">
           <History size={20} />
         </NavButtonDesktop>
-
         {/* <NavButtonDesktop path="/my-event" content="Chat">
           <Calendar size={14} />
         </NavButtonDesktop> */}

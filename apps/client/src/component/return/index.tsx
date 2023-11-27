@@ -19,7 +19,7 @@ function ReturnBtn({ to }: ReturnBtnProps) {
     <button
       onClick={handleClickReturn}
       type="button"
-      className="absolute my-2 mx-3 lg:my-0 lg:mx-0 flex justify-center 
+      className=" hidden absolute top-16 left-4 lg:my-0 lg:mx-0 lg:flex justify-center 
             items-center lg:-left-5 lg:top-16 
             lg:h-10 lg:w-10 w-8 h-8 bg-dark border
            border-grey-off border-opacity-40 rounded-full cursor-pointer"

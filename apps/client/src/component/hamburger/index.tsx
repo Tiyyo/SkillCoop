@@ -20,19 +20,19 @@ function Hamburger({
         className={`rounded-lg h-0.5 ease-cubic duration-300 w-1/2 ${
           openMenu
             ? 'origin-bottom rotate-45 translate-x-[3px] translate-y-[0px] bg-primary-100'
-            : 'bg-grey-off'
+            : 'bg-slate-400'
         }`}
       ></span>
       <span
         className={`rounded-lg h-0.5  ease-cubic duration-300 w-full ${
-          openMenu ? 'origin-top -rotate-45 bg-primary-100' : 'bg-grey-off'
+          openMenu ? 'origin-top -rotate-45 bg-primary-100' : 'bg-slate-400'
         }`}
       ></span>
       <span
         className={`rounded-lg h-0.5 ease-cubic duration-300 ${
           openMenu
             ? 'origin-bottom w-1/2 bg-primary-100 translate-x-3.5 -translate-y-[1px] rotate-45 '
-            : 'w-3/4 bg-grey-off'
+            : 'w-3/4 bg-slate-400'
         }`}
       ></span>
     </button>

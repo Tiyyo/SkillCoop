@@ -1,5 +1,6 @@
 export default {
   formatDateAndTime: (date: string) => {
+    console.log(date);
     const eventDate = new Date(date);
     const formattedDate = new Intl.DateTimeFormat('en-Us', {
       day: '2-digit',

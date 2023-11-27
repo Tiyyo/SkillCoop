@@ -34,6 +34,7 @@ function PastEvents() {
         linkOff
         triggerNextPage={fetchNextPage}
         hasMore={hasNextPage}
+        legendHeader="Brief summary of the events you have participated in"
       />
     </div>
   );

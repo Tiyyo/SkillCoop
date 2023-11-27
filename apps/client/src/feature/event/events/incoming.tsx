@@ -38,7 +38,12 @@ function IncomingEvents() {
   return (
     <div>
       <ReturnBtn />
-      <EventList events={events} title="Incoming Events" linkOff />
+      <EventList
+        events={events}
+        title="Incoming Events"
+        linkOff
+        legendHeader="Next events scheduled"
+      />
     </div>
   );
 }

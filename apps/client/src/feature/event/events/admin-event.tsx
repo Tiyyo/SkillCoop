@@ -32,7 +32,6 @@ function MyEvents() {
     );
   return (
     <div>
-      <ReturnBtn />
       <EventList
         events={allEvents ?? null}
         title="My events"
@@ -40,6 +39,7 @@ function MyEvents() {
         linkOff
         triggerNextPage={fetchNextPage}
         hasMore={hasNextPage}
+        legendHeader="Brief summary of the events you have organized"
       />
     </div>
   );

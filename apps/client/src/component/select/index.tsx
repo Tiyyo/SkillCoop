@@ -1,4 +1,3 @@
-import { useMutation } from '@tanstack/react-query';
 import {
   useState,
   type ComponentPropsWithoutRef,
@@ -18,51 +17,29 @@ interface SelectInputProps extends ComponentPropsWithoutRef<'select'> {
   props?: any;
   options: Option[];
   error?: boolean;
+  mutateKey?: string;
   disabled?: boolean;
   children?: React.ReactNode;
-  mutateOnBlur?: any;
-  mutateKey?: string;
-  updateData?: Record<string, string | number>;
 }
-
-const nameSelectInput = ['duration', 'required_participants'];
 
 function SelectInput({
   label,
   name,
   updateState,
-  mutateOnBlur,
   options,
   children,
   error,
-  updateData,
   mutateKey,
   disabled,
   ...props
 }: SelectInputProps) {
   const idComponent = useId();
   const [hasError, setHasError] = useState<boolean | undefined>(error);
-  const { mutate } = useMutation((data: Record<string, string | number>) => {
-    if (!mutateOnBlur) return;
-    return mutateOnBlur(data);
-  });
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setHasError(false);
     if (updateState) {
       updateState(e.target.value);
-    }
-    if (!updateData) return;
-    // TODO abstract this logic in a switch case or something
-    // like a pool of key and search if mutateKey is in the pool
-
-    // No idea why I have to do this
-    let value: number | string = '';
-    if (mutateKey && nameSelectInput.includes(mutateKey))
-      value = Number(e.target.value);
-    updateData[mutateKey as keyof typeof updateData] = value;
-    if (mutateOnBlur) {
-      mutate(updateData);
     }
   };
 

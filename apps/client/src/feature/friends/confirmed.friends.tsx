@@ -3,6 +3,7 @@ import Friendlist from './list.friends';
 import TitleH2 from '../../component/title-h2';
 import { useApp } from '../../store/app.store';
 import { useConfirmedfriends } from '../../hooks/useConfirmedFriends';
+import SubHeader from '../../component/header/sub-header';
 
 function ConfirmedFriends() {
   // TODO implement infinite scroll
@@ -14,6 +15,14 @@ function ConfirmedFriends() {
 
   return (
     <>
+      <SubHeader
+        title="My friends"
+        isPlusExist={true}
+        linkFromPlus="add"
+        textButton="Add New Friend"
+        legend="Here is the list of your friends. 
+        You can see their profile by clicking on their avatar."
+      />
       <Link
         to="pending-request"
         className="text-end px-3 text-xs py-2 text-primary-900 
@@ -22,7 +31,6 @@ function ConfirmedFriends() {
       >
         See pending request
       </Link>
-      <TitleH2 value="My friends" />
       <Friendlist
         loading={loading}
         friends={confirmedFriends}

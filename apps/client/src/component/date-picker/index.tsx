@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import Datepicker from 'tailwind-datepicker-react';
 import dateHandler from '../../utils/date.handler';
 import { ArrowLeft, ArrowRight, Calendar } from 'lucide-react';
-import { useMutation } from '@tanstack/react-query';
 
 interface InputDateProps {
   updateState?: (e: any) => void;
@@ -11,7 +10,6 @@ interface InputDateProps {
   defaultValue?: string;
   error?: boolean;
   mutateKey?: string;
-  mutateOnBlur?: any;
   disabled?: boolean;
   updateData?: Record<string, string | number>;
 }
@@ -21,10 +19,7 @@ function InputDate({
   label,
   defaultValue,
   error,
-  updateData,
   disabled,
-  mutateOnBlur,
-  mutateKey,
 }: InputDateProps) {
   const today = new Date();
   const [hasError, setHasError] = useState<boolean | undefined>(error);
@@ -58,10 +53,6 @@ function InputDate({
   };
 
   const [show, setShow] = useState<boolean>(false);
-  const { mutate } = useMutation((data: Record<string, string | number>) => {
-    if (!mutateOnBlur) return;
-    return mutateOnBlur(data);
-  });
 
   const getDateFormatedLikeInputDate = (date: Date) => {
     const year = date.getFullYear();
@@ -75,12 +66,6 @@ function InputDate({
     const formatDate = getDateFormatedLikeInputDate(selectedDate);
     if (updateState) {
       updateState(formatDate);
-    }
-    if (mutateOnBlur && updateData) {
-      const startTime = defaultValue?.split(' ')[1];
-      const updateEventDate = formatDate + ' ' + startTime;
-      updateData[mutateKey as keyof typeof updateData] = updateEventDate;
-      mutate(updateData);
     }
   };
 

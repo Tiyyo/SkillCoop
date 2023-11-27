@@ -23,7 +23,7 @@ function ParticipantsList({
   return (
     <Container className="w-full">
       <TitleH2 title="Participants" legend={eventParticipantsStatus()} />
-      <ul className="flex flex-wrap  gap-2">
+      <ul className="flex flex-wrap gap-2">
         {/* particpants can be a string if backend failed to parsed data */}
         {typeof participants !== 'string' &&
           participants.map((participant) => (

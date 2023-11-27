@@ -5,7 +5,6 @@ import {
   useId,
 } from 'react';
 import Choice from './index.choice';
-import { useMutation } from '@tanstack/react-query';
 import DisabledInputTimePicker from './disabled-input';
 import { displayOneDigitWith2Digit } from '../../utils/display-number';
 
@@ -16,9 +15,6 @@ interface InputTimeProps extends ComponentPropsWithoutRef<'input'> {
   children?: React.ReactNode;
   error?: boolean;
   defaultValues?: string;
-  updateData?: Record<string, string | number>;
-  mutateOnBlur?: any;
-  mutateKey?: string;
   date?: string;
   disabled?: boolean;
 }
@@ -30,20 +26,13 @@ function InputTime({
   children,
   error,
   defaultValues,
-  updateData,
-  date,
-  mutateKey,
-  mutateOnBlur,
   disabled,
   ...props
 }: InputTimeProps) {
   const idHoursComponent = useId();
   const idMinutesComponent = useId();
   const [hasError, setHasError] = useState<boolean | undefined>(error);
-  const { mutate } = useMutation((data: Record<string, string | number>) => {
-    if (!mutateOnBlur) return;
-    return mutateOnBlur(data);
-  });
+
   const [selectedTime, setSelectedTime] = useState<{
     hours: number | undefined;
     minutes: number | undefined;
@@ -65,12 +54,6 @@ function InputTime({
       const formatedTime = `${selectedTime.hours}:${selectedTime.minutes}:0.000`;
       if (updateState) {
         updateState(formatedTime);
-      }
-      if (mutateOnBlur && updateData) {
-        const startDate = date?.split(' ')[0];
-        updateData[mutateKey as keyof typeof updateData] =
-          startDate + ' ' + formatedTime;
-        mutate(updateData);
       }
     }
   }, [selectedTime]);

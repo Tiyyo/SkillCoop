@@ -20,6 +20,7 @@ import {
   UpdateParticipant,
   Vote,
 } from '../types';
+import { AxiosResponse } from 'axios';
 
 const keys = {
   getEvent: ['events'],
@@ -104,17 +105,17 @@ export function useUpdateScoreEvent(options: { eventId?: number }) {
 
 export function useUpdateSingleEvent(options: {
   eventId?: number;
-  onSuccess?: () => void;
+  onSuccess?: (arg: AxiosResponse) => void;
 }) {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: Partial<UpdateEventData>) => {
       return updateEventFn(data);
     },
-    onSuccess: () => {
+    onSuccess: (response) => {
       if (!options.eventId) return;
       queryClient.invalidateQueries(keys.getEventId(options.eventId));
-      if (options.onSuccess) options.onSuccess();
+      if (options.onSuccess) options.onSuccess(response);
     },
   });
 }

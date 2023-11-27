@@ -1,6 +1,5 @@
 import { useState, type ComponentPropsWithoutRef, useEffect } from 'react';
 import { cn } from '../../lib/utils';
-import { useMutation } from '@tanstack/react-query';
 
 interface InputProps extends ComponentPropsWithoutRef<'input'> {
   type: string;
@@ -10,9 +9,6 @@ interface InputProps extends ComponentPropsWithoutRef<'input'> {
   error?: boolean;
   disabled?: boolean;
   className?: string;
-  mutateOnBlur?: any;
-  mutateKey?: string;
-  updateData?: Record<string, string | number>;
 }
 
 function Input({
@@ -21,33 +17,18 @@ function Input({
   placeholder,
   type,
   updateState,
-  mutateOnBlur,
   children,
   error,
   disabled,
   className,
-  updateData,
-  mutateKey,
   ...props
 }: InputProps) {
   const [hasError, setHasError] = useState<boolean | undefined>(error);
-  const { mutate } = useMutation((data: Record<string, string | number>) => {
-    if (!mutateOnBlur) return;
-    return mutateOnBlur(data);
-  });
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setHasError(false);
     if (updateState) {
       updateState(e.target.value);
-      return;
-    }
-  };
-
-  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    if (!updateData) return;
-    updateData[mutateKey as keyof typeof updateData] = e.target.value;
-    if (mutateOnBlur) {
-      mutate(updateData);
       return;
     }
   };
@@ -76,7 +57,6 @@ function Input({
             id={name}
             onChange={handleChange}
             onFocus={(e) => (e.target.type = type)}
-            onBlur={handleBlur}
             step={3600}
             disabled={disabled}
             {...props}

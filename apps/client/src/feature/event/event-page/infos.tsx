@@ -8,7 +8,6 @@ import {
   Pencil,
   Check,
 } from 'lucide-react';
-import { updateEventFn } from '../../../api/api.fn';
 import { useParams } from 'react-router-dom';
 import SelectInput from '../../../component/select';
 import InputTime from '../../../component/time-picker';
@@ -20,6 +19,10 @@ import {
 } from '../../../constant/select.options';
 import Container from '../../../layout/container';
 import TitleH2 from '../../../component/title-h2';
+import { useUpdateSingleEvent } from '../../../hooks/useSingleEvent';
+import toast from '../../../utils/toast';
+import { updateEventSchema } from 'schema/ts-schema';
+import dateHandler from '../../../utils/date.handler';
 
 interface EventPageInfosProps {
   eventDuration: number;
@@ -42,6 +45,14 @@ function EventPageInfos({
 }: EventPageInfosProps) {
   const [isEditActive, setIsEditActive] = useState<boolean>(false);
   const { eventId } = useParams<{ eventId: string }>();
+  const { mutate: updateEvent } = useUpdateSingleEvent({
+    eventId: Number(eventId),
+    onSuccess: (response: any) => {
+      setIsEditActive(false);
+      if (response.message === 'Nothing to update') return;
+      toast.success('Event updated');
+    },
+  });
   const {
     data: event,
     updateStartTime,
@@ -51,8 +62,8 @@ function EventPageInfos({
     updateRequiredParticipants,
   } = useEvent();
 
-  const handleClickEdit = () => {
-    setIsEditActive(!isEditActive);
+  const handleClickActiveEdit = () => {
+    setIsEditActive(true);
   };
 
   const updateEventData = {
@@ -60,13 +71,50 @@ function EventPageInfos({
     event_id: Number(eventId),
   };
 
-  const startTime = eventDate.split(' ')[1];
+  const displayEditBtnOrValidateBtn = () => {
+    if (isEditActive) {
+      return (
+        <div
+          onClick={() => {
+            setIsEditActive(!isEditActive);
+            if (!event.organizer_id || event.organizer_id !== profileId) return;
+            const data = {
+              profile_id: profileId,
+              event_id: Number(eventId),
+              organizer_id: event.organizer_id,
+              status_name: event.status_name ?? undefined,
+              date: `${event.start_date} ${event.start_time}`,
+              duration: Number(event.duration),
+              location: event.location ?? undefined,
+              required_participants: Number(event.required_participants),
+            };
+            const isValid = updateEventSchema.safeParse(data);
+            if (
+              !isValid.success ||
+              !dateHandler.dateShouldBeInTheFuture(data.date)
+            ) {
+              toast.error('Something went wrong... try again later');
+              return;
+            }
+            updateEvent(data);
+          }}
+          className="my-auto relative -top-0.5 cursor-pointer"
+        >
+          <Check size={16} />
+        </div>
+      );
+    }
+    return (
+      <div
+        onClick={handleClickActiveEdit}
+        className="my-auto relative -top-0.5 cursor-pointer"
+      >
+        <Pencil size={16} />
+      </div>
+    );
+  };
 
-  // mutateOnBlur cause too many  notification send
-  // mutate only once on validate button
-  // So create 2 seperate button for each function
-  // first to enable edit mode
-  // second to mutate data and disable edit mode
+  const startTime = eventDate.split(' ')[1];
 
   return (
     <Container className="flex-grow">
@@ -76,14 +124,9 @@ function EventPageInfos({
           legend="Event details informations"
         />
         <div className="flex justify-between items-baseline my-1 text-primary-1100 lg:px-6">
-          {isAdmin && eventStatus !== 'completed' && (
-            <div
-              onClick={handleClickEdit}
-              className="my-auto relative -top-0.5 cursor-pointer"
-            >
-              {isEditActive ? <Check size={16} /> : <Pencil size={16} />}
-            </div>
-          )}
+          {isAdmin &&
+            eventStatus !== 'completed' &&
+            displayEditBtnOrValidateBtn()}
         </div>
       </div>
       <div
@@ -95,7 +138,6 @@ function EventPageInfos({
           defaultValue={event.start_date ?? eventDate}
           updateData={updateEventData}
           mutateKey="date"
-          mutateOnBlur={updateEventFn}
           label="Date"
           disabled={!isEditActive}
         />
@@ -107,9 +149,6 @@ function EventPageInfos({
           updateState={updateStartTime}
           defaultValues={event.start_time ?? startTime}
           date={eventDate}
-          updateData={updateEventData}
-          mutateKey="date"
-          mutateOnBlur={updateEventFn}
           disabled={!isEditActive}
         >
           <CalendarClock />
@@ -118,9 +157,7 @@ function EventPageInfos({
           name="duration"
           label="Duration"
           updateState={updateDuration}
-          updateData={updateEventData}
           mutateKey="duration"
-          mutateOnBlur={updateEventFn}
           options={OPTION_DURATION}
           defaultValue={event.duration ?? eventDuration}
           disabled={!isEditActive}
@@ -132,10 +169,7 @@ function EventPageInfos({
           label="Location"
           type="text"
           updateState={updateLocation}
-          mutateOnBlur={updateEventFn}
           disabled={!isEditActive}
-          updateData={updateEventData}
-          mutateKey="location"
           defaultValue={event.location ?? eventlocation}
         >
           <Globe />
@@ -146,9 +180,7 @@ function EventPageInfos({
           updateState={updateRequiredParticipants}
           options={OPTION_FORMAT}
           defaultValue={event.required_participants ?? requiredParticipants}
-          mutateOnBlur={updateEventFn}
           disabled={!isEditActive}
-          updateData={updateEventData}
           mutateKey="required_participants"
         >
           <Users />

@@ -1,7 +1,5 @@
 import { CalendarClock, History, Home } from 'lucide-react';
 import Calendar from '../../assets/icon/Calendar';
-import Chat from '../../assets/icon/Chat';
-import Users from '../../assets/icon/Users';
 import NavMobileLink from '../nav-link';
 import Profile from '../../assets/icon/Profile';
 import Friends from '../../assets/icon/Friends';
@@ -33,7 +31,7 @@ function MobileNav({ menuIsOpen }: { menuIsOpen: boolean }) {
         <NavMobileLink to="/events/incoming" value="Incoming Events">
           <CalendarClock size={20} />
         </NavMobileLink>
-        <NavMobileLink to="/" value="Past Events">
+        <NavMobileLink to="/events/past" value="Past Events">
           <History size={20} />
         </NavMobileLink>
         {/* <NavMobileLink to="/chat" value="Chat">

@@ -13,6 +13,8 @@ interface EventListProps {
   loading?: boolean;
   triggerNextPage?: () => void;
   hasMore?: boolean;
+  legendHeader?: string;
+  noHeader?: boolean;
 }
 
 function EventList({
@@ -24,6 +26,8 @@ function EventList({
   triggerNextPage,
   loading,
   hasMore,
+  legendHeader,
+  noHeader,
 }: EventListProps) {
   const nbEvent: number | undefined = nbEventToDisplay
     ? nbEventToDisplay
@@ -33,11 +37,14 @@ function EventList({
 
   return (
     <div className="flex flex-col w-full justify-center items-center">
-      <HeaderEventList
-        title={title}
-        linkTo={linkTo}
-        linkOff={isEventsEmpty ? true : linkOff}
-      />
+      {!noHeader && (
+        <HeaderEventList
+          title={title}
+          linkTo={linkTo}
+          legendHeader={legendHeader}
+          linkOff={isEventsEmpty ? true : linkOff}
+        />
+      )}
       {isEventsEmpty && (
         <div className="w-full text-center italic text-xs py-4 text-light">
           No event found.

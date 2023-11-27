@@ -48,12 +48,25 @@ export default {
     // only the organize can update the event
     deleteDecodedKey(req.body);
     const { event_id, profile_id, ...data } = req.body;
-
     const event = await Event.findByPk(event_id);
+    const possibleFieldsUpdated = [
+      'date',
+      'duration',
+      'location',
+      'required_participants',
+      'status_name',
+    ];
+
     if (!event || event.organizer_id !== profile_id)
       throw new AuthorizationError('Operation not allowed');
 
+    const dataHasChange = possibleFieldsUpdated.some((field) => {
+      return data[field] !== event[field];
+    });
+
+    if (!dataHasChange) return res.status(201).json({ message: 'Nothing to update' });
     const isUpdated = await Event.update(event_id, data);
+
     notifyEventInfosHasBeenUpdated(event_id);
 
     res.status(204).json({ success: isUpdated });

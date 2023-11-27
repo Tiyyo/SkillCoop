@@ -45,7 +45,7 @@ function Participant({
     if (profileId === userProfileId) return;
     setIsChecked(activeId === name + profileId?.toString());
   }, [activeId, name, profileId]);
-  console.log('How many participant');
+
   return (
     <label htmlFor={name + profileId?.toString()} className="whitespace-normal">
       <input
@@ -58,7 +58,7 @@ function Participant({
       {status !== 'declined' && (
         <div
           className={cn(
-            `flex flex-col items-center justify-centerp-1 gap-1
+            `flex flex-col items-center justify-center py-4 gap-1
             flex-shrink-0 min-w-[160px] min-h-[130px]`,
             isChecked && 'bg-primary-500',
           )}

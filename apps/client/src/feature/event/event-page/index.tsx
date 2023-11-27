@@ -28,7 +28,7 @@ function EventPage() {
     if (!event) return;
     if (typeof event.participants === 'string') return;
     initEventState({
-      start_date: event.date,
+      start_date: event.date.split(' ')[0],
       duration: event.duration,
       location: event.location,
       required_participants: event.required_participants,
@@ -61,7 +61,7 @@ function EventPage() {
   }, [eventStore.user_status]);
   return (
     <div
-      className="flex flex-col lg:gap-y-4 justify-center 
+      className="flex flex-col lg:gap-y-4 lg:pt-4 justify-center 
       items-center w-full  self-center"
     >
       <Outlet />

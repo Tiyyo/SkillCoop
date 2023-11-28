@@ -31,17 +31,15 @@ function MyEvents() {
       </div>
     );
   return (
-    <div>
-      <EventList
-        events={allEvents ?? null}
-        title="My events"
-        loading={loading}
-        linkOff
-        triggerNextPage={fetchNextPage}
-        hasMore={hasNextPage}
-        legendHeader="Brief summary of the events you have organized"
-      />
-    </div>
+    <EventList
+      events={allEvents ?? null}
+      title="My events"
+      loading={loading}
+      linkOff
+      triggerNextPage={fetchNextPage}
+      hasMore={hasNextPage}
+      legendHeader="Brief summary of the events you have organized"
+    />
   );
 }
 

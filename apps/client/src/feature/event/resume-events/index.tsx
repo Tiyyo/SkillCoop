@@ -40,11 +40,13 @@ function ResumeEvents() {
             events={events.incoming}
             title="Incoming"
             linkTo="/events/incoming"
+            nbEventToDisplay={2}
             noHeader
           />
           <EventList
             events={events.past}
             title="Past"
+            legendHeader="The two latest events you have participated in"
             linkTo="/events/past"
             nbEventToDisplay={2}
           />

@@ -25,18 +25,15 @@ function PastEvents() {
   if (isError) return <div>error</div>;
 
   return (
-    <div>
-      <ReturnBtn />
-      <EventList
-        events={allEvents ?? null}
-        title="Past Events"
-        loading={loading}
-        linkOff
-        triggerNextPage={fetchNextPage}
-        hasMore={hasNextPage}
-        legendHeader="Brief summary of the events you have participated in"
-      />
-    </div>
+    <EventList
+      events={allEvents ?? null}
+      title="Past Events"
+      loading={loading}
+      linkOff
+      triggerNextPage={fetchNextPage}
+      hasMore={hasNextPage}
+      legendHeader="Brief summary of the events you have participated in"
+    />
   );
 }
 

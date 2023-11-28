@@ -41,6 +41,9 @@ export default {
           1000: 'hsla(133, 99.5%, 19.5%, 0.840)',
           1100: 'hsla(131, 99.1%, 6.3%, 0.875)',
         },
+        'primary-light': {
+          100: '#F0F8F1',
+        },
         accent: {
           300: 'rgb(160, 1, 160, 0.8)',
           700: '#850801',
@@ -63,6 +66,9 @@ export default {
         'relative-sm': '0.875em',
         'relative-md': '1em',
         'relative-lg': '1.125em',
+      },
+      borderWidth: {
+        3: '3px',
       },
       fontFamily: {
         paytone: ['Paytone One', 'sans-serif'],

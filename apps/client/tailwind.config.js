@@ -60,6 +60,9 @@ export default {
       fontSize: {
         xxs: '0.625rem',
         md: '1rem',
+        'relative-sm': '0.875em',
+        'relative-md': '1em',
+        'relative-lg': '1.125em',
       },
       fontFamily: {
         paytone: ['Paytone One', 'sans-serif'],

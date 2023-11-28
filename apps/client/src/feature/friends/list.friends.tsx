@@ -1,7 +1,6 @@
 import FriendCardSkeleton from '../../component/friend-card/skeleton';
 import FriendCard from '../../component/friend-card';
 import { Friend } from '../../types';
-import Container from '../../layout/container';
 
 interface FriendlistProps {
   friends?: Friend[];

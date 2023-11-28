@@ -4,6 +4,8 @@ import toast from '../../utils/toast';
 import associateNumberToString from '../../utils/associate-number-stringscale';
 import { useInviteFriend } from '../../hooks/useFriends';
 import Avatar from '../avatar';
+import AvatarWithBorder from '../avatar/avatar-border';
+import capitalize from '../../utils/capitalize';
 
 interface ProfileCardProps {
   avatar: string | null;
@@ -49,31 +51,32 @@ function ProfileCard({
 
   if (relation) return null;
   return (
-    <div
-      className={`flex py-2 px-3 gap-3 cursor-pointer
-       bg-base-light rounded-md border-2 border-transparent`}
-    >
-      <Avatar avatar={avatar} />
-      <div className="flex flex-col">
-        <p className="text-xs">{username}</p>
-        <div className="flex items-baseline gap-x-3">
-          <p className="text-xxs text-light">
-            {lastEvaluationRecorded
-              ? associateNumberToString(lastEvaluationRecorded)
-              : ''}
-          </p>
-          {!relation ? (
-            <div onClick={handleActionInviation}>
-              <button
-                className="text-xs mx-1 px-2 py-1 shadow-md 
+    <div>
+      <div
+        className={`flex flex-col items-center py-2 px-3 cursor-pointer
+        rounded-md  border-primary-20 min-w-[150px] w-full`}
+      >
+        <AvatarWithBorder avatar={avatar} />
+        <p className="text-relative-sm font-medium py-1">
+          {capitalize(username)}
+        </p>
+        <p>
+          <span>
+            {lastEvaluationRecorded &&
+              associateNumberToString(lastEvaluationRecorded)}
+          </span>
+          {!relation && (
+            <button
+              type="button"
+              onClick={handleActionInviation}
+              className="text-center text-xs mx-1 px-2 py-1 shadow-md 
                     rounded-md bg-primary-400 cursor-pointer hover:bg-primary-700 
                     transition-all duration-300 ease-in-out"
-              >
-                Invite
-              </button>
-            </div>
-          ) : null}
-        </div>
+            >
+              Invite
+            </button>
+          )}
+        </p>
       </div>
     </div>
   );

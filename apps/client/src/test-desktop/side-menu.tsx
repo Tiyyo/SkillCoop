@@ -11,7 +11,13 @@ function SideMenuDesktop() {
          bg-dark text-sm text-grey-regular font-medium"
     >
       <div className="flex justify-center h-fit w-full pt-6 pb-12">
-        <div className="rounded-full h-10 aspect-square bg-primary-700"></div>
+        <div className="rounded-full h-10 aspect-square ">
+          <img
+            src="/images/small-logo.png"
+            alt="logo"
+            className="h-full w-full rounded-full"
+          />
+        </div>
       </div>
       <ul className="w-full">
         <NavButtonDesktop path="/" content="Home">

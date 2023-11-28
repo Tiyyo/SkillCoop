@@ -47,10 +47,10 @@ const sseEvent = new EventSource(
   },
 );
 sseEvent.onmessage = (event) => {
-  console.log('Line 45 event argument :', event);
+  console.log('Line 45 new message :', event);
 };
 sseEvent.onerror = (event) => {
-  console.log('Line 47 event argument :', event);
+  console.log('Line 47 SSE error :', event);
   sseEvent.close();
 };
 

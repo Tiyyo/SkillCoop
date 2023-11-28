@@ -6,6 +6,7 @@ import TitleH2 from '../../component/title-h2';
 import { useApp } from '../../store/app.store';
 import { useSearchProfile } from '../../hooks/useSearchProfile';
 import { useSuggestProfile } from '../../hooks/useSuggestProfile';
+import Container from '../../layout/container';
 
 function AddFriends() {
   const { userProfile } = useApp();
@@ -26,8 +27,9 @@ function AddFriends() {
 
   return (
     <>
-      <ReturnBtn />
-      <TitleH2 value="Add new contact to your friendlist" />
+      <Container className="w-full lg:mt-4">
+        <TitleH2 title="Add new" legend="Search user by their username" />
+      </Container>
       <div className="px-4 py-2">
         <SearchInput onChange={getInputSearchValue} />
       </div>

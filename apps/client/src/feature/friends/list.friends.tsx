@@ -1,6 +1,7 @@
 import FriendCardSkeleton from '../../component/friend-card/skeleton';
 import FriendCard from '../../component/friend-card';
 import { Friend } from '../../types';
+import Container from '../../layout/container';
 
 interface FriendlistProps {
   friends?: Friend[];
@@ -38,7 +39,7 @@ function Friendlist({
           No friends found.
         </div>
       ) : (
-        <div className="grid grid-cols-2 py-8 gap-2">
+        <div className="grid grid-cols-2 py-8 gap-2 sm:flex flex-wrap justify-center">
           {friends?.map((friend) => (
             <FriendCard
               key={

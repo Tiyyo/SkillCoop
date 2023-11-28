@@ -4,6 +4,7 @@ import Badge from '../../../component/badge';
 import DateAndLocation from '../../../component/date-location';
 import Score from '../../../component/score';
 import { EventParticipant, EventStatus } from '../../../types';
+import { ArrowRight } from 'lucide-react';
 
 interface EventCardProps {
   date: string;
@@ -44,16 +45,31 @@ function EventCard({
 
   return (
     <div
-      className=" h-fit border-t bg-base-light shadow-sm lg:shadow-lg 
-          px-3 py-3 max-w-6xl w-full lg:rounded-3xl lg:my-4 lg:px-9 lg:h-56"
+      className="flex flex-col bg-base-light shadow lg:rounded-3xl w-full 
+      px-6 pb-6 pt-2 h-fit lg:my-2"
     >
-      <div className="flex justify-between pb-6 pt-2">
-        <DateAndLocation date={date} location={location} />
-        <Badge content={displayCorrectStatus(userStatus, eventStatus)} />
+      <div className="flex justify-end px-7 py-2">
+        <Badge content={displayCorrectStatus(userStatus, eventStatus)} />{' '}
       </div>
-      <div className="flex items-center justify-center">
+      <div className="flex">
         {shouldDisplayAvatars(eventStatus) && (
-          <Avatars participants={participants} nbAvatarToDisplay={3} team={1} />
+          <div className="flex gap-x-3 items-center basis-2/12">
+            <img
+              src="/images/jersey.png"
+              alt="jersey icon"
+              className=" h-8 md:h-10 lg:h-18"
+            />
+            <div className="flex-shrink-0">
+              <div className="hidden md:block lg:font-semibold">Team</div>
+              <Avatars
+                participants={participants}
+                team={1}
+                nbAvatarToDisplay={3}
+                plus={requiredParticipants / 2 - 3}
+                startSide="left"
+              />
+            </div>
+          </div>
         )}
         <Score
           eventStatus={eventStatus}
@@ -61,23 +77,39 @@ function EventCard({
           scoreTeamB={scoreTeamB}
           date={date}
           duration={duration}
+          location={location}
         />
         {shouldDisplayAvatars(eventStatus) && (
-          <Avatars
-            participants={participants}
-            team={2}
-            nbAvatarToDisplay={3}
-            startSide="right"
-          />
+          <div className="flex flex-row-reverse gap-x-3 items-center basis-2/12">
+            <img
+              src="/images/jersey.png"
+              alt="jersey icon"
+              className=" h-8 md:h-10 lg:h-18"
+            />
+            <div className="flex-shrink-0">
+              <div className="hidden md:block lg:font-semibold">Team</div>
+              <Avatars
+                participants={participants}
+                team={2}
+                nbAvatarToDisplay={3}
+                plus={requiredParticipants / 2 - 3}
+                startSide="right"
+              />
+            </div>
+          </div>
         )}
       </div>
-      <div className="flex items-end justify-between h-[25%]">
+      <div className="flex justify-between py-2">
         <div>
           {!shouldDisplayAvatars(eventStatus) && (
             <div className="flex text-xxs items-end ">
-              <Avatars participants={participants} nbAvatarToDisplay={3} />
-              <p className="relative translate-x-1">
-                <span className="font-bold">{confirmedParticipants}</span> /{' '}
+              <Avatars
+                participants={participants}
+                nbAvatarToDisplay={3}
+                plus={confirmedParticipants - 3}
+              />
+              <p className="font-light lg:text-xs relative translate-x-1">
+                <span className="font-semibold">{confirmedParticipants}</span> /{' '}
                 <span>{requiredParticipants}</span> are going
               </p>
             </div>
@@ -86,10 +118,13 @@ function EventCard({
         <Link
           to={`/event/${eventId}`}
           state={{ eventId }}
-          className="text-xxs text-light lg:text-xs hover:text-primary-700 
-              duration-300 transition-colors"
+          className="flex items-end flex-row-reverse flex-grow text-xxs text-dark 
+            lg:text-sm hover:text-primary-100 duration-300 transition-colors"
         >
-          View details
+          <span className="flex items-center gap-x-0.5">
+            Details
+            <ArrowRight size={14} className="selt-center" />
+          </span>
         </Link>
       </div>
     </div>

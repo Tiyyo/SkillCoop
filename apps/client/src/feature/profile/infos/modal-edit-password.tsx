@@ -28,7 +28,7 @@ function EditModalPassword() {
   };
   return (
     <Dialog>
-      <DialogTrigger className="text-center text-xs underline underline-offset-4 mx-auto w-full">
+      <DialogTrigger className="text-start text-xs underline underline-offset-4 mx-auto w-full">
         Edit your password
       </DialogTrigger>
       <DialogContent className="bg-base-light">

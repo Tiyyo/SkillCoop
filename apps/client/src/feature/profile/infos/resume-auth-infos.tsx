@@ -41,7 +41,10 @@ function ResumeEmailInfos({ email }: { email?: string | null }) {
   return (
     <>
       <ErrorNotification message={errorText} interval={5000} />
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col pl-36">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col pl-36 w-full xl:w-1/2"
+      >
         <div className="flex justify-between pr-3">
           <div className="w-full flex gap-x-2.5 items-center py-4 max-w-xs">
             <div className="basis-7 text-primary-100">

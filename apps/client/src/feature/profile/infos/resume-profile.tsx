@@ -3,6 +3,7 @@ import TriggerEditBtn from './trigger-edit-btn';
 import AvatarEdit from './edit-avatar';
 import FormEditProfileInfos from './form-edit-profile';
 import ResumeEmailInfos from './resume-auth-infos';
+import EditModalPassword from './modal-edit-password';
 
 export type Infos = {
   username: string | null;
@@ -41,7 +42,12 @@ function ResumeProfile({ infos }: { infos: Infos }) {
       </div>
       <div className="relative -top-24 text-end w-full self-end py-4">
         <FormEditProfileInfos shouldEditInfos={isEditing} infos={infos} />
-        <ResumeEmailInfos email={infos.email} />
+        <div className="flex xl:flex-row flex-col items-center justify-start">
+          <ResumeEmailInfos email={infos.email} />
+          <span className="flex justify-start xl:w-1/2 relative ">
+            <EditModalPassword />
+          </span>
+        </div>
       </div>
     </div>
   );

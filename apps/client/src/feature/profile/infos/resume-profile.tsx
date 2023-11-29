@@ -24,10 +24,10 @@ function ResumeProfile({ infos }: { infos: Infos }) {
   };
   return (
     <div
-      className="flex flex-col rounded-xl w-full lg:my-4 overflow-hidden bg-base-light 
+      className="flex flex-col lg:rounded-xl w-full lg:my-4 overflow-hidden bg-base-light 
     shadow h-fit"
     >
-      <div className="relative bg-primary-20 -z-0 h-24 w-full"></div>
+      <div className="relative bg-primary-20 -z-0 h-20 w-full"></div>
       <div
         className="relative  flex flex-col 
              pl-6 -top-12 z-10"
@@ -44,7 +44,7 @@ function ResumeProfile({ infos }: { infos: Infos }) {
         <FormEditProfileInfos shouldEditInfos={isEditing} infos={infos} />
         <div className="flex xl:flex-row flex-col items-center justify-start">
           <ResumeEmailInfos email={infos.email} />
-          <span className="flex justify-start xl:w-1/2 relative ">
+          <span className="flex justify-start xl:w-1/2 relative pl-24 md:pl-0">
             <EditModalPassword />
           </span>
         </div>

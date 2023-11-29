@@ -2,9 +2,8 @@ function Insta() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      height="26"
-      width="24"
       viewBox="0 0 448 512"
+      className="h-4 w-4 lg:h-6 lg:w-6"
     >
       <path
         fill="#12161f"

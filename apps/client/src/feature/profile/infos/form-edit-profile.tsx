@@ -1,4 +1,4 @@
-import { MapPin, User2 } from 'lucide-react';
+import { Calendar, MapPin, User2 } from 'lucide-react';
 import FormField from '../../../component/form-field';
 import capitalize from '../../../utils/capitalize';
 import { UseFormRegister, useForm } from 'react-hook-form';
@@ -20,7 +20,7 @@ interface FieldProps {
   label: string;
   type: string;
   name: string;
-  value: string | null;
+  value?: string | null;
   valueForm?: string | null;
   Icon?: JSX.Element;
   register: UseFormRegister<any>;
@@ -145,6 +145,7 @@ function FormEditProfileInfos({
           name="date_of_birth"
           value={getAgeString(profileInfos.age)}
           valueForm={getBirthDate(profileInfos.age)}
+          Icon={<Calendar size={18} />}
           shouldEditInfos={shouldEditInfos}
           register={register}
         />

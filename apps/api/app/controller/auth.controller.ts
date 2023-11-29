@@ -46,7 +46,6 @@ export default {
   async signin(req: Request, res: Response) {
     const { email, password } = req.body;
     const MAX_AGE = 1000 * 60 * 60 * 24 * 7; // 7 days
-
     try {
       const { accessToken, refreshToken } = await authService.login({
         email,

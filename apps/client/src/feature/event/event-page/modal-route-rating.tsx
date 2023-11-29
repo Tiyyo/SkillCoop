@@ -183,9 +183,7 @@ duration-300 transition-color"
                     type="submit"
                     variant="light"
                     textContent="Send evaluation"
-                  >
-                    Send evaluation
-                  </Button>
+                  />
                 </form>
               )}
             </>

@@ -29,7 +29,7 @@ function FriendProfile() {
   //TODO: add win rate
   return (
     <>
-      <div className="rounded-xl w-full my-4 overflow-hidden bg-base-light shadow">
+      <div className="lg:rounded-xl w-full lg:my-4 overflow-hidden bg-base-light shadow">
         <div className="relative -z-0 h-56 w-full">
           <img
             src="/images/stadium.png"

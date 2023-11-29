@@ -1,6 +1,5 @@
 import { getOrganizeEventFn } from '../../../api/api.fn';
 import { useApp } from '../../../store/app.store';
-import ReturnBtn from '../../../component/return';
 import EventList from '../resume-events/list';
 import { EventType } from '../../../types';
 import useInfinite from '../../../hooks/useInfinite';
@@ -38,7 +37,7 @@ function MyEvents() {
       linkOff
       triggerNextPage={fetchNextPage}
       hasMore={hasNextPage}
-      legendHeader="Brief summary of the events you have organized"
+      legendHeader="All events where you have ownership rights"
     />
   );
 }

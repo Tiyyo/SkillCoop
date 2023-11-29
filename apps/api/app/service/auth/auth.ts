@@ -40,7 +40,7 @@ export default {
         email,
         password: hashedPassword,
       });
-
+      console.log(newUser);
       return newUser;
     } catch (error) {
       if (error instanceof Error) {
@@ -69,6 +69,7 @@ export default {
       });
       throw new UserInputError('Email not verified');
     }
+
     const userInfos = { user_id: user.id, email: user.email };
     const { accessToken, refreshToken } = tokenHandler.createPairAuthToken(userInfos);
     return { accessToken, refreshToken };

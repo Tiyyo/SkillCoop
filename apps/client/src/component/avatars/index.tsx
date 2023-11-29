@@ -15,6 +15,7 @@ function Avatars({
   startSide,
   plus,
 }: AvatarsProps) {
+  console.log(plus);
   return (
     <div className={`h-fit ${startSide === 'right' ? 'flex-row-reverse' : ''}`}>
       <div className="flex mb-5 -space-x-3">
@@ -39,17 +40,17 @@ function Avatars({
               alt="avatar participant"
             />
           ))}
-        {plus && plus > 0 && (
+        {plus && plus > 0 ? (
           <div
             className=" flex justify-center items-center w-7 md:w-9 lg:w-10
           aspect-square bg-primary-100 
           border-3 border-base-light overflow-hidden rounded-full"
           >
             <span className="text-base-light text-xxs lg:font-semibold">
-              {plus}+
+              {Number(plus) > 0 && `${plus}+`}
             </span>
           </div>
-        )}
+        ) : null}
       </div>
     </div>
   );

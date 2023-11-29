@@ -13,7 +13,7 @@ import ErrorNotification from '../../component/error/notification';
 function ForgotPassword() {
   const [hasBeenSent, setHasBeenSent] = useState(false);
   const [error, setError] = useState('');
-  const { mutate, isLoading } = useMutation({
+  const { mutate: sendEmailWithResetLink, isLoading } = useMutation({
     mutationFn: async (email: string) => {
       return forgotPasswordFn(email);
     },
@@ -33,7 +33,7 @@ function ForgotPassword() {
     const isValid = emailSchema.safeParse(data);
     if (!isValid.success) setError('This is not a valid email');
     if (isValid.success) {
-      mutate(data.email);
+      sendEmailWithResetLink(data.email);
     }
   };
   return (

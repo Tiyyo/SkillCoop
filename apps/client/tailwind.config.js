@@ -9,12 +9,29 @@ export default {
     extend: {
       height: {
         10.5: '42px',
+        18: '72px',
+        18.5: '76px',
+      },
+      width: {
+        18: '72px',
+        18.5: '76px',
       },
       colors: {
+        dark: '#12161F',
         'base-light': 'hsl(110, 20.0%, 99.0%)',
         base: 'hsl(120, 16.7%, 97.6%)',
+        grey: {
+          regular: '#B6B7BA',
+          off: '#F6F6F6',
+          light: '#D9D9D9',
+          constrast: ' #F8FBFF',
+          'sub-text': '#717379',
+        },
         primary: {
+          100: 'hsla(131, 42%, 46%, 1)',
+          20: 'hsla(131, 42%, 46%, 0.2)',
           200: 'hsla(120, 98.0%, 35.5%, 0.079)',
+          210: 'hsla(120, 98.0%, 35.5%, 0.03)',
           300: 'hsla(120, 98.7%, 31.5%, 0.126)',
           400: 'hsla(122, 98.5%, 29.9%, 0.193)',
           500: 'hsla(125, 99.2%, 27.9%, 0.283)',
@@ -24,6 +41,9 @@ export default {
           900: 'hsla(132, 99.9%, 24.0%, 0.761)',
           1000: 'hsla(133, 99.5%, 19.5%, 0.840)',
           1100: 'hsla(131, 99.1%, 6.3%, 0.875)',
+        },
+        'primary-light': {
+          100: '#F0F8F1',
         },
         accent: {
           300: 'rgb(160, 1, 160, 0.8)',
@@ -40,10 +60,22 @@ export default {
         button: `linear-gradient(90deg, rgba(12,159,21,1) 6%, rgba(46,198,120,1) 
           53%, rgba(17,163,110,1) 94%)`,
         box: 'radial-gradient(circle, rgba(248,250,248,1) 24%, rgba(237,241,237,1) 100%)',
+        stadium: "url('/images/stadium-showcase.jpg')",
+        home: "url('/images/stadium.png')",
+      },
+      aspectRatio: {
+        '1/4': '1/4',
+        '4/1': '4/1',
       },
       fontSize: {
         xxs: '0.625rem',
         md: '1rem',
+        'relative-sm': '0.875em',
+        'relative-md': '1em',
+        'relative-lg': '1.125em',
+      },
+      borderWidth: {
+        3: '3px',
       },
       fontFamily: {
         paytone: ['Paytone One', 'sans-serif'],

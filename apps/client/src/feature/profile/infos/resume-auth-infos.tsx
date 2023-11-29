@@ -13,7 +13,7 @@ import Button from '../../../component/button';
 import { useUpdateEmail } from '../../../hooks/useProfile';
 import { UpdateEmail } from '../../../types';
 
-function ResumeAuthInfos({ email }: { email?: string | null }) {
+function ResumeEmailInfos({ email }: { email?: string | null }) {
   const { userProfile } = useApp();
   const [currentEmail, setCurrentEmail] = useState(email);
   const [errorText, setErrorText] = useState('');
@@ -39,40 +39,51 @@ function ResumeAuthInfos({ email }: { email?: string | null }) {
   };
 
   return (
-    <Container className="relative pt-10">
+    <>
       <ErrorNotification message={errorText} interval={5000} />
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
-        <input
-          type="hidden"
-          value={userProfile?.user_id}
-          {...register('user_id')}
-        />
-        <TriggerEditBtn
-          getCurrentState={getEditState}
-          className="absolute top-3 right-3"
-        />
-        <FormField
-          type="email"
-          label="Email"
-          name="email"
-          defaultValue={currentEmail ?? ''}
-          disabled={!editActiveState}
-          register={register}
-        >
-          <SendIcon size={18} />
-        </FormField>
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col pl-36">
+        <div className="flex justify-between pr-3">
+          <div className="w-full flex gap-x-2.5 items-center py-4 max-w-xs">
+            <div className="basis-7 text-primary-100">
+              <SendIcon size={18} />
+            </div>
+            <div className="flex flex-col gap-y-1 flex-grow">
+              <label
+                htmlFor="email"
+                className="block h-4 ml-2 text-xs text-start font-medium text-grey-sub-text"
+              >
+                Email
+              </label>
+              <FormField
+                type="email"
+                name="email"
+                defaultValue={currentEmail ?? ''}
+                disabled={!editActiveState}
+                register={register}
+              />
+            </div>
+          </div>
+          <input
+            type="hidden"
+            value={userProfile?.user_id}
+            {...register('user_id')}
+          />
+          <TriggerEditBtn
+            getCurrentState={getEditState}
+            className="self-start py-3"
+          />
+        </div>
         {editActiveState && (
           <Button
             type="submit"
             isLoading={isLoading}
             variant="light"
-            textContent="Edit informations"
+            textContent="Edit Email"
           />
         )}
       </form>
-      <EditModalPassword />
-    </Container>
+    </>
   );
 }
 
-export default ResumeAuthInfos;
+export default ResumeEmailInfos;

@@ -25,7 +25,7 @@ export default {
     // convert duration to milliseconds
     const endingDateTimestamp = new Date(
       eventDate.getTime() +
-        durationInMin * SECONDS_IN_MINUTE * MILLISECONDS_IN_SECOND,
+      durationInMin * SECONDS_IN_MINUTE * MILLISECONDS_IN_SECOND,
     );
     const endingHoursAndMin = endingDateTimestamp.toLocaleString('en-US', {
       hour: 'numeric',
@@ -47,12 +47,15 @@ export default {
     const dateToCompare = new Date(date);
     return dateToCompare > today;
   },
-  getAgeFromDate(date: string) {
+  getAgeFromDate(date: string | null) {
+    if (!date) return null;
+    if (typeof date !== 'string') return null;
     const birthday = new Date(date);
     const today = new Date();
     const ageDecimal =
       (today.getTime() - birthday.getTime()) / (1000 * 60 * 60 * 24 * 365);
     const age = Math.floor(ageDecimal);
+    if (isNaN(age)) return;
     return `${age} yo`;
   },
 };

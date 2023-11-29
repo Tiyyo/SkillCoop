@@ -5,7 +5,7 @@ import DatabaseError from '../helpers/errors/database.error';
 import getDateUTC from '../utils/get-date-utc';
 // import { DBClientType } from '../@types/types.database';
 
-export class Event extends Core {
+export class EventModel extends Core {
   tableName: string = 'event';
   //@ts-ignore
   constructor(client) {
@@ -56,9 +56,7 @@ WHERE event.id = ${eventId}
       const parsedResult = result.rows.map((event: EventType) => {
         return {
           ...event,
-          participants:
-            typeof event.participants === 'string' &&
-            JSON.parse(event.participants),
+          participants: typeof event.participants === 'string' && JSON.parse(event.participants),
         };
       });
       return parsedResult[0];
@@ -118,9 +116,7 @@ ORDER BY date DESC
       const parsedResult = result.rows.map((event: EventType) => {
         return {
           ...event,
-          participants:
-            typeof event.participants === 'string' &&
-            JSON.parse(event.participants),
+          participants: typeof event.participants === 'string' && JSON.parse(event.participants),
         };
       });
 
@@ -187,9 +183,7 @@ WHERE event.organizer_id = ${profileId}
       const parsedResult = result.rows.map((event: EventType) => {
         return {
           ...event,
-          participants:
-            typeof event.participants === 'string' &&
-            JSON.parse(event.participants),
+          participants: typeof event.participants === 'string' && JSON.parse(event.participants),
         };
       });
       return { events: parsedResult, eventCount: count.rows[0].total_event };
@@ -266,9 +260,7 @@ AND event.date < date('now')
     const parsedResult = result.rows.map((event: EventType) => {
       return {
         ...event,
-        participants:
-          typeof event.participants === 'string' &&
-          JSON.parse(event.participants),
+        participants: typeof event.participants === 'string' && JSON.parse(event.participants),
       };
     });
     return { events: parsedResult, eventCount: count.rows[0].total_event };
@@ -336,6 +328,27 @@ WHERE id = ${eventId}
       return !!result.numAffectedRows;
     } catch (error) {
       throw new DatabaseError(error);
+    }
+  }
+  async getSubscribers(eventId: number): Promise<number[] | undefined> {
+    try {
+      const result = await sql<{ profile_ids: string }>`
+SELECT
+  (json_group_array(participant.profile_id)) AS profile_ids
+FROM event
+INNER JOIN profile_on_event AS participant ON event.id = participant.event_id
+INNER JOIN profile ON participant.profile_id = profile.id
+WHERE participant.event_id = ${eventId}
+AND profile.id <> event.organizer_id
+AND (participant.status_name = 'confirmed' 
+OR (profile.active_notification = 1 AND participant.status_name = 'pending'))
+GROUP BY participant.event_id`.execute(this.client);
+      const parsedJson: number[] = JSON.parse(result.rows[0].profile_ids);
+      return parsedJson;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new DatabaseError(error);
+      }
     }
   }
 }

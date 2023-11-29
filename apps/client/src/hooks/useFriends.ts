@@ -7,7 +7,6 @@ import {
   sendFriendRequestFn,
 } from '../api/api.fn';
 import { CreateFriendsInvitation, UpdateFriendsInvitation } from '../types';
-import { AxiosResponse } from 'axios';
 
 const keys = {
   getFriends: ['confirmed-friends'],
@@ -79,7 +78,11 @@ export function useInviteFriend(options: {
 }
 
 export function useFriendInvitationActions(options: {
-  onSuccess?: (response: AxiosResponse) => void;
+  onSuccess?: (response: {
+    status: string;
+    success: true;
+    username: string;
+  }) => void;
   onError?: () => void;
 }) {
   const queryClient = useQueryClient();

@@ -117,12 +117,26 @@ async function computeRatingUser(profileId: number) {
       WHERE mvp_id = ${profileId}
       `.execute(db);
 
+  // const nbMvpQuery_builder = await db
+  //   .selectFrom('event')
+  //   .select(({ fn }) => ['event.id', fn.count('event.mvp_id').as('nb_mvp')])
+  //   .where('event.mvp_id', '=', profileId)
+  //   .groupBy('event.id')
+  //   .execute();
+
   const nbBestStrikerQuery = sql<{ nb_best_striker: number }>`
        SELECT 
         COUNT (*) AS nb_best_striker
       FROM event  
       WHERE best_striker_id = ${profileId}   
       `.execute(db);
+
+  // const nbBestStrikerQuery_builder = await db
+  //   .selectFrom('event')
+  //   .select(({ fn }) => ['event.id', fn.count('event.best_striker_id').as('nb_best_striker')])
+  //   .where('event.best_striker_id', '=', profileId)
+  //   .groupBy('event.id')
+  //   .execute();
 
   const userOwnEvalQuery = sql<Eval | undefined>`
       SELECT 
@@ -135,6 +149,13 @@ async function computeRatingUser(profileId: number) {
       WHERE rater_id  =  ${profileId}
       AND reviewee_id =  ${profileId}   
     `.execute(db);
+
+  // const userOwnEvalQuery_builder = await db
+  //   .selectFrom('skill_foot')
+  //   .select(['pace', 'dribbling', 'defending', 'passing', 'shooting'])
+  //   .where('rater_id', '=', profileId)
+  //   .where('reviewee_id', '=', profileId)
+  //   .execute();
 
   const avgEvalsReceivedQuery = sql<AvgEval>`
       SELECT 
@@ -155,18 +176,12 @@ async function computeRatingUser(profileId: number) {
     nbBestStrikerQueryResult,
     userOwnEvalQueryResult,
     avgEvalsReceivedQueryResult,
-  ] = await Promise.all([
-    nbMvpQuery,
-    nbBestStrikerQuery,
-    userOwnEvalQuery,
-    avgEvalsReceivedQuery,
-  ]);
+  ] = await Promise.all([nbMvpQuery, nbBestStrikerQuery, userOwnEvalQuery, avgEvalsReceivedQuery]);
 
   const WEIGHT_OWN_EVAL = 7;
   const VALUE_BONUS = 100;
   const NB_MVP = nbMvpQueryResult.rows[0].nb_mvp;
-  const NB_EVAL_RECEIVED =
-    avgEvalsReceivedQueryResult.rows[0]?.nb_eval_received ?? 0;
+  const NB_EVAL_RECEIVED = avgEvalsReceivedQueryResult.rows[0]?.nb_eval_received ?? 0;
   const NB_STRIKER = nbBestStrikerQueryResult.rows[0].nb_best_striker;
   const avgEvalReceived = avgEvalsReceivedQueryResult.rows[0];
   const userOwnEval = userOwnEvalQueryResult.rows[0];
@@ -185,20 +200,16 @@ async function computeRatingUser(profileId: number) {
 
     if (!userHasEvaluateHimself && !userHasBeenEvaluated) return 0;
     // Numerator
-    const userEvalNumerator =
-      (userHasEvaluateHimself && userEval * WEIGHT_OWN_EVAL) || 0;
+    const userEvalNumerator = (userHasEvaluateHimself && userEval * WEIGHT_OWN_EVAL) || 0;
     const receivedEvalNumerator = (userHasBeenEvaluated && avgEvals) || 0;
     const bonusNumerator = (userHaveBonus && valueBonus * nbBonus) || 0;
-    const numerator =
-      userEvalNumerator + receivedEvalNumerator + bonusNumerator;
+    const numerator = userEvalNumerator + receivedEvalNumerator + bonusNumerator;
 
     // Denominator
     const userEvalDenomiator = (userHasEvaluateHimself && WEIGHT_OWN_EVAL) || 0;
-    const receivedEvalDenominator =
-      (userHasBeenEvaluated && NB_EVAL_RECEIVED) || 0;
+    const receivedEvalDenominator = (userHasBeenEvaluated && NB_EVAL_RECEIVED) || 0;
     const bonusDenominator = (userHaveBonus && nbBonus) || 0;
-    const denominator =
-      userEvalDenomiator + receivedEvalDenominator + bonusDenominator;
+    const denominator = userEvalDenomiator + receivedEvalDenominator + bonusDenominator;
 
     const result = numerator / denominator;
     return Math.floor(result);
@@ -206,18 +217,9 @@ async function computeRatingUser(profileId: number) {
 
   const avg_skills = {
     avg_pace: avgIndividualSkill(userOwnEval?.pace, avgEvalReceived?.pace),
-    avg_defending: avgIndividualSkill(
-      userOwnEval?.defending,
-      avgEvalReceived?.defending,
-    ),
-    avg_passing: avgIndividualSkill(
-      userOwnEval?.passing,
-      avgEvalReceived?.passing,
-    ),
-    avg_dribbling: avgIndividualSkill(
-      userOwnEval?.dribbling,
-      avgEvalReceived?.dribbling,
-    ),
+    avg_defending: avgIndividualSkill(userOwnEval?.defending, avgEvalReceived?.defending),
+    avg_passing: avgIndividualSkill(userOwnEval?.passing, avgEvalReceived?.passing),
+    avg_dribbling: avgIndividualSkill(userOwnEval?.dribbling, avgEvalReceived?.dribbling),
     avg_shooting: avgIndividualSkill(
       userOwnEval?.shooting,
       avgEvalReceived?.shooting,
@@ -229,7 +231,7 @@ async function computeRatingUser(profileId: number) {
   const gbRatingBeforeBonus = computeGbRating(avg_skills);
   const gbRating = Math.floor(
     (gbRatingBeforeBonus * WEIGHT_OWN_EVAL + NB_EVAL_RECEIVED + 100 * NB_MVP) /
-      (WEIGHT_OWN_EVAL + NB_EVAL_RECEIVED + NB_MVP),
+    (WEIGHT_OWN_EVAL + NB_EVAL_RECEIVED + NB_MVP),
   );
   const profileSkills = {
     ...avg_skills,

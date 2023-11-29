@@ -2,12 +2,19 @@ import { useApp } from '../../../store/app.store';
 import DeleteUser from './delete-user';
 import ResumeProfile from './resume-profile';
 import ResumeAuthInfos from './resume-auth-infos';
+import SubHeader from '../../../component/header/sub-header';
 
 function ProfileInfos() {
   const { userProfile } = useApp();
 
   return (
     <>
+      <SubHeader
+        title="Profile"
+        isPlusExist={false}
+        legend="You can update all 
+        your profile informations here"
+      />
       <ResumeProfile
         infos={{
           profileId: userProfile?.profile_id,
@@ -17,9 +24,10 @@ function ProfileInfos() {
           lastname: userProfile?.last_name ?? null,
           age: userProfile?.date_of_birth ?? null,
           location: userProfile?.location ?? null,
+          email: userProfile?.email ?? null,
         }}
       />
-      <ResumeAuthInfos email={userProfile?.email} />
+      {/* <ResumeAuthInfos email={userProfile?.email} /> */}
       <DeleteUser />
     </>
   );

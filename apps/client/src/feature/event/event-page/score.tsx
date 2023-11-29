@@ -8,6 +8,8 @@ import {
   useUpdateSingleEvent,
 } from '../../../hooks/useSingleEvent';
 import toast from '../../../utils/toast';
+import Container from '../../../layout/container';
+import TitleH2 from '../../../component/title-h2';
 
 interface EventPageScoreProps {
   eventId: number;
@@ -68,50 +70,54 @@ function EventPageScore({
   if (whichEventStatus === 'cancelled') return null;
   if (whichEventStatus === 'open') return null;
   return (
-    <form
-      className={`bg-base-light mx-2 rounded-md 
-      shadow py-4 px-3 flex flex-col items-center justify-between w-full`}
-      onSubmit={handleSubmitScore}
-    >
-      <p className="text-xs lg:text-lg mb-4">Final Score</p>
-      <div>
-        <label htmlFor="score_team_1" className="px-3 text-xs">
-          Team A
-        </label>
-        <input
-          type="text"
-          inputMode="numeric"
-          name="score_team_1"
-          className={`bg-primary-200 h-14 lg:h-20 w-10 lg:w-14 rounded-md shadow-inner 
+    <Container className="flex flex-col min-w-[320px]">
+      <TitleH2 title="Final Score" />
+      {/* "bg-base-light mx-2 rounded-md py-4 px-3 flex flex-col items-center
+      justify-between w-full" */}
+      <form
+        className={`bg-base-light mx-2 rounded-md 
+       py-4 px-3 flex flex-col items-center justify-between w-full`}
+        onSubmit={handleSubmitScore}
+      >
+        <div>
+          <label htmlFor="score_team_1" className="px-3 text-xs">
+            Team A
+          </label>
+          <input
+            type="text"
+            inputMode="numeric"
+            name="score_team_1"
+            className={`bg-primary-200 h-14 lg:h-20 w-10 lg:w-12 rounded-md shadow-inner 
           border border-gray-950 border-opacity-40 text-primary-1100 
           font-semibold text-center text-2xl lg:text-3xl`}
-          disabled={!isAdmin || whichEventStatus !== 'full'}
-          defaultValue={scoreTeam1 ?? ''}
-        />
-        <span className="font-semibold mx-2">-</span>
-        <input
-          type="text"
-          inputMode="numeric"
-          name="score_team_2"
-          className={`bg-primary-200 h-14 w-10 lg:h-20 lg:w-14 rounded-md shadow-inner 
+            disabled={!isAdmin || whichEventStatus !== 'full'}
+            defaultValue={scoreTeam1 ?? ''}
+          />
+          <span className="font-semibold mx-2">-</span>
+          <input
+            type="text"
+            inputMode="numeric"
+            name="score_team_2"
+            className={`bg-primary-200 h-14 w-10 lg:h-20 lg:w-12 rounded-md shadow-inner 
           border border-gray-950 border-opacity-40 text-primary-1100 
           font-semibold text-center text-2xl lg:text-3xl`}
-          disabled={!isAdmin || whichEventStatus !== 'full'}
-          defaultValue={scoreTeam2 ?? ''}
-        />
-        <label htmlFor="score_team_2" className="px-3 text-xs">
-          Team B
-        </label>
-      </div>
-      {whichEventStatus === 'full' && isAdmin && (
-        <Button
-          type="submit"
-          className="py-1 mt-8 w-20"
-          isLoading={isLoading}
-          textContent="SAVE"
-        />
-      )}
-    </form>
+            disabled={!isAdmin || whichEventStatus !== 'full'}
+            defaultValue={scoreTeam2 ?? ''}
+          />
+          <label htmlFor="score_team_2" className="px-3 text-xs">
+            Team B
+          </label>
+        </div>
+        {whichEventStatus === 'full' && isAdmin && (
+          <Button
+            type="submit"
+            className="py-1 mt-8 w-20"
+            isLoading={isLoading}
+            textContent="SAVE"
+          />
+        )}
+      </form>
+    </Container>
   );
 }
 

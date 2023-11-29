@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import Return from '../../assets/icon/Return';
+import { ChevronsLeft } from 'lucide-react';
 
 interface ReturnBtnProps {
   to?: string;
@@ -16,8 +16,15 @@ function ReturnBtn({ to }: ReturnBtnProps) {
     navigate(destination);
   };
   return (
-    <button onClick={handleClickReturn} className="py-2 px-3 text-light">
-      <Return />
+    <button
+      onClick={handleClickReturn}
+      type="button"
+      className=" hidden absolute top-16 left-4 lg:my-0 lg:mx-0 lg:flex justify-center 
+            items-center lg:-left-5 lg:top-16 
+            lg:h-10 lg:w-10 w-8 h-8 bg-dark border
+           border-grey-off border-opacity-40 rounded-full cursor-pointer"
+    >
+      <ChevronsLeft size={24} className="text-grey-off opacity-80" />
     </button>
   );
 }

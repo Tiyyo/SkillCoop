@@ -1,7 +1,7 @@
 import { db } from '../helpers/client.db';
 
 import { User } from './user';
-import { Event } from './event';
+import { EventModel } from './event';
 import { Friendlist } from './friendslist';
 import { Image } from './image';
 import { Profile } from './profile';
@@ -12,9 +12,10 @@ import { Status } from './status';
 import { Score } from './score';
 import { Mvp } from './mvp';
 import { BestStriker } from './best-striker';
+import { Notification } from './notification';
 
 export const user = new User(db);
-export const event = new Event(db);
+export const event = new EventModel(db);
 export const friendslist = new Friendlist(db);
 export const image = new Image(db);
 export const profile = new Profile(db);
@@ -25,3 +26,4 @@ export const status = new Status(db);
 export const score = new Score(db);
 export const mvp = new Mvp(db);
 export const bestStriker = new BestStriker(db);
+export const notification = new Notification(db);

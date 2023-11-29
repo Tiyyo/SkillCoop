@@ -1,6 +1,12 @@
-function TitleH2({ value }: { value: string }) {
+function TitleH2({ title, legend }: { title?: string; legend?: string }) {
   return (
-    <h2 className="text-md px-4 py-2 font-bold text-primary-1000">{value}</h2>
+    <div className="flex h-14 gap-4 w-fit">
+      <div className="min-w-[6px] w-1.5 bg-primary-100 rounded-full"></div>
+      <div className="flex flex-col justify-evenly">
+        <h2 className="font-semibold text-sm lg:text-lg">{title}</h2>
+        <legend className="text-xs font-normal">{legend}</legend>
+      </div>
+    </div>
   );
 }
 

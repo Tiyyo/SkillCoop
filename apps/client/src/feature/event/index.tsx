@@ -5,7 +5,7 @@ import Header from '../../component/header';
 function HomePageEvent() {
   return (
     <Page>
-      <Header title="Events" isPlusExist={true} linkFromPlus="/new-event" />
+      <Header />
       <Outlet />
     </Page>
   );

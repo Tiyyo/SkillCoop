@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import Container from '../../../layout/container';
 import TriggerEditBtn from './trigger-edit-btn';
 import AvatarEdit from './edit-avatar';
 import FormEditProfileInfos from './form-edit-profile';
+import ResumeEmailInfos from './resume-auth-infos';
 
 export type Infos = {
   username: string | null;
@@ -12,6 +12,7 @@ export type Infos = {
   age: string | null;
   location: string | null;
   profileId?: number;
+  email?: string | null;
 };
 
 function ResumeProfile({ infos }: { infos: Infos }) {
@@ -21,16 +22,28 @@ function ResumeProfile({ infos }: { infos: Infos }) {
     setIsEditing(!state);
   };
   return (
-    <Container className="relative">
-      <TriggerEditBtn
-        className="absolute top-3 right-3"
-        getCurrentState={getEditState}
-      />
-      <div className="flex items-start gap-4 py-8">
-        <AvatarEdit avatar={infos.avatar} />
-        <FormEditProfileInfos shouldEditInfos={isEditing} infos={infos} />
+    <div
+      className="flex flex-col rounded-xl w-full lg:my-4 overflow-hidden bg-base-light 
+    shadow h-fit"
+    >
+      <div className="relative bg-primary-20 -z-0 h-24 w-full"></div>
+      <div
+        className="relative  flex flex-col 
+             pl-6 -top-12 z-10"
+      >
+        <div className="flex items-center gap-x-5">
+          <AvatarEdit avatar={infos.avatar} />
+          <TriggerEditBtn
+            className="absolute top-3 right-3"
+            getCurrentState={getEditState}
+          />
+        </div>
       </div>
-    </Container>
+      <div className="relative -top-24 text-end w-full self-end py-4">
+        <FormEditProfileInfos shouldEditInfos={isEditing} infos={infos} />
+        <ResumeEmailInfos email={infos.email} />
+      </div>
+    </div>
   );
 }
 

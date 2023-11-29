@@ -13,10 +13,10 @@ import { useApp } from '../../store/app.store';
 import { queryClient } from '../../main';
 import { useEffect } from 'react';
 
-function NavUser() {
+function NavUser({ children }: { children: JSX.Element }) {
   const navigate = useNavigate();
-  const menuItemStyle =
-    'flex gap-2 items-center hover:bg-primary-200 transition-colors duration-300 rounded-lg px-2 text-md';
+  const menuItemStyle = `'flex gap-2 items-center hover:bg-primary-200 transition-colors 
+          duration-300 rounded-lg px-2 text-md'`;
 
   const {
     mutate: logout,
@@ -43,15 +43,7 @@ function NavUser() {
   return (
     <div className="relative  flex justify-center">
       <DropdownMenu>
-        <DropdownMenuTrigger>
-          <div className="rounded-full overflow-hidden w-8 h-8 shadow-md  ">
-            <img
-              src={'/images/PlayerDefaultIcon.svg'}
-              className="rounded-full"
-              alt="user avatar"
-            />
-          </div>
-        </DropdownMenuTrigger>
+        <DropdownMenuTrigger>{children}</DropdownMenuTrigger>
         <DropdownMenuContent className="bg-base-light mx-2">
           <NavLink to="/user/profile">
             <DropdownMenuItem className={menuItemStyle}>

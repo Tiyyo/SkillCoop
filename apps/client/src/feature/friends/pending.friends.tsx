@@ -3,6 +3,7 @@ import ReturnBtn from '../../component/return';
 import TitleH2 from '../../component/title-h2';
 import { useApp } from '../../store/app.store';
 import { usePendingFriends } from '../../hooks/usePendingFriends';
+import Container from '../../layout/container';
 
 function PendingFriends() {
   const { userProfile } = useApp();
@@ -10,9 +11,11 @@ function PendingFriends() {
   const { pendingFriends, loading, isError } = usePendingFriends({ profileId });
 
   return (
-    <>
-      <ReturnBtn to="/contact" />
-      <TitleH2 value="Pending request" />
+    <Container className="w-full flex flex-col lg:mt-4">
+      <TitleH2
+        title="Pending request"
+        legend="An action is required from you"
+      />
       <Friendlist
         loading={loading}
         friends={pendingFriends}
@@ -20,7 +23,7 @@ function PendingFriends() {
         stringKey="adder_id"
         activeLinkProfile={false}
       />
-    </>
+    </Container>
   );
 }
 

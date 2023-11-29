@@ -1,13 +1,14 @@
+import { CalendarClock, History, Home } from 'lucide-react';
 import Calendar from '../../assets/icon/Calendar';
-import Chat from '../../assets/icon/Chat';
-import Users from '../../assets/icon/Users';
 import NavMobileLink from '../nav-link';
+import Profile from '../../assets/icon/Profile';
+import Friends from '../../assets/icon/Friends';
 
 function MobileNav({ menuIsOpen }: { menuIsOpen: boolean }) {
   return (
     <div
       className={`absolute z-20 bg-base-light shadow-sm rounded-b-xl  ${
-        menuIsOpen ? 'h-64' : 'h-0'
+        menuIsOpen ? 'h-fit' : 'h-0'
       } w-full transition-all duration-300`}
     >
       <ul
@@ -15,18 +16,27 @@ function MobileNav({ menuIsOpen }: { menuIsOpen: boolean }) {
           menuIsOpen ? 'opacity-100' : 'opacity-0 -translate-y-96'
         }`}
       >
-        <NavMobileLink to="/" value="Events">
-          <Calendar size="8" />
-        </NavMobileLink>
-        <NavMobileLink to="/contact" value="Friends">
-          <Users size="8" />
-        </NavMobileLink>
-        <NavMobileLink to="/chat" value="Chat">
-          <Chat size="8" />
+        <NavMobileLink to="/" value="Home">
+          <Home size={20} />
         </NavMobileLink>
         <NavMobileLink to="/user/profile" value="Profile">
-          <Users size="8" />
+          <Profile />
         </NavMobileLink>
+        <NavMobileLink to="/contact" value="Contact">
+          <Friends />
+        </NavMobileLink>
+        <NavMobileLink to="/my-event" value="My Events">
+          <Calendar />
+        </NavMobileLink>
+        <NavMobileLink to="/events/incoming" value="Upcoming Events">
+          <CalendarClock size={20} />
+        </NavMobileLink>
+        <NavMobileLink to="/events/past" value="Past Events">
+          <History size={20} />
+        </NavMobileLink>
+        {/* <NavMobileLink to="/chat" value="Chat">
+          <Chat size="8" />
+        </NavMobileLink> */}
       </ul>
     </div>
   );

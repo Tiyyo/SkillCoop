@@ -39,32 +39,20 @@ export default {
       grant_type: 'authorization_code',
     };
     try {
-      const { data } = await axios.post<GoogleOAuthToken>(
-        rootURL,
-        qs.stringify(options),
-        {
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
+      const { data } = await axios.post<GoogleOAuthToken>(rootURL, qs.stringify(options), {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
-      );
+      });
       return data;
     } catch (error) {
       if (error instanceof Error) {
-        throw new ServerError(
-          'getOAuthToken failed to get OAuth Token' + error.message,
-        );
+        throw new ServerError('getOAuthToken failed to get OAuth Token' + error.message);
       }
       return { access_token: null, id_token: null };
     }
   },
-  async getUser({
-    id_token,
-    access_token,
-  }: {
-    id_token: string;
-    access_token: string;
-  }) {
+  async getUser({ id_token, access_token }: { id_token: string; access_token: string }) {
     try {
       const { data } = await axios.get<GoogleUserResult>(
         `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=
@@ -78,9 +66,7 @@ export default {
       return data;
     } catch (error) {
       if (error instanceof Error) {
-        throw new ServerError(
-          'Error getting user informations from google' + error.message,
-        );
+        throw new ServerError('Error getting user informations from google' + error.message);
       }
       return {
         email: null,

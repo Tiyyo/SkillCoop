@@ -38,7 +38,7 @@ function Friendlist({
           No friends found.
         </div>
       ) : (
-        <div className="grid grid-cols-2 py-8 gap-2">
+        <div className="grid grid-cols-2 py-8 gap-2 sm:flex flex-wrap justify-center">
           {friends?.map((friend) => (
             <FriendCard
               key={

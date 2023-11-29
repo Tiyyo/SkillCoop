@@ -1,5 +1,7 @@
+import Container from '../../layout/container';
 import { EventParticipant } from '../../types';
 import Participant from '../participant';
+import TitleH2 from '../title-h2';
 
 interface TeamProps {
   participants: EventParticipant[] | string;
@@ -25,32 +27,38 @@ function Team({
   eventStatus = 'open',
 }: TeamProps) {
   return (
-    <>
+    <div className="lg:basis-1/2 bg-grey-off">
       {' '}
-      <h3 className="text-xs ml-4 py-6">{title}</h3>
-      <ul
-        className="flex flex-wrap lg:grid gap-2 
+      <div className="h-7 flex justify-between bg-base-light">
+        <div className="w-[45%] bg-grey-off rounded-r-xl"></div>
+        <div className="w-[45%] bg-grey-off rounded-l-xl"></div>
+      </div>
+      <Container className="shadow-none">
+        <TitleH2 title={title} />
+        <ul
+          className="flex flex-wrap lg:grid gap-2 
           lg:grid-cols-particpant-layout justify-center lg:justify-between whitespace-nowrap"
-      >
-        {/* particpants can be a string if backend failed to parsed data */}
-        {typeof participants !== 'string' &&
-          participants
-            .filter((participant) => participant.team === teamTofileter)
-            .map((participant) => (
-              <Participant
-                eventStatus={eventStatus}
-                key={participant.profile_id}
-                name={nameInput}
-                activeId={currentIdActive}
-                profileId={participant.profile_id}
-                isAdmin={participant.profile_id === organizer}
-                isMvp={participant.profile_id === mvp}
-                isBestStriker={participant.profile_id === bestStriker}
-                {...participant}
-              />
-            ))}
-      </ul>
-    </>
+        >
+          {/* particpants can be a string if backend failed to parsed data */}
+          {typeof participants !== 'string' &&
+            participants
+              .filter((participant) => participant.team === teamTofileter)
+              .map((participant) => (
+                <Participant
+                  eventStatus={eventStatus}
+                  key={participant.profile_id}
+                  name={nameInput}
+                  activeId={currentIdActive}
+                  profileId={participant.profile_id}
+                  isAdmin={participant.profile_id === organizer}
+                  isMvp={participant.profile_id === mvp}
+                  isBestStriker={participant.profile_id === bestStriker}
+                  {...participant}
+                />
+              ))}
+        </ul>
+      </Container>
+    </div>
   );
 }
 

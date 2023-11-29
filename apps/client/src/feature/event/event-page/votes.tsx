@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 import { EventParticipant } from '../../../types';
+import Container from '../../../layout/container';
+import { Info, MoveRight } from 'lucide-react';
 
 interface EventPageVotesBannerProps {
   eventId: number;
@@ -13,19 +15,22 @@ function EventPageVotesBanner({
   profileId,
 }: EventPageVotesBannerProps) {
   return (
-    <div className="bg-base-light mx-2 rounded-md shadow py-2 px-3 lg:py-4 w-full ">
-      <p className=" text-xs lg:text-md text-center font-semibold ">
+    <Container className="w-full flex items-center gap-2 p-3.5">
+      <Info size={24} className="text-primary-100 basis-7 flex-grow-0" />
+      <p className=" text-xs lg:text-sm font-normal flex-grow">
         Elections for MVP and Best Striker are now available for this event.
       </p>
-      <Link to="votes" state={{ eventId, participants, profileId }}>
-        <p
-          className="text-xs text-center py-2.5 text-primary-1000 
-          underline-offset-4 underline cursor-pointer"
-        >
-          Go to vote page
+      <Link
+        to="votes"
+        className="flex items-center gap-1 flex-grow-0"
+        state={{ eventId, participants, profileId }}
+      >
+        <p className="font-semibold text-primary-100 text-xs ">
+          View Vote Page
         </p>
+        <MoveRight size={16} className="text-primary-100" />
       </Link>
-    </div>
+    </Container>
   );
 }
 

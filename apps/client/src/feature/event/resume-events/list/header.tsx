@@ -1,19 +1,21 @@
 import { Link } from 'react-router-dom';
+import TitleH2 from '../../../../component/title-h2';
+import Container from '../../../../layout/container';
 
 function HeaderEventList({
   title,
   linkTo,
   linkOff,
+  legendHeader,
 }: {
   title: string;
   linkTo?: string;
   linkOff?: boolean;
+  legendHeader?: string;
 }) {
   return (
-    <div className="flex items-center justify-between pt-6 pb-2 px-3 lg:px-6 max-w-7xl w-full">
-      <h2 className="text-sm lg:text-lg font-semibold text-primary-1100">
-        {title}
-      </h2>
+    <Container className="w-full flex items-center justify-between lg:my-4">
+      <TitleH2 title={title} legend={legendHeader} />
       {!linkOff &&
         (linkTo ? (
           <Link to={linkTo} className="text-xs text-light">
@@ -22,7 +24,7 @@ function HeaderEventList({
         ) : (
           <div className="text-xs text-light">See more</div>
         ))}
-    </div>
+    </Container>
   );
 }
 

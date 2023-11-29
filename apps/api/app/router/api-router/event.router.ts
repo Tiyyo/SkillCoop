@@ -2,11 +2,7 @@ import express, { Router } from 'express';
 import factory from '../../middleware/wrapper-controller';
 import eventController from '../../controller/event.controller';
 import validate from '../../middleware/schema-validator';
-import {
-  createEventSchema,
-  updateEventSchema,
-  updateOrganizerSchema,
-} from 'schema';
+import { createEventSchema, updateEventSchema, updateOrganizerSchema } from 'schema';
 import { canals } from '../../@types/types';
 
 const {
@@ -34,10 +30,7 @@ router.route('/user/:profileId').get(factory(getAllByUser));
 router
   .route('/organizer')
   .get(factory(getOrganizerEvents))
-  .patch(
-    validate(updateOrganizerSchema, canals.body),
-    factory(updateOrganizer),
-  );
+  .patch(validate(updateOrganizerSchema, canals.body), factory(updateOrganizer));
 
 // query routes
 router.route('/past').get(factory(getPasts));

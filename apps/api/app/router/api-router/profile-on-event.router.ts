@@ -13,10 +13,7 @@ const router: Router = express.Router();
 
 router
   .route('/')
-  .post(
-    validate(inviteParticipantSchema, canals.body),
-    factory(sendInvitationToEvent),
-  )
+  .post(validate(inviteParticipantSchema, canals.body), factory(sendInvitationToEvent))
   .patch(validate(updateParticipantSchema, canals.body), factory(updateStatus));
 
 export default router;

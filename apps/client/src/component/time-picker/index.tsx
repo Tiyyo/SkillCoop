@@ -5,7 +5,8 @@ import {
   useId,
 } from 'react';
 import Choice from './index.choice';
-import { useMutation } from '@tanstack/react-query';
+import DisabledInputTimePicker from './disabled-input';
+import { displayOneDigitWith2Digit } from '../../utils/display-number';
 
 interface InputTimeProps extends ComponentPropsWithoutRef<'input'> {
   type: string;
@@ -14,9 +15,6 @@ interface InputTimeProps extends ComponentPropsWithoutRef<'input'> {
   children?: React.ReactNode;
   error?: boolean;
   defaultValues?: string;
-  updateData?: Record<string, string | number>;
-  mutateOnBlur?: any;
-  mutateKey?: string;
   date?: string;
   disabled?: boolean;
 }
@@ -28,20 +26,13 @@ function InputTime({
   children,
   error,
   defaultValues,
-  updateData,
-  date,
-  mutateKey,
-  mutateOnBlur,
   disabled,
   ...props
 }: InputTimeProps) {
   const idHoursComponent = useId();
   const idMinutesComponent = useId();
   const [hasError, setHasError] = useState<boolean | undefined>(error);
-  const { mutate } = useMutation((data: Record<string, string | number>) => {
-    if (!mutateOnBlur) return;
-    return mutateOnBlur(data);
-  });
+
   const [selectedTime, setSelectedTime] = useState<{
     hours: number | undefined;
     minutes: number | undefined;
@@ -52,15 +43,10 @@ function InputTime({
     miliseconds: 0.0,
   });
 
-  const displayNumberWithZeroBehind = (number: number) => {
-    return number < 10 ? `0${number}` : `${number}`;
-  };
-
-  // TODO : fix this
   const avaiableMinutesChoice = ['00', 15, 30, 45];
   const avaiableHoursChoice = new Array(24)
     .fill(0)
-    .map((_, index) => displayNumberWithZeroBehind(index));
+    .map((_, index) => displayOneDigitWith2Digit(index));
 
   useEffect(() => {
     setHasError(false);
@@ -69,107 +55,89 @@ function InputTime({
       if (updateState) {
         updateState(formatedTime);
       }
-      if (mutateOnBlur && updateData) {
-        const startDate = date?.split(' ')[0];
-        updateData[mutateKey as keyof typeof updateData] =
-          startDate + ' ' + formatedTime;
-        mutate(updateData);
-      }
     }
   }, [selectedTime]);
-
-  const defaultTime =
-    defaultValues?.split(':')[0] + ' : ' + defaultValues?.split(':')[1];
 
   useEffect(() => {
     setHasError(error);
   }, [error]);
 
   return (
-    <label
-      htmlFor={name}
-      className="block text-md font-semibold text-primary-1100 min-w-[260px] w-full"
-    >
-      <p className="py-2">{label}</p>
-      {disabled ? (
-        <div className="relative">
-          <div className="absolute top-1/2 left-2 -translate-y-1/2 text-primary-600">
-            {children}
-          </div>
-          <input
+    <div className="w-full flex gap-x-2.5 items-center py-4">
+      <div
+        className={`basis-7 ${hasError ? 'text-error' : 'text-primary-100'}`}
+      >
+        {children}
+      </div>
+      <div className="flex flex-col gap-y-1 flex-grow">
+        <label
+          htmlFor={name}
+          className="block h-4 ml-2 text-xs font-medium text-grey-sub-text"
+        >
+          {label}
+        </label>
+        {disabled ? (
+          <DisabledInputTimePicker
             name={name}
-            type="text"
-            id={name}
-            defaultValue={defaultTime}
             disabled={disabled}
-            className={`bg-base-light border border-gray-300 text-primary-1100 
-            text-xs rounded-lg block w-full h-10.5 pl-10 border-none`}
+            defaultTime={defaultValues}
           />
-        </div>
-      ) : (
-        <div className="relative">
-          <input
-            name={name}
-            id={name}
-            {...props}
-            className={`bg-base-light border text-primary-1100 text-xs rounded-lg
-           focus:ring-primary-800 focus:border-primary-800 block w-full h-10.5 pl-10`}
-          />
-          <div
-            className={`absolute top-1/2 left-2 -translate-y-1/2  ${
-              hasError ? 'text-error' : 'text-primary-600'
-            }`}
-          >
-            {children}
+        ) : (
+          <div className="relative">
+            <input
+              name={name}
+              id={name}
+              {...props}
+              className={`bg-base-light border text-primary-1100 text-xs rounded-lg
+           focus:ring-primary-800 focus:border-primary-800 block w-full h-7 pl-10`}
+            />
+            <select
+              id="hours"
+              className="absolute top-0 left-0 w-1/2 max-h-28 overflow-y-auto 
+            h-7 flex text-end pr-10 bg-transparent"
+              onChange={(e) =>
+                setSelectedTime({
+                  ...selectedTime,
+                  hours: Number(e.target.value),
+                })
+              }
+              defaultValue={
+                displayOneDigitWith2Digit(
+                  Number(defaultValues?.split(':')[0]),
+                ) ?? ''
+              }
+            >
+              {avaiableHoursChoice.map((hour) => (
+                <Choice
+                  key={hour + idHoursComponent}
+                  value={hour}
+                  variant="hours"
+                />
+              ))}
+            </select>
+            <select
+              id="minutes"
+              className="absolute top-0 right-0 w-1/2 max-h-28 h-7 pl-10 bg-transparent"
+              onChange={(e) =>
+                setSelectedTime({
+                  ...selectedTime,
+                  minutes: Number(e.target.value),
+                })
+              }
+              defaultValue={
+                displayOneDigitWith2Digit(
+                  Number(defaultValues?.split(':')[1]),
+                ) ?? ''
+              }
+            >
+              {avaiableMinutesChoice.map((minute) => (
+                <Choice key={minute + idMinutesComponent} value={minute} />
+              ))}
+            </select>
           </div>
-          <select
-            id="hours"
-            className="absolute top-0 left-0 w-1/2 max-h-28 overflow-y-auto 
-            h-10.5 flex text-end pr-10 bg-transparent"
-            onChange={(e) =>
-              setSelectedTime({
-                ...selectedTime,
-                hours: Number(e.target.value),
-              })
-            }
-            defaultValue={
-              displayNumberWithZeroBehind(
-                Number(defaultValues?.split(':')[0]),
-              ) ?? ''
-            }
-          >
-            {avaiableHoursChoice.map((hour) => (
-              <Choice
-                key={hour + idHoursComponent}
-                value={hour}
-                variant="hours"
-              />
-            ))}
-          </select>
-          <select
-            id="minutes"
-            className="absolute top-0 right-0 w-1/2 max-h-28 h-10.5 pl-10 bg-transparent"
-            onChange={(e) =>
-              setSelectedTime({
-                ...selectedTime,
-                minutes: Number(e.target.value),
-              })
-            }
-            defaultValue={
-              displayNumberWithZeroBehind(
-                Number(defaultValues?.split(':')[1]),
-              ) ?? ''
-            }
-          >
-            {avaiableMinutesChoice.map((minute) => (
-              <Choice key={minute + idMinutesComponent} value={minute} />
-            ))}
-          </select>
-        </div>
-      )}
-
-      <div></div>
-    </label>
+        )}
+      </div>
+    </div>
   );
 }
 

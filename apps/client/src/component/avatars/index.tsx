@@ -3,6 +3,7 @@ import { EventParticipant } from '../../types';
 interface AvatarsProps {
   participants: EventParticipant[];
   nbAvatarToDisplay: number;
+  plus?: number;
   team?: number;
   startSide?: 'left' | 'right';
 }
@@ -12,6 +13,7 @@ function Avatars({
   nbAvatarToDisplay,
   team,
   startSide,
+  plus,
 }: AvatarsProps) {
   return (
     <div className={`h-fit ${startSide === 'right' ? 'flex-row-reverse' : ''}`}>
@@ -27,7 +29,8 @@ function Avatars({
           .map((participant) => (
             <img
               key={participant.profile_id}
-              className="w-10 h-10 border border-primary-700 overflow-hidden rounded-full "
+              className="w-7 md:w-9 lg:w-10
+              aspect-square border-3 border-base-light overflow-hidden rounded-full"
               src={
                 participant.avatar
                   ? participant.avatar
@@ -36,6 +39,17 @@ function Avatars({
               alt="avatar participant"
             />
           ))}
+        {plus && plus > 0 && (
+          <div
+            className=" flex justify-center items-center w-7 md:w-9 lg:w-10
+          aspect-square bg-primary-100 
+          border-3 border-base-light overflow-hidden rounded-full"
+          >
+            <span className="text-base-light text-xxs lg:font-semibold">
+              {plus}+
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );

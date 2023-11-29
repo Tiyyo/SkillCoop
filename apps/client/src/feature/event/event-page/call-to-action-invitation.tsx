@@ -3,6 +3,8 @@ import { updateParticipantSchema } from 'schema/ts-schema';
 import toast from '../../../utils/toast';
 import { useEvent } from '../../../store/event.store';
 import { useUpdateParticipant } from '../../../hooks/useSingleEvent';
+import Container from '../../../layout/container';
+import LeftBorder from '../../../component/left-border';
 
 interface CallToActionInvitationProps {
   eventId?: number;
@@ -38,26 +40,35 @@ function CallToActionInvitation({
   return (
     <>
       {event.user_status === 'pending' && (
-        <div className=" text-xs text-center self-start">
-          <p>You have been invited to this event</p>
-          <p>Would you like to confirm your participation ?</p>
-          <div className="flex gap-3 justify-center py-1">
-            <button
-              value="confirmed"
-              className="py-1.5 bg-primary-700 px-2.5 rounded-md shadow-lg font-semibold"
-              onClick={handleClickInvitation}
-            >
-              Yes
-            </button>
-            <button
-              value="declined"
-              className="py-1.5 bg-white px-2.5 rounded-md shadow-md font-semibold"
-              onClick={handleClickInvitation}
-            >
-              No
-            </button>
+        <Container className="flex justify-between w-full py-2">
+          <LeftBorder />
+          <div
+            className="w-full ml-2 flex flex-col lg:flex-row 
+            items-center text-xs self-start"
+          >
+            <p className="mx-1">You have been invited to this event.</p>
+            <span>{'    '}</span>
+            <p className="mr-2">
+              Would you like to confirm your participation ?
+            </p>
+            <div className="flex gap-3 justify-center py-1">
+              <button
+                value="confirmed"
+                className="py-1.5 bg-primary-700 px-2.5 rounded-md shadow-lg font-semibold"
+                onClick={handleClickInvitation}
+              >
+                Yes
+              </button>
+              <button
+                value="declined"
+                className="py-1.5 bg-white px-2.5 rounded-md shadow-md font-semibold"
+                onClick={handleClickInvitation}
+              >
+                No
+              </button>
+            </div>
           </div>
-        </div>
+        </Container>
       )}
     </>
   );

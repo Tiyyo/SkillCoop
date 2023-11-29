@@ -10,9 +10,7 @@ const { updateEmail, updatePassword, deleteUser } = userController;
 
 const router: Router = express.Router();
 
-router
-  .route('/email')
-  .patch(validate(emailSchema, canals.body), factory(updateEmail));
+router.route('/email').patch(validate(emailSchema, canals.body), factory(updateEmail));
 
 router
   .route('/password')

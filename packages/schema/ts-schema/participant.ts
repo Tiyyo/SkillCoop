@@ -3,6 +3,7 @@ import * as z from "zod";
 export const inviteParticipantSchema = z.object({
   event_id: z.number().int().positive(),
   ids: z.array(z.number()),
+  initiator: z.number().optional()
 });
 
 export const updateParticipantSchema = z.object({

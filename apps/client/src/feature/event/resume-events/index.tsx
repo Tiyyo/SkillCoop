@@ -3,6 +3,7 @@ import Spinner from '../../../component/loading';
 import { useApp } from '../../../store/app.store';
 import { Link } from 'react-router-dom';
 import { useResumeEvents } from '../../../hooks/useResumeEvents';
+import SubHeader from '../../../component/header/sub-header';
 
 function ResumeEvents() {
   const { userProfile } = useApp();
@@ -23,29 +24,29 @@ function ResumeEvents() {
 
   return (
     <>
+      <SubHeader
+        title="Events"
+        isPlusExist={true}
+        linkFromPlus="/new-event"
+        textButton="Add New Event"
+        legend="Brief summary of the events you have participated in and your
+            upcoming scheduled events"
+      />
       {loading ? (
         <Spinner />
       ) : (
         <>
-          <div className="w-full flex justify-end px-3">
-            <Link
-              to="/my-event"
-              className="w-fit text-xs lg:text-sm px-3 py-1 border border-primary-400
-               bg-primary-200 rounded-md shadow-md my-3 cursor-pointer
-                 hover:bg-base duration-300 transition-all
-                   hover:border-primary-700"
-            >
-              My events
-            </Link>
-          </div>
           <EventList
             events={events.incoming}
             title="Incoming"
             linkTo="/events/incoming"
+            nbEventToDisplay={2}
+            noHeader
           />
           <EventList
             events={events.past}
             title="Past"
+            legendHeader="The two latest events you have participated in"
             linkTo="/events/past"
             nbEventToDisplay={2}
           />

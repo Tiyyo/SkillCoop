@@ -5,7 +5,7 @@ import { Outlet } from 'react-router-dom';
 function HomePageUser() {
   return (
     <Page>
-      <Header title="Profile" isPlusExist={false} />
+      <Header />
       <Outlet />
     </Page>
   );

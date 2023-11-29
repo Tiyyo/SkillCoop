@@ -37,25 +37,32 @@ function Field({
   register,
 }: FieldProps) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-3 sm:gap-4 p-2">
-      <dt className=" text-primary-1100 font-semibold">{label}</dt>
-      {!shouldEditInfos ? (
-        <dd
-          className="flex items-center text-light sm:col-span-2 border-t-primary-300 
-            border-t h-12 my-auto ml-1 p-1"
+    <div className="w-full flex gap-x-2.5 items-center py-4 max-w-xs px-4">
+      <div className="basis-7 text-primary-100">{Icon}</div>
+      <div className="flex flex-col gap-y-1 flex-grow">
+        <label
+          htmlFor={name}
+          className=" text-start block h-4 ml-2 text-xs font-medium text-grey-sub-text"
         >
-          {capitalize(value)}
-        </dd>
-      ) : (
-        <FormField
-          type={type}
-          name={name}
-          register={register}
-          defaultValue={valueForm ?? undefined}
-        >
-          {Icon}
-        </FormField>
-      )}
+          {label}
+        </label>
+        {!shouldEditInfos ? (
+          <p
+            className="flex items-center bg-base-light 
+          font-semibold text-primary-1100
+              h-12 my-auto ml-1 p-1"
+          >
+            {capitalize(value)}
+          </p>
+        ) : (
+          <FormField
+            type={type}
+            name={name}
+            register={register}
+            defaultValue={valueForm ?? undefined}
+          ></FormField>
+        )}
+      </div>
     </div>
   );
 }
@@ -95,14 +102,16 @@ function FormEditProfileInfos({
       location: data.location === '' ? null : data.location,
     });
   };
+  // form
+  //flex flex-col justify-between rounded-lg border
+  //        border-gray-100 py-3 w-full
   return (
     <form
-      className="flex flex-col justify-between rounded-lg border
-           border-gray-100 py-3 shadow-sm w-full"
+      className="flex flex-col justify-center"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <dl className="-my-3 divide-y divide-gray-100 text-sm ">
-        <input hidden value={infos.profileId} {...register('profile_id')} />
+      <input hidden value={infos.profileId} {...register('profile_id')} />
+      <div className="flex flex-col sm:grid sm:grid-cols-2 xl:flex xl:flex-row pl-32">
         <Field
           label="Username"
           type="text"
@@ -148,7 +157,7 @@ function FormEditProfileInfos({
           Icon={<MapPin size={18} />}
           register={register}
         />
-      </dl>
+      </div>
       {shouldEditInfos && (
         <Button
           type="submit"

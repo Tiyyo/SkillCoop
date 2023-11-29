@@ -5,7 +5,7 @@ import Page from '../../layout/page';
 function HomePageFriendslist() {
   return (
     <Page>
-      <Header title="Contact" isPlusExist={true} linkFromPlus="add" />
+      <Header />
       <Outlet />
     </Page>
   );

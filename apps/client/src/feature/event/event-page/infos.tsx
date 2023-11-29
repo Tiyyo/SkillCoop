@@ -130,7 +130,7 @@ function EventPageInfos({
         </div>
       </div>
       <div
-        className="lg:flex lg:justify-center gap-x-3 items-center 
+        className="2xl:flex 2xl:justify-center gap-x-3 items-center 
         w-full lg:px-6 sm:grid sm:grid-cols-2"
       >
         <InputDate

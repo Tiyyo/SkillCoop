@@ -63,7 +63,7 @@ function Participant({
             isChecked && 'bg-primary-500',
           )}
         >
-          {eventStatus === 'completed' ? (
+          {eventStatus === 'completed' && userProfileId !== profileId ? (
             <Link to={`evaluate/${profileId}`}>
               <div className="relative bg-primary-400 h-18.5 w-18.5 rounded-full z-10">
                 <div className="rounded-full bottom-1 right-1 h-4 w-4 bg-white absolute z-10">

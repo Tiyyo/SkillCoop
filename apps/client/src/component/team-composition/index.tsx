@@ -31,7 +31,11 @@ function TeamComposition({
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     //ensure that the user can't vote for or select himself
-    if (profileId === userProfileId) return;
+    if (
+      +(e.target as any)[currentIdpActive as keyof typeof e.target] ===
+      userProfileId
+    )
+      return;
     // rater_id is the profileId from the user who is voting
     // so the user connected
     // profile_id is the profileId from the user who is voted for

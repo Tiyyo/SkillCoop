@@ -24,10 +24,10 @@ function ResumeProfile({ infos }: { infos: Infos }) {
   };
   return (
     <div
-      className="flex flex-col rounded-xl w-full lg:my-4 overflow-hidden bg-base-light 
+      className="flex flex-col lg:rounded-xl w-full lg:my-4 overflow-hidden bg-base-light 
     shadow h-fit"
     >
-      <div className="relative bg-primary-20 -z-0 h-24 w-full"></div>
+      <div className="relative bg-primary-20 -z-0 h-20 w-full"></div>
       <div
         className="relative  flex flex-col 
              pl-6 -top-12 z-10"

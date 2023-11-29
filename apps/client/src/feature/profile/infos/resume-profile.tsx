@@ -44,7 +44,7 @@ function ResumeProfile({ infos }: { infos: Infos }) {
         <FormEditProfileInfos shouldEditInfos={isEditing} infos={infos} />
         <div className="flex xl:flex-row flex-col items-center justify-start">
           <ResumeEmailInfos email={infos.email} />
-          <span className="flex justify-start xl:w-1/2 relative ">
+          <span className="flex justify-start xl:w-1/2 relative pl-24 md:pl-0">
             <EditModalPassword />
           </span>
         </div>

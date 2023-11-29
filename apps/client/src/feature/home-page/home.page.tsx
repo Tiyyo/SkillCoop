@@ -4,24 +4,37 @@ import { Link } from 'react-router-dom';
 import Xtwitter from '../../assets/icon/Xtwitter';
 import Facebook from '../../assets/icon/Facebook';
 import Insta from '../../assets/icon/Insta';
+import Hamburger from '../../component/hamburger';
+import { useState } from 'react';
 
 function HomePage() {
   useHealthCheckServer();
+  const [mobileNavIsOpen, setMobileNavIsOpen] = useState(false);
+  const getOpenStateHamburger = (state: boolean) => {
+    setMobileNavIsOpen(state);
+  };
   return (
     <main className="min-h-screen overflow-x-hidden w-full">
       <section
         className="w-full h-screen border-2
                bg-home bg-cover"
       >
-        <header className="flex justify-between items-center py-8 px-24">
-          <img src="/images/home-logo.png" alt="logo" className="h-14" />
-          <ul className="text-base-light flex gap-x-5">
+        <header className="flex justify-between items-center py-8 px-8 md:px-12 lg:px-24">
+          <div>
+            <Hamburger getOpenState={getOpenStateHamburger} />
+          </div>
+          <img
+            src="/images/home-logo.png"
+            alt="logo"
+            className="h-6 md:h-10 lg:h-14"
+          />
+          <ul className="text-base-light lg:flex gap-x-5 hidden ">
             <li className="cursor-pointer">Home</li>
             <li className="cursor-pointer">Features</li>
             <li className="cursor-pointer">Our Product</li>
             <li className="cursor-pointer">FAQ</li>
           </ul>
-          <div className="flex items-center gap-x-5">
+          <div className="hidden lg:flex items-center gap-x-5">
             <Link
               to="/login"
               className="text-base-light hover:border hover:border-primary-20 h-12 w-32 flex 
@@ -40,30 +53,42 @@ function HomePage() {
             </Link>
           </div>
         </header>
-        <div className="mx-auto flex flex-col justify-center max-w-3xl pt-14">
+        <div className="mx-auto flex flex-col justify-center max-w-3xl pt-64 lg:pt-14">
           {/* <div className="w-3/4 h-12 rounded-xl">
             <div className="rounded-xl">Start</div>
             <p>Enhance your skills together</p>
           </div> */}
           <h1
-            className="font-paytone text-5xl text-center text-base-light tracking-wide 
-          leading-10"
+            className="font-paytone text-4xl py-6 lg:text-5xl text-center text-base-light 
+          tracking-wide leading-10"
           >
             Unleash your Sporting Potential with our all-in-one app
           </h1>
-          <p className="text-grey-light text-center py-6">
+          <p className="text-grey-light text-center py-6 text-sm px-5">
             Whether it's 5v5 soccer or any sport, score skills, rate friends,
             and organize events effortlessly. Our app forms fair teams, elects
             MVPs, and cultivates sportsmanship for an unmatched sporting
             community experience.
           </p>
           <div className="mx-auto py-4 flex items-center gap-x-4">
-            <button className="bg-primary-100 text-lg text-base-light px-4 py-3 rounded-xl">
+            {/* <button className="bg-primary-100 text-lg text-base-light px-4 py-3 rounded-xl">
               Get Started
             </button>
             <a className="text-base-light underline underline-offset-4">
               Learn more
-            </a>
+            </a> */}
+            <div className="flex items-center gap-x-4 ">
+              <Link
+                to="/register"
+                className=" py-2 px-4 lg:px-6 border text-base-light bg-primary-100
+              border-primary-600 font-bold rounded-lg  cursor-pointer shadow-md "
+              >
+                Get Started
+              </Link>
+              <a className="text-base-light text-xs lg:text-sm underline underline-offset-4">
+                Learn more
+              </a>
+            </div>
           </div>
 
           <div>
@@ -74,9 +99,9 @@ function HomePage() {
       <img
         src="/images/incoming-page.svg"
         alt="incoming page event demo"
-        className="mx-auto relative -top-96"
+        className="mx-auto relative -top-16 md sm:-top-40 lg:-top-72"
       />
-      <section className="bg-primary-300 h-fit p-24 relative -top-80 ">
+      {/* <section className="bg-primary-300 h-fit p-24 relative -top-80 ">
         <p className="text-xs font-medium text-center text-primary-100">
           <span></span>
           WHAT WE ARE OFFERING
@@ -131,37 +156,37 @@ function HomePage() {
             </p>
           </article>
         </div>
-      </section>
+      </section> */}
       <section></section>
       <section></section>
-      <footer className="bg-dark py-12 px-24 text-base-light w-full ">
-        <ul className="flex gap-x-4">
+      <footer className="bg-dark py-12 px-12 lg:px-24 text-base-light w-full ">
+        <ul className="flex flex-col lg:flex-row gap-x-4">
           <li>Home</li>
           <li>Features</li>
           <li>Our Product</li>
           <li>About us</li>
         </ul>
-        <div className="w-full h-14 flex ">
+        <div className="w-full py-3 flex ">
           <div className="flex flex-col w-full">
             <div className=" w-full basis-1/2 border-b border-b-grey-sub-text"></div>
             <div></div>
           </div>
           <ul
             className="bg-base-light basis-3/12 rounded-full min-w-fit max-w-[174px] 
-              flex items-center justify-center gap-x-5 px-5"
+              flex items-center justify-center gap-x-5 px-5 py-2"
           >
-            <li className="h-6 w-6">
+            <li>
               <Xtwitter />
             </li>
-            <li className="h-6 w-6">
+            <li>
               <Facebook />
             </li>
-            <li className="h-6 w-6">
+            <li>
               <Insta />
             </li>
           </ul>
         </div>
-        <div className="flex gap-x-12">
+        <div className="flex flex-col md:flex-row gap-12">
           <div>
             <p>Location</p>
             <p className="text-grey-sub-text">Paris, FR</p>

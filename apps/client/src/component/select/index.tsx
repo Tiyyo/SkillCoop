@@ -4,6 +4,7 @@ import {
   useEffect,
   useId,
 } from 'react';
+import { cn } from '../../lib/utils';
 
 type Option = {
   label: string;
@@ -20,6 +21,7 @@ interface SelectInputProps extends ComponentPropsWithoutRef<'select'> {
   mutateKey?: string;
   disabled?: boolean;
   children?: React.ReactNode;
+  high?: boolean;
 }
 
 function SelectInput({
@@ -31,6 +33,7 @@ function SelectInput({
   error,
   mutateKey,
   disabled,
+  high,
   ...props
 }: SelectInputProps) {
   const idComponent = useId();
@@ -76,10 +79,13 @@ function SelectInput({
         ) : (
           <select
             name={name}
-            className={`bg-base-light border text-primary-1100 ${
-              hasError ? 'border-2 border-error' : ''
-            } text-sm font-medium rounded-lg focus:ring-primary-800 focus:border-primary-800
-            block w-full h-7 pl-2`}
+            className={cn(
+              `bg-base-light border text-primary-1100 text-sm font-medium rounded-lg 
+              focus:ring-primary-800focus:border-primary-800
+              block w-full h-7 pl-2`,
+              high ? 'h-10' : 'h-7',
+              hasError ? 'border-2 border-error' : '',
+            )}
             onChange={handleChange}
             {...props}
           >

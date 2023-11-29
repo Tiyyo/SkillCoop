@@ -47,7 +47,7 @@ function EventCard({
       className="flex flex-col bg-base-light shadow lg:rounded-3xl w-full 
       px-6 pb-6 pt-2 h-fit lg:my-2 border-t border-primary-200 lg:border-none"
     >
-      <div className="flex justify-end px-7 py-2">
+      <div className="flex justify-end py-2">
         <Badge content={displayCorrectStatus(userStatus, eventStatus)} />{' '}
       </div>
       <div className="flex">

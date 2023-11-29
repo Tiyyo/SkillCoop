@@ -14,7 +14,6 @@ import Clock from '../../../assets/icon/Clock';
 import { Link } from 'react-router-dom';
 import Plus from '../../../assets/icon/Plus';
 import CalendarClock from '../../../assets/icon/CalendarClock';
-import ReturnBtn from '../../../component/return';
 import TitleH2 from '../../../component/title-h2';
 import { useApp } from '../../../store/app.store';
 import {
@@ -22,6 +21,7 @@ import {
   OPTION_FORMAT,
 } from '../../../constant/select.options';
 import toast from '../../../utils/toast';
+import Container from '../../../layout/container';
 
 function CreateEvent() {
   const { userProfile } = useApp();
@@ -84,81 +84,95 @@ function CreateEvent() {
   };
 
   return (
-    <>
-      <ReturnBtn to="/" />
-      <TitleH2 title="Create a new Event" />
+    <Container className="lg:mt-4 pb-10">
+      <div className="flex justify-between items-center pr-4">
+        <TitleH2
+          title="Create a new Event"
+          legend="Set the details and start something special"
+        />
+        <Link
+          to="invitation"
+          className={`flex shadow-md items-center gap-2 py-2.5 text-xs lg:text-sm
+           text-base-light bg-primary-800 px-2.5 sm:px-6 rounded-full f
+            ont-semibold cursor-pointer hover:text-dark hover:bg-primary-500 duration-300`}
+        >
+          <p className="hidden sm:block">Invite your friends</p>
+          <Plus />
+        </Link>
+      </div>
       <form
         onSubmit={handleFormSubmit}
         ref={createEventFormRef}
-        className="px-3 flex flex-col items-center gap-y-4"
+        className="px-3 flex flex-col items-center w-full"
       >
-        <InputDate
-          updateState={updateStartDate}
-          actionType="SET_DATE"
-          label="Select a date"
-          defaultValue={eventCreatedState.start_date ?? ''}
-          error={inputHasError('date', validationErrors)}
-        />
-        <InputTime
-          label="Select a Time"
-          name="time"
-          type="text"
-          readOnly
-          placeholder="HH:mm"
-          updateState={updateStartTime}
-          defaultValues={eventCreatedState.start_time ?? ''}
-          error={inputHasError('date', validationErrors)}
+        <div
+          className="w-full px-3 flex flex-col items-center gap-4 sm:grid 
+        sm:grid-cols-2 2xl:flex 2xl:flex-row"
         >
-          <CalendarClock />
-        </InputTime>
-        <SelectInput
-          name="duration"
-          label="Select a Duration"
-          placeholder="duration in min"
-          updateState={updateDuration}
-          options={OPTION_DURATION}
-          defaultValue={eventCreatedState.duration ?? ''}
-          error={inputHasError('duration', validationErrors)}
-        >
-          <Clock />
-        </SelectInput>
-        <Input
-          name="location"
-          label="Select a Location"
-          type="text"
-          placeholder="City"
-          updateState={updateLocation}
-          defaultValue={eventCreatedState.location ?? ''}
-          error={inputHasError('location', validationErrors)}
-        >
-          <Globe />
-        </Input>
-        <SelectInput
-          name="requiredParticipants"
-          label="Select a Format"
-          updateState={updateRequiredParticipants}
-          options={OPTION_FORMAT}
-          defaultValue={eventCreatedState.required_participants ?? ''}
-          error={inputHasError('required_participants', validationErrors)}
-        >
-          <Users />
-        </SelectInput>
-        <Link
-          to="invitation"
-          className={`flex items-center underline 
-            underline-offset-8 un gap-2 py-4 text-md
-           text-primary-1100 font-semibold cursor-pointer`}
-        >
-          <p>INVITE FRIENDS </p>
-          <Plus />
-        </Link>
+          <InputDate
+            updateState={updateStartDate}
+            actionType="SET_DATE"
+            label="Select a date"
+            defaultValue={eventCreatedState.start_date ?? ''}
+            error={inputHasError('date', validationErrors)}
+            high
+          />
+          <InputTime
+            label="Select a Time - HH:mm"
+            name="time"
+            type="text"
+            readOnly
+            updateState={updateStartTime}
+            defaultValues={eventCreatedState.start_time ?? ''}
+            error={inputHasError('date', validationErrors)}
+            high
+          >
+            <CalendarClock />
+          </InputTime>
+          <SelectInput
+            name="duration"
+            label="Select a Duration"
+            placeholder="duration in min"
+            updateState={updateDuration}
+            options={OPTION_DURATION}
+            defaultValue={eventCreatedState.duration ?? ''}
+            error={inputHasError('duration', validationErrors)}
+            high
+          >
+            <Clock />
+          </SelectInput>
+          <Input
+            name="location"
+            label="Select a Location"
+            type="text"
+            placeholder="City"
+            updateState={updateLocation}
+            defaultValue={eventCreatedState.location ?? ''}
+            error={inputHasError('location', validationErrors)}
+            high
+          >
+            <Globe />
+          </Input>
+          <SelectInput
+            name="requiredParticipants"
+            label="Select a Format"
+            updateState={updateRequiredParticipants}
+            options={OPTION_FORMAT}
+            defaultValue={eventCreatedState.required_participants ?? ''}
+            error={inputHasError('required_participants', validationErrors)}
+            high
+          >
+            <Users />
+          </SelectInput>
+        </div>
         <Button
           textContent="Create Event"
           type="submit"
           isLoading={isLoading}
+          className="mt-4"
         />
       </form>
-    </>
+    </Container>
   );
 }
 

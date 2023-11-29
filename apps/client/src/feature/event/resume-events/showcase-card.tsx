@@ -33,14 +33,12 @@ lg:rounded-3xl w-full px-6 pb-6 pt-2 aspect-4/1 lg:my-2"
         className="flex py-0.5 gap-x-1 items-center text-xxs lg:text-xs 
         font-medium text-dark"
       >
-        {/* <img src="/images/location.png" alt="location icon" /> */}
         <span>{location}</span>
       </p>
       <p
         className="flex text-xxs md:text-sm gap-x-1.5 justify-center items-center 
         font-normal text-dark pb-2 w-full"
       >
-        {/* <img src="/images/timer.png" alt="clock icon" /> */}
         <div className="basis-1/2 flex justify-end gap-x-1">
           <span>{dateHandler.getStartingTime(date)}</span>
           <span>{dateHandler.getEndingTime(date, duration)}</span>

@@ -28,9 +28,9 @@ function IncomingEvents() {
 
   useEffect(() => {
     if (!allEvents) return;
-    const past = allEvents?.filter(
-      (event) => new Date() < new Date(event.date),
-    );
+    const past = allEvents
+      ?.filter((event) => new Date() < new Date(event.date))
+      .sort((a, b) => Number(new Date(a.date)) - Number(new Date(b.date)));
     setEvents(past);
   }, [allEvents, loading]);
 
@@ -38,7 +38,7 @@ function IncomingEvents() {
   return (
     <EventList
       events={events}
-      title="Incoming Events"
+      title="Upcoming Events"
       linkOff
       legendHeader="Next events scheduled"
       showcaseNext

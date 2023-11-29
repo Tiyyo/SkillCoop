@@ -26,7 +26,7 @@ function ShowcaseEventCard({
   return (
     <div
       className="bg-stadium bg-cover flex items-center flex-col bg-base-light shadow 
-lg:rounded-3xl w-full px-6 pb-6 pt-2 h-80 lg:my-2"
+lg:rounded-3xl w-full px-6 pb-6 pt-2 aspect-4/1 lg:my-2"
     >
       <p className="font-semibold">Next Event</p>
       <p className="flex py-0.5 gap-x-1 items-center text-xxs lg:text-xs font-medium text-dark">

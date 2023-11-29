@@ -9,7 +9,7 @@ import { useProfileEval } from '../../hooks/useFriendEval';
 import strongbox from '../../assets/svg/strongbox.svg';
 import flash from '../../assets/svg/flash.svg';
 import reward from '../../assets/svg/reward.svg';
-import cup from '../../assets/cup.png';
+// import cup from '../../assets/cup.png';
 import StatBadge from './stat-badge';
 import { sumValues } from '../../utils/sum-values';
 import TitleH2 from '../../component/title-h2';

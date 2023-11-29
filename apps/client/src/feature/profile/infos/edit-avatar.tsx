@@ -60,7 +60,8 @@ function AvatarEdit({ avatar }: { avatar: string | null }) {
   return (
     <form
       encType="multipart/form-data"
-      className="border flex-shrink-0 border-primary-500 overflow-hidden rounded-full h-20 w-20"
+      className="flex-shrink-0 overflow-hidden 
+        h-24 w-24 border-base-light border-4 rounded-md cursor-pointer"
     >
       <label htmlFor="image" onClick={handleClickImage}>
         <img

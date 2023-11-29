@@ -23,6 +23,7 @@ export default {
         grey: {
           regular: '#B6B7BA',
           off: '#F6F6F6',
+          light: '#D9D9D9',
           constrast: ' #F8FBFF',
           'sub-text': '#717379',
         },
@@ -60,6 +61,7 @@ export default {
           53%, rgba(17,163,110,1) 94%)`,
         box: 'radial-gradient(circle, rgba(248,250,248,1) 24%, rgba(237,241,237,1) 100%)',
         stadium: "url('/images/stadium-showcase.jpg')",
+        home: "url('/images/stadium.png')",
       },
       aspectRatio: {
         '1/4': '1/4',

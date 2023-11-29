@@ -24,9 +24,10 @@ function ProfileInfos() {
           lastname: userProfile?.last_name ?? null,
           age: userProfile?.date_of_birth ?? null,
           location: userProfile?.location ?? null,
+          email: userProfile?.email ?? null,
         }}
       />
-      <ResumeAuthInfos email={userProfile?.email} />
+      {/* <ResumeAuthInfos email={userProfile?.email} /> */}
       <DeleteUser />
     </>
   );

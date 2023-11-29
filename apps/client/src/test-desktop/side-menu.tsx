@@ -32,7 +32,7 @@ function SideMenuDesktop() {
         <NavButtonDesktop path="/my-event" content="My Events">
           <Calendar />
         </NavButtonDesktop>
-        <NavButtonDesktop path="/events/incoming" content="Incoming Events">
+        <NavButtonDesktop path="/events/incoming" content="Upcoming Events">
           <CalendarClock size={20} />
         </NavButtonDesktop>
         <NavButtonDesktop path="/events/past" content="Past Events">

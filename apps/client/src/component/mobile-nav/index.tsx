@@ -28,7 +28,7 @@ function MobileNav({ menuIsOpen }: { menuIsOpen: boolean }) {
         <NavMobileLink to="/my-event" value="My Events">
           <Calendar />
         </NavMobileLink>
-        <NavMobileLink to="/events/incoming" value="Incoming Events">
+        <NavMobileLink to="/events/incoming" value="Upcoming Events">
           <CalendarClock size={20} />
         </NavMobileLink>
         <NavMobileLink to="/events/past" value="Past Events">

@@ -45,26 +45,43 @@ function Score({
       className="flex flex-grow flex-col justify-center items-center
      basis-8/12 text-xxs lg:text-xs"
     >
-      <p className="px-1 py-0.5 bg-base w-fit rounded-2xl">
+      <p className="px-1 bg-base w-fit rounded-2xl font-medium text-xs py-1.5">
         {displayLegendScore()}
       </p>
-      <p className="text-lg font-semibold lg:py-1.5">
-        {displayScore(eventStatus, scoreTeamA)}
-        <span className="text-md mx-2">
-          {eventStatus === eventStatusType.completed ? '-' : 'VS'}
+      {eventStatus !== 'open' && (
+        <p className="text-lg font-semibold py-4 lg:py-1.5">
+          {displayScore(eventStatus, scoreTeamA)}
+          <span className="text-md mx-2">
+            {eventStatus === eventStatusType.completed ? '-' : 'VS'}
+          </span>
+          {displayScore(eventStatus, scoreTeamB)}
+        </p>
+      )}
+      <p className="flex py-0.5 gap-x-1 justify-center items-center text-xxs lg:text-xs">
+        <span className="relative">
+          <img
+            src="/images/location.png"
+            alt="location icon"
+            className="absolute -left-6 -top-1"
+          />
+          {location}
         </span>
-        {displayScore(eventStatus, scoreTeamB)}
       </p>
-      <p className="flex py-0.5 gap-x-1 items-center text-xxs lg:text-xs">
-        <img src="/images/location.png" alt="location icon" />
-        <span>{location}</span>
-      </p>
-      <p className="flex gap-x-1.5 justify-center items-center font-semibold text-grey-sub-text">
-        <img src="/images/timer.png" alt="clock icon" />
-        <span>{dateHandler.getStartingTime(date)}</span>
-        <span>{dateHandler.getEndingTime(date, duration)}</span>
+      <p
+        className="flex w-full gap-x-1.5 justify-center items-center
+         font-normal text-grey-sub-text"
+      >
+        <div className="basis-1/2 flex justify-end items-center gap-x-1 text-xxs">
+          <img src="/images/timer.png" alt="clock icon" />
+          <span>{dateHandler.getStartingTime(date)}</span>
+          <span className="hidden sm:block">
+            {dateHandler.getEndingTime(date, duration)}
+          </span>
+        </div>
         <span className="mx-0.5 py-1">|</span>
-        <span>{dateHandler.getFormatedDate(date)}</span>
+        <div className="basis-1/2">
+          <span>{dateHandler.getFormatedDate(date)}</span>
+        </div>
       </p>
     </div>
   );

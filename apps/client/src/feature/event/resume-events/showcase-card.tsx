@@ -29,16 +29,26 @@ function ShowcaseEventCard({
 lg:rounded-3xl w-full px-6 pb-6 pt-2 aspect-4/1 lg:my-2"
     >
       <p className="font-semibold">Next Event</p>
-      <p className="flex py-0.5 gap-x-1 items-center text-xxs lg:text-xs font-medium text-dark">
+      <p
+        className="flex py-0.5 gap-x-1 items-center text-xxs lg:text-xs 
+        font-medium text-dark"
+      >
         {/* <img src="/images/location.png" alt="location icon" /> */}
         <span>{location}</span>
       </p>
-      <p className="flex gap-x-1.5 justify-center items-center font-semibold text-dark">
+      <p
+        className="flex text-xxs md:text-sm gap-x-1.5 justify-center items-center 
+        font-normal text-dark pb-2 w-full"
+      >
         {/* <img src="/images/timer.png" alt="clock icon" /> */}
-        <span>{dateHandler.getStartingTime(date)}</span>
-        <span>{dateHandler.getEndingTime(date, duration)}</span>
+        <div className="basis-1/2 flex justify-end gap-x-1">
+          <span>{dateHandler.getStartingTime(date)}</span>
+          <span>{dateHandler.getEndingTime(date, duration)}</span>
+        </div>
         <span className="mx-0.5 py-1">|</span>
-        <span>{dateHandler.getFormatedDate(date)}</span>
+        <div className="basis-1/2">
+          <span>{dateHandler.getFormatedDate(date)}</span>
+        </div>
       </p>
       <div className="flex flex-grow justify-between items-center w-full ">
         <div className="flex gap-x-3 items-center basis-2/12">

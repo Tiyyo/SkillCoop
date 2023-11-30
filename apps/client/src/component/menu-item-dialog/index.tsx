@@ -12,6 +12,7 @@ import {
 } from '../../lib/ui/alert-dialog';
 import { UseMutateFunction } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
+import { cn } from '../../lib/utils';
 
 interface MenuItemDialogProps {
   description?: string;
@@ -19,6 +20,7 @@ interface MenuItemDialogProps {
   children: React.ReactNode;
   mutationData?: any;
   redirection?: string;
+  hoverOn?: boolean;
 }
 
 function MenuItemDialog({
@@ -27,9 +29,10 @@ function MenuItemDialog({
   mutateFn,
   mutationData,
   redirection,
+  hoverOn,
 }: MenuItemDialogProps) {
-  const menuItemStyle = ` flex gap-2 items-center hover:bg-primary-200 
-  transition-colors duration-300 rounded-lg px-2 text-md`;
+  const menuItemStyle = `flex gap-2 items-center
+    transition-colors duration-300 rounded-lg px-2 text-md`;
 
   const navigate = useNavigate();
 
@@ -40,7 +43,13 @@ function MenuItemDialog({
   };
   return (
     <AlertDialog>
-      <AlertDialogTrigger className={menuItemStyle + 'w-full h-10'}>
+      <AlertDialogTrigger
+        className={cn(
+          hoverOn ? 'hover:bg-primary-200' : '',
+          menuItemStyle,
+          `w-full h-10 `,
+        )}
+      >
         {children}
       </AlertDialogTrigger>
       <AlertDialogContent className="bg-base-light w-4/5 rounded-lg">

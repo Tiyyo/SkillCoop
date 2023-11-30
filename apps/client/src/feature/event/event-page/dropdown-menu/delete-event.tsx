@@ -22,6 +22,7 @@ function DeleteEventMenuItem({
       description={`This action cannot be undone. 
                 his will permanently delete your event.`}
       redirection="/"
+      hoverOn
     >
       <div className="text-error flex items-center gap-2">
         <Trash2 size="16" />

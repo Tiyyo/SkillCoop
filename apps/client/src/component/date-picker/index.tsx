@@ -12,6 +12,7 @@ interface InputDateProps {
   mutateKey?: string;
   disabled?: boolean;
   updateData?: Record<string, string | number>;
+  high?: boolean;
 }
 
 function InputDate({
@@ -20,6 +21,7 @@ function InputDate({
   defaultValue,
   error,
   disabled,
+  high,
 }: InputDateProps) {
   const today = new Date();
   const [hasError, setHasError] = useState<boolean | undefined>(error);
@@ -36,9 +38,9 @@ function InputDate({
       clearBtn: 'bg-base border border-primary-500',
       icons: 'none',
       text: 'text-primary-1100',
-      input: `w-full h-7 font-semibold text-sm bg-base-light ${
-        hasError ? 'border-2 border-error' : ''
-      }`,
+      input: `w-full font-semibold text-sm bg-base-light ${
+        high ? 'h-10' : 'h-7'
+      } ${hasError ? 'border-2 border-error' : ''}`,
       inputIcon: `${hasError ? 'text-error' : 'text-primary-600'}`,
       selected: 'bg-primary-800',
       disabledText: 'text-gray-200',

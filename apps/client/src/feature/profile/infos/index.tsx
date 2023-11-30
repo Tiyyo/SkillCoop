@@ -26,7 +26,6 @@ function ProfileInfos() {
           email: userProfile?.email ?? null,
         }}
       />
-      {/* <ResumeAuthInfos email={userProfile?.email} /> */}
       <DeleteUser />
     </>
   );

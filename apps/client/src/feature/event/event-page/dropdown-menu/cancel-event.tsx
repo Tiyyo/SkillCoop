@@ -37,6 +37,7 @@ function CancelEventMenuItem({
       description={`This action cannot be undone. 
                 this will permanently delete your event.`}
       redirection="/"
+      hoverOn
     >
       <div className="flex items-center gap-2">
         <Ban size="16" />

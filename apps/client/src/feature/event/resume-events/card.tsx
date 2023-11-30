@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import Avatars from '../../../component/avatars';
 import Badge from '../../../component/badge';
-import DateAndLocation from '../../../component/date-location';
 import Score from '../../../component/score';
 import { EventParticipant, EventStatus } from '../../../types';
 import { ArrowRight } from 'lucide-react';
@@ -46,9 +45,9 @@ function EventCard({
   return (
     <div
       className="flex flex-col bg-base-light shadow lg:rounded-3xl w-full 
-      px-6 pb-6 pt-2 h-fit lg:my-2"
+      px-6 pb-6 pt-2 h-fit lg:my-2 border-t border-primary-200 lg:border-none"
     >
-      <div className="flex justify-end px-7 py-2">
+      <div className="flex justify-end py-2">
         <Badge content={displayCorrectStatus(userStatus, eventStatus)} />{' '}
       </div>
       <div className="flex">

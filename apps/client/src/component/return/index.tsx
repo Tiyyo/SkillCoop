@@ -19,9 +19,9 @@ function ReturnBtn({ to }: ReturnBtnProps) {
     <button
       onClick={handleClickReturn}
       type="button"
-      className=" hidden absolute top-16 left-4 lg:my-0 lg:mx-0 lg:flex justify-center 
-            items-center lg:-left-5 lg:top-16 
-            lg:h-10 lg:w-10 w-8 h-8 bg-dark border
+      className=" hidden absolute top-16 right-4 lg:my-0 lg:mx-0 lg:flex justify-center 
+            items-center lg:-right-5 lg:top-16 
+            lg:h-10 lg:w-10 w-8 h-8 bg-dark border z-10
            border-grey-off border-opacity-40 rounded-full cursor-pointer"
     >
       <ChevronsLeft size={24} className="text-grey-off opacity-80" />

@@ -11,6 +11,7 @@ import { inviteParticipantSchema } from 'schema/ts-schema';
 import toast from '../../utils/toast';
 import { useSendEventInvitation } from '../../hooks/useSingleEvent';
 import { useSearchResultOrDefault } from '../../hooks/useSearchResultOrDefault';
+import Container from '../../layout/container';
 
 interface InviteProps {
   variant: 'mutate' | 'update';
@@ -69,9 +70,11 @@ function Invite({ variant = 'update' }: InviteProps) {
   }, []);
 
   return (
-    <>
-      <ReturnBtn />
-      <TitleH2 title="Invite your friends" />
+    <Container className="lg:mt-4">
+      <TitleH2
+        title="Invite your friends"
+        legend="Select the friends you'd like to invite to join this event."
+      />
       <div className="px-4 h-[65vh] flex flex-col justify-center">
         <SearchInput onChange={getSearchValue} />
         <SwitchMutateOrUpdate data={data} loading={loading} variant={variant} />
@@ -86,7 +89,7 @@ function Invite({ variant = 'update' }: InviteProps) {
           />
         </div>
       )}
-    </>
+    </Container>
   );
 }
 

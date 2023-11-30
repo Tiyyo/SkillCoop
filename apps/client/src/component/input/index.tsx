@@ -9,6 +9,7 @@ interface InputProps extends ComponentPropsWithoutRef<'input'> {
   error?: boolean;
   disabled?: boolean;
   className?: string;
+  high?: boolean;
 }
 
 function Input({
@@ -21,6 +22,7 @@ function Input({
   error,
   disabled,
   className,
+  high,
   ...props
 }: InputProps) {
   const [hasError, setHasError] = useState<boolean | undefined>(error);
@@ -62,9 +64,11 @@ function Input({
             {...props}
             className={cn(
               `bg-base-light border border-gray-300 font-medium text-primary-1100 
-            text-sm rounded-lg block w-full h-7 pl-2`,
+              text-sm rounded-lg block w-full h-7 pl-2 placeholder:font-medium 
+            placeholder:text-dark`,
               disabled && 'border-none',
               hasError && 'border-2 border-error',
+              high ? 'h-10' : 'h-7',
               className,
             )}
           />

@@ -7,7 +7,7 @@ import Calendar from '../assets/icon/Calendar';
 function SideMenuDesktop() {
   return (
     <aside
-      className="hidden lg:flex w-[20%] lg:flex-col min-w-[240px]
+      className="h-full first-letter:hidden lg:flex w-[20%] lg:flex-col min-w-[240px]
          bg-dark text-sm text-grey-regular font-medium"
     >
       <div className="flex justify-center h-fit w-full pt-6 pb-12">

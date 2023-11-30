@@ -7,6 +7,7 @@ import {
 import Choice from './index.choice';
 import DisabledInputTimePicker from './disabled-input';
 import { displayOneDigitWith2Digit } from '../../utils/display-number';
+import { cn } from '../../lib/utils';
 
 interface InputTimeProps extends ComponentPropsWithoutRef<'input'> {
   type: string;
@@ -17,6 +18,7 @@ interface InputTimeProps extends ComponentPropsWithoutRef<'input'> {
   defaultValues?: string;
   date?: string;
   disabled?: boolean;
+  high?: boolean;
 }
 
 function InputTime({
@@ -27,6 +29,7 @@ function InputTime({
   error,
   defaultValues,
   disabled,
+  high,
   ...props
 }: InputTimeProps) {
   const idHoursComponent = useId();
@@ -88,13 +91,20 @@ function InputTime({
               name={name}
               id={name}
               {...props}
-              className={`bg-base-light border text-primary-1100 text-xs rounded-lg
-           focus:ring-primary-800 focus:border-primary-800 block w-full h-7 pl-10`}
+              className={cn(
+                `bg-base-light border text-primary-1100 text-xs rounded-lg
+           focus:ring-primary-800 focus:border-primary-800 block w-full pl-10
+           `,
+                high ? 'h-10' : 'h-7',
+              )}
             />
             <select
               id="hours"
-              className="absolute top-0 left-0 w-1/2 max-h-28 overflow-y-auto 
-            h-7 flex text-end pr-10 bg-transparent"
+              className={cn(
+                `absolute top-0 left-0 w-1/2 max-h-28 overflow-y-auto h-7 
+                flex text-end pr-10 bg-transparent`,
+                high ? 'h-10' : 'h-7',
+              )}
               onChange={(e) =>
                 setSelectedTime({
                   ...selectedTime,
@@ -117,7 +127,10 @@ function InputTime({
             </select>
             <select
               id="minutes"
-              className="absolute top-0 right-0 w-1/2 max-h-28 h-7 pl-10 bg-transparent"
+              className={cn(
+                `absolute top-0 right-0 w-1/2 max-h-28 h-7 pl-10 bg-transparent`,
+                high ? 'h-10' : 'h-7',
+              )}
               onChange={(e) =>
                 setSelectedTime({
                   ...selectedTime,

@@ -18,7 +18,7 @@ function Header() {
   return (
     <div
       className="flex justify-between bg-base-light w-full h-20 lg:rounded-lg lg:mt-2 shadow-md 
-              lg:p-5"
+              lg:p-5 pt-4"
     >
       <Hamburger getOpenState={getOpenStateMobileMenu} />
       <MobileNav menuIsOpen={menuIsOpen} />

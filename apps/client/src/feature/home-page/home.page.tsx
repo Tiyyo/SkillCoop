@@ -14,10 +14,11 @@ function HomePage() {
     setMobileNavIsOpen(state);
   };
   return (
+    //TODO: end this landing page
     <main className="min-h-screen overflow-x-hidden w-full">
       <section
-        className="w-full h-screen border-2
-               bg-home bg-cover"
+        className="w-full  
+               bg-home bg-cover h-screen bg-center"
       >
         <header className="flex justify-between items-center py-8 px-8 md:px-12 lg:px-24">
           <div>
@@ -53,13 +54,13 @@ function HomePage() {
             </Link>
           </div>
         </header>
-        <div className="mx-auto flex flex-col justify-center max-w-3xl pt-64 lg:pt-14">
+        <div className="mx-auto flex flex-col justify-center max-w-xl pt-12 lg:pt-14">
           {/* <div className="w-3/4 h-12 rounded-xl">
             <div className="rounded-xl">Start</div>
             <p>Enhance your skills together</p>
           </div> */}
           <h1
-            className="font-paytone text-4xl py-6 lg:text-5xl text-center text-base-light 
+            className="font-paytone text-4xl py-6 px-1 lg:text-5xl text-center text-base-light 
           tracking-wide leading-10"
           >
             Unleash your Sporting Potential with our all-in-one app
@@ -99,7 +100,7 @@ function HomePage() {
       <img
         src="/images/incoming-page.svg"
         alt="incoming page event demo"
-        className="mx-auto relative -top-16 md sm:-top-40 lg:-top-72"
+        className="mx-auto relative -top-32 md sm:-top-60 lg:-top-64"
       />
       {/* <section className="bg-primary-300 h-fit p-24 relative -top-80 ">
         <p className="text-xs font-medium text-center text-primary-100">

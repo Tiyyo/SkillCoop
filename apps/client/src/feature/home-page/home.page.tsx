@@ -14,6 +14,7 @@ function HomePage() {
     setMobileNavIsOpen(state);
   };
   return (
+    //TODO: end this landing page
     <main className="min-h-screen overflow-x-hidden w-full">
       <section
         className="w-full  
@@ -53,7 +54,7 @@ function HomePage() {
             </Link>
           </div>
         </header>
-        <div className="mx-auto flex flex-col justify-center max-w-lg pt-12 lg:pt-14">
+        <div className="mx-auto flex flex-col justify-center max-w-xl pt-12 lg:pt-14">
           {/* <div className="w-3/4 h-12 rounded-xl">
             <div className="rounded-xl">Start</div>
             <p>Enhance your skills together</p>

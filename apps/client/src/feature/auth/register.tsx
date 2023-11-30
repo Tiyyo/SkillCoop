@@ -14,7 +14,6 @@ import FormField from '../../component/form-field';
 import Button from '../../component/button';
 import { RegisterUser } from '../../types';
 import { useState } from 'react';
-import ReturnBtn from '../../component/return';
 import checkIfString from '../../utils/check-string';
 import ErrorContainer from '../../component/error';
 import ErrorNotification from '../../component/error/notification';
@@ -57,7 +56,6 @@ function Register() {
 
   return (
     <Page>
-      <ReturnBtn to="/" />
       <Center>
         <h1 className="py-4 text-xl font-bold text-primary-1100 text-center">
           Create your SkillCoop account

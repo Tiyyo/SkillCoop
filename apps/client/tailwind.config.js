@@ -41,6 +41,7 @@ export default {
           900: 'hsla(132, 99.9%, 24.0%, 0.761)',
           1000: 'hsla(133, 99.5%, 19.5%, 0.840)',
           1100: 'hsla(131, 99.1%, 6.3%, 0.875)',
+          gradient: 'hsl(120deg, 100%, 98.1%)',
         },
         'primary-light': {
           100: '#F0F8F1',
@@ -59,6 +60,8 @@ export default {
       backgroundImage: {
         button: `linear-gradient(90deg, rgba(12,159,21,1) 6%, rgba(46,198,120,1) 
           53%, rgba(17,163,110,1) 94%)`,
+        'home-page-gradient': `linear-gradient(180deg, hsl(120, 16%, 98%) ,
+                                                       hsl(120deg, 100%, 98.1%))`,
         box: 'radial-gradient(circle, rgba(248,250,248,1) 24%, rgba(237,241,237,1) 100%)',
         stadium: "url('/images/stadium-showcase.jpg')",
         home: "url('/images/stadium.png')",

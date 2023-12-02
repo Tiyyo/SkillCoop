@@ -61,7 +61,7 @@ function AvatarEdit({ avatar }: { avatar: string | null }) {
     <form
       encType="multipart/form-data"
       className="flex-shrink-0 overflow-hidden 
-        h-24 w-24 border-base-light border-4 rounded-md cursor-pointer"
+        h-24 w-24  border-primary-200 border-4 shadow rounded-lg cursor-pointer"
     >
       <label htmlFor="image" onClick={handleClickImage}>
         <img

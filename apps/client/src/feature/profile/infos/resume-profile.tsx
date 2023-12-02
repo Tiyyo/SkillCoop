@@ -24,15 +24,14 @@ function ResumeProfile({ infos }: { infos: Infos }) {
   };
   return (
     <div
-      className="flex flex-col lg:rounded-xl w-full lg:my-4 overflow-hidden bg-base-light 
-    shadow h-fit"
+      className="flex flex-col lg:rounded-xl w-full lg:my-4  bg-base-light 
+    shadow h-fit "
     >
-      <div className="relative bg-primary-20 -z-0 h-20 w-full"></div>
       <div
-        className="relative  flex flex-col 
+        className=" flex flex-col 
              pl-6 -top-12 z-10"
       >
-        <div className="flex items-center gap-x-5">
+        <div className="relative py-4 flex items-center gap-x-5">
           <AvatarEdit avatar={infos.avatar} />
           <TriggerEditBtn
             className="absolute top-3 right-3"

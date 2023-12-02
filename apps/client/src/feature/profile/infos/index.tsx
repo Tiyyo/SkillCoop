@@ -26,7 +26,7 @@ function ProfileInfos() {
           email: userProfile?.email ?? null,
         }}
       />
-      <DeleteUser />
+      {/* <DeleteUser /> */}
     </>
   );
 }

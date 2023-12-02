@@ -39,6 +39,7 @@ import { Toaster } from 'sonner';
 import EndOfGameAwards from './feature/event/awards.tsx';
 import ForgotPassword from './feature/auth/forgot-password.tsx';
 import ResetPasswordMiddleware from './component/redirection/control-reset-password.tsx';
+import HomePageV2 from './feature/home-page/home-v2.tsx';
 
 const sseEvent = new EventSource(
   'http://localhost:8082/api/subscription_pathway',

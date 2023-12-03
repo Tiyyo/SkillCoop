@@ -8,7 +8,7 @@ import { useMutation } from '@tanstack/react-query';
 import { updatePasswordFn } from '../../../api/api.fn';
 import { useApp } from '../../../store/app.store';
 
-function EditModalPassword() {
+function EditModalPassword({ children }: { children: React.ReactNode }) {
   const { userProfile } = useApp();
   //@ts-ignore
   //should be in a hook
@@ -28,9 +28,7 @@ function EditModalPassword() {
   };
   return (
     <Dialog>
-      <DialogTrigger className="text-start text-xs underline underline-offset-4 mx-auto w-full">
-        Edit your password
-      </DialogTrigger>
+      <DialogTrigger className="">{children}</DialogTrigger>
       <DialogContent className="bg-base-light">
         <form
           className="py-4 flex flex-col gap-4"

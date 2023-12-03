@@ -4,6 +4,7 @@ import AvatarEdit from './edit-avatar';
 import FormEditProfileInfos from './form-edit-profile';
 import ResumeEmailInfos from './resume-auth-infos';
 import EditModalPassword from './modal-edit-password';
+import { Edit2, Lock } from 'lucide-react';
 
 export type Infos = {
   username: string | null;
@@ -43,9 +44,40 @@ function ResumeProfile({ infos }: { infos: Infos }) {
         <FormEditProfileInfos shouldEditInfos={isEditing} infos={infos} />
         <div className="flex xl:flex-row flex-col items-center justify-start">
           <ResumeEmailInfos email={infos.email} />
-          <span className="flex justify-start xl:w-1/2 relative pl-24 md:pl-0">
+          <div className="relative flex flex-col pl-36 w-full xl:w-1/2">
+            <div className="flex justify-between pr-3">
+              <div className="w-full flex gap-x-2.5 items-center py-4 max-w-xs">
+                <div className="basis-7 text-primary-100">
+                  <Lock size={18} />
+                </div>
+                <div className="flex flex-col gap-y-1 flex-grow">
+                  <label
+                    htmlFor="email"
+                    className="block h-4 ml-2 text-xs text-start font-medium text-grey-sub-text"
+                  >
+                    Password
+                  </label>
+                  <input
+                    type="password"
+                    defaultValue={'nicetrynoturs'}
+                    readOnly
+                    disabled
+                    className="bg-transparent"
+                  />
+                </div>
+              </div>
+              <EditModalPassword>
+                <div className="self-start py-3 h-full">
+                  <button type="button" className="">
+                    <Edit2 className="text-light" size={18} />
+                  </button>
+                </div>
+              </EditModalPassword>
+            </div>
+          </div>
+          {/* <span className="flex justify-start xl:w-1/2 relative pl-24 md:pl-0">
             <EditModalPassword />
-          </span>
+          </span> */}
         </div>
       </div>
     </div>

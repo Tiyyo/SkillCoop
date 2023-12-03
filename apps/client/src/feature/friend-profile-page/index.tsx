@@ -29,12 +29,12 @@ function FriendProfile() {
   //TODO: add win rate
   return (
     <>
-      <div className="lg:rounded-xl w-full lg:my-4 overflow-hidden bg-base-light shadow">
-        <div className="relative -z-0 h-56 w-full">
+      <div className="lg:rounded-xl w-full lg:my-4   bg-base-light shadow">
+        <div className="relative -z-0 h-56 w-full ">
           <img
             src="/images/stadium.png"
             alt="banner"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover lg:rounded-t-xl"
           />
         </div>
         <div
@@ -77,10 +77,11 @@ function FriendProfile() {
               />
             </ul>
           </div>
-          <div className="flex justify-between">
+          <div className="flex justify-between ">
             <div>
               <h2 className="text-sm font-semibold">
-                {profile?.first_name} {profile?.last_name}
+                {capitalize(profile?.first_name)}{' '}
+                {capitalize(profile?.last_name)}
               </h2>
               <p className="text-xs font-light">{profile?.username}</p>
               <div className="flex items-baseline gap-x-2 py-2">

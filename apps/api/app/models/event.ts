@@ -343,7 +343,8 @@ AND profile.id <> event.organizer_id
 AND (participant.status_name = 'confirmed' 
 OR (profile.active_notification = 1 AND participant.status_name = 'pending'))
 GROUP BY participant.event_id`.execute(this.client);
-      const parsedJson: number[] = JSON.parse(result.rows[0].profile_ids);
+      const parsedJson: number[] =
+        result.rows.length > 0 ? JSON.parse(result.rows[0].profile_ids) : undefined;
       return parsedJson;
     } catch (error) {
       if (error instanceof Error) {

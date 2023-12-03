@@ -33,8 +33,8 @@ export class EventInfosHasBeenUpdated extends NotificationHandler {
   }
   async notify() {
     const subscribersIds = await this.getSubscribers();
-    if (!subscribersIds) return;
     const { eventDate } = await this.getInfos();
+    if (!subscribersIds) return;
     await this.sendNotification(subscribersIds, eventDate);
   }
 }

@@ -28,7 +28,9 @@ function EditModalPassword({ children }: { children: React.ReactNode }) {
   };
   return (
     <Dialog>
-      <DialogTrigger className="">{children}</DialogTrigger>
+      <DialogTrigger className="self-start py-3 h-full">
+        {children}
+      </DialogTrigger>
       <DialogContent className="bg-base-light">
         <form
           className="py-4 flex flex-col gap-4"

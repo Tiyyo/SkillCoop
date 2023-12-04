@@ -62,16 +62,14 @@ function ResumeProfile({ infos }: { infos: Infos }) {
                     defaultValue={'nicetrynoturs'}
                     readOnly
                     disabled
-                    className="bg-transparent"
+                    className="bg-transparent pl-3"
                   />
                 </div>
               </div>
               <EditModalPassword>
-                <div className="self-start py-3 h-full">
-                  <button type="button" className="">
-                    <Edit2 className="text-light" size={18} />
-                  </button>
-                </div>
+                <button type="button" className="">
+                  <Edit2 className="text-light" size={18} />
+                </button>
               </EditModalPassword>
             </div>
           </div>

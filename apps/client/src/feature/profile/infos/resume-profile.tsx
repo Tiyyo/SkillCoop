@@ -62,7 +62,8 @@ function ResumeProfile({ infos }: { infos: Infos }) {
                     defaultValue={'nicetrynoturs'}
                     readOnly
                     disabled
-                    className="bg-transparent pl-3"
+                    className="bg-transparent border-secondary-400 peer block w-full   
+                    px-2.5 pb-1.5 pt-3 text-sm"
                   />
                 </div>
               </div>

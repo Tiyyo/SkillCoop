@@ -52,10 +52,13 @@ export class Profile extends Core {
         'profile.last_evaluation',
         'profile.id as profile_id',
       ])
-      .innerJoin('skill_foot', 'profile_id', 'skill_foot.reviewee_id')
-      .select(({ fn }) => ['profile.id', fn.count('skill_foot.id').as('nb_review')])
       .where('profile_id', '=', id)
-      .groupBy('profile.id')
+      .execute();
+
+    const [nbReview] = await this.client
+      .selectFrom('skill_foot')
+      .select(({ fn }) => [fn.count('skill_foot.id').as('nb_review')])
+      .where('skill_foot.reviewee_id', '=', id)
       .execute();
 
     const [nbAttendedEvents] = await this.client
@@ -76,8 +79,9 @@ export class Profile extends Core {
     let spreadProfile;
 
     if (profile) {
-      spreadProfile = { ...profile, ...nbAttendedEvents, ...nbBonus };
+      spreadProfile = { ...profile, ...nbReview, ...nbAttendedEvents, ...nbBonus };
     }
+    console.log(spreadProfile);
     return spreadProfile;
   }
   // TODO define a type for data

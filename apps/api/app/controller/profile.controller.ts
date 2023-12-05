@@ -42,8 +42,9 @@ export default {
     // update profile with new image url
     // return new image url
 
-    const { avatar_url, username } = await Profile.findOne(profile_id);
     if (!avatarImage) throw new UserInputError('No image provided');
+
+    const { username, avatar_url } = await Profile.findOne(Number(profile_id));
 
     avatarImage.originalname = `avatar_${username}`;
 

@@ -11,7 +11,7 @@ function HomePageV2() {
       <section className="h-screen bg-home-page-gradient">
         <header className="h-20 py-5 px-4 flex justify-between items-center">
           <div>
-            <p className="font-semibold text-sm text-dark">
+            <p className="font-semibold text-sm md:text-md lg:text-2xl text-dark">
               Skill<span className="text-primary-100">coop</span>
             </p>
           </div>
@@ -31,20 +31,22 @@ function HomePageV2() {
         <div className="py-24 sm:py-32">
           <div className="mx-auto max-w-7xl px-6 text-center">
             <h1
-              className=" my-1.5 text-5xl/[1.07] text-primary-100 font-bold tracking-tight
-"
+              className="bg-clip-text bg-title my-1.5 
+              text-5xl/[1.07] text-transparent font-bold tracking-tight"
             >
               Play.
             </h1>
-            <h1 className="pl-4 text-5xl/[1.07] text-primary-100 font-bold tracking-tight">
-              <span className="text-primary-1100">Not</span> Plan.
+            <h1 className="pl-4 text-5xl/[1.07] font-bold tracking-tight">
+              <span className="text-primary-1100">Not</span>
+              <span className="bg-clip-text bg-title text-transparent">
+                Plan.
+              </span>
             </h1>
-            <h2 className="text-2xl font-semibold text-primary-1100 py-1.5 tracking-tighter">
-              Save your{' '}
-              <strong className="text-primary-1000 underline underline-offset-4">
-                Effort
-              </strong>{' '}
-              for the field
+            <h2
+              className="bg-clip-text bg-subtitle text-transparent text-2xl 
+              font-semibold  py-1.5 tracking-tighter"
+            >
+              Save your Effort for the field
             </h2>
             <p className="mx-auto max-w-3xl text-center font-medium  mt-6 text-grey-sub-text">
               Effortless event managment from kickoff to victory, our app

@@ -25,7 +25,7 @@ function ResumeProfile({ infos }: { infos: Infos }) {
   };
   return (
     <div
-      className="flex flex-col lg:rounded-xl w-full lg:my-4  bg-base-light 
+      className="flex flex-col lg:rounded-xl w-full lg:my-4 bg-base-light 
     shadow h-fit "
     >
       <div

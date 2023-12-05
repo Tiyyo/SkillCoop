@@ -59,7 +59,6 @@ function EndOfGameAwards() {
 
   return (
     <>
-      <ReturnBtn />
       <Tabs
         defaultValue="account"
         className="w-full flex flex-col justify-center"

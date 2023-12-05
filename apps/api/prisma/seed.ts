@@ -19,12 +19,13 @@ function getRandomIntInclusive(min: number, max: number): number {
 }
 
 function getIntUnused(intAlreadyUsed: number[]): number {
-  const nbToPush = getRandomIntInclusive(1, 53);
-  if (intAlreadyUsed.find((int) => int === nbToPush)) {
-    getIntUnused(intAlreadyUsed);
+  const nbToPush = getRandomIntInclusive(1, 24);
+  if (intAlreadyUsed.find((int) => int == nbToPush)) {
+    return getIntUnused(intAlreadyUsed);
+  } else {
+    return nbToPush;
   }
-  intAlreadyUsed.push(nbToPush);
-  return nbToPush;
+  // intAlreadyUsed.push(nbToPush);
 }
 
 async function seed() {
@@ -45,59 +46,14 @@ async function seed() {
     await Status.create({ name: item.name });
   }
 
-  // create 1 admin
-  // const admin = {
-  //   email: 'admin@admin.com',
-  //   password: 'admin',
-  // };
-
-  // const createdAdmin = await authService.createUser({
-  //   email: admin.email,
-  //   password: admin.password,
-  // });
-
-  // if (createdAdmin) {
-  //   await User.update(createdAdmin.id, { verified: 1 });
-  //   await Profile.create({ user_id: createdAdmin.id, username: 'admin' });
-  // }
-
-  // const test = {
-  //   email: 'test@test.com',
-  //   password: 'test',
-  // };
-
-  // const createdTest = await authService.createUser({
-  //   email: test.email,
-  //   password: test.password,
-  // });
-  // if (createdTest) {
-  //   await User.update(createdTest.id, { verified: 1 });
-  //   await Profile.create({ user_id: createdTest.id, username: 'test' });
-  // }
-
-  // const test2 = {
-  //   email: 'test2@test.com',
-  //   password: 'test2',
-  // };
-
-  // const createdTest2 = await authService.createUser({
-  //   email: test2.email,
-  //   password: test2.password,
-  // });
-
-  // if (createdTest2) {
-  //   await User.update(createdTest2.id, { verified: 1 });
-  //   await Profile.create({ user_id: createdTest2.id, username: 'test2' });
-  // }
-
   const userToCreateInfos = [
     {
       email: 'admin@admin.com',
       password: 'admin',
       username: 'Tiyyo',
       date_of_birth: '1992-12-09',
-      first_name: 'steeve',
-      last_name: 'matou',
+      first_name: 'Steeve',
+      last_name: 'Matou',
     },
     {
       email: 'haaland@haaland.com',
@@ -177,9 +133,9 @@ async function seed() {
       username: infos.username,
       first_name: infos.first_name,
       last_name: infos.last_name,
+      active_notification: faker.number.int({ min: 0, max: 1 }),
     });
 
-    // console.log('Profile created', profile.id);
     await SkillFoot.create({
       pace: faker.number.int({ min: 50, max: 100 }),
       shooting: faker.number.int({ min: 50, max: 100 }),
@@ -191,8 +147,8 @@ async function seed() {
     });
   }
 
-  // create 50 users
-  const NB_USERS_TO_CREATE = 50;
+  // create 15 users + profile with avatar + skillfoot
+  let NB_USERS_TO_CREATE = 10;
   const arrayToIterateOn = new Array(NB_USERS_TO_CREATE).fill(1);
   //eslint-disable-next-line
   for await (const _ of arrayToIterateOn) {
@@ -202,7 +158,6 @@ async function seed() {
     });
 
     const avatarUrl = faker.internet.avatar();
-
     await Image.create({ url: avatarUrl });
 
     const randomDate = faker.date.birthdate({ max: 2002, min: 1980 });
@@ -217,7 +172,6 @@ async function seed() {
       date_of_birth: birthdate,
     });
 
-    // console.log('Profile created', profile.id);
     await SkillFoot.create({
       pace: faker.number.int({ min: 10, max: 100 }),
       shooting: faker.number.int({ min: 10, max: 100 }),
@@ -228,9 +182,40 @@ async function seed() {
       reviewee_id: profile.id,
     });
   }
-  // create friendship between users
 
-  const twoAndThree = [2, 3];
+  NB_USERS_TO_CREATE = 750;
+  const arrayToIterateOnTwo = new Array(NB_USERS_TO_CREATE).fill(1);
+  //eslint-disable-next-line
+  for await (const _ of arrayToIterateOnTwo) {
+    const user = await User.createUser({
+      email: faker.internet.email(),
+      password: faker.internet.password(),
+    });
+
+    const randomDate = faker.date.birthdate({ max: 2002, min: 1980 });
+    const birthdate = getDateUTC(randomDate);
+
+    const profile = await Profile.create({
+      user_id: user.id,
+      username: faker.internet.userName().toLowerCase(),
+      first_name: faker.person.firstName(),
+      last_name: faker.person.lastName(),
+      date_of_birth: birthdate,
+    });
+
+    await SkillFoot.create({
+      pace: faker.number.int({ min: 10, max: 100 }),
+      shooting: faker.number.int({ min: 10, max: 100 }),
+      passing: faker.number.int({ min: 10, max: 100 }),
+      dribbling: faker.number.int({ min: 10, max: 100 }),
+      defending: faker.number.int({ min: 10, max: 100 }),
+      rater_id: profile.id,
+      reviewee_id: profile.id,
+    });
+  }
+
+  // create friendship between users
+  const twoAndThree = [2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   const dataPendingRequestsTest = twoAndThree.map((id) => {
     return {
@@ -245,7 +230,7 @@ async function seed() {
   const dataConfirmedRequests = arrayFourtoThriteen.map((_, index) => {
     return {
       adder_id: 1,
-      friend_id: index + 4,
+      friend_id: index + 11,
       status_name: 'confirmed',
     };
   });
@@ -261,7 +246,7 @@ async function seed() {
   });
   await Friendlist.createMany(dataPendingRequestsAdmin);
 
-  // create 5 past events
+  // // create 5 past events organize by admin
   const NB_EVENTS_TO_CREATE = 5;
   const arrayToIterateOnEvents = new Array(NB_EVENTS_TO_CREATE).fill(1);
   //eslint-disable-next-line
@@ -287,9 +272,7 @@ async function seed() {
 
     // add 10 participants to each event
     const NB_PARTICIPANTS_TO_CREATE = 10;
-    const arrayToIterateOnParticipants = new Array(
-      NB_PARTICIPANTS_TO_CREATE,
-    ).fill(1);
+    const arrayToIterateOnParticipants = new Array(NB_PARTICIPANTS_TO_CREATE).fill(1);
 
     arrayToIterateOnParticipants.forEach(async (_, index) => {
       await Participant.create({
@@ -301,11 +284,9 @@ async function seed() {
     });
   }
 
-  // create 3 future events
+  // // create 3 future events
   const NB_EVENTS_FUTURE_TO_CREATE = 3;
-  const arrayToIterateOnFutureEvents = new Array(
-    NB_EVENTS_FUTURE_TO_CREATE,
-  ).fill(1);
+  const arrayToIterateOnFutureEvents = new Array(NB_EVENTS_FUTURE_TO_CREATE).fill(1);
 
   //eslint-disable-next-line
   for await (const _ of arrayToIterateOnFutureEvents) {
@@ -323,9 +304,7 @@ async function seed() {
 
     // add 10 participants to each event
     const NB_PARTICIPANTS_TO_CREATE = 10;
-    const arrayToIterateOnParticipants = new Array(
-      NB_PARTICIPANTS_TO_CREATE,
-    ).fill(1);
+    const arrayToIterateOnParticipants = new Array(NB_PARTICIPANTS_TO_CREATE).fill(1);
 
     arrayToIterateOnParticipants.forEach(async (_, index) => {
       await Participant.create({
@@ -336,23 +315,23 @@ async function seed() {
       });
     });
   }
-  const NB_EVENTS_PAST_TO_CREATE_2 = 50;
-  const arrayToIterateOnFutureEvents2 = new Array(
-    NB_EVENTS_PAST_TO_CREATE_2,
-  ).fill(1);
+
+  // create 50 past events
+  const NB_EVENTS_PAST_TO_CREATE_2 = 1000;
+  const arrayToIterateOnFutureEvents2 = new Array(NB_EVENTS_PAST_TO_CREATE_2).fill(1);
 
   //eslint-disable-next-line
   for await (const _ of arrayToIterateOnFutureEvents2) {
     const randomDate = faker.date.past();
     const date = getDateUTC(randomDate);
-    const randomInt = getRandomIntInclusive(1, 53);
+    const organizerId = getRandomIntInclusive(1, 24);
 
     const eventId = await Event.create({
       date,
       duration: 90,
       location: faker.location.city(),
       required_participants: 10,
-      organizer_id: randomInt,
+      organizer_id: organizerId,
       status_name: 'completed',
     });
 
@@ -364,24 +343,23 @@ async function seed() {
 
     await Participant.create({
       event_id: Number(eventId),
-      profile_id: randomInt,
+      profile_id: organizerId,
       status_name: 'confirmed',
       team: 1,
     });
-    const intAlreadyUsed = [randomInt];
+    const intAlreadyUsed = [organizerId];
 
     // add 10 participants to each event
     const NB_PARTICIPANTS_TO_CREATE = 9;
-    const arrayToIterateOnParticipants = new Array(
-      NB_PARTICIPANTS_TO_CREATE,
-    ).fill(1);
-
-    getIntUnused(intAlreadyUsed);
+    const arrayToIterateOnParticipants = new Array(NB_PARTICIPANTS_TO_CREATE).fill(1);
 
     arrayToIterateOnParticipants.forEach(async (_, index) => {
+      const unuserInt = getIntUnused(intAlreadyUsed);
+      if (!unuserInt) return logger.error('Failed to get an unused int');
+      intAlreadyUsed.push(unuserInt);
       Participant.create({
         event_id: Number(eventId),
-        profile_id: getIntUnused(intAlreadyUsed),
+        profile_id: unuserInt,
         status_name: 'confirmed',
         team: index < 4 ? 1 : 2,
       });
@@ -389,15 +367,13 @@ async function seed() {
   }
 
   const NB_EVENTS_PAST_TO_CREATE_3 = 50;
-  const arrayToIterateOnFutureEvents3 = new Array(
-    NB_EVENTS_PAST_TO_CREATE_3,
-  ).fill(1);
+  const arrayToIterateOnFutureEvents3 = new Array(NB_EVENTS_PAST_TO_CREATE_3).fill(1);
 
   //eslint-disable-next-line
   for await (const _ of arrayToIterateOnFutureEvents3) {
     const randomDate = faker.date.past();
     const date = getDateUTC(randomDate);
-    const randomInt = getRandomIntInclusive(1, 53);
+    const randomInt = getRandomIntInclusive(1, 24);
 
     const eventId = await Event.create({
       date,
@@ -418,16 +394,18 @@ async function seed() {
 
     // add 10 participants to each event
     const NB_PARTICIPANTS_TO_CREATE = 9;
-    const arrayToIterateOnParticipants = new Array(
-      NB_PARTICIPANTS_TO_CREATE,
-    ).fill(1);
+    const arrayToIterateOnParticipants = new Array(NB_PARTICIPANTS_TO_CREATE).fill(1);
 
     getIntUnused(intAlreadyUsed);
 
     arrayToIterateOnParticipants.forEach(async (_, index) => {
+      const unuserInt = getIntUnused(intAlreadyUsed);
+      if (!unuserInt) return logger.error('Failed to get an unused int');
+      intAlreadyUsed.push(unuserInt);
+
       await Participant.create({
         event_id: Number(eventId),
-        profile_id: getIntUnused(intAlreadyUsed),
+        profile_id: unuserInt,
         status_name: 'confirmed',
         team: index < 4 ? 1 : 2,
       });
@@ -436,9 +414,7 @@ async function seed() {
 
   // create 2 open events
   const NB_EVENTS_OPEN_TO_CREATE = 2;
-  const arrayToIterateOnOpenEvents = new Array(NB_EVENTS_OPEN_TO_CREATE).fill(
-    1,
-  );
+  const arrayToIterateOnOpenEvents = new Array(NB_EVENTS_OPEN_TO_CREATE).fill(1);
   const openParticipants = [1, 1, 1, 1, 1, 1];
 
   //eslint-disable-next-line

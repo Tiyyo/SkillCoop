@@ -65,6 +65,10 @@ export default {
         box: 'radial-gradient(circle, rgba(248,250,248,1) 24%, rgba(237,241,237,1) 100%)',
         stadium: "url('/images/stadium-showcase.jpg')",
         home: "url('/images/stadium.png')",
+        title:
+          'linear-gradient(135deg, rgba(68,167,86,1) 0%, rgba(3,78,19,0.87718837535014) 63%)',
+        subtitle:
+          'linear-gradient(135deg, rgba(68,167,86,1) 0%, rgba(0,83,16,1) 19%, rgba(0,32,6,1) 63%)',
       },
       aspectRatio: {
         '1/4': '1/4',

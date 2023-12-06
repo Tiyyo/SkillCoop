@@ -7,6 +7,8 @@ import Avatar from '../avatar';
 import notificationBellIcon from '../../assets/svg/notification-bell.svg';
 import settingsIcon from '../../assets/svg/settings-wheel.svg';
 import { useApp } from '../../store/app.store';
+import NotificationContainer from '../../feature/notification';
+import { Link } from 'react-router-dom';
 
 function Header() {
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
@@ -39,11 +41,13 @@ function Header() {
           className="flex justify-center items-center h-8 lg:h-11 
         aspect-square rounded-full bg-primary-210 text-primary-100"
         >
-          <img
-            src={notificationBellIcon}
-            alt="notification bell"
-            className="h-5 lg:h-7"
-          />
+          <Link to="/notification" className="flex justify-center items-center">
+            <img
+              src={notificationBellIcon}
+              alt="notification bell"
+              className="h-5 lg:h-7"
+            />
+          </Link>
         </div>
         <div className="flex gap-x-2.5 items-center">
           <Avatar avatar={userProfile?.avatar_url} />

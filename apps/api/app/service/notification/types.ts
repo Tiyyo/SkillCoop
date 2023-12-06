@@ -1,14 +1,27 @@
-export type NotificationType =
+export type NotificationType = 'event' | 'friend' | 'system' | 'message';
+
+export const notificationType = {
+  event: 'event',
+  friend: 'friend',
+  system: 'system',
+  message: 'message',
+} as const;
+
+export type NotificationSubtype =
   | 'eventInfosHasBeenUpdated'
   | 'userHasBeenInvitedToEvent'
   | 'userReceivedFriendRequest'
-  | 'userHasBeenAddedToFriendlist';
+  | 'userHasBeenAddedToFriendlist'
+  | 'teamHasBeenGenerated'
+  | 'transfertOwnership';
 
-export const notificationType = {
+export const notificationSubtype = {
   eventInfosHasBeenUpdated: 'eventInfosHasBeenUpdated',
   userHasBeenInvitedToEvent: 'userHasBeenInvitedToEvent',
   userReceivedFriendRequest: 'userReceivedFriendRequest',
   userHasBeenAddedToFriendlist: 'userHasBeenAddedToFriendlist',
+  teamHasBeenGenerated: 'teamHasBeenGenerated',
+  transfertOwnership: 'transfertOwnership',
 } as const;
 
 export type BuilderEventInfosNotificationMessage = (eventDate: string) => string;
@@ -22,23 +35,33 @@ export type BuilderFriendRequestNotificationMessage = (username: string) => stri
 
 export type BuilderAddedToFriendlistNotificationMessage = (username: string) => string;
 
+export type BuildTeamsHasBeenGeneratedMessage = (eventDate: string) => string;
+
+export type BuilderTransfertOwnershipMessage = (username: string, eventDate: string) => string;
+
 export type BuilderNotificationMessage =
   | BuilderEventInfosNotificationMessage
   | BuilderUserInvitedToEventNotificationMessage
   | BuilderFriendRequestNotificationMessage
-  | BuilderAddedToFriendlistNotificationMessage;
+  | BuilderAddedToFriendlistNotificationMessage
+  | BuildTeamsHasBeenGeneratedMessage
+  | BuilderTransfertOwnershipMessage;
 
 export type BuildersNotificationMessage = {
-  [notificationType.eventInfosHasBeenUpdated]: BuilderEventInfosNotificationMessage;
-  [notificationType.userHasBeenInvitedToEvent]: BuilderUserInvitedToEventNotificationMessage;
-  [notificationType.userReceivedFriendRequest]: BuilderFriendRequestNotificationMessage;
-  [notificationType.userHasBeenAddedToFriendlist]: BuilderAddedToFriendlistNotificationMessage;
+  [notificationSubtype.eventInfosHasBeenUpdated]: BuilderEventInfosNotificationMessage;
+  [notificationSubtype.userHasBeenInvitedToEvent]: BuilderUserInvitedToEventNotificationMessage;
+  [notificationSubtype.userReceivedFriendRequest]: BuilderFriendRequestNotificationMessage;
+  [notificationSubtype.userHasBeenAddedToFriendlist]: BuilderAddedToFriendlistNotificationMessage;
+  [notificationSubtype.teamHasBeenGenerated]: BuildTeamsHasBeenGeneratedMessage;
+  [notificationSubtype.transfertOwnership]: BuilderTransfertOwnershipMessage;
 };
 
 export type NotificationParams = {
   profileId: number;
   message: string;
   type: NotificationType;
+  subtype: NotificationSubtype;
+  img_url?: string | null;
   instigatorId?: number;
   eventId?: number;
 };

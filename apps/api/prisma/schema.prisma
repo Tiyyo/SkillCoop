@@ -192,7 +192,9 @@ model notification {
   instigator     profile?  @relation("instigator", fields: [instigator_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   event_id    Int?
   event       event?    @relation(fields: [event_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  img_url     String?
   type        String
+  subtype     String?
   message     String
   is_read     Int       @default(0)
   created_at  String

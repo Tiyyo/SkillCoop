@@ -4,8 +4,8 @@ import checkParams from '../utils/check-params';
 import ServerError from '../helpers/errors/server.error';
 import deleteDecodedKey from '../utils/delete-decoded';
 import UserInputError from '../helpers/errors/user-input.error';
-import { notifyUserReceivedFriendRequest } from '../service/notification/friend-request';
-import { notifyUserHasBeenAddedToFriendlist } from '../service/notification/added-friendlist';
+import { notifyUserReceivedFriendRequest } from '../service/notification/subtype/friend-request';
+import { notifyUserHasBeenAddedToFriendlist } from '../service/notification/subtype/added-friendlist';
 
 export default {
   async getFriends(req: Request, res: Response) {

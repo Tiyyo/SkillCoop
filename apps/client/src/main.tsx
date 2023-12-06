@@ -40,6 +40,7 @@ import EndOfGameAwards from './feature/event/awards.tsx';
 import ForgotPassword from './feature/auth/forgot-password.tsx';
 import ResetPasswordMiddleware from './component/redirection/control-reset-password.tsx';
 import HomePageV2 from './feature/home-page/home-v2.tsx';
+import NotificationContainer from './feature/notification/index.tsx';
 
 const sseEvent = new EventSource(
   'http://localhost:8082/api/subscription_pathway',
@@ -210,6 +211,14 @@ const router = createBrowserRouter([
   {
     path: '/terms-and-service',
     element: <TermsAndService />,
+  },
+  {
+    path: '/notification',
+    element: (
+      <Protected>
+        <NotificationContainer />
+      </Protected>
+    ),
   },
   { path: '*', element: <Page404 /> },
 ]);

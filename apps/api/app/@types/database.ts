@@ -45,7 +45,9 @@ export type notification = {
   profile_id: number;
   instigator_id: number | null;
   event_id: number | null;
+  img_url: string | null;
   type: string;
+  subtype: string | null;
   message: string;
   is_read: Generated<number>;
   created_at: string;

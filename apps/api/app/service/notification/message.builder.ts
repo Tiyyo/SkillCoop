@@ -1,20 +1,22 @@
-import { BuildersNotificationMessage, NotificationType, notificationType } from './types';
+import { BuildersNotificationMessage, NotificationSubtype, notificationSubtype } from './types';
 import dateHandller from '../../utils/date-format';
 
 export class BuildNotificationMessage {
-  type: NotificationType;
-  constructor(type: NotificationType) {
-    this.type = type;
+  subtype: NotificationSubtype;
+  constructor(subtype: NotificationSubtype) {
+    this.subtype = subtype;
   }
-  getBuilder(type: NotificationType) {
+  getBuilder(subtype: NotificationSubtype) {
     const builders: BuildersNotificationMessage = {
-      [notificationType.eventInfosHasBeenUpdated]: this.buildEventInfosHasBeenUpdatedMessage,
-      [notificationType.userHasBeenInvitedToEvent]: this.buildUserHasBeenInvitedToEventMessage,
-      [notificationType.userReceivedFriendRequest]: this.buildUserReceivedFriendRequestMessage,
-      [notificationType.userHasBeenAddedToFriendlist]:
+      [notificationSubtype.eventInfosHasBeenUpdated]: this.buildEventInfosHasBeenUpdatedMessage,
+      [notificationSubtype.userHasBeenInvitedToEvent]: this.buildUserHasBeenInvitedToEventMessage,
+      [notificationSubtype.userReceivedFriendRequest]: this.buildUserReceivedFriendRequestMessage,
+      [notificationSubtype.userHasBeenAddedToFriendlist]:
         this.buildUserHasBeenAddedToFriendlistMessage,
+      [notificationSubtype.teamHasBeenGenerated]: this.buildTeamsHasBeenGeneratedMessage,
+      [notificationSubtype.transfertOwnership]: this.buildTransfertOwnershipMessage,
     };
-    return builders[type];
+    return builders[subtype];
   }
   buildEventInfosHasBeenUpdatedMessage(eventDate: string) {
     const formatedEventDate = dateHandller.formatDateAndTime(eventDate);
@@ -30,5 +32,15 @@ in which you are participating, have been updated`;
   }
   buildUserHasBeenAddedToFriendlistMessage(username: string) {
     return `You are now friend with ${username}`;
+  }
+  buildTeamsHasBeenGeneratedMessage(eventDate: string) {
+    const formatedEventDate = dateHandller.formatDateAndTime(eventDate);
+    return `Event scheduled on ${formatedEventDate} has reached its required 
+            number of participants and teams have been generated`;
+  }
+  buildTransfertOwnershipMessage(username: string, eventDate: string) {
+    const formatedEventDate = dateHandller.formatDateAndTime(eventDate);
+    return `${username} has transferred to you his ownership rights for the 
+            event scheduled on ${formatedEventDate}`;
   }
 }

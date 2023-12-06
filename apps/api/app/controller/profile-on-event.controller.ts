@@ -5,7 +5,8 @@ import { Request, Response } from 'express';
 import { invitationStatus } from '../@types/types';
 import { generateBalancedTeam } from '../service/generate-teams';
 import deleteDecodedKey from '../utils/delete-decoded';
-import { notifyUserHasBeenInvitedToEvent } from '../service/notification/user-invited-event';
+import { notifyUserHasBeenInvitedToEvent } from '../service/notification/subtype/user-invited-event';
+import { notifyTeamHasBeenGenerated } from '../service/notification/subtype/team-generated';
 
 export default {
   async updateStatus(req: Request, res: Response) {
@@ -48,6 +49,7 @@ export default {
     if (event.required_participants === confirmedParticipants.length + 1) {
       await Event.update(event.id, { status_name: 'full' });
       await generateBalancedTeam(event.id);
+      await notifyTeamHasBeenGenerated(event.id);
       userMessage = 'Teams has been generated ';
     }
 

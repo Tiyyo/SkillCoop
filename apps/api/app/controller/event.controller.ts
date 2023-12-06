@@ -6,8 +6,9 @@ import checkParams from '../utils/check-params';
 import NotFoundError from '../helpers/errors/not-found.error';
 import deleteDecodedKey from '../utils/delete-decoded';
 import { generateBalancedTeam } from '../service/generate-teams';
-import { notifyEventInfosHasBeenUpdated } from '../service/notification/infos-event';
-import { notifyUserHasBeenInvitedToEvent } from '../service/notification/user-invited-event';
+import { notifyEventInfosHasBeenUpdated } from '../service/notification/subtype/infos-event';
+import { notifyUserHasBeenInvitedToEvent } from '../service/notification/subtype/user-invited-event';
+import { notifyTransfertOwnership } from '../service/notification/subtype/transfert-ownership';
 
 export default {
   async createOne(req: Request, res: Response) {
@@ -82,6 +83,10 @@ export default {
     const isUpdated = await Event.update(event_id, {
       organizer_id: new_organizer_id,
     });
+
+    if (isUpdated) {
+      await notifyTransfertOwnership(event_id, organizer_id, new_organizer_id);
+    }
 
     res.status(204).json({ success: isUpdated });
   },

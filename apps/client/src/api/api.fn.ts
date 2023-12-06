@@ -341,3 +341,8 @@ export const resetPasswordFn = async (data: {
   const response = await api.post(`auth/reset-password`, data);
   return response.data;
 };
+
+export const getNotificationFn = async (profileId: number) => {
+  const response = await api.get(`api/notification/${profileId}`);
+  return response.data;
+};

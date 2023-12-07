@@ -96,6 +96,8 @@ export class Core {
       .where('id', '=', id)
       .executeTakeFirst();
 
+    console.log('Result core update dataMapper :', result);
+
     return !!result.numUpdatedRows;
   }
   async delete(id: number) {

@@ -20,13 +20,14 @@ export class Notification extends Core {
           'notification.is_read',
           'notification.profile_id',
           'notification.type',
+          'notification.subtype',
+          'notification.img_url',
           'notification.event_id',
           'notification.instigator_id',
         ])
         .where('notification.profile_id', '=', profileId)
-        .where('notification.is_read', '=', 0)
         .orderBy('notification.created_at', 'desc')
-        .limit(10)
+        .limit(15)
         .execute();
 
       return result;

@@ -9,4 +9,11 @@ export default {
 
     return res.status(200).json(notifications);
   },
+  async markAsRead(req: Request, res: Response) {
+    const { notificationId } = req.body;
+
+    const isUpdated = await Notification.update(notificationId, { is_read: 1 });
+
+    return res.status(200).json({ succes: isUpdated });
+  },
 };

@@ -20,8 +20,7 @@ export class BuildNotificationMessage {
   }
   buildEventInfosHasBeenUpdatedMessage(eventDate: string) {
     const formatedEventDate = dateHandller.formatDateAndTime(eventDate);
-    return `Certain details for the event scheduled on ${formatedEventDate},
-in which you are participating, have been updated`;
+    return `Certain details for the event scheduled on ${formatedEventDate}, in which you are participating, have been updated`;
   }
   buildUserHasBeenInvitedToEventMessage(username: string, eventDate: string) {
     const formatedEventDate = dateHandller.formatDateAndTime(eventDate);
@@ -35,12 +34,10 @@ in which you are participating, have been updated`;
   }
   buildTeamsHasBeenGeneratedMessage(eventDate: string) {
     const formatedEventDate = dateHandller.formatDateAndTime(eventDate);
-    return `Event scheduled on ${formatedEventDate} has reached its required 
-            number of participants and teams have been generated`;
+    return `Event scheduled on ${formatedEventDate} has reached its required number of participants and teams have been generated`;
   }
   buildTransfertOwnershipMessage(username: string, eventDate: string) {
     const formatedEventDate = dateHandller.formatDateAndTime(eventDate);
-    return `${username} has transferred to you his ownership rights for the 
-            event scheduled on ${formatedEventDate}`;
+    return `${username} has transferred to you his ownership rights for the event scheduled on ${formatedEventDate}`;
   }
 }

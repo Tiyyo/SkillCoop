@@ -45,7 +45,7 @@ export function useGetSingleEvent(options: {
 }
 
 export function useUpdateParticipant(options: {
-  eventId?: number;
+  eventId?: number | null;
   onSuccess?: (response: unknown) => void;
 }) {
   const queryClient = useQueryClient();

@@ -2,6 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import defaultAvatar from '../../../public/images/default-avatar.png';
 import capitalize from '../../utils/capitalize';
 import { markNotficationAsReadFn } from '../../api/api.fn';
+import { useMarkNotificationAsRead } from '../../hooks/useNotification';
 
 interface CoreNotificationProps {
   id: number;
@@ -49,21 +50,7 @@ function CoreNotification({
   username,
   isRead,
 }: CoreNotificationProps) {
-  const { mutate: markAsRead } = useMutation(
-    (notificationId: number) => {
-      return markNotficationAsReadFn(notificationId);
-    },
-    {
-      onSuccess: () => {
-        // should update the state of the notification here
-        // should decrease the number of unread notification in a state somewhere
-        console.log('success');
-      },
-      onError: () => {
-        console.log('error');
-      },
-    },
-  );
+  const { mutate: markAsRead } = useMarkNotificationAsRead();
 
   const handleClick = () => {
     markAsRead(id);

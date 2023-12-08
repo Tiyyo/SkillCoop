@@ -1,37 +1,40 @@
-import { useQuery } from '@tanstack/react-query';
-import { getNotificationFn } from '../../api/api.fn';
 import { useApp } from '../../store/app.store';
 import Header from '../../component/header';
 import Container from '../../layout/container';
 import DispatchNotifications from './dispatch';
 import NotificationFilters from './filters';
 import { useNotifications } from '../../store/notification.store';
-import { useEffect } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
+import { useGetNotifications } from '../../hooks/useNotification';
 
 function NotificationContainer() {
   const { userProfile } = useApp();
-  const { activeFilter, setNotification, notifications } = useNotifications();
+  const { activeFilter, notifications, setNotification } = useNotifications();
 
   const {
     data: fetchNotifications,
     isLoading,
     isFetching,
-    isError,
-    isSuccess,
-  } = useQuery(['notifications'], () => {
-    {
-      if (!userProfile?.profile_id) return null;
-      return getNotificationFn(userProfile?.profile_id);
-    }
+    refetch,
+  } = useGetNotifications({
+    profileId: userProfile?.profile_id,
   });
 
+  useLayoutEffect(() => {
+    if (userProfile?.profile_id) {
+      refetch();
+    }
+  }, [userProfile]);
+
+  const loading = isLoading || isFetching;
+
   useEffect(() => {
-    if (isSuccess && fetchNotifications) {
+    if (fetchNotifications) {
       setNotification(fetchNotifications);
     }
-  }, [isLoading]);
+  }, [loading]);
 
-  if (!notifications) return null;
+  // if (!notifications) return null;
   if (notifications && notifications.length === 0)
     return <p> No notification </p>;
 

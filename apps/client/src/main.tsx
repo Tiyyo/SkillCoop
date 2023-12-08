@@ -42,19 +42,21 @@ import ResetPasswordMiddleware from './component/redirection/control-reset-passw
 import HomePageV2 from './feature/home-page/home-v2.tsx';
 import NotificationContainer from './feature/notification/index.tsx';
 
-const sseEvent = new EventSource(
+export const sseEvent = new EventSource(
   'http://localhost:8082/api/subscription_pathway',
   {
     withCredentials: true,
   },
 );
-sseEvent.onmessage = (event) => {
-  console.log('Line 45 new message :', event);
-};
-sseEvent.onerror = (event) => {
-  console.log('Line 47 SSE error :', event);
-  sseEvent.close();
-};
+
+// sseEvent.onmessage = (event) => {
+//   console.log('Line 45 new message :', event);
+//   const data = JSON.parse(event.data);
+// };
+// sseEvent.onerror = (event) => {
+//   console.log('Line 47 SSE error :', event);
+//   sseEvent.close();
+// };
 
 export const queryClient = new QueryClient({
   defaultOptions: {

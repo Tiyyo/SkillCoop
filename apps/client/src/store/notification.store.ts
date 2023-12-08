@@ -1,6 +1,5 @@
 import { create } from 'zustand';
 import { Notification, NotificationFilters } from '../types';
-import { getNotificationFn } from '../api/api.fn';
 
 interface NotificationStoreProps {
   notifications: Notification[] | null;
@@ -47,11 +46,26 @@ export const useNotifications = () => {
     (state) => state.setActiveFilter,
   );
 
+  const allUnreadNotifications = notifications?.filter(
+    (notif) => notif.is_read === 0,
+  ).length;
+
+  const eventUnreadNotifications = notifications?.filter(
+    (notif) => notif.is_read === 0 && notif.type === 'event',
+  ).length;
+
+  const friendUnreadNotifications = notifications?.filter(
+    (notif) => notif.is_read === 0 && notif.type === 'friend',
+  ).length;
+
   return {
     notifications,
     markAsReadInStore: markAsRead,
     setNotification,
     activeFilter,
     setActiveFilter,
+    allUnreadNotifications,
+    eventUnreadNotifications,
+    friendUnreadNotifications,
   };
 };

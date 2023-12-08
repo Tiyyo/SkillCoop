@@ -1,5 +1,5 @@
 import Hamburger from '../hamburger';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import MobileNav from '../mobile-nav';
 import NavUser from '../nav-user';
 import { ChevronDown } from 'lucide-react';
@@ -8,7 +8,10 @@ import notificationBellIcon from '../../assets/svg/notification-bell.svg';
 import settingsIcon from '../../assets/svg/settings-wheel.svg';
 import { useApp } from '../../store/app.store';
 import NotificationContainer from '../../feature/notification';
+import { sseEvent } from '../../main';
 import { Link } from 'react-router-dom';
+import { useGetNotifications } from '../../hooks/useNotification';
+import { useNotifications } from '../../store/notification.store';
 
 function Header() {
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
@@ -16,6 +19,35 @@ function Header() {
     setMenuIsOpen(state);
   };
   const { userProfile } = useApp();
+  const { allUnreadNotifications, setNotification } = useNotifications();
+  const {
+    refetch,
+    data: refetchNotifications,
+    isLoading,
+    isFetching,
+  } = useGetNotifications({
+    profileId: userProfile?.profile_id,
+  });
+
+  const loading = isLoading || isFetching;
+
+  sseEvent.onmessage = (event) => {
+    const data = JSON.parse(event.data);
+    if (data.message.includes('new notification')) {
+      console.log('If here query has refetched');
+      refetch();
+    }
+  };
+  sseEvent.onerror = (event) => {
+    console.log('Line 47 SSE error :', event);
+    sseEvent.close();
+  };
+
+  useEffect(() => {
+    if (refetchNotifications) {
+      setNotification(refetchNotifications);
+    }
+  }, [loading]);
 
   return (
     <div
@@ -41,12 +73,21 @@ function Header() {
           className="flex justify-center items-center h-8 lg:h-11 
         aspect-square rounded-full bg-primary-210 text-primary-100"
         >
-          <Link to="/notification" className="flex justify-center items-center">
+          <Link
+            to="/notification"
+            className="relative flex justify-center items-center"
+          >
             <img
               src={notificationBellIcon}
               alt="notification bell"
               className="h-5 lg:h-7"
             />
+            {allUnreadNotifications && Number(allUnreadNotifications) > 0 && (
+              <div
+                className="absolute -top-0.5 -right-0.5 h-2.5 rounded-full
+               bg-primary-700 aspect-square animate-pulse"
+              ></div>
+            )}
           </Link>
         </div>
         <div className="flex gap-x-2.5 items-center">

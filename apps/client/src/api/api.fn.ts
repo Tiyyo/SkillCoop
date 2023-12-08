@@ -19,6 +19,7 @@ import {
   UpdateFriendsInvitation,
   User,
   Vote,
+  Notification,
 } from '../types';
 
 interface EventQuery {
@@ -342,7 +343,9 @@ export const resetPasswordFn = async (data: {
   return response.data;
 };
 
-export const getNotificationFn = async (profileId: number) => {
+export const getNotificationFn = async (
+  profileId: number,
+): Promise<Notification[]> => {
   const response = await api.get(`api/notification/${profileId}`);
   return response.data;
 };

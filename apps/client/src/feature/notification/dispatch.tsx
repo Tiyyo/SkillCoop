@@ -1,10 +1,7 @@
-import { Divide } from 'lucide-react';
 import AddedFriendsNotification from './notification-type/added-friends.notification';
 import EventInfosUpdatedNotification from './notification-type/event-infos-updated.notification';
 import EventInvitationNotification from './notification-type/event-invitation.notification';
 import FriendRequestNotification from './notification-type/friend-request.notification';
-import defaultAvatar from '../../../public/images/default-avatar.png';
-import CoreNotification from './core';
 import TeamGeneratedNotification from './notification-type/team-generated.notification';
 import TransfertOwnershipNotification from './notification-type/transfert-ownership.notification';
 

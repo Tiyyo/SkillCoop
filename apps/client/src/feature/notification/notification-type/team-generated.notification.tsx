@@ -10,7 +10,6 @@ function TeamGeneratedNotification({
 }) {
   const dateRegex = /scheduled on\s(.*?)\s+has/;
   const date = notification.message.match(dateRegex)?.[1];
-  console.log(date);
   const buildMessage = () => {
     if (date) {
       const firstPart = notification.message.split(date)[0];

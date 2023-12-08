@@ -221,3 +221,40 @@ export type UpdateEmail = {
   email: string;
   user_id: number;
 };
+
+export type NotificationType = 'event' | 'friend';
+
+export type Notification = {
+  id: number;
+  profile_id: number;
+  type: NotificationType;
+  subtype: string;
+  img_url?: string | null;
+  is_read: number;
+  message: string;
+  instigator_id?: number | null;
+  event_id?: number | null;
+  created_at: string;
+};
+
+export const notificationSubtype = {
+  eventInfosHasBeenUpdated: 'eventInfosHasBeenUpdated',
+  userHasBeenInvitedToEvent: 'userHasBeenInvitedToEvent',
+  userReceivedFriendRequest: 'userReceivedFriendRequest',
+  userHasBeenAddedToFriendlist: 'userHasBeenAddedToFriendlist',
+  teamHasBeenGenerated: 'teamHasBeenGenerated',
+  transfertOwnership: 'transfertOwnership',
+} as const;
+
+export const notificationType = {
+  event: 'event',
+  friend: 'friend',
+} as const;
+
+export type NotificationFilters = 'event' | 'friend' | 'all';
+
+export const notificationFilters = {
+  event: 'event',
+  friend: 'friend',
+  all: 'all',
+} as const;

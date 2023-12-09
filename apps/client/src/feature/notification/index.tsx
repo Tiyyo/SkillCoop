@@ -6,6 +6,7 @@ import NotificationFilters from './filters';
 import { useNotifications } from '../../store/notification.store';
 import { useEffect, useLayoutEffect } from 'react';
 import { useGetNotifications } from '../../hooks/useNotification';
+import Page from '../../layout/page';
 
 function NotificationContainer() {
   const { userProfile } = useApp();
@@ -39,15 +40,18 @@ function NotificationContainer() {
     return <p> No notification </p>;
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <Page>
       <Header />
-      <Container className="flex flex-col p-2">
+      <Container
+        className="flex flex-col p-2 lg:mt-4 lg:rounded-none 
+          lg:rounded-t-lg rounded-b-none"
+      >
         <h2 className="font-semibold text-sm lg:text-lg px-3 py-2">
           Notifications
         </h2>
         <NotificationFilters />
       </Container>
-      <Container className="flex-grow px-1.5">
+      <Container className="flex-grow px-1.5 lg:rounded-none lg: rounded-b-lg">
         {notifications &&
           notifications
             .filter((notification) => {
@@ -56,7 +60,7 @@ function NotificationContainer() {
             })
             .map((notification) => <DispatchNotifications {...notification} />)}
       </Container>
-    </div>
+    </Page>
   );
 }
 

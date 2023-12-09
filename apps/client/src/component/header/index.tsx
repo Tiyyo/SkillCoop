@@ -7,7 +7,6 @@ import Avatar from '../avatar';
 import notificationBellIcon from '../../assets/svg/notification-bell.svg';
 import settingsIcon from '../../assets/svg/settings-wheel.svg';
 import { useApp } from '../../store/app.store';
-import NotificationContainer from '../../feature/notification';
 import { sseEvent } from '../../main';
 import { Link } from 'react-router-dom';
 import { useGetNotifications } from '../../hooks/useNotification';

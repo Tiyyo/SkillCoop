@@ -35,10 +35,6 @@ function NotificationContainer() {
     }
   }, [loading]);
 
-  // if (!notifications) return null;
-  if (notifications && notifications.length === 0)
-    return <p> No notification </p>;
-
   return (
     <Page>
       <Header />
@@ -52,6 +48,11 @@ function NotificationContainer() {
         <NotificationFilters />
       </Container>
       <Container className="flex-grow px-1.5 lg:rounded-none lg: rounded-b-lg">
+        {notifications && notifications.length === 0 && (
+          <p className="text-sm text-light text-center mt-4">
+            You don&apos;t have any notifications
+          </p>
+        )}
         {notifications &&
           notifications
             .filter((notification) => {

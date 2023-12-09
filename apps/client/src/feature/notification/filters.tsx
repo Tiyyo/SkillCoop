@@ -77,10 +77,11 @@ function NotificationFilters() {
       {filters.length > 0 &&
         filters.map((filter) => (
           <FilterBtn
+            key={filter.key}
             onClick={handleClickFilters}
             activeFilter={activeFilter}
             componentFilter={filter.key}
-            unread={filter.unread}
+            unread={filter.unread ?? null}
           />
         ))}
     </div>

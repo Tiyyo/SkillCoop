@@ -3,6 +3,7 @@ import defaultAvatar from '../../../public/images/default-avatar.png';
 import capitalize from '../../utils/capitalize';
 import { markNotficationAsReadFn } from '../../api/api.fn';
 import { useMarkNotificationAsRead } from '../../hooks/useNotification';
+import { useNotifications } from '../../store/notification.store';
 
 interface CoreNotificationProps {
   id: number;
@@ -50,7 +51,12 @@ function CoreNotification({
   username,
   isRead,
 }: CoreNotificationProps) {
-  const { mutate: markAsRead } = useMarkNotificationAsRead();
+  const { markAsReadInStore } = useNotifications();
+  const { mutate: markAsRead } = useMarkNotificationAsRead({
+    onSuccess: () => {
+      markAsReadInStore(id);
+    },
+  });
 
   const handleClick = () => {
     markAsRead(id);

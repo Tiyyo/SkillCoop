@@ -81,11 +81,13 @@ function Header() {
               alt="notification bell"
               className="h-5 lg:h-7"
             />
-            {allUnreadNotifications && Number(allUnreadNotifications) > 0 && (
+            {allUnreadNotifications && Number(allUnreadNotifications) > 0 ? (
               <div
                 className="absolute -top-0.5 -right-0.5 h-2.5 rounded-full
                bg-primary-700 aspect-square animate-pulse"
               ></div>
+            ) : (
+              ''
             )}
           </Link>
         </div>

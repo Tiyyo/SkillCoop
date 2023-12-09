@@ -43,7 +43,7 @@ import HomePageV2 from './feature/home-page/home-v2.tsx';
 import NotificationContainer from './feature/notification/index.tsx';
 
 export const sseEvent = new EventSource(
-  'http://localhost:8082/api/subscription_pathway',
+  `${import.meta.env.VITE_PROD_SERVER_URL}/api/subscription_pathway`,
   {
     withCredentials: true,
   },

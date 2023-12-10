@@ -8,24 +8,17 @@ import factory from '../middleware/wrapper-controller';
 import userController from '../controller/user.controller';
 import logger from '../helpers/logger';
 import { EventEmitter } from 'events';
+import { sseConnectionManager } from '../service/notification/sse-connection.manager';
 
 const { getMe } = userController;
 const router: Router = express.Router();
-const testEvent = new EventEmitter();
-
-router.route('/test-event').get((_req, res) => {
-  testEvent.emit('new-notification', { data: 'test' });
-  res.status(200).json({ message: 'OK' });
-});
-
-// testEvent.on('new-notification', (data) => {
-//   console.log('listen test event', data);
-// });
 
 // this route need to be outsite of the apiRouter
 // to let the app access to it without 2 tokens
 // because it doesn't need to be protected by validateInfosTokens
 router.route('/api/user/me').get(tokenHandler.validate('access'), factory(getMe));
+
+router.route('/api/subscription_pathway').get(sseConnectionManager)
 
 router.route('/check').get((_req, res) => {
   res.status(200).json({ message: 'OK' });
@@ -38,6 +31,7 @@ router.use(
 );
 router.use('/auth', authRouter);
 
+// Health check
 router.route('/').get((_req, res) => {
   res.status(200).json({ message: 'Server is ok' });
 });

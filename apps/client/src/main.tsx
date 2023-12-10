@@ -42,12 +42,12 @@ import ResetPasswordMiddleware from './component/redirection/control-reset-passw
 import NotificationContainer from './feature/notification/index.tsx';
 import { SERVER_URL } from './utils/server.ts';
 
-export const sseEvent = new EventSource(
-  `${SERVER_URL}/api/subscription_pathway`,
-  {
-    withCredentials: true,
-  },
-);
+// export const sseEvent = new EventSource(
+//   `${SERVER_URL}/api/subscription_pathway`,
+//   {
+//     withCredentials: true,
+//   },
+// );
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -64,6 +64,40 @@ export const queryClient = new QueryClient({
 });
 
 const router = createBrowserRouter([
+  {
+    path: '/login',
+    element: (
+      <RedirectToHome>
+        <Login />
+      </RedirectToHome>
+    ),
+  },
+  {
+    path: '/register',
+    element: (
+      <RedirectToHome>
+        <Register />
+      </RedirectToHome>
+    ),
+  },
+  {
+    path: '/verify-email',
+    element: <VerifyEmail />,
+  },
+  { path: '/forgot-password', element: <ForgotPassword /> },
+  { path: '/reset-password', element: <ResetPasswordMiddleware /> },
+  {
+    path: '/auth/google',
+    loader: async ({ request }) => {
+      const accessToken = request.url.split('=')[1];
+      api.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+      return redirect('/');
+    },
+  },
+  {
+    path: '/terms-and-service',
+    element: <TermsAndService />,
+  },
   {
     path: '/',
     element: (
@@ -123,95 +157,44 @@ const router = createBrowserRouter([
         element: <EndOfGameAwards />,
       },
       { path: '*', element: <Page404 /> },
+      {
+        path: '/contact',
+        children: [
+          { index: true, element: <ConfirmedFriends /> },
+          {
+            path: 'pending-request',
+            element: <PendingFriends />,
+          },
+          {
+            path: 'add',
+            element: <AddFriends />,
+          },
+          {
+            path: 'profile/:id',
+            element: <FriendProfile />,
+          },
+          { path: '*', element: <Page404 /> },
+        ],
+      },
+      {
+        path: '/user',
+        children: [
+          {
+            path: 'profile',
+            element: <ProfileInfos />,
+          },
+          {
+            path: 'skills',
+            element: <UserResumeSkills />,
+          },
+          { path: '*', element: <Page404 /> },
+        ],
+      },
+      {
+        path: '/notification',
+        element: <NotificationContainer />,
+      },
     ],
-  },
-  {
-    path: '/contact',
-    element: (
-      <Protected>
-        <HomePageFriendslist />
-      </Protected>
-    ),
-    children: [
-      {
-        index: true,
-        element: <ConfirmedFriends />,
-      },
-      {
-        path: 'pending-request',
-        element: <PendingFriends />,
-      },
-      {
-        path: 'add',
-        element: <AddFriends />,
-      },
-      {
-        path: 'profile/:id',
-        element: <FriendProfile />,
-      },
-      { path: '*', element: <Page404 /> },
-    ],
-  },
-  {
-    path: '/user',
-    element: (
-      <Protected>
-        <HomePageUser />
-      </Protected>
-    ),
-    children: [
-      {
-        path: 'profile',
-        element: <ProfileInfos />,
-      },
-      {
-        path: 'skills',
-        element: <UserResumeSkills />,
-      },
-      { path: '*', element: <Page404 /> },
-    ],
-  },
-  {
-    path: '/login',
-    element: (
-      <RedirectToHome>
-        <Login />
-      </RedirectToHome>
-    ),
-  },
-  {
-    path: '/register',
-    element: (
-      <RedirectToHome>
-        <Register />
-      </RedirectToHome>
-    ),
-  },
-  {
-    path: '/verify-email',
-    element: <VerifyEmail />,
-  },
-  { path: '/forgot-password', element: <ForgotPassword /> },
-  { path: '/reset-password', element: <ResetPasswordMiddleware /> },
-  {
-    path: '/auth/google',
-    loader: async ({ request }) => {
-      const accessToken = request.url.split('=')[1];
-      api.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-      return redirect('/');
-    },
-  },
-  {
-    path: '/terms-and-service',
-    element: <TermsAndService />,
-  },
-  {
-    path: '/notification',
-    element: (
-      <Protected>
-        <NotificationContainer />
-      </Protected>
-    ),
   },
   { path: '*', element: <Page404 /> },
 ]);

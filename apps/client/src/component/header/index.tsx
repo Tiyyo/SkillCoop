@@ -7,13 +7,14 @@ import Avatar from '../avatar';
 import notificationBellIcon from '../../assets/svg/notification-bell.svg';
 import settingsIcon from '../../assets/svg/settings-wheel.svg';
 import { useApp } from '../../store/app.store';
-import { sseEvent } from '../../main';
 import { Link } from 'react-router-dom';
 import { useGetNotifications } from '../../hooks/useNotification';
 import { useNotifications } from '../../store/notification.store';
+import useSubscriptionNotification from '../../hooks/useSubscriptionNotification';
 
 function Header() {
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
+  const { eventSource: sseEvent } = useSubscriptionNotification();
   const getOpenStateMobileMenu = (state: boolean) => {
     setMenuIsOpen(state);
   };
@@ -30,18 +31,19 @@ function Header() {
 
   const loading = isLoading || isFetching;
 
-  sseEvent.onmessage = (event) => {
-    console.log('Is new event : ', event);
-    const data = JSON.parse(event.data);
-    if (data.message.includes('new notification')) {
-      console.log('If here query has refetched');
-      refetch();
-    }
-  };
-  sseEvent.onerror = (event) => {
-    console.log('Line 47 SSE error :', event);
-    sseEvent.close();
-  };
+  // sseEvent.onmessage = (event) => {
+  //   console.log('Is new event : ', event);
+  //   const data = JSON.parse(event.data);
+  //   if (data.message.includes('new notification')) {
+  //     console.log('If here query has refetched');
+  //     refetch();
+  //   }
+  // };
+
+  // sseEvent.onerror = (event) => {
+  //   console.log('Line 47 SSE error :', event);
+  //   sseEvent.close();
+  // };
 
   useEffect(() => {
     if (refetchNotifications) {

@@ -29,7 +29,7 @@ function AddFriends() {
       <Container className="w-full lg:mt-4">
         <TitleH2 title="Add new" legend="Search user by their username" />
       </Container>
-      <Container className="lg:mt-4">
+      <Container className="h-full lg:mt-4">
         <div className="px-4 py-2">
           <SearchInput onChange={getInputSearchValue} />
         </div>

@@ -11,7 +11,7 @@ function PendingFriends() {
   const { pendingFriends, loading, isError } = usePendingFriends({ profileId });
 
   return (
-    <Container className="w-full flex flex-col lg:mt-4">
+    <Container className="w-full h-full flex flex-col lg:mt-4">
       <TitleH2
         title="Pending request"
         legend="An action is required from you"

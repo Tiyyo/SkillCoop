@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { Profile } from '../types';
 import { useEffect } from 'react';
 import { useGetMe } from '../hooks/useProfile';
+import useSubscriptionNotification from '../hooks/useSubscriptionNotification';
 
 type AppStoreProps = {
   userProfile: Profile | null;
@@ -27,6 +28,7 @@ export const useApp = () => {
   const signout = useAppStore((state) => state.signout);
 
   const { data, isLoading, isFetching, isSuccess } = useGetMe({ userProfile });
+  useSubscriptionNotification();
 
   useEffect(() => {
     if (data === 'Unecessary call') return;

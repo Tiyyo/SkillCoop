@@ -38,8 +38,7 @@ function NotificationContainer() {
   console.log('Notifications :', notifications);
 
   return (
-    <Page>
-      <Header />
+    <>
       <Container
         className="flex flex-col p-2 lg:mt-4 lg:rounded-none 
           lg:rounded-t-lg rounded-b-none"
@@ -63,7 +62,7 @@ function NotificationContainer() {
             })
             .map((notification) => <DispatchNotifications {...notification} />)}
       </Container>
-    </Page>
+    </>
   );
 }
 

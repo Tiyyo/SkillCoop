@@ -3,6 +3,7 @@ import tokenHandler from '../../helpers/token.handler';
 import { notificationEventManager } from './notification-event.manager';
 import logger from '../../helpers/logger';
 import { SSENotificationData } from './types';
+import { CLIENT_URL } from '../../utils/variables';
 
 export function sseConnectionManager(req: Request, res: Response) {
   const tokenInfos = tokenHandler.verifyTokenAndGetData(
@@ -14,7 +15,7 @@ export function sseConnectionManager(req: Request, res: Response) {
   const headers = {
     'Content-Type': 'text/event-stream',
     // add client url here
-    'Access-Control-Allow-Origin': 'http://localhost:5004',
+    'Access-Control-Allow-Origin': CLIENT_URL,
     Connection: 'keep-alive',
     'Cache-Control': 'no-cache',
   };

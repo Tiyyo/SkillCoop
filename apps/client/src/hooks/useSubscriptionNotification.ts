@@ -1,36 +1,37 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { SERVER_URL } from "../utils/server";
 
-function useSubscriptionNotification() {
-  const [hasSubscribeNotification, setHasSubscribeNotification] = useState(false);
-  const [eventSource, setEventSource] = useState<EventSource | null>(null);
+type SubscriptionNotification = {
+  onMessage?: (event: MessageEvent) => void;
+  onError?: (error: Event) => void;
+};
 
-  // useEffect(() => {
-  //   if (!hasSubscribeNotification) {
-  //     const sseEvent = new EventSource(
-  //       `${SERVER_URL}/api/subscription_pathway`,
-  //       {
-  //         withCredentials: true,
-  //       },
-  //     );
-  //     console.log('SSE connection : on');
-  //     setHasSubscribeNotification(true)
-  //     setEventSource(sseEvent)
-  //   }
-  //   () => {
-  //     if (eventSource) {
-  //       setHasSubscribeNotification(false)
-  //       eventSource.close();
-  //     }
-  //   }
-  // }, [eventSource])
-  // export const sseEvent = new EventSource(
-  //   `${SERVER_URL}/api/subscription_pathway`,
-  //   {
-  //     withCredentials: true,
-  //   },
-  // );
-  return { hasSubscribeNotification, eventSource }
+function useSubscriptionNotification({ onMessage, onError }: SubscriptionNotification) {
+
+  useEffect(() => {
+    // console.log(props);
+    const uniDirectionalConnection = new EventSource(`${SERVER_URL}/api/subscription_pathway`, {
+      withCredentials: true,
+    },);
+
+    uniDirectionalConnection.onmessage = (event) => {
+      if (onMessage) {
+        onMessage(event)
+      }
+    };
+
+    uniDirectionalConnection.onerror = (error) => {
+      if (onError) {
+        onError(error)
+      }
+      uniDirectionalConnection.close(); // Close the connection on error
+    };
+    // Clean up the EventSource when the component unmounts
+    return () => {
+      uniDirectionalConnection.close();
+    }
+  }, []);
+
 }
 
 export default useSubscriptionNotification

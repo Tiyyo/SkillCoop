@@ -1,17 +1,14 @@
 import { useApp } from '../../store/app.store';
-import Header from '../../component/header';
 import Container from '../../layout/container';
 import DispatchNotifications from './dispatch';
 import NotificationFilters from './filters';
 import { useNotifications } from '../../store/notification.store';
 import { useEffect, useLayoutEffect } from 'react';
 import { useGetNotifications } from '../../hooks/useNotification';
-import Page from '../../layout/page';
 
 function NotificationContainer() {
   const { userProfile } = useApp();
   const { activeFilter, notifications, setNotification } = useNotifications();
-
   const {
     data: fetchNotifications,
     isLoading,
@@ -34,8 +31,6 @@ function NotificationContainer() {
       setNotification(fetchNotifications);
     }
   }, [loading]);
-
-  console.log('Notifications :', notifications);
 
   return (
     <>

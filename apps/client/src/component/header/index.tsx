@@ -14,7 +14,6 @@ import useSubscriptionNotification from '../../hooks/useSubscriptionNotification
 
 function Header() {
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
-  const { eventSource: sseEvent } = useSubscriptionNotification();
   const getOpenStateMobileMenu = (state: boolean) => {
     setMenuIsOpen(state);
   };
@@ -29,21 +28,19 @@ function Header() {
     profileId: userProfile?.profile_id,
   });
 
+  useSubscriptionNotification({
+    onMessage: (event: MessageEvent) => {
+      const data = JSON.parse(event.data);
+      if (data.message.includes('new notification')) {
+        refetch();
+      }
+    },
+    onError: (error: Event) => {
+      console.log('Error from SSE', error);
+    },
+  });
+
   const loading = isLoading || isFetching;
-
-  // sseEvent.onmessage = (event) => {
-  //   console.log('Is new event : ', event);
-  //   const data = JSON.parse(event.data);
-  //   if (data.message.includes('new notification')) {
-  //     console.log('If here query has refetched');
-  //     refetch();
-  //   }
-  // };
-
-  // sseEvent.onerror = (event) => {
-  //   console.log('Line 47 SSE error :', event);
-  //   sseEvent.close();
-  // };
 
   useEffect(() => {
     if (refetchNotifications) {

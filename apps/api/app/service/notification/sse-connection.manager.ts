@@ -14,7 +14,6 @@ export function sseConnectionManager(req: Request, res: Response) {
   logger.info('SSE connection : on');
   const headers = {
     'Content-Type': 'text/event-stream',
-    // add client url here
     'Access-Control-Allow-Origin': CLIENT_URL,
     Connection: 'keep-alive',
     'Cache-Control': 'no-cache',

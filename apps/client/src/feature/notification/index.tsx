@@ -35,6 +35,8 @@ function NotificationContainer() {
     }
   }, [loading]);
 
+  console.log('Notifications :', notifications);
+
   return (
     <Page>
       <Header />

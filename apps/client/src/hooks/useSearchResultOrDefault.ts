@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { SearchFriendQuery } from '../types';
+import { SearchFriendQuery } from '../types/index';
 import { useGetConfirmedFriends, useSearchInFriendlist } from './useFriends';
 
-interface UseSearchResultOrDefault {
+type UseSearchResultOrDefault = {
   profileId?: number;
 }
 

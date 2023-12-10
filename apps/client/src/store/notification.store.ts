@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { Notification, NotificationFilters } from '../types';
 
-interface NotificationStoreProps {
+type NotificationStoreProps = {
   notifications: Notification[] | null;
   setNotification: (notifications: Notification[]) => void;
   markAsRead: (id: number) => void;

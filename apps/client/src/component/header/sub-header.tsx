@@ -1,16 +1,15 @@
 import { PlusIcon } from 'lucide-react';
-import React from 'react';
 import TitleH1 from '../title-h1';
 import { Link } from 'react-router-dom';
 import Container from '../../layout/container';
 
-interface SubHeaderProps {
+type SubHeaderProps = {
   title: string;
   isPlusExist?: boolean;
   linkFromPlus?: string;
   textButton?: string;
   legend?: string;
-}
+};
 
 function SubHeader({
   title,

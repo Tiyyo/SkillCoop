@@ -1,11 +1,10 @@
-import { AxiosResponse } from 'axios';
 import { useFriends } from '../store/friend.store';
 import { useFriendInvitationActions } from './useFriends';
 import toast from '../utils/toast';
-import { InvitationStatus, invitationStatus } from '../types';
+import { InvitationStatus, invitationStatus } from '../types/index';
 import { updateFriendshipSchema } from 'schema/ts-schema';
 
-interface useActionsPendingFriendCardProps {
+type useActionsPendingFriendCardProps = {
   friendId: number;
   username: string;
   avatar: string;
@@ -26,7 +25,6 @@ export function useActionsPendingFriendCard({
       success: true;
       username: string;
     }) => {
-      console.log('Response :', response);
       const status = response.status as string;
       if (status === 'confirmed') {
         const friend = {
@@ -53,7 +51,6 @@ export function useActionsPendingFriendCard({
       status_name: action,
       username: username,
     };
-    console.log('Data :', data);
     const isValid = updateFriendshipSchema.safeParse(data);
     if (!isValid.success) return;
     respondToInvitation(data);

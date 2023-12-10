@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { EventParticipant } from '../../types';
 import TeamComposition from '../../component/team-composition';
 import toast from '../../utils/toast';
-import ReturnBtn from '../../component/return';
 import {
   useVoteForMvp,
   useVoteForbestStriker,

@@ -1,11 +1,9 @@
 import { create } from 'zustand';
 import { Profile } from '../types';
-import { useQuery } from '@tanstack/react-query';
-import { getMeFn } from '../api/api.fn';
 import { useEffect } from 'react';
 import { useGetMe } from '../hooks/useProfile';
 
-interface AppStoreProps {
+type AppStoreProps = {
   userProfile: Profile | null;
   isAuth: boolean;
   setIsAuth: (isAuth: boolean) => void;

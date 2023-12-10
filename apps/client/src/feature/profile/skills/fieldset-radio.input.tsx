@@ -2,10 +2,10 @@ import { useId, useState } from 'react';
 import capitalize from '../../../utils/capitalize';
 import { cn } from '../../../lib/utils';
 
-interface FieldsetRadioInputProps {
+type FieldsetRadioInputProps = {
   name: string;
   options: string[];
-}
+};
 
 function FieldsetRadioInput({ name, options }: FieldsetRadioInputProps) {
   const idComponent = useId();

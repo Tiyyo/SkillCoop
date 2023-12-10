@@ -2,13 +2,13 @@ import FriendCardSkeleton from '../../component/friend-card/skeleton';
 import FriendCard from '../../component/friend-card';
 import { Friend } from '../../types';
 
-interface FriendlistProps {
+type FriendlistProps = {
   friends?: Friend[];
   loading: boolean;
   error: boolean;
   stringKey?: string;
   activeLinkProfile?: boolean;
-}
+};
 
 function Friendlist({
   friends,

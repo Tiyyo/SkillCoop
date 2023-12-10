@@ -16,7 +16,7 @@ module.exports = {
     'no-var': 'error',
     '@typescript-eslint/ban-ts-comment': 'off',
     semi: 'error',
-    'prettier/prettier': ['error', { semi: true }],
+    'prettier/prettier': ['error', { semi: false }],
     indent: [
       'off',
       2,
@@ -35,6 +35,6 @@ module.exports = {
     'no-multiple-empty-lines': 'error',
     'typescript-eslint/ban-ts-comment': 'off',
     'import/extensions': ['off', 'always'],
-    'linebreak-style': ['off', 'windows'],
+    'linebreak-style': ['on', 'windows'],
   },
 };

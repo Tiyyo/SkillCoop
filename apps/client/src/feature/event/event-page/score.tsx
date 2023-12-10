@@ -11,14 +11,14 @@ import toast from '../../../utils/toast';
 import Container from '../../../layout/container';
 import TitleH2 from '../../../component/title-h2';
 
-interface EventPageScoreProps {
+type EventPageScoreProps = {
   eventId: number;
   isAdmin: boolean;
   scoreTeam1: number | null;
   scoreTeam2: number | null;
   eventDate: string;
   eventStatus: EventStatus;
-}
+};
 
 function EventPageScore({
   eventId,

@@ -3,6 +3,7 @@ import { useApp } from '../../store/app.store';
 import { useQuery } from '@tanstack/react-query';
 import { getEventFn } from '../../api/api.fn';
 import { useLayoutEffect, useState } from 'react';
+import { EventParticipant, EventType } from '../../types/index';
 
 function ControlAccesEventPage({ children }: { children: React.ReactNode }) {
   const { userProfile } = useApp();
@@ -18,13 +19,13 @@ function ControlAccesEventPage({ children }: { children: React.ReactNode }) {
   );
   const profileId = userProfile?.profile_id;
 
-  //TODO type later just for testing purpose
-  function getIdsParticipants(event: any) {
-    if (typeof event === 'string') return;
-    return event?.participants.map((p: any) => p.profile_id);
+  function getIdsParticipants(event: EventType | undefined) {
+    if (!event) return null;
+    if (typeof event.participants === 'string') return null;
+    return event?.participants.map((p: EventParticipant) => p.profile_id);
   }
 
-  function profileIdIsInIdsParticipants(idsParticipants: any) {
+  function profileIdIsInIdsParticipants(idsParticipants: number[]) {
     return idsParticipants?.includes(profileId);
   }
 
@@ -32,6 +33,7 @@ function ControlAccesEventPage({ children }: { children: React.ReactNode }) {
 
   useLayoutEffect(() => {
     if (isLoading) return;
+    if (!idsParticipants) return;
     profileIdIsInIdsParticipants(idsParticipants)
       ? setIsAuthorized(true)
       : setIsAuthorized(false);

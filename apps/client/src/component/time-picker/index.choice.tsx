@@ -1,7 +1,7 @@
-interface ChoiceProps {
+type ChoiceProps = {
   value: number | string;
   variant?: 'hours' | 'minutes';
-}
+};
 
 function Choice({ value, variant }: ChoiceProps) {
   const styleHours = 'mx-10';

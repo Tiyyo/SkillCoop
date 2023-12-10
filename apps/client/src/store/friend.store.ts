@@ -8,12 +8,10 @@ type Friend = {
   status_name: InvitationStatus;
   username: string;
 };
-
 type ConfirmedFriend = Friend[];
 type PendingFriend = Friend[];
 type Profiles = Profile[];
-
-interface FriendStoreProps {
+type FriendStoreProps = {
   confirmedFriends: ConfirmedFriend;
   pendingFriends: PendingFriend;
   searchProfiles: Profiles;

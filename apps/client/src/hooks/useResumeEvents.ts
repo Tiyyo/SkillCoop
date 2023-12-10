@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useGetAllEvents } from './useMultipleEvents';
-import { EventType } from '../types';
+import { EventType } from '../types/index';
 
 export function useResumeEvents({ profileId }: { profileId?: number }) {
   const [events, setEvents] = useState<{

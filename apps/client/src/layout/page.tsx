@@ -1,5 +1,5 @@
 import ReturnBtn from '../component/return';
-import SideMenuDesktop from '../test-desktop/side-menu';
+import SideMenuDesktop from '../component/side-menu';
 
 function Page({ children }: { children: React.ReactNode }) {
   return (

@@ -1,9 +1,9 @@
 import Container from '../../layout/container';
-import { EventParticipant } from '../../types';
+import { EventParticipant, EventStatus } from '../../types/index';
 import Participant from '../participant';
 import TitleH2 from '../title-h2';
 
-interface TeamProps {
+type TeamProps = {
   participants: EventParticipant[] | string;
   currentIdActive?: string;
   title?: string;
@@ -12,8 +12,8 @@ interface TeamProps {
   mvp?: number | null;
   bestStriker?: number | null;
   organizer?: number;
-  eventStatus?: 'full' | 'open' | 'completed' | 'cancelled';
-}
+  eventStatus?: EventStatus;
+};
 
 function Team({
   participants,

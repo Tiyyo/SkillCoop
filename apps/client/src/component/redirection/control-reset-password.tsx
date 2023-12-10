@@ -18,7 +18,7 @@ function ResetPasswordMiddleware() {
     if (data && data.message === 'success') {
       setUserResetTokenIsValid(true);
     }
-    if (data && data.message === 'expire link') {
+    if (data && data.message === 'expire') {
       navigate('/login');
     }
   }, [isLoading]);

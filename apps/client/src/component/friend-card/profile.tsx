@@ -3,7 +3,6 @@ import { useFriends as useFriendStore } from '../../store/friend.store';
 import toast from '../../utils/toast';
 import associateNumberToString from '../../utils/associate-number-stringscale';
 import { useInviteFriend } from '../../hooks/useFriends';
-import Avatar from '../avatar';
 import AvatarWithBorder from '../avatar/avatar-border';
 import capitalize from '../../utils/capitalize';
 

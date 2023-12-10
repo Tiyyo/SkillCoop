@@ -1,16 +1,16 @@
 import { useEvent } from '../../store/event.store';
-import { EventType, Friend } from '../../types';
+import { EventType, Friend } from '../../types/index';
 import FriendCard from '../friend-card';
 import FriendCardSkeleton from '../friend-card/skeleton';
 
-interface FriendCardProps {
+type FriendCardProps = {
   data: Friend[] | undefined | null;
   addFriendToState?: (friendId: number) => void;
   removeFriendsToState?: (friendId: number) => void;
   loading: boolean;
   activeFilter?: boolean;
   dataFromState?: EventType | undefined | null;
-}
+};
 
 function FriendCards({
   data,

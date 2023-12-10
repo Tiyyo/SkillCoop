@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { SearchProfileQuery } from '../types';
+import { SearchProfileQuery } from '../types/index';
 import { useGetSearchProfile } from './useProfile';
 import { useFriends } from '../store/friend.store';
 

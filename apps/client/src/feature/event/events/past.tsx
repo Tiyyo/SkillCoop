@@ -1,6 +1,5 @@
 import { getPastEventFn } from '../../../api/api.fn';
 import { useApp } from '../../../store/app.store';
-import ReturnBtn from '../../../component/return';
 import EventList from '../resume-events/list';
 import { EventType } from '../../../types';
 import useInfinite from '../../../hooks/useInfinite';

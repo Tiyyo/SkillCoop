@@ -10,11 +10,7 @@ import Button from '../../component/button';
 import { Eye, EyeOff } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-
-export type ResetPassword = {
-  password: string;
-  confirmPassword: string;
-};
+import { ResetPassword } from '../../types';
 
 function ResetPassword() {
   const [hasBeenReset, setHasBeenReset] = useState(false);

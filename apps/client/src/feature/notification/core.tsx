@@ -72,9 +72,11 @@ function CoreNotification({
       </div>
       <div className="flex gap-y-1.5 justify-startflex-shrink flex-wrap w-full pt-2">
         <p className="text-xs font-normal text-grey-sub-text">{message}</p>
-        <div className="flex flex-col w-full text-xs pt-2.5 pb-1 ">
-          {children}
-        </div>
+        {!isRead && (
+          <div className="flex flex-col w-full text-xs pt-2.5 pb-1 ">
+            {children}
+          </div>
+        )}
       </div>
       <div className="flex py-2 basis-14 flex-shrink-0">
         {!isRead && (

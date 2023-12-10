@@ -1,13 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useAutoEvaluateSkill, useGetProfileEval } from './useProfile';
-
-export type Skills = {
-  defending: number;
-  dribbling: number;
-  passing: number;
-  shooting: number;
-  pace: number;
-};
+import { Skills } from '../types/index';
 
 export function useUserProfileEval({ profileId }: { profileId: number }) {
   const [hasBeenEvaluated, setHasBeenEvaluated] = useState<boolean>(false);

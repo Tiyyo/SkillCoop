@@ -6,6 +6,7 @@ import {
   EvaluationParticipantSkill,
   EventInvitation,
   EventType,
+  EventQuery,
   Friend,
   InvitationStatus,
   Profile,
@@ -20,12 +21,7 @@ import {
   User,
   Vote,
   Notification,
-} from '../types';
-
-interface EventQuery {
-  profileId: number;
-  page: number;
-}
+} from '../types/index';
 
 const BASE_URL = SERVER_URL;
 
@@ -60,7 +56,7 @@ api.interceptors.response.use(
   },
 );
 
-export const signUpUserFn = async (user: RegisterUser) => {
+export const signUpUserFn = async (user: RegisterUser): Promise<String | { message: string }> => {
   const response = await api.post('auth/register', user);
   return response.data;
 };
@@ -163,7 +159,7 @@ export const getPendingFriendsFn = async (
   return response.data;
 };
 
-export const getSuggestProfileFn = async (profileId: number): Promise<any> => {
+export const getSuggestProfileFn = async (profileId: number): Promise<Partial<Profile>[]> => {
   const response = await api.get(`api/friends/suggest/${profileId}`);
   return response.data;
 };
@@ -330,7 +326,7 @@ export const forgotPasswordFn = async (email: string) => {
   return response.data;
 };
 
-export const verifyResetPasswordTokenFn = async () => {
+export const verifyResetPasswordTokenFn = async (): Promise<{ message: 'success' | 'expire' }> => {
   const response = await api.get(`auth/reset-password`);
   return response.data;
 };

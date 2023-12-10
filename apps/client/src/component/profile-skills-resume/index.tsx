@@ -3,14 +3,14 @@ import associateNumberToString from '../../utils/associate-number-stringscale';
 import capitalize from '../../utils/capitalize';
 import { sumValues } from '../../utils/sum-values';
 
-interface ProfileSkillsResumeProps {
+type ProfileSkillsResumeProps = {
   username: string;
   nbAtentedEvents: number | undefined;
   nbMvpBonus: number | undefined;
   nbReview: number | undefined;
   nbBestStrikerBonus: number | undefined;
   lastEvaluation: number | undefined;
-}
+};
 
 export default function ProfileSkillsResume({
   username,

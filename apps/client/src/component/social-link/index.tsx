@@ -1,8 +1,8 @@
-interface SocialButtonProps {
+type SocialButtonProps = {
   value?: string;
   children?: React.ReactNode;
   href?: string;
-}
+};
 
 function SocialButton({ value, children, href }: SocialButtonProps) {
   return (

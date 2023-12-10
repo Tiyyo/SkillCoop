@@ -12,10 +12,11 @@ import toast from '../../utils/toast';
 import { useSendEventInvitation } from '../../hooks/useSingleEvent';
 import { useSearchResultOrDefault } from '../../hooks/useSearchResultOrDefault';
 import Container from '../../layout/container';
+import { InvitationPageVariant } from '../../types/index';
 
-interface InviteProps {
-  variant: 'mutate' | 'update';
-}
+type InviteProps = {
+  variant: InvitationPageVariant;
+};
 
 // One component gonna update a state in store and will manage the mutation
 // The other gonna mutate data directyl without storing data in a store

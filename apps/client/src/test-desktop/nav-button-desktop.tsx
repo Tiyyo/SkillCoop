@@ -1,10 +1,10 @@
 import { NavLink } from 'react-router-dom';
 
-interface NavButtonDesktopProps {
+type NavButtonDesktopProps = {
   children?: JSX.Element;
   path: string;
   content: string;
-}
+};
 
 const baseStyle = `relative overflow-hidden duration-300 
                    w-5/6 h-12 flex items-center gap-x-2 pl-5 

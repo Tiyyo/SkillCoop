@@ -1,10 +1,10 @@
 import { NavLink } from 'react-router-dom';
 
-interface NavMobileLinkProps {
+type NavMobileLinkProps = {
   to: string;
   value: string;
   children?: React.ReactNode;
-}
+};
 
 function NavMobileLink({ children, to, value }: NavMobileLinkProps) {
   return (

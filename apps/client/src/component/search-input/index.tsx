@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import Search from '../../assets/icon/Search';
 
-interface SearchInputProps {
+type SearchInputProps = {
   getFocusState?: (state: boolean) => void;
   onChange?: (value: string) => void;
-}
+};
 
 function SearchInput({ getFocusState, onChange }: SearchInputProps) {
   const [shouldShowIcon, setShouldShowIcon] = useState(false);

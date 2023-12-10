@@ -1,8 +1,8 @@
-interface BenefitCardProps {
+type BenefitCardProps = {
   children?: React.ReactNode;
   title?: string;
   description?: string;
-}
+};
 
 function BenefitCard({ children, title, description }: BenefitCardProps) {
   return (

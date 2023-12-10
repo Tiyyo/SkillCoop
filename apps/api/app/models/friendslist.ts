@@ -176,12 +176,12 @@ export class Friendlist extends Core {
   }
   async findSuggestProfile(profileId: number) {
     try {
-      const suggestProfiles = await sql<{
+      const suggestProfiles = await sql<Array<{
         friend_id: number;
         username: string;
         avatar_url: string | null;
         last_evaluation: number | null;
-      }>`
+      }>>`
 SELECT 
   friend_id AS profile_id,
   username,
@@ -226,6 +226,8 @@ FROM
       )
 AND friend_id <> ${profileId}
 LIMIT 14`.execute(this.client);
+      console.log('Suggest profile ', suggestProfiles.rows)
+
       return suggestProfiles.rows;
     } catch (error) {
       throw new DatabaseError(error);

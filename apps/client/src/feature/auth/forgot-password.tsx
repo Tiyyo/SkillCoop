@@ -31,8 +31,9 @@ function ForgotPassword() {
       email: e.currentTarget.email.value,
     };
     const isValid = emailSchema.safeParse(data);
-    if (!isValid.success) setError('This is not a valid email');
-    if (isValid.success) {
+    if (!isValid.success) {
+      setError('This is not a valid email');
+    } else {
       sendEmailWithResetLink(data.email);
     }
   };
@@ -73,7 +74,7 @@ function ForgotPassword() {
               If there is an account linked to this email, you will receive an
               email.
             </p>
-            <img src={envelope} className="h-14" />
+            <img src={envelope} className="h-14" alt="envelope" />
             <p>An email has been sent; you can now reset your password.</p>
             <p>The reception of this email may take a few minutes.</p>
 

@@ -4,12 +4,12 @@ import capitalize from '../../utils/capitalize';
 import { NotificationFilters, notificationFilters } from '../../types';
 import { useNotifications } from '../../store/notification.store';
 
-interface FilterBtnProps {
+type FilterBtnProps = {
   onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
   activeFilter: NotificationFilters;
   componentFilter: NotificationFilters;
   unread: number | string | null;
-}
+};
 
 function FilterBtn({
   onClick,

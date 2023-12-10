@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { InvitationStatus } from '../../types';
+import { InvitationStatus } from '../../types/index';
 import { cn } from '../../lib/utils';
 import star from '../../assets/svg/star.svg';
 import soccerBall from '../../assets/svg/soccer-ball.svg';
@@ -8,19 +8,20 @@ import { Link } from 'react-router-dom';
 import Avatar from '../avatar';
 import { useApp } from '../../store/app.store';
 import ParticipantStatusMark from '../status';
+import { EventStatus } from '../../types/index';
 
-interface ParticipantProps {
+type ParticipantProps = {
   avatar: string;
   username: string;
   status: InvitationStatus;
   profileId: number;
-  eventStatus?: 'full' | 'open' | 'completed' | 'cancelled' | null;
+  eventStatus?: EventStatus | null;
   activeId?: string;
   name?: string;
   isAdmin?: boolean;
   isMvp?: boolean;
   isBestStriker?: boolean;
-}
+};
 
 function Participant({
   avatar,

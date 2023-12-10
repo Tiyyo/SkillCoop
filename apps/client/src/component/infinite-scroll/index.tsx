@@ -1,12 +1,12 @@
 import { useEffect, useRef } from 'react';
 import Spinner from '../loading';
 
-interface InfiniteScrollProps {
+type InfiniteScrollProps = {
   children: React.ReactNode;
   loading: boolean;
   triggerNextPage?: () => void;
   hasMore: boolean;
-}
+};
 
 function InfiniteScroll({
   children,

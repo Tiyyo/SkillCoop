@@ -8,17 +8,17 @@ import {
   AlertDialogTrigger,
 } from '../../lib/ui/alert-dialog';
 import { useEvent } from '../../store/event.store';
-import { InvitationStatus, invitationStatus } from '../../types';
+import { InvitationStatus, invitationStatus } from '../../types/index';
 import { useState } from 'react';
 import { X } from 'lucide-react';
 import { useUpdateParticipant } from '../../hooks/useSingleEvent';
 import toast from '../../utils/toast';
 
-interface UpdateStatusModalProps {
+type UpdateStatusModalProps = {
   children?: React.ReactNode;
   eventId: number | undefined;
   profileId: number | undefined;
-}
+};
 
 const menuItemStyle = `flex gap-2 items-center hover:bg-primary-200 transition-colors 
           duration-300 rounded-lg px-2 text-md h-10`;

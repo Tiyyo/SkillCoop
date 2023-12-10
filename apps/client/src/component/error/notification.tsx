@@ -2,14 +2,14 @@ import { X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { cn } from '../../lib/utils';
 
-interface ErrorNotificationProps {
+type ErrorNotificationProps = {
   message?: string;
   interval?: number;
-}
+};
 
 function ErrorNotification({
   message,
-  interval = 300500,
+  interval = 3500,
 }: ErrorNotificationProps) {
   const [errorMessage, setErrorMessage] = useState<string | undefined>();
   const [isOpen, setIsOpen] = useState(false);

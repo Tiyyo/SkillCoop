@@ -1,5 +1,5 @@
 import { Bell, ChevronDown, Settings } from 'lucide-react';
-import Avatar from '../component/avatar';
+import Avatar from '../avatar';
 
 function TopBanner() {
   return (

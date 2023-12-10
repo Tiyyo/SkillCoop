@@ -1,8 +1,8 @@
-interface StatBadgeProps {
+type StatBadgeProps = {
   label: string;
   value?: string;
   icon?: string;
-}
+};
 
 function StatBadge({ label, value, icon }: StatBadgeProps) {
   return (

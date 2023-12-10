@@ -1,12 +1,12 @@
-import { EventParticipant } from '../../types';
+import { EventParticipant } from '../../types/index';
 
-interface AvatarsProps {
+type AvatarsProps = {
   participants: EventParticipant[];
   nbAvatarToDisplay: number;
   plus?: number;
   team?: number;
   startSide?: 'left' | 'right';
-}
+};
 
 function Avatars({
   participants,

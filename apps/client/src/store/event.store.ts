@@ -13,7 +13,7 @@ type State = {
   user_status?: string | null;
 };
 
-interface eventStore {
+type eventStore = {
   event: State;
   initEventState: (args: State) => void;
   updateStartDate: (args: string) => void;

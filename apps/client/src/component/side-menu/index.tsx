@@ -1,8 +1,8 @@
 import { CalendarClock, History, Home } from 'lucide-react';
-import NavButtonDesktop from './nav-button-desktop';
-import Profile from '../assets/icon/Profile';
-import Friends from '../assets/icon/Friends';
-import Calendar from '../assets/icon/Calendar';
+import NavButtonDesktop from '../../test-desktop/nav-button-desktop';
+import Profile from '../../assets/icon/Profile';
+import Friends from '../../assets/icon/Friends';
+import Calendar from '../../assets/icon/Calendar';
 
 function SideMenuDesktop() {
   return (

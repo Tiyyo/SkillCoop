@@ -21,7 +21,10 @@ export function sseConnectionManager(req: Request, res: Response) {
   res.writeHead(200, headers);
   const clientId = tokenInfos?.user_id;
 
+  console.log('Client connected ID', clientId);
+
   notificationEventManager.on('new-notification', (data: SSENotificationData) => {
+    console.log('new-notification :', data);
     if (data.profileId !== clientId) return;
     res.write(`data: ${JSON.stringify(data)}\n\n`);
   });

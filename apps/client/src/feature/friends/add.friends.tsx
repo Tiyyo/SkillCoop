@@ -1,7 +1,6 @@
 import SearchInput from '../../component/search-input';
 import ProfileCard from '../../component/friend-card/profile';
 import { useFriends } from '../../store/friend.store';
-import ReturnBtn from '../../component/return';
 import TitleH2 from '../../component/title-h2';
 import { useApp } from '../../store/app.store';
 import { useSearchProfile } from '../../hooks/useSearchProfile';

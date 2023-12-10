@@ -11,12 +11,12 @@ import DeleteEventMenuItem from './delete-event';
 import CancelEventMenuItem from './cancel-event';
 import InviteFriendsMeuItems from './Invite-friends';
 
-interface DropdownEventMenuProps {
+type DropdownEventMenuProps = {
   eventStatus?: EventStatus;
   eventId?: number;
   profileId?: number;
   isAdmin?: boolean;
-}
+};
 
 const eventStatusWithAuthorizeAction = ['open', 'full'];
 

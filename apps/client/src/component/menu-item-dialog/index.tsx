@@ -14,14 +14,14 @@ import { UseMutateFunction } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { cn } from '../../lib/utils';
 
-interface MenuItemDialogProps {
+type MenuItemDialogProps = {
   description?: string;
   mutateFn: UseMutateFunction<any, unknown, any, unknown>;
   children: React.ReactNode;
   mutationData?: any;
   redirection?: string;
   hoverOn?: boolean;
-}
+};
 
 function MenuItemDialog({
   children,

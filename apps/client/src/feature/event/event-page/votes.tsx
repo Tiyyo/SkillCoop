@@ -3,11 +3,11 @@ import { EventParticipant } from '../../../types';
 import Container from '../../../layout/container';
 import { Info, MoveRight } from 'lucide-react';
 
-interface EventPageVotesBannerProps {
+type EventPageVotesBannerProps = {
   eventId: number;
   participants: EventParticipant[] | string;
   profileId?: number;
-}
+};
 
 function EventPageVotesBanner({
   eventId,

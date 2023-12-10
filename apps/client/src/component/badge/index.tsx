@@ -1,9 +1,9 @@
 import { cn } from '../../lib/utils';
-import { eventStatus } from '../../types';
+import { eventStatus } from '../../types//index';
 
-interface BadgeProps {
+type BadgeProps = {
   content: string;
-}
+};
 
 function Badge({ content }: BadgeProps) {
   return (

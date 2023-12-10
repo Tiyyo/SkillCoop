@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import { EventType } from '../types';
+import { EventType } from '../types/index';
 
 type EventTypeState = EventType & {
   participants: number[];
 };
 
-interface UseSelectionOfFriendsProps {
+type UseSelectionOfFriendsProps = {
   activeSelected?: boolean;
   removeFriendFromState?: (friendId: number) => void;
   addFriendToState?: (friendId: number) => void;

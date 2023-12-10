@@ -3,11 +3,11 @@ import { DropdownMenuItem } from '../../../../lib/ui/dropdown';
 import { EventStatus } from '../../../../types';
 import { useGenerateTeams } from '../../../../hooks/useSingleEvent';
 
-interface GenerateTeamsMenuItemProps {
+type GenerateTeamsMenuItemProps = {
   isAdmin: boolean;
   eventId?: number;
   eventStatus?: EventStatus;
-}
+};
 const menuItemStyle = `flex gap-2 items-center hover:bg-primary-200 
     transition-colors duration-300 rounded-lg px-2 text-md h-10`;
 

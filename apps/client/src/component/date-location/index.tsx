@@ -1,9 +1,9 @@
 import dateHandler from '../../utils/date.handler';
 
-interface DateLocationProps {
+type DateLocationProps = {
   date: string;
   location: string;
-}
+};
 
 function DateAndLocation({ date, location }: DateLocationProps) {
   return (

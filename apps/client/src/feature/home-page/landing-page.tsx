@@ -5,7 +5,7 @@ import Insta from '../../assets/icon/Insta';
 import BenefitCard from './benefit-card';
 import { Link } from 'react-router-dom';
 
-function HomePageV2() {
+function LandingPage() {
   return (
     <main>
       <section className="h-screen bg-home-page-gradient">
@@ -183,4 +183,4 @@ function HomePageV2() {
   );
 }
 
-export default HomePageV2;
+export default LandingPage;

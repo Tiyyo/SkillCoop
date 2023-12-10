@@ -3,12 +3,12 @@ import MenuItemDialog from '../../../../component/menu-item-dialog';
 import { useUpdateSingleEvent } from '../../../../hooks/useSingleEvent';
 import { EventStatus, eventStatus as eventStatusType } from '../../../../types';
 
-interface CancelEventMenuItemProps {
+type CancelEventMenuItemProps = {
   isAdmin: boolean;
   eventId?: number;
   profileId?: number;
   eventStatus: EventStatus;
-}
+};
 
 function CancelEventMenuItem({
   isAdmin,

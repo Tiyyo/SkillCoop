@@ -3,7 +3,6 @@ import { getEventsFn } from '../../../api/api.fn';
 import { useApp } from '../../../store/app.store';
 import { useEffect, useState } from 'react';
 import { EventType } from '../../../types';
-import ReturnBtn from '../../../component/return';
 import EventList from '../resume-events/list';
 
 function IncomingEvents() {

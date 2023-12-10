@@ -31,6 +31,7 @@ function Header() {
   const loading = isLoading || isFetching;
 
   sseEvent.onmessage = (event) => {
+    console.log('Is new event : ', event);
     const data = JSON.parse(event.data);
     if (data.message.includes('new notification')) {
       console.log('If here query has refetched');

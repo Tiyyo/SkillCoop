@@ -24,7 +24,7 @@ import toast from '../../../utils/toast';
 import { updateEventSchema } from 'schema/ts-schema';
 import dateHandler from '../../../utils/date.handler';
 
-interface EventPageInfosProps {
+type EventPageInfosProps = {
   eventDuration: number;
   eventlocation: string;
   eventDate: string;
@@ -32,7 +32,7 @@ interface EventPageInfosProps {
   isAdmin: boolean;
   profileId: number;
   eventStatus: string;
-}
+};
 
 function EventPageInfos({
   eventDuration,

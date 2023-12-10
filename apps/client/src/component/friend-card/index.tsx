@@ -1,19 +1,18 @@
 import OctogoneCross from '../../assets/icon/OctogoneCross';
 import Check from '../../assets/icon/Check';
-import { EventType, invitationStatus } from '../../types';
+import { EventType, invitationStatus } from '../../types/index';
 import { Link } from 'react-router-dom';
 import associateNumberToString from '../../utils/associate-number-stringscale';
 import capitalize from '../../utils/capitalize';
 import Avatar from '../avatar';
 import { useActionsPendingFriendCard } from '../../hooks/useActionsPendingFriendCard';
 import { useSelectionOfFriends } from '../../hooks/useSelectionOfFriends';
-import AvatarWithBorder from '../avatar/avatar-border';
 
 type EventTypeState = EventType & {
   participants: number[];
 };
 
-interface FriendCardProps {
+type FriendCardProps = {
   avatar: string;
   username: string;
   adderId: number;
@@ -26,7 +25,7 @@ interface FriendCardProps {
   activeSelected?: boolean;
   activeLinkProfile?: boolean;
   createdAt?: string;
-}
+};
 
 function FriendCard({
   avatar,
@@ -63,17 +62,16 @@ function FriendCard({
   return (
     <Link to={activeLinkProfile ? `/contact/profile/${friendId}` : ''}>
       <div
-        className={`h-full border-2 flex flex-col items-center
-         justify-center py-2 px-3 gap-3 min-w-[150px] cursor-pointer 
-          rounded-md border-transparent w-full  ${
+        className={`flex py-2 px-3 gap-3 max-h-16 cursor-pointer 
+          rounded-md border-2 border-transparent ${
             isSelected
               ? ' border-opacity-50 border-primary-400 bg-primary-500 shadow-2xl'
               : 'bg-base-light'
           }}`}
         onClick={handleClickSelectFriend}
       >
-        <AvatarWithBorder avatar={avatar} />
-        <div className="flex flex-col items-center gap-2">
+        <Avatar avatar={avatar} />
+        <div className="flex flex-col gap-2">
           <p className="text-xs">{username}</p>
           <div className="flex items-center gap-x-3">
             <p className="text-xxs text-light">

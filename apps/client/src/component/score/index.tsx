@@ -1,14 +1,14 @@
 import dateHandler from '../../utils/date.handler';
-import { eventStatus as eventStatusType } from '../../types';
+import { eventStatus as eventStatusType } from '../../types/index';
 
-interface ScoreProps {
+type ScoreProps = {
   date: string;
   duration: number;
   location: string;
   scoreTeamA?: number | null;
   scoreTeamB?: number | null;
   eventStatus: string;
-}
+};
 
 function Score({
   date,
@@ -67,22 +67,20 @@ function Score({
           {location}
         </span>
       </p>
-      <p
+      <div
         className="flex w-full gap-x-1.5 justify-center items-center
          font-normal text-grey-sub-text"
       >
-        <div className="basis-1/2 flex justify-end items-center gap-x-1 text-xxs">
+        <p className="basis-1/2 flex justify-end items-center gap-x-1 text-xxs">
           <img src="/images/timer.png" alt="clock icon" />
           <span>{dateHandler.getStartingTime(date)}</span>
           <span className="hidden sm:block">
             {dateHandler.getEndingTime(date, duration)}
           </span>
-        </div>
+        </p>
         <span className="mx-0.5 py-1">|</span>
-        <div className="basis-1/2">
-          <span>{dateHandler.getFormatedDate(date)}</span>
-        </div>
-      </p>
+        <p className="basis-1/2">{dateHandler.getFormatedDate(date)}</p>
+      </div>
     </div>
   );
 }

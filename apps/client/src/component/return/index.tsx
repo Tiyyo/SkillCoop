@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import { ChevronsLeft } from 'lucide-react';
 
-interface ReturnBtnProps {
+type ReturnBtnProps = {
   to?: string;
-}
+};
 
 function ReturnBtn({ to }: ReturnBtnProps) {
   const navigate = useNavigate();

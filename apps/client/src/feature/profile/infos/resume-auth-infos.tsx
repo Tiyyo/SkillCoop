@@ -1,9 +1,7 @@
 import { useState } from 'react';
-import Container from '../../../layout/container';
 import TriggerEditBtn from './trigger-edit-btn';
 import { useForm } from 'react-hook-form';
 import FormField from '../../../component/form-field';
-import EditModalPassword from './modal-edit-password';
 import { SendIcon } from 'lucide-react';
 import { emailSchema } from 'schema/ts-schema';
 import { zodResolver } from '@hookform/resolvers/zod';

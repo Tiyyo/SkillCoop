@@ -2,11 +2,11 @@ import { Trash2 } from 'lucide-react';
 import MenuItemDialog from '../../../../component/menu-item-dialog';
 import { useDeleteSingleEvent } from '../../../../hooks/useSingleEvent';
 
-interface DeleteEventMenuItemProps {
+type DeleteEventMenuItemProps = {
   isAdmin: boolean;
   eventId?: number;
   profileId?: number;
-}
+};
 
 function DeleteEventMenuItem({
   isAdmin,

@@ -1,17 +1,16 @@
 // Event page team composition
-
 import Team from '../../component/team-composition/index.team';
 import TitleH2 from '../../component/title-h2';
 import Container from '../../layout/container';
 import { EventParticipant, EventStatus } from '../../types';
 
-interface TeamCompositionProps {
+type TeamCompositionProps = {
   participants: EventParticipant[] | string;
   eventStatus?: EventStatus;
   mvp?: number | null;
   bestStriker?: number | null;
   organizer?: number;
-}
+};
 
 function TeamComposition({
   participants,

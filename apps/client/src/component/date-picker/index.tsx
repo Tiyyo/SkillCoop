@@ -3,7 +3,7 @@ import Datepicker from 'tailwind-datepicker-react';
 import dateHandler from '../../utils/date.handler';
 import { ArrowLeft, ArrowRight, Calendar } from 'lucide-react';
 
-interface InputDateProps {
+type InputDateProps = {
   updateState?: (e: any) => void;
   actionType?: string;
   label?: string;
@@ -13,7 +13,7 @@ interface InputDateProps {
   disabled?: boolean;
   updateData?: Record<string, string | number>;
   high?: boolean;
-}
+};
 
 function InputDate({
   updateState,

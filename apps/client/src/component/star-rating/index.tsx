@@ -1,10 +1,10 @@
 import { HTMLInputTypeAttribute, useId } from 'react';
 import './rating-input.css';
 
-interface RatingInputProps<T> {
+type RatingInputProps<T> = {
   value: T;
   name: string;
-}
+};
 
 function Star<T extends HTMLInputTypeAttribute>({
   value,

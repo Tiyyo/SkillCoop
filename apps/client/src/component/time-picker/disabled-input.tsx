@@ -1,10 +1,10 @@
 import { displayOneDigitWith2Digit } from '../../utils/display-number';
 
-interface DisabledInputTimePickerProps {
+type DisabledInputTimePickerProps = {
   name?: string;
   defaultTime?: string;
   disabled: boolean;
-}
+};
 
 function DisabledInputTimePicker({
   name,

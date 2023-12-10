@@ -10,12 +10,12 @@ import { editProfileInfosSchema } from 'schema/ts-schema';
 import Button from '../../../component/button';
 import { useUpdateProfile } from '../../../hooks/useProfile';
 
-interface FormEditProfileInfosProps {
+type FormEditProfileInfosProps = {
   shouldEditInfos: boolean;
   infos: Infos;
-}
+};
 
-interface FieldProps {
+type FieldProps = {
   shouldEditInfos: boolean;
   label: string;
   type: string;
@@ -24,7 +24,7 @@ interface FieldProps {
   valueForm?: string | null;
   Icon?: JSX.Element;
   register: UseFormRegister<any>;
-}
+};
 
 function Field({
   shouldEditInfos,

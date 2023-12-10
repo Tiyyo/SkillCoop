@@ -2,11 +2,11 @@ import { FolderInput } from 'lucide-react';
 import UpdateStatusModal from '../../../../component/update-status-modal';
 import { EventStatus } from '../../../../types';
 
-interface RevokeParticipationMenuItemProps {
+type RevokeParticipationMenuItemProps = {
   eventStatus: EventStatus;
   eventId?: number;
   profileId?: number;
-}
+};
 
 function RevokeParticipationMenuItem({
   eventStatus,

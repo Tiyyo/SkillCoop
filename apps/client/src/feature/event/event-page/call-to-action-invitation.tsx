@@ -6,10 +6,10 @@ import { useUpdateParticipant } from '../../../hooks/useSingleEvent';
 import Container from '../../../layout/container';
 import LeftBorder from '../../../component/left-border';
 
-interface CallToActionInvitationProps {
+type CallToActionInvitationProps = {
   eventId?: number;
   profileId?: number;
-}
+};
 
 function CallToActionInvitation({
   eventId,

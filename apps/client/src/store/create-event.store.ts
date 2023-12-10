@@ -16,7 +16,7 @@ type State = {
   participants?: number[] | null;
 };
 
-interface CreateEventStore {
+type CreateEventStore = {
   event: State;
   updateStartDate: (args: string) => void;
   updateStartTime: (args: string) => void;

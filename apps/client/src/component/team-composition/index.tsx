@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import Team from './index.team';
 import Button from '../button';
-import { EventParticipant } from '../../types';
+import { EventParticipant } from '../../types/index';
 import { UseMutateFunction } from '@tanstack/react-query';
 import { voteSchema } from 'schema/ts-schema';
 import { useApp } from '../../store/app.store';
 
-interface TeamCompositionProps {
+type TeamCompositionProps = {
   participants: EventParticipant[] | string;
   eventId: number;
   profileId: number;
   nameInput?: string;
   mutationFn?: UseMutateFunction<any, unknown, any, unknown>;
-}
+};
 
 function TeamComposition({
   participants,

@@ -1,13 +1,13 @@
 import { useCreateEvent } from '../../store/create-event.store';
 import { useEvent } from '../../store/event.store';
-import { Friend } from '../../types';
+import { Friend } from '../../types/index';
 import FriendCards from './index.friends';
 
-interface SwitchMutateOrUpdateProps {
+type SwitchMutateOrUpdateProps = {
   variant: 'mutate' | 'update';
   data: Friend[] | undefined | null;
   loading: boolean;
-}
+};
 
 function SwitchMutateOrUpdate({
   variant,

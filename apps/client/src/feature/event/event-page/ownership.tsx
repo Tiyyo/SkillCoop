@@ -11,10 +11,10 @@ import associateNumberToString from '../../../utils/associate-number-stringscale
 import ReturnBtn from '../../../component/return';
 import { cn } from '../../../lib/utils';
 
-interface TransfertOwnershipProps {
+type TransfertOwnershipProps = {
   data: EventType;
   profileId: number;
-}
+};
 
 function TransfertOwnership({
   data: event,

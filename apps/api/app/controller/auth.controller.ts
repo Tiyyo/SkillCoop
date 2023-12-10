@@ -84,7 +84,7 @@ export default {
   async logout(_req: Request, res: Response) {
     res.clearCookie('refreshToken', { sameSite: 'none', secure: true });
 
-    res.status(204).send('Logged out');
+    res.status(204);
   },
   async googleAuth(req: Request, res: Response) {
     const { code } = req.query;
@@ -212,13 +212,13 @@ export default {
         token,
         process.env.JWT_EMAIL_TOKEN_KEY as string,
       );
-      console.log(infos);
+
       if (infos && !infos.user_id) {
-        return res.status(200).json({ message: 'expire link' });
+        return res.status(200).json({ message: 'expire' });
       }
       res.status(200).json({ message: 'success' });
     } catch (error) {
-      return res.status(200).json({ message: 'expire link' });
+      return res.status(200).json({ message: 'expire' });
     }
   },
   async resetPassword(req: Request, res: Response) {
@@ -237,7 +237,6 @@ export default {
       );
       if (!infos || !infos.user_id) return res.status(200).json({ message: 'expire' });
       if (infos && infos.user_id) {
-        console.log(hashedPassword);
         await User.update(+infos.user_id, { password: hashedPassword });
         res.status(200).json({ message: 'success' });
       }

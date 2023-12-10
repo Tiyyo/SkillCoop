@@ -6,7 +6,7 @@ import {
   searchFriendsFn,
   sendFriendRequestFn,
 } from '../api/api.fn';
-import { CreateFriendsInvitation, UpdateFriendsInvitation } from '../types';
+import { CreateFriendsInvitation, UpdateFriendsInvitation } from '../types/index';
 
 const keys = {
   getFriends: ['confirmed-friends'],

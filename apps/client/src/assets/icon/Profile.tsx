@@ -8,7 +8,7 @@ function Profile({ size }: { size?: string }) {
       stroke="currentColor"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_116_1133)">
+      <g clipPath="url(#clip0_116_1133)">
         <path
           opacity="0.4"
           d="M9.99984 18.3417C14.6022 18.3417 18.3332 14.6108 18.3332 10.0084C18.3332 5.40601 14.6022 

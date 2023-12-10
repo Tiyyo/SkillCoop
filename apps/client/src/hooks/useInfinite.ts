@@ -1,6 +1,6 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 
-interface IUseInfinite {
+type UseInfiniteProps = {
   queryKey: string | string[];
   elementPerPage: number;
   queryFn: any;
@@ -12,7 +12,7 @@ function useInfinite({
   queryFn,
   argsFn,
   elementPerPage,
-}: IUseInfinite) {
+}: UseInfiniteProps) {
   const { data, isError, isLoading, isFetching, hasNextPage, fetchNextPage } =
     useInfiniteQuery({
       queryKey: [queryKey],

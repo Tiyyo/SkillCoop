@@ -16,7 +16,7 @@ import {
   Profile,
   SearchProfileQuery,
   UpdateEmail,
-} from '../types';
+} from '../types/index';
 import { AxiosResponse } from 'axios';
 
 const keys = {
@@ -74,14 +74,14 @@ export function useGetProfileEval(options: { profileId?: number }) {
 
 export function useGetSearchProfile(options: SearchProfileQuery) {
   return useQuery([`search-profile`], async ({ signal }) => {
-    if (!options.username) return;
+    if (!options.username) return null;
     return searchProfileFn(options, signal);
   });
 }
 
 export function useGetSuggestProfile(options: { profileId?: number }) {
   return useQuery([`suggest-profile`], async () => {
-    if (!options.profileId) return;
+    if (!options.profileId) return null;
     return getSuggestProfileFn(options.profileId);
   });
 }

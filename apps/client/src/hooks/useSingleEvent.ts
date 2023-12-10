@@ -19,7 +19,7 @@ import {
   UpdateEventData,
   UpdateParticipant,
   Vote,
-} from '../types';
+} from '../types/index';
 import { AxiosResponse } from 'axios';
 
 const keys = {

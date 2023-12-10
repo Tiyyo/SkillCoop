@@ -16,7 +16,6 @@ import { Eye, EyeOff } from 'lucide-react';
 import SeparatorLine from '../../component/seperator-line';
 import Center from '../../layout/center';
 import ErrorContainer from '../../component/error';
-import ReturnBtn from '../../component/return';
 import checkIfString from '../../utils/check-string';
 import Button from '../../component/button';
 import dompurify from 'dompurify';

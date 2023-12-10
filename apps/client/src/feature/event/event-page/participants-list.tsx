@@ -4,11 +4,11 @@ import Container from '../../../layout/container';
 import { useEvent } from '../../../store/event.store';
 import { EventParticipant } from '../../../types';
 
-interface ParticipantsListProps {
+type ParticipantsListProps = {
   confirmedParticipants: number;
   requiredparticipants: number;
   participants: EventParticipant[] | string;
-}
+};
 
 function ParticipantsList({
   confirmedParticipants,

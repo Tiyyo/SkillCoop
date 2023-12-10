@@ -33,7 +33,7 @@ router.route('/check').get((_req, res) => {
 
 router.use(
   '/api',
-  //  tokenHandler.validateInfosTokens(),
+  tokenHandler.validateInfosTokens(),
   apiRouter,
 );
 router.use('/auth', authRouter);

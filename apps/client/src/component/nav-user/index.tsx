@@ -29,13 +29,14 @@ function NavUser({ children }: { children: JSX.Element }) {
     signout();
     logout();
   };
+
   useEffect(() => {
     if (isSuccess) {
       // cache need to be clear on logout to avoid an user to still be able to access the app
       // because of remaining data in cache
       queryClient.clear();
-      queryClient.invalidateQueries({ queryKey: ['authUser'] });
-      queryClient.removeQueries({ queryKey: ['authUser'], exact: true });
+      queryClient.invalidateQueries({ queryKey: ['auth-user'] });
+      queryClient.removeQueries({ queryKey: ['auth-user'], exact: true });
       navigate('/login');
     }
   }, [isLoading]);

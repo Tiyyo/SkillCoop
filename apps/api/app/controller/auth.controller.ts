@@ -84,7 +84,8 @@ export default {
   async logout(_req: Request, res: Response) {
     res.clearCookie('refreshToken', { sameSite: 'none', secure: true });
 
-    res.status(204);
+    // NEED TO SEND SOMETHING WITH STATUS IF NOT COOKIE IS NOT CLEAR
+    res.status(204).end();
   },
   async googleAuth(req: Request, res: Response) {
     const { code } = req.query;

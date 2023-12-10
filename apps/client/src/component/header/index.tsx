@@ -28,6 +28,8 @@ function Header() {
     profileId: userProfile?.profile_id,
   });
 
+  console.log('Data notification at first load', refetchNotifications);
+
   useSubscriptionNotification({
     onMessage: (event: MessageEvent) => {
       const data = JSON.parse(event.data);
@@ -47,6 +49,10 @@ function Header() {
       setNotification(refetchNotifications);
     }
   }, [loading]);
+
+  useEffect(() => {
+    refetch();
+  }, []);
 
   return (
     <div

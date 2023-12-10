@@ -6,10 +6,13 @@ import { SSENotificationData } from './types';
 import { CLIENT_URL } from '../../utils/variables';
 
 export function sseConnectionManager(req: Request, res: Response) {
+  logger.info('Request SSE Connection Manager :', req)
   const tokenInfos = tokenHandler.verifyTokenAndGetData(
     req.cookies.refreshToken,
     process.env.JWT_REFRESH_TOKEN_KEY as string,
   );
+
+  logger.info('Is token valid', tokenInfos);
 
   logger.info('SSE connection : on');
   const headers = {

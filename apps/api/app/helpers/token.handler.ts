@@ -25,6 +25,7 @@ const tokenHandler = {
     let payload: ObjectRecordGeneric | null = null;
     verify(token, key, (err, decoded) => {
       if (err && err.message === 'jwt expired') {
+        logger.info('Token error jwt expired', err);
         logger.error('Token expired');
         throw new AuthorizationError('No access');
       }

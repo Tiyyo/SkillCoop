@@ -40,7 +40,6 @@ export default {
         email,
         password: hashedPassword,
       });
-      console.log(newUser);
       return newUser;
     } catch (error) {
       if (error instanceof Error) {
@@ -85,7 +84,7 @@ export default {
     if (!isCreated) throw new Error('Error creating user');
 
     // We need to get user_id in order to update verified status
-    // TODO look if we cannot get insterd id when create a new user
+    // TODO look if we cannot get insert id when create a new user
     const [userCreated] = await User.findBy({ email });
 
     const username = `${given_name} ${family_name[0]}.`;

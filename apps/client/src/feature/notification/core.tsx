@@ -1,23 +1,20 @@
-import { useMutation } from '@tanstack/react-query';
-import defaultAvatar from '../../../public/images/default-avatar.png';
 import capitalize from '../../utils/capitalize';
-import { markNotficationAsReadFn } from '../../api/api.fn';
 import { useMarkNotificationAsRead } from '../../hooks/useNotification';
 import { useNotifications } from '../../store/notification.store';
 
-interface CoreNotificationProps {
+type CoreNotificationProps = {
   id: number;
   username?: string;
   children?: React.ReactNode;
   image?: string | null;
   message: string | JSX.Element;
   isRead: boolean;
-}
+};
 
-interface ImageNotificationProps {
+type ImageNotificationProps = {
   image?: string | null;
   username?: string | null;
-}
+};
 
 function ImageNotification({ image, username }: ImageNotificationProps) {
   if (image) {

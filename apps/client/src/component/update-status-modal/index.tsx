@@ -35,7 +35,8 @@ function UpdateStatusModal({
   eventId,
   profileId,
 }: UpdateStatusModalProps) {
-  const { updateUserStatus: updateUserStatusInStore } = useEvent();
+  const { updateUserStatus: updateUserStatusInStore, updateParticipantStatus } =
+    useEvent();
   const [nextStatus, setNextStatus] = useState<InvitationStatus | null>(null);
   const [isOrganizer, setIsOrganizer] = useState(false);
 
@@ -43,15 +44,16 @@ function UpdateStatusModal({
     eventId,
     onSuccess: (response: any) => {
       if (!nextStatus) return;
-      if (response?.message === 'Organizer cannot change his status') {
+      if (response === 'Organizer cannot change his status') {
         setIsOrganizer(true);
         return;
       }
-      if (response?.message) {
-        updateUserStatusInStore(nextStatus);
-      }
-      if (response?.message === 'Event is already completed') {
+      if (response === 'Event is already completed') {
         toast.error('Event is already completed');
+      }
+      if (response === 'Status has been updated') {
+        updateUserStatusInStore(nextStatus);
+        if (profileId) updateParticipantStatus(nextStatus, profileId);
       }
     },
   });

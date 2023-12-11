@@ -19,7 +19,6 @@ import HomePageEvent from './feature/event/index.tsx';
 import CreateEvent from './feature/event/create-event/index.tsx';
 import ResumeEvents from './feature/event/resume-events/index.tsx';
 import InvitationEvent from './feature/event/invitation-page/index.tsx';
-import HomePageFriendslist from './feature/friends/index.tsx';
 import ConfirmedFriends from './feature/friends/confirmed.friends.tsx';
 import PendingFriends from './feature/friends/pending.friends.tsx';
 import AddFriends from './feature/friends/add.friends.tsx';
@@ -28,7 +27,6 @@ import IncomingEvents from './feature/event/events/incoming.tsx';
 import MyEvents from './feature/event/events/admin-event.tsx';
 import EventPage from './feature/event/event-page/index.tsx';
 import ProfileInfos from './feature/profile/infos/index.tsx';
-import HomePageUser from './feature/profile/index.tsx';
 import UserResumeSkills from './feature/profile/skills/index.tsx';
 import FriendProfile from './feature/friend-profile-page/index.tsx';
 import ModalRouteRatingEvent from './feature/event/event-page/modal-route-rating.tsx';
@@ -40,14 +38,7 @@ import EndOfGameAwards from './feature/event/awards.tsx';
 import ForgotPassword from './feature/auth/forgot-password.tsx';
 import ResetPasswordMiddleware from './component/redirection/control-reset-password.tsx';
 import NotificationContainer from './feature/notification/index.tsx';
-import { SERVER_URL } from './utils/server.ts';
-
-// export const sseEvent = new EventSource(
-//   `${SERVER_URL}/api/subscription_pathway`,
-//   {
-//     withCredentials: true,
-//   },
-// );
+import InvitationFromEventPage from './feature/event/event-page/invitation/index.tsx';
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -120,7 +111,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/event/:eventId/invitation',
-        element: <InvitationEvent />,
+        element: <InvitationFromEventPage />,
       },
       {
         path: '/events/incoming',

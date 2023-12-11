@@ -34,7 +34,7 @@ function EventPage() {
       required_participants: event.required_participants,
       organizer_id: event.organizer_id,
       start_time: event.date.split(' ')[1],
-      participants: event.participants.map((p) => p.profile_id),
+      participants: event.participants,
       status_name: event.status_name,
       user_status: event.user_status,
       confirmed_participants: event.participants.filter(
@@ -42,23 +42,21 @@ function EventPage() {
       ).length,
     });
     // Clear store on unmount
-    return () => {
-      initEventState({
-        start_date: null,
-        start_time: null,
-        location: null,
-        duration: null,
-        required_participants: null,
-        organizer_id: null,
-        status_name: null,
-        participants: null,
-        user_status: null,
-      });
-    };
+    // Desactivate for now to have access to participant infos list in invite page
+    // return () => {
+    //   initEventState({
+    //     start_date: null,
+    //     start_time: null,
+    //     location: null,
+    //     duration: null,
+    //     required_participants: null,
+    //     organizer_id: null,
+    //     status_name: null,
+    //     participants: null,
+    //     user_status: null,
+    //   });
+    // };
   }, [location.pathname, event, initEventState]);
-
-  console.log(event);
-  console.log(eventStore);
 
   useLayoutEffect(() => {
     if (eventStore && eventStore.user_status === 'declined') {
@@ -128,7 +126,7 @@ function EventPage() {
       {event && event.status_name !== 'open' && (
         <TeamComposition
           eventStatus={eventStore.status_name}
-          participants={event.participants}
+          participants={eventStore.participants}
           organizer={eventStore.organizer_id}
           mvp={event.mvp_id}
           bestStriker={event.best_striker_id}

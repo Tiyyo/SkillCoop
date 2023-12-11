@@ -4,7 +4,7 @@ import Participant from '../participant';
 import TitleH2 from '../title-h2';
 
 type TeamProps = {
-  participants: EventParticipant[] | string;
+  participants: EventParticipant[] | string | null;
   currentIdActive?: string;
   title?: string;
   teamTofileter?: number;
@@ -40,7 +40,8 @@ function Team({
           lg:grid-cols-particpant-layout justify-center lg:justify-between whitespace-nowrap"
         >
           {/* particpants can be a string if backend failed to parsed data */}
-          {typeof participants !== 'string' &&
+          {participants &&
+            typeof participants !== 'string' &&
             participants
               .filter((participant) => participant.team === teamTofileter)
               .map((participant) => (

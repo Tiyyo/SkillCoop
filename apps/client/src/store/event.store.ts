@@ -1,7 +1,7 @@
 import { create } from 'zustand';
-import { EventStatus } from '../types';
+import { EventParticipant, EventStatus } from '../types';
 
-type State = {
+export type EventStateStore = {
   start_date: string | null;
   start_time: string | null;
   location: string | null;
@@ -9,14 +9,15 @@ type State = {
   required_participants: number | null;
   organizer_id?: number | null;
   status_name: EventStatus | null;
-  participants?: number[] | null;
+  participants?: EventParticipant[] | null;
   user_status?: string | null;
   confirmed_participants?: number | null;
+  staged_participants?: EventParticipant[] | null;
 };
 
 type eventStore = {
-  event: State;
-  initEventState: (args: State) => void;
+  event: EventStateStore;
+  initEventState: (args: EventStateStore) => void;
   updateStartDate: (args: string) => void;
   updateStartTime: (args: string) => void;
   updateLocation: (args: string) => void;
@@ -24,9 +25,9 @@ type eventStore = {
   updateRequiredParticipants: (args: number) => void;
   updateOrganizerId: (args: number) => void;
   updateStatusName: (args: EventStatus) => void;
-  updateIdsParticipants: (args: number[]) => void;
-  addInvitedParticipantsIds: (args: number) => void;
-  removeInvitedParticipantsIds: (args: number) => void;
+  updateParticipants: (args: EventParticipant[]) => void;
+  addToStaged: (args: EventParticipant) => void;
+  removeFromStaged: (args: number) => void;
   updateUserStatus: (args: string) => void;
 }
 
@@ -41,9 +42,10 @@ export const useEventStore = create<eventStore>()((set) => ({
     status_name: null,
     participants: null,
     user_status: null,
+    staged_participants: null,
     confirmed_participants: null,
   },
-  initEventState: (event: State) =>
+  initEventState: (event: EventStateStore) =>
     set((state) => ({
       ...state,
       event: event,
@@ -88,28 +90,28 @@ export const useEventStore = create<eventStore>()((set) => ({
       ...state,
       event: { ...state.event, user_status: statusName },
     })),
-  updateIdsParticipants: (idsParticipants: number[]) =>
+  updateParticipants: (participants: EventParticipant[]) =>
     set((state) => ({
       ...state,
-      event: { ...state.event, participants: idsParticipants },
+      event: { ...state.event, participants: [...participants, ...(state.event.participants || [])] },
     })),
-  addInvitedParticipantsIds: (invitedParticipantsIds: number) =>
+  addToStaged: (participant: EventParticipant) =>
     set((state) => ({
       ...state,
       event: {
         ...state.event,
-        participants: state.event.participants
-          ? [...state.event.participants, invitedParticipantsIds]
-          : [invitedParticipantsIds],
+        staged_participants: state.event.staged_participants
+          ? [...state.event.staged_participants, participant]
+          : [participant],
       },
     })),
-  removeInvitedParticipantsIds: (invitedParticipantsIds: number) =>
+  removeFromStaged: (participantId: number) =>
     set((state) => ({
       ...state,
       event: {
         ...state.event,
-        participants: state.event.participants?.filter(
-          (id) => id !== invitedParticipantsIds,
+        staged_participants: state.event.staged_participants?.filter(
+          (p) => p.profile_id !== participantId,
         ),
       },
     })),
@@ -126,17 +128,18 @@ export const useEvent = () => {
   const updateRequiredParticipants = useEventStore(
     (state) => state.updateRequiredParticipants,
   );
-  const updateIdsParticipants = useEventStore(
-    (state) => state.updateIdsParticipants,
+  const updateParticipants = useEventStore(
+    (state) => state.updateParticipants,
   );
-  const addInvitedParticipantsIds = useEventStore(
-    (state) => state.addInvitedParticipantsIds,
+  const addToStaged = useEventStore(
+    (state) => state.addToStaged,
   );
-  const removeInvitedParticipantsIds = useEventStore(
-    (state) => state.removeInvitedParticipantsIds,
+  const removeFromStaged = useEventStore(
+    (state) => state.removeFromStaged,
   );
   const updateUserStatus = useEventStore((state) => state.updateUserStatus);
   const data = useEventStore((state) => state.event);
+
 
   return {
     initEventState,
@@ -145,9 +148,9 @@ export const useEvent = () => {
     updateDuration,
     updateLocation,
     updateRequiredParticipants,
-    updateIdsParticipants,
-    addInvitedParticipantsIds,
-    removeInvitedParticipantsIds,
+    updateParticipants,
+    addToStaged,
+    removeFromStaged,
     updateUserStatus,
     updateOrganizerId,
     updateStatusName,

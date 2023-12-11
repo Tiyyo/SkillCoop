@@ -5,7 +5,7 @@ import Container from '../../layout/container';
 import { EventParticipant, EventStatus } from '../../types';
 
 type TeamCompositionProps = {
-  participants: EventParticipant[] | string;
+  participants?: EventParticipant[] | string | null;
   eventStatus?: EventStatus | null;
   mvp?: number | null;
   bestStriker?: number | null;

@@ -30,7 +30,6 @@ function EventPageScore({
   eventDate,
   eventStatus,
 }: EventPageScoreProps) {
-  console.log(eventStatus);
   const { userProfile } = useApp();
   const { updateStatusName } = useEvent();
   const profileId = userProfile?.profile_id;

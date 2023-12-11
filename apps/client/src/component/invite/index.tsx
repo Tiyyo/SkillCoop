@@ -28,9 +28,22 @@ function Invite({ variant = 'update' }: InviteProps) {
   const [eventId, setEventId] = useState<number | undefined>(undefined);
   const profileId = userProfile?.profile_id;
 
-  const { getSearchValue, data, loading } = useSearchResultOrDefault({
+  const {
+    getSearchValue,
+    data: profileSearchResult,
+    loading,
+  } = useSearchResultOrDefault({
     profileId,
   });
+
+  const copyOfState = { ...eventState };
+
+  const filteredParticipants = profileSearchResult?.filter(
+    (searchedProfile) => {
+      const participantIds = copyOfState.participants?.map((p) => p.profile_id);
+      return !participantIds?.includes(searchedProfile.friend_id);
+    },
+  );
 
   const { mutate: sendInvitation, isLoading: isInvitationLoading } =
     useSendEventInvitation({
@@ -53,9 +66,11 @@ function Invite({ variant = 'update' }: InviteProps) {
       navigate(-1);
       return;
     }
+
+    console.log(eventState.staged_participants);
     const data = {
       event_id: Number(eventId),
-      ids: eventState.participants,
+      ids: eventState.staged_participants?.map((p) => Number(p.profile_id)),
       initiator: profileId,
     };
     const isValid = inviteParticipantSchema.safeParse(data);
@@ -63,6 +78,7 @@ function Invite({ variant = 'update' }: InviteProps) {
       toast.error('Something went wrong ... Try agian later');
       return;
     }
+    console.log(data.ids);
     sendInvitation(data);
   };
 
@@ -80,7 +96,9 @@ function Invite({ variant = 'update' }: InviteProps) {
         <div className="px-4 flex flex-col justify-center">
           <SearchInput onChange={getSearchValue} />
           <SwitchMutateOrUpdate
-            data={data}
+            profileSearchResult={
+              variant === 'mutate' ? filteredParticipants : profileSearchResult
+            }
             loading={loading}
             variant={variant}
           />

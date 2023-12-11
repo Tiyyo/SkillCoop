@@ -5,7 +5,7 @@ import { CreateEventData } from '../types';
 import toast from '../utils/toast';
 import { queryClient } from '../main';
 
-type State = {
+export type CreateEventStateStore = {
   start_date: string | null;
   start_time: string | null;
   location: string | null;
@@ -17,7 +17,7 @@ type State = {
 };
 
 type CreateEventStore = {
-  event: State;
+  event: CreateEventStateStore;
   updateStartDate: (args: string) => void;
   updateStartTime: (args: string) => void;
   updateLocation: (args: string) => void;

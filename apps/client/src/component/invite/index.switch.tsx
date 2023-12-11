@@ -5,36 +5,35 @@ import FriendCards from './index.friends';
 
 type SwitchMutateOrUpdateProps = {
   variant: 'mutate' | 'update';
-  data: Friend[] | undefined | null;
+  profileSearchResult: Friend[] | undefined | null;
   loading: boolean;
 };
 
 function SwitchMutateOrUpdate({
   variant,
-  data,
+  profileSearchResult,
   loading,
 }: SwitchMutateOrUpdateProps) {
   const {
-    addInvitedParticipantsIds: addToEvent,
-    removeInvitedParticipantsIds: removeFromEvent,
-    data: event,
+    addParticipant: addToEventStore,
+    removeParticipant: removeFromEventStore,
+    data: eventStore,
   } = useEvent();
 
   const {
-    addInvitedParticipantsIds: addToCreateEvent,
-    removeInvitedParticipantsIds: removeFromCreateEvent,
-    data: createdEvent,
+    addInvitedParticipantsIds: addToCreateEventStore,
+    removeInvitedParticipantsIds: removeFromCreateEventStore,
+    data: createdEventStore,
   } = useCreateEvent();
-
+  // Need to have 2 differents components because of the case where one of 2 store is not initailized
   if (variant === 'mutate') {
     return (
       <div className="overflow-y-scroll self-center w-full no-scrollbar">
         <FriendCards
-          data={data}
-          //@ts-ignore
-          dataFromState={event}
-          addFriendToState={addToEvent}
-          removeFriendsToState={removeFromEvent}
+          profileSearchResult={profileSearchResult}
+          dataFromState={eventStore}
+          addFriendToState={addToEventStore}
+          removeFriendsToState={removeFromEventStore}
           loading={loading}
         />
       </div>
@@ -44,11 +43,10 @@ function SwitchMutateOrUpdate({
     return (
       <div className="overflow-scroll">
         <FriendCards
-          data={data}
-          //@ts-ignore
-          dataFromState={createdEvent}
-          addFriendToState={addToCreateEvent}
-          removeFriendsToState={removeFromCreateEvent}
+          profileSearchResult={profileSearchResult}
+          dataFromState={createdEventStore}
+          addFriendToState={addToCreateEventStore}
+          removeFriendsToState={removeFromCreateEventStore}
           loading={loading}
         />
       </div>

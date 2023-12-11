@@ -7,10 +7,8 @@ import capitalize from '../../utils/capitalize';
 import Avatar from '../avatar';
 import { useActionsPendingFriendCard } from '../../hooks/useActionsPendingFriendCard';
 import { useSelectionOfFriends } from '../../hooks/useSelectionOfFriends';
-
-type EventTypeState = EventType & {
-  participants: number[];
-};
+import { CreateEventStateStore } from '../../store/create-event.store';
+import { EventStateStore } from '../../store/event.store';
 
 type FriendCardProps = {
   avatar: string;
@@ -19,7 +17,7 @@ type FriendCardProps = {
   friendId: number;
   status: string;
   lastEvaluationRecorded?: number | null;
-  dataFromState?: EventTypeState | null;
+  dataFromState?: CreateEventStateStore | EventStateStore | null;
   addFriendToState?: (friendId: any) => void;
   removeFriendFromState?: (friendId: any) => void;
   activeSelected?: boolean;
@@ -56,6 +54,8 @@ function FriendCard({
       removeFriendFromState,
       dataFromState,
       activeSelected,
+      avatar,
+      username,
     });
 
   if (status === 'declined') return null;

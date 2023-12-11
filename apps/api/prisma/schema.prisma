@@ -34,7 +34,7 @@ model profile {
   avatar                    image?                @relation(fields: [avatar_url], references: [url], onDelete: SetNull, onUpdate: Cascade)
   avatar_url                String?
   last_evaluation           Int?
-  active_notification       Int                   @default(0)
+  active_notification       Int                   @default(1)
   organizer                 event[]               @relation("organizer")            
   mvp                       event[]               @relation("mvp")            
   best_striker              event[]               @relation("best_striker")            

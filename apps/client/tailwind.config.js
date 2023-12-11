@@ -95,11 +95,16 @@ export default {
       },
       animation: {
         'fade-in': '2s linear ',
+        'opacity-in': 'opacity-in 0.3s linear forwards',
       },
       keyframes: {
         'fade-in': {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' },
+        },
+        'opacity-in': {
+          '0%': { opacity: '1' },
+          '100%': { opacity: '0' },
         },
       },
     },

@@ -21,10 +21,9 @@ function Friendlist({
 
   //  TODO : handle error
   if (error) return <div>An expected error occurs</div>;
-
   if (loading)
     return (
-      <div className="grid grid-cols-2 py-8 gap-2">
+      <div className="relative grid grid-cols-2 py-8 gap-2 bg-base-light z-10">
         {[...Array(NB_SKELETON)].map((_, i) => (
           <FriendCardSkeleton key={i} />
         ))}

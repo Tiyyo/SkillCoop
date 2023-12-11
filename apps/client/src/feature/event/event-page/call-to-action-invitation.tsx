@@ -9,15 +9,24 @@ import LeftBorder from '../../../component/left-border';
 type CallToActionInvitationProps = {
   eventId?: number;
   profileId?: number;
+  avatar?: string | null;
+  username?: string;
+  lastEvaluation?: number | null;
 };
 
 function CallToActionInvitation({
   eventId,
   profileId,
 }: CallToActionInvitationProps) {
-  const { mutate: updateParticipant } = useUpdateParticipant({ eventId });
+  const { mutate: updateParticipantDb } = useUpdateParticipant({
+    eventId,
+  });
 
-  const { data: event, updateUserStatus } = useEvent();
+  const {
+    data: event,
+    updateUserStatus,
+    updateParticipantStatus: updateParticipantsStore,
+  } = useEvent();
   const handleClickInvitation = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
@@ -32,8 +41,12 @@ function CallToActionInvitation({
     if (!isValid.success) {
       toast.error('Something went wrong..., Try again later');
     } else {
-      updateParticipant(data);
+      updateParticipantDb(data);
       updateUserStatus(status);
+      updateParticipantsStore(
+        invitationStatus[status as keyof typeof invitationStatus],
+        profileId,
+      );
     }
   };
 

@@ -103,7 +103,7 @@ function EventPage() {
         <ParticipantsList
           confirmedParticipants={event.confirmed_participants}
           requiredparticipants={eventStore.required_participants}
-          participants={event.participants}
+          participants={eventStore.participants}
         />
       )}
       {event && event.status_name !== 'open' && (

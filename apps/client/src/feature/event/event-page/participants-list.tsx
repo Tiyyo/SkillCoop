@@ -7,7 +7,7 @@ import { EventParticipant } from '../../../types';
 type ParticipantsListProps = {
   confirmedParticipants: number;
   requiredparticipants: number | null;
-  participants: EventParticipant[] | string;
+  participants?: EventParticipant[] | string | null;
 };
 
 function ParticipantsList({
@@ -25,7 +25,8 @@ function ParticipantsList({
       <TitleH2 title="Participants" legend={eventParticipantsStatus()} />
       <ul className="flex flex-wrap gap-2 justify-center">
         {/* particpants can be a string if backend failed to parsed data */}
-        {typeof participants !== 'string' &&
+        {participants &&
+          typeof participants !== 'string' &&
           participants.map((participant) => (
             <Participant
               isAdmin={eventStore?.organizer_id === participant.profile_id}

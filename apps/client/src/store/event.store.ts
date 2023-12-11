@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { EventParticipant, EventStatus } from '../types';
+import { EventParticipant, EventStatus, InvitationStatus } from '../types';
 
 export type EventStateStore = {
   start_date: string | null;
@@ -29,6 +29,7 @@ type eventStore = {
   addToStaged: (args: EventParticipant) => void;
   removeFromStaged: (args: number) => void;
   updateUserStatus: (args: string) => void;
+  updateParticipantStatus: (args: InvitationStatus, id: number) => void;
 }
 
 export const useEventStore = create<eventStore>()((set) => ({
@@ -115,6 +116,21 @@ export const useEventStore = create<eventStore>()((set) => ({
         ),
       },
     })),
+  updateParticipantStatus: (statusName: InvitationStatus, id: number) => set((state) => ({
+    ...state,
+    event: {
+      ...state.event,
+      participants: state.event.participants?.map((p) => {
+        if (p.profile_id === id) {
+          return {
+            ...p,
+            status: statusName
+          }
+        }
+        return p
+      })
+    }
+  }))
 }));
 
 export const useEvent = () => {
@@ -125,6 +141,7 @@ export const useEvent = () => {
   const updateLocation = useEventStore((state) => state.updateLocation);
   const updateOrganizerId = useEventStore((state) => state.updateOrganizerId);
   const updateStatusName = useEventStore((state) => state.updateStatusName);
+  const updateParticipantStatus = useEventStore((state) => state.updateParticipantStatus);
   const updateRequiredParticipants = useEventStore(
     (state) => state.updateRequiredParticipants,
   );
@@ -154,6 +171,7 @@ export const useEvent = () => {
     updateUserStatus,
     updateOrganizerId,
     updateStatusName,
+    updateParticipantStatus,
     data,
   };
 };

@@ -11,7 +11,8 @@ export type Profile = {
   location?: string | null;
   gb_rating?: number | null;
   nb_review?: number | null;
-  nb_bonus?: Bonus;
+  nb_best_striker_bonus?: number | null;
+  nb_mvp_bonus?: number | null;
   nb_attended_events?: number | null;
   relation_exists: number | null;
   last_evaluation: number | null;

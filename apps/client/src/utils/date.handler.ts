@@ -54,7 +54,7 @@ export default {
     const today = new Date();
     const ageDecimal =
       (today.getTime() - birthday.getTime()) / (1000 * 60 * 60 * 24 * 365);
-    const age = Math.floor(ageDecimal);
+    const age = Math.trunc(ageDecimal);
     if (isNaN(age)) return;
     return `${age} yo`;
   },

@@ -1,4 +1,3 @@
-//@ts-nocheck
 import RadarChart from '../../component/radar-chart';
 import { useParams } from 'react-router-dom';
 import dateHandler from '../../utils/date.handler';
@@ -6,15 +5,14 @@ import Container from '../../layout/container';
 import { useGetProfile } from '../../hooks/useProfile';
 import { getMaxValue } from '../../utils/get-max';
 import { useProfileEval } from '../../hooks/useFriendEval';
-import strongbox from '../../assets/svg/strongbox.svg';
-import flash from '../../assets/svg/flash.svg';
-import reward from '../../assets/svg/reward.svg';
 // import cup from '../../assets/cup.png';
-import StatBadge from './stat-badge';
 import { sumValues } from '../../utils/sum-values';
 import TitleH2 from '../../component/title-h2';
 import capitalize from '../../utils/capitalize';
 import associateNumberToString from '../../utils/associate-number-stringscale';
+import FriendStatsDesktop from './stats-desktop';
+import AvatarRectangle from '../../component/avatar-rectangle';
+import FriendStatsMobile from './stats-mobile';
 
 function FriendProfile() {
   const params = useParams<{ id: string }>();
@@ -42,40 +40,14 @@ function FriendProfile() {
              pl-6 -top-12 z-10"
         >
           <div className="flex items-center gap-x-5">
-            <img
-              src={
-                profile?.avatar_url
-                  ? profile.avatar_url
-                  : '/images/default-avatar.png'
-              }
-              alt="avatar"
-              className="h-24 w-24 border-base-light 
-                border-3 rounded-md"
+            <AvatarRectangle avatar={profile?.avatar_url} />
+            <FriendStatsDesktop
+              nbAttendedEvent={profile?.nb_attended_events}
+              nbMvpBonus={profile?.nb_mvp_bonus}
+              nbReview={profile?.nb_review}
+              nbBestStrikerBonus={profile?.nb_best_striker_bonus}
+              lastEvaluation={profile?.last_evaluation}
             />
-            <ul className="hidden md:flex items-center gap-x-5">
-              {/* <StatBadge label="Winning Rate" icon={cup} /> */}
-              <StatBadge
-                label="Attendance"
-                value={profile?.nb_attended_events}
-                icon={strongbox}
-              />
-              <StatBadge
-                label="Average Skill"
-                value={capitalize(
-                  associateNumberToString(profile?.last_evaluation ?? 0),
-                )}
-                icon={flash}
-              />
-              <StatBadge
-                label="Awards"
-                value={sumValues(
-                  profile?.nb_mvp_bonus,
-                  profile?.nb_review,
-                  profile?.nb_best_striker_bonus,
-                )}
-                icon={reward}
-              />
-            </ul>
           </div>
           <div className="flex justify-between ">
             <div>
@@ -107,35 +79,13 @@ function FriendProfile() {
                 )}
               </div>
             </div>
-            <div className="md:hidden flex-grow flex flex-col gap-y-0.5 text-xs text-light px-6">
-              <p>
-                Attented to{' '}
-                <span className="font-semibold">
-                  {profile?.nb_attended_events ?? 0}
-                </span>{' '}
-                event(s)
-              </p>
-              <p>
-                Received{' '}
-                <span className="font-semibold">
-                  {sumValues(
-                    profile?.nb_mvp_bonus,
-                    profile?.nb_review,
-                    profile?.nb_best_striker_bonus,
-                  )}
-                </span>{' '}
-                rating or bonus
-              </p>
-
-              <p>
-                Average skills:{' '}
-                <span className="font-semibold">
-                  {capitalize(
-                    associateNumberToString(profile?.last_evaluation ?? 0),
-                  )}
-                </span>
-              </p>
-            </div>
+            <FriendStatsMobile
+              nbAttendedEvent={profile?.nb_attended_events}
+              nbMvpBonus={profile?.nb_mvp_bonus}
+              nbReview={profile?.nb_review}
+              nbBestStrikerBonus={profile?.nb_best_striker_bonus}
+              lastEvaluation={profile?.last_evaluation}
+            />
           </div>
         </div>
       </div>
@@ -148,6 +98,7 @@ function FriendProfile() {
               <RadarChart
                 skills={evaluateProfile}
                 min={0}
+                // set the scale to a max of the highest score of an user to have a consistent scale
                 max={maxValue ? maxValue + 10 : 100}
                 displayTicks={false}
               />

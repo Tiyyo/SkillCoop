@@ -32,7 +32,9 @@ function Header() {
           <Avatar avatar={userProfile?.avatar_url} />
           <div className="hidden lg:flex flex-col justify-between">
             <p className="font-medium">
-              {`${userProfile?.username ?? ''} ${userProfile?.last_name ?? ''}`}
+              {`${userProfile?.first_name ?? ''} ${
+                userProfile?.last_name ?? ''
+              }`}
             </p>
             <p className="font-light text-sm">{userProfile?.email}</p>
           </div>

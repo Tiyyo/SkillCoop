@@ -18,7 +18,6 @@ import VerifyEmail from './feature/auth/verify-email.tsx';
 import HomePageEvent from './feature/event/index.tsx';
 import CreateEvent from './feature/event/create-event/index.tsx';
 import ResumeEvents from './feature/event/resume-events/index.tsx';
-import InvitationEvent from './feature/event/invitation-page/index.tsx';
 import ConfirmedFriends from './feature/friends/confirmed.friends.tsx';
 import PendingFriends from './feature/friends/pending.friends.tsx';
 import AddFriends from './feature/friends/add.friends.tsx';
@@ -39,6 +38,7 @@ import ForgotPassword from './feature/auth/forgot-password.tsx';
 import ResetPasswordMiddleware from './component/redirection/control-reset-password.tsx';
 import NotificationContainer from './feature/notification/index.tsx';
 import InvitationFromEventPage from './feature/event/event-page/invitation/index.tsx';
+import InvitationFromCreateEventPage from './feature/event/create-event/invitation.tsx';
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -107,7 +107,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/new-event/invitation',
-        element: <InvitationEvent />,
+        element: <InvitationFromCreateEventPage />,
       },
       {
         path: '/event/:eventId/invitation',

@@ -84,7 +84,7 @@ function CreateEvent() {
   };
 
   return (
-    <Container className="lg:mt-4 pb-10">
+    <Container className=" flex-grow lg:mt-4 pb-10 h-full">
       <div className="flex justify-between items-center pr-4">
         <TitleH2
           title="Create a new Event"
@@ -107,7 +107,7 @@ function CreateEvent() {
       >
         <div
           className="w-full px-3 flex flex-col items-center gap-4 sm:grid 
-        sm:grid-cols-2 2xl:flex 2xl:flex-row"
+        sm:grid-cols-2 "
         >
           <InputDate
             updateState={updateStartDate}

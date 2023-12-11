@@ -41,21 +41,6 @@ function EventPage() {
         (p) => p.status === 'confirmed',
       ).length,
     });
-    // Clear store on unmount
-    // Desactivate for now to have access to participant infos list in invite page
-    // return () => {
-    //   initEventState({
-    //     start_date: null,
-    //     start_time: null,
-    //     location: null,
-    //     duration: null,
-    //     required_participants: null,
-    //     organizer_id: null,
-    //     status_name: null,
-    //     participants: null,
-    //     user_status: null,
-    //   });
-    // };
   }, [location.pathname, event, initEventState]);
 
   useLayoutEffect(() => {
@@ -115,13 +100,11 @@ function EventPage() {
         </div>
       </div>
       {event && event.status_name === 'open' && (
-        <>
-          <ParticipantsList
-            confirmedParticipants={event.confirmed_participants}
-            requiredparticipants={eventStore.required_participants}
-            participants={event.participants}
-          />
-        </>
+        <ParticipantsList
+          confirmedParticipants={event.confirmed_participants}
+          requiredparticipants={eventStore.required_participants}
+          participants={event.participants}
+        />
       )}
       {event && event.status_name !== 'open' && (
         <TeamComposition

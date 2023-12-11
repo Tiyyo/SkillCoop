@@ -25,7 +25,7 @@ function ConfirmedFriends() {
         legend="Here is the list of your friends. 
         You can see their profile by clicking on their avatar."
       />
-      <Container className="h-full">
+      <Container className="flex-grow">
         <div className="flex justify-between items-center">
           <TitleH2 />
           <Link

@@ -71,25 +71,31 @@ function Invite({ variant = 'update' }: InviteProps) {
   }, []);
 
   return (
-    <Container className="lg:mt-4">
+    <Container className="lg:mt-4 h-full flex-grow flex flex-col">
       <TitleH2
         title="Invite your friends"
         legend="Select the friends you'd like to invite to join this event."
       />
-      <div className="px-4 h-[65vh] flex flex-col justify-center">
-        <SearchInput onChange={getSearchValue} />
-        <SwitchMutateOrUpdate data={data} loading={loading} variant={variant} />
-      </div>
-      {variant === 'mutate' && (
-        <div className="flex w-full justify-center px-2">
-          <Button
-            textContent="Send Invitation"
-            type="submit"
-            isLoading={isInvitationLoading}
-            onClick={handleClickSendInvitation}
+      <div className="flex-grow flex flex-col justify-evenly h-full ">
+        <div className="px-4 flex flex-col justify-center">
+          <SearchInput onChange={getSearchValue} />
+          <SwitchMutateOrUpdate
+            data={data}
+            loading={loading}
+            variant={variant}
           />
         </div>
-      )}
+        {variant === 'mutate' && (
+          <div className="flex w-full justify-center px-2">
+            <Button
+              textContent="Send Invitation"
+              type="submit"
+              isLoading={isInvitationLoading}
+              onClick={handleClickSendInvitation}
+            />
+          </div>
+        )}
+      </div>
     </Container>
   );
 }

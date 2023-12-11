@@ -60,7 +60,10 @@ function FriendCard({
 
   if (status === 'declined') return null;
   return (
-    <Link to={activeLinkProfile ? `/contact/profile/${friendId}` : ''}>
+    <Link
+      to={activeLinkProfile ? `/contact/profile/${friendId}` : ''}
+      className="basis-52"
+    >
       <div
         className={`flex py-2 px-3 gap-3 max-h-16 cursor-pointer 
           rounded-md border-2 border-transparent ${

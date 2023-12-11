@@ -93,7 +93,6 @@ function FriendProfile() {
         {hasBeenEvaluated && (
           <Container className="lg:w-1/2 lg:rounded-r-none">
             <TitleH2 title="Stats" />
-            {/* TODO : explain the scale and remove magic values */}
             <div className="py-2 max-h-96">
               <RadarChart
                 skills={evaluateProfile}

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { EventStatus } from '../../../../types';
-import { Plus } from 'lucide-react';
+import { UserPlus } from 'lucide-react';
 import { DropdownMenuItem } from '../../../../lib/ui/dropdown';
 
 function InviteFriendsMeuItems({
@@ -23,7 +23,7 @@ function InviteFriendsMeuItems({
             // className={menuItemStyle}
             className="flex items-center gap-2"
           >
-            <Plus size={16} />
+            <UserPlus size={16} />
             <p>Invite friends</p>
           </Link>
         </DropdownMenuItem>

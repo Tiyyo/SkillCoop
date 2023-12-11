@@ -76,7 +76,7 @@ function Invite({ variant = 'update' }: InviteProps) {
         title="Invite your friends"
         legend="Select the friends you'd like to invite to join this event."
       />
-      <div className="flex-grow flex flex-col justify-evenly h-full ">
+      <div className="flex-grow flex flex-col justify-evenly h-full">
         <div className="px-4 flex flex-col justify-center">
           <SearchInput onChange={getSearchValue} />
           <SwitchMutateOrUpdate

@@ -3,7 +3,7 @@ import UpdateStatusModal from '../../../../component/update-status-modal';
 import { EventStatus } from '../../../../types';
 
 type RevokeParticipationMenuItemProps = {
-  eventStatus: EventStatus;
+  eventStatus: EventStatus | null;
   eventId?: number;
   profileId?: number;
 };

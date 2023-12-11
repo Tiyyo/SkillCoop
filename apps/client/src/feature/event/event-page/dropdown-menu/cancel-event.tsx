@@ -7,7 +7,7 @@ type CancelEventMenuItemProps = {
   isAdmin: boolean;
   eventId?: number;
   profileId?: number;
-  eventStatus: EventStatus;
+  eventStatus: EventStatus | null;
 };
 
 function CancelEventMenuItem({

@@ -37,6 +37,9 @@ function EventPage() {
       participants: event.participants.map((p) => p.profile_id),
       status_name: event.status_name,
       user_status: event.user_status,
+      confirmed_participants: event.participants.filter(
+        (p) => p.status === 'confirmed',
+      ).length,
     });
     // Clear store on unmount
     return () => {
@@ -53,6 +56,9 @@ function EventPage() {
       });
     };
   }, [location.pathname, event, initEventState]);
+
+  console.log(event);
+  console.log(eventStore);
 
   useLayoutEffect(() => {
     if (eventStore && eventStore.user_status === 'declined') {
@@ -84,18 +90,19 @@ function EventPage() {
                 eventDuration={event.duration}
                 eventlocation={event?.location}
                 eventDate={event?.date}
-                requiredParticipants={event?.required_participants}
+                requiredParticipants={eventStore.required_participants}
                 profileId={profileId ?? 0}
-                eventStatus={event?.status_name}
+                eventStatus={eventStore.status_name}
                 isAdmin={eventStore?.organizer_id === profileId}
+                confirmedParticipants={event.confirmed_participants}
               />
               <EventPageScore
                 eventId={Number(eventId)}
-                isAdmin={event.organizer_id === profileId}
+                isAdmin={eventStore.organizer_id === profileId}
                 eventDate={event.date}
                 scoreTeam1={event.score_team_1}
                 scoreTeam2={event.score_team_2}
-                eventStatus={event.status_name}
+                eventStatus={eventStore.status_name}
               />
             </div>
           )}
@@ -103,8 +110,8 @@ function EventPage() {
         <div className="bg-base-light w-10 h-15 flex flex-col items-center">
           <DropdownEventMenu
             profileId={profileId}
-            eventStatus={event?.status_name}
-            isAdmin={event?.organizer_id === profileId}
+            eventStatus={eventStore.status_name}
+            isAdmin={eventStore.organizer_id === profileId}
             eventId={Number(eventId)}
           />
         </div>
@@ -120,9 +127,9 @@ function EventPage() {
       )}
       {event && event.status_name !== 'open' && (
         <TeamComposition
-          eventStatus={event.status_name}
+          eventStatus={eventStore.status_name}
           participants={event.participants}
-          organizer={event.organizer_id}
+          organizer={eventStore.organizer_id}
           mvp={event.mvp_id}
           bestStriker={event.best_striker_id}
         />

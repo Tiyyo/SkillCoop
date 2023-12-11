@@ -6,7 +6,7 @@ import { useGenerateTeams } from '../../../../hooks/useSingleEvent';
 type GenerateTeamsMenuItemProps = {
   isAdmin: boolean;
   eventId?: number;
-  eventStatus?: EventStatus;
+  eventStatus?: EventStatus | null;
 };
 const menuItemStyle = `flex gap-2 items-center hover:bg-primary-200 
     transition-colors duration-300 rounded-lg px-2 text-md h-10`;

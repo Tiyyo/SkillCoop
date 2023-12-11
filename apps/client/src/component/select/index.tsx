@@ -5,6 +5,8 @@ import {
   useId,
 } from 'react';
 import { cn } from '../../lib/utils';
+import { useEvent } from '../../store/event.store';
+import toast from '../../utils/toast';
 
 type Option = {
   label: string;
@@ -38,9 +40,21 @@ function SelectInput({
 }: SelectInputProps) {
   const idComponent = useId();
   const [hasError, setHasError] = useState<boolean | undefined>(error);
+  const { data: event } = useEvent();
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setHasError(false);
+
+    if (
+      mutateKey === 'required_participants' &&
+      event?.confirmed_participants &&
+      Number(e.target.value) < event?.confirmed_participants
+    ) {
+      toast.error(
+        'You cannot update the number of required participants because there are already more participants than the number you want to set',
+      );
+      return;
+    }
     if (updateState) {
       updateState(e.target.value);
     }

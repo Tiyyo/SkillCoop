@@ -16,6 +16,7 @@ export const passwordUpdateSchema = z
     new_password: z
       .string()
       .min(8, { message: 'Must contains at least 8 characters' })
+      .max(64, { message: 'Must contains at most 64 characters' })
       .trim()
       .refine((value) => /\w*[a-z]\w*/.test(value), {
         message: 'Must contain one lowercase',
@@ -44,6 +45,7 @@ export const resetPasswordSchema = z.object({
   password: z
     .string()
     .min(8, { message: 'Must contains at least 8 characters' })
+    .max(64, { message: 'Must contains at most 64 characters' })
     .trim()
     .refine((value) => /\w*[a-z]\w*/.test(value), {
       message: 'Must contain one lowercase',
@@ -70,6 +72,7 @@ export const registerSchema: ZodType = z
     password: z
       .string()
       .min(8, { message: 'Must contains at least 8 characters' })
+      .max(64, { message: 'Must contains at most 64 characters' })
       .trim()
       .refine((value) => /\w*[a-z]\w*/.test(value), {
         message: 'Must contain one lowercase',

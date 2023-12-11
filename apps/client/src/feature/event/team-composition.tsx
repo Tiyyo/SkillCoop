@@ -6,10 +6,10 @@ import { EventParticipant, EventStatus } from '../../types';
 
 type TeamCompositionProps = {
   participants: EventParticipant[] | string;
-  eventStatus?: EventStatus;
+  eventStatus?: EventStatus | null;
   mvp?: number | null;
   bestStriker?: number | null;
-  organizer?: number;
+  organizer?: number | null;
 };
 
 function TeamComposition({
@@ -17,7 +17,7 @@ function TeamComposition({
   mvp,
   bestStriker,
   organizer,
-  eventStatus = 'full',
+  eventStatus,
 }: TeamCompositionProps) {
   // this is a different team comp and need to be refactored with the new one
 
@@ -33,7 +33,7 @@ function TeamComposition({
           teamTofileter={1}
           mvp={mvp}
           bestStriker={bestStriker}
-          organizer={organizer}
+          organizer={organizer ?? undefined}
           eventStatus={eventStatus}
         />
         <Team
@@ -42,7 +42,7 @@ function TeamComposition({
           teamTofileter={2}
           mvp={mvp}
           bestStriker={bestStriker}
-          organizer={organizer}
+          organizer={organizer ?? undefined}
           eventStatus={eventStatus}
         />
       </div>

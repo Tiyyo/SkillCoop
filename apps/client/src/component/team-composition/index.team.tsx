@@ -12,7 +12,7 @@ type TeamProps = {
   mvp?: number | null;
   bestStriker?: number | null;
   organizer?: number;
-  eventStatus?: EventStatus;
+  eventStatus?: EventStatus | null;
 };
 
 function Team({
@@ -24,7 +24,7 @@ function Team({
   mvp,
   bestStriker,
   organizer,
-  eventStatus = 'open',
+  eventStatus,
 }: TeamProps) {
   return (
     <div className="lg:basis-1/2 bg-grey-off">

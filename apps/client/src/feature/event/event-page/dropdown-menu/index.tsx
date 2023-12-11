@@ -12,7 +12,7 @@ import CancelEventMenuItem from './cancel-event';
 import InviteFriendsMeuItems from './Invite-friends';
 
 type DropdownEventMenuProps = {
-  eventStatus?: EventStatus;
+  eventStatus?: EventStatus | null;
   eventId?: number;
   profileId?: number;
   isAdmin?: boolean;
@@ -26,7 +26,7 @@ function DropdownEventMenu({
   isAdmin = false,
   eventStatus = 'open',
 }: DropdownEventMenuProps) {
-  if (!isAdmin && !eventStatusWithAuthorizeAction.includes(eventStatus))
+  if (!isAdmin && !eventStatusWithAuthorizeAction.includes(eventStatus ?? ''))
     return null;
   return (
     <>

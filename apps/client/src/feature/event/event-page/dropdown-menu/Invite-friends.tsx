@@ -7,7 +7,7 @@ function InviteFriendsMeuItems({
   eventStatus,
   eventId,
 }: {
-  eventStatus: EventStatus;
+  eventStatus: EventStatus | null;
   eventId?: number;
 }) {
   return (

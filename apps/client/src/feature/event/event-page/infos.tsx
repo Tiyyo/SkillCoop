@@ -23,15 +23,17 @@ import { useUpdateSingleEvent } from '../../../hooks/useSingleEvent';
 import toast from '../../../utils/toast';
 import { updateEventSchema } from 'schema/ts-schema';
 import dateHandler from '../../../utils/date.handler';
+import { EventStatus } from '../../../types';
 
 type EventPageInfosProps = {
   eventDuration: number;
   eventlocation: string;
   eventDate: string;
-  requiredParticipants: number;
+  requiredParticipants: number | null;
   isAdmin: boolean;
   profileId: number;
-  eventStatus: string;
+  eventStatus: EventStatus | null;
+  confirmedParticipants?: number | null;
 };
 
 function EventPageInfos({
@@ -42,6 +44,7 @@ function EventPageInfos({
   requiredParticipants,
   isAdmin,
   profileId,
+  confirmedParticipants,
 }: EventPageInfosProps) {
   const [isEditActive, setIsEditActive] = useState<boolean>(false);
   const { eventId } = useParams<{ eventId: string }>();
@@ -88,6 +91,15 @@ function EventPageInfos({
               location: event.location ?? undefined,
               required_participants: Number(event.required_participants),
             };
+            if (
+              confirmedParticipants &&
+              confirmedParticipants > Number(event.required_participants)
+            ) {
+              // This edge case shouldnt be possible at this stage but just in case we are not
+              // not allowing user to update the number of required participants if there are
+              // more confirmed participants than the new number of required participants
+              return;
+            }
             const isValid = updateEventSchema.safeParse(data);
             if (
               !isValid.success ||

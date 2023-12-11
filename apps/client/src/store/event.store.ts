@@ -11,6 +11,7 @@ type State = {
   status_name: EventStatus | null;
   participants?: number[] | null;
   user_status?: string | null;
+  confirmed_participants?: number | null;
 };
 
 type eventStore = {
@@ -40,6 +41,7 @@ export const useEventStore = create<eventStore>()((set) => ({
     status_name: null,
     participants: null,
     user_status: null,
+    confirmed_participants: null,
   },
   initEventState: (event: State) =>
     set((state) => ({
@@ -120,6 +122,7 @@ export const useEvent = () => {
   const updateDuration = useEventStore((state) => state.updateDuration);
   const updateLocation = useEventStore((state) => state.updateLocation);
   const updateOrganizerId = useEventStore((state) => state.updateOrganizerId);
+  const updateStatusName = useEventStore((state) => state.updateStatusName);
   const updateRequiredParticipants = useEventStore(
     (state) => state.updateRequiredParticipants,
   );
@@ -147,6 +150,7 @@ export const useEvent = () => {
     removeInvitedParticipantsIds,
     updateUserStatus,
     updateOrganizerId,
+    updateStatusName,
     data,
   };
 };

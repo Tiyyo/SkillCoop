@@ -120,7 +120,7 @@ function EventPage() {
         <>
           <ParticipantsList
             confirmedParticipants={event.confirmed_participants}
-            requiredparticipants={event.required_participants}
+            requiredparticipants={eventStore.required_participants}
             participants={event.participants}
           />
         </>

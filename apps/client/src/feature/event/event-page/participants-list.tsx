@@ -6,7 +6,7 @@ import { EventParticipant } from '../../../types';
 
 type ParticipantsListProps = {
   confirmedParticipants: number;
-  requiredparticipants: number;
+  requiredparticipants: number | null;
   participants: EventParticipant[] | string;
 };
 

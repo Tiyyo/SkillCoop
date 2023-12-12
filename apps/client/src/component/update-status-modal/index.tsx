@@ -9,7 +9,7 @@ import {
 } from '../../lib/ui/alert-dialog';
 import { useEvent } from '../../store/event.store';
 import { InvitationStatus, invitationStatus } from '../../types/index';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { X } from 'lucide-react';
 import { useUpdateParticipant } from '../../hooks/useSingleEvent';
 import toast from '../../utils/toast';
@@ -39,21 +39,24 @@ function UpdateStatusModal({
     useEvent();
   const [nextStatus, setNextStatus] = useState<InvitationStatus | null>(null);
   const [isOrganizer, setIsOrganizer] = useState(false);
+  const closeModalRef = useRef(null);
 
   const { mutate: updateUserStatusInDb } = useUpdateParticipant({
     eventId,
     onSuccess: (response: any) => {
+      console.log(response);
       if (!nextStatus) return;
-      if (response === 'Organizer cannot change his status') {
+      if (response?.message === 'Organizer cannot change his status') {
         setIsOrganizer(true);
         return;
       }
-      if (response === 'Event is already completed') {
+      if (response?.message === 'Event is already completed') {
         toast.error('Event is already completed');
       }
       if (response === 'Status has been updated') {
         updateUserStatusInStore(nextStatus);
         if (profileId) updateParticipantStatus(nextStatus, profileId);
+        (closeModalRef.current as any).click();
       }
     },
   });
@@ -77,7 +80,7 @@ function UpdateStatusModal({
       </AlertDialogTrigger>
       <AlertDialogContent className="bg-base-light w-4/5 rounded-lg ">
         <div className="w-full text-right">
-          <AlertDialogCancel className="border-none m-0">
+          <AlertDialogCancel className="border-none m-0" ref={closeModalRef}>
             <X size={18} />
           </AlertDialogCancel>
         </div>

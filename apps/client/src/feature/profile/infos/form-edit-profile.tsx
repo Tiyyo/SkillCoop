@@ -9,6 +9,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { editProfileInfosSchema } from 'schema/ts-schema';
 import Button from '../../../component/button';
 import { useUpdateProfile } from '../../../hooks/useProfile';
+import toast from '../../../utils/toast';
 
 type FormEditProfileInfosProps = {
   shouldEditInfos: boolean;
@@ -77,6 +78,9 @@ function FormEditProfileInfos({
   });
   const { mutate: updateProfileInfos, isLoading } = useUpdateProfile({
     profileId: infos.profileId,
+    onSuccess: () => {
+      toast.success('Profile informations updated');
+    },
   });
 
   const getBirthDate = (date: string | null) => {
@@ -102,9 +106,7 @@ function FormEditProfileInfos({
       location: data.location === '' ? null : data.location,
     });
   };
-  // form
-  //flex flex-col justify-between rounded-lg border
-  //        border-gray-100 py-3 w-full
+
   return (
     <form
       className="flex flex-col justify-center"
@@ -163,6 +165,7 @@ function FormEditProfileInfos({
         <Button
           type="submit"
           textContent="Edit informations"
+          className="rounded-lg"
           variant="light"
           isLoading={isLoading}
         />

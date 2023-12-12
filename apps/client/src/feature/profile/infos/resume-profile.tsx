@@ -2,7 +2,7 @@ import { useState } from 'react';
 import TriggerEditBtn from './trigger-edit-btn';
 import AvatarEdit from './edit-avatar';
 import FormEditProfileInfos from './form-edit-profile';
-import ResumeEmailInfos from './resume-auth-infos';
+import ResumeEmailInfos from './resume-email';
 import EditModalPassword from './modal-edit-password';
 import { Edit2, Lock } from 'lucide-react';
 
@@ -29,10 +29,10 @@ function ResumeProfile({ infos }: { infos: Infos }) {
     shadow h-fit "
     >
       <div
-        className=" flex flex-col 
-             pl-6 -top-12 z-10"
+        className="flex flex-col 
+             pl-6 -top-12 bg-base"
       >
-        <div className="relative py-4 flex items-center gap-x-5">
+        <div className="relative py-4 flex items-center gap-x-5 ">
           <AvatarEdit avatar={infos.avatar} />
           <TriggerEditBtn
             className="absolute top-3 right-3"
@@ -40,7 +40,7 @@ function ResumeProfile({ infos }: { infos: Infos }) {
           />
         </div>
       </div>
-      <div className="relative -top-24 text-end w-full self-end py-4">
+      <div className="relative -top-0 text-end w-full self-end py-4">
         <FormEditProfileInfos shouldEditInfos={isEditing} infos={infos} />
         <div className="flex xl:flex-row flex-col items-center justify-start">
           <ResumeEmailInfos email={infos.email} />

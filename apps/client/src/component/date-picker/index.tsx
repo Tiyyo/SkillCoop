@@ -89,6 +89,7 @@ function InputDate({
   useEffect(() => {
     setHasError(error);
   }, [error]);
+
   return (
     <div className="relative w-full flex gap-x-2.5 items-center py-4">
       <div

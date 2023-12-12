@@ -2,6 +2,7 @@ import { useState } from 'react';
 import TriggerEditBtn from './trigger-edit-btn';
 import { useForm } from 'react-hook-form';
 import FormField from '../../../component/form-field';
+import EditModalPassword from './modal-edit-password';
 import { SendIcon } from 'lucide-react';
 import { emailSchema } from 'schema/ts-schema';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -11,7 +12,7 @@ import Button from '../../../component/button';
 import { useUpdateEmail } from '../../../hooks/useProfile';
 import { UpdateEmail } from '../../../types';
 
-function ResumeEmailInfos({ email }: { email?: string | null }) {
+function ResumeAuthInfos({ email }: { email?: string | null }) {
   const { userProfile } = useApp();
   const [currentEmail, setCurrentEmail] = useState(email);
   const [errorText, setErrorText] = useState('');
@@ -39,41 +40,26 @@ function ResumeEmailInfos({ email }: { email?: string | null }) {
   return (
     <>
       <ErrorNotification message={errorText} interval={5000} />
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col pl-36 w-full xl:w-1/2"
-      >
-        <div className="flex justify-between pr-3">
-          <div className="w-full flex gap-x-2.5 items-center py-4 max-w-xs">
-            <div className="basis-7 text-primary-100">
-              <SendIcon size={18} />
-            </div>
-            <div className="flex flex-col gap-y-1 flex-grow">
-              <label
-                htmlFor="email"
-                className="block h-4 ml-2 text-xs text-start font-medium text-grey-sub-text"
-              >
-                Email
-              </label>
-              <FormField
-                type="email"
-                name="email"
-                defaultValue={currentEmail ?? ''}
-                disabled={!editActiveState}
-                register={register}
-              />
-            </div>
-          </div>
-          <input
-            type="hidden"
-            value={userProfile?.user_id}
-            {...register('user_id')}
-          />
-          <TriggerEditBtn
-            getCurrentState={getEditState}
-            className="self-start py-3"
-          />
-        </div>
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
+        <input
+          type="hidden"
+          value={userProfile?.user_id}
+          {...register('user_id')}
+        />
+        <TriggerEditBtn
+          getCurrentState={getEditState}
+          className="absolute top-3 right-3"
+        />
+        <FormField
+          type="email"
+          label="Email"
+          name="email"
+          defaultValue={currentEmail ?? ''}
+          disabled={!editActiveState}
+          register={register}
+        >
+          <SendIcon size={18} />
+        </FormField>
         {editActiveState && (
           <Button
             type="submit"
@@ -83,8 +69,9 @@ function ResumeEmailInfos({ email }: { email?: string | null }) {
           />
         )}
       </form>
+      <EditModalPassword />
     </>
   );
 }
 
-export default ResumeEmailInfos;
+export default ResumeAuthInfos;

@@ -18,8 +18,6 @@ function NotificationContainer() {
     profileId: userProfile?.profile_id,
   });
 
-  console.log(fetchNotifications);
-
   useLayoutEffect(() => {
     if (userProfile?.profile_id) {
       refetch();

@@ -8,6 +8,7 @@ import UserInputError from '../helpers/errors/user-input.error';
 import DatabaseError from '../helpers/errors/database.error';
 import APITypeError from '../helpers/errors/type.error';
 import ForbidenError from '../helpers/errors/forbiden';
+import { CreateKeyGroupCommand } from '@aws-sdk/client-cloudfront';
 
 export const errorHandler = (
   error: unknown,
@@ -16,6 +17,7 @@ export const errorHandler = (
   next: NextFunction,// eslint-disable-line
 ) => {
   const devEnv = res.app.get('env') === 'development';
+  logger.info(devEnv);
 
   if (error instanceof ValidationError && devEnv) {
     logger.error(error.name + ' ' + error.message);

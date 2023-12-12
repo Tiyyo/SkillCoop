@@ -96,9 +96,7 @@ export class Core {
       .where('id', '=', id)
       .executeTakeFirst();
 
-    console.log('Result core update dataMapper :', result);
-
-    return !!result.numUpdatedRows;
+    return !!Number(result.numUpdatedRows);
   }
   async delete(id: number) {
     const result = await this.client
@@ -106,7 +104,7 @@ export class Core {
       .where('id', '=', id)
       .executeTakeFirst();
 
-    return !!result.numDeletedRows;
+    return !!Number(result.numDeletedRows);
   }
   async deleteBy(data: Record<string, number | string | Date>) {
     const keys = Object.keys(data);
@@ -122,7 +120,7 @@ export class Core {
       const result = await query.executeTakeFirst();
       if (!result) throw new NotFoundError('Not found');
 
-      return !!result.numDeletedRows;
+      return !!Number(result.numDeletedRows);
     } catch (error) {
       throw new DatabaseError(error);
     }

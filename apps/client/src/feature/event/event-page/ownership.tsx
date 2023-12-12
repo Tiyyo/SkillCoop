@@ -10,6 +10,8 @@ import capitalize from '../../../utils/capitalize';
 import associateNumberToString from '../../../utils/associate-number-stringscale';
 import ReturnBtn from '../../../component/return';
 import { cn } from '../../../lib/utils';
+import Container from '../../../layout/container';
+import TitleH2 from '../../../component/title-h2';
 
 type TransfertOwnershipProps = {
   data: EventType;
@@ -55,17 +57,17 @@ function TransfertOwnership({
   };
 
   return (
-    <div>
-      <ReturnBtn />
-      <h2 className="text-sm pl-2 py-4 text-center">
-        To which participants do you want to transfer your organizer rights for
-        this event ?
-      </h2>
+    <Container className="lg:mt-4 flex-grow flex flex-col">
+      <TitleH2
+        title="Transfert Rights"
+        legend="To which participants do you want to transfer your organizer rights
+          for this event ?"
+      />
       <form
-        className="flex flex-col justify-between items-center w-full h-full"
+        className="flex-grow flex flex-col justify-between items-center w-full h-full"
         onSubmit={handleSubmitTransfert}
       >
-        <div className="w-full h-[60vh]">
+        <div className="w-full h-full">
           {participants && (
             <div
               className={cn(
@@ -115,7 +117,7 @@ function TransfertOwnership({
           isLoading={isLoading}
         />
       </form>
-    </div>
+    </Container>
   );
 }
 

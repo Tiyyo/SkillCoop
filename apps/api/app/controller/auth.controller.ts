@@ -10,7 +10,6 @@ import tokenHandler from '../helpers/token.handler';
 import AuthorizationError from '../helpers/errors/unauthorized.error';
 import logger from '../helpers/logger';
 import { CLIENT_URL } from '../utils/variables';
-import UserInputError from '../helpers/errors/user-input.error';
 import bcrypt from 'bcrypt';
 import APITypeError from '../helpers/errors/type.error';
 import ForbidenError from '../helpers/errors/forbiden';
@@ -48,25 +47,20 @@ export default {
   async signin(req: Request, res: Response) {
     const { email, password } = req.body;
     const MAX_AGE = 1000 * 60 * 60 * 24 * 7; // 7 days
-    try {
-      const { accessToken, refreshToken } = await authService.login({
-        email,
-        password,
-      });
-      // production cookie
-      res.cookie('refreshToken', refreshToken, {
-        httpOnly: true,
-        sameSite: 'none',
-        secure: true,
-        maxAge: MAX_AGE,
-      });
-      res.status(200).json({ accessToken });
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        return res.status(400).json({ error: error.message });
-      }
-      logger.error(error);
-    }
+
+    const { accessToken, refreshToken } = await authService.login({
+      email,
+      password,
+    });
+    // production cookie
+    res.cookie('refreshToken', refreshToken, {
+      httpOnly: true,
+      sameSite: 'none',
+      secure: true,
+      maxAge: MAX_AGE,
+    });
+    res.status(200).json({ accessToken });
+
   },
   async refresh(req: Request, res: Response) {
     const { decoded } = req.body;

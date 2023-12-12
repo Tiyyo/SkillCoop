@@ -7,24 +7,47 @@ import { passwordUpdateSchema } from 'schema/ts-schema';
 import { useMutation } from '@tanstack/react-query';
 import { updatePasswordFn } from '../../../api/api.fn';
 import { useApp } from '../../../store/app.store';
+import toast from '../../../utils/toast';
+
+type UpdatePasswordField = {
+  old_password: string;
+  new_password: string;
+  confirm_new_password: string;
+  user_id: number;
+};
 
 function EditModalPassword({ children }: { children: React.ReactNode }) {
   const { userProfile } = useApp();
-  //@ts-ignore
   //should be in a hook
-  const { mutate } = useMutation((data) => updatePasswordFn(data));
+  const { mutate: updatePassword } = useMutation({
+    mutationFn: async (data: UpdatePasswordField) => {
+      return updatePasswordFn(data);
+    },
+    onSuccess: () => {
+      toast.success('Password updated');
+    },
+    onError: () => {
+      toast.error('Something went wrong');
+    },
+  });
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
-    //@ts-ignore
+  } = useForm<UpdatePasswordField>({
     resolver: zodResolver(passwordUpdateSchema),
   });
 
-  const onSubmit = async (data: any) => {
-    data.user_id = userProfile?.user_id;
-    mutate(data);
+  const onSubmit = async (data: UpdatePasswordField) => {
+    if (!userProfile?.user_id) return;
+    data.user_id = userProfile.user_id;
+    const isValid = passwordUpdateSchema.safeParse(data);
+
+    if (!isValid.success) {
+      return;
+    }
+    updatePassword(data);
   };
   return (
     <Dialog>
@@ -52,7 +75,7 @@ function EditModalPassword({ children }: { children: React.ReactNode }) {
             subicon={<EyeOff size={18} />}
             error={
               (errors?.new_password?.message as string) ||
-              (errors?.newPassword?.message as string)
+              (errors?.old_password?.message as string)
             }
             register={register}
           >
@@ -63,7 +86,7 @@ function EditModalPassword({ children }: { children: React.ReactNode }) {
             type="password"
             label="Confirm your new password"
             subicon={<EyeOff size={18} />}
-            error={errors?.confirmPassword?.message as string}
+            error={errors?.confirm_new_password?.message as string}
             register={register}
           >
             <Eye size={18} />

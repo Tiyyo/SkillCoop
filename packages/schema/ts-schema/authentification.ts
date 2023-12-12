@@ -5,6 +5,11 @@ export const emailSchema = z.object({
   email: z.string().email(),
 });
 
+export const updateEmailSchema = z.object({
+  email: z.string().email(),
+  user_id: z.number().positive().int(),
+});
+
 export const loginSchema = z.object({
   email: z.string(),
   password: z.string(),
@@ -34,11 +39,11 @@ export const passwordUpdateSchema = z
   })
   .refine((data) => data.old_password !== data.new_password, {
     message: 'Your new password has to be different than the new one',
-    path: ['newPassword'],
+    path: ['old_password'],
   })
   .refine((data) => data.new_password === data.confirm_new_password, {
     message: 'Passwords do not match',
-    path: ['confirmPassword'],
+    path: ['confirm_new_password'],
   });
 
 export const resetPasswordSchema = z.object({

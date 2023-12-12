@@ -51,10 +51,10 @@ export default {
     const { email, password } = data;
     const [user] = await User.findBy({ email: email.trim() });
 
-    if (!user) throw new UserInputError("Can't find any user with this email", 'wrong credentials');
+    if (!user) throw new UserInputError("Can't find any user with this email", 'Email or Password incorrect');
 
     if (!(await bcrypt.compare(password.trim(), user.password)))
-      throw new UserInputError("Password didn't match", 'wrong credentials');
+      throw new UserInputError("Password didn't match", 'Email or Password incorrect');
 
     if (!user.verified) {
       // generate an new email to send to the user

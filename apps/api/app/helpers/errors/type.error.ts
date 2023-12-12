@@ -1,4 +1,3 @@
-import { TrustedSignerDoesNotExist } from "@aws-sdk/client-cloudfront";
 
 export default class APITypeError extends Error {
   message: string;

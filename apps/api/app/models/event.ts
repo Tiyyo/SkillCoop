@@ -186,6 +186,7 @@ WHERE event.organizer_id = ${profileId}
           participants: typeof event.participants === 'string' && JSON.parse(event.participants),
         };
       });
+      console.log(parsedResult);
       return { events: parsedResult, eventCount: count.rows[0].total_event };
     } catch (error) {
       throw new DatabaseError(error);

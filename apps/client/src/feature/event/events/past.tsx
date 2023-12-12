@@ -3,6 +3,7 @@ import { useApp } from '../../../store/app.store';
 import EventList from '../resume-events/list';
 import { EventType } from '../../../types';
 import useInfinite from '../../../hooks/useInfinite';
+import { Link } from 'react-router-dom';
 
 function PastEvents() {
   //TODO : implement skeleton loading
@@ -21,7 +22,15 @@ function PastEvents() {
     .map((page) => page?.events)
     .flat() as EventType[];
 
-  if (isError) return <div>error</div>;
+  if (isError)
+    return (
+      <div className="flex flex-col justify-center items-center py-20">
+        <p className="text-sm text-primary-1100">Something went wrong</p>
+        <Link to="/" className="text-xs">
+          Go back to home
+        </Link>
+      </div>
+    );
 
   return (
     <EventList

@@ -6,6 +6,7 @@ import { useMutation } from '@tanstack/react-query';
 import { Link, useLocation } from 'react-router-dom';
 import { sendEmailVerifyFn } from '../../api/api.fn';
 import toast from '../../utils/toast';
+import { emailSchema } from 'schema/ts-schema';
 
 function VerifyEmail() {
   const location = useLocation();
@@ -20,7 +21,10 @@ function VerifyEmail() {
   });
 
   const handleClick = () => {
-    sendEmailVerify(email);
+    const isValidEmail = emailSchema.safeParse(email);
+    if (!isValidEmail.success) {
+      sendEmailVerify(email);
+    }
   };
 
   return (

@@ -4,7 +4,7 @@ import Participant from '../participant';
 import TitleH2 from '../title-h2';
 
 type TeamProps = {
-  participants: EventParticipant[] | string | null;
+  participants?: EventParticipant[] | string | null;
   currentIdActive?: string;
   title?: string;
   teamTofileter?: number;

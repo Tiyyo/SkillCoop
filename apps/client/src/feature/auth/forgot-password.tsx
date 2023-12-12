@@ -37,6 +37,8 @@ function ForgotPassword() {
       sendEmailWithResetLink(data.email);
     }
   };
+
+  //TODO : refactor this page
   return (
     <Page>
       <Center>

@@ -5,7 +5,7 @@ import Score from '../../../component/score';
 import { EventParticipant, EventStatus } from '../../../types';
 import { ArrowRight } from 'lucide-react';
 
-interface EventCardProps {
+type EventCardProps = {
   date: string;
   location: string;
   duration: number;
@@ -17,7 +17,7 @@ interface EventCardProps {
   eventStatus: EventStatus;
   userStatus: string;
   eventId: number;
-}
+};
 
 function EventCard({
   date,

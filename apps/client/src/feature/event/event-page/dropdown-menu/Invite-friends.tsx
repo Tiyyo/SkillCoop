@@ -20,7 +20,6 @@ function InviteFriendsMeuItems({
           <Link
             to="invitation"
             state={{ eventId, variant: 'mutate' }}
-            // className={menuItemStyle}
             className="flex items-center gap-2"
           >
             <UserPlus size={16} />

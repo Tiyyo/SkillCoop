@@ -4,6 +4,7 @@ import { useApp } from '../../../store/app.store';
 import { useEffect, useState } from 'react';
 import { EventType } from '../../../types';
 import EventList from '../resume-events/list';
+import { Link } from 'react-router-dom';
 
 function IncomingEvents() {
   const { userProfile } = useApp();
@@ -33,7 +34,16 @@ function IncomingEvents() {
     setEvents(past);
   }, [allEvents, loading]);
 
-  if (isError) return <div>error</div>;
+  if (isError)
+    return (
+      <div className="flex flex-col justify-center items-center py-20">
+        <p className="text-sm text-primary-1100">Something went wrong</p>
+        <Link to="/" className="text-xs">
+          Go back to home
+        </Link>
+      </div>
+    );
+
   return (
     <EventList
       events={events}

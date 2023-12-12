@@ -14,7 +14,7 @@ function ResumeEvents() {
   //  TODO : handle error
   if (isError)
     return (
-      <div className="flex flex-col justify-center items-center">
+      <div className="flex flex-col justify-center items-center py-20">
         <p className="text-sm text-primary-1100">Something went wrong</p>
         <Link to="/" className="text-xs">
           Go back to home

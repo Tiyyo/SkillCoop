@@ -5,7 +5,7 @@ import InfiniteScroll from '../../../../component/infinite-scroll';
 import { useCallback } from 'react';
 import ShowcaseEventCard from '../showcase-card';
 
-interface EventListProps {
+type EventListProps = {
   title: string;
   events: EventType[] | null;
   nbEventToDisplay?: number;
@@ -18,7 +18,7 @@ interface EventListProps {
   legendHeader?: string;
   noHeader?: boolean;
   showcaseNext?: boolean;
-}
+};
 
 function EventList({
   title,
@@ -50,7 +50,6 @@ function EventList({
             Number(new Date(a.date)) - Number(new Date(b.date)),
         )
         .slice(0, 1);
-      console.log(showcaseEvent);
       return showcaseEvent as EventType;
     },
     [events],

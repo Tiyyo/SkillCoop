@@ -13,6 +13,7 @@ function SearchResult({
   loading = true,
 }: SearchFriendResultProps) {
   const { data: eventState } = useEvent();
+
   if (loading) {
     return <SkeletonsLoader nbSkeleton={10} />;
   }

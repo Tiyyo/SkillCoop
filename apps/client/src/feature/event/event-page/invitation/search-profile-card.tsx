@@ -4,6 +4,7 @@ import associateNumberToString from '../../../../utils/associate-number-stringsc
 import { useEffect, useState } from 'react';
 import { invitationStatus } from '../../../../types';
 import { useEvent } from '../../../../store/event.store';
+import AvatarSmallWithBorder from '../../../../component/avatar/avatar-border-small';
 
 type SearchProfileCardProps = {
   avatar: string;
@@ -50,7 +51,7 @@ function SearchProfileCard({
 
   return (
     <div
-      className={`flex py-2 px-3 gap-3 max-h-16 cursor-pointer 
+      className={`flex flex-col items-center py-2 px-3 gap-3 cursor-pointer 
           rounded-md border-2 border-transparent basis-52 ${
             isSelected
               ? ' border-opacity-50 border-primary-400 bg-primary-500 shadow-2xl'
@@ -58,10 +59,10 @@ function SearchProfileCard({
           }}`}
       onClick={handleClickSelection}
     >
-      <Avatar avatar={avatar} />
-      <div className="flex flex-col gap-2">
-        <p className="text-xs">{username}</p>
-        <p className="text-xxs text-light">
+      <AvatarSmallWithBorder avatar={avatar} />
+      <div className="flex flex-col gap-1">
+        <p className="text-center text-xs">{username}</p>
+        <p className="text-center text-xxs text-light">
           {lastEvaluationRecorded &&
             capitalize(associateNumberToString(lastEvaluationRecorded))}
         </p>

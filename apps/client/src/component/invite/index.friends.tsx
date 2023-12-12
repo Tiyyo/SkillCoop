@@ -1,9 +1,10 @@
 import SkeletonsLoader from '../../feature/event/event-page/invitation/skeletons-loader';
-import { CreateEventStateStore } from '../../store/create-event.store';
-import { EventStateStore, useEvent } from '../../store/event.store';
+import {
+  CreateEventStateStore,
+  useCreateEvent,
+} from '../../store/create-event.store';
 import { Friend } from '../../types/index';
 import FriendCard from '../friend-card';
-import FriendCardSkeleton from '../friend-card/skeleton';
 
 type FriendCardProps = {
   profileSearchResult: Friend[] | undefined | null;
@@ -22,7 +23,7 @@ function FriendCards({
   activeFilter = false,
   loading,
 }: FriendCardProps) {
-  // const { data: event } = useEvent();
+  const { data: event } = useCreateEvent();
 
   if (loading) {
     return <SkeletonsLoader nbSkeleton={10} />;
@@ -38,18 +39,16 @@ function FriendCards({
   return (
     <div
       className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4
-     py-8 gap-2 my-2 h-[55vh] content-start max-w-7xl mx-auto"
+     py-8 gap-2 my-2 content-start max-w-7xl mx-auto"
     >
       {profileSearchResult
-        // ?.filter((searchProfile) => {
-        //   // if there is no need to filter pass this step
-        //   // if (!activeFilter) return true;
-        //   // if (!event.participants) return true;
-        //   // Compare friend of user with participant to display only unrelated friends
-        //   // return !event.participants
-        //   //   .map((p) => p.profile_id)
-        //   //   .includes(searchProfile.friend_id);
-        // })
+        ?.filter((searchProfile) => {
+          // if there is no need to filter pass this step
+          if (!activeFilter) return true;
+          // Compare friend of user with participant confirmed or invited to display only unrelated friends
+          if (!event.participants) return true;
+          return !event.participants.includes(searchProfile.friend_id);
+        })
         .map((friend) => (
           <FriendCard
             key={friend.friend_id}

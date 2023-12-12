@@ -39,6 +39,7 @@ function InvitationFromCreateEventPage() {
             addFriendToState={addInvitedParticipantsIds}
             removeFriendsToState={removeInvitedParticipantsIds}
             loading={loading}
+            activeFilter
           />
         </div>
       </div>

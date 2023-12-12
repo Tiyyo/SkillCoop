@@ -1,14 +1,14 @@
 import OctogoneCross from '../../assets/icon/OctogoneCross';
 import Check from '../../assets/icon/Check';
-import { EventType, invitationStatus } from '../../types/index';
+import { invitationStatus } from '../../types/index';
 import { Link } from 'react-router-dom';
 import associateNumberToString from '../../utils/associate-number-stringscale';
 import capitalize from '../../utils/capitalize';
-import Avatar from '../avatar';
 import { useActionsPendingFriendCard } from '../../hooks/useActionsPendingFriendCard';
 import { useSelectionOfFriends } from '../../hooks/useSelectionOfFriends';
 import { CreateEventStateStore } from '../../store/create-event.store';
 import { EventStateStore } from '../../store/event.store';
+import AvatarSmallWithBorder from '../avatar/avatar-border-small';
 
 type FriendCardProps = {
   avatar: string;
@@ -33,7 +33,6 @@ function FriendCard({
   status,
   activeSelected,
   activeLinkProfile = false,
-  dataFromState,
   lastEvaluationRecorded,
   addFriendToState,
   removeFriendFromState,
@@ -52,10 +51,7 @@ function FriendCard({
       friendId,
       addFriendToState,
       removeFriendFromState,
-      dataFromState,
       activeSelected,
-      avatar,
-      username,
     });
 
   if (status === 'declined') return null;
@@ -65,7 +61,7 @@ function FriendCard({
       className="basis-52"
     >
       <div
-        className={`flex py-2 px-3 gap-3 max-h-16 cursor-pointer 
+        className={`flex flex-col items-center py-2 px-3 gap-3  cursor-pointer 
           rounded-md border-2 border-transparent ${
             isSelected
               ? ' border-opacity-50 border-primary-400 bg-primary-500 shadow-2xl'
@@ -73,11 +69,11 @@ function FriendCard({
           }}`}
         onClick={handleClickSelectFriend}
       >
-        <Avatar avatar={avatar} />
-        <div className="flex flex-col gap-2">
-          <p className="text-xs">{username}</p>
-          <div className="flex items-center gap-x-3">
-            <p className="text-xxs text-light">
+        <AvatarSmallWithBorder avatar={avatar} />
+        <div className="flex flex-col gap-1">
+          <p className="text-center text-xs">{username}</p>
+          <div className="flex justify-center items-center gap-x-2">
+            <p className="text-center text-xxs text-light">
               {lastEvaluationRecorded &&
                 capitalize(associateNumberToString(lastEvaluationRecorded))}
             </p>

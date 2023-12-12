@@ -77,12 +77,14 @@ function InvitationFromEventPage() {
         legend="Select the friends you'd like to invite to join this event."
       />
       <div className="flex-grow flex flex-col justify-between h-full">
-        <div className="px-4 flex flex-col justify-center">
+        <div className="flex-grow py-4 px-4 flex flex-col justify-center">
           <SearchInput onChange={getSearchValue} />
-          <SearchResult
-            profileSearchResult={profileSearchResult}
-            loading={loading}
-          />
+          <div className="flex-grow overflow-y-scroll no-scrollbar">
+            <SearchResult
+              profileSearchResult={profileSearchResult}
+              loading={loading}
+            />
+          </div>
         </div>
         <div className="flex w-full justify-center px-2">
           <Button

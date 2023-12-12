@@ -58,6 +58,7 @@ function EventPage() {
         <div className="flex flex-col w-full lg:gap-y-4">
           <CallToActionInvitation
             eventId={event?.event_id}
+            eventStatus={eventStore?.status_name}
             profileId={profileId}
           />
           {event && event.status_name === 'completed' && (

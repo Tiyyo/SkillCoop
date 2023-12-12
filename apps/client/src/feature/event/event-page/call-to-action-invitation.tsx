@@ -1,4 +1,4 @@
-import { invitationStatus } from '../../../types';
+import { EventStatus, invitationStatus } from '../../../types';
 import { updateParticipantSchema } from 'schema/ts-schema';
 import toast from '../../../utils/toast';
 import { useEvent } from '../../../store/event.store';
@@ -9,14 +9,13 @@ import LeftBorder from '../../../component/left-border';
 type CallToActionInvitationProps = {
   eventId?: number;
   profileId?: number;
-  avatar?: string | null;
-  username?: string;
-  lastEvaluation?: number | null;
+  eventStatus?: EventStatus;
 };
 
 function CallToActionInvitation({
   eventId,
   profileId,
+  eventStatus,
 }: CallToActionInvitationProps) {
   const { mutate: updateParticipantDb } = useUpdateParticipant({
     eventId,
@@ -30,6 +29,10 @@ function CallToActionInvitation({
   const handleClickInvitation = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
+    if (eventStatus === 'full') {
+      toast.error('This event is full, you cannot join it');
+      return;
+    }
     const status = (e.target as HTMLButtonElement).value;
     if (!profileId || !eventId) return;
     const data = {

@@ -59,7 +59,7 @@ export default {
     const todayDayAndMonth = today.toLocaleDateString()
     const isBirthdayPassed = birthdayDayAndMonth < todayDayAndMonth;
     const age = isBirthdayPassed ? differenceInYears : differenceInYears - 1;
-    if (isNaN(age)) return;
+    if (isNaN(age)) return null;
     return `${age} yo`;
   },
 };

@@ -5,7 +5,7 @@ import { useEvent } from '../../../store/event.store';
 import { EventParticipant } from '../../../types';
 
 type ParticipantsListProps = {
-  confirmedParticipants: number;
+  confirmedParticipants?: number | null;
   requiredparticipants: number | null;
   participants?: EventParticipant[] | string | null;
 };

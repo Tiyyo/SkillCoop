@@ -1,15 +1,21 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function Hamburger({
   getOpenState,
+  closeState,
 }: {
   getOpenState: (state: boolean) => void;
+  closeState: boolean;
 }) {
   const [openMenu, setOpenMenu] = useState(false);
   const handleClickMenu = () => {
     setOpenMenu(!openMenu);
     getOpenState(!openMenu);
   };
+
+  useEffect(() => {
+    setOpenMenu(closeState);
+  }, [closeState]);
 
   return (
     <button

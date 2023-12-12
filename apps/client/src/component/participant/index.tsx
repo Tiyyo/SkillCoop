@@ -11,7 +11,7 @@ import ParticipantStatusMark from '../status';
 import { EventStatus } from '../../types/index';
 
 type ParticipantProps = {
-  avatar: string;
+  avatar: string | null;
   username: string;
   status: InvitationStatus;
   profileId: number;

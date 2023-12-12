@@ -10,6 +10,7 @@ import WelcomeMessage from './welcome-message';
 
 function Header() {
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
+  console.log(menuIsOpen);
   const getOpenStateMobileMenu = (state: boolean) => {
     setMenuIsOpen(state);
   };
@@ -20,8 +21,11 @@ function Header() {
       className="flex justify-between bg-base-light w-full h-20 py-3 
       lg:rounded-lg lg:mt-2 shadow-md lg:p-5 pt-4"
     >
-      <Hamburger getOpenState={getOpenStateMobileMenu} />
-      <MobileNav menuIsOpen={menuIsOpen} />
+      <Hamburger
+        getOpenState={getOpenStateMobileMenu}
+        closeState={menuIsOpen}
+      />
+      <MobileNav menuIsOpen={menuIsOpen} setClose={setMenuIsOpen} />
       <WelcomeMessage
         username={userProfile?.username}
         className="hidden md:flex flex-col justify-center"

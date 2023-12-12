@@ -101,7 +101,7 @@ function EventPage() {
       </div>
       {event && event.status_name === 'open' && (
         <ParticipantsList
-          confirmedParticipants={event.confirmed_participants}
+          confirmedParticipants={eventStore.confirmed_participants}
           requiredparticipants={eventStore.required_participants}
           participants={eventStore.participants}
         />

@@ -4,7 +4,7 @@ import NavMobileLink from '../nav-link';
 import Profile from '../../assets/icon/Profile';
 import Friends from '../../assets/icon/Friends';
 
-function MobileNav({ menuIsOpen }: { menuIsOpen: boolean }) {
+function MobileNav({ menuIsOpen, setClose }: { menuIsOpen: boolean }) {
   return (
     <div
       className={`absolute z-20 bg-base-light shadow-sm rounded-b-xl  ${
@@ -16,22 +16,30 @@ function MobileNav({ menuIsOpen }: { menuIsOpen: boolean }) {
           menuIsOpen ? 'opacity-100' : 'opacity-0 -translate-y-96'
         }`}
       >
-        <NavMobileLink to="/" value="Home">
+        <NavMobileLink to="/" value="Home" setClose={setClose}>
           <Home size={20} />
         </NavMobileLink>
-        <NavMobileLink to="/user/profile" value="Profile">
+        <NavMobileLink to="/user/profile" value="Profile" setClose={setClose}>
           <Profile />
         </NavMobileLink>
-        <NavMobileLink to="/contact" value="Contact">
+        <NavMobileLink to="/contact" value="Contact" setClose={setClose}>
           <Friends />
         </NavMobileLink>
-        <NavMobileLink to="/my-event" value="My Events">
+        <NavMobileLink to="/my-event" value="My Events" setClose={setClose}>
           <Calendar />
         </NavMobileLink>
-        <NavMobileLink to="/events/incoming" value="Upcoming Events">
+        <NavMobileLink
+          to="/events/incoming"
+          value="Upcoming Events"
+          setClose={setClose}
+        >
           <CalendarClock size={20} />
         </NavMobileLink>
-        <NavMobileLink to="/events/past" value="Past Events">
+        <NavMobileLink
+          to="/events/past"
+          value="Past Events"
+          setClose={setClose}
+        >
           <History size={20} />
         </NavMobileLink>
         {/* <NavMobileLink to="/chat" value="Chat">

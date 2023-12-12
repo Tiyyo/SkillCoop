@@ -4,7 +4,13 @@ import NavMobileLink from '../nav-link';
 import Profile from '../../assets/icon/Profile';
 import Friends from '../../assets/icon/Friends';
 
-function MobileNav({ menuIsOpen, setClose }: { menuIsOpen: boolean }) {
+function MobileNav({
+  menuIsOpen,
+  setClose,
+}: {
+  menuIsOpen: boolean;
+  setClose: (value: boolean) => void;
+}) {
   return (
     <div
       className={`absolute z-20 bg-base-light shadow-sm rounded-b-xl  ${

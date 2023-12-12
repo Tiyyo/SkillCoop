@@ -52,9 +52,13 @@ export default {
     if (typeof date !== 'string') return null;
     const birthday = new Date(date);
     const today = new Date();
-    const ageDecimal =
-      (today.getTime() - birthday.getTime()) / (1000 * 60 * 60 * 24 * 365);
-    const age = Math.trunc(ageDecimal);
+    const birthdayYear = birthday.getFullYear();
+    const todayYear = today.getFullYear();
+    const differenceInYears = todayYear - birthdayYear;
+    const birthdayDayAndMonth = birthday.toLocaleDateString()
+    const todayDayAndMonth = today.toLocaleDateString()
+    const isBirthdayPassed = birthdayDayAndMonth < todayDayAndMonth;
+    const age = isBirthdayPassed ? differenceInYears : differenceInYears - 1;
     if (isNaN(age)) return;
     return `${age} yo`;
   },

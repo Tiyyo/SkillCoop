@@ -10,7 +10,6 @@ import WelcomeMessage from './welcome-message';
 
 function Header() {
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
-  console.log(menuIsOpen);
   const getOpenStateMobileMenu = (state: boolean) => {
     setMenuIsOpen(state);
   };

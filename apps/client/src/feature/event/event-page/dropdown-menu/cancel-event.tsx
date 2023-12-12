@@ -2,6 +2,7 @@ import { Ban } from 'lucide-react';
 import MenuItemDialog from '../../../../component/menu-item-dialog';
 import { useUpdateSingleEvent } from '../../../../hooks/useSingleEvent';
 import { EventStatus, eventStatus as eventStatusType } from '../../../../types';
+import { useEvent } from '../../../../store/event.store';
 
 type CancelEventMenuItemProps = {
   isAdmin: boolean;
@@ -16,9 +17,13 @@ function CancelEventMenuItem({
   profileId,
   eventStatus,
 }: CancelEventMenuItemProps) {
+  const { updateStatusName } = useEvent();
   const { mutate: cancelEvent } = useUpdateSingleEvent({
     eventId,
-    onSuccess: () => window.location.reload(),
+    onSuccess: () => {
+      updateStatusName(eventStatusType.cancelled);
+      window.location.reload();
+    },
   });
   if (
     eventStatus === eventStatusType.completed ||
@@ -36,7 +41,6 @@ function CancelEventMenuItem({
       }}
       description={`This action cannot be undone. 
                 this will permanently delete your event.`}
-      redirection="/"
       hoverOn
     >
       <div className="flex items-center gap-2">

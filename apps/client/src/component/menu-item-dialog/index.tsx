@@ -11,7 +11,6 @@ import {
   AlertDialogTrigger,
 } from '../../lib/ui/alert-dialog';
 import { UseMutateFunction } from '@tanstack/react-query';
-import { useNavigate } from 'react-router-dom';
 import { cn } from '../../lib/utils';
 
 type MenuItemDialogProps = {
@@ -19,7 +18,6 @@ type MenuItemDialogProps = {
   mutateFn: UseMutateFunction<any, unknown, any, unknown>;
   children: React.ReactNode;
   mutationData?: any;
-  redirection?: string;
   hoverOn?: boolean;
 };
 
@@ -28,18 +26,14 @@ function MenuItemDialog({
   description,
   mutateFn,
   mutationData,
-  redirection,
   hoverOn,
 }: MenuItemDialogProps) {
   const menuItemStyle = `flex gap-2 items-center
     transition-colors duration-300 rounded-lg px-2 text-md`;
 
-  const navigate = useNavigate();
-
   const handleClick = () => {
     if (!mutateFn) return;
     mutateFn(mutationData);
-    if (redirection) navigate(redirection);
   };
   return (
     <AlertDialog>

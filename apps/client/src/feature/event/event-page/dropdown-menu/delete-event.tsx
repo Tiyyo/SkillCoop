@@ -1,6 +1,7 @@
 import { Trash2 } from 'lucide-react';
 import MenuItemDialog from '../../../../component/menu-item-dialog';
 import { useDeleteSingleEvent } from '../../../../hooks/useSingleEvent';
+import { useNavigate } from 'react-router-dom';
 
 type DeleteEventMenuItemProps = {
   isAdmin: boolean;
@@ -13,7 +14,17 @@ function DeleteEventMenuItem({
   eventId,
   profileId,
 }: DeleteEventMenuItemProps) {
-  const { mutate: deleteEvent } = useDeleteSingleEvent({ eventId });
+  const navigate = useNavigate();
+  const { mutate: deleteEvent } = useDeleteSingleEvent({
+    eventId,
+    // window reload is necessary to update the event list
+    // but it's not realy user friendly
+    // try to refetch the event list instead
+    onSuccess: () => {
+      navigate(-1);
+      // window.location.reload();
+    },
+  });
   if (!isAdmin) return null;
   return (
     <MenuItemDialog
@@ -21,7 +32,6 @@ function DeleteEventMenuItem({
       mutationData={{ event_id: eventId, profile_id: profileId }}
       description={`This action cannot be undone. 
                 his will permanently delete your event.`}
-      redirection="/"
       hoverOn
     >
       <div className="text-error flex items-center gap-2">

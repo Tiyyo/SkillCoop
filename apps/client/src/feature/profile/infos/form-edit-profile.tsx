@@ -113,7 +113,7 @@ function FormEditProfileInfos({
       onSubmit={handleSubmit(onSubmit)}
     >
       <input hidden value={infos.profileId} {...register('profile_id')} />
-      <div className="flex flex-col sm:grid sm:grid-cols-2 xl:flex xl:flex-row pl-32">
+      <div className="flex flex-col sm:grid sm:grid-cols-2 xl:flex xl:flex-row pl-4">
         <Field
           label="Username"
           type="text"

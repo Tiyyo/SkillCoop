@@ -40,11 +40,11 @@ function ResumeProfile({ infos }: { infos: Infos }) {
           />
         </div>
       </div>
-      <div className="relative -top-0 text-end w-full self-end py-4">
+      <div className="relative text-end w-full self-end py-4">
         <FormEditProfileInfos shouldEditInfos={isEditing} infos={infos} />
         <div className="flex xl:flex-row flex-col items-center justify-start">
           <ResumeEmailInfos email={infos.email} />
-          <div className="relative flex flex-col pl-36 w-full xl:w-1/2">
+          <div className="relative flex flex-col pl-8 lg:pl-36 w-full xl:w-1/2">
             <div className="flex justify-between pr-3">
               <div className="w-full flex gap-x-2.5 items-center py-4 max-w-xs">
                 <div className="basis-7 text-primary-100">

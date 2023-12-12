@@ -140,34 +140,25 @@ SELECT
   score.score_team_1,
   score.score_team_2, 
   (json_group_array(
-      json_object(
-          'profile_id' , participant.profile_id, 
-          'username' , profile.username	,
-          'avatar', profile.avatar_url,
-          'status', participant.status_name,
-          'team', participant.team
-        )
+    json_object(
+        'profile_id' , participant.profile_id, 
+        'username' , profile.username	,
+        'avatar', profile.avatar_url,
+        'status', participant.status_name,
+        'team', participant.team
+         )
       ) 
-  ) AS participants,
-  (SELECT participant.status_name
-  FROM profile_on_event AS participant
-  WHERE participant.profile_id = ${profileId} ) AS user_status,
+   ) AS participants,
   (SELECT COUNT (*) 
-FROM profile_on_event 
-WHERE event_id = event.id 
-AND status_name = 'confirmed') AS confirmed_participants
+   FROM profile_on_event 
+   WHERE event_id = event.id 
+   AND status_name = 'confirmed'
+   ) AS confirmed_participants
 FROM event
 LEFT JOIN score ON event.id = score.event_id
 JOIN profile_on_event AS participant ON event.id = participant.event_id
 JOIN profile ON participant.profile_id = profile.id
-WHERE user_status <> 'declined'
-AND EXISTS(
-  SELECT 1
-  FROM profile_on_event 
-  WHERE event_id = event.id
-  AND profile_id = ${profileId}
-)
-AND event.organizer_id = ${profileId}
+WHERE event.organizer_id = ${profileId}
 GROUP BY event.id
 ORDER BY date DESC
 LIMIT 10 OFFSET ${(page - 1) * 10}
@@ -186,7 +177,7 @@ WHERE event.organizer_id = ${profileId}
           participants: typeof event.participants === 'string' && JSON.parse(event.participants),
         };
       });
-      console.log(parsedResult);
+
       return { events: parsedResult, eventCount: count.rows[0].total_event };
     } catch (error) {
       throw new DatabaseError(error);

@@ -77,7 +77,7 @@ export function useGenerateTeams(options: {
   });
 }
 
-export function useDeleteSingleEvent(options: { eventId?: number }) {
+export function useDeleteSingleEvent(options: { eventId?: number, onSuccess?: () => void }) {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: DeleteEventData) => {
@@ -85,6 +85,7 @@ export function useDeleteSingleEvent(options: { eventId?: number }) {
     },
     onSuccess: () => {
       if (!options.eventId) return;
+      if (options.onSuccess) options.onSuccess();
       queryClient.invalidateQueries(keys.getEventId(options.eventId));
     },
   });

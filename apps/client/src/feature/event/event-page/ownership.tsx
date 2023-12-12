@@ -8,7 +8,6 @@ import { useTransfertOwnership } from '../../../hooks/useSingleEvent';
 import { useEvent } from '../../../store/event.store';
 import capitalize from '../../../utils/capitalize';
 import associateNumberToString from '../../../utils/associate-number-stringscale';
-import ReturnBtn from '../../../component/return';
 import { cn } from '../../../lib/utils';
 import Container from '../../../layout/container';
 import TitleH2 from '../../../component/title-h2';

@@ -17,7 +17,7 @@ export declare const loginSchema: z.ZodObject<{
     email?: string;
     password?: string;
 }>;
-export declare const passwordUpdateSchema: z.ZodEffects<z.ZodObject<{
+export declare const passwordUpdateSchema: z.ZodEffects<z.ZodEffects<z.ZodObject<{
     old_password: z.ZodString;
     new_password: z.ZodEffects<z.ZodEffects<z.ZodEffects<z.ZodEffects<z.ZodString, string, string>, string, string>, string, string>, string, string>;
     confirm_new_password: z.ZodString;
@@ -37,5 +37,29 @@ export declare const passwordUpdateSchema: z.ZodEffects<z.ZodObject<{
     old_password?: string;
     new_password?: string;
     confirm_new_password?: string;
+}>, {
+    old_password?: string;
+    new_password?: string;
+    confirm_new_password?: string;
+}, {
+    old_password?: string;
+    new_password?: string;
+    confirm_new_password?: string;
+}>;
+export declare const resetPasswordSchema: z.ZodEffects<z.ZodObject<{
+    password: z.ZodEffects<z.ZodEffects<z.ZodEffects<z.ZodEffects<z.ZodString, string, string>, string, string>, string, string>, string, string>;
+    confirmPassword: z.ZodString;
+}, "strip", z.ZodTypeAny, {
+    password?: string;
+    confirmPassword?: string;
+}, {
+    password?: string;
+    confirmPassword?: string;
+}>, {
+    password?: string;
+    confirmPassword?: string;
+}, {
+    password?: string;
+    confirmPassword?: string;
 }>;
 export declare const registerSchema: ZodType;

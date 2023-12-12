@@ -9,6 +9,7 @@ import { generateBalancedTeam } from '../service/generate-teams';
 import { notifyEventInfosHasBeenUpdated } from '../service/notification/subtype/infos-event';
 import { notifyUserHasBeenInvitedToEvent } from '../service/notification/subtype/user-invited-event';
 import { notifyTransfertOwnership } from '../service/notification/subtype/transfert-ownership';
+import ForbidenError from '../helpers/errors/forbiden';
 
 export default {
   async createOne(req: Request, res: Response) {
@@ -59,7 +60,8 @@ export default {
     ];
 
     if (!event || event.organizer_id !== profile_id)
-      throw new AuthorizationError('Operation not allowed');
+      throw new ForbidenError('Operation not allowed : you are not the organizer',
+        'Operation not allowed', 'event.controller updateOne', '63');
 
     const dataHasChange = possibleFieldsUpdated.some((field) => {
       return data[field] !== event[field];
@@ -78,7 +80,8 @@ export default {
 
     const event = await Event.findByPk(event_id);
     if (!event || event.organizer_id !== organizer_id)
-      throw new AuthorizationError('Operation not allowed');
+      throw new ForbidenError('Operation not allowed : you are not the organizer',
+        'Operation not allowed', 'event.controller updateOne', '63');
 
     const isUpdated = await Event.update(event_id, {
       organizer_id: new_organizer_id,

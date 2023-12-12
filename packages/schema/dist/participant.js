@@ -5,6 +5,7 @@ const z = require("zod");
 exports.inviteParticipantSchema = z.object({
     event_id: z.number().int().positive(),
     ids: z.array(z.number()),
+    initiator: z.number().optional()
 });
 exports.updateParticipantSchema = z.object({
     event_id: z.number().int().positive(),

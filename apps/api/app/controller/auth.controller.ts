@@ -12,6 +12,8 @@ import logger from '../helpers/logger';
 import { CLIENT_URL } from '../utils/variables';
 import UserInputError from '../helpers/errors/user-input.error';
 import bcrypt from 'bcrypt';
+import APITypeError from '../helpers/errors/type.error';
+import ForbidenError from '../helpers/errors/forbiden';
 
 export default {
   async register(req: Request, res: Response) {
@@ -27,7 +29,7 @@ export default {
         newUser = shouldCreateNewUser;
       } else throw new ServerError('Failed create user');
     } catch (error) {
-      return res.status(400).send("We couldn't create a new account with this informations");
+      return res.status(400).send("Infos not valid");
     }
 
     const emailToken = tokenHandler.createToken('1h', process.env.JWT_EMAIL_TOKEN_KEY as string, {
@@ -40,7 +42,7 @@ export default {
     });
 
     return res.status(200).json({
-      message: 'User created successfully and confirmation email has been sent',
+      message: 'A link to activate your account has been sent to provided email',
     });
   },
   async signin(req: Request, res: Response) {
@@ -89,7 +91,7 @@ export default {
   },
   async googleAuth(req: Request, res: Response) {
     const { code } = req.query;
-    if (typeof code !== 'string') throw new Error('Invalid type');
+    if (typeof code !== 'string') throw new APITypeError('Code provided is not a string', 'googleAuth', ' 93');
 
     const { access_token: googleToken, id_token } = await google.getOAuthToken({
       code,
@@ -101,7 +103,7 @@ export default {
       id_token,
     });
 
-    if (!email) throw new ServerError('Error getting email from google account');
+    if (!email) throw new ServerError('Could not get email from google', 'googleAuth', '105');
     const [user] = await User.findBy({ email });
 
     let userInfos;
@@ -136,10 +138,10 @@ export default {
     );
     if (userInfos && userId !== (userInfos as any).user_id)
       //eslint-disable-line
-      throw new ServerError('Invalid user id');
+      throw new ServerError('User id is not matching', 'verifyEmail', ' 136');
 
     const verifiedUser = await User.update(userId, { verified: 1 });
-    if (!verifiedUser) throw new ServerError("Couldn't update user");
+    if (!verifiedUser) throw new ServerError("Couldn't verify user", 'verifyEmail', " 144");
 
     res.status(300).redirect(`${CLIENT_URL}/login`);
   },
@@ -147,7 +149,7 @@ export default {
     const { email } = req.body;
     const [user] = await User.findBy({ email });
 
-    if (!user) throw new NotFoundError("Couldn't find user");
+    if (!user) throw new NotFoundError("Couldn't find user with email provided in database", 'resendEmail', " 152");
     const emailToken = tokenHandler.createToken('1h', process.env.JWT_EMAIL_TOKEN_KEY as string, {
       user_id: user.id,
     });
@@ -162,7 +164,7 @@ export default {
     const { email } = req.body;
     const [user] = await User.findBy({ email });
     if (user && user.verified === 0) {
-      throw new UserInputError('Please verify your email before reset your password');
+      throw new ForbidenError('User accound not verified', 'Not allowed', 'forgotPassword', ' 169');
     }
 
     if (user && user.verified === 1) {
@@ -180,7 +182,7 @@ export default {
       });
     }
 
-    res.status(200).json({ message: 'An email has been sent to reset your password' });
+    res.status(200).json({ message: 'If you have a valid account an email has been sent' });
   },
   async redirectToResetPassword(req: Request, res: Response) {
     const { token } = req.params;
@@ -191,7 +193,7 @@ export default {
         process.env.JWT_EMAIL_TOKEN_KEY as string,
       );
       if (userInfos && userId !== userInfos.user_id) {
-        throw new ServerError('Invalid user id');
+        throw new ServerError('User id is not matching', 'redirectToResetPassword', ' 193');
       }
     } catch (error) {
       return res.redirect(`${CLIENT_URL}/`);
@@ -226,8 +228,9 @@ export default {
     const { password } = req.body;
     const saltRouds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRouds).catch((err) => {
-      if (err) throw new ServerError("Couldn't hash user password");
+      if (err) throw new ServerError("Couldn't hash user password", 'resetPassword', ' 231');
     });
+    // ??? why ???
     if (!hashedPassword) throw new ServerError('hash password is missing');
 
     const token = req.cookies._rset;

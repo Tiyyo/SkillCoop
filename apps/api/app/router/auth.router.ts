@@ -32,7 +32,7 @@ router.route('/email').post(validate(emailSchema, canals.body), factory(resendEm
 
 router.route('/google/callback').get(factory(googleAuth));
 
-router.route('/forgot-password').post(factory(forgotPassword));
+router.route('/forgot-password').post(validate(emailSchema, canals.body), factory(forgotPassword));
 
 router.route('/:userId/reset-password/:token').get(factory(redirectToResetPassword));
 

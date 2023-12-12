@@ -6,5 +6,6 @@ export * from './score'
 export * from './skills'
 export * from './vote'
 export * from './event'
+export * from './notification'
 export type { AnyZodObject, ZodType, ZodTypeDef } from 'zod';
 export { ZodError } from 'zod';

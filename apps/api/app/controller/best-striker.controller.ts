@@ -11,7 +11,7 @@ export default {
     const { profile_id, rater_id, event_id } = req.body;
     const event = await Event.getEventById(event_id, profile_id);
     if (!event || event.status_name !== 'completed')
-      throw new NotFoundError('Event not found or not completed');
+      throw new NotFoundError('Event not found or status not equal to completed', 'best-striker.controller createOne', '14');
 
     const isCreated = await BestStriker.create({
       profile_id,

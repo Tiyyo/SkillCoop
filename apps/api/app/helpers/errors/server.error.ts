@@ -4,9 +4,9 @@ export default class ServerError extends Error {
   cause: string;
   userMessage: string;
 
-  constructor(message: string) {
+  constructor(message: string, fn?: string, line?: string) {
     super(message);
-    this.message = message;
+    this.message = `Server Error in ${fn ?? 'NC'} fn at line ${line ?? 'NC'} :${message}`;
     this.name = 'ServerError';
     this.cause = message;
     this.status = 500;

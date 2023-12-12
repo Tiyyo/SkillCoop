@@ -7,14 +7,29 @@ export default {
   ],
   theme: {
     extend: {
-      height: {
-        10.5: '42px',
-        18: '72px',
-        18.5: '76px',
+      animation: {
+        'fade-in': '2s linear ',
+        'opacity-in': 'opacity-in 0.3s linear forwards',
       },
-      width: {
-        18: '72px',
-        18.5: '76px',
+      aspectRatio: {
+        '1/4': '1/4',
+        '4/1': '4/1',
+      },
+      backgroundImage: {
+        button: `linear-gradient(90deg, rgba(12,159,21,1) 6%, rgba(46,198,120,1) 
+          53%, rgba(17,163,110,1) 94%)`,
+        'home-page-gradient': `linear-gradient(180deg, hsl(120, 16%, 98%) ,
+                                                       hsl(120deg, 100%, 98.1%))`,
+        box: 'radial-gradient(circle, rgba(248,250,248,1) 24%, rgba(237,241,237,1) 100%)',
+        stadium: "url('/images/stadium-showcase.jpg')",
+        home: "url('/images/stadium.png')",
+        title:
+          'linear-gradient(135deg, rgba(68,167,86,1) 0%, rgba(3,78,19,0.87718837535014) 63%)',
+        subtitle:
+          'linear-gradient(135deg, rgba(68,167,86,1) 0%, rgba(0,83,16,1) 19%, rgba(0,32,6,1) 63%)',
+      },
+      borderWidth: {
+        3: '3px',
       },
       colors: {
         dark: '#12161F',
@@ -57,22 +72,8 @@ export default {
         info: 'hsl(217, 59%, 41%)',
         light: 'rgba(61,65,63,0.7)',
       },
-      backgroundImage: {
-        button: `linear-gradient(90deg, rgba(12,159,21,1) 6%, rgba(46,198,120,1) 
-          53%, rgba(17,163,110,1) 94%)`,
-        'home-page-gradient': `linear-gradient(180deg, hsl(120, 16%, 98%) ,
-                                                       hsl(120deg, 100%, 98.1%))`,
-        box: 'radial-gradient(circle, rgba(248,250,248,1) 24%, rgba(237,241,237,1) 100%)',
-        stadium: "url('/images/stadium-showcase.jpg')",
-        home: "url('/images/stadium.png')",
-        title:
-          'linear-gradient(135deg, rgba(68,167,86,1) 0%, rgba(3,78,19,0.87718837535014) 63%)',
-        subtitle:
-          'linear-gradient(135deg, rgba(68,167,86,1) 0%, rgba(0,83,16,1) 19%, rgba(0,32,6,1) 63%)',
-      },
-      aspectRatio: {
-        '1/4': '1/4',
-        '4/1': '4/1',
+      fontFamily: {
+        paytone: ['Paytone One', 'sans-serif'],
       },
       fontSize: {
         xxs: '0.625rem',
@@ -81,21 +82,13 @@ export default {
         'relative-md': '1em',
         'relative-lg': '1.125em',
       },
-      borderWidth: {
-        3: '3px',
-      },
-      fontFamily: {
-        paytone: ['Paytone One', 'sans-serif'],
-      },
-      transitionTimingFunction: {
-        cubic: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)',
-      },
       gridTemplateColumns: {
         'particpant-layout': 'repeat(auto-fit, minmax(150px, 2fr))',
       },
-      animation: {
-        'fade-in': '2s linear ',
-        'opacity-in': 'opacity-in 0.3s linear forwards',
+      height: {
+        10.5: '42px',
+        18: '72px',
+        18.5: '76px',
       },
       keyframes: {
         'fade-in': {
@@ -106,6 +99,16 @@ export default {
           '0%': { opacity: '1' },
           '100%': { opacity: '0' },
         },
+      },
+      minHeight: {
+        'screen-mobile': '100svh',
+      },
+      transitionTimingFunction: {
+        cubic: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)',
+      },
+      width: {
+        18: '72px',
+        18.5: '76px',
       },
     },
     plugins: [],

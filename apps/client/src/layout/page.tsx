@@ -3,7 +3,7 @@ import SideMenuDesktop from '../component/side-menu';
 
 function Page({ children }: { children: React.ReactNode }) {
   return (
-    <div className="relative flex flex-col lg:flex-row overflow-hidden min-h-screen">
+    <div className="relative flex flex-col lg:flex-row overflow-hidden min-h-screen-mobile lg:min-h-screen">
       <div className="hidden lg:flex h-screen relative">
         <SideMenuDesktop />
         <ReturnBtn />

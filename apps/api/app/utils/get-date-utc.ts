@@ -7,6 +7,8 @@ function getDateUTC(date: Date) {
   const second = date.getUTCSeconds();
   const millisecond = date.getUTCMilliseconds();
 
+
+
   return `${year}-${month}-${day} ${hour}:${minute}:${second}.${millisecond}`;
 }
 

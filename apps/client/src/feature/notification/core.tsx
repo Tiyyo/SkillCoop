@@ -9,6 +9,7 @@ type CoreNotificationProps = {
   image?: string | null;
   message: string | JSX.Element;
   isRead: boolean;
+  createdAt: string;
 };
 
 type ImageNotificationProps = {
@@ -40,6 +41,26 @@ function ImageNotification({ image, username }: ImageNotificationProps) {
   }
 }
 
+function createdSince(date: string) {
+  const dateObject = new Date(date);
+  const currentDate = new Date();
+  const diff = currentDate.getTime() - dateObject.getTime();
+  const ONE_MINUTE = 60 * 1000;
+  const ONE_HOUR = 60 * ONE_MINUTE;
+  const ONE_DAY = 24 * ONE_HOUR;
+  const ONE_WEEK = 7 * ONE_DAY;
+  const ONE_MONTH = 30 * ONE_DAY;
+  if (diff < ONE_MINUTE) return 'just now';
+  if (diff < ONE_HOUR) return `${Math.floor(diff / ONE_MINUTE)}min ago`;
+  if (diff < ONE_DAY) return `${Math.floor(diff / ONE_HOUR)}h ago`;
+  if (diff < 2 * ONE_DAY) return 'yesterday';
+  if (diff > 2 * ONE_DAY && diff < ONE_WEEK)
+    return `${Math.floor(diff / ONE_DAY)}d ago`;
+  if (diff > ONE_WEEK && diff < 2 * ONE_MONTH)
+    return `${Math.floor(diff / ONE_WEEK)}w ago`;
+  if (diff > 2 * ONE_MONTH) return `${Math.floor(diff / ONE_MONTH)} month ago`;
+}
+
 function CoreNotification({
   id,
   children,
@@ -47,6 +68,7 @@ function CoreNotification({
   message,
   username,
   isRead,
+  createdAt,
 }: CoreNotificationProps) {
   const { markAsReadInStore } = useNotifications();
   const { mutate: markAsRead } = useMarkNotificationAsRead({
@@ -68,7 +90,13 @@ function CoreNotification({
         <ImageNotification image={image} username={username} />
       </div>
       <div className="flex gap-y-1.5 justify-startflex-shrink flex-wrap w-full pt-2">
-        <p className="text-xs font-normal text-grey-sub-text">{message}</p>
+        <p className="text-xs lg:text-sm font-normal text-grey-sub-text">
+          {message}{' '}
+          <span className="text-xxs lg:text-xs mx-2 text-slate-400">
+            {createdSince(createdAt)}
+          </span>
+        </p>
+
         {!isRead && (
           <div className="flex flex-col w-full text-xs pt-2.5 pb-1 ">
             {children}

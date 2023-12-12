@@ -1,5 +1,5 @@
+import { Notification } from '../../../types';
 import CoreNotification from '../core';
-import { Notification } from '../dispatch';
 
 function AddedFriendsNotification({
   notification,
@@ -10,6 +10,7 @@ function AddedFriendsNotification({
 
   return (
     <CoreNotification
+      createdAt={notification.created_at}
       id={notification.id}
       isRead={!!notification.is_read}
       username={username}

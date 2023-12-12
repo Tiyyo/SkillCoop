@@ -1,15 +1,12 @@
 import { useFriendInvitationActions } from '../../../hooks/useFriends';
-import { useApp } from '../../../store/app.store';
-import { invitationStatus } from '../../../types';
+import { Notification, invitationStatus } from '../../../types';
 import CoreNotification from '../core';
-import { Notification } from '../dispatch';
 
 function FriendRequestNotification({
   notification,
 }: {
   notification: Notification;
 }) {
-  const { userProfile } = useApp();
   const { mutate: acceptOrDeclineInvitation } = useFriendInvitationActions({});
   const originalMessage = notification.message;
   const splitWordFrom = 'from';
@@ -38,6 +35,7 @@ function FriendRequestNotification({
       id={notification.id}
       isRead={!!notification.is_read}
       image={notification.img_url}
+      createdAt={notification.created_at}
       username={username}
       message={buildMessage()}
     >

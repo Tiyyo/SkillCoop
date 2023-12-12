@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import CoreNotification from '../core';
-import { Notification } from '../dispatch';
 import { ArrowRight } from 'lucide-react';
+import { Notification } from '../../../types';
 
 function EventInfosUpdatedNotification({
   notification,
@@ -31,6 +31,7 @@ function EventInfosUpdatedNotification({
   };
   return (
     <CoreNotification
+      createdAt={notification.created_at}
       id={notification.id}
       isRead={!!notification.is_read}
       message={buildMessage()}

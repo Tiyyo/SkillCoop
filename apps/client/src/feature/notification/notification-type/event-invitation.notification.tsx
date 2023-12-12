@@ -1,7 +1,10 @@
 import { useUpdateParticipant } from '../../../hooks/useSingleEvent';
-import { InvitationStatus, invitationStatus } from '../../../types';
+import {
+  InvitationStatus,
+  Notification,
+  invitationStatus,
+} from '../../../types';
 import CoreNotification from '../core';
-import { Notification } from '../dispatch';
 
 function EventInvitationNotification({
   notification,
@@ -60,6 +63,7 @@ function EventInvitationNotification({
       id={notification.id}
       isRead={!!notification.is_read}
       image={notification.img_url}
+      createdAt={notification.created_at}
       username={username}
       message={buildMessage()}
     >

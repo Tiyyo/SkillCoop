@@ -9,7 +9,7 @@ import LeftBorder from '../../../component/left-border';
 type CallToActionInvitationProps = {
   eventId?: number;
   profileId?: number;
-  eventStatus?: EventStatus;
+  eventStatus?: EventStatus | null;
 };
 
 function CallToActionInvitation({

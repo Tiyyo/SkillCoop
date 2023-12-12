@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import CoreNotification from '../core';
-import { Notification } from '../dispatch';
 import { ArrowRight } from 'lucide-react';
+import { Notification } from '../../../types';
 
 function TransfertOwnershipNotification({
   notification,
@@ -31,6 +31,7 @@ function TransfertOwnershipNotification({
     <CoreNotification
       id={notification.id}
       isRead={!!notification.is_read}
+      createdAt={notification.created_at}
       username={username}
       image={notification.img_url}
       message={buildMessage()}

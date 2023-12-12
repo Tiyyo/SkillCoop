@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import CoreNotification from '../core';
-import { Notification } from '../dispatch';
 import { ArrowRight } from 'lucide-react';
+import { Notification } from '../../../types';
 
 function TeamGeneratedNotification({
   notification,
@@ -29,6 +29,7 @@ function TeamGeneratedNotification({
     <CoreNotification
       id={notification.id}
       isRead={!!notification.is_read}
+      createdAt={notification.created_at}
       message={buildMessage()}
     >
       <Link

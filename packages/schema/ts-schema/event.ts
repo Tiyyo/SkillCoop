@@ -12,27 +12,10 @@ const todayTime = new Intl.DateTimeFormat("en-Fr", {
   minute: "numeric",
 }).format(new Date());
 
-
 export const createEventSchema = z.object({
-  // TODO make a custom regex for the date in string format
-  date: z.string().refine((data) => {
-    const startTime = data.split(' ')[1]
-    // Need to add 000 to the end of the date to make it work
-    // new Date() automatically adds 01:00:00 to the date
-    // instead of 00:00:00
-    const startDate = data.split(' ')[0] + ' 00:00:000'
-    const hours = Number(startTime.split(':')[0])
-    const minutes = Number(startTime.split(':')[1])
-    const todayHours = Number(todayTime.split(':')[0]);
-    const todayMinutes = Number(todayTime.split(':')[1].slice(0, 2));
-    if (new Date(startDate) === new Date(todayDate) && (hours > todayHours || (hours === todayHours && minutes > todayMinutes))) return true
-    if (new Date(startDate) > new Date(todayDate)) return true
-    if (new Date(startDate) < new Date(todayDate)) return false
-    return false
-  }, {
-    message: "Date must be in the future"
-  }),
-  duration: z.number(),
+  start_date: z.string(),
+  start_time: z.string(),
+  duration: z.number().positive(),
   location: z.string(),
   required_participants: z.number().refine((data) => acceptableEventFormat.includes(data), {
     message: "Wrong format, must be 6, 10, 14 or 22"

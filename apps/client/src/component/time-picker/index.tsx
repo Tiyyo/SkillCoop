@@ -35,15 +35,24 @@ function InputTime({
   const idHoursComponent = useId();
   const idMinutesComponent = useId();
   const [hasError, setHasError] = useState<boolean | undefined>(error);
+  const [count, setCount] = useState<number>(0);
 
+  // Expected behavior:
+  // 1. User dont click on input so count is 0
+  // so selectedTimes.hours and selectedTimes.minutes are undefined
+  // Input display an error if we try to submit the form
+  // 2. User click on input so count is 1
+  // so selectedTimes.hours or selectedTimes.minutes is defnined
+  // to update the state we need to have both selectedTimes.hours and selectedTimes.minutes
+  // defined so when count is 2 we check if one of them is undefined and if it is we set it to 00
   const [selectedTime, setSelectedTime] = useState<{
-    hours: number | undefined;
-    minutes: number | undefined;
-    miliseconds: number;
+    hours: number | string | undefined;
+    minutes: number | string | undefined;
+    miliseconds: number | string;
   }>({
-    hours: undefined,
-    minutes: undefined,
-    miliseconds: 0.0,
+    hours: count < 1 ? undefined : '00',
+    minutes: count < 1 ? undefined : '00',
+    miliseconds: '0.000',
   });
 
   const avaiableMinutesChoice = ['00', 15, 30, 45];
@@ -59,7 +68,25 @@ function InputTime({
         updateState(formatedTime);
       }
     }
+    setCount(count + 1);
   }, [selectedTime]);
+
+  useEffect(() => {
+    if (count === 2) {
+      if (selectedTime.hours === undefined) {
+        setSelectedTime({
+          ...selectedTime,
+          hours: '00',
+        });
+      }
+      if (selectedTime.minutes === undefined) {
+        setSelectedTime({
+          ...selectedTime,
+          minutes: '00',
+        });
+      }
+    }
+  }, [count]);
 
   useEffect(() => {
     setHasError(error);
@@ -96,6 +123,7 @@ function InputTime({
            focus:ring-primary-800 focus:border-primary-800 block w-full pl-10
            `,
                 high ? 'h-10' : 'h-7',
+                hasError && 'ring-2 ring-error',
               )}
             />
             <select

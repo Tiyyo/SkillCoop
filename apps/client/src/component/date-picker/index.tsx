@@ -40,7 +40,7 @@ function InputDate({
       text: 'text-primary-1100',
       input: `w-full font-semibold text-sm bg-base-light ${
         high ? 'h-10' : 'h-7'
-      } ${hasError ? 'border-2 border-error' : ''}`,
+      } ${hasError && 'ring-2 ring-error'}`,
       inputIcon: `${hasError ? 'text-error' : 'text-primary-600'}`,
       selected: 'bg-primary-800',
       disabledText: 'text-gray-200',

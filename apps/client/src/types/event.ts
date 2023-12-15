@@ -29,6 +29,8 @@ export const eventStatus = {
 
 export type CreateEventData = {
   date: string;
+  start_time: string;
+  start_date: string;
   duration: number;
   location: string;
   required_participants: number;

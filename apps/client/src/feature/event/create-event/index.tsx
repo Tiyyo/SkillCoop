@@ -1,13 +1,11 @@
 import Button from '../../../component/button';
 import { useRef, useState } from 'react';
 import { createEventSchema } from 'schema/ts-schema';
-import type { CreateEventData } from '../../../types';
 import Input from '../../../component/input';
 import SelectInput from '../../../component/select';
 import InputDate from '../../../component/date-picker';
 import InputTime from '../../../component/time-picker';
 import { useCreateEvent } from '../../../store/create-event.store';
-import dateHandler from '../../../utils/date.handler';
 import Globe from '../../../assets/icon/Globe';
 import Users from '../../../assets/icon/Users';
 import Clock from '../../../assets/icon/Clock';
@@ -22,6 +20,7 @@ import {
 } from '../../../constant/select.options';
 import toast from '../../../utils/toast';
 import Container from '../../../layout/container';
+import { PastDateChecker } from '../../../utils/is-future-date';
 
 function CreateEvent() {
   const { userProfile } = useApp();
@@ -40,14 +39,14 @@ function CreateEvent() {
   const profileId = userProfile?.profile_id;
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    console.log('Is clicked and work until here');
     // This is unmaintainable and hard to read
     e.preventDefault();
     if (!profileId) return;
-    if (!eventCreatedState.start_date || !eventCreatedState.start_time) return;
-    const data: Partial<CreateEventData> | CreateEventData = {
+    const data = {
       organizer_id: profileId,
       status_name: 'open',
+      start_date: eventCreatedState.start_date,
+      start_time: eventCreatedState.start_time,
       date: `${eventCreatedState.start_date} ${eventCreatedState.start_time}`,
       participants: eventCreatedState.participants ?? undefined,
       duration: Number(eventCreatedState.duration) ?? undefined,
@@ -55,24 +54,21 @@ function CreateEvent() {
       required_participants:
         Number(eventCreatedState.required_participants) ?? undefined,
     };
-    //@ts-ignore
     const isValid = createEventSchema.safeParse(data);
-
-    if (
-      isValid.success &&
-      data.date &&
-      dateHandler.dateShouldBeInTheFuture(data.date)
-    ) {
-      // TODO : handle type error causing by Partial<CreateEventData>
-      // @ts-ignore
-      createEvent(data);
-      createEventFormRef.current?.reset();
-    } else {
-      if ((isValid as any).error.issues[0]) {
-        toast.error((isValid as any).error.issues[0].message);
-      }
+    if (!isValid.success) {
       setValidationErrors((isValid as any).error.issues);
+      return;
     }
+    const isPastDate = PastDateChecker.isPastDate(data.date);
+    if (isPastDate) {
+      toast.error('You cannot create an event in the past');
+      return;
+    }
+    // TODO: convert date to UTC format
+    // Timzezone feature is not implemented yet
+    //@ts-ignore
+    createEvent(data);
+    createEventFormRef.current?.reset();
   };
 
   // find if an input has an error
@@ -116,7 +112,7 @@ function CreateEvent() {
             actionType="SET_DATE"
             label="Select a date"
             defaultValue={eventCreatedState.start_date ?? ''}
-            error={inputHasError('date', validationErrors)}
+            error={inputHasError('start_date', validationErrors)}
             high
           />
           <InputTime
@@ -126,7 +122,7 @@ function CreateEvent() {
             readOnly
             updateState={updateStartTime}
             defaultValues={eventCreatedState.start_time ?? ''}
-            error={inputHasError('date', validationErrors)}
+            error={inputHasError('start_time', validationErrors)}
             high
           >
             <CalendarClock />

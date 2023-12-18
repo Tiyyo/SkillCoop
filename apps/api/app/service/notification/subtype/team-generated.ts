@@ -1,15 +1,16 @@
 import {
-  BuildTeamsHasBeenGeneratedMessage,
-  NotificationSubtype,
-  NotificationType,
   notificationSubtype,
   notificationType,
-} from '../types';
+} from 'skillcoop-types';
 import { profileOnEvent as Participant, event as EventModel } from '../../../models/index';
 import { NotificationObserver } from './core';
 import { hasActiveNotification } from '../../../utils/has-active-notification';
 import { BuildNotificationMessage } from '../message.builder';
-import { EventParticipant } from '../../../@types/types';
+import type {
+  EventParticipant, BuildTeamsHasBeenGeneratedMessage,
+  NotificationSubtype,
+  NotificationType,
+} from 'skillcoop-types';
 
 class TeamHasBeenGenerated extends NotificationObserver {
   declare subtype: NotificationSubtype;

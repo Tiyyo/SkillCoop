@@ -3,7 +3,7 @@ import { useSearchResultOrDefault } from '../../../hooks/useSearchResultOrDefaul
 import Container from '../../../layout/container';
 import TitleH2 from '../../../component/title-h2';
 import SearchInput from '../../../component/search-input';
-import FriendCards from '../../../component/invite/index.friends';
+import FriendCards from '../../../component/friendcards-container';
 import { useCreateEvent } from '../../../store/create-event.store';
 
 function InvitationFromCreateEventPage() {

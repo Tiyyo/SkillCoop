@@ -1,6 +1,6 @@
 import { db } from '../helpers/client.db';
 import computeRatingUser from '../service/compute-rating';
-import { Player } from '../@types/types';
+import { Player } from 'skillcoop-types';
 
 // TODO refactor and make smaller function
 

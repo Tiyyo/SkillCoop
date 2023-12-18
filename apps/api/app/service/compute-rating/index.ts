@@ -2,16 +2,17 @@ import { db } from '../../helpers/client.db';
 import { sql } from 'kysely';
 import computeGbRating from '../../utils/compute-gb-rating';
 import NotFoundError from '../../helpers/errors/not-found.error';
+import { Skills } from 'skillcoop-types';
 
-type Eval = {
-  defending: number;
-  pace: number;
-  dribbling: number;
-  shooting: number;
-  passing: number;
-};
+// type Eval = {
+//   defending: number;
+//   pace: number;
+//   dribbling: number;
+//   shooting: number;
+//   passing: number;
+// };
 
-type AvgEval = Eval & {
+type AvgSkill = Skills & {
   nb_eval_received: number;
 };
 
@@ -138,7 +139,7 @@ async function computeRatingUser(profileId: number) {
   //   .groupBy('event.id')
   //   .execute();
 
-  const userOwnEvalQuery = sql<Eval | undefined>`
+  const userOwnEvalQuery = sql<Skills | undefined>`
       SELECT 
         pace,
         dribbling,
@@ -157,7 +158,7 @@ async function computeRatingUser(profileId: number) {
   //   .where('reviewee_id', '=', profileId)
   //   .execute();
 
-  const avgEvalsReceivedQuery = sql<AvgEval>`
+  const avgEvalsReceivedQuery = sql<AvgSkill>`
       SELECT 
         COUNT (*) AS nb_eval_received,
         IFNULL(AVG(pace), 0) AS pace,

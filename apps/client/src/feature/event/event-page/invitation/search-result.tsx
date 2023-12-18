@@ -1,5 +1,5 @@
 import { useEvent } from '../../../../store/event.store';
-import { Friend } from '../../../../types';
+import { Friend } from 'skillcoop-types';
 import SearchProfileCard from './search-profile-card';
 import SkeletonsLoader from './skeletons-loader';
 

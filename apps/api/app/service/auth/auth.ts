@@ -8,18 +8,7 @@ import bcrypt from 'bcrypt';
 import emailService from '../../utils/send-email';
 import randomBytes from 'randombytes';
 import tokenHandler from '../../helpers/token.handler';
-
-interface UserInfos {
-  user_id: number;
-  email: string;
-}
-
-interface GoogleUserInfos {
-  email: string;
-  given_name: string;
-  family_name: string;
-  picture: string;
-}
+import type { UserInfosToken, GoogleUserInfos, User as UserType } from 'skillcoop-types';
 
 export default {
   async createUser(data: {
@@ -47,7 +36,7 @@ export default {
       }
     }
   },
-  async login(data: { email: string; password: string }): Promise<Record<string, string>> {
+  async login(data: UserType): Promise<Record<string, string>> {
     const { email, password } = data;
     const [user] = await User.findBy({ email: email.trim() });
 
@@ -69,7 +58,7 @@ export default {
       throw new UserInputError('Email not verified');
     }
 
-    const userInfos = { user_id: user.id, email: user.email };
+    const userInfos: UserInfosToken = { user_id: user.id, email: user.email };
     const { accessToken, refreshToken } = tokenHandler.createPairAuthToken(userInfos);
     return { accessToken, refreshToken };
   },
@@ -78,7 +67,7 @@ export default {
     given_name,
     family_name,
     picture,
-  }: GoogleUserInfos): Promise<UserInfos> {
+  }: GoogleUserInfos): Promise<UserInfosToken> {
     const password = randomBytes(16).toString('hex');
     const isCreated = await this.createUser({ email, password });
     if (!isCreated) throw new Error('Error creating user');

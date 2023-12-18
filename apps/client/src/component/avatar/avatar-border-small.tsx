@@ -1,17 +1,19 @@
 import { cn } from '../../lib/utils';
 import defaultAvatar from '../../../public/images/default-avatar.png';
 
-function AvatarSmallWithBorder({
-  avatar,
-  isRatingActive,
-  className,
-}: {
+type AvatarSmallWithBorderProps = {
   avatar?: string | null;
   isRatingActive?: boolean;
   className?: string;
   size?: string;
   borderSize?: string;
-}) {
+};
+
+function AvatarSmallWithBorder({
+  avatar,
+  isRatingActive,
+  className,
+}: AvatarSmallWithBorderProps) {
   return (
     <div className="relative bg-primary-900 rounded-full z-10 w-14 h-14">
       <img

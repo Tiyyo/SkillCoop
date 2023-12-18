@@ -1,7 +1,7 @@
 // Maybe restrict scores to theses props is too restrictive and doesn't
 // allow scale with other sport
 
-import { Score } from '../@types/types';
+import type { Score } from 'skillcoop-types';
 
 const computeGbRating = (score: Score): number => {
   const values = Object.values(score);

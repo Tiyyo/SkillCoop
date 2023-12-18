@@ -1,4 +1,4 @@
-import { InvitationStatus } from '../../types/index';
+import { InvitationStatus } from 'skillcoop-types';
 import questionMark from '../../assets/svg/question-mark-13228.svg';
 import confirmedMark from '../../assets/svg/green-check-mark-correct-tick-16237.svg';
 

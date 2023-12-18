@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { EventParticipant } from '../../../types';
+import type { EventParticipant } from 'skillcoop-types';
 import Container from '../../../layout/container';
 import { Info, MoveRight } from 'lucide-react';
 

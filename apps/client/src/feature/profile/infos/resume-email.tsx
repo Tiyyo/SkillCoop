@@ -9,7 +9,7 @@ import { useApp } from '../../../store/app.store';
 import ErrorNotification from '../../../component/error/notification';
 import Button from '../../../component/button';
 import { useUpdateEmail } from '../../../hooks/useProfile';
-import { UpdateEmail } from '../../../types';
+import type { UpdateEmail } from 'skillcoop-types';
 import { updateEmailSchema } from 'schema/ts-schema';
 import toast from '../../../utils/toast';
 

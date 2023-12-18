@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { saveScoreSchema, updateEventSchema } from 'schema/ts-schema';
 import Button from '../../../component/button';
 import { useApp } from '../../../store/app.store';
-import type { EventStatus } from '../../../types';
-import { eventStatus as eventStatusAssertion } from '../../../types';
+import type { EventStatus } from 'skillcoop-types';
+import { eventStatus as eventStatusAssertion } from 'skillcoop-types';
 import {
   useUpdateScoreEvent,
   useUpdateSingleEvent,

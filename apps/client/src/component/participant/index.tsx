@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { InvitationStatus } from '../../types/index';
+import { InvitationStatus } from 'skillcoop-types';
 import { cn } from '../../lib/utils';
 import star from '../../assets/svg/star.svg';
 import soccerBall from '../../assets/svg/soccer-ball.svg';
@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import Avatar from '../avatar';
 import { useApp } from '../../store/app.store';
 import ParticipantStatusMark from '../status';
-import { EventStatus } from '../../types/index';
+import type { EventStatus } from 'skillcoop-types';
 
 type ParticipantProps = {
   avatar: string | null;

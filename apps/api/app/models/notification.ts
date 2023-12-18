@@ -2,12 +2,11 @@ import DatabaseError from '../helpers/errors/database.error';
 import { Core } from './core';
 
 export class Notification extends Core {
-  tableName: string = 'notification';
+  declare tableName: string
 
   constructor(client: any) {
-    //eslint-disable-line
-    // eslint-disable-line
     super(client);
+    this.tableName = 'notification';
   }
   async getLast(profileId: number) {
     try {

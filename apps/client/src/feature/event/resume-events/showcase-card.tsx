@@ -1,5 +1,5 @@
 import Avatars from '../../../component/avatars';
-import { EventParticipant, EventStatus } from '../../../types';
+import type { EventParticipant, EventStatus } from 'skillcoop-types';
 import dateHandler from '../../../utils/date.handler';
 
 interface EventCardProps {

@@ -1,8 +1,8 @@
 import { create } from 'zustand';
-import { Profile } from '../types';
+import type { Profile } from 'skillcoop-types';
 import { useEffect } from 'react';
 import { useGetMe } from '../hooks/useProfile';
-import useSubscriptionNotification from '../hooks/useSubscriptionNotification';
+
 
 type AppStoreProps = {
   userProfile: Profile | null;

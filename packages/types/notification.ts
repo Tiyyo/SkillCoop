@@ -1,28 +1,14 @@
 export type NotificationType = 'event' | 'friend' | 'system' | 'message';
 
-export const notificationType = {
-  event: 'event',
-  friend: 'friend',
-  system: 'system',
-  message: 'message',
-} as const;
-
-export type NotificationSubtype =
-  | 'eventInfosHasBeenUpdated'
-  | 'userHasBeenInvitedToEvent'
-  | 'userReceivedFriendRequest'
-  | 'userHasBeenAddedToFriendlist'
-  | 'teamHasBeenGenerated'
-  | 'transfertOwnership';
-
-export const notificationSubtype = {
-  eventInfosHasBeenUpdated: 'eventInfosHasBeenUpdated',
-  userHasBeenInvitedToEvent: 'userHasBeenInvitedToEvent',
-  userReceivedFriendRequest: 'userReceivedFriendRequest',
-  userHasBeenAddedToFriendlist: 'userHasBeenAddedToFriendlist',
-  teamHasBeenGenerated: 'teamHasBeenGenerated',
-  transfertOwnership: 'transfertOwnership',
-} as const;
+export type NotificationParams = {
+  profileId: number;
+  message: string;
+  type: NotificationType;
+  subtype: NotificationSubtype;
+  img_url?: string | null;
+  instigatorId?: number;
+  eventId?: number;
+};
 
 export type BuilderEventInfosNotificationMessage = (eventDate: string) => string;
 
@@ -56,17 +42,53 @@ export type BuildersNotificationMessage = {
   [notificationSubtype.transfertOwnership]: BuilderTransfertOwnershipMessage;
 };
 
-export type NotificationParams = {
-  profileId: number;
-  message: string;
+export type NotificationSubtype =
+  | 'eventInfosHasBeenUpdated'
+  | 'userHasBeenInvitedToEvent'
+  | 'userReceivedFriendRequest'
+  | 'userHasBeenAddedToFriendlist'
+  | 'teamHasBeenGenerated'
+  | 'transfertOwnership'
+
+export type Notification = {
+  id: number;
+  profile_id: number;
   type: NotificationType;
   subtype: NotificationSubtype;
   img_url?: string | null;
-  instigatorId?: number;
-  eventId?: number;
+  is_read: 0 | 1;
+  message: string;
+  instigator_id?: number | null;
+  event_id?: number | null;
+  created_at: string;
 };
+
+export type NotificationFilters = 'event' | 'friend' | 'all';
 
 export type SSENotificationData = {
   profileId: number;
   message: string;
 };
+
+export const notificationType = {
+  event: 'event',
+  friend: 'friend',
+  system: 'system',
+  message: 'message',
+} as const
+
+export const notificationSubtype = {
+  eventInfosHasBeenUpdated: 'eventInfosHasBeenUpdated',
+  userHasBeenInvitedToEvent: 'userHasBeenInvitedToEvent',
+  userReceivedFriendRequest: 'userReceivedFriendRequest',
+  userHasBeenAddedToFriendlist: 'userHasBeenAddedToFriendlist',
+  teamHasBeenGenerated: 'teamHasBeenGenerated',
+  transfertOwnership: 'transfertOwnership',
+} as const;
+
+export const notificationFilters = {
+  event: 'event',
+  friend: 'friend',
+  all: 'all',
+} as const;
+

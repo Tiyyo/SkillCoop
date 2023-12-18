@@ -1,5 +1,5 @@
 import { CalendarClock, History, Home } from 'lucide-react';
-import NavButtonDesktop from '../../test-desktop/nav-button-desktop';
+import NavButtonDesktop from '../nav-btn-desktop';
 import Profile from '../../assets/icon/Profile';
 import Friends from '../../assets/icon/Friends';
 import Calendar from '../../assets/icon/Calendar';

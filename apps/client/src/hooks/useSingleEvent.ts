@@ -11,7 +11,7 @@ import {
   voteBestStrikerFn,
   voteMvpFn,
 } from '../api/api.fn';
-import {
+import type {
   DeleteEventData,
   EventInvitation,
   SaveScore,
@@ -19,7 +19,7 @@ import {
   UpdateEventData,
   UpdateParticipant,
   Vote,
-} from '../types/index';
+} from 'skillcoop-types';
 import { AxiosResponse } from 'axios';
 
 const keys = {

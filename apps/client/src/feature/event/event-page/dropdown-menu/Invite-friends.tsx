@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { EventStatus } from '../../../../types';
+import type { EventStatus } from 'skillcoop-types';
 import { UserPlus } from 'lucide-react';
 import { DropdownMenuItem } from '../../../../lib/ui/dropdown';
 

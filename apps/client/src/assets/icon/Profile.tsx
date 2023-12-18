@@ -1,4 +1,4 @@
-function Profile({ size }: { size?: string }) {
+function Profile() {
   return (
     <svg
       width="22"

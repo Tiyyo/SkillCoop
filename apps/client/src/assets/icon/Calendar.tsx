@@ -1,4 +1,4 @@
-function Calendar({ size }: { size?: string }) {
+function Calendar() {
   return (
     <svg
       width="22"

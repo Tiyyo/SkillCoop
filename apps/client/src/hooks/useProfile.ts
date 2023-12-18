@@ -11,12 +11,12 @@ import {
   updateEmailFn,
   updateProfileInfoFn,
 } from '../api/api.fn';
-import {
+import type {
   EvaluationOwnSkill,
   Profile,
   SearchProfileQuery,
   UpdateEmail,
-} from '../types/index';
+} from 'skillcoop-types';
 import { AxiosResponse } from 'axios';
 
 const keys = {

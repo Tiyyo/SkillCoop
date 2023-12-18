@@ -5,13 +5,6 @@ export type LevelScale =
   | 'advanced'
   | 'expert';
 
-export type ScaleLevel =
-  | 'beginner'
-  | 'novice'
-  | 'intermediate'
-  | 'advanced'
-  | 'expert';
-
 export type ProfileEval = {
   gb_rating: number;
   avg_pace: number;
@@ -28,11 +21,11 @@ export type Vote = {
 };
 
 export type EvaluationOwnSkill = {
-  defending: ScaleLevel;
-  dribbling: ScaleLevel;
-  pace: ScaleLevel;
-  passing: ScaleLevel;
-  shooting: ScaleLevel;
+  defending: LevelScale;
+  dribbling: LevelScale;
+  pace: LevelScale;
+  passing: LevelScale;
+  shooting: LevelScale;
   profile_id: number;
 };
 
@@ -48,4 +41,25 @@ export type EvaluationParticipantSkill = Skills & {
   event_id: number;
   rater_id: number;
   reviewee_id: number;
+};
+
+export type Score = {
+  avg_pace: number;
+  avg_shooting: number;
+  avg_passing: number;
+  avg_dribbling: number;
+  avg_defending: number;
+};
+
+export type Player = {
+  profile_id: number;
+  gb_rating: number;
+};
+
+export type TeamGeneratorConfig = {
+  team1: Player[];
+  team2: Player[];
+  ids: number[];
+  values: number[];
+  participants: number;
 };

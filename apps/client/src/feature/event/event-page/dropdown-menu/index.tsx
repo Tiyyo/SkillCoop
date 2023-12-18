@@ -4,7 +4,7 @@ import {
   DropdownMenuTrigger,
 } from '../../../../lib/ui/dropdown';
 import RevokeParticipationMenuItem from './revoke-participation';
-import { EventStatus } from '../../../../types';
+import type { EventStatus } from 'skillcoop-types';
 import GenerateTeamsMenuItem from './generate-teams';
 import TransfertOwnershipMenuItem from './transfert-ownership';
 import DeleteEventMenuItem from './delete-event';

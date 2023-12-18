@@ -6,10 +6,11 @@ import UserInputError from '../helpers/errors/user-input.error';
 // import { DBClientType } from '../@types/types.database';
 
 export class Friendlist extends Core {
-  tableName: string = 'profile_on_profile';
-  //@ts-ignore
-  constructor(client) {
+  declare tableName: string
+
+  constructor(client: any) {
     super(client);
+    this.tableName = 'profile_on_profile';
   }
   async findAllByPk(id: number) {
     try {

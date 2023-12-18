@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import tokenHandler from '../../helpers/token.handler';
 import { notificationEventManager } from './notification-event.manager';
 import logger from '../../helpers/logger';
-import { SSENotificationData } from './types';
+import { SSENotificationData } from 'skillcoop-types';
 import { CLIENT_URL } from '../../utils/variables';
 
 export function sseConnectionManager(req: Request, res: Response) {

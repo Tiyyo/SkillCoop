@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { create } from 'zustand';
 import { createEventFn } from '../api/api.fn';
-import { CreateEventData } from '../types';
+import type { CreateEventData } from 'skillcoop-types';
 import toast from '../utils/toast';
 import { queryClient } from '../main';
 
@@ -134,6 +134,7 @@ export const useCreateEvent = () => {
   const { mutate: createEvent, isLoading } = useMutation({
     mutationFn: async (data: CreateEventData) => createEventFn(data),
     onSuccess: () => {
+      // TODO: abstract this to a helper function
       const date = new Date(`${data.start_date} ${data.start_time}`);
       const startTime = new Intl.DateTimeFormat('en-Us', {
         hour: '2-digit',

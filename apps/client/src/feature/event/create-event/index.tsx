@@ -40,7 +40,6 @@ function CreateEvent() {
   const profileId = userProfile?.profile_id;
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    console.log('Is clicked and work until here');
     // This is unmaintainable and hard to read
     e.preventDefault();
     if (!profileId) return;

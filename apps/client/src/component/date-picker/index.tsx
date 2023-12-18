@@ -32,24 +32,28 @@ function InputDate({
     clearBtn: true,
     minDate: new Date(dateHandler.getTodayFormatedForInput()),
     theme: {
-      background: 'bg-base-light',
+      background: 'bg-base-light dark:bg-base-light aazeaze',
       todayBtn:
-        'bg-primary-100 hover:bg-primary-500 duration-300 hover:text-dark',
-      clearBtn: 'bg-base border border-primary-500',
-      icons: 'none',
-      text: 'text-primary-1100',
-      input: `w-full font-semibold text-sm bg-base-light ${
+        'bg-primary-100 hover:bg-primary-500 duration-300 hover:text-dark dark:bg-primary-100',
+      clearBtn:
+        'bg-base dark:bg-base dark:text-primary-1100 border  dark:border-primary-500 border-primary-500',
+      icons:
+        'bg-base-light dark:bg-base-light dark:text-primary-1100 border-primary-400 dark:border-primary-400',
+      text: 'text-primary-1100 dark:text-primary-1100',
+      input: `w-full font-semibold text-sm bg-base-light dark:bg-base-light dark:text-primary-1100 text-primary-1100 ${
         high ? 'h-10' : 'h-7'
       } ${hasError ? 'border-2 border-error' : ''}`,
       inputIcon: `${hasError ? 'text-error' : 'text-primary-600'}`,
-      selected: 'bg-primary-800',
-      disabledText: 'text-gray-200',
+      selected: 'bg-primary-800 dark:bg-primary-800 text-primary-100',
+      disabledText: 'text-gray-200 dark:text-gray-200',
     },
     icons: {
-      prev: () => <ArrowLeft size={14} />,
+      prev: () => (
+        <ArrowLeft size={14} className="bg-base-light dark:bg-base-light" />
+      ),
       next: () => <ArrowRight size={14} />,
     },
-    datepickerClassNames: 'top-12 left-1/2 -translate-x-1/2 ',
+    datepickerClassNames: 'top-12 left-1/2 -translate-x-1/2',
     defaultDate: new Date(defaultValue || today),
     language: 'en',
   };
@@ -116,6 +120,7 @@ function InputDate({
             onChange={handleChange}
             show={show}
             setShow={handleClose}
+            classNames="w-full"
           />
         )}
       </div>

@@ -3,7 +3,7 @@ import { event as Event } from '../models/index';
 
 import { Request, Response } from 'express';
 import deleteDecodedKey from '../utils/delete-decoded';
-import { eventStatus } from '../@types/types';
+import { eventStatus } from 'skillcoop-types'
 
 export default {
   async createOne(req: Request, res: Response) {

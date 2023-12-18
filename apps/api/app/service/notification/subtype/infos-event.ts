@@ -1,13 +1,12 @@
 import { event as EventModel, profile as Profile } from '../../../models/index';
 import { NotificationObserver } from './core';
 import { BuildNotificationMessage } from '../message.builder';
-import {
+import type {
   BuilderEventInfosNotificationMessage,
   NotificationSubtype,
   NotificationType,
-  notificationSubtype,
-  notificationType,
-} from '../types';
+} from 'skillcoop-types';
+import { notificationSubtype, notificationType } from 'skillcoop-types';
 
 export class EventInfosHasBeenUpdated extends NotificationObserver {
   declare subtype: NotificationSubtype;

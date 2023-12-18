@@ -1,4 +1,5 @@
-import { BuildersNotificationMessage, NotificationSubtype, notificationSubtype } from './types';
+import type { BuildersNotificationMessage, NotificationSubtype } from 'skillcoop-types';
+import { notificationSubtype } from 'skillcoop-types';
 import dateHandller from '../../utils/date-format';
 
 export class BuildNotificationMessage {

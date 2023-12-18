@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { EventParticipant, EventStatus, InvitationStatus } from '../types';
+import type { EventParticipant, EventStatus, InvitationStatus } from 'skillcoop-types';
 
 export type EventStateStore = {
   start_date: string | null;

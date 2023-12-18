@@ -1,6 +1,6 @@
 import nodemailer from 'nodemailer';
 import ServerError from '../helpers/errors/server.error';
-import { SendConfirmationEmail, SendResetPasswordEmail } from '../@types/types';
+import type { SendConfirmationEmail, SendResetPasswordEmail } from 'skillcoop-types';
 
 export default {
   async sendVerify(email: string, subject: string, text: string) {

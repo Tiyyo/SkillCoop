@@ -1,15 +1,16 @@
 import { Core } from './core';
 import { sql } from 'kysely';
-import type { EventType } from '../@types/types';
+import type { EventType } from 'skillcoop-types';
 import DatabaseError from '../helpers/errors/database.error';
 import getDateUTC from '../utils/get-date-utc';
-// import { DBClientType } from '../@types/types.database';
 
 export class EventModel extends Core {
-  tableName: string = 'event';
-  //@ts-ignore
-  constructor(client) {
+  declare tableName: string
+  declare client: any
+
+  constructor(client: any) {
     super(client);
+    this.tableName = 'event';
   }
   async getEventById(eventId: number, profileId: number) {
     try {
@@ -171,7 +172,7 @@ FROM event
 WHERE event.organizer_id = ${profileId}
       `.execute(this.client);
 
-      const parsedResult = result.rows.map((event: EventType) => {
+      const parsedResult = result.rows.map((event) => {
         return {
           ...event,
           participants: typeof event.participants === 'string' && JSON.parse(event.participants),
@@ -249,7 +250,7 @@ AND EXISTS(
 AND event.date < date('now')
       `.execute(this.client);
 
-    const parsedResult = result.rows.map((event: EventType) => {
+    const parsedResult = result.rows.map((event) => {
       return {
         ...event,
         participants: typeof event.participants === 'string' && JSON.parse(event.participants),

@@ -1,15 +1,13 @@
 import defaultAvatar from '../../../public/images/default-avatar.png';
 import { cn } from '../../lib/utils';
 
-function Avatar({
-  avatar,
-  isRatingActive,
-  className,
-}: {
+type AvatarProps = {
   avatar?: string | null;
   isRatingActive?: boolean;
   className?: string;
-}) {
+};
+
+function Avatar({ avatar, isRatingActive, className }: AvatarProps) {
   return (
     <img
       src={avatar ?? defaultAvatar}

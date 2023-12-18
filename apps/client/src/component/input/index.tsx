@@ -67,7 +67,7 @@ function Input({
               text-sm rounded-lg block w-full h-7 pl-2 placeholder:font-medium 
             placeholder:text-dark`,
               disabled && 'border-none',
-              hasError && 'border-2 border-error',
+              hasError && 'ring-2 ring-error',
               high ? 'h-10' : 'h-7',
               className,
             )}

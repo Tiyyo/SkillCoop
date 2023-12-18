@@ -1,4 +1,5 @@
-import { EventType, invitationStatus } from '../../../types';
+import type { EventType } from 'skillcoop-types';
+import { invitationStatus } from 'skillcoop-types';
 import { updateOrganizerSchema } from 'schema/ts-schema';
 import Avatar from '../../../component/avatar';
 import { useState } from 'react';

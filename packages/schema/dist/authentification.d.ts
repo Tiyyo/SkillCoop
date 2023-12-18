@@ -7,6 +7,16 @@ export declare const emailSchema: z.ZodObject<{
 }, {
     email?: string;
 }>;
+export declare const updateEmailSchema: z.ZodObject<{
+    email: z.ZodString;
+    user_id: z.ZodNumber;
+}, "strip", z.ZodTypeAny, {
+    email?: string;
+    user_id?: number;
+}, {
+    email?: string;
+    user_id?: number;
+}>;
 export declare const loginSchema: z.ZodObject<{
     email: z.ZodString;
     password: z.ZodString;

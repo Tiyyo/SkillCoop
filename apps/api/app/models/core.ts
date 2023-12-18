@@ -4,12 +4,10 @@ import NotFoundError from '../helpers/errors/not-found.error';
 import getDateUTC from '../utils/get-date-utc';
 
 export class Core {
-  // Default value to satisfie typescript
-  tableName: string = '';
+  declare tableName: string;
+  declare client;
 
-  client;
-
-  constructor(client: any) { // eslint-disable-line
+  constructor(client: any) {
     this.client = client;
   }
   async findAll() {

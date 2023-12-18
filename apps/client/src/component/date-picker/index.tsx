@@ -42,7 +42,7 @@ function InputDate({
       text: 'text-primary-1100 dark:text-primary-1100',
       input: `w-full font-semibold text-sm bg-base-light dark:bg-base-light dark:text-primary-1100 text-primary-1100 ${
         high ? 'h-10' : 'h-7'
-      } ${hasError ? 'border-2 border-error' : ''}`,
+      } ${hasError && 'ring-2 ring-error'}`,
       inputIcon: `${hasError ? 'text-error' : 'text-primary-600'}`,
       selected: 'bg-primary-800 dark:bg-primary-800 text-primary-100',
       disabledText: 'text-gray-200 dark:text-gray-200',

@@ -1,9 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.registerSchema = exports.resetPasswordSchema = exports.passwordUpdateSchema = exports.loginSchema = exports.emailSchema = void 0;
+exports.registerSchema = exports.resetPasswordSchema = exports.passwordUpdateSchema = exports.loginSchema = exports.updateEmailSchema = exports.emailSchema = void 0;
 const z = require("zod");
 exports.emailSchema = z.object({
     email: z.string().email(),
+});
+exports.updateEmailSchema = z.object({
+    email: z.string().email(),
+    user_id: z.number().positive().int(),
 });
 exports.loginSchema = z.object({
     email: z.string(),
@@ -33,11 +37,11 @@ exports.passwordUpdateSchema = z
 })
     .refine((data) => data.old_password !== data.new_password, {
     message: 'Your new password has to be different than the new one',
-    path: ['newPassword'],
+    path: ['old_password'],
 })
     .refine((data) => data.new_password === data.confirm_new_password, {
     message: 'Passwords do not match',
-    path: ['confirmPassword'],
+    path: ['confirm_new_password'],
 });
 exports.resetPasswordSchema = z.object({
     password: z

@@ -98,7 +98,7 @@ function SelectInput({
               focus:ring-primary-800focus:border-primary-800
               block w-full h-7 pl-2`,
               high ? 'h-10' : 'h-7',
-              hasError ? 'border-2 border-error' : '',
+              hasError && 'ring-2 ring-error',
             )}
             onChange={handleChange}
             {...props}

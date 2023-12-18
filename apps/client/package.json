@@ -33,6 +33,7 @@
     "react-hook-form": "^7.47.0",
     "react-router-dom": "^6.18.0",
     "schema": "workspace:^",
+    "skillcoop-types": "workspace:^",
     "sonner": "^1.2.0",
     "tailwind-datepicker-react": "^1.4.3",
     "tailwind-merge": "^2.0.0",

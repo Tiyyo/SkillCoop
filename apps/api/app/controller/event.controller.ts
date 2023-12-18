@@ -17,9 +17,17 @@ export default {
     // add organizer to the event
     // add organizer to the participant list to this event
     deleteDecodedKey(req.body);
-
     const { participants: ids, ...data } = req.body;
-    const eventId = await Event.create(data);
+
+    const eventId = await Event.create({
+      organizer_id: data.organizer_id,
+      status_name: 'open',
+      date: data.date,
+      duration: data.duration,
+      location: data.location,
+      required_participants: data.required_participants,
+    });
+
     await ProfileOnEvent.create({
       event_id: eventId,
       profile_id: data.organizer_id,

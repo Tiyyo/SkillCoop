@@ -14,7 +14,7 @@ export type Profile = {
   nb_best_striker_bonus?: number | null;
   nb_mvp_bonus?: number | null;
   nb_attended_events?: number | null;
-  relation_exists: number | null;
+  relation_exists?: number | null;
   last_evaluation: number | null;
 };
 

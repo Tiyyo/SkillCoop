@@ -23,7 +23,7 @@ import { useUpdateSingleEvent } from '../../../hooks/useSingleEvent';
 import toast from '../../../utils/toast';
 import { updateEventSchema } from 'schema/ts-schema';
 import dateHandler from '../../../utils/date.handler';
-import { EventStatus } from '../../../types';
+import type { EventStatus } from 'skillcoop-types';
 
 type EventPageInfosProps = {
   eventDuration: number;

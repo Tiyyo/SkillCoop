@@ -8,7 +8,7 @@ export function usePendingFriends({ profileId }: { profileId?: number }) {
     profileId,
   });
 
-  // add to fetch pending to store
+  // add fetch pending to store
   useEffect(() => {
     if (!data) return;
     addPendingFriend(data);

@@ -1,5 +1,6 @@
 import dateHandler from '../../utils/date.handler';
-import { eventStatus as eventStatusType } from '../../types/index';
+import type { EventStatus } from 'skillcoop-types';
+import { eventStatus as eventStatusAssertion } from 'skillcoop-types';
 
 type ScoreProps = {
   date: string;
@@ -7,7 +8,7 @@ type ScoreProps = {
   location: string;
   scoreTeamA?: number | null;
   scoreTeamB?: number | null;
-  eventStatus: string;
+  eventStatus: EventStatus;
 };
 
 function Score({
@@ -36,7 +37,7 @@ function Score({
     if (isToday) {
       return 'Today';
     }
-    return eventStatus === eventStatusType.completed
+    return eventStatus === eventStatusAssertion.completed
       ? 'Final score'
       : 'Kick off';
   };
@@ -52,7 +53,7 @@ function Score({
         <p className="text-lg font-semibold py-4 lg:py-1.5">
           {displayScore(eventStatus, scoreTeamA)}
           <span className="text-md mx-2">
-            {eventStatus === eventStatusType.completed ? '-' : 'VS'}
+            {eventStatus === eventStatusAssertion.completed ? '-' : 'VS'}
           </span>
           {displayScore(eventStatus, scoreTeamB)}
         </p>

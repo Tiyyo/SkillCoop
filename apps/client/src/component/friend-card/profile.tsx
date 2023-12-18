@@ -6,7 +6,7 @@ import { useInviteFriend } from '../../hooks/useFriends';
 import AvatarWithBorder from '../avatar/avatar-border';
 import capitalize from '../../utils/capitalize';
 
-interface ProfileCardProps {
+type ProfileCardProps = {
   avatar: string | null;
   username: string;
   profileId: number;
@@ -15,7 +15,8 @@ interface ProfileCardProps {
   relation?: number | null;
   createdAt?: string;
   refetch?: () => void;
-}
+};
+
 function ProfileCard({
   avatar,
   username,

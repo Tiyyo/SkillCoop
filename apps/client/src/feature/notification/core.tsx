@@ -41,6 +41,7 @@ function ImageNotification({ image, username }: ImageNotificationProps) {
   }
 }
 
+// TODO : refactor this function into module
 function createdSince(date: string) {
   const creationDateNotificationUTC = new Date(date);
   const localDate = new Date();

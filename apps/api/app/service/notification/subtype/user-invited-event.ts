@@ -1,13 +1,13 @@
 import { NotificationObserver } from './core';
 import { event as EventModel, profile as Profile } from '../../../models/index';
 import { BuildNotificationMessage } from '../message.builder';
-import {
+import type {
   BuilderUserInvitedToEventNotificationMessage,
   NotificationSubtype,
   NotificationType,
-  notificationSubtype,
-  notificationType,
-} from '../types';
+} from 'skillcoop-types';
+import { notificationSubtype, notificationType } from 'skillcoop-types';
+
 
 type ConstructorProps = {
   eventId: number;

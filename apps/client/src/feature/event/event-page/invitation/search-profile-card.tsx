@@ -1,8 +1,7 @@
-import Avatar from '../../../../component/avatar';
 import capitalize from '../../../../utils/capitalize';
 import associateNumberToString from '../../../../utils/associate-number-stringscale';
 import { useEffect, useState } from 'react';
-import { invitationStatus } from '../../../../types';
+import { invitationStatus } from 'skillcoop-types';
 import { useEvent } from '../../../../store/event.store';
 import AvatarSmallWithBorder from '../../../../component/avatar/avatar-border-small';
 

@@ -1,4 +1,5 @@
-import { Notification, notificationSubtype } from '../../types';
+import { Notification } from 'skillcoop-types';
+import { notificationSubtype } from 'skillcoop-types';
 import AddedFriendsNotification from './notification-type/added-friends.notification';
 import EventInfosUpdatedNotification from './notification-type/event-infos-updated.notification';
 import EventInvitationNotification from './notification-type/event-invitation.notification';

@@ -21,7 +21,6 @@ export default {
   },
   updateEmail: async (req: Request, res: Response) => {
     const { email, user_id } = req.body;
-    console.log(req.body);
 
     const userProfile = await User.update(user_id, { email });
 

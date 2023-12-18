@@ -1,4 +1,4 @@
-import { EventParticipant } from '../../types/index';
+import type { EventParticipant } from 'skillcoop-types';
 
 type AvatarsProps = {
   participants: EventParticipant[];

@@ -4,7 +4,7 @@ import ServerError from '../../helpers/errors/server.error';
 import logger from '../../helpers/logger';
 // TODO replace axios by fetch when avaiable in LTS
 
-interface GoogleOAuthToken {
+type GoogleOAuthToken = {
   access_token: string;
   id_token: string;
   expires_in: number;
@@ -13,7 +13,7 @@ interface GoogleOAuthToken {
   scope: string;
 }
 
-interface GoogleUserResult {
+type GoogleUserResult = {
   id: string;
   email: string;
   verified_email: boolean;

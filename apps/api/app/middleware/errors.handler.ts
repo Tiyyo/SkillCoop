@@ -8,7 +8,7 @@ import UserInputError from '../helpers/errors/user-input.error';
 import DatabaseError from '../helpers/errors/database.error';
 import APITypeError from '../helpers/errors/type.error';
 import ForbidenError from '../helpers/errors/forbiden';
-import { CreateKeyGroupCommand } from '@aws-sdk/client-cloudfront';
+
 
 export const errorHandler = (
   error: unknown,

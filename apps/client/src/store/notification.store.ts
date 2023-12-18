@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { Notification, NotificationFilters } from '../types';
+import type { Notification, NotificationFilters } from 'skillcoop-types';
 
 type NotificationStoreProps = {
   notifications: Notification[] | null;

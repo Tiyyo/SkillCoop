@@ -2,7 +2,7 @@ import UserInputError from '../helpers/errors/user-input.error';
 import { profileOnEvent as ProfileOnEvent } from '../models/index';
 import { event as Event } from '../models/index';
 import { Request, Response } from 'express';
-import { invitationStatus } from '../@types/types';
+import { invitationStatus } from 'skillcoop-types';
 import { generateBalancedTeam } from '../service/generate-teams';
 import deleteDecodedKey from '../utils/delete-decoded';
 import { notifyUserHasBeenInvitedToEvent } from '../service/notification/subtype/user-invited-event';

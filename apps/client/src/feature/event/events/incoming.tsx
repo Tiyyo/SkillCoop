@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getEventsFn } from '../../../api/api.fn';
 import { useApp } from '../../../store/app.store';
 import { useEffect, useState } from 'react';
-import { EventType } from '../../../types';
+import type { EventType } from 'skillcoop-types';
 import EventList from '../resume-events/list';
 import { Link } from 'react-router-dom';
 

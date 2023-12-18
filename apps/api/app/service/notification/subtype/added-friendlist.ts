@@ -1,13 +1,12 @@
 import { NotificationObserver } from './core';
 import { BuildNotificationMessage } from '../message.builder';
 import { profile as Profile } from '../../../models/index';
-import {
+import type {
   BuilderAddedToFriendlistNotificationMessage,
   NotificationSubtype,
   NotificationType,
-  notificationSubtype,
-  notificationType,
-} from '../types';
+} from 'skillcoop-types';
+import { notificationSubtype, notificationType } from 'skillcoop-types';
 
 class UserHasBeenAddedToFriendlist extends NotificationObserver {
   declare instigatorId: number;

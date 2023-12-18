@@ -3,7 +3,7 @@ import { useApp } from '../../store/app.store';
 import { useQuery } from '@tanstack/react-query';
 import { getEventFn } from '../../api/api.fn';
 import { useLayoutEffect, useState } from 'react';
-import { EventParticipant, EventType } from '../../types/index';
+import type { EventParticipant, EventType } from 'skillcoop-types';
 
 function ControlAccesEventPage({ children }: { children: React.ReactNode }) {
   const { userProfile } = useApp();
@@ -26,6 +26,7 @@ function ControlAccesEventPage({ children }: { children: React.ReactNode }) {
   }
 
   function profileIdIsInIdsParticipants(idsParticipants: number[]) {
+    if (!profileId) return false;
     return idsParticipants?.includes(profileId);
   }
 

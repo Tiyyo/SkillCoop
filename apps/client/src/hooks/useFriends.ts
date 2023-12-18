@@ -6,7 +6,7 @@ import {
   searchFriendsFn,
   sendFriendRequestFn,
 } from '../api/api.fn';
-import { CreateFriendsInvitation, UpdateFriendsInvitation } from '../types/index';
+import type { CreateFriendsInvitation, UpdateFriendsInvitation } from 'skillcoop-types';
 
 const keys = {
   getFriends: ['confirmed-friends'],

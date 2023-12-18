@@ -2,7 +2,7 @@
 import Team from '../../component/team-composition/index.team';
 import TitleH2 from '../../component/title-h2';
 import Container from '../../layout/container';
-import { EventParticipant, EventStatus } from '../../types';
+import type { EventParticipant, EventStatus } from 'skillcoop-types';
 
 type TeamCompositionProps = {
   participants?: EventParticipant[] | string | null;

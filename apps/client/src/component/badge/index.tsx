@@ -1,5 +1,5 @@
 import { cn } from '../../lib/utils';
-import { eventStatus } from '../../types//index';
+import { eventStatus } from 'skillcoop-types';
 
 type BadgeProps = {
   content: string;

@@ -1,5 +1,5 @@
 import { useApp } from '../../../store/app.store';
-import DeleteUser from './delete-user';
+// import DeleteUser from './delete-user';
 import ResumeProfile from './resume-profile';
 import SubHeader from '../../../component/header/sub-header';
 

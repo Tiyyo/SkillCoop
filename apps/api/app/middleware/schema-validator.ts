@@ -5,9 +5,9 @@ import ValidationError from '../helpers/errors/validation.error';
 import type { ZodType, ZodTypeDef } from 'schema';
 
 export default (
-  schema: ZodType<any, ZodTypeDef, any>, //eslint-disable-line
-    canal: 'body' | 'params' | 'query',
-  ) =>
+  schema: ZodType<any, ZodTypeDef, any>,
+  canal: 'body' | 'params' | 'query',
+) =>
   async (request: Request, _res: Response, next: NextFunction) => {
     if (!schema) return next(new ServerError('No schema provided'));
     try {

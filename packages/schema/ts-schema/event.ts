@@ -1,16 +1,6 @@
 import * as z from "zod";
 
 const acceptableEventFormat = [6, 10, 14, 22]
-const todayDate = new Intl.DateTimeFormat("en-Fr", {
-  year: "numeric",
-  month: "2-digit",
-  day: "2-digit",
-}).format(new Date());
-
-const todayTime = new Intl.DateTimeFormat("en-Fr", {
-  hour: "numeric",
-  minute: "numeric",
-}).format(new Date());
 
 export const createEventSchema = z.object({
   start_date: z.string(),

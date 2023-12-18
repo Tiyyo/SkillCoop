@@ -1,14 +1,14 @@
-// import { DBClientType } from '../@types/types.database';
 import DatabaseError from '../helpers/errors/database.error';
 import UserInputError from '../helpers/errors/user-input.error';
 import getDateUTC from '../utils/get-date-utc';
 import { Core } from './core';
 
 export class ProfileOnEvent extends Core {
-  tableName: string = 'profile_on_event';
-  //@ts-ignore
-  constructor(client) {
+  declare tableName: string
+
+  constructor(client: any) {
     super(client);
+    this.tableName = 'profile_on_event';
   }
 
   async updateStatus(data: {

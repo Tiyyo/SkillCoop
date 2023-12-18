@@ -9,7 +9,6 @@ type SubscriptionNotification = {
 function useSubscriptionNotification({ onMessage, onError }: SubscriptionNotification) {
 
   useEffect(() => {
-    // console.log(props);
     const uniDirectionalConnection = new EventSource(`${SERVER_URL}/api/subscription_pathway`, {
       withCredentials: true,
     },);

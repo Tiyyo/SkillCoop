@@ -8,12 +8,12 @@ function Page({ children }: { children: React.ReactNode }) {
         <SideMenuDesktop />
         <ReturnBtn />
       </div>
-      <div
+      <main
         className="relative  lg:h-screen flex-grow flex flex-col w-full  
         overflow-x-hidden overflow-y-scroll bg-grey-off lg:px-6 2xl:px-40 lg:pb-10"
       >
         {children}
-      </div>
+      </main>
     </div>
   );
 }

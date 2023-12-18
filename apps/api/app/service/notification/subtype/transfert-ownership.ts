@@ -1,13 +1,12 @@
 import { hasActiveNotification } from '../../../utils/has-active-notification';
 import { BuildNotificationMessage } from '../message.builder';
 import { event as EventModel, profile as Profile } from '../../../models/index';
-import {
+import type {
   BuilderTransfertOwnershipMessage,
   NotificationSubtype,
   NotificationType,
-  notificationSubtype,
-  notificationType,
-} from '../types';
+} from 'skillcoop-types';
+import { notificationSubtype, notificationType } from 'skillcoop-types';
 import { NotificationObserver } from './core';
 
 type ConstructorProps = {

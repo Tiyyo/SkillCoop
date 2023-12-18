@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router-dom';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../lib/ui/tabs';
 import { useEffect, useState } from 'react';
-import { EventParticipant } from '../../types';
+import type { EventParticipant } from 'skillcoop-types';
 import TeamComposition from '../../component/team-composition';
 import toast from '../../utils/toast';
 import {

@@ -88,7 +88,7 @@ function FriendProfile() {
         </div>
       </div>
       <div className="flex flex-col lg:flex-row ">
-        //TODO : move this into his own component
+{/*      TODO : move this into his own component */}
         {hasBeenEvaluated && (
           <Container className="lg:w-1/2 lg:rounded-r-none">
             <TitleH2 title="Stats" />

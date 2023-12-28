@@ -1,9 +1,9 @@
 import EventList from './list';
 import Spinner from '../../../component/loading';
 import { useApp } from '../../../store/app.store';
-import { Link } from 'react-router-dom';
 import { useResumeEvents } from '../../../hooks/useResumeEvents';
 import SubHeader from '../../../component/header/sub-header';
+import ErrorFallback from '../../../component/error-fallback';
 
 function ResumeEvents() {
   const { userProfile } = useApp();
@@ -11,16 +11,8 @@ function ResumeEvents() {
   const { events, loading, isError } = useResumeEvents({
     profileId,
   });
-  //  TODO : handle error
-  if (isError)
-    return (
-      <div className="flex flex-col justify-center items-center py-20">
-        <p className="text-sm text-primary-1100">Something went wrong</p>
-        <Link to="/" className="text-xs">
-          Go back to home
-        </Link>
-      </div>
-    );
+
+  if (isError) return <ErrorFallback />;
 
   return (
     <>

@@ -49,6 +49,8 @@ model profile {
   best_striker_pool_rater   best_striker_poll[]   @relation("rater_best_striker")
   notification_sub          notification[]        @relation("subscriber")
   notification_instigator   notification[]        @relation("instigator")
+  created_at  String
+  updated_at  String? 
 }
 
 model profile_on_profile {

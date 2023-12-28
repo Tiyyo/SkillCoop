@@ -125,6 +125,7 @@ export default {
     const [profileId, page] = checkParams(req.query.profileId, req.query.page);
     const events = await Event.getOrganizerEvents(profileId, page);
 
+    console.log('Event organize :', events);
     res.status(200).json(events);
   },
   async getPasts(req: Request, res: Response) {

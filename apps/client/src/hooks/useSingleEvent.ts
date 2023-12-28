@@ -27,6 +27,9 @@ const keys = {
   getEventId: (eventId: number | string) => [
     ...keys.getEvent,
     `${keys.getEvent}/${eventId}}`,
+    'past-event',
+    'upcoming-event',
+    'organize-event'
   ],
 };
 

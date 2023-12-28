@@ -1,4 +1,4 @@
-import type { ColumnType, Kysely } from 'kysely';
+import type { ColumnType } from 'kysely';
 export type Generated<T> = T extends ColumnType<infer S, infer I, infer U>
   ? ColumnType<S, I | undefined, U>
   : ColumnType<T, T | undefined, T>;
@@ -64,6 +64,8 @@ export type profile = {
   avatar_url: string | null;
   last_evaluation: number | null;
   active_notification: Generated<number>;
+  created_at: string;
+  updated_at: string | null;
 };
 export type profile_on_event = {
   profile_id: number;
@@ -121,7 +123,6 @@ export type user = {
   created_at: string;
   updated_at: string | null;
 };
-
 export type DB = {
   best_striker_poll: best_striker_poll;
   event: event;
@@ -137,4 +138,3 @@ export type DB = {
   status: status;
   user: user;
 };
-

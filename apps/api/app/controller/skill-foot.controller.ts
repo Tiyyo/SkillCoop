@@ -98,10 +98,10 @@ export default {
       const profileEval = await computeRatingUser(profileId);
       res.status(200).json(profileEval);
     } catch (error) {
-      if (error instanceof NotFoundError) {
-        res.status(200).json({ error: 'User have to evaluate his skill' });
+      if (error instanceof UserInputError) {
+        res.status(200).json({ error: error.message });
       } else {
-        throw new ServerError('Error computation');
+        throw error;
       }
     }
   },

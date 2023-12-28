@@ -28,6 +28,9 @@ function useInfinite({
           return lastPage.previousPage + 1;
         }
       },
+      enabled: true,
+      refetchOnMount: true,
+      staleTime: 0
     });
   const loading = isLoading || isFetching;
   return { data, isError, loading, hasNextPage, fetchNextPage };

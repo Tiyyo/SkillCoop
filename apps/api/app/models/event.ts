@@ -66,7 +66,6 @@ WHERE event.id = ${eventId}
     }
   }
   async getEventByUserId(profileId: number) {
-    console.log('getEventByUserId is called');
     try {
       const result = await sql<EventType>`
 SELECT 

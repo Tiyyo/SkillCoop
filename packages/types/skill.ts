@@ -37,6 +37,11 @@ export type Skills = {
   pace: number;
 };
 
+export type AvgSkill = Skills & {
+  nb_eval_received: number;
+};
+
+
 export type EvaluationParticipantSkill = Skills & {
   event_id: number;
   rater_id: number;

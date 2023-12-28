@@ -4,7 +4,7 @@ import { useApp } from '../../../store/app.store';
 import { useEffect, useState } from 'react';
 import type { EventType } from 'skillcoop-types';
 import EventList from '../resume-events/list';
-import { Link } from 'react-router-dom';
+import ErrorFallback from '../../../component/error-fallback';
 
 function IncomingEvents() {
   const { userProfile } = useApp();
@@ -16,7 +16,7 @@ function IncomingEvents() {
     isLoading,
     isFetching,
   } = useQuery(
-    ['getEvents'],
+    ['upcoming-event'],
     () => {
       if (!userId) return;
       return getEventsFn(userId);
@@ -34,15 +34,7 @@ function IncomingEvents() {
     setEvents(past);
   }, [allEvents, loading]);
 
-  if (isError)
-    return (
-      <div className="flex flex-col justify-center items-center py-20">
-        <p className="text-sm text-primary-1100">Something went wrong</p>
-        <Link to="/" className="text-xs">
-          Go back to home
-        </Link>
-      </div>
-    );
+  if (isError) return <ErrorFallback />;
 
   return (
     <EventList

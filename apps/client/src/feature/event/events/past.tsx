@@ -3,7 +3,7 @@ import { useApp } from '../../../store/app.store';
 import EventList from '../resume-events/list';
 import type { EventType } from 'skillcoop-types';
 import useInfinite from '../../../hooks/useInfinite';
-import { Link } from 'react-router-dom';
+import ErrorFallback from '../../../component/error-fallback';
 
 function PastEvents() {
   //TODO : implement skeleton loading
@@ -12,7 +12,7 @@ function PastEvents() {
   const { userProfile } = useApp();
   const profileId = userProfile?.profile_id;
   const { data, isError, loading, hasNextPage, fetchNextPage } = useInfinite({
-    queryKey: 'pastEvents',
+    queryKey: 'past-event',
     queryFn: getPastEventFn,
     elementPerPage: NB_ELEMETNS_PER_PAGE,
     argsFn: { profileId },
@@ -22,16 +22,7 @@ function PastEvents() {
     .map((page) => page?.events)
     .flat() as EventType[];
 
-  if (isError)
-    return (
-      <div className="flex flex-col justify-center items-center py-20">
-        <p className="text-sm text-primary-1100">Something went wrong</p>
-        <Link to="/" className="text-xs">
-          Go back to home
-        </Link>
-      </div>
-    );
-
+  if (isError) return <ErrorFallback />;
   return (
     <EventList
       events={allEvents ?? null}

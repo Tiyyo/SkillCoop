@@ -146,7 +146,8 @@ export const useCreateEvent = () => {
         day: 'numeric',
       }).format(date);
       toast.eventSuccess('Event set', `At ${startTime} on ${startDate}`);
-      queryClient.invalidateQueries(['events']);
+      queryClient.invalidateQueries(['events', 'past-event', 'upcoming-event', 'organize-event']);
+      queryClient.removeQueries(['events', 'past-event', 'upcoming-event', 'organize-event'])
       clearEventState();
     },
   });

@@ -31,6 +31,9 @@ function getIntUnused(intAlreadyUsed: number[]): number {
 async function seed() {
   logger.info('Start seeding');
 
+  const today = new Date();
+  const todayUTC = getDateUTC(today);
+
   // create status
   const status = [
     { name: 'pending' },
@@ -134,6 +137,7 @@ async function seed() {
       first_name: infos.first_name,
       last_name: infos.last_name,
       active_notification: faker.number.int({ min: 0, max: 1 }),
+      created_at: todayUTC
     });
 
     await SkillFoot.create({
@@ -170,6 +174,7 @@ async function seed() {
       last_name: faker.person.lastName(),
       avatar_url: avatarUrl,
       date_of_birth: birthdate,
+      created_at: todayUTC
     });
 
     await SkillFoot.create({
@@ -201,6 +206,7 @@ async function seed() {
       first_name: faker.person.firstName(),
       last_name: faker.person.lastName(),
       date_of_birth: birthdate,
+      created_at: todayUTC
     });
 
     await SkillFoot.create({

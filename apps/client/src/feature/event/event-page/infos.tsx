@@ -107,7 +107,11 @@ function EventPageInfos({
               return;
             }
             const isValid = updateEventSchema.safeParse(data);
-            if (!isValid.success || !isPastDate(data.date)) {
+            if (isPastDate(data.date)) {
+              toast.error("You can't set a date in the past ");
+              return;
+            }
+            if (!isValid.success) {
               toast.error('Something went wrong... try again later');
               return;
             }
@@ -129,8 +133,6 @@ function EventPageInfos({
       </div>
     );
   };
-
-  const startTime = eventDate.split(' ')[1];
 
   return (
     <Container className="flex-grow">

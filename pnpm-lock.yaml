@@ -50,6 +50,9 @@ importers:
       cors:
         specifier: ^2.8.5
         version: 2.8.5
+      date-handler:
+        specifier: workspace:^
+        version: link:../../packages/date-handler
       dotenv:
         specifier: ^16.3.1
         version: 16.3.1
@@ -210,6 +213,9 @@ importers:
       clsx:
         specifier: ^2.0.0
         version: 2.0.0
+      date-handler:
+        specifier: workspace:^
+        version: link:../../packages/date-handler
       dompurify:
         specifier: ^3.0.6
         version: 3.0.6
@@ -301,6 +307,16 @@ importers:
       vite:
         specifier: ^4.4.5
         version: 4.5.0(@types/node@20.8.10)
+
+  packages/date-handler:
+    dependencies:
+      typescript:
+        specifier: ^5.3.3
+        version: 5.3.3
+    devDependencies:
+      '@types/node':
+        specifier: ^20.8.10
+        version: 20.8.10
 
   packages/eslint-config:
     devDependencies:
@@ -6651,7 +6667,7 @@ packages:
       '@mrleebo/prisma-ast': 0.7.0
       '@prisma/generator-helper': 5.3.1
       '@prisma/internals': 5.3.1
-      typescript: 5.2.2
+      typescript: 5.3.3
       zod: 3.22.4
     transitivePeerDependencies:
       - encoding
@@ -7676,12 +7692,12 @@ packages:
     resolution: {integrity: sha512-mI4WrpHsbCIcwT9cF4FZvr80QUeKvsUsUvKDoR+X/7XHQH98xYD8YHZg7ANtz2GtZt/CBq2QJ0thkGJMHfqc1w==}
     engines: {node: '>=14.17'}
     hasBin: true
+    dev: true
 
   /typescript@5.3.3:
     resolution: {integrity: sha512-pXWcraxM0uxAS+tN0AG/BF2TyqmHO014Z070UsJ+pFvYuRSq8KH8DmWpnbXe0pEPDHXZV3FcAbJkijJ5oNEnWw==}
     engines: {node: '>=14.17'}
     hasBin: true
-    dev: true
 
   /ufo@1.3.1:
     resolution: {integrity: sha512-uY/99gMLIOlJPwATcMVYfqDSxUR9//AUcgZMzwfSTJPDKzA1S8mX4VLqa+fiAtveraQUBCz4FFcwVZBGbwBXIw==}

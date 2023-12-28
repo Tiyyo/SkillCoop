@@ -1,4 +1,4 @@
-import dateHandler from '../../utils/date.handler';
+import { getStartingTime, getEndingTime, getDate } from 'date-handler/src';
 import type { EventStatus } from 'skillcoop-types';
 import { eventStatus as eventStatusAssertion } from 'skillcoop-types';
 
@@ -74,13 +74,13 @@ function Score({
       >
         <p className="basis-1/2 flex justify-end items-center gap-x-1 text-xxs">
           <img src="/images/timer.png" alt="clock icon" />
-          <span>{dateHandler.getStartingTime(date)}</span>
+          <span>{getStartingTime(date)}</span>
           <span className="hidden sm:block">
-            {dateHandler.getEndingTime(date, duration)}
+            {getEndingTime(date, duration)}
           </span>
         </p>
         <span className="mx-0.5 py-1">|</span>
-        <p className="basis-1/2">{dateHandler.getFormatedDate(date)}</p>
+        <p className="basis-1/2">{getDate(date)}</p>
       </div>
     </div>
   );

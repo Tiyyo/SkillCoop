@@ -22,8 +22,13 @@ import TitleH2 from '../../../component/title-h2';
 import { useUpdateSingleEvent } from '../../../hooks/useSingleEvent';
 import toast from '../../../utils/toast';
 import { updateEventSchema } from 'schema/ts-schema';
-import dateHandler from '../../../utils/date.handler';
 import type { EventStatus } from 'skillcoop-types';
+import {
+  isPastDate,
+  getUTCString,
+  getStringDate,
+  getLocalStringCustom,
+} from 'date-handler/src';
 
 type EventPageInfosProps = {
   eventDuration: number;
@@ -91,6 +96,7 @@ function EventPageInfos({
               location: event.location ?? undefined,
               required_participants: Number(event.required_participants),
             };
+
             if (
               confirmedParticipants &&
               confirmedParticipants > Number(event.required_participants)
@@ -101,13 +107,11 @@ function EventPageInfos({
               return;
             }
             const isValid = updateEventSchema.safeParse(data);
-            if (
-              !isValid.success ||
-              !dateHandler.dateShouldBeInTheFuture(data.date)
-            ) {
+            if (!isValid.success || !isPastDate(data.date)) {
               toast.error('Something went wrong... try again later');
               return;
             }
+            data.date = getUTCString(new Date(data.date));
             updateEvent(data);
           }}
           className="my-auto relative -top-0.5 cursor-pointer"
@@ -147,7 +151,7 @@ function EventPageInfos({
       >
         <InputDate
           updateState={updateStartDate}
-          defaultValue={event.start_date ?? eventDate}
+          defaultValue={getLocalStringCustom(new Date(eventDate)).split(' ')[0]}
           updateData={updateEventData}
           mutateKey="date"
           label="Date"
@@ -159,8 +163,9 @@ function EventPageInfos({
           type="text"
           readOnly
           updateState={updateStartTime}
-          defaultValues={event.start_time ?? startTime}
-          date={eventDate}
+          defaultValues={
+            getLocalStringCustom(new Date(eventDate)).split(' ')[1]
+          }
           disabled={!isEditActive}
         >
           <CalendarClock />

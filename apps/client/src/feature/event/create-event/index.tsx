@@ -20,7 +20,7 @@ import {
 } from '../../../constant/select.options';
 import toast from '../../../utils/toast';
 import Container from '../../../layout/container';
-import { PastDateChecker } from '../../../utils/is-future-date';
+import { getUTCString, isPastDate } from 'date-handler/src';
 
 function CreateEvent() {
   const { userProfile } = useApp();
@@ -59,13 +59,12 @@ function CreateEvent() {
       setValidationErrors((isValid as any).error.issues);
       return;
     }
-    const isPastDate = PastDateChecker.isPastDate(data.date);
-    if (isPastDate) {
+    const isPast = isPastDate(data.date);
+    if (isPast) {
       toast.error('You cannot create an event in the past');
       return;
     }
-    // TODO: convert date to UTC format
-    // Timzezone feature is not implemented yet
+    data.date = getUTCString(new Date(data.date));
     //@ts-ignore
     createEvent(data);
     createEventFormRef.current?.reset();

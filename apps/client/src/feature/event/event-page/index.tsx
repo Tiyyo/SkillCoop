@@ -10,6 +10,7 @@ import { useEffect, useLayoutEffect } from 'react';
 import { useEvent } from '../../../store/event.store';
 import { useGetSingleEvent } from '../../../hooks/useSingleEvent';
 import ParticipantsList from './participants-list';
+import { getStringDate } from 'date-handler/src';
 
 function EventPage() {
   const location = useLocation();
@@ -28,12 +29,12 @@ function EventPage() {
     if (!event) return;
     if (typeof event.participants === 'string') return;
     initEventState({
-      start_date: event.date.split(' ')[0],
+      start_date: getStringDate(new Date(event.date)).split(' ')[0],
       duration: event.duration,
       location: event.location,
       required_participants: event.required_participants,
       organizer_id: event.organizer_id,
-      start_time: event.date.split(' ')[1],
+      start_time: getStringDate(new Date(event.date)).split(' ')[1],
       participants: event.participants,
       status_name: event.status_name,
       user_status: event.user_status,

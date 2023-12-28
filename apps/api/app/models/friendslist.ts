@@ -1,8 +1,8 @@
 import { sql } from 'kysely';
 import DatabaseError from '../helpers/errors/database.error';
 import { Core } from './core';
-import getDateUTC from '../utils/get-date-utc';
 import UserInputError from '../helpers/errors/user-input.error';
+import { getFormattedUTCTimestamp } from 'date-handler';
 // import { DBClientType } from '../@types/types.database';
 
 export class Friendlist extends Core {
@@ -97,16 +97,14 @@ export class Friendlist extends Core {
       if (friendshipExist.rows.length > 0)
         throw new UserInputError("You can't send a friend request to this user");
 
-      const today = new Date();
-      const utctoday = getDateUTC(today);
-
+      const todayUTCString = getFormattedUTCTimestamp()
       const addPendingFriendship = await this.client
         .insertInto(this.tableName)
         .values({
           adder_id,
           friend_id: friend_id,
           status_name: 'pending',
-          created_at: utctoday,
+          created_at: todayUTCString,
         })
         .execute();
 
@@ -124,8 +122,7 @@ export class Friendlist extends Core {
     adder_id: number;
     status_name: string;
   }) {
-    const today = new Date();
-    const utctoday = getDateUTC(today);
+    const todayUTCString = getFormattedUTCTimestamp()
 
     try {
       await this.client
@@ -134,7 +131,7 @@ export class Friendlist extends Core {
           adder_id: friend_id,
           friend_id: adder_id,
           status_name,
-          created_at: utctoday,
+          created_at: todayUTCString,
         })
         .executeTakeFirst();
 
@@ -142,7 +139,7 @@ export class Friendlist extends Core {
         .updateTable(this.tableName)
         .set({
           status_name,
-          updated_at: utctoday,
+          updated_at: todayUTCString,
         })
         .where('adder_id', '=', adder_id)
         .where('friend_id', '=', friend_id)

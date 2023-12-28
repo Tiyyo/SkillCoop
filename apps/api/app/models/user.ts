@@ -1,6 +1,6 @@
 // import { DBClientType } from '../@types/types.database';
+import { getFormattedUTCTimestamp } from 'date-handler';
 import DatabaseError from '../helpers/errors/database.error';
-import getDateUTC from '../utils/get-date-utc';
 import { Core } from './core';
 
 export class User extends Core {
@@ -14,9 +14,8 @@ export class User extends Core {
     email: string;
     created_at?: string;
   }): Promise<{ id: number; email: string }> {
-    const today = new Date();
-    const utctoday = getDateUTC(today);
-    data.created_at = utctoday;
+    const todayUTCString = getFormattedUTCTimestamp()
+    data.created_at = todayUTCString;
     try {
       const result = await this.client
         .insertInto(this.tableName)

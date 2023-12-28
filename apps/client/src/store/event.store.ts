@@ -157,7 +157,6 @@ export const useEvent = () => {
   const updateUserStatus = useEventStore((state) => state.updateUserStatus);
   const data = useEventStore((state) => state.event);
 
-
   return {
     initEventState,
     updateStartDate,

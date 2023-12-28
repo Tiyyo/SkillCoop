@@ -2,7 +2,7 @@ import { Core } from './core';
 import { sql } from 'kysely';
 import type { EventType } from 'skillcoop-types';
 import DatabaseError from '../helpers/errors/database.error';
-import getDateUTC from '../utils/get-date-utc';
+import { getFormattedUTCTimestamp } from 'date-handler';
 
 export class EventModel extends Core {
   declare tableName: string
@@ -258,8 +258,7 @@ AND event.date < date('now')
     return { events: parsedResult, eventCount: count.rows[0].total_event };
   }
   async updateMvp(eventId: number) {
-    const today = new Date();
-    const todayUTC = getDateUTC(today);
+    const todayUTCString = getFormattedUTCTimestamp()
     try {
       const result = await sql`
 UPDATE event 
@@ -281,7 +280,7 @@ SET mvp_id = (
             ) 
         )
   ) ,
-    updated_at = ${todayUTC}
+    updated_at = ${todayUTCString}
 WHERE id = ${eventId}
 `.execute(this.client);
 
@@ -291,8 +290,7 @@ WHERE id = ${eventId}
     }
   }
   async updateBestStriker(eventId: number) {
-    const today = new Date();
-    const todayUTC = getDateUTC(today);
+    const todayUTCString = getFormattedUTCTimestamp()
     try {
       const result = await sql`
 UPDATE event 
@@ -314,7 +312,7 @@ SET best_striker_id = (
             ) 
         )
   ) ,
-    updated_at = ${todayUTC}
+    updated_at = ${todayUTCString}
 WHERE id = ${eventId}
 `.execute(this.client);
       return !!result.numAffectedRows;

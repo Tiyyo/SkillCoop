@@ -4,12 +4,12 @@ import capitalize from '../../../utils/capitalize';
 import { UseFormRegister, useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { Infos } from './resume-profile';
-import dateHandler from '../../../utils/date.handler';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { editProfileInfosSchema } from 'schema/ts-schema';
 import Button from '../../../component/button';
 import { useUpdateProfile } from '../../../hooks/useProfile';
 import toast from '../../../utils/toast';
+import { getAge } from 'date-handler/src';
 
 type FormEditProfileInfosProps = {
   shouldEditInfos: boolean;
@@ -90,7 +90,7 @@ function FormEditProfileInfos({
 
   const getAgeString = (date: string | null) => {
     if (!date) return '';
-    return dateHandler.getAgeFromDate(date);
+    return getAge(date);
   };
 
   //@ts-ignore

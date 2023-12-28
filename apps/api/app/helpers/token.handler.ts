@@ -135,5 +135,4 @@ const tokenHandler = {
     }
   },
 };
-
 export default tokenHandler;

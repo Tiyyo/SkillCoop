@@ -30,6 +30,7 @@
     "better-sqlite3": "^9.0.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
+    "date-handler": "workspace:^",
     "dotenv": "^16.3.1",
     "eslint-config": "workspace:^",
     "events": "^3.3.0",

@@ -1,6 +1,6 @@
+import { getFormattedUTCTimestamp } from 'date-handler';
 import DatabaseError from '../helpers/errors/database.error';
 import UserInputError from '../helpers/errors/user-input.error';
-import getDateUTC from '../utils/get-date-utc';
 import { Core } from './core';
 
 export class ProfileOnEvent extends Core {
@@ -17,9 +17,8 @@ export class ProfileOnEvent extends Core {
     status_name: 'confirmed' | 'declined';
     updated_at: undefined | string;
   }) {
-    const today = new Date();
-    const utctoday = getDateUTC(today);
-    data.updated_at = utctoday;
+    const todayUTCString = getFormattedUTCTimestamp()
+    data.updated_at = todayUTCString;
 
     //TODO check if a pending invitation exist
     try {
@@ -52,10 +51,8 @@ export class ProfileOnEvent extends Core {
     eventId: number,
     data: Record<string, string | number>,
   ) {
-    const today = new Date();
-    const todayUTC = getDateUTC(today);
-
-    data.updated_at = todayUTC;
+    const todayUTCString = getFormattedUTCTimestamp()
+    data.updated_at = todayUTCString;
 
     const result = await this.client
       .updateTable(this.tableName)

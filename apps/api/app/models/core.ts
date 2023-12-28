@@ -1,7 +1,7 @@
 import { ObjectRecordGeneric } from '../@types/types';
 import DatabaseError from '../helpers/errors/database.error';
 import NotFoundError from '../helpers/errors/not-found.error';
-import getDateUTC from '../utils/get-date-utc';
+import { getFormattedUTCTimestamp } from 'date-handler'
 
 export class Core {
   declare tableName: string;
@@ -13,7 +13,6 @@ export class Core {
   async findAll() {
     try {
       const result = await this.client.selectFrom(this.tableName).selectAll().execute();
-
       if (!result) throw new NotFoundError('Not found');
 
       return result;
@@ -36,7 +35,6 @@ export class Core {
       throw new DatabaseError(error);
     }
   }
-
   // accept several where clause with the form of {key: value}
   async findBy(data: Record<string, number | string | Date>) {
     const keys = Object.keys(data);
@@ -58,9 +56,8 @@ export class Core {
     }
   }
   async create(data: ObjectRecordGeneric) {
-    const today = new Date();
-    const utctoday = getDateUTC(today);
-    data.created_at = utctoday;
+    const todayUTCString = getFormattedUTCTimestamp()
+    data.created_at = todayUTCString;
     try {
       const result = await this.client.insertInto(this.tableName).values(data).execute();
 
@@ -70,9 +67,8 @@ export class Core {
     }
   }
   async createMany(data: Array<ObjectRecordGeneric>) {
-    const today = new Date();
-    const utctoday = getDateUTC(today);
-    data.forEach((el: ObjectRecordGeneric) => (el.created_at = utctoday));
+    const todayUTCString = getFormattedUTCTimestamp()
+    data.forEach((el: ObjectRecordGeneric) => (el.created_at = todayUTCString));
 
     try {
       const result = await this.client.insertInto(this.tableName).values(data).execute();
@@ -83,10 +79,8 @@ export class Core {
     }
   }
   async update(id: number, data: ObjectRecordGeneric) {
-    const today = new Date();
-    const todayUTC = getDateUTC(today);
-
-    data.updated_at = todayUTC;
+    const todayUTCString = getFormattedUTCTimestamp()
+    data.updated_at = todayUTCString;
 
     const result = await this.client
       .updateTable(this.tableName)

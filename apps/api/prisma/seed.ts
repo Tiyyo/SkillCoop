@@ -9,8 +9,8 @@ import { profileOnEvent as Participant } from '../app/models/index';
 import { score as Score } from '../app/models/index';
 import { friendslist as Friendlist } from '../app/models/index';
 import { skillFoot as SkillFoot } from '../app/models/index';
-import getDateUTC from '../app/utils/get-date-utc';
 import authService from '../app/service/auth/auth';
+import { getFormattedUTCTimestamp, getUTCString } from 'date-handler';
 
 function getRandomIntInclusive(min: number, max: number): number {
   min = Math.ceil(min);
@@ -30,10 +30,7 @@ function getIntUnused(intAlreadyUsed: number[]): number {
 
 async function seed() {
   logger.info('Start seeding');
-
-  const today = new Date();
-  const todayUTC = getDateUTC(today);
-
+  const todayUTCString = getFormattedUTCTimestamp()
   // create status
   const status = [
     { name: 'pending' },
@@ -137,7 +134,7 @@ async function seed() {
       first_name: infos.first_name,
       last_name: infos.last_name,
       active_notification: faker.number.int({ min: 0, max: 1 }),
-      created_at: todayUTC
+      created_at: todayUTCString
     });
 
     await SkillFoot.create({
@@ -165,7 +162,7 @@ async function seed() {
     await Image.create({ url: avatarUrl });
 
     const randomDate = faker.date.birthdate({ max: 2002, min: 1980 });
-    const birthdate = getDateUTC(randomDate);
+    const birthdate = getUTCString(randomDate);
 
     const profile = await Profile.create({
       user_id: user.id,
@@ -174,7 +171,7 @@ async function seed() {
       last_name: faker.person.lastName(),
       avatar_url: avatarUrl,
       date_of_birth: birthdate,
-      created_at: todayUTC
+      created_at: todayUTCString
     });
 
     await SkillFoot.create({
@@ -198,7 +195,7 @@ async function seed() {
     });
 
     const randomDate = faker.date.birthdate({ max: 2002, min: 1980 });
-    const birthdate = getDateUTC(randomDate);
+    const birthdate = getUTCString(randomDate);
 
     const profile = await Profile.create({
       user_id: user.id,
@@ -206,7 +203,7 @@ async function seed() {
       first_name: faker.person.firstName(),
       last_name: faker.person.lastName(),
       date_of_birth: birthdate,
-      created_at: todayUTC
+      created_at: todayUTCString
     });
 
     await SkillFoot.create({
@@ -258,7 +255,7 @@ async function seed() {
   //eslint-disable-next-line
   for await (const _ of arrayToIterateOnEvents) {
     const randomDate = faker.date.past();
-    const date = getDateUTC(randomDate);
+    const date = getUTCString(randomDate);
 
     const eventId = await Event.create({
       date,
@@ -297,7 +294,7 @@ async function seed() {
   //eslint-disable-next-line
   for await (const _ of arrayToIterateOnFutureEvents) {
     const randomDate = faker.date.future();
-    const date = getDateUTC(randomDate);
+    const date = getUTCString(randomDate);
 
     const eventId = await Event.create({
       date,
@@ -329,7 +326,7 @@ async function seed() {
   //eslint-disable-next-line
   for await (const _ of arrayToIterateOnFutureEvents2) {
     const randomDate = faker.date.past();
-    const date = getDateUTC(randomDate);
+    const date = getUTCString(randomDate);
     const organizerId = getRandomIntInclusive(1, 24);
 
     const eventId = await Event.create({
@@ -378,7 +375,7 @@ async function seed() {
   //eslint-disable-next-line
   for await (const _ of arrayToIterateOnFutureEvents3) {
     const randomDate = faker.date.past();
-    const date = getDateUTC(randomDate);
+    const date = getUTCString(randomDate);
     const randomInt = getRandomIntInclusive(1, 24);
 
     const eventId = await Event.create({
@@ -426,7 +423,7 @@ async function seed() {
   //eslint-disable-next-line
   for await (const _ of arrayToIterateOnOpenEvents) {
     const randomDate = faker.date.future();
-    const date = getDateUTC(randomDate);
+    const date = getUTCString(randomDate);
     const eventId = await Event.create({
       date,
       duration: 90,

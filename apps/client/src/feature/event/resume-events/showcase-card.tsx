@@ -1,6 +1,6 @@
 import Avatars from '../../../component/avatars';
 import type { EventParticipant, EventStatus } from 'skillcoop-types';
-import dateHandler from '../../../utils/date.handler';
+import { getDate, getEndingTime, getStartingTime } from 'date-handler/src';
 
 interface EventCardProps {
   date: string;
@@ -35,19 +35,19 @@ lg:rounded-3xl w-full px-6 pb-6 pt-2 aspect-4/1 lg:my-2"
       >
         <span>{location}</span>
       </p>
-      <p
+      <div
         className="flex text-xxs md:text-sm gap-x-1.5 justify-center items-center 
         font-normal text-dark pb-2 w-full"
       >
-        <div className="basis-1/2 flex justify-end gap-x-1">
-          <span>{dateHandler.getStartingTime(date)}</span>
-          <span>{dateHandler.getEndingTime(date, duration)}</span>
-        </div>
+        <p className="basis-1/2 flex justify-end gap-x-1">
+          <span>{getStartingTime(date)}</span>
+          <span>{getEndingTime(date, duration)}</span>
+        </p>
         <span className="mx-0.5 py-1">|</span>
-        <div className="basis-1/2">
-          <span>{dateHandler.getFormatedDate(date)}</span>
-        </div>
-      </p>
+        <p className="basis-1/2">
+          <span>{getDate(date)}</span>
+        </p>
+      </div>
       <div className="flex flex-grow justify-between items-center w-full ">
         <div className="flex gap-x-3 items-center basis-2/12">
           <img

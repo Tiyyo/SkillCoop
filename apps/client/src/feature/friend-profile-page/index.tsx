@@ -1,6 +1,5 @@
 import RadarChart from '../../component/radar-chart';
 import { useParams } from 'react-router-dom';
-import dateHandler from '../../utils/date.handler';
 import Container from '../../layout/container';
 import { useGetProfile } from '../../hooks/useProfile';
 import { getMaxValue } from '../../utils/get-max';
@@ -11,6 +10,7 @@ import capitalize from '../../utils/capitalize';
 import FriendStatsDesktop from './stats-desktop';
 import AvatarRectangle from '../../component/avatar-rectangle';
 import FriendStatsMobile from './stats-mobile';
+import { getAge } from 'date-handler/src';
 
 function FriendProfile() {
   const params = useParams<{ id: string }>();
@@ -62,7 +62,7 @@ function FriendProfile() {
                       alt="Age icon"
                       className="h-5 w-5"
                     />
-                    {dateHandler.getAgeFromDate(profile.date_of_birth)}
+                    {getAge(profile.date_of_birth)}
                   </span>
                 )}
                 {profile?.location && (
@@ -88,7 +88,7 @@ function FriendProfile() {
         </div>
       </div>
       <div className="flex flex-col lg:flex-row ">
-{/*      TODO : move this into his own component */}
+        {/*      TODO : move this into his own component */}
         {hasBeenEvaluated && (
           <Container className="lg:w-1/2 lg:rounded-r-none">
             <TitleH2 title="Stats" />

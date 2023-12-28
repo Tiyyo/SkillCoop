@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Datepicker from 'tailwind-datepicker-react';
-import dateHandler from '../../utils/date.handler';
 import { ArrowLeft, ArrowRight, Calendar } from 'lucide-react';
+import { getDefaultDatePicker, todayLocalInputFormat } from 'date-handler/src';
 
 type InputDateProps = {
   updateState?: (e: any) => void;
@@ -30,7 +30,7 @@ function InputDate({
     autoHide: true,
     todayBtn: true,
     clearBtn: true,
-    minDate: new Date(dateHandler.getTodayFormatedForInput()),
+    minDate: new Date(todayLocalInputFormat()),
     theme: {
       background: 'bg-base-light dark:bg-base-light aazeaze',
       todayBtn:
@@ -57,7 +57,6 @@ function InputDate({
     defaultDate: new Date(defaultValue || today),
     language: 'en',
   };
-
   const [show, setShow] = useState<boolean>(false);
 
   const getDateFormatedLikeInputDate = (date: Date) => {
@@ -79,17 +78,6 @@ function InputDate({
     setShow(state);
   };
 
-  const getDefaultDate = (date?: string) => {
-    if (!date) return '';
-
-    const formatDate = new Intl.DateTimeFormat('en-US', {
-      month: 'long',
-      day: 'numeric',
-      year: 'numeric',
-    }).format(new Date(date));
-    return formatDate;
-  };
-
   useEffect(() => {
     setHasError(error);
   }, [error]);
@@ -108,7 +96,7 @@ function InputDate({
         {disabled ? (
           <input
             type="text"
-            defaultValue={getDefaultDate(defaultValue)}
+            defaultValue={getDefaultDatePicker(defaultValue)}
             disabled={disabled}
             className={`bg-base-light border border-gray-300 
             font-semibold text-primary-1100 text-xs rounded-lg block w-full 

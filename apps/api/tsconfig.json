@@ -2,7 +2,7 @@
   "compilerOptions": {
     /* Language and Environment */
     "target": "es2020",
-    "module": "commonjs",
+    "module": "CommonJS",
     "outDir": "./dist",
     "noEmit": false,
     "lib": [
@@ -15,6 +15,14 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
+    "paths": {
+      "schema": [
+        "../../packages/schema/dist/index.d.ts"
+      ],
+      "skillcoop-types": [
+        "../../packages/types/index.ts"
+      ]
+    }
     // "moduleResolution": "node16"
   },
   "ts-node": {

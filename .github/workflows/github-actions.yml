@@ -1,0 +1,89 @@
+name: CI Strategy
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint-api:
+    name: ESLint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          cache: npm
+          cache-dependency-path: ./package.json
+          node-version: 18
+
+      - name: Install deps
+        run: pnpm install
+
+      - name: Lint
+        run: pnpm api lint
+
+  lint-client:
+    name: ESLint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          cache: npm
+          cache-dependency-path: ./package.json
+          node-version: 18
+
+      - name: Install deps
+        run: pnpm install
+
+      - name: Lint
+        run: pnpm client lint
+
+  typecheck:
+    name: Typescript
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          cache: npm
+          cache-dependency-path: ./package.json
+          node-version: 18
+
+      - name: Install deps
+        run: pnpm install
+
+      - name: Typecheck
+        run: pnpm api typecheck
+
+  vitest:
+    name: vitest
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          cache: npm
+          cache-dependency-path: ./package.json
+          node-version: 18
+
+      - name: Install deps
+        run: pnpm install
+
+      - name: vitest
+        run: pnpm -r test

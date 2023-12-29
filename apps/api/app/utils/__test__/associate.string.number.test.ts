@@ -2,7 +2,7 @@ import associateStringNumber from '../associate-string-number';
 
 describe('associateStringNumber', () => {
   test('should return a number', () => {
-    expect(typeof associateStringNumber('beginner')).toBeTypeOf('number');
+    expect(typeof associateStringNumber('beginner')).toBe('number');
     // @ts-ignore
     expect(associateStringNumber('brandon')).toEqual(50);
   });

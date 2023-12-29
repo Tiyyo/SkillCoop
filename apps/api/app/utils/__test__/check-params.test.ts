@@ -9,7 +9,7 @@ describe('checkParams', () => {
   test(`should throw an error if at 
     least one param cant be converted in number`, () => {
     expect(() => checkParams('1', '2', 'petit')).toThrowError(
-      'There is at least one invalid param',
+      `petit is not a valid param : Can't be parsed to int`,
     );
   });
 });

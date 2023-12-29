@@ -3,15 +3,22 @@
 
 import { profile as Profile } from '../models/index';
 
+type Result = {
+  id: number;
+  active_notification: 0 | 1;
+};
+
 export const hasActiveNotification = async (profileIds: number[]) => {
   const profileInfosInvitedUserQuery = profileIds.map((id) =>
     Profile.findByPk(id),
   );
 
-  const profileInfos = await Promise.allSettled(profileInfosInvitedUserQuery);
+  const profileInfos = await Promise.allSettled<Result>(
+    profileInfosInvitedUserQuery,
+  );
   // filterMap with reduce
   const profileIdsWithNotificationOn = profileInfos.reduce(
-    (acc: number[], curr: any) => {
+    (acc: number[], curr) => {
       if (curr.status === 'fulfilled' && curr.value.active_notification === 1) {
         acc.push(curr.value.id);
       }
@@ -19,5 +26,7 @@ export const hasActiveNotification = async (profileIds: number[]) => {
     },
     [],
   );
-  return profileIdsWithNotificationOn ? profileIdsWithNotificationOn : null;
+  return profileIdsWithNotificationOn.length > 0
+    ? profileIdsWithNotificationOn
+    : null;
 };

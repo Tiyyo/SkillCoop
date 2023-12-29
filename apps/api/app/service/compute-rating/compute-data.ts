@@ -1,5 +1,5 @@
 import { AvgSkill, Score, Skills } from 'skillcoop-types';
-import { UserEvaluationsBonus } from './get-data';
+import { UserEvaluationsBonus } from './sql-methods';
 import computeGbRating from '../../utils/compute-gb-rating';
 
 type ArgsSkillCompute = {
@@ -83,7 +83,7 @@ export class ComputeRating {
   getNumerator(args: ArgsSkillCompute) {
     return (
       this.productNumerator(args.ownEval, this.WEIGHT_OWN_EVAL) +
-      this.productNumerator(args.receivedEval) +
+      this.productNumerator(args.receivedEval, args.nbReceivedEval) +
       this.productNumerator(this.VALUE_BONUS, args.nbBonus)
     );
   }

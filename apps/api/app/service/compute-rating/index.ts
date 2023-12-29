@@ -1,7 +1,7 @@
-import { getData } from './get-data';
 import UserInputError from '../../helpers/errors/user-input.error';
 import { profile as Profile } from '../../models/index';
 import { ComputeRating } from './compute-data';
+import { getData } from './get-data';
 
 async function computeRatingUser(profileId: number) {
   const userEvaluationsAndBonus = await getData(profileId);

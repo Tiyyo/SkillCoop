@@ -102,6 +102,7 @@ export function getPlayerObject(
   return player;
 }
 
+/*eslint-disable*/
 export function getTeamValue(arrayTeam: Player[]): number {
   return arrayTeam.length > 0
     ? arrayTeam

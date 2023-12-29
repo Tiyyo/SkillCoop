@@ -37,7 +37,8 @@ function Team({
         <TitleH2 title={title} />
         <ul
           className="flex flex-wrap lg:grid gap-2 
-          lg:grid-cols-particpant-layout justify-center lg:justify-between whitespace-nowrap"
+          lg:grid-cols-particpant-layout justify-center 
+          lg:justify-between whitespace-nowrap"
         >
           {/* particpants can be a string if backend failed to parsed data */}
           {participants &&

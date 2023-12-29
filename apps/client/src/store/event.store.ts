@@ -1,5 +1,9 @@
 import { create } from 'zustand';
-import type { EventParticipant, EventStatus, InvitationStatus } from 'skillcoop-types';
+import type {
+  EventParticipant,
+  EventStatus,
+  InvitationStatus,
+} from 'skillcoop-types';
 
 export type EventStateStore = {
   start_date: string | null;
@@ -30,7 +34,7 @@ type eventStore = {
   removeFromStaged: (args: number) => void;
   updateUserStatus: (args: string) => void;
   updateParticipantStatus: (args: InvitationStatus, id: number) => void;
-}
+};
 
 export const useEventStore = create<eventStore>()((set) => ({
   event: {
@@ -94,7 +98,10 @@ export const useEventStore = create<eventStore>()((set) => ({
   updateParticipants: (participants: EventParticipant[]) =>
     set((state) => ({
       ...state,
-      event: { ...state.event, participants: [...participants, ...(state.event.participants || [])] },
+      event: {
+        ...state.event,
+        participants: [...participants, ...(state.event.participants || [])],
+      },
     })),
   addToStaged: (participant: EventParticipant) =>
     set((state) => ({
@@ -116,21 +123,22 @@ export const useEventStore = create<eventStore>()((set) => ({
         ),
       },
     })),
-  updateParticipantStatus: (statusName: InvitationStatus, id: number) => set((state) => ({
-    ...state,
-    event: {
-      ...state.event,
-      participants: state.event.participants?.map((p) => {
-        if (p.profile_id === id) {
-          return {
-            ...p,
-            status: statusName
+  updateParticipantStatus: (statusName: InvitationStatus, id: number) =>
+    set((state) => ({
+      ...state,
+      event: {
+        ...state.event,
+        participants: state.event.participants?.map((p) => {
+          if (p.profile_id === id) {
+            return {
+              ...p,
+              status: statusName,
+            };
           }
-        }
-        return p
-      })
-    }
-  }))
+          return p;
+        }),
+      },
+    })),
 }));
 
 export const useEvent = () => {
@@ -141,19 +149,15 @@ export const useEvent = () => {
   const updateLocation = useEventStore((state) => state.updateLocation);
   const updateOrganizerId = useEventStore((state) => state.updateOrganizerId);
   const updateStatusName = useEventStore((state) => state.updateStatusName);
-  const updateParticipantStatus = useEventStore((state) => state.updateParticipantStatus);
+  const updateParticipantStatus = useEventStore(
+    (state) => state.updateParticipantStatus,
+  );
   const updateRequiredParticipants = useEventStore(
     (state) => state.updateRequiredParticipants,
   );
-  const updateParticipants = useEventStore(
-    (state) => state.updateParticipants,
-  );
-  const addToStaged = useEventStore(
-    (state) => state.addToStaged,
-  );
-  const removeFromStaged = useEventStore(
-    (state) => state.removeFromStaged,
-  );
+  const updateParticipants = useEventStore((state) => state.updateParticipants);
+  const addToStaged = useEventStore((state) => state.addToStaged);
+  const removeFromStaged = useEventStore((state) => state.removeFromStaged);
   const updateUserStatus = useEventStore((state) => state.updateUserStatus);
   const data = useEventStore((state) => state.event);
 

@@ -21,7 +21,8 @@ function Star<T extends HTMLInputTypeAttribute>({
       />
       <label
         htmlFor={`${name}_star${value}`}
-        className=" float-right cursor-pointer text-primary-500 transition-colors duration-300 after:text-3xl after:content-['\2605'] "
+        className=" float-right cursor-pointer text-primary-500 
+        transition-colors duration-300 after:text-3xl after:content-['\2605'] "
       ></label>
     </>
   );

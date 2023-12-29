@@ -28,7 +28,6 @@ export const searchFriendsFn = async (
   return response.data;
 };
 
-
 export const sendFriendRequestFn = async (data: {
   adder_id: number;
   friend_id: number;

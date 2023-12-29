@@ -21,7 +21,10 @@ function FieldsetRadioInput({ name, options }: FieldsetRadioInputProps) {
       name={name}
       onChange={handleChangeFieldset}
     >
-      <legend className="mt-3 px-4 self-start text-xs font-medium text-primary-1100 py-3">
+      <legend
+        className="mt-3 px-4 self-start text-xs font-medium
+         text-primary-1100 py-3"
+      >
         {capitalize(name)}
       </legend>
       <div className="flex text-xxs">

@@ -18,7 +18,10 @@ function FriendStatsMobile({
   lastEvaluation,
 }: FriendStatsMobileProps) {
   return (
-    <div className="md:hidden flex-grow flex flex-col gap-y-0.5 text-xs text-light px-6">
+    <div
+      className="md:hidden flex-grow flex flex-col 
+      gap-y-0.5 text-xs text-light px-6"
+    >
       <p>
         Attented to{' '}
         <span className="font-semibold">{nbAttendedEvent ?? 0}</span> event(s)

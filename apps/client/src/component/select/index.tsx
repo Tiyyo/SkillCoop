@@ -51,7 +51,8 @@ function SelectInput({
       Number(e.target.value) < event?.confirmed_participants
     ) {
       toast.error(
-        'You cannot update the number of required participants because there are already more participants than the number you want to set',
+        `You cannot update the number of required participants because 
+        there are already more participants than the number you want to set`,
       );
       return;
     }
@@ -81,8 +82,9 @@ function SelectInput({
         {disabled ? (
           <input
             type="text"
-            className="bg-base-light border border-gray-300 font-semibold text-primary-1100
-            text-xs rounded-lg block w-full h-7 pl-2  border-none"
+            className="bg-base-light border border-gray-300 
+            font-semibold text-primary-1100text-xs rounded-lg 
+            block w-full h-7 pl-2  border-none"
             disabled={disabled}
             defaultValue={
               mutateKey === 'duration'
@@ -94,7 +96,8 @@ function SelectInput({
           <select
             name={name}
             className={cn(
-              `bg-base-light border text-primary-1100 text-sm font-medium rounded-lg 
+              `bg-base-light border text-primary-1100 text-sm 
+              font-medium rounded-lg 
               focus:ring-primary-800focus:border-primary-800
               block w-full h-7 pl-2`,
               high ? 'h-10' : 'h-7',

@@ -1,8 +1,5 @@
 import { api } from './api.fn';
-import type {
-  Profile,
-  SearchProfileQuery,
-} from 'skillcoop-types';
+import type { Profile, SearchProfileQuery } from 'skillcoop-types';
 
 export const getMeFn = async (): Promise<
   { userProfile: Profile } | 'Unecessary call'
@@ -16,7 +13,9 @@ export const getProfileFn = async (profileId: number): Promise<Profile> => {
   return response.data;
 };
 
-export const getSuggestProfileFn = async (profileId: number): Promise<Profile[]> => {
+export const getSuggestProfileFn = async (
+  profileId: number,
+): Promise<Profile[]> => {
   const response = await api.get(`api/friends/suggest/${profileId}`);
   return response.data;
 };

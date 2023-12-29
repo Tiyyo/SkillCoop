@@ -1,11 +1,13 @@
 import { Notification } from 'skillcoop-types';
 import { notificationSubtype } from 'skillcoop-types';
+/*eslint-disable*/
 import AddedFriendsNotification from './notification-type/added-friends.notification';
 import EventInfosUpdatedNotification from './notification-type/event-infos-updated.notification';
 import EventInvitationNotification from './notification-type/event-invitation.notification';
 import FriendRequestNotification from './notification-type/friend-request.notification';
 import TeamGeneratedNotification from './notification-type/team-generated.notification';
 import TransfertOwnershipNotification from './notification-type/transfert-ownership.notification';
+/*eslint-enable*/
 
 function DispatchNotifications(notification: Notification) {
   if (

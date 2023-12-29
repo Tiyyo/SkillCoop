@@ -91,9 +91,10 @@ function EventPageScore({
             type="text"
             inputMode="numeric"
             name="score_team_1"
-            className={`bg-primary-200 h-14 lg:h-20 w-10 lg:w-12 rounded-md shadow-inner 
-          border border-gray-950 border-opacity-40 text-primary-1100 
-          font-semibold text-center text-2xl lg:text-3xl`}
+            className={`bg-primary-200 h-14 lg:h-20 w-10 
+            lg:w-12 rounded-md shadow-inner 
+            border border-gray-950 border-opacity-40 text-primary-1100 
+            font-semibold text-center text-2xl lg:text-3xl`}
             disabled={!isAdmin || eventStatus !== 'full'}
             defaultValue={scoreTeam1 ?? ''}
           />
@@ -102,9 +103,10 @@ function EventPageScore({
             type="text"
             inputMode="numeric"
             name="score_team_2"
-            className={`bg-primary-200 h-14 w-10 lg:h-20 lg:w-12 rounded-md shadow-inner 
-          border border-gray-950 border-opacity-40 text-primary-1100 
-          font-semibold text-center text-2xl lg:text-3xl`}
+            className={`bg-primary-200 h-14 w-10 lg:h-20 lg:w-12 
+            rounded-md shadow-inner 
+            border border-gray-950 border-opacity-40 text-primary-1100 
+            font-semibold text-center text-2xl lg:text-3xl`}
             disabled={!isAdmin || eventStatus !== 'full'}
             defaultValue={scoreTeam2 ?? ''}
           />

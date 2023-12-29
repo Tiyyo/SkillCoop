@@ -58,7 +58,10 @@ function Score({
           {displayScore(eventStatus, scoreTeamB)}
         </p>
       )}
-      <p className="flex py-0.5 gap-x-1 justify-center items-center text-xxs lg:text-xs">
+      <p
+        className="flex py-0.5 gap-x-1 justify-center 
+        items-center text-xxs lg:text-xs"
+      >
         <span className="relative">
           <img
             src="/images/location.png"

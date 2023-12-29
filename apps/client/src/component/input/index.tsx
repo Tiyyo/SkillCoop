@@ -63,8 +63,9 @@ function Input({
             disabled={disabled}
             {...props}
             className={cn(
-              `bg-base-light border border-gray-300 font-medium text-primary-1100 
-              text-sm rounded-lg block w-full h-7 pl-2 placeholder:font-medium 
+              `bg-base-light border border-gray-300 font-medium
+              text-primary-1100 text-sm rounded-lg block w-full 
+              h-7 pl-2 placeholder:font-medium 
             placeholder:text-dark`,
               disabled && 'border-none',
               hasError && 'ring-2 ring-error',

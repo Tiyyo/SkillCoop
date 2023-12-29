@@ -3,7 +3,10 @@ import Avatar from '../avatar';
 
 function TopBanner() {
   return (
-    <div className="flex justify-between bg-base w-full h-20 lg:rounded-lg lg:mt-2 shadow-md p-5">
+    <div
+      className="flex justify-between bg-base w-full h-20 
+      lg:rounded-lg lg:mt-2 shadow-md p-5"
+    >
       <div className="flex flex-col justify-center">
         <p className="font-light">Welcome Back !</p>
         <p className="font-semibold">

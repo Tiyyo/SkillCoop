@@ -4,7 +4,7 @@ import type {
   EventType,
   EventQuery,
   UpdateEventData,
-  TransfertOwnership
+  TransfertOwnership,
 } from 'skillcoop-types';
 
 // TODO: find why and when this fn is used
@@ -97,4 +97,3 @@ export const saveScoreFn = async (data: {
   const response = await api.post(`api/score`, data);
   return response.data;
 };
-

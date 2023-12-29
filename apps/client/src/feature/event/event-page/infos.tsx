@@ -26,7 +26,6 @@ import type { EventStatus } from 'skillcoop-types';
 import {
   isPastDate,
   getUTCString,
-  getStringDate,
   getLocalStringCustom,
 } from 'date-handler/src';
 
@@ -101,9 +100,12 @@ function EventPageInfos({
               confirmedParticipants &&
               confirmedParticipants > Number(event.required_participants)
             ) {
-              // This edge case shouldnt be possible at this stage but just in case we are not
-              // not allowing user to update the number of required participants if there are
-              // more confirmed participants than the new number of required participants
+              // This edge case shouldnt be possible at this stage but
+              // just in case we are not
+              // not allowing user to update the number of required participants
+              // if there are
+              // more confirmed participants than the new number
+              // of required participants
               return;
             }
             const isValid = updateEventSchema.safeParse(data);
@@ -141,7 +143,10 @@ function EventPageInfos({
           title={`Event# ${eventId}`}
           legend="Event details informations"
         />
-        <div className="flex justify-between items-baseline my-1 text-primary-1100 lg:px-6">
+        <div
+          className="flex justify-between items-baseline my-1 
+        text-primary-1100 lg:px-6"
+        >
           {isAdmin &&
             eventStatus !== 'completed' &&
             displayEditBtnOrValidateBtn()}

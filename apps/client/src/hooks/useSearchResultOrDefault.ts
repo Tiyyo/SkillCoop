@@ -4,7 +4,7 @@ import { useGetConfirmedFriends, useSearchInFriendlist } from './useFriends';
 
 type UseSearchResultOrDefault = {
   profileId?: number;
-}
+};
 
 export function useSearchResultOrDefault({
   profileId,

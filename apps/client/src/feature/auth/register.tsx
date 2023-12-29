@@ -60,7 +60,10 @@ function Register() {
         <h1 className="py-4 text-xl font-bold text-primary-1100 text-center">
           Create your SkillCoop account
         </h1>
-        <div className="flex flex-col w-[90%] max-w-lg bg-base-light py-7 px-6 rounded-lg">
+        <div
+          className="flex flex-col w-[90%] max-w-lg bg-base-light 
+          py-7 px-6 rounded-lg"
+        >
           <ErrorNotification message={responseErrorServer} />
           <SocialButton value="Continue with google" href={getGoogleUrl(from)}>
             <Google />
@@ -123,7 +126,8 @@ function Register() {
               By signing up, you agree to the
               <Link
                 to="/terms-and-service"
-                className="underline underline-offset-2 ml-1 text-primary-800 inline"
+                className="underline underline-offset-2 ml-1 
+              text-primary-800 inline"
               >
                 Terms and Service
               </Link>

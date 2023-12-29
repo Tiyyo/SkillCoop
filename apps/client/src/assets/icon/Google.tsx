@@ -1,3 +1,4 @@
+/* eslint-disable */
 function Google() {
   return (
     <svg

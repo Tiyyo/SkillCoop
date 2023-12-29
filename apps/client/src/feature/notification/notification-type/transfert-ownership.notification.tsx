@@ -38,7 +38,8 @@ function TransfertOwnershipNotification({
     >
       <Link
         to={`/event/${notification.event_id}`}
-        className="self-end flex items-center gap-x-0.5 text-xxs font-semibold text-primary-1000 
+        className="self-end flex items-center gap-x-0.5 text-xxs 
+        font-semibold text-primary-1000 
         underline underline-offset-4 pr-4"
       >
         Go to event page

@@ -7,7 +7,7 @@ type NotificationStoreProps = {
   markAsRead: (id: number) => void;
   activeFilter: NotificationFilters;
   setActiveFilter: (activeFilter: NotificationFilters) => void;
-}
+};
 
 export const useNotificationStore = create<NotificationStoreProps>()((set) => ({
   notifications: null,

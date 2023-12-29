@@ -1,10 +1,9 @@
 import { api } from './api.fn';
-import type {
-  RegisterUser,
-  User,
-} from 'skillcoop-types';
+import type { RegisterUser, User } from 'skillcoop-types';
 
-export const signUpUserFn = async (user: RegisterUser): Promise<String | { message: string }> => {
+export const signUpUserFn = async (
+  user: RegisterUser,
+): Promise<string | { message: string }> => {
   const response = await api.post('auth/register', user);
   return response.data;
 };

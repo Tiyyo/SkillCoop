@@ -79,7 +79,10 @@ function EventCard({
           location={location}
         />
         {shouldDisplayAvatars(eventStatus) && (
-          <div className="flex flex-row-reverse gap-x-3 items-center basis-2/12">
+          <div
+            className="flex flex-row-reverse gap-x-3 
+            items-center basis-2/12"
+          >
             <img
               src="/images/jersey.png"
               alt="jersey icon"
@@ -108,8 +111,8 @@ function EventCard({
                 plus={confirmedParticipants - 3}
               />
               <p className="font-light lg:text-xs relative translate-x-1">
-                <span className="font-semibold">{confirmedParticipants}</span> /{' '}
-                <span>{requiredParticipants}</span> are going
+                <span className="font-semibold">{confirmedParticipants} </span>/
+                <span> {requiredParticipants}</span> are going
               </p>
             </div>
           )}
@@ -117,8 +120,9 @@ function EventCard({
         <Link
           to={`/event/${eventId}`}
           state={{ eventId }}
-          className="flex items-end flex-row-reverse flex-grow text-xxs text-dark 
-            lg:text-sm hover:text-primary-100 duration-300 transition-colors"
+          className="flex items-end flex-row-reverse flex-grow 
+          text-xxs text-dark lg:text-sm hover:text-primary-100 
+          duration-300 transition-colors"
         >
           <span className="flex items-center gap-x-0.5">
             Details

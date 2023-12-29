@@ -1,3 +1,4 @@
+/* eslint-disable */
 function Calendar() {
   return (
     <svg

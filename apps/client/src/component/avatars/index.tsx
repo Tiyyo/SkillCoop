@@ -30,7 +30,8 @@ function Avatars({
             <img
               key={participant.profile_id}
               className="w-7 md:w-9 lg:w-10
-              aspect-square border-2 lg:border-3 border-base-light overflow-hidden rounded-full"
+              aspect-square border-2 lg:border-3 border-base-light 
+              overflow-hidden rounded-full"
               src={
                 participant.avatar
                   ? participant.avatar

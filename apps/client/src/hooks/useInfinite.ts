@@ -5,7 +5,7 @@ type UseInfiniteProps = {
   elementPerPage: number;
   queryFn: any;
   argsFn: Record<string, any>;
-}
+};
 
 function useInfinite({
   queryKey,
@@ -30,7 +30,7 @@ function useInfinite({
       },
       enabled: true,
       refetchOnMount: true,
-      staleTime: 0
+      staleTime: 0,
     });
   const loading = isLoading || isFetching;
   return { data, isError, loading, hasNextPage, fetchNextPage };

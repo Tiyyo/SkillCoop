@@ -10,7 +10,7 @@ type useActionsPendingFriendCardProps = {
   username: string;
   avatar: string;
   adderId: number;
-}
+};
 
 export function useActionsPendingFriendCard({
   friendId,

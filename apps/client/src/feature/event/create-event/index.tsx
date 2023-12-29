@@ -89,9 +89,10 @@ function CreateEvent() {
         />
         <Link
           to="invitation"
-          className={`flex shadow-md items-center gap-2 py-2.5 text-xs lg:text-sm
-           text-base-light bg-primary-800 px-2.5 sm:px-6 rounded-full f
-            ont-semibold cursor-pointer hover:text-dark hover:bg-primary-500 duration-300`}
+          className={`flex shadow-md items-center gap-2 py-2.5 text-xs 
+          lg:text-smtext-base-light bg-primary-800 px-2.5 sm:px-6 
+          rounded-full font-semibold cursor-pointer hover:text-dark
+         hover:bg-primary-500 duration-300`}
         >
           <p className="hidden sm:block">Invite your friends</p>
           <Plus />

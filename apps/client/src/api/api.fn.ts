@@ -1,13 +1,13 @@
 import axios from 'axios';
 import { SERVER_URL } from '../utils/server';
-export * from './auth.fn'
-export * from './evaluation.fn'
-export * from './event.fn'
-export * from './participant.fn'
-export * from './profile.fn'
-export * from './user.fn'
-export * from './notification.fn'
-export * from './friend.fn'
+export * from './auth.fn';
+export * from './evaluation.fn';
+export * from './event.fn';
+export * from './participant.fn';
+export * from './profile.fn';
+export * from './user.fn';
+export * from './notification.fn';
+export * from './friend.fn';
 
 const BASE_URL = SERVER_URL;
 

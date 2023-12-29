@@ -1,5 +1,3 @@
-//@ts-nocheck
-import ReturnBtn from '../../../component/return';
 import TitleH2 from '../../../component/title-h2';
 import { useApp } from '../../../store/app.store';
 import FieldsetRadioInput from './fieldset-radio.input';
@@ -8,15 +6,15 @@ import Button from '../../../component/button';
 import { useId } from 'react';
 import RadarChart from '../../../component/radar-chart';
 import { useUserProfileEval } from '../../../hooks/useUserProfileEval';
-import ProfileSkillsResume from '../../../component/profile-skills-resume';
 import Spinner from '../../../component/loading';
 import Container from '../../../layout/container';
 import strongbox from '../../../assets/svg/strongbox.svg';
 import flash from '../../../assets/svg/flash.svg';
 import reward from '../../../assets/svg/reward.svg';
 import capitalize from '../../../utils/capitalize';
-import associateNumberToString from '../../../utils/associate-number-stringscale';
 import { sumValues } from '../../../utils/sum-values';
+/*eslint-disable-next-line*/
+import associateNumberToString from '../../../utils/associate-number-stringscale';
 
 function UserResumeSkills() {
   const idComp = useId();

@@ -25,8 +25,9 @@ function ShowcaseEventCard({
 }: EventCardProps) {
   return (
     <div
-      className="bg-stadium bg-cover flex items-center flex-col bg-base-light shadow 
-lg:rounded-3xl w-full px-6 pb-6 pt-2 aspect-4/1 lg:my-2"
+      className="bg-stadium bg-cover flex items-center flex-col 
+      bg-base-light shadow 
+      lg:rounded-3xl w-full px-6 pb-6 pt-2 aspect-4/1 lg:my-2"
     >
       <p className="font-semibold">Next Event</p>
       <p
@@ -36,7 +37,8 @@ lg:rounded-3xl w-full px-6 pb-6 pt-2 aspect-4/1 lg:my-2"
         <span>{location}</span>
       </p>
       <div
-        className="flex text-xxs md:text-sm gap-x-1.5 justify-center items-center 
+        className="flex text-xxs md:text-sm gap-x-1.5 
+        justify-center items-center 
         font-normal text-dark pb-2 w-full"
       >
         <p className="basis-1/2 flex justify-end gap-x-1">

@@ -4,11 +4,13 @@ import { invitationStatus } from 'skillcoop-types';
 import { Link } from 'react-router-dom';
 import associateNumberToString from '../../utils/associate-number-stringscale';
 import capitalize from '../../utils/capitalize';
+/* eslint-disable max-len */
 import { useActionsPendingFriendCard } from '../../hooks/useActionsPendingFriendCard';
 import { useSelectionOfFriends } from '../../hooks/useSelectionOfFriends';
 import { CreateEventStateStore } from '../../store/create-event.store';
 import { EventStateStore } from '../../store/event.store';
 import AvatarSmallWithBorder from '../avatar/avatar-border-small';
+import { cn } from '../../lib/utils';
 
 type FriendCardProps = {
   avatar: string;
@@ -61,12 +63,13 @@ function FriendCard({
       className="basis-52"
     >
       <div
-        className={`flex flex-col items-center py-2 px-3 gap-3  cursor-pointer 
-          rounded-md border-2 border-transparent ${
-            isSelected
-              ? ' border-opacity-50 border-primary-400 bg-primary-500 shadow-2xl'
-              : 'bg-base-light'
-          }}`}
+        className={cn(
+          `flex flex-col items-center py-2 px-3 gap-3  cursor-pointer 
+          rounded-md border-2 border-transparent`,
+          isSelected &&
+            ' border-opacity-50 border-primary-400 bg-primary-500 shadow-2xl',
+          !isSelected && 'bg-base-light',
+        )}
         onClick={handleClickSelectFriend}
       >
         <AvatarSmallWithBorder avatar={avatar} />

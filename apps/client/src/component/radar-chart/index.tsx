@@ -19,13 +19,14 @@ ChartJS.register(
 );
 
 type RadarChartProps = {
-  skills: Record<string, number>;
+  skills: Record<string, number> | null;
   min: number;
   max: number;
   displayTicks?: boolean;
 };
 
 function RadarChart({ skills, min, max, displayTicks }: RadarChartProps) {
+  if (!skills) return;
   const labels = Object.keys(skills);
   const dataSkills = Object.values(skills);
   const data = {

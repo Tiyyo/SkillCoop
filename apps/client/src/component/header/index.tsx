@@ -43,7 +43,10 @@ function Header() {
           </div>
         </div>
         <NavUser>
-          <div className="bg-primary-210 text-primary-100 p-1 rounded-sm mr-4 lg:mr-0">
+          <div
+            className="bg-primary-210 text-primary-100 p-1 
+            rounded-sm mr-4 lg:mr-0"
+          >
             <ChevronDown size={20} />
           </div>
         </NavUser>

@@ -20,8 +20,8 @@ type UpdateStatusModalProps = {
   profileId: number | undefined;
 };
 
-const menuItemStyle = `flex gap-2 items-center hover:bg-primary-200 transition-colors 
-          duration-300 rounded-lg px-2 text-md h-10`;
+const menuItemStyle = `flex gap-2 items-center hover:bg-primary-200 
+  transition-colors duration-300 rounded-lg px-2 text-md h-10`;
 
 const baseButtonStyle = `inline-flex items-center justify-center 
 rounded-md text-sm font-medium ring-offset-background 
@@ -105,7 +105,10 @@ function UpdateStatusModal({
                   If not you will no longer have access to this event
                 </AlertDialogDescription>
               </AlertDialogHeader>
-              <div className="flex flex-row items-center justify-center gap-4 my-4">
+              <div
+                className="flex flex-row items-center 
+                justify-center gap-4 my-4"
+              >
                 <button
                   value={invitationStatus.pending}
                   name="statusName"

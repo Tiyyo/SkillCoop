@@ -35,7 +35,8 @@ function ResumeEmailInfos({ email }: { email?: string | null }) {
   };
 
   const onSubmit = async (data: UpdateEmail) => {
-    data.user_id = userProfile?.user_id!; // TODO: fix this
+    if (!userProfile) return;
+    data.user_id = userProfile.user_id;
     const isValid = updateEmailSchema.safeParse(data);
     if (!isValid.success) {
       setErrorText('Something went wrong. Please try again later');
@@ -59,7 +60,8 @@ function ResumeEmailInfos({ email }: { email?: string | null }) {
             <div className="flex flex-col gap-y-1 flex-grow">
               <label
                 htmlFor="email"
-                className="block h-4 ml-2 text-xs text-start font-medium text-grey-sub-text"
+                className="block h-4 ml-2 text-xs text-start font-medium 
+              text-grey-sub-text"
               >
                 Email
               </label>

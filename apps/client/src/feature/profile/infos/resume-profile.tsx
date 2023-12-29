@@ -53,7 +53,8 @@ function ResumeProfile({ infos }: { infos: Infos }) {
                 <div className="flex flex-col gap-y-1 flex-grow">
                   <label
                     htmlFor="email"
-                    className="block h-4 ml-2 text-xs text-start font-medium text-grey-sub-text"
+                    className="block h-4 ml-2 text-xs text-start font-medium
+                     text-grey-sub-text"
                   >
                     Password
                   </label>
@@ -62,8 +63,8 @@ function ResumeProfile({ infos }: { infos: Infos }) {
                     defaultValue={'nicetrynoturs'}
                     readOnly
                     disabled
-                    className="bg-transparent border-secondary-400 peer block w-full   
-                    px-2.5 pb-1.5 pt-3 text-sm"
+                    className="bg-transparent border-secondary-400 peer 
+                    block w-full px-2.5 pb-1.5 pt-3 text-sm"
                   />
                 </div>
               </div>
@@ -74,7 +75,8 @@ function ResumeProfile({ infos }: { infos: Infos }) {
               </EditModalPassword>
             </div>
           </div>
-          {/* <span className="flex justify-start xl:w-1/2 relative pl-24 md:pl-0">
+          {/* <span className="flex justify-start xl:w-1/2 relative pl-24 
+            md:pl-0">
             <EditModalPassword />
           </span> */}
         </div>

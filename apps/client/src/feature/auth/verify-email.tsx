@@ -45,7 +45,8 @@ function VerifyEmail() {
           >
             <img
               src={paperPlane}
-              className="object-contain aspect-square h-11 absolute -top-2.5 -right-2"
+              className="object-contain aspect-square h-11 
+              absolute -top-2.5 -right-2"
             />
             <h1>An Email has been sent</h1>
             <img src={envelope} className="h-14" />

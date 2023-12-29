@@ -1,3 +1,4 @@
+/* eslint-disable indent*/
 import { useLocation } from 'react-router-dom';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../lib/ui/tabs';
 import { useEffect, useState } from 'react';

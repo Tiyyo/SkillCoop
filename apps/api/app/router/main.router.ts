@@ -7,6 +7,7 @@ import tokenHandler from '../helpers/token.handler';
 import factory from '../middleware/wrapper-controller';
 import userController from '../controller/user.controller';
 import logger from '../helpers/logger';
+//eslint-disable-next-line
 import { sseConnectionManager } from '../service/notification/sse-connection.manager';
 
 const { getMe } = userController;

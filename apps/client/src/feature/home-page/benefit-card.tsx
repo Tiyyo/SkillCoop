@@ -11,7 +11,10 @@ function BenefitCard({ children, title, description }: BenefitCardProps) {
       max-w-xs max-h-72 h-72"
     >
       <div className="basis-2/5 mx-auto">{children}</div>
-      <h3 className="basis-1/5 font-semibold tracking-tight text-3xl text-center py-2.5">
+      <h3
+        className="basis-1/5 font-semibold tracking-tight 
+        text-3xl text-center py-2.5"
+      >
         {title}
       </h3>
       <p

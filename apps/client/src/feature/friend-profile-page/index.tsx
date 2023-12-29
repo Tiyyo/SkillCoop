@@ -96,7 +96,8 @@ function FriendProfile() {
               <RadarChart
                 skills={evaluateProfile}
                 min={0}
-                // set the scale to a max of the highest score of an user to have a consistent scale
+                // set the scale to a max of the highest score of an user
+                // to have a consistent scale
                 max={maxValue ? maxValue + 10 : 100}
                 displayTicks={false}
               />

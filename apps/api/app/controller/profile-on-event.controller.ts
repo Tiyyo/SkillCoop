@@ -5,7 +5,9 @@ import { Request, Response } from 'express';
 import { invitationStatus } from 'skillcoop-types';
 import { generateBalancedTeam } from '../service/generate-teams';
 import deleteDecodedKey from '../utils/delete-decoded';
+//eslint-disable-next-line
 import { notifyUserHasBeenInvitedToEvent } from '../service/notification/subtype/user-invited-event';
+//eslint-disable-next-line
 import { notifyTeamHasBeenGenerated } from '../service/notification/subtype/team-generated';
 
 export default {

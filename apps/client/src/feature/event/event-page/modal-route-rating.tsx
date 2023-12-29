@@ -11,6 +11,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { useApp } from '../../../store/app.store';
 import capitalize from '../../../utils/capitalize';
+/* eslint-disable-next-line */
 import associateNumberToString from '../../../utils/associate-number-stringscale';
 import { useNavigate, useParams } from 'react-router-dom';
 import { participantSkillSchema } from 'schema/ts-schema';
@@ -118,9 +119,9 @@ function ModalRouteRatingEvent() {
           bg-background/80 backdrop-blur-sm "
     >
       <div
-        className="bg-base-light  fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg 
-          translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 
-          shadow-lg duration-200 
+        className="bg-base-light  fixed left-[50%] top-[50%] z-50 
+          grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] 
+          gap-4 border bg-background p-6 shadow-lg duration-200 
           animate-in sm:rounded-lg md:w-full animate-in animate-fade-in"
       >
         <div className="flex justify-end">

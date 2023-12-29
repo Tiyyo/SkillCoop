@@ -19,11 +19,14 @@ function DeleteUser() {
     <div className="fixed bottom-0 w-full mb-4">
       <MenuItemDialog
         mutateFn={deleteUserAccount}
-        description="This action cannot be undone. This will permanently delete your
-            account."
+        description="This action cannot be undone. 
+        This will permanently delete your account."
         mutationData={userProfile?.user_id}
       >
-        <div className="flex gap-2 text-error justify-center items-center w-full">
+        <div
+          className="flex gap-2 text-error justify-center 
+          items-center w-full"
+        >
           <Trash2 />
           <span className="">Delete your acccount</span>
         </div>

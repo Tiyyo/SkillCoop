@@ -1,7 +1,5 @@
 import { api } from './api.fn';
-import type {
-  UpdateEmail,
-} from 'skillcoop-types';
+import type { UpdateEmail } from 'skillcoop-types';
 
 export const updatePasswordFn = async (data: {
   old_password: string;
@@ -12,7 +10,9 @@ export const updatePasswordFn = async (data: {
   return response.data;
 };
 
-export const verifyResetPasswordTokenFn = async (): Promise<{ message: 'success' | 'expire' }> => {
+export const verifyResetPasswordTokenFn = async (): Promise<{
+  message: 'success' | 'expire';
+}> => {
   const response = await api.get(`auth/reset-password`);
   return response.data;
 };

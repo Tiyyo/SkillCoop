@@ -28,7 +28,7 @@ type CreateEventStore = {
   addInvitedParticipantsIds: (args: number) => void;
   removeInvitedParticipantsIds: (args: number) => void;
   clearEventState: () => void;
-}
+};
 
 export const useCreateEventStore = create<CreateEventStore>()((set) => ({
   event: {
@@ -146,8 +146,18 @@ export const useCreateEvent = () => {
         day: 'numeric',
       }).format(date);
       toast.eventSuccess('Event set', `At ${startTime} on ${startDate}`);
-      queryClient.invalidateQueries(['events', 'past-event', 'upcoming-event', 'organize-event']);
-      queryClient.removeQueries(['events', 'past-event', 'upcoming-event', 'organize-event'])
+      queryClient.invalidateQueries([
+        'events',
+        'past-event',
+        'upcoming-event',
+        'organize-event',
+      ]);
+      queryClient.removeQueries([
+        'events',
+        'past-event',
+        'upcoming-event',
+        'organize-event',
+      ]);
       clearEventState();
     },
   });

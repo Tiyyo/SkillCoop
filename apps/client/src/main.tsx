@@ -28,16 +28,22 @@ import EventPage from './feature/event/event-page/index.tsx';
 import ProfileInfos from './feature/profile/infos/index.tsx';
 import UserResumeSkills from './feature/profile/skills/index.tsx';
 import FriendProfile from './feature/friend-profile-page/index.tsx';
+/*eslint-disable-next-line */
 import ModalRouteRatingEvent from './feature/event/event-page/modal-route-rating.tsx';
+/*eslint-disable-next-line */
 import ControlAccesEventPage from './component/redirection/control-access-event.tsx';
 import Page404 from './component/404-page/index.tsx';
+/*eslint-disable-next-line */
 import ControlAccessOwnership from './component/redirection/control-access-ownership.tsx';
 import { Toaster } from 'sonner';
 import EndOfGameAwards from './feature/event/awards.tsx';
 import ForgotPassword from './feature/auth/forgot-password.tsx';
+/*eslint-disable-next-line */
 import ResetPasswordMiddleware from './component/redirection/control-reset-password.tsx';
 import NotificationContainer from './feature/notification/index.tsx';
+/*eslint-disable-next-line */
 import InvitationFromEventPage from './feature/event/event-page/invitation/index.tsx';
+/*eslint-disable-next-line */
 import InvitationFromCreateEventPage from './feature/event/create-event/invitation.tsx';
 
 export const queryClient = new QueryClient({

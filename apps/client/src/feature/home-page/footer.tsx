@@ -14,12 +14,16 @@ function Footer() {
       </ul>
       <div className="w-full py-3 flex ">
         <div className="flex flex-col w-full">
-          <div className=" w-full basis-1/2 border-b border-b-grey-sub-text"></div>
+          <div
+            className=" w-full basis-1/2 border-b 
+          border-b-grey-sub-text"
+          ></div>
           <div></div>
         </div>
         <ul
-          className="bg-base-light basis-3/12 rounded-full min-w-fit max-w-[174px]
-               flex items-center justify-center gap-x-5 px-5 py-2"
+          className="bg-base-light basis-3/12 
+          rounded-full min-w-fit max-w-[174px]
+          flex items-center justify-center gap-x-5 px-5 py-2"
         >
           <li>
             <Xtwitter />

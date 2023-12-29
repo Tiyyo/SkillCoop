@@ -3,8 +3,7 @@ import { useApp } from '../../../store/app.store';
 import EventList from '../resume-events/list';
 import type { EventType } from 'skillcoop-types';
 import useInfinite from '../../../hooks/useInfinite';
-import { Link } from 'react-router-dom';
-import { useCallback, useEffect, useId, useMemo, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 import ErrorFallback from '../../../component/error-fallback';
 
 function MyEvents() {

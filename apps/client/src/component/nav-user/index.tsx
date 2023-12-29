@@ -15,8 +15,9 @@ import { useEffect } from 'react';
 
 function NavUser({ children }: { children: JSX.Element }) {
   const navigate = useNavigate();
-  const menuItemStyle = `'flex gap-2 items-center hover:bg-primary-200 transition-colors 
-          duration-300 rounded-lg px-2 text-md'`;
+  const menuItemStyle = `'flex gap-2 items-center 
+        hover:bg-primary-200 transition-colors duration-300 
+        rounded-lg px-2 text-md'`;
 
   const {
     mutate: logout,
@@ -32,7 +33,8 @@ function NavUser({ children }: { children: JSX.Element }) {
 
   useEffect(() => {
     if (isSuccess) {
-      // cache need to be clear on logout to avoid an user to still be able to access the app
+      // cache need to be clear on logout to avoid an
+      // user to still be able to access the app
       // because of remaining data in cache
       queryClient.clear();
       queryClient.invalidateQueries({ queryKey: ['auth-user'] });

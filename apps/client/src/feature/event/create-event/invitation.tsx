@@ -1,4 +1,5 @@
 import { useApp } from '../../../store/app.store';
+/*eslint-disable-next-line*/
 import { useSearchResultOrDefault } from '../../../hooks/useSearchResultOrDefault';
 import Container from '../../../layout/container';
 import TitleH2 from '../../../component/title-h2';

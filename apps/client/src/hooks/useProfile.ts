@@ -175,6 +175,6 @@ export function useAutoEvaluateSkill(options: {
       }
       if (options?.onSuccess) options.onSuccess();
     },
-    onError: () => { },
+    onError: () => {},
   });
 }

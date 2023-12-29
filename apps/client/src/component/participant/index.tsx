@@ -66,27 +66,41 @@ function Participant({
         >
           {eventStatus === 'completed' && userProfileId !== profileId ? (
             <Link to={`evaluate/${profileId}`}>
-              <div className="relative bg-primary-400 h-18.5 w-18.5 rounded-full z-10">
-                <div className="rounded-full bottom-1 right-1 h-4 w-4 bg-white absolute z-10">
+              <div
+                className="relative bg-primary-400 h-18.5 w-18.5 
+                rounded-full z-10"
+              >
+                <div
+                  className="rounded-full bottom-1 right-1 h-4 w-4 
+                bg-white absolute z-10"
+                >
                   <ParticipantStatusMark status={status} />
                 </div>
                 <Avatar
                   avatar={avatar}
                   isRatingActive
-                  className="h-18 w-18 lg:h-18 lg:w-18 border-2 border-base-light 
-                absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full"
+                  className="h-18 w-18 lg:h-18 lg:w-18 border-2 
+                border-base-light absolute top-1/2 left-1/2 -translate-x-1/2 
+                  -translate-y-1/2 rounded-full"
                 />
               </div>
             </Link>
           ) : (
-            <div className="relative bg-primary-400 h-18.5 w-18.5 rounded-full z-10">
-              <div className="rounded-full bottom-1 right-1 h-4 w-4 bg-white absolute z-10">
+            <div
+              className="relative bg-primary-400 h-18.5 w-18.5 
+              rounded-full z-10"
+            >
+              <div
+                className="rounded-full bottom-1 right-1 h-4 w-4 
+              bg-white absolute z-10"
+              >
                 <ParticipantStatusMark status={status} />
               </div>
               <Avatar
                 avatar={avatar}
                 className="h-18 w-18 lg:h-18 lg:w-18 border-2 border-base-light 
-                absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full"
+                absolute top-1/2 left-1/2 -translate-x-1/2 
+                -translate-y-1/2 rounded-full"
               />
             </div>
           )}
@@ -97,7 +111,8 @@ function Participant({
               {capitalize(username)}
             </p>
             <p
-              className="mx-0.5 flex justify-center items-center text-xs text-center font-light
+              className="mx-0.5 flex justify-center items-center 
+              text-xs text-center font-light
                text-grey-sub-text"
             >
               <span>{isAdmin ? 'Organizer' : 'Member'}</span>

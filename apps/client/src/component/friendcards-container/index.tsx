@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import SkeletonsLoader from '../../feature/event/event-page/invitation/skeletons-loader';
 import {
   CreateEventStateStore,

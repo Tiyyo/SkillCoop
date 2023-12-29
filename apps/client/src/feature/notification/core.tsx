@@ -94,7 +94,10 @@ function CoreNotification({
       <div className="flex-shrink-0 w-10">
         <ImageNotification image={image} username={username} />
       </div>
-      <div className="flex gap-y-1.5 justify-startflex-shrink flex-wrap w-full pt-2">
+      <div
+        className="flex gap-y-1.5 justify-startflex-shrink 
+        flex-wrap w-full pt-2"
+      >
         <p className="text-xs lg:text-sm font-normal text-grey-sub-text">
           {message}{' '}
           <span className="text-xxs lg:text-xs mx-2 text-slate-400">

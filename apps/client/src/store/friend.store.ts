@@ -22,7 +22,7 @@ type FriendStoreProps = {
   removePendingFriend: (args: string) => void;
   removeSearchProfile: (args: string) => void;
   updateFriendStatus: (args: Friend) => void;
-}
+};
 
 export const useFriendStore = create<FriendStoreProps>()((set) => ({
   confirmedFriends: [],

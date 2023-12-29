@@ -21,7 +21,10 @@ function HeroSection() {
         >
           Save your Effort for the field
         </h2>
-        <p className="mx-auto max-w-3xl text-center font-medium  mt-6 text-grey-sub-text">
+        <p
+          className="mx-auto max-w-3xl text-center font-medium  mt-6 
+        text-grey-sub-text"
+        >
           Effortless event managment from kickoff to victory, our app ensures
           your focus stays one the game by providing you all the tools you need.
         </p>

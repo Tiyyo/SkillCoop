@@ -1,3 +1,4 @@
+/* eslint-disable */
 function Insta() {
   return (
     <svg

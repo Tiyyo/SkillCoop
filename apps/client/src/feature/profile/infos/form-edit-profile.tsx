@@ -43,7 +43,8 @@ function Field({
       <div className="flex flex-col gap-y-1 flex-grow">
         <label
           htmlFor={name}
-          className=" text-start block h-4 ml-2 text-xs font-medium text-grey-sub-text"
+          className=" text-start block h-4 ml-2 text-xs font-medium 
+          text-grey-sub-text"
         >
           {label}
         </label>
@@ -113,7 +114,10 @@ function FormEditProfileInfos({
       onSubmit={handleSubmit(onSubmit)}
     >
       <input hidden value={infos.profileId} {...register('profile_id')} />
-      <div className="flex flex-col sm:grid sm:grid-cols-2 xl:flex xl:flex-row pl-4">
+      <div
+        className="flex flex-col sm:grid sm:grid-cols-2 xl:flex 
+        xl:flex-row pl-4"
+      >
         <Field
           label="Username"
           type="text"

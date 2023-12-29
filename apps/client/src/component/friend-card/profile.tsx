@@ -70,7 +70,8 @@ function ProfileCard({
               type="button"
               onClick={handleActionInviation}
               className="text-center text-xs mx-1 px-2 py-1 shadow-md 
-                    rounded-md bg-primary-400 cursor-pointer hover:bg-primary-700 
+                    rounded-md bg-primary-400 cursor-pointer 
+                  hover:bg-primary-700 
                     transition-all duration-300 ease-in-out"
             >
               Invite

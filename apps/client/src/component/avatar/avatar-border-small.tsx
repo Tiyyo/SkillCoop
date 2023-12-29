@@ -20,8 +20,9 @@ function AvatarSmallWithBorder({
         src={avatar ?? defaultAvatar}
         alt="avatar"
         className={cn(
-          `w-[54px] aspect-square rounded-full border-base-light border-4 absolute
-               top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`,
+          `w-[54px] aspect-square rounded-full border-base-light 
+            border-4 absolute top-1/2 left-1/2 -translate-x-1/2 
+            -translate-y-1/2`,
           isRatingActive && 'cursor-pointer',
           className,
         )}

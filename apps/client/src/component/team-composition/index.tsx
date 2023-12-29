@@ -53,7 +53,8 @@ function TeamComposition({
 
   return (
     <form
-      className="bg-base-light mx-2 my-4 rounded-md shadow py-4 px-3 flex flex-col"
+      className="bg-base-light mx-2 my-4 rounded-md 
+      shadow py-4 px-3 flex flex-col"
       onSubmit={handleSubmit}
       onChange={handleChangeForm}
     >

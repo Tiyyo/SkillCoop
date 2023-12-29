@@ -2,6 +2,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Button from '../../../../component/button';
 import SearchInput from '../../../../component/search-input';
 import TitleH2 from '../../../../component/title-h2';
+/*eslint-disable-next-line*/
 import { useSearchResultOrDefault } from '../../../../hooks/useSearchResultOrDefault';
 import Container from '../../../../layout/container';
 import { useEvent } from '../../../../store/event.store';

@@ -30,8 +30,9 @@ function ConfirmedFriends() {
           <TitleH2 />
           <Link
             to="pending-request"
-            className="flex items-center gap-x-1 text-end px-3 text-xs py-2 text-primary-100
-           transition-all duration-300 font-medium
+            className="flex items-center gap-x-1 text-end 
+            px-3 text-xs py-2 text-primary-100
+            transition-all duration-300 font-medium
           hover:text-dark cursor-pointer"
           >
             View pending request

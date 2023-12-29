@@ -10,7 +10,10 @@ function Benefits() {
         <img src="/images/before-title.svg" alt="prefix icon title" />
         <span>WHAT WE ARE OFFERING</span>
       </p>
-      <h2 className="text-primary-1100 font-bold text-center text-3xl py-3 tracking-tighter">
+      <h2
+        className="text-primary-1100 font-bold 
+        text-center text-3xl py-3 tracking-tighter"
+      >
         Our Features
       </h2>
       <p className="text-center px-6 text-primary-1100">
@@ -24,7 +27,8 @@ function Benefits() {
       >
         <BenefitCard
           title="Simplify"
-          description="Gather all the tools you need to create and manage events in one place."
+          description="Gather all the tools you need 
+          to create and manage events in one place."
         >
           <img
             src="/images/calendar-green.png"
@@ -46,8 +50,9 @@ function Benefits() {
         </BenefitCard>
         <BenefitCard
           title="Connect"
-          description="Seamlessly communicate with participants through integrated chat
-              features, enhancing your event management experience."
+          description="Seamlessly communicate with 
+          participants through integrated chat
+          features, enhancing your event management experience."
         >
           <img
             src="/images/chat-bubbles-green.png"

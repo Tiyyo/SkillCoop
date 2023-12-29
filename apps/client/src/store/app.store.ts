@@ -3,14 +3,13 @@ import type { Profile } from 'skillcoop-types';
 import { useEffect } from 'react';
 import { useGetMe } from '../hooks/useProfile';
 
-
 type AppStoreProps = {
   userProfile: Profile | null;
   isAuth: boolean;
   setIsAuth: (isAuth: boolean) => void;
   setProfile: (userProfile: any) => void;
   signout: () => void;
-}
+};
 
 const useAppStore = create<AppStoreProps>()((set) => ({
   userProfile: null,
@@ -28,7 +27,6 @@ export const useApp = () => {
   const signout = useAppStore((state) => state.signout);
 
   const { data, isLoading, isFetching, isSuccess } = useGetMe({ userProfile });
-
 
   useEffect(() => {
     if (data === 'Unecessary call') return;

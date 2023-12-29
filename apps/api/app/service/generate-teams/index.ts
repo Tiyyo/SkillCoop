@@ -105,9 +105,9 @@ export function getPlayerObject(
 export function getTeamValue(arrayTeam: Player[]): number {
   return arrayTeam.length > 0
     ? arrayTeam
-        .map((p) => {
-          return p.gb_rating;
-        })
-        .reduce((a, b) => a + b)
+      .map((p) => {
+        return p.gb_rating;
+      })
+      .reduce((a, b) => a + b)
     : 0;
 }

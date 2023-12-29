@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import type { EventType } from 'skillcoop-types';
 import { invitationStatus } from 'skillcoop-types';
 import { updateOrganizerSchema } from 'schema/ts-schema';
@@ -8,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTransfertOwnership } from '../../../hooks/useSingleEvent';
 import { useEvent } from '../../../store/event.store';
 import capitalize from '../../../utils/capitalize';
+/*eslint-disable-next-line*/
 import associateNumberToString from '../../../utils/associate-number-stringscale';
 import { cn } from '../../../lib/utils';
 import Container from '../../../layout/container';
@@ -60,11 +62,12 @@ function TransfertOwnership({
     <Container className="lg:mt-4 flex-grow flex flex-col">
       <TitleH2
         title="Transfert Rights"
-        legend="To which participants do you want to transfer your organizer rights
-          for this event ?"
+        legend="To which participants do you want to transfer 
+        your organizer rights for this event ?"
       />
       <form
-        className="flex-grow flex flex-col justify-between items-center w-full h-full"
+        className="flex-grow flex flex-col justify-between 
+        items-center w-full h-full"
         onSubmit={handleSubmitTransfert}
       >
         <div className="w-full h-full">
@@ -76,18 +79,23 @@ function TransfertOwnership({
               )}
             >
               {participants.length === 0 && (
-                <div className="text-center w-full italic text-xs py-4 text-light">
+                <div
+                  className="text-center w-full italic text-xs py-4
+                   text-light"
+                >
                   No participants found
                 </div>
               )}
               {participants.map((participant) => (
                 <div
-                  className={`flex py-2 px-3 gap-3 max-h-16 
-                  cursor-pointer  rounded-md border-2 border-transparent ${
+                  className={cn(
+                    `flex py-2 px-3 gap-3 max-h-16 
+                  cursor-pointer  rounded-md border-2 border-transparent`,
                     selectedProfile === participant.profile_id
-                      ? ' border-opacity-50 border-primary-400 bg-primary-500 shadow-2xl'
-                      : 'bg-base-light'
-                  }}`}
+                      ? `border-opacity-50 border-primary-400 bg-primary-500 
+                         shadow-2xl`
+                      : 'bg-base-light',
+                  )}
                   onClick={() => setSelectedProfile(participant.profile_id)}
                 >
                   <Avatar avatar={participant.avatar} />

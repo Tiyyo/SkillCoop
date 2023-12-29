@@ -29,7 +29,7 @@ const keys = {
     `${keys.getEvent}/${eventId}}`,
     'past-event',
     'upcoming-event',
-    'organize-event'
+    'organize-event',
   ],
 };
 
@@ -80,7 +80,10 @@ export function useGenerateTeams(options: {
   });
 }
 
-export function useDeleteSingleEvent(options: { eventId?: number, onSuccess?: () => void }) {
+export function useDeleteSingleEvent(options: {
+  eventId?: number;
+  onSuccess?: () => void;
+}) {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: DeleteEventData) => {

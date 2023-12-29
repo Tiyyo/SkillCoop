@@ -43,8 +43,10 @@ function InputTime({
   // Input display an error if we try to submit the form
   // 2. User click on input so count is 1
   // so selectedTimes.hours or selectedTimes.minutes is defnined
-  // to update the state we need to have both selectedTimes.hours and selectedTimes.minutes
-  // defined so when count is 2 we check if one of them is undefined and if it is we set it to 00
+  // to update the state we need to have both
+  // selectedTimes.hours and selectedTimes.minutes
+  // defined so when count is 2 we check if one of
+  // them is undefined and if it is we set it to 00
   const [selectedTime, setSelectedTime] = useState<{
     hours: number | string | undefined;
     minutes: number | string | undefined;
@@ -63,7 +65,9 @@ function InputTime({
   useEffect(() => {
     setHasError(false);
     if (selectedTime.hours && selectedTime.minutes) {
+      /* eslint-disable max-len */
       const formatedTime = `${selectedTime.hours}:${selectedTime.minutes}:0.000`;
+      /* eslint-enable max-len */
       if (updateState) {
         updateState(formatedTime);
       }
@@ -156,7 +160,8 @@ function InputTime({
             <select
               id="minutes"
               className={cn(
-                `absolute top-0 right-0 w-1/2 max-h-28 h-7 pl-10 bg-transparent`,
+                `absolute top-0 right-0 w-1/2 max-h-28 h-7 
+                 pl-10 bg-transparent`,
                 high ? 'h-10' : 'h-7',
               )}
               onChange={(e) =>

@@ -3,11 +3,11 @@ import { CreateEventStateStore } from '../store/create-event.store';
 
 type UseSelectionOfFriendsProps = {
   activeSelected?: boolean;
-  removeFriendFromState?: (friendId: number) => void
+  removeFriendFromState?: (friendId: number) => void;
   addFriendToState?: (friendId: number) => void;
-  dataFromState?: CreateEventStateStore | null
+  dataFromState?: CreateEventStateStore | null;
   friendId: number;
-}
+};
 
 export function useSelectionOfFriends({
   activeSelected,

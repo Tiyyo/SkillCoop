@@ -17,10 +17,6 @@ jobs:
 
       - name: Setup node
         uses: actions/setup-node@v3
-        with:
-          cache: pnpm
-          # cache-dependency-path: ./pnpm-lock.yaml
-          node-version: 18
 
       - name: Install pnpm
         run: npm install -g pnpm
@@ -40,10 +36,6 @@ jobs:
 
       - name: Setup node
         uses: actions/setup-node@v3
-        with:
-          cache: pnpm
-          # cache-dependency-path: ./pnpm-lock.yaml
-          node-version: 18
 
       - name: Install pnpm
         run: npm install -g pnpm
@@ -63,10 +55,6 @@ jobs:
 
       - name: Setup node
         uses: actions/setup-node@v3
-        with:
-          cache: pnpm
-          # cache-dependency-path: ./pnpm-lock.yaml
-          node-version: 18
 
       - name: Install pnpm
         run: npm install -g pnpm
@@ -86,10 +74,6 @@ jobs:
 
       - name: Setup node
         uses: actions/setup-node@v3
-        with:
-          cache: pnpm
-          # cache-dependency-path: ./pnpm-lock.yaml
-          node-version: 18
 
       - name: Install pnpm
         run: npm install -g pnpm

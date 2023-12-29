@@ -9,7 +9,7 @@ on:
 
 jobs:
   lint-api:
-    name: ESLint
+    name: Lint API
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
@@ -18,9 +18,12 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          cache: npm
-          cache-dependency-path: ./package.json
+          cache: pnpm
+          cache-dependency-path: ./pnpm-lock.yaml
           node-version: 18
+
+      - name: Install pnpm
+        run: npm install -g pnpm
 
       - name: Install deps
         run: pnpm install
@@ -29,7 +32,7 @@ jobs:
         run: pnpm api lint
 
   lint-client:
-    name: ESLint
+    name: Lint Client
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
@@ -38,9 +41,12 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          cache: npm
-          cache-dependency-path: ./package.json
+          cache: pnpm
+          cache-dependency-path: ./pnpm-lock.yaml
           node-version: 18
+
+      - name: Install pnpm
+        run: npm install -g pnpm
 
       - name: Install deps
         run: pnpm install
@@ -49,7 +55,7 @@ jobs:
         run: pnpm client lint
 
   typecheck:
-    name: Typescript
+    name: Typecheck API
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
@@ -58,9 +64,12 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          cache: npm
-          cache-dependency-path: ./package.json
+          cache: pnpm
+          cache-dependency-path: ./pnpm-lock.yaml
           node-version: 18
+
+      - name: Install pnpm
+        run: npm install -g pnpm
 
       - name: Install deps
         run: pnpm install
@@ -69,7 +78,7 @@ jobs:
         run: pnpm api typecheck
 
   vitest:
-    name: vitest
+    name: Unit test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
@@ -78,9 +87,12 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          cache: npm
-          cache-dependency-path: ./package.json
+          cache: pnpm
+          cache-dependency-path: ./pnpm-lock.yaml
           node-version: 18
+
+      - name: Install pnpm
+        run: npm install -g pnpm
 
       - name: Install deps
         run: pnpm install

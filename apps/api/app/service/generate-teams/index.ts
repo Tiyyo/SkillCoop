@@ -3,7 +3,10 @@ import { Player, TeamGeneratorConfig } from 'skillcoop-types';
 import { profileOnEvent as ProfileOnEvent } from '../../models/index';
 import condition, { Conditions } from './condition';
 
-export function assignTeam(position: number, requiredParticipant: number): number {
+export function assignTeam(
+  position: number,
+  requiredParticipant: number,
+): number {
   const TEAM_1 = 1;
   const TEAM_2 = 2;
   const HALF = requiredParticipant / 2;
@@ -69,7 +72,11 @@ export function useRigthCondition(
   return conditions.regular(valueTeam1, valueTeam2);
 }
 
-export function deleteFromArrayAfterPush(ids: number[], values: number[], index: number) {
+export function deleteFromArrayAfterPush(
+  ids: number[],
+  values: number[],
+  index: number,
+) {
   ids.splice(index, 1);
   values.splice(index, 1);
 }
@@ -83,7 +90,11 @@ export function getRandomArbitrary(min: number, max: number): number {
   return Math.random() * (max - min) + min;
 }
 
-export function getPlayerObject(maxIndex: number, ids: number[], values: number[]): Player {
+export function getPlayerObject(
+  maxIndex: number,
+  ids: number[],
+  values: number[],
+): Player {
   const player: Player = {
     profile_id: ids[maxIndex],
     gb_rating: values[maxIndex],
@@ -94,9 +105,9 @@ export function getPlayerObject(maxIndex: number, ids: number[], values: number[
 export function getTeamValue(arrayTeam: Player[]): number {
   return arrayTeam.length > 0
     ? arrayTeam
-      .map((p) => {
-        return p.gb_rating;
-      })
-      .reduce((a, b) => a + b)
+        .map((p) => {
+          return p.gb_rating;
+        })
+        .reduce((a, b) => a + b)
     : 0;
 }

@@ -4,7 +4,7 @@ import UserInputError from '../helpers/errors/user-input.error';
 import { Core } from './core';
 
 export class ProfileOnEvent extends Core {
-  declare tableName: string
+  declare tableName: string;
 
   constructor(client: any) {
     super(client);
@@ -17,7 +17,7 @@ export class ProfileOnEvent extends Core {
     status_name: 'confirmed' | 'declined';
     updated_at: undefined | string;
   }) {
-    const todayUTCString = getFormattedUTCTimestamp()
+    const todayUTCString = getFormattedUTCTimestamp();
     data.updated_at = todayUTCString;
 
     //TODO check if a pending invitation exist
@@ -51,7 +51,7 @@ export class ProfileOnEvent extends Core {
     eventId: number,
     data: Record<string, string | number>,
   ) {
-    const todayUTCString = getFormattedUTCTimestamp()
+    const todayUTCString = getFormattedUTCTimestamp();
     data.updated_at = todayUTCString;
 
     const result = await this.client

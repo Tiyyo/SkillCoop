@@ -1,13 +1,14 @@
+import { notificationSubtype, notificationType } from 'skillcoop-types';
 import {
-  notificationSubtype,
-  notificationType,
-} from 'skillcoop-types';
-import { profileOnEvent as Participant, event as EventModel } from '../../../models/index';
+  profileOnEvent as Participant,
+  event as EventModel,
+} from '../../../models/index';
 import { NotificationObserver } from './core';
 import { hasActiveNotification } from '../../../utils/has-active-notification';
 import { BuildNotificationMessage } from '../message.builder';
 import type {
-  EventParticipant, BuildTeamsHasBeenGeneratedMessage,
+  EventParticipant,
+  BuildTeamsHasBeenGeneratedMessage,
   NotificationSubtype,
   NotificationType,
 } from 'skillcoop-types';
@@ -25,7 +26,9 @@ class TeamHasBeenGenerated extends NotificationObserver {
     this.eventId = eventId;
     // Kinda obscur , consider to refactor and clean
     const builder = new BuildNotificationMessage(this.subtype);
-    this.builder = builder.getBuilder(this.subtype) as BuildTeamsHasBeenGeneratedMessage;
+    this.builder = builder.getBuilder(
+      this.subtype,
+    ) as BuildTeamsHasBeenGeneratedMessage;
   }
   async getSubscribers() {
     const confirmedParticipants = await Participant.findBy({
@@ -66,6 +69,9 @@ class TeamHasBeenGenerated extends NotificationObserver {
 }
 
 export const notifyTeamHasBeenGenerated = async (eventId: number) => {
-  const teamHasBeenGenerated = new TeamHasBeenGenerated(notificationType.event, eventId);
+  const teamHasBeenGenerated = new TeamHasBeenGenerated(
+    notificationType.event,
+    eventId,
+  );
   await teamHasBeenGenerated.notify();
 };

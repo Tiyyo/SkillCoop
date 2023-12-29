@@ -1,4 +1,3 @@
-
 export default class APITypeError extends Error {
   message: string;
   status: number;
@@ -7,7 +6,9 @@ export default class APITypeError extends Error {
 
   constructor(message: string, fn?: string, line?: string) {
     super(message);
-    this.message = `Type Error in ${fn ?? 'NC'} at line ${line ?? 'NC'} :${message}`;
+    this.message = `Type Error in ${fn ?? 'NC'} at line ${
+      line ?? 'NC'
+    } :${message}`;
     this.name = 'TypeError';
     this.cause = message;
     this.status = 400;

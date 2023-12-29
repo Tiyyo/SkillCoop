@@ -12,7 +12,10 @@ const skip = () => {
 
 const accesHttp = morgan(
   ':method :url :status :res[content-length] - :response-time ms',
-  { stream, skip },
+  {
+    stream,
+    skip,
+  },
 );
 
 export default accesHttp;

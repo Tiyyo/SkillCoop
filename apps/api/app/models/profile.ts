@@ -10,8 +10,9 @@ import { ProfileType } from '../@types/types';
 
 export class Profile extends Core {
   tableName: string = 'profile';
+  declare client: unkown;
 
-  constructor(client: any) {
+  constructor(client: unkown) {
     //eslint-disable-line
     // eslint-disable-line
     super(client);
@@ -63,7 +64,9 @@ export class Profile extends Core {
 
     const [nbAttendedEvents] = await this.client
       .selectFrom('profile_on_event')
-      .select(({ fn }) => [fn.count('profile_on_event.event_id').as('nb_attended_events')])
+      .select(({ fn }) => [
+        fn.count('profile_on_event.event_id').as('nb_attended_events'),
+      ])
       .innerJoin('event', 'event.id', 'profile_on_event.event_id')
       .where('profile_on_event.profile_id', '=', id)
       .where('event.status_name', '=', 'completed')
@@ -72,16 +75,24 @@ export class Profile extends Core {
     const [nbBonus] = await this.client
       .selectFrom('event')
       .select(({ fn }) => [fn.count('event.mvp_id').as('nb_mvp_bonus')])
-      .select(({ fn }) => [fn.count('event.best_striker_id').as('nb_best_striker_bonus')])
-      .where((eb) => eb('event.mvp_id', '=', id).or('event.best_striker_id', '=', id))
+      .select(({ fn }) => [
+        fn.count('event.best_striker_id').as('nb_best_striker_bonus'),
+      ])
+      .where((eb) =>
+        eb('event.mvp_id', '=', id).or('event.best_striker_id', '=', id),
+      )
       .execute();
 
     let spreadProfile;
 
     if (profile) {
-      spreadProfile = { ...profile, ...nbReview, ...nbAttendedEvents, ...nbBonus };
+      spreadProfile = {
+        ...profile,
+        ...nbReview,
+        ...nbAttendedEvents,
+        ...nbBonus,
+      };
     }
-    console.log(spreadProfile);
     return spreadProfile;
   }
   // TODO define a type for data
@@ -133,7 +144,10 @@ export class Profile extends Core {
         ])
         .leftJoin('skill_foot', 'profile_id', 'skill_foot.reviewee_id')
         .innerJoin('user', 'user.id', 'profile.user_id')
-        .select(({ fn }) => ['profile.id', fn.count('skill_foot.id').as('nb_review')])
+        .select(({ fn }) => [
+          'profile.id',
+          fn.count('skill_foot.id').as('nb_review'),
+        ])
         .where('profile.user_id', '=', id)
         .groupBy('profile.id')
         .execute();
@@ -141,7 +155,9 @@ export class Profile extends Core {
 
       const [nbAttendedEvents] = await this.client
         .selectFrom('profile_on_event')
-        .select(({ fn }) => [fn.count('profile_on_event.event_id').as('nb_attended_events')])
+        .select(({ fn }) => [
+          fn.count('profile_on_event.event_id').as('nb_attended_events'),
+        ])
         .innerJoin('event', 'event.id', 'profile_on_event.event_id')
         .where('profile_on_event.profile_id', '=', profile.profile_id)
         .where('event.status_name', '=', 'completed')
@@ -150,7 +166,9 @@ export class Profile extends Core {
       const [nbBonus] = await this.client
         .selectFrom('event')
         .select(({ fn }) => [fn.count('event.mvp_id').as('nb_mvp_bonus')])
-        .select(({ fn }) => [fn.count('event.best_striker_id').as('nb_best_striker_bonus')])
+        .select(({ fn }) => [
+          fn.count('event.best_striker_id').as('nb_best_striker_bonus'),
+        ])
         .where((eb) =>
           eb('event.mvp_id', '=', profile.profile_id).or(
             'event.best_striker_id',
@@ -172,7 +190,11 @@ export class Profile extends Core {
       throw new DatabaseError(error);
     }
   }
-  async findManyByUsername(username: string, userProfileId: number, page: number = 1) {
+  async findManyByUsername(
+    username: string,
+    userProfileId: number,
+    page: number = 1,
+  ) {
     const offset = (page - 1) * 10;
 
     try {

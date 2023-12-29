@@ -13,21 +13,30 @@ class UserHasBeenAddedToFriendlist extends NotificationObserver {
   declare subscriberId: number;
   declare subtype: NotificationSubtype;
   declare builder: BuilderAddedToFriendlistNotificationMessage;
-  constructor(type: NotificationType, instigatorId: number, subscriberId: number) {
+  constructor(
+    type: NotificationType,
+    instigatorId: number,
+    subscriberId: number,
+  ) {
     super(type);
     this.subtype = notificationSubtype.userHasBeenAddedToFriendlist;
     this.instigatorId = instigatorId;
     this.subscriberId = subscriberId;
     const builder = new BuildNotificationMessage(this.subtype);
     // TODO : find a way to infer correct type to builder and remove cast
-    this.builder = builder.getBuilder(this.subtype) as BuilderAddedToFriendlistNotificationMessage;
+    this.builder = builder.getBuilder(
+      this.subtype,
+    ) as BuilderAddedToFriendlistNotificationMessage;
   }
   async getSubscribers(): Promise<number[] | null> {
     const { active_notification } = await Profile.findByPk(this.subscriberId);
     if (active_notification === 0) return null;
     return active_notification === 0 ? null : [this.subscriberId];
   }
-  async getInstigatorInfos(): Promise<{ username: string; avatar_url: string | null }> {
+  async getInstigatorInfos(): Promise<{
+    username: string;
+    avatar_url: string | null;
+  }> {
     const { username, avatar_url } = await Profile.findByPk(this.instigatorId);
     return { username, avatar_url };
   }

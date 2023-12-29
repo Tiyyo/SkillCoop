@@ -5,10 +5,10 @@ import DatabaseError from '../helpers/errors/database.error';
 import { getFormattedUTCTimestamp } from 'date-handler';
 
 export class EventModel extends Core {
-  declare tableName: string
-  declare client: any
+  declare tableName: string;
+  declare client: unknown;
 
-  constructor(client: any) {
+  constructor(client: unknown) {
     super(client);
     this.tableName = 'event';
   }
@@ -57,7 +57,9 @@ WHERE event.id = ${eventId}
       const parsedResult = result.rows.map((event: EventType) => {
         return {
           ...event,
-          participants: typeof event.participants === 'string' && JSON.parse(event.participants),
+          participants:
+            typeof event.participants === 'string' &&
+            JSON.parse(event.participants),
         };
       });
       return parsedResult[0];
@@ -116,7 +118,9 @@ ORDER BY date DESC
       const parsedResult = result.rows.map((event: EventType) => {
         return {
           ...event,
-          participants: typeof event.participants === 'string' && JSON.parse(event.participants),
+          participants:
+            typeof event.participants === 'string' &&
+            JSON.parse(event.participants),
         };
       });
 
@@ -174,7 +178,9 @@ WHERE event.organizer_id = ${profileId}
       const parsedResult = result.rows.map((event) => {
         return {
           ...event,
-          participants: typeof event.participants === 'string' && JSON.parse(event.participants),
+          participants:
+            typeof event.participants === 'string' &&
+            JSON.parse(event.participants),
         };
       });
 
@@ -252,13 +258,15 @@ AND event.date < date('now')
     const parsedResult = result.rows.map((event) => {
       return {
         ...event,
-        participants: typeof event.participants === 'string' && JSON.parse(event.participants),
+        participants:
+          typeof event.participants === 'string' &&
+          JSON.parse(event.participants),
       };
     });
     return { events: parsedResult, eventCount: count.rows[0].total_event };
   }
   async updateMvp(eventId: number) {
-    const todayUTCString = getFormattedUTCTimestamp()
+    const todayUTCString = getFormattedUTCTimestamp();
     try {
       const result = await sql`
 UPDATE event 
@@ -290,7 +298,7 @@ WHERE id = ${eventId}
     }
   }
   async updateBestStriker(eventId: number) {
-    const todayUTCString = getFormattedUTCTimestamp()
+    const todayUTCString = getFormattedUTCTimestamp();
     try {
       const result = await sql`
 UPDATE event 
@@ -334,7 +342,9 @@ AND (participant.status_name = 'confirmed'
 OR (profile.active_notification = 1 AND participant.status_name = 'pending'))
 GROUP BY participant.event_id`.execute(this.client);
       const parsedJson: number[] =
-        result.rows.length > 0 ? JSON.parse(result.rows[0].profile_ids) : undefined;
+        result.rows.length > 0
+          ? JSON.parse(result.rows[0].profile_ids)
+          : undefined;
       return parsedJson;
     } catch (error) {
       if (error instanceof Error) {

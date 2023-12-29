@@ -1,18 +1,21 @@
 import { ObjectRecordGeneric } from '../@types/types';
 import DatabaseError from '../helpers/errors/database.error';
 import NotFoundError from '../helpers/errors/not-found.error';
-import { getFormattedUTCTimestamp } from 'date-handler'
+import { getFormattedUTCTimestamp } from 'date-handler';
 
 export class Core {
   declare tableName: string;
   declare client;
-
-  constructor(client: any) {
+  //@ts-ignore
+  constructor(client) {
     this.client = client;
   }
   async findAll() {
     try {
-      const result = await this.client.selectFrom(this.tableName).selectAll().execute();
+      const result = await this.client
+        .selectFrom(this.tableName)
+        .selectAll()
+        .execute();
       if (!result) throw new NotFoundError('Not found');
 
       return result;
@@ -56,10 +59,13 @@ export class Core {
     }
   }
   async create(data: ObjectRecordGeneric) {
-    const todayUTCString = getFormattedUTCTimestamp()
+    const todayUTCString = getFormattedUTCTimestamp();
     data.created_at = todayUTCString;
     try {
-      const result = await this.client.insertInto(this.tableName).values(data).execute();
+      const result = await this.client
+        .insertInto(this.tableName)
+        .values(data)
+        .execute();
 
       return Number(result[0].insertId);
     } catch (error) {
@@ -67,11 +73,14 @@ export class Core {
     }
   }
   async createMany(data: Array<ObjectRecordGeneric>) {
-    const todayUTCString = getFormattedUTCTimestamp()
+    const todayUTCString = getFormattedUTCTimestamp();
     data.forEach((el: ObjectRecordGeneric) => (el.created_at = todayUTCString));
 
     try {
-      const result = await this.client.insertInto(this.tableName).values(data).execute();
+      const result = await this.client
+        .insertInto(this.tableName)
+        .values(data)
+        .execute();
 
       return !!result[0].numInsertedOrUpdatedRows;
     } catch (error) {
@@ -79,7 +88,7 @@ export class Core {
     }
   }
   async update(id: number, data: ObjectRecordGeneric) {
-    const todayUTCString = getFormattedUTCTimestamp()
+    const todayUTCString = getFormattedUTCTimestamp();
     data.updated_at = todayUTCString;
 
     const result = await this.client

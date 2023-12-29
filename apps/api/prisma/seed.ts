@@ -30,7 +30,7 @@ function getIntUnused(intAlreadyUsed: number[]): number {
 
 async function seed() {
   logger.info('Start seeding');
-  const todayUTCString = getFormattedUTCTimestamp()
+  const todayUTCString = getFormattedUTCTimestamp();
   // create status
   const status = [
     { name: 'pending' },
@@ -134,7 +134,7 @@ async function seed() {
       first_name: infos.first_name,
       last_name: infos.last_name,
       active_notification: faker.number.int({ min: 0, max: 1 }),
-      created_at: todayUTCString
+      created_at: todayUTCString,
     });
 
     await SkillFoot.create({
@@ -171,7 +171,7 @@ async function seed() {
       last_name: faker.person.lastName(),
       avatar_url: avatarUrl,
       date_of_birth: birthdate,
-      created_at: todayUTCString
+      created_at: todayUTCString,
     });
 
     await SkillFoot.create({
@@ -203,7 +203,7 @@ async function seed() {
       first_name: faker.person.firstName(),
       last_name: faker.person.lastName(),
       date_of_birth: birthdate,
-      created_at: todayUTCString
+      created_at: todayUTCString,
     });
 
     await SkillFoot.create({
@@ -275,7 +275,9 @@ async function seed() {
 
     // add 10 participants to each event
     const NB_PARTICIPANTS_TO_CREATE = 10;
-    const arrayToIterateOnParticipants = new Array(NB_PARTICIPANTS_TO_CREATE).fill(1);
+    const arrayToIterateOnParticipants = new Array(
+      NB_PARTICIPANTS_TO_CREATE,
+    ).fill(1);
 
     arrayToIterateOnParticipants.forEach(async (_, index) => {
       await Participant.create({
@@ -289,7 +291,9 @@ async function seed() {
 
   // // create 3 future events
   const NB_EVENTS_FUTURE_TO_CREATE = 3;
-  const arrayToIterateOnFutureEvents = new Array(NB_EVENTS_FUTURE_TO_CREATE).fill(1);
+  const arrayToIterateOnFutureEvents = new Array(
+    NB_EVENTS_FUTURE_TO_CREATE,
+  ).fill(1);
 
   //eslint-disable-next-line
   for await (const _ of arrayToIterateOnFutureEvents) {
@@ -307,7 +311,9 @@ async function seed() {
 
     // add 10 participants to each event
     const NB_PARTICIPANTS_TO_CREATE = 10;
-    const arrayToIterateOnParticipants = new Array(NB_PARTICIPANTS_TO_CREATE).fill(1);
+    const arrayToIterateOnParticipants = new Array(
+      NB_PARTICIPANTS_TO_CREATE,
+    ).fill(1);
 
     arrayToIterateOnParticipants.forEach(async (_, index) => {
       await Participant.create({
@@ -321,7 +327,9 @@ async function seed() {
 
   // create 50 past events
   const NB_EVENTS_PAST_TO_CREATE_2 = 1000;
-  const arrayToIterateOnFutureEvents2 = new Array(NB_EVENTS_PAST_TO_CREATE_2).fill(1);
+  const arrayToIterateOnFutureEvents2 = new Array(
+    NB_EVENTS_PAST_TO_CREATE_2,
+  ).fill(1);
 
   //eslint-disable-next-line
   for await (const _ of arrayToIterateOnFutureEvents2) {
@@ -354,7 +362,9 @@ async function seed() {
 
     // add 10 participants to each event
     const NB_PARTICIPANTS_TO_CREATE = 9;
-    const arrayToIterateOnParticipants = new Array(NB_PARTICIPANTS_TO_CREATE).fill(1);
+    const arrayToIterateOnParticipants = new Array(
+      NB_PARTICIPANTS_TO_CREATE,
+    ).fill(1);
 
     arrayToIterateOnParticipants.forEach(async (_, index) => {
       const unuserInt = getIntUnused(intAlreadyUsed);
@@ -370,7 +380,9 @@ async function seed() {
   }
 
   const NB_EVENTS_PAST_TO_CREATE_3 = 50;
-  const arrayToIterateOnFutureEvents3 = new Array(NB_EVENTS_PAST_TO_CREATE_3).fill(1);
+  const arrayToIterateOnFutureEvents3 = new Array(
+    NB_EVENTS_PAST_TO_CREATE_3,
+  ).fill(1);
 
   //eslint-disable-next-line
   for await (const _ of arrayToIterateOnFutureEvents3) {
@@ -397,7 +409,9 @@ async function seed() {
 
     // add 10 participants to each event
     const NB_PARTICIPANTS_TO_CREATE = 9;
-    const arrayToIterateOnParticipants = new Array(NB_PARTICIPANTS_TO_CREATE).fill(1);
+    const arrayToIterateOnParticipants = new Array(
+      NB_PARTICIPANTS_TO_CREATE,
+    ).fill(1);
 
     getIntUnused(intAlreadyUsed);
 
@@ -417,7 +431,9 @@ async function seed() {
 
   // create 2 open events
   const NB_EVENTS_OPEN_TO_CREATE = 2;
-  const arrayToIterateOnOpenEvents = new Array(NB_EVENTS_OPEN_TO_CREATE).fill(1);
+  const arrayToIterateOnOpenEvents = new Array(NB_EVENTS_OPEN_TO_CREATE).fill(
+    1,
+  );
   const openParticipants = [1, 1, 1, 1, 1, 1];
 
   //eslint-disable-next-line

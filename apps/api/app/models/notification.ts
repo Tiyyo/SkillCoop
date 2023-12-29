@@ -2,9 +2,9 @@ import DatabaseError from '../helpers/errors/database.error';
 import { Core } from './core';
 
 export class Notification extends Core {
-  declare tableName: string
+  declare tableName: string;
 
-  constructor(client: any) {
+  constructor(client: unknown) {
     super(client);
     this.tableName = 'notification';
   }

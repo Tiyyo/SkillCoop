@@ -6,8 +6,11 @@ import checkParams from '../utils/check-params';
 import NotFoundError from '../helpers/errors/not-found.error';
 import deleteDecodedKey from '../utils/delete-decoded';
 import { generateBalancedTeam } from '../service/generate-teams';
+//eslint-disable-next-line
 import { notifyEventInfosHasBeenUpdated } from '../service/notification/subtype/infos-event';
+//eslint-disable-next-line
 import { notifyUserHasBeenInvitedToEvent } from '../service/notification/subtype/user-invited-event';
+//eslint-disable-next-line
 import { notifyTransfertOwnership } from '../service/notification/subtype/transfert-ownership';
 import ForbidenError from '../helpers/errors/forbiden';
 
@@ -46,10 +49,15 @@ export default {
       notifyUserHasBeenInvitedToEvent(eventId, data.organizer_id, ids);
       // send notification to invited users here
     }
-    res.status(201).json({ success: true });
+    res.status(201).json({
+      success: true,
+    });
   },
   async getOne(req: Request, res: Response) {
-    const [eventId, profileId] = checkParams(req.params.eventId, req.params.profileId);
+    const [eventId, profileId] = checkParams(
+      req.params.eventId,
+      req.params.profileId,
+    );
     const event = await Event.getEventById(eventId, profileId);
     res.status(200).json(event);
   },
@@ -68,19 +76,28 @@ export default {
     ];
 
     if (!event || event.organizer_id !== profile_id)
-      throw new ForbidenError('Operation not allowed : you are not the organizer',
-        'Operation not allowed', 'event.controller updateOne', '63');
+      throw new ForbidenError(
+        'Operation not allowed : you are not the organizer',
+        'Operation not allowed',
+        'event.controller updateOne',
+        '63',
+      );
 
     const dataHasChange = possibleFieldsUpdated.some((field) => {
       return data[field] !== event[field];
     });
 
-    if (!dataHasChange) return res.status(201).json({ message: 'Nothing to update' });
+    if (!dataHasChange)
+      return res.status(201).json({
+        message: 'Nothing to update',
+      });
     const isUpdated = await Event.update(event_id, data);
 
     notifyEventInfosHasBeenUpdated(event_id);
 
-    res.status(204).json({ success: isUpdated });
+    res.status(204).json({
+      success: isUpdated,
+    });
   },
   async updateOrganizer(req: Request, res: Response) {
     deleteDecodedKey(req.body);
@@ -88,8 +105,12 @@ export default {
 
     const event = await Event.findByPk(event_id);
     if (!event || event.organizer_id !== organizer_id)
-      throw new ForbidenError('Operation not allowed : you are not the organizer',
-        'Operation not allowed', 'event.controller updateOne', '63');
+      throw new ForbidenError(
+        'Operation not allowed : you are not the organizer',
+        'Operation not allowed',
+        'event.controller updateOne',
+        '63',
+      );
 
     const isUpdated = await Event.update(event_id, {
       organizer_id: new_organizer_id,
@@ -99,21 +120,29 @@ export default {
       await notifyTransfertOwnership(event_id, organizer_id, new_organizer_id);
     }
 
-    res.status(204).json({ success: isUpdated });
+    res.status(204).json({
+      success: isUpdated,
+    });
   },
   async deleteOne(req: Request, res: Response) {
     // delete one event
     // only the organizer can delete the event
-    const [eventId, profileId] = checkParams(req.params.id, req.params.profileId);
+    const [eventId, profileId] = checkParams(
+      req.params.id,
+      req.params.profileId,
+    );
 
     const event = await Event.findByPk(eventId);
 
     if (!event || event.length === 0) throw new NotFoundError('No event');
-    if (event.organizer_id !== profileId) throw new AuthorizationError('Operation not allowed');
+    if (event.organizer_id !== profileId)
+      throw new AuthorizationError('Operation not allowed');
 
     const isDeleted = await Event.delete(eventId);
 
-    res.status(204).json({ success: isDeleted });
+    res.status(204).json({
+      success: isDeleted,
+    });
   },
   async getAllByUser(req: Request, res: Response) {
     const [profileId] = checkParams(req.params.profileId);
@@ -140,6 +169,8 @@ export default {
 
     await generateBalancedTeam(eventId);
 
-    res.status(200).json({ success: true });
+    res.status(200).json({
+      success: true,
+    });
   },
 };

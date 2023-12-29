@@ -5,8 +5,6 @@ import UserInputError from '../helpers/errors/user-input.error';
 import checkParams from '../utils/check-params';
 import computeGbRating from '../utils/compute-gb-rating';
 import computeRatingUser from '../service/compute-rating';
-import ServerError from '../helpers/errors/server.error';
-import NotFoundError from '../helpers/errors/not-found.error';
 
 export default {
   async createOwnRating(req: Request, res: Response) {

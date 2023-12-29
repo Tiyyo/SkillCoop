@@ -9,7 +9,6 @@ import DatabaseError from '../helpers/errors/database.error';
 import APITypeError from '../helpers/errors/type.error';
 import ForbidenError from '../helpers/errors/forbiden';
 
-
 export const errorHandler = (
   error: unknown,
   _req: Request,
@@ -88,12 +87,12 @@ export const errorHandler = (
   }
 
   if (error instanceof DatabaseError && devEnv) {
-    logger.error(error.name + ' ' + error.message)
+    logger.error(error.name + ' ' + error.message);
     return res.status(error.status).json({ error: error.message });
   }
 
   if (error instanceof DatabaseError && !devEnv) {
-    logger.error(error.name + ' ' + error.message)
+    logger.error(error.name + ' ' + error.message);
     return res.status(error.status).json({ error: error.userMessage });
   }
 

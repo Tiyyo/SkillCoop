@@ -6,14 +6,22 @@ import logger from './logger';
 const { sign, verify } = jwt;
 
 const tokenHandler = {
-  createToken: function (expireTime: string, key: string, payload: ObjectRecordGeneric) {
+  createToken: function (
+    expireTime: string,
+    key: string,
+    payload: ObjectRecordGeneric,
+  ) {
     const token = sign({ data: payload }, key, {
       expiresIn: expireTime,
     });
     return token;
   },
   createPairAuthToken: function (payload: ObjectRecordGeneric) {
-    const accessToken = this.createToken('15m', process.env.JWT_TOKEN_KEY as string, payload);
+    const accessToken = this.createToken(
+      '15m',
+      process.env.JWT_TOKEN_KEY as string,
+      payload,
+    );
     const refreshToken = this.createToken(
       '7d',
       process.env.JWT_REFRESH_TOKEN_KEY as string,
@@ -21,7 +29,10 @@ const tokenHandler = {
     );
     return { accessToken, refreshToken };
   },
-  verifyTokenAndGetData: function (token: string, key: string): ObjectRecordGeneric | null {
+  verifyTokenAndGetData: function (
+    token: string,
+    key: string,
+  ): ObjectRecordGeneric | null {
     let payload: ObjectRecordGeneric | null = null;
     verify(token, key, (err, decoded) => {
       if (err && err.message === 'jwt expired') {
@@ -100,12 +111,18 @@ const tokenHandler = {
           process.env.JWT_REFRESH_TOKEN_KEY as string,
         ));
       case 'access':
-        return tokenHandler.verifyTokenAndGetData(token, process.env.JWT_TOKEN_KEY as string);
+        return tokenHandler.verifyTokenAndGetData(
+          token,
+          process.env.JWT_TOKEN_KEY as string,
+        );
       default:
         return payload;
     }
   },
-  getToken: (request: Request, type: 'email' | 'refresh' | 'access'): string | null => {
+  getToken: (
+    request: Request,
+    type: 'email' | 'refresh' | 'access',
+  ): string | null => {
     switch (type) {
       case 'email':
         return tokenHandler.getEmailToken(request);
@@ -126,8 +143,13 @@ const tokenHandler = {
     return token;
   },
   getAccessToken: function (request: Request): string | null {
-    const authHeaders = request.headers.Authorization || request.headers.authorization;
-    if (authHeaders && typeof authHeaders === 'string' && authHeaders.startsWith('Bearer')) {
+    const authHeaders =
+      request.headers.Authorization || request.headers.authorization;
+    if (
+      authHeaders &&
+      typeof authHeaders === 'string' &&
+      authHeaders.startsWith('Bearer')
+    ) {
       const token = authHeaders.split(' ')[1];
       return token;
     } else {

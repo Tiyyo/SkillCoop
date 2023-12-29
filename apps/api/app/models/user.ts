@@ -14,7 +14,7 @@ export class User extends Core {
     email: string;
     created_at?: string;
   }): Promise<{ id: number; email: string }> {
-    const todayUTCString = getFormattedUTCTimestamp()
+    const todayUTCString = getFormattedUTCTimestamp();
     data.created_at = todayUTCString;
     try {
       const result = await this.client

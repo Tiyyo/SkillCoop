@@ -4,7 +4,9 @@ import checkParams from '../utils/check-params';
 import ServerError from '../helpers/errors/server.error';
 import deleteDecodedKey from '../utils/delete-decoded';
 import UserInputError from '../helpers/errors/user-input.error';
+//eslint-disable-next-line
 import { notifyUserReceivedFriendRequest } from '../service/notification/subtype/friend-request';
+//eslint-disable-next-line
 import { notifyUserHasBeenAddedToFriendlist } from '../service/notification/subtype/added-friendlist';
 
 export default {

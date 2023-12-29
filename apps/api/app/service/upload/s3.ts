@@ -1,7 +1,14 @@
 import ServerError from '../../helpers/errors/server.error';
 import logger from '../../helpers/logger';
-import { S3Client, PutObjectCommand, DeleteObjectCommand } from '@aws-sdk/client-s3';
-import { CloudFrontClient, CreateInvalidationCommand } from '@aws-sdk/client-cloudfront';
+import {
+  S3Client,
+  PutObjectCommand,
+  DeleteObjectCommand,
+} from '@aws-sdk/client-s3';
+import {
+  CloudFrontClient,
+  CreateInvalidationCommand,
+} from '@aws-sdk/client-cloudfront';
 import crypto from 'crypto';
 
 import resizeImage from '../../helpers/resize-image';
@@ -18,7 +25,8 @@ if (!bucketName) throw new ServerError('BUCKET_NAME env is not set');
 if (!accessKeyId) throw new ServerError('ACCESS_KEY_BUCKET env is not set');
 if (!secretAccessKey) throw new ServerError('ACCESS_SECRET_KEY_S3 is not set');
 
-const randomImageName = (bytes = 16) => crypto.randomBytes(bytes).toString('hex');
+const randomImageName = (bytes = 16) =>
+  crypto.randomBytes(bytes).toString('hex');
 
 const s3 = new S3Client({
   credentials: {

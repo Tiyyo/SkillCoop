@@ -4,13 +4,17 @@ import { profile as Profile } from '../../models/index';
 import { ComputeRating } from './compute-data';
 
 async function computeRatingUser(profileId: number) {
-  const userEvaluationsAndBonus = await getData(profileId)
+  const userEvaluationsAndBonus = await getData(profileId);
 
-  if (!userEvaluationsAndBonus.user_own_evaluation) throw new UserInputError('User have to evaluate his skill')
+  if (!userEvaluationsAndBonus.user_own_evaluation)
+    throw new UserInputError('User have to evaluate his skill');
 
-  const profileSkills = new ComputeRating(userEvaluationsAndBonus, profileId).compute()
+  const profileSkills = new ComputeRating(
+    userEvaluationsAndBonus,
+    profileId,
+  ).compute();
 
-  await Profile.update(profileId, { last_evaluation: profileSkills.gb_rating })
+  await Profile.update(profileId, { last_evaluation: profileSkills.gb_rating });
   return profileSkills;
 }
 export default computeRatingUser;

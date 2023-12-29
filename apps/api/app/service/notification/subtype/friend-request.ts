@@ -8,27 +8,35 @@ import {
 } from 'skillcoop-types';
 import { notificationSubtype, notificationType } from 'skillcoop-types';
 
-
 class UserReceivedFriendRequest extends NotificationObserver {
   declare instigatorId: number;
   declare subscriberId: number;
   declare subtype: NotificationSubtype;
   declare builder: BuilderFriendRequestNotificationMessage;
-  constructor(type: NotificationType, instigatorId: number, subscriberId: number) {
+  constructor(
+    type: NotificationType,
+    instigatorId: number,
+    subscriberId: number,
+  ) {
     super(type);
     this.instigatorId = instigatorId;
     this.subscriberId = subscriberId;
     this.subtype = notificationSubtype.userReceivedFriendRequest;
     const builder = new BuildNotificationMessage(this.subtype);
     // TODO : find a way to infer correct subtype to builder and remove cast
-    this.builder = builder.getBuilder(this.subtype) as BuilderFriendRequestNotificationMessage;
+    this.builder = builder.getBuilder(
+      this.subtype,
+    ) as BuilderFriendRequestNotificationMessage;
   }
   async getSubscribers(): Promise<number[] | null> {
     const { active_notification } = await Profile.findByPk(this.subscriberId);
     if (active_notification === 0) return null;
     return active_notification === 0 ? null : [this.subscriberId];
   }
-  async getInstigatorInfos(): Promise<{ username: string; avatar_url: string | null }> {
+  async getInstigatorInfos(): Promise<{
+    username: string;
+    avatar_url: string | null;
+  }> {
     const { username, avatar_url } = await Profile.findByPk(this.instigatorId);
     return { username, avatar_url };
   }

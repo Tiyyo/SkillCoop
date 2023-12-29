@@ -6,9 +6,9 @@ import { getFormattedUTCTimestamp } from 'date-handler';
 // import { DBClientType } from '../@types/types.database';
 
 export class Friendlist extends Core {
-  declare tableName: string
+  declare tableName: string;
 
-  constructor(client: any) {
+  constructor(client: unknown) {
     super(client);
     this.tableName = 'profile_on_profile';
   }
@@ -60,7 +60,11 @@ export class Friendlist extends Core {
       throw new DatabaseError(error);
     }
   }
-  async findFriendByUsernameInUserFriendlist(profileId: number, query: string, page: number = 1) {
+  async findFriendByUsernameInUserFriendlist(
+    profileId: number,
+    query: string,
+    page: number = 1,
+  ) {
     const offset = (page - 1) * 10;
     try {
       const friends = await this.client
@@ -95,9 +99,11 @@ export class Friendlist extends Core {
           `.execute(this.client);
 
       if (friendshipExist.rows.length > 0)
-        throw new UserInputError("You can't send a friend request to this user");
+        throw new UserInputError(
+          "You can't send a friend request to this user",
+        );
 
-      const todayUTCString = getFormattedUTCTimestamp()
+      const todayUTCString = getFormattedUTCTimestamp();
       const addPendingFriendship = await this.client
         .insertInto(this.tableName)
         .values({
@@ -122,7 +128,7 @@ export class Friendlist extends Core {
     adder_id: number;
     status_name: string;
   }) {
-    const todayUTCString = getFormattedUTCTimestamp()
+    const todayUTCString = getFormattedUTCTimestamp();
 
     try {
       await this.client
@@ -174,12 +180,14 @@ export class Friendlist extends Core {
   }
   async findSuggestProfile(profileId: number) {
     try {
-      const suggestProfiles = await sql<Array<{
-        friend_id: number;
-        username: string;
-        avatar_url: string | null;
-        last_evaluation: number | null;
-      }>>`
+      const suggestProfiles = await sql<
+        Array<{
+          friend_id: number;
+          username: string;
+          avatar_url: string | null;
+          last_evaluation: number | null;
+        }>
+      >`
 SELECT 
   friend_id AS profile_id,
   username,
@@ -224,7 +232,7 @@ FROM
       )
 AND friend_id <> ${profileId}
 LIMIT 14`.execute(this.client);
-      console.log('Suggest profile ', suggestProfiles.rows)
+      console.log('Suggest profile ', suggestProfiles.rows);
 
       return suggestProfiles.rows;
     } catch (error) {

@@ -21,10 +21,13 @@ export function sseConnectionManager(req: Request, res: Response) {
   res.writeHead(200, headers);
   const clientId = tokenInfos?.user_id;
 
-  notificationEventManager.on('new-notification', (data: SSENotificationData) => {
-    if (data.profileId !== clientId) return;
-    res.write(`data: ${JSON.stringify(data)}\n\n`);
-  });
+  notificationEventManager.on(
+    'new-notification',
+    (data: SSENotificationData) => {
+      if (data.profileId !== clientId) return;
+      res.write(`data: ${JSON.stringify(data)}\n\n`);
+    },
+  );
 
   req.on('close', () => {
     console.log(`${clientId} connection closed`);

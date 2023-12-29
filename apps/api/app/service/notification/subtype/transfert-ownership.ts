@@ -42,7 +42,9 @@ class TransfertOwnership extends NotificationObserver {
     this.eventId = eventId;
     const builder = new BuildNotificationMessage(this.subtype);
     // TODO : find a way to infer correct type to builder and remove cast
-    this.builder = builder.getBuilder(this.subtype) as BuilderTransfertOwnershipMessage;
+    this.builder = builder.getBuilder(
+      this.subtype,
+    ) as BuilderTransfertOwnershipMessage;
   }
   async getSubscribers(): Promise<number[] | null> {
     const haveSubscribed = await hasActiveNotification([this.subscriberId]);
@@ -56,7 +58,12 @@ class TransfertOwnership extends NotificationObserver {
     const { username, avatar_url } = await Profile.findByPk(this.instigatorId);
     return { username, avatar_url };
   }
-  async sendNotification({ subscriber, username, eventDate, avatar_url }: SendNotificationProps) {
+  async sendNotification({
+    subscriber,
+    username,
+    eventDate,
+    avatar_url,
+  }: SendNotificationProps) {
     if (!subscriber) return null;
     const message = this.builder(username, eventDate);
     subscriber.forEach((id) => {
@@ -78,7 +85,12 @@ class TransfertOwnership extends NotificationObserver {
     if (!subscriber) return null;
     const { username, avatar_url } = await this.getInstigatorInfos();
     const { eventDate } = await this.getEventInfos();
-    await this.sendNotification({ subscriber, username, eventDate, avatar_url });
+    await this.sendNotification({
+      subscriber,
+      username,
+      eventDate,
+      avatar_url,
+    });
   }
 }
 

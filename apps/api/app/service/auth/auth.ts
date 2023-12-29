@@ -8,7 +8,11 @@ import bcrypt from 'bcrypt';
 import emailService from '../../utils/send-email';
 import randomBytes from 'randombytes';
 import tokenHandler from '../../helpers/token.handler';
-import type { UserInfosToken, GoogleUserInfos, User as UserType } from 'skillcoop-types';
+import type {
+  UserInfosToken,
+  GoogleUserInfos,
+  User as UserType,
+} from 'skillcoop-types';
 
 export default {
   async createUser(data: {
@@ -19,9 +23,11 @@ export default {
     const saltRouds = 10;
 
     try {
-      const hashedPassword = await bcrypt.hash(password, saltRouds).catch((err) => {
-        if (err) throw new ServerError("Couldn't hash user password");
-      });
+      const hashedPassword = await bcrypt
+        .hash(password, saltRouds)
+        .catch((err) => {
+          if (err) throw new ServerError("Couldn't hash user password");
+        });
 
       if (!hashedPassword) throw new ServerError('hash password is missing');
 
@@ -40,16 +46,27 @@ export default {
     const { email, password } = data;
     const [user] = await User.findBy({ email: email.trim() });
 
-    if (!user) throw new UserInputError("Can't find any user with this email", 'Email or Password incorrect');
+    if (!user)
+      throw new UserInputError(
+        "Can't find any user with this email",
+        'Email or Password incorrect',
+      );
 
     if (!(await bcrypt.compare(password.trim(), user.password)))
-      throw new UserInputError("Password didn't match", 'Email or Password incorrect');
+      throw new UserInputError(
+        "Password didn't match",
+        'Email or Password incorrect',
+      );
 
     if (!user.verified) {
       // generate an new email to send to the user
-      const emailToken = tokenHandler.createToken('1h', process.env.JWT_EMAIL_TOKEN_KEY as string, {
-        user_id: user.id,
-      });
+      const emailToken = tokenHandler.createToken(
+        '1h',
+        process.env.JWT_EMAIL_TOKEN_KEY as string,
+        {
+          user_id: user.id,
+        },
+      );
       await emailService.sendEmailToConfirmEmail({
         emailToken,
         email,
@@ -59,7 +76,8 @@ export default {
     }
 
     const userInfos: UserInfosToken = { user_id: user.id, email: user.email };
-    const { accessToken, refreshToken } = tokenHandler.createPairAuthToken(userInfos);
+    const { accessToken, refreshToken } =
+      tokenHandler.createPairAuthToken(userInfos);
     return { accessToken, refreshToken };
   },
   async createGoogleUser({

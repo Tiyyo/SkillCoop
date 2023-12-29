@@ -1,7 +1,10 @@
 import { Request, Response } from 'express';
 import { profile as Profile } from '../models/index';
 import { image as Image } from '../models/index';
-import { deleteImageFromBucket, uploadImageToBucket } from '../service/upload/s3';
+import {
+  deleteImageFromBucket,
+  uploadImageToBucket,
+} from '../service/upload/s3';
 import checkParams from '../utils/check-params';
 import UserInputError from '../helpers/errors/user-input.error';
 import NotFoundError from '../helpers/errors/not-found.error';
@@ -70,11 +73,20 @@ export default {
   async searchProfileByUsername(req: Request, res: Response) {
     const { username } = req.query;
     // Reminder: checkParams can also be use to convert string to number
-    const [userProfileId, page] = checkParams(req.query.userProfileId, req.query.page);
-    if (typeof username !== 'string') throw new UserInputError('Username must be a string');
+    const [userProfileId, page] = checkParams(
+      req.query.userProfileId,
+      req.query.page,
+    );
+    if (typeof username !== 'string')
+      throw new UserInputError('Username must be a string');
 
-    const profiles = await Profile.findManyByUsername(username, userProfileId, page);
-    if (!profiles || profiles.length === 0) throw new NotFoundError('No profile found');
+    const profiles = await Profile.findManyByUsername(
+      username,
+      userProfileId,
+      page,
+    );
+    if (!profiles || profiles.length === 0)
+      throw new NotFoundError('No profile found');
 
     return res.status(200).json(profiles);
   },

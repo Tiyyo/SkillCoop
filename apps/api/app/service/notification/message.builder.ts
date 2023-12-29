@@ -1,4 +1,7 @@
-import type { BuildersNotificationMessage, NotificationSubtype } from 'skillcoop-types';
+import type {
+  BuildersNotificationMessage,
+  NotificationSubtype,
+} from 'skillcoop-types';
 import { notificationSubtype } from 'skillcoop-types';
 import { formatEventDateAndTime } from 'date-handler';
 
@@ -9,13 +12,18 @@ export class BuildNotificationMessage {
   }
   getBuilder(subtype: NotificationSubtype) {
     const builders: BuildersNotificationMessage = {
-      [notificationSubtype.eventInfosHasBeenUpdated]: this.buildEventInfosHasBeenUpdatedMessage,
-      [notificationSubtype.userHasBeenInvitedToEvent]: this.buildUserHasBeenInvitedToEventMessage,
-      [notificationSubtype.userReceivedFriendRequest]: this.buildUserReceivedFriendRequestMessage,
+      [notificationSubtype.eventInfosHasBeenUpdated]:
+        this.buildEventInfosHasBeenUpdatedMessage,
+      [notificationSubtype.userHasBeenInvitedToEvent]:
+        this.buildUserHasBeenInvitedToEventMessage,
+      [notificationSubtype.userReceivedFriendRequest]:
+        this.buildUserReceivedFriendRequestMessage,
       [notificationSubtype.userHasBeenAddedToFriendlist]:
         this.buildUserHasBeenAddedToFriendlistMessage,
-      [notificationSubtype.teamHasBeenGenerated]: this.buildTeamsHasBeenGeneratedMessage,
-      [notificationSubtype.transfertOwnership]: this.buildTransfertOwnershipMessage,
+      [notificationSubtype.teamHasBeenGenerated]:
+        this.buildTeamsHasBeenGeneratedMessage,
+      [notificationSubtype.transfertOwnership]:
+        this.buildTransfertOwnershipMessage,
     };
     return builders[subtype];
   }

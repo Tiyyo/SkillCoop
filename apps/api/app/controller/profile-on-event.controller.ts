@@ -21,7 +21,9 @@ export default {
     if (status_name === 'pending' || status_name === 'declined') {
       if (event.organizer_id === profile_id) {
         console.log('User cannot change his status');
-        return res.status(200).json({ message: 'Organizer cannot change his status' });
+        return res
+          .status(200)
+          .json({ message: 'Organizer cannot change his status' });
       }
       if (event.status_name === 'completed') {
         console.log('Event is already completed');

@@ -21,11 +21,10 @@ describe('regularCondition', () => {
 });
 
 describe('conditionIfZero', () => {
-  test('should return a boolean'),
-    () => {
-      expect(typeof ifZero(1, 2)).toBe('boolean');
-      expect(typeof ifZero(2, 1)).toBe('boolean');
-    };
+  test('should return a boolean', () => {
+    expect(typeof ifZero(1, 2)).toBe('boolean');
+    expect(typeof ifZero(2, 1)).toBe('boolean');
+  });
   test('should return true if lengthTeam1 < lengthTeam2', () => {
     expect(ifZero(1, 2)).toBe(true);
   });

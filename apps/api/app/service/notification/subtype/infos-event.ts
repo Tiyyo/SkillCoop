@@ -17,7 +17,9 @@ export class EventInfosHasBeenUpdated extends NotificationObserver {
     this.subtype = notificationSubtype.eventInfosHasBeenUpdated;
     const builder = new BuildNotificationMessage(this.subtype);
     // TODO : find a way to infer correct type to builder and remove cast
-    this.builder = builder.getBuilder(this.subtype) as BuilderEventInfosNotificationMessage;
+    this.builder = builder.getBuilder(
+      this.subtype,
+    ) as BuilderEventInfosNotificationMessage;
     this.eventId = eventId;
   }
   async getSubscribers(): Promise<number[] | null> {
@@ -29,7 +31,11 @@ export class EventInfosHasBeenUpdated extends NotificationObserver {
     const { avatar_url } = await Profile.findByPk(eventInfos.organizer_id);
     return { eventDate: eventInfos.date, avatar_url };
   }
-  async sendNotification(subscribers?: number[], eventDate?: string, img_url?: string | null) {
+  async sendNotification(
+    subscribers?: number[],
+    eventDate?: string,
+    img_url?: string | null,
+  ) {
     if (!subscribers || !eventDate || !this.builder) return;
     subscribers.forEach((id) => {
       const message = this.builder(eventDate);
@@ -53,6 +59,9 @@ export class EventInfosHasBeenUpdated extends NotificationObserver {
 }
 
 export const notifyEventInfosHasBeenUpdated = async (eventId: number) => {
-  const eventInfosHasBeenUpdated = new EventInfosHasBeenUpdated(notificationType.event, eventId);
+  const eventInfosHasBeenUpdated = new EventInfosHasBeenUpdated(
+    notificationType.event,
+    eventId,
+  );
   await eventInfosHasBeenUpdated.notify();
 };

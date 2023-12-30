@@ -1,7 +1,7 @@
-import getCompleteEventInfos from '../../models/teams';
 import { Player, TeamGeneratorConfig } from 'skillcoop-types';
 import { profileOnEvent as ProfileOnEvent } from '../../models/index';
 import condition, { Conditions } from './condition';
+import { ConfigGenerateTeams } from '../../models/teams';
 
 export function assignTeam(
   position: number,
@@ -21,7 +21,7 @@ export async function generateBalancedTeam(eventId: number) {
   console.info('Algo has started');
   console.time('Algo time start');
 
-  const config = await getCompleteEventInfos(eventId);
+  const config = await new ConfigGenerateTeams(eventId).init();
   if (!config) throw new Error('Failed to config algorithm');
 
   const { team1, team2 } = divideInTeam(config);

@@ -6,9 +6,10 @@ import { getFormattedUTCTimestamp } from 'date-handler';
 
 export class EventModel extends Core {
   declare tableName: string;
-  declare client: unknown;
+  declare client;
 
-  constructor(client: unknown) {
+  //@ts-ignore
+  constructor(client) {
     super(client);
     this.tableName = 'event';
   }

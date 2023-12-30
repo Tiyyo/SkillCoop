@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "api": "pnpm --filter api",
     "client": "pnpm --filter client",
     "date": "pnpm --filter date-handler"

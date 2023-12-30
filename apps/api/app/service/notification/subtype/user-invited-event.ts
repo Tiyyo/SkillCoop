@@ -7,6 +7,7 @@ import type {
   NotificationType,
 } from 'skillcoop-types';
 import { notificationSubtype, notificationType } from 'skillcoop-types';
+import { hasActiveNotification } from '../../../utils/has-active-notification';
 
 type ConstructorProps = {
   eventId: number;
@@ -46,23 +47,8 @@ class UserHasBeenInvited extends NotificationObserver {
     ) as BuilderUserInvitedToEventNotificationMessage;
   }
   async getSubscribers(): Promise<number[] | null> {
-    // This is bad
     const invitedIds = this.invitedIds;
-
-    // Determine which invited users have active_notification set to 1
-    // Extract that logic into a function and use it in other places
-    const profileInfosInvitedUserQuery = invitedIds.map((id) =>
-      Profile.findByPk(id),
-    );
-    const profileInfos = await Promise.allSettled(profileInfosInvitedUserQuery);
-    // filterMap with reduce
-    const subscribersIds = profileInfos.reduce((acc: number[], curr: any) => {
-      if (curr.status === 'fulfilled' && curr.value.active_notification === 1) {
-        acc.push(curr.value.id);
-      }
-      return acc;
-    }, []);
-    return subscribersIds.length > 0 ? subscribersIds : null;
+    return hasActiveNotification(invitedIds);
   }
   async getEventInfos() {
     const eventInfos = await EventModel.findByPk(this.eventId);

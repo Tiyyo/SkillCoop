@@ -5,8 +5,8 @@ import { Core } from './core';
 
 export class ProfileOnEvent extends Core {
   declare tableName: string;
-
-  constructor(client: any) {
+  //@ts-ignore
+  constructor(client) {
     super(client);
     this.tableName = 'profile_on_event';
   }

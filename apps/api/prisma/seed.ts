@@ -9,6 +9,7 @@ import { profileOnEvent as Participant } from '../app/models/index';
 import { score as Score } from '../app/models/index';
 import { friendslist as Friendlist } from '../app/models/index';
 import { skillFoot as SkillFoot } from '../app/models/index';
+import { notificationType as NotificationType } from '../app/models/index';
 import authService from '../app/service/auth/auth';
 import { getFormattedUTCTimestamp, getUTCString } from 'date-handler';
 
@@ -44,6 +45,17 @@ async function seed() {
 
   for await (const item of status) {
     await Status.create({ name: item.name });
+  }
+
+  const notificationTypes = [
+    { name: 'event' },
+    { name: 'friend' },
+    { name: 'message' },
+    { name: 'system' },
+  ];
+
+  for await (const item of notificationTypes) {
+    await NotificationType.create({ name: item.name });
   }
 
   const userToCreateInfos = [

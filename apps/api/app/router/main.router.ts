@@ -9,9 +9,19 @@ import userController from '../controller/user.controller';
 import logger from '../helpers/logger';
 //eslint-disable-next-line
 import { sseConnectionManager } from '../service/notification/sse-connection.manager';
+import { UserPreference } from '../service/user-preference';
 
 const { getMe } = userController;
 const router: Router = express.Router();
+
+router.route('/test').get(async (_req, res) => {
+  try {
+    await new UserPreference(1).generateDefaultPreferences();
+    res.status(200).json({ message: 'OK' });
+  } catch (error) {
+    res.status(500).end();
+  }
+});
 
 // this route need to be outsite of the apiRouter
 // to let the app access to it without 2 tokens

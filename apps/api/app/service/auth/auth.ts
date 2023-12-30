@@ -13,6 +13,7 @@ import type {
   GoogleUserInfos,
   User as UserType,
 } from 'skillcoop-types';
+import { UserPreference } from '../user-preference';
 
 export default {
   async createUser(data: {
@@ -35,6 +36,7 @@ export default {
         email,
         password: hashedPassword,
       });
+      await new UserPreference(newUser.id).generateDefaultPreferences();
       return newUser;
     } catch (error) {
       if (error instanceof Error) {

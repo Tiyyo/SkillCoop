@@ -4,6 +4,7 @@ import { sql } from 'kysely';
 import { Core } from './core';
 import NotFoundError from '../helpers/errors/not-found.error';
 import { ProfileType } from '../@types/types';
+import { getFormattedUTCTimestamp } from 'date-handler';
 
 // TODO define a type for Profile
 // TODO fn is not type , need to find a way to type it other than any
@@ -97,6 +98,8 @@ export class Profile extends Core {
   }
   // TODO define a type for data
   async create(data: Record<string, string | number>) {
+    const todayUTCString = getFormattedUTCTimestamp();
+    data.created_at = todayUTCString;
     try {
       const result = await this.client
         .insertInto('profile')
@@ -111,6 +114,9 @@ export class Profile extends Core {
   }
   // TODO define a type for data
   async updateProfile(data: { profile_id: number; avatar_url?: string }) {
+    const todayUTCString = getFormattedUTCTimestamp();
+    data.updated_at = todayUTCString;
+
     const { profile_id, ...rest } = data;
     const profileIdConvertedNumber = Number(profile_id);
     try {

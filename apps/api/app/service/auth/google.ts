@@ -27,10 +27,6 @@ type GoogleUserResult = {
 export default {
   async getOAuthToken({ code }: { code: string }) {
     const rootURL = 'https://oauth2.googleapis.com/token';
-
-    console.log('line 31 getOAuthToken :' + process.env.API_URL);
-    logger.info('line 32 getOAuthToken :' + process.env.API_URL);
-
     const options = {
       code,
       client_id: process.env.GOOGLE_CLIENT_ID,

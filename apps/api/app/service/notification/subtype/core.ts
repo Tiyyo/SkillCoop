@@ -12,7 +12,7 @@ export class NotificationObserver {
   async addNotificationToDatabase({
     profileId,
     message,
-    type,
+    type_name,
     subtype,
     instigatorId,
     img_url,
@@ -22,7 +22,7 @@ export class NotificationObserver {
       profile_id: profileId,
       message,
       subtype,
-      type,
+      type_name,
       instigator_id: instigatorId ?? null,
       event_id: eventId ?? null,
       img_url: img_url ?? null,

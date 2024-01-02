@@ -42,7 +42,7 @@ export class EventInfosHasBeenUpdated extends NotificationObserver {
       this.addNotificationToDatabase({
         profileId: id,
         message,
-        type: this.type,
+        type_name: this.type,
         subtype: this.subtype,
         img_url,
         eventId: this.eventId,

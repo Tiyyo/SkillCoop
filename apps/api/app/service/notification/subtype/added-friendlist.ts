@@ -46,7 +46,7 @@ class UserHasBeenAddedToFriendlist extends NotificationObserver {
     this.addNotificationToDatabase({
       profileId: this.subscriberId,
       message,
-      type: this.type,
+      type_name: this.type,
       subtype: this.subtype,
       img_url: avatar_url,
     });

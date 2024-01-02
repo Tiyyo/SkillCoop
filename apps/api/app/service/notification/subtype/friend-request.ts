@@ -46,7 +46,7 @@ class UserReceivedFriendRequest extends NotificationObserver {
     this.addNotificationToDatabase({
       profileId: this.subscriberId,
       message,
-      type: this.type,
+      type_name: this.type,
       subtype: this.subtype,
       img_url,
       instigatorId: this.instigatorId,

@@ -70,7 +70,7 @@ class TransfertOwnership extends NotificationObserver {
       this.addNotificationToDatabase({
         profileId: id,
         message,
-        type: this.type,
+        type_name: this.type,
         subtype: this.subtype,
         eventId: this.eventId,
         instigatorId: this.instigatorId,

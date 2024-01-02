@@ -3,7 +3,7 @@ export type NotificationType = 'event' | 'friend' | 'system' | 'message';
 export type NotificationParams = {
   profileId: number;
   message: string;
-  type: NotificationType;
+  type_name: NotificationType;
   subtype: NotificationSubtype;
   img_url?: string | null;
   instigatorId?: number;

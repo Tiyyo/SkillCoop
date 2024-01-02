@@ -4,6 +4,25 @@ export type Generated<T> = T extends ColumnType<infer S, infer I, infer U>
   : ColumnType<T, T | undefined, T>;
 export type Timestamp = ColumnType<Date, Date | string, Date | string>;
 
+export type TableNames =
+  | 'best_striker_poll'
+  | 'event'
+  | 'image'
+  | 'language_preference'
+  | 'mvp_poll'
+  | 'notification'
+  | 'notification_preference'
+  | 'notification_type'
+  | 'profile'
+  | 'profile_on_event'
+  | 'profile_on_profile'
+  | 'score'
+  | 'skill_foot'
+  | 'sport'
+  | 'status'
+  | 'theme_preference'
+  | 'user';
+
 export type best_striker_poll = {
   event_id: number;
   profile_id: number;

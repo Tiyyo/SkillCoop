@@ -1,5 +1,6 @@
+import { TableNames } from '../@types/database';
 import { Core } from './core';
 
 export class BestStriker extends Core {
-  tableName: string = 'best_striker_poll';
+  tableName: TableNames = 'best_striker_poll';
 }

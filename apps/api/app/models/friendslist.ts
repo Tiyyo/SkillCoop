@@ -3,12 +3,13 @@ import DatabaseError from '../helpers/errors/database.error';
 import { Core } from './core';
 import UserInputError from '../helpers/errors/user-input.error';
 import { getFormattedUTCTimestamp } from 'date-handler';
-// import { DBClientType } from '../@types/types.database';
+import { TableNames } from '../@types/database';
+import { db } from '../helpers/client.db';
 
 export class Friendlist extends Core {
-  declare tableName: string;
+  declare tableName: TableNames;
 
-  constructor(client: unknown) {
+  constructor(client: typeof db) {
     super(client);
     this.tableName = 'profile_on_profile';
   }
@@ -80,6 +81,7 @@ export class Friendlist extends Core {
         .offset(offset)
         .limit(20)
         .innerJoin('profile', 'profile.id', 'profile_on_profile.friend_id')
+        //@ts-ignore
         .where('profile_on_profile.adder_id ', '=', profileId)
         .where('status_name', '=', 'confirmed')
         .where('username', 'like', `%${query.toLowerCase()}%`)
@@ -107,8 +109,9 @@ export class Friendlist extends Core {
       const addPendingFriendship = await this.client
         .insertInto(this.tableName)
         .values({
-          adder_id,
+          //@ts-ignore
           friend_id: friend_id,
+          adder_id,
           status_name: 'pending',
           created_at: todayUTCString,
         })
@@ -134,8 +137,9 @@ export class Friendlist extends Core {
       await this.client
         .insertInto(this.tableName)
         .values({
-          adder_id: friend_id,
+          //@ts-ignore
           friend_id: adder_id,
+          adder_id: friend_id,
           status_name,
           created_at: todayUTCString,
         })
@@ -144,6 +148,7 @@ export class Friendlist extends Core {
       const acceptFriendship = await this.client
         .updateTable(this.tableName)
         .set({
+          //@ts-ignore
           status_name,
           updated_at: todayUTCString,
         })

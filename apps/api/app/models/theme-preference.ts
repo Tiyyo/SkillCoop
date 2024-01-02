@@ -1,5 +1,6 @@
+import { TableNames } from '../@types/database';
 import { Core } from './core';
 
 export class ThemePreference extends Core {
-  tableName: string = 'theme_preference';
+  tableName: TableNames = 'theme_preference';
 }

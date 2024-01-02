@@ -2,11 +2,13 @@ import { getFormattedUTCTimestamp } from 'date-handler';
 import DatabaseError from '../helpers/errors/database.error';
 import UserInputError from '../helpers/errors/user-input.error';
 import { Core } from './core';
+import { TableNames } from '../@types/database';
+import { db } from '../helpers/client.db';
 
 export class ProfileOnEvent extends Core {
-  declare tableName: string;
-  //@ts-ignore
-  constructor(client) {
+  declare tableName: TableNames;
+
+  constructor(client: typeof db) {
     super(client);
     this.tableName = 'profile_on_event';
   }

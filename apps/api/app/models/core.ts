@@ -2,10 +2,15 @@ import { ObjectRecordGeneric } from '../@types/types';
 import DatabaseError from '../helpers/errors/database.error';
 import NotFoundError from '../helpers/errors/not-found.error';
 import { getFormattedUTCTimestamp } from 'date-handler';
+import { db } from '../helpers/client.db';
+import { TableNames } from '../@types/database';
+import { ReferenceExpression } from 'kysely';
+import { DB } from '../@types/database';
+import { InsertObject } from 'kysely/dist/cjs/parser/insert-values-parser';
 
 export class Core {
-  declare tableName: string;
-  declare client;
+  declare tableName: TableNames;
+  declare client: typeof db;
   //@ts-ignore
   constructor(client) {
     this.client = client;
@@ -47,7 +52,11 @@ export class Core {
       let query = this.client.selectFrom(this.tableName).selectAll();
 
       keys.forEach((key, index) => {
-        query = query.where(key.toString(), '=', values[index]);
+        query = query.where(
+          key.toString() as unknown as ReferenceExpression<DB, TableNames>,
+          '=',
+          values[index],
+        );
       });
 
       const result = await query.execute();
@@ -58,9 +67,10 @@ export class Core {
       throw new DatabaseError(error);
     }
   }
-  async create(data: ObjectRecordGeneric) {
+  async create(data: InsertObject<DB, TableNames>) {
     const todayUTCString = getFormattedUTCTimestamp();
     data.created_at = todayUTCString;
+
     try {
       const result = await this.client
         .insertInto(this.tableName)
@@ -72,9 +82,9 @@ export class Core {
       throw new DatabaseError(error);
     }
   }
-  async createMany(data: Array<ObjectRecordGeneric>) {
+  async createMany(data: InsertObject<DB, TableNames>[]) {
     const todayUTCString = getFormattedUTCTimestamp();
-    data.forEach((el: ObjectRecordGeneric) => (el.created_at = todayUTCString));
+    data.forEach((el) => (el.created_at = todayUTCString));
 
     try {
       const result = await this.client
@@ -115,7 +125,11 @@ export class Core {
       let query = this.client.deleteFrom(this.tableName);
 
       keys.forEach((key, index) => {
-        query = query.where(key.toString(), '=', values[index]);
+        query = query.where(
+          key.toString() as unknown as ReferenceExpression<DB, TableNames>,
+          '=',
+          values[index],
+        );
       });
 
       const result = await query.executeTakeFirst();

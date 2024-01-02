@@ -1,5 +1,6 @@
+import { TableNames } from '../@types/database';
 import { Core } from './core';
 
 export class NotificationPreference extends Core {
-  tableName: string = 'notification_preference';
+  tableName: TableNames = 'notification_preference';
 }

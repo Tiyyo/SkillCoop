@@ -5,17 +5,15 @@ import { Core } from './core';
 import NotFoundError from '../helpers/errors/not-found.error';
 import { ProfileType } from '../@types/types';
 import { getFormattedUTCTimestamp } from 'date-handler';
+import { TableNames } from '../@types/database';
+import { db } from '../helpers/client.db';
 
 // TODO define a type for Profile
-// TODO fn is not type , need to find a way to type it other than any
 
 export class Profile extends Core {
-  tableName: string = 'profile';
-  declare client: unkown;
+  tableName: TableNames = 'profile';
 
-  constructor(client: unkown) {
-    //eslint-disable-line
-    // eslint-disable-line
+  constructor(client: typeof db) {
     super(client);
   }
   async findAll() {

@@ -3,13 +3,13 @@ import { sql } from 'kysely';
 import type { EventType } from 'skillcoop-types';
 import DatabaseError from '../helpers/errors/database.error';
 import { getFormattedUTCTimestamp } from 'date-handler';
+import { TableNames } from '../@types/database';
+import { db } from '../helpers/client.db';
 
 export class EventModel extends Core {
-  declare tableName: string;
-  declare client;
+  declare tableName: TableNames;
 
-  //@ts-ignore
-  constructor(client) {
+  constructor(client: typeof db) {
     super(client);
     this.tableName = 'event';
   }

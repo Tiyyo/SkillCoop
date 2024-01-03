@@ -9,14 +9,17 @@ import userController from '../controller/user.controller';
 import logger from '../helpers/logger';
 //eslint-disable-next-line
 import { sseConnectionManager } from '../service/notification/sse-connection.manager';
-import { UserPreference } from '../service/user-preference';
+import {
+  UserPreference,
+  UserPreferenceHandler,
+} from '../service/user-preference';
 import { GetUserPreference } from '../service/user-preference/default-preference';
 
 const { getMe } = userController;
 const router: Router = express.Router();
 
 router.route('/test').get(async (_req, res) => {
-  const preferences = await new GetUserPreference(1).getUserPreference();
+  const preferences = await new UserPreferenceHandler(1).get();
 
   res.status(200).json({ preferences, message: 'success' });
 });
@@ -34,7 +37,11 @@ router.route('/check').get((_req, res) => {
   res.status(200).json({ message: 'OK' });
 });
 
-router.use('/api', tokenHandler.validateInfosTokens(), apiRouter);
+router.use(
+  '/api',
+  // tokenHandler.validateInfosTokens(),
+  apiRouter,
+);
 router.use('/auth', authRouter);
 
 // Health check

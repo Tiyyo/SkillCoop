@@ -10,7 +10,6 @@ import mvpRouter from './api-router/mvp.router';
 import bestStrikerRouter from './api-router/best-striker.router';
 import notificationRouter from './api-router/notification.router';
 import userPreferenceRouter from './api-router/user-preference.router';
-import logger from '../helpers/logger';
 
 const router: Router = express.Router();
 

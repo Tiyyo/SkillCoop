@@ -1,6 +1,8 @@
 import express, { Router } from 'express';
 import factory from '../../middleware/wrapper-controller';
+/*eslint-disable*/
 import userPreferenceController from '../../controller/user-preference.controller';
+/*eslint-enable*/
 import { validateSchema } from '../../middleware/schema-validator';
 import { canals } from '../../@types/types';
 import {

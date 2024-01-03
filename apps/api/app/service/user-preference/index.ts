@@ -1,73 +1,52 @@
-import type { NotificationType as TNotificationTypes } from 'skillcoop-types';
-import { themePreference as ThemePreference } from '../../models/index';
-import { languagePreference as LanguagePreference } from '../../models/index';
-/*eslint-disable max-len*/
-import { notificationPreference as NotificationPreference } from '../../models/index';
-import { notificationType as NotificationType } from '../../models/index';
-import ServerError from '../../helpers/errors/server.error';
-import DatabaseError from '../../helpers/errors/database.error';
-/*eslint-enable max-len*/
+import { sql } from 'kysely';
+import { db } from '../../helpers/client.db';
+import type {
+  UserPreference as TUserPreference,
+  RawUserPreference,
+  NotificationPreference as TNotificationPreference,
+} from 'skillcoop-types';
+import { DefaultUserPreference } from './default-preference';
 
-type NotificationTypeDB = {
-  name: TNotificationTypes;
-  created_at: string;
-  updated_at: string;
-};
-
-export class UserPreference {
+export class UserPreferenceHandler {
   userId: number;
   constructor(userId: number) {
     this.userId = userId;
   }
-  async generateDefaultPreferences() {
-    await this.generateDefaultThemePreference();
-    await this.generateDefaultLanguagePreference();
-    await this.generateDefaultNotificationPreference();
+  async generateDefault() {
+    new DefaultUserPreference(this.userId).generateDefaultPreferences();
   }
-  async generateDefaultThemePreference() {
-    await ThemePreference.create({ user_id: this.userId }).catch((err) => {
-      if (err instanceof DatabaseError) {
-        throw new ServerError(
-          'Theme preference creation failed',
-          'UserPreference',
-        );
-      }
-    });
-  }
-  async generateDefaultLanguagePreference() {
-    await LanguagePreference.create({ user_id: this.userId }).catch((err) => {
-      if (err instanceof DatabaseError) {
-        throw new ServerError(
-          'Language preference creation failed',
-          'UserPreference',
-        );
-      }
-    });
-  }
-  async generateDefaultNotificationPreference() {
-    const notificationTypes = await NotificationType.findAll().catch((err) => {
-      return 'gotohell';
-    });
-    const notificationTypesReduced = notificationTypes.reduce(
-      (acc: string[], curr: NotificationTypeDB) => {
-        acc.push(curr.name);
-        return acc;
-      },
-      [],
-    ) as TNotificationTypes[];
-    const queries = notificationTypesReduced.map((type) => {
-      return NotificationPreference.create({
-        user_id: this.userId,
-        type_name: type,
-      });
-    });
-    await Promise.all(queries).catch((err) => {
-      if (err instanceof DatabaseError) {
-        throw new ServerError(
-          'Notification preference creation failed',
-          'UserPreference',
-        );
-      }
-    });
+  async get() {
+    const result = await sql<RawUserPreference>`
+      SELECT 
+        json_group_array(json_object
+        (
+         'type_name', type_name, 
+         'email', email, 
+         'push' , push, 
+         'website', website )
+        ) AS 'prefered_notifications',
+        theme_preference.name AS 'prefered_theme',
+        language_preference.name AS 'prefered_language'
+      FROM 'notification_preference' 
+      LEFT JOIN 'theme_preference' 
+        ON 'theme_preference'.'user_id' = 'notification_preference'.'user_id'
+      LEFT JOIN 'language_preference'
+        ON 'language_preference'.'user_id' = 'notification_preference'.'user_id'
+      WHERE 'notification_preference'.'user_id' = 1
+      GROUP BY 'notification_preference'.'user_id'
+    `.execute(db);
+
+    const userPreference: TUserPreference = {
+      ...result.rows[0],
+      prefered_notifications: JSON.parse(
+        result.rows[0].prefered_notifications,
+      ).map((notificationPreference: TNotificationPreference) => ({
+        ...notificationPreference,
+        email: !!notificationPreference.email,
+        push: !!notificationPreference.push,
+        website: !!notificationPreference.website,
+      })),
+    };
+    return userPreference;
   }
 }

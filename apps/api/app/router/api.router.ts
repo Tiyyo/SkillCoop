@@ -13,7 +13,6 @@ import userPreferenceRouter from './api-router/user-preference.router';
 import logger from '../helpers/logger';
 
 const router: Router = express.Router();
-logger.info('Entry API router');
 
 router.use('/user', userRouter);
 router.use('/profile', profileRouter);

@@ -1,18 +1,18 @@
 import { Request, Response } from 'express';
 import deleteDecodedKey from '../utils/delete-decoded';
 import checkParams from '../utils/check-params';
-import { UserPreference } from '../service/user-preference';
+import { UserPreferenceHandler } from '../service/user-preference';
 
 export default {
   async get(req: Request, res: Response) {
     deleteDecodedKey(req.body);
     const [user_id] = checkParams(req.params.id);
-    const userPreferenceHandler = new UserPreference(user_id);
+    const userPreferenceHandler = new UserPreferenceHandler(user_id);
 
     let userPreferences = userPreferenceHandler.get();
 
     if (!userPreferences) {
-      await userPreferenceHandler.generateDefaultPreferences();
+      await userPreferenceHandler.generateDefault();
       userPreferences = userPreferenceHandler.get();
     }
 

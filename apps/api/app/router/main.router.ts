@@ -10,7 +10,7 @@ import logger from '../helpers/logger';
 //eslint-disable-next-line
 import { sseConnectionManager } from '../service/notification/sse-connection.manager';
 import { UserPreference } from '../service/user-preference';
-import { GetUserPreference } from '../service/user-preference/get-user-preference';
+import { GetUserPreference } from '../service/user-preference/default-preference';
 
 const { getMe } = userController;
 const router: Router = express.Router();

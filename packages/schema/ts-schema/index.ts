@@ -7,5 +7,6 @@ export * from './skills'
 export * from './vote'
 export * from './event'
 export * from './notification'
+export * from './preferences'
 export type { AnyZodObject, ZodType, ZodTypeDef } from 'zod';
 export { ZodError } from 'zod';

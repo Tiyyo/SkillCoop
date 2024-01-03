@@ -6,7 +6,8 @@
   "scripts": {
     "api": "pnpm --filter api",
     "client": "pnpm --filter client",
-    "date": "pnpm --filter date-handler"
+    "date": "pnpm --filter date-handler",
+    "schema" : "pnpm --filter schema"
   },
   "keywords": [],
   "author": "",

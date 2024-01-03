@@ -17,8 +17,10 @@
 ### Apps and Packages
 
 - `api`: a Node.js app
-- `client_web`: a React.js app
+- `client`: a React.js app
 - `schema`: Shared schema to validate data
+- 'type' : Shared types
+- 'date-handler' : Shared collection of utils functions to manage date
 - `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
 - `tsconfig`: `tsconfig.json`s used throughout the monorepo
 
@@ -27,7 +29,7 @@
 - Express.js
 - SQlite / Redis
 - Prisma / Kysely
-
+  
 - React.js
 - ReactQuery / Zustand
 - TailwindCSS / Shadcn/ui

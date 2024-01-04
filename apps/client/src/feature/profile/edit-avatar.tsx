@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
-import { useApp } from '../../../store/app.store';
-import toast from '../../../utils/toast';
-import { useUpdateAvatar } from '../../../hooks/useProfile';
+import { useApp } from '../../store/app.store';
+import toast from '../../utils/toast';
+import { useUpdateAvatar } from '../../hooks/useProfile';
 
 function AvatarEdit({ avatar }: { avatar: string | null }) {
   const { userProfile } = useApp();

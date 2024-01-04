@@ -8,6 +8,8 @@ export const updateNotificationPreferenceSchema = z.object({
   website: z.boolean().optional(),
 });
 
+
+
 export const updateLanguagePreferenceSchema = z.object({
   user_id: z.number().positive().int(),
   name: z.enum(['en', 'fr', 'es']),

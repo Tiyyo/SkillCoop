@@ -1,6 +1,6 @@
 import { useId, useState } from 'react';
-import capitalize from '../../../utils/capitalize';
-import { cn } from '../../../lib/utils';
+import capitalize from '../../utils/capitalize';
+import { cn } from '../../lib/utils';
 
 type FieldsetRadioInputProps = {
   name: string;

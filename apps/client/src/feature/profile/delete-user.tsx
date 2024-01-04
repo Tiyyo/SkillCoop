@@ -1,7 +1,7 @@
 import { Trash2 } from 'lucide-react';
-import { useApp } from '../../../store/app.store';
-import MenuItemDialog from '../../../component/menu-item-dialog';
-import { useDeleteUser } from '../../../hooks/useProfile';
+import { useApp } from '../../store/app.store';
+import MenuItemDialog from '../../component/menu-item-dialog';
+import { useDeleteUser } from '../../hooks/useProfile';
 
 function DeleteUser() {
   const { userProfile, setIsAuth } = useApp();

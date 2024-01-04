@@ -36,7 +36,7 @@ export default {
         );
       }
     }
-    res.status(200).json({ userPreference: userPreferences });
+    res.status(200).json(userPreferences);
   },
   async updateNotification(req: Request, res: Response) {
     deleteDecodedKey(req.body);

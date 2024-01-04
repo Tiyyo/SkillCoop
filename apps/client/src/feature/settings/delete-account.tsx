@@ -1,0 +1,34 @@
+import { Trash2 } from 'lucide-react';
+import MenuItemDialog from '../../component/menu-item-dialog';
+import { useDeleteUser } from '../../hooks/useProfile';
+import { useApp } from '../../store/app.store';
+
+function DeleteUserAccount() {
+  const { userProfile, setIsAuth } = useApp();
+  const { mutate: deleteUserAccount } = useDeleteUser({
+    onSuccess: () => {
+      setIsAuth(false);
+    },
+  });
+  return (
+    <MenuItemDialog
+      mutateFn={deleteUserAccount}
+      description="This action cannot be undone. 
+        This will permanently delete your account."
+      mutationData={userProfile?.user_id}
+    >
+      <div
+        className="flex items-center justify-center py-3.5
+          rounded-lg px-1.5 text-error w-full cursor-pointer hover:bg-error-mid 
+          hover:bg-opacity-10 duration-300"
+      >
+        <span className="px-2.5">
+          <Trash2 size={18} />
+        </span>
+        Delete your account
+      </div>
+    </MenuItemDialog>
+  );
+}
+
+export default DeleteUserAccount;

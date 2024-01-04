@@ -1,4 +1,5 @@
 import Container from '../../layout/container';
+import DeleteUserAccount from './delete-account';
 import Logout from './logout';
 import MenuSettingItem from './menu-item';
 import {
@@ -42,17 +43,7 @@ function MenuSettings() {
       </Container>
       <Container className="lg:mt-4 bg-transparent shadow-none">
         <Logout />
-
-        <button
-          className="flex items-center justify-center py-3.5
-          rounded-lg px-1.5 text-error w-full cursor-pointer hover:bg-error-mid 
-          hover:bg-opacity-10 duration-300"
-        >
-          <span className="px-2.5">
-            <Trash2 size={18} />
-          </span>
-          Delete your account
-        </button>
+        <DeleteUserAccount />
       </Container>
     </div>
   );

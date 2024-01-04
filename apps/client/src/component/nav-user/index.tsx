@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,41 +7,14 @@ import {
   DropdownMenuTrigger,
 } from '../../lib/ui/dropdown';
 import { User, Trophy, Settings, LogOut } from 'lucide-react';
-import { useMutation } from '@tanstack/react-query';
-import { logoutUserFn } from '../../api/api.fn';
-import { useApp } from '../../store/app.store';
-import { queryClient } from '../../main';
-import { useEffect } from 'react';
+import useLogout from '../../hooks/useLogout';
 
 function NavUser({ children }: { children: JSX.Element }) {
-  const navigate = useNavigate();
+  const { logout } = useLogout();
+
   const menuItemStyle = `'flex gap-2 items-center 
         hover:bg-primary-200 transition-colors duration-300 
         rounded-lg px-2 text-md'`;
-
-  const {
-    mutate: logout,
-    isSuccess,
-    isLoading,
-  } = useMutation(() => logoutUserFn());
-  const { signout } = useApp();
-
-  const handleClickLogout = async () => {
-    signout();
-    logout();
-  };
-
-  useEffect(() => {
-    if (isSuccess) {
-      // cache need to be clear on logout to avoid an
-      // user to still be able to access the app
-      // because of remaining data in cache
-      queryClient.clear();
-      queryClient.invalidateQueries({ queryKey: ['auth-user'] });
-      queryClient.removeQueries({ queryKey: ['auth-user'], exact: true });
-      navigate('/login');
-    }
-  }, [isLoading]);
 
   return (
     <div className="relative  flex justify-center">
@@ -67,10 +40,7 @@ function NavUser({ children }: { children: JSX.Element }) {
             </DropdownMenuItem>
           </NavLink>
           <DropdownMenuSeparator className="bg-light" />
-          <DropdownMenuItem
-            className={menuItemStyle}
-            onClick={handleClickLogout}
-          >
+          <DropdownMenuItem className={menuItemStyle} onClick={() => logout()}>
             <LogOut size={16} />
             <span>Logout</span>
           </DropdownMenuItem>

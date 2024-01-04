@@ -1,10 +1,10 @@
 import Container from '../../layout/container';
+import Logout from './logout';
 import MenuSettingItem from './menu-item';
 import {
   Bell,
   Flag,
   HelpCircle,
-  LogOut,
   MessagesSquare,
   PenLine,
   ShieldCheck,
@@ -41,24 +41,18 @@ function MenuSettings() {
         </MenuSettingItem>
       </Container>
       <Container className="lg:mt-4 bg-transparent shadow-none">
-        <div
+        <Logout />
+
+        <button
           className="flex items-center justify-center py-3.5
-       hover:bg-primary-210 rounded-lg px-1.5"
-        >
-          <span className="px-2.5">
-            <LogOut size={18} />
-          </span>
-          Logout
-        </div>
-        <div
-          className="flex items-center justify-center py-3.5
-        rounded-lg px-1.5 text-error"
+          rounded-lg px-1.5 text-error w-full cursor-pointer hover:bg-error-mid 
+          hover:bg-opacity-10 duration-300"
         >
           <span className="px-2.5">
             <Trash2 size={18} />
           </span>
           Delete your account
-        </div>
+        </button>
       </Container>
     </div>
   );

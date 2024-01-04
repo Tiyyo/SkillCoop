@@ -1,0 +1,95 @@
+
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>team-generated.ts</title>
+      <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" type="text/css" rel="stylesheet">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/codemirror.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/mode/javascript/javascript.min.js" type="text/javascript" charset="utf-8"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/codemirror.min.css" type="text/css" rel="stylesheet">
+<script src="..\..\..\..\..\assets\source-file.js" type="text/javascript" charset="utf-8"></script>
+<link href="..\..\..\..\..\assets\source-file.css" type="text/css" rel="stylesheet">
+    </head>
+    <body>
+    <div style="margin-top:3em" class="ui container"><h1 class="ui header"><a href="..\..\..\..\..\index.html">TypeScript coverage report</a></h1><table style="margin-top:2em" class="ui celled table"><thead class=""><tr class=""><th class="">Filename</th><th class="">Percent</th><th class="">Threshold</th><th class="">Total</th><th class="">Covered</th><th class="">Uncovered</th></tr></thead><tbody class=""><tr class="positive"><td class="">app\service\notification\subtype\team-generated.ts</td><td class="">96.75%</td><td class="">80%</td><td class="">123</td><td class="">119</td><td class="">4</td></tr></tbody></table><textarea id="editor" readonly="" style="margin-top:3em">import { notificationSubtype, notificationType } from &#x27;skillcoop-types&#x27;;
+import {
+  profileOnEvent as Participant,
+  event as EventModel,
+} from &#x27;../../../models/index&#x27;;
+import { NotificationObserver } from &#x27;./core&#x27;;
+import { hasActiveNotification } from &#x27;../../../utils/has-active-notification&#x27;;
+import { BuildNotificationMessage } from &#x27;../message.builder&#x27;;
+import type {
+  EventParticipant,
+  BuildTeamsHasBeenGeneratedMessage,
+  NotificationSubtype,
+  NotificationType,
+} from &#x27;skillcoop-types&#x27;;
+
+class TeamHasBeenGenerated extends NotificationObserver {
+  declare subtype: NotificationSubtype;
+
+  declare eventId: number;
+
+  declare builder: BuildTeamsHasBeenGeneratedMessage;
+
+  constructor(type: NotificationType, eventId: number) {
+    super(type);
+    this.subtype = notificationSubtype.teamHasBeenGenerated;
+    this.eventId = eventId;
+    // Kinda obscur , consider to refactor and clean
+    const builder = new BuildNotificationMessage(this.subtype);
+    this.builder = builder.getBuilder(
+      this.subtype,
+    ) as BuildTeamsHasBeenGeneratedMessage;
+  }
+  async getSubscribers() {
+    const confirmedParticipants = await Participant.findBy({
+      event_id: this.eventId,
+      status_name: &#x27;confirmed&#x27;,
+    });
+    if (!confirmedParticipants) return null;
+    const participantsIds = confirmedParticipants.map(
+      (participant: EventParticipant) =&gt; participant.profile_id,
+    );
+    const subscribersIds = await hasActiveNotification(participantsIds);
+    return subscribersIds;
+  }
+  async getInfos() {
+    const eventInfos = await EventModel.findByPk(this.eventId);
+    return { eventDate: eventInfos.date };
+  }
+  async sendNotification(subscribers: number[], eventDate: string) {
+    if (!subscribers || !eventDate || !this.builder) return;
+    const message = this.builder(eventDate);
+    subscribers.forEach((id) =&gt; {
+      this.addNotificationToDatabase({
+        profileId: id,
+        message,
+        type_name: this.type,
+        subtype: this.subtype,
+        eventId: this.eventId,
+      });
+      this.triggerEvent(id);
+    });
+  }
+  async notify() {
+    const subscribersIds = await this.getSubscribers();
+    if (!subscribersIds) return;
+    const { eventDate } = await this.getInfos();
+    await this.sendNotification(subscribersIds, eventDate);
+  }
+}
+
+export const notifyTeamHasBeenGenerated = async (eventId: number) =&gt; {
+  const teamHasBeenGenerated = new TeamHasBeenGenerated(
+    notificationType.event,
+    eventId,
+  );
+  await teamHasBeenGenerated.notify();
+};
+</textarea><pre id="annotations" style="display:none">[{&quot;file&quot;:&quot;app\\service\\notification\\subtype\\team-generated.ts&quot;,&quot;line&quot;:41,&quot;character&quot;:10,&quot;text&quot;:&quot;subscribersIds&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\service\\notification\\subtype\\team-generated.ts&quot;,&quot;line&quot;:42,&quot;character&quot;:11,&quot;text&quot;:&quot;subscribersIds&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\service\\notification\\subtype\\team-generated.ts&quot;,&quot;line&quot;:63,&quot;character&quot;:10,&quot;text&quot;:&quot;subscribersIds&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\service\\notification\\subtype\\team-generated.ts&quot;,&quot;line&quot;:64,&quot;character&quot;:9,&quot;text&quot;:&quot;subscribersIds&quot;,&quot;kind&quot;:1}]</pre></div>
+    <p class="footer-text">TypeScript Coverage Report generated by <a href="https://github.com/plantain-00/type-coverage">type-coverage</a> and <a href="https://github.com/alexcanessa/typescript-coverage-report">typescript-coverage-report</a> at Thu, 04 Jan 2024 18:32:37 GMT</p>
+    </body>
+  </html>
+  

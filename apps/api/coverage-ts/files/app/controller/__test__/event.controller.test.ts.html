@@ -1,0 +1,500 @@
+
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>event.controller.test.ts</title>
+      <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" type="text/css" rel="stylesheet">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/codemirror.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/mode/javascript/javascript.min.js" type="text/javascript" charset="utf-8"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/codemirror.min.css" type="text/css" rel="stylesheet">
+<script src="..\..\..\..\assets\source-file.js" type="text/javascript" charset="utf-8"></script>
+<link href="..\..\..\..\assets\source-file.css" type="text/css" rel="stylesheet">
+    </head>
+    <body>
+    <div style="margin-top:3em" class="ui container"><h1 class="ui header"><a href="..\..\..\..\index.html">TypeScript coverage report</a></h1><table style="margin-top:2em" class="ui celled table"><thead class=""><tr class=""><th class="">Filename</th><th class="">Percent</th><th class="">Threshold</th><th class="">Total</th><th class="">Covered</th><th class="">Uncovered</th></tr></thead><tbody class=""><tr class="positive"><td class="">app\controller\__test__\event.controller.test.ts</td><td class="">99.49%</td><td class="">80%</td><td class="">779</td><td class="">775</td><td class="">4</td></tr></tbody></table><textarea id="editor" readonly="" style="margin-top:3em">import eventController from &#x27;../event.controller&#x27;;
+import { mockResponse } from &#x27;./mock-response&#x27;;
+import { Request } from &#x27;express&#x27;;
+import { event as Event } from &#x27;../../models/index&#x27;;
+import { profileOnEvent as ProfileOnEvent } from &#x27;../../models/index&#x27;;
+
+const {
+  createOne,
+  getOne,
+  updateOne,
+  deleteOne,
+  getAllByUser,
+  getOrganizerEvents,
+  getPasts,
+} = eventController;
+
+describe.skip(&#x27;createOne&#x27;, () =&gt; {
+  afterEach(() =&gt; {
+    vi.resetAllMocks();
+  });
+  test(&#x27;should return 201 when event is created&#x27;, async () =&gt; {
+    const res = mockResponse();
+    const mockRequest = {
+      body: {
+        ids: [2, 3, 4, 5, 6],
+        location: &#x27;test&#x27;,
+        organizer_id: 1,
+        date: &#x27;2021-10-10&#x27;,
+        duration: 60,
+      },
+    } as Request;
+    const req = mockRequest;
+    Event.create = vi.fn().mockResolvedValue(true);
+    ProfileOnEvent.create = vi.fn().mockResolvedValue(true);
+    ProfileOnEvent.createMany = vi.fn().mockResolvedValue(true);
+
+    await createOne(req, res);
+    expect(res.status).toBeCalledWith(201);
+  });
+  test(`should return a json with success true
+        when event is created`, async () =&gt; {
+    const res = mockResponse();
+    const mockRequest = {
+      body: {
+        ids: [2, 3, 4, 5, 6],
+        location: &#x27;test&#x27;,
+        organizer_id: 1,
+        date: &#x27;2021-10-10&#x27;,
+        duration: 60,
+      },
+    } as Request;
+    const req = mockRequest;
+    Event.create = vi.fn().mockResolvedValue(true);
+    ProfileOnEvent.create = vi.fn().mockResolvedValue(true);
+    ProfileOnEvent.createMany = vi.fn().mockResolvedValue(true);
+
+    await createOne(req, res);
+    expect(res.json).toBeCalledWith(expect.objectContaining({ success: true }));
+  });
+  test(&#x27;should call create event with the correct params&#x27;, async () =&gt; {
+    const res = mockResponse();
+    const mockRequest = {
+      body: {
+        participants: [2, 3, 4, 5, 6],
+        location: &#x27;test&#x27;,
+        organizer_id: 1,
+        date: &#x27;2021-10-10&#x27;,
+        duration: 60,
+      },
+    } as Request;
+    const req = mockRequest;
+    Event.create = vi.fn().mockResolvedValue(true);
+    ProfileOnEvent.create = vi.fn().mockResolvedValue(true);
+    ProfileOnEvent.createMany = vi.fn().mockResolvedValue(true);
+
+    await createOne(req, res);
+    expect(Event.create).toBeCalledWith({
+      location: &#x27;test&#x27;,
+      organizer_id: 1,
+      date: &#x27;2021-10-10&#x27;,
+      duration: 60,
+    });
+  });
+  test(&#x27;should call create profileOnEvent for organizer&#x27;, async () =&gt; {
+    const res = mockResponse();
+    const mockRequest = {
+      body: {
+        participants: [2, 3, 4, 5, 6],
+        location: &#x27;test&#x27;,
+        organizer_id: 1,
+        date: &#x27;2021-10-10&#x27;,
+        duration: 60,
+      },
+    } as Request;
+    const req = mockRequest;
+    Event.create = vi.fn().mockResolvedValue(7);
+    ProfileOnEvent.create = vi.fn().mockResolvedValue(true);
+    ProfileOnEvent.createMany = vi.fn().mockResolvedValue(true);
+
+    await createOne(req, res);
+    expect(ProfileOnEvent.create).toBeCalledWith({
+      event_id: 7,
+      profile_id: 1,
+      status_name: &#x27;confirmed&#x27;,
+    });
+  });
+  test(&#x27;should call createMany profileOnEvent for participants&#x27;, async () =&gt; {
+    const res = mockResponse();
+    const mockRequest = {
+      body: {
+        participants: [2, 3],
+        location: &#x27;test&#x27;,
+        organizer_id: 1,
+        date: &#x27;2021-10-10&#x27;,
+        duration: 60,
+      },
+    } as Request;
+    const req = mockRequest;
+    Event.create = vi.fn().mockResolvedValue(7);
+    ProfileOnEvent.create = vi.fn().mockResolvedValue(true);
+    ProfileOnEvent.createMany = vi.fn().mockResolvedValue(true);
+
+    await createOne(req, res);
+    expect(ProfileOnEvent.createMany).toBeCalledWith([
+      { event_id: 7, profile_id: 2, status_name: &#x27;pending&#x27; },
+      { event_id: 7, profile_id: 3, status_name: &#x27;pending&#x27; },
+    ]);
+  });
+});
+describe.skip(&#x27;getOne&#x27;, () =&gt; {
+  afterEach(() =&gt; {
+    vi.resetAllMocks();
+  });
+  const mockRequest = {
+    params: {
+      eventId: 1,
+      profileId: 2,
+    },
+  };
+  const req = mockRequest;
+  test(&#x27;should return 200 when event is found&#x27;, async () =&gt; {
+    const res = mockResponse();
+    Event.getEventById = vi.fn().mockResolvedValue(true);
+    //@ts-ignore
+    await getOne(req, res);
+    expect(res.status).toBeCalledWith(200);
+  });
+  test(&#x27;should return a json with an event when event is found&#x27;, async () =&gt; {
+    const res = mockResponse();
+    Event.getEventById = vi.fn().mockResolvedValue({
+      id: 1,
+      location: &#x27;test&#x27;,
+      organizer_id: 2,
+      date: &#x27;2021-10-10&#x27;,
+      duration: 60,
+    });
+    //@ts-ignore
+    await getOne(req, res);
+    expect(res.json).toBeCalledWith({
+      id: 1,
+      location: &#x27;test&#x27;,
+      organizer_id: 2,
+      date: &#x27;2021-10-10&#x27;,
+      duration: 60,
+    });
+  });
+  test(&#x27;should call getEventById with the correct params&#x27;, async () =&gt; {
+    const res = mockResponse();
+    Event.getEventById = vi.fn().mockResolvedValue({
+      id: 1,
+      location: &#x27;test&#x27;,
+      organizer_id: 2,
+      date: &#x27;2021-10-10&#x27;,
+      duration: 60,
+    });
+    //@ts-ignore
+    await getOne(req, res);
+    expect(Event.getEventById).toBeCalledWith(1, 2);
+  });
+});
+describe.skip(&#x27;updateOne&#x27;, () =&gt; {
+  afterEach(() =&gt; {
+    vi.resetAllMocks();
+  });
+  const mockRequest = {
+    body: {
+      event_id: 1,
+      profile_id: 2,
+      location: &#x27;test&#x27;,
+      duration: 90,
+    },
+  } as Request;
+  test(&#x27;should return 204 when event is updated&#x27;, async () =&gt; {
+    const res = mockResponse();
+    const req = mockRequest;
+    Event.findByPk = vi.fn().mockResolvedValue({ organizer_id: 2 });
+    Event.update = vi.fn().mockResolvedValue(true);
+
+    await updateOne(req, res);
+    expect(res.status).toBeCalledWith(204);
+  });
+  test(`should return a json with
+        success true when event is updated`, async () =&gt; {
+    const res = mockResponse();
+    const req = mockRequest;
+    Event.findByPk = vi.fn().mockResolvedValue({ organizer_id: 2 });
+    Event.update = vi.fn().mockResolvedValue(true);
+
+    await updateOne(req, res);
+    expect(res.json).toBeCalledWith({ success: true });
+  });
+  test(&#x27;should call find event by pk with the correct params&#x27;, async () =&gt; {
+    const res = mockResponse();
+    const req = mockRequest;
+    Event.findByPk = vi.fn().mockResolvedValue({ organizer_id: 2 });
+    Event.update = vi.fn().mockResolvedValue(true);
+
+    await updateOne(req, res);
+    expect(Event.findByPk).toBeCalledWith(req.body.event_id);
+  });
+  test(&#x27;should throw an AuthorizationError if event is not found&#x27;, async () =&gt; {
+    const res = mockResponse();
+    const req = mockRequest;
+    Event.findByPk = vi.fn().mockResolvedValue(null);
+    Event.update = vi.fn().mockResolvedValue(true);
+
+    await expect(async () =&gt; updateOne(req, res)).rejects.toThrowError(
+      &#x27;Operation not allowed&#x27;,
+    );
+  });
+  test(&#x27;should call event update with the correct params&#x27;, async () =&gt; {
+    const res = mockResponse();
+    const req = mockRequest;
+    Event.findByPk = vi.fn().mockResolvedValue({ organizer_id: 2 });
+    Event.update = vi.fn().mockResolvedValue(true);
+
+    await updateOne(req, res);
+    expect(Event.update).toBeCalledWith(req.body.event_id, {
+      location: &#x27;test&#x27;,
+      duration: 90,
+    });
+  });
+});
+describe.skip(&#x27;deleteOne&#x27;, () =&gt; {
+  afterEach(() =&gt; {
+    vi.resetAllMocks();
+  });
+  const mockRequest = {
+    params: {
+      id: 1,
+      profileId: 2,
+    },
+  };
+  test(&#x27;should return 204 when event has been deleted&#x27;, async () =&gt; {
+    const res = mockResponse();
+    const req = mockRequest;
+    Event.findByPk = vi.fn().mockResolvedValue({ organizer_id: 2 });
+    Event.delete = vi.fn().mockResolvedValue(true);
+    //@ts-ignore
+    await deleteOne(req, res);
+    expect(res.status).toBeCalledWith(204);
+  });
+  test(`should return a json with success true
+      when event has been deleted`, async () =&gt; {
+    const res = mockResponse();
+    const req = mockRequest;
+    Event.findByPk = vi.fn().mockResolvedValue({ organizer_id: 2 });
+    Event.delete = vi.fn().mockResolvedValue(true);
+    //@ts-ignore
+    await deleteOne(req, res);
+    expect(res.json).toBeCalledWith({ success: true });
+  });
+  test(&#x27;should call find event by pk with the correct params&#x27;, async () =&gt; {
+    const res = mockResponse();
+    const req = mockRequest;
+    Event.findByPk = vi.fn().mockResolvedValue({ organizer_id: 2 });
+    Event.delete = vi.fn().mockResolvedValue(true);
+    //@ts-ignore
+    await deleteOne(req, res);
+    expect(Event.findByPk).toBeCalledWith(req.params.id);
+  });
+  test(&#x27;should throw an Error No event if not event is found&#x27;, async () =&gt; {
+    const res = mockResponse();
+    const req = mockRequest;
+    Event.findByPk = vi.fn().mockResolvedValue(null);
+    Event.delete = vi.fn().mockResolvedValue(true);
+    //@ts-ignore
+    await expect(async () =&gt; deleteOne(req, res)).rejects.toThrowError(
+      &#x27;No event&#x27;,
+    );
+  });
+  test(`should throw an AuthorizationError
+if organizer is not equal to profileId`, async () =&gt; {
+    const res = mockResponse();
+    const req = mockRequest;
+    Event.findByPk = vi.fn().mockResolvedValue({ organier_id: 3 });
+    Event.delete = vi.fn().mockResolvedValue(true);
+    //@ts-ignore
+    await expect(async () =&gt; deleteOne(req, res)).rejects.toThrowError(
+      &#x27;Operation not allowed&#x27;,
+    );
+  });
+  test(&#x27;should call event delete with the correct params&#x27;, async () =&gt; {
+    const res = mockResponse();
+    const req = mockRequest;
+    Event.findByPk = vi.fn().mockResolvedValue({ organizer_id: 2 });
+    Event.delete = vi.fn().mockResolvedValue(true);
+    //@ts-ignore
+    await deleteOne(req, res);
+    expect(Event.delete).toBeCalledWith(req.params.id);
+  });
+});
+describe.skip(&#x27;getAllByUser&#x27;, () =&gt; {
+  afterEach(() =&gt; {
+    vi.resetAllMocks();
+  });
+  const mockRequest = {
+    params: {
+      profileId: 1,
+    },
+  };
+  const req = mockRequest;
+  test(&#x27;should return 200 when events are found&#x27;, async () =&gt; {
+    const res = mockResponse();
+    Event.getEventByUserId = vi.fn().mockResolvedValue(true);
+    //@ts-ignore
+    await getAllByUser(req, res);
+    expect(res.status).toBeCalledWith(200);
+  });
+  test(&#x27;should return a json with events when events are found&#x27;, async () =&gt; {
+    const res = mockResponse();
+    Event.getEventByUserId = vi.fn().mockResolvedValue([
+      {
+        id: 1,
+        location: &#x27;test&#x27;,
+        organizer_id: 2,
+        date: &#x27;2021-10-10&#x27;,
+        duration: 60,
+      },
+    ]);
+    //@ts-ignore
+    await getAllByUser(req, res);
+    expect(res.json).toBeCalledWith([
+      {
+        id: 1,
+        location: &#x27;test&#x27;,
+        organizer_id: 2,
+        date: &#x27;2021-10-10&#x27;,
+        duration: 60,
+      },
+    ]);
+  });
+  test(&#x27;should call getEventByUserId with the correct params&#x27;, async () =&gt; {
+    const res = mockResponse();
+    Event.getEventByUserId = vi.fn().mockResolvedValue([
+      {
+        id: 1,
+        location: &#x27;test&#x27;,
+        organizer_id: 2,
+        date: &#x27;2021-10-10&#x27;,
+        duration: 60,
+      },
+    ]);
+    //@ts-ignore
+    await getAllByUser(req, res);
+    expect(Event.getEventByUserId).toBeCalledWith(1);
+  });
+});
+describe.skip(&#x27;getOrganizerEvents&#x27;, () =&gt; {
+  afterEach(() =&gt; {
+    vi.resetAllMocks();
+  });
+  const mockRequest = {
+    query: {
+      profileId: 1,
+      page: 1,
+    },
+  };
+  const req = mockRequest;
+  test(&#x27;should return 200 when events are found&#x27;, async () =&gt; {
+    const res = mockResponse();
+    Event.getOrganizerEvents = vi.fn().mockResolvedValue(true);
+    //@ts-ignore
+    await getOrganizerEvents(req, res);
+    expect(res.status).toBeCalledWith(200);
+  });
+  test(&#x27;should return a json with events when events are found&#x27;, async () =&gt; {
+    const res = mockResponse();
+    Event.getOrganizerEvents = vi.fn().mockResolvedValue([
+      {
+        id: 1,
+        location: &#x27;test&#x27;,
+        organizer_id: 2,
+        date: &#x27;2021-10-10&#x27;,
+        duration: 60,
+      },
+    ]);
+    //@ts-ignore
+    await getOrganizerEvents(req, res);
+    expect(res.json).toBeCalledWith([
+      {
+        id: 1,
+        location: &#x27;test&#x27;,
+        organizer_id: 2,
+        date: &#x27;2021-10-10&#x27;,
+        duration: 60,
+      },
+    ]);
+  });
+  test(&#x27;should call getOrganizerEvents with the correct params&#x27;, async () =&gt; {
+    const res = mockResponse();
+    Event.getOrganizerEvents = vi.fn().mockResolvedValue([
+      {
+        id: 1,
+        location: &#x27;test&#x27;,
+        organizer_id: 2,
+        date: &#x27;2021-10-10&#x27;,
+        duration: 60,
+      },
+    ]);
+    //@ts-ignore
+    await getOrganizerEvents(req, res);
+    expect(Event.getOrganizerEvents).toBeCalledWith(1, 1);
+  });
+});
+describe.skip(&#x27;getPasts&#x27;, () =&gt; {
+  afterEach(() =&gt; {
+    vi.resetAllMocks();
+  });
+  const mockRequest = {
+    query: {
+      profileId: 1,
+      page: 1,
+    },
+  };
+  const req = mockRequest;
+  test(&#x27;should return 200 when events are found&#x27;, async () =&gt; {
+    const res = mockResponse();
+    Event.getPastEvents = vi.fn().mockResolvedValue(true);
+    //@ts-ignore
+    await getPasts(req, res);
+    expect(res.status).toBeCalledWith(200);
+  });
+  test(&#x27;should return a json with events when events are found&#x27;, async () =&gt; {
+    const res = mockResponse();
+    Event.getPastEvents = vi.fn().mockResolvedValue([
+      {
+        id: 1,
+        location: &#x27;test&#x27;,
+        organizer_id: 2,
+        date: &#x27;2021-10-10&#x27;,
+        duration: 60,
+      },
+    ]);
+    //@ts-ignore
+    await getPasts(req, res);
+    expect(res.json).toBeCalledWith([
+      {
+        id: 1,
+        location: &#x27;test&#x27;,
+        organizer_id: 2,
+        date: &#x27;2021-10-10&#x27;,
+        duration: 60,
+      },
+    ]);
+  });
+  test(&#x27;should call getPastEvents with the correct params&#x27;, async () =&gt; {
+    const res = mockResponse();
+    Event.getPastEvents = vi.fn().mockResolvedValue([
+      {
+        id: 1,
+        location: &#x27;test&#x27;,
+        organizer_id: 2,
+        date: &#x27;2021-10-10&#x27;,
+        duration: 60,
+      },
+    ]);
+    //@ts-ignore
+    await getPasts(req, res);
+    expect(Event.getPastEvents).toBeCalledWith(1, 1);
+  });
+});
+</textarea><pre id="annotations" style="display:none">[{&quot;file&quot;:&quot;app\\controller\\__test__\\event.controller.test.ts&quot;,&quot;line&quot;:218,&quot;character&quot;:46,&quot;text&quot;:&quot;body&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\__test__\\event.controller.test.ts&quot;,&quot;line&quot;:218,&quot;character&quot;:51,&quot;text&quot;:&quot;event_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\__test__\\event.controller.test.ts&quot;,&quot;line&quot;:237,&quot;character&quot;:44,&quot;text&quot;:&quot;body&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\__test__\\event.controller.test.ts&quot;,&quot;line&quot;:237,&quot;character&quot;:49,&quot;text&quot;:&quot;event_id&quot;,&quot;kind&quot;:1}]</pre></div>
+    <p class="footer-text">TypeScript Coverage Report generated by <a href="https://github.com/plantain-00/type-coverage">type-coverage</a> and <a href="https://github.com/alexcanessa/typescript-coverage-report">typescript-coverage-report</a> at Thu, 04 Jan 2024 18:32:37 GMT</p>
+    </body>
+  </html>
+  

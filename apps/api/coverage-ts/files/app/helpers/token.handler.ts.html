@@ -1,0 +1,178 @@
+
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>token.handler.ts</title>
+      <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" type="text/css" rel="stylesheet">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/codemirror.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/mode/javascript/javascript.min.js" type="text/javascript" charset="utf-8"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/codemirror.min.css" type="text/css" rel="stylesheet">
+<script src="..\..\..\assets\source-file.js" type="text/javascript" charset="utf-8"></script>
+<link href="..\..\..\assets\source-file.css" type="text/css" rel="stylesheet">
+    </head>
+    <body>
+    <div style="margin-top:3em" class="ui container"><h1 class="ui header"><a href="..\..\..\index.html">TypeScript coverage report</a></h1><table style="margin-top:2em" class="ui celled table"><thead class=""><tr class=""><th class="">Filename</th><th class="">Percent</th><th class="">Threshold</th><th class="">Total</th><th class="">Covered</th><th class="">Uncovered</th></tr></thead><tbody class=""><tr class="positive"><td class="">app\helpers\token.handler.ts</td><td class="">96.09%</td><td class="">80%</td><td class="">230</td><td class="">221</td><td class="">9</td></tr></tbody></table><textarea id="editor" readonly="" style="margin-top:3em">import jwt from &#x27;jsonwebtoken&#x27;;
+import { Request, Response, NextFunction } from &#x27;express&#x27;;
+import AuthorizationError from &#x27;./errors/unauthorized.error&#x27;;
+import { ObjectRecordGeneric } from &#x27;../@types/types&#x27;;
+import logger from &#x27;./logger&#x27;;
+const { sign, verify } = jwt;
+
+const tokenHandler = {
+  createToken: function (
+    expireTime: string,
+    key: string,
+    payload: ObjectRecordGeneric,
+  ) {
+    const token = sign({ data: payload }, key, {
+      expiresIn: expireTime,
+    });
+    return token;
+  },
+  createPairAuthToken: function (payload: ObjectRecordGeneric) {
+    const accessToken = this.createToken(
+      &#x27;15m&#x27;,
+      process.env.JWT_TOKEN_KEY as string,
+      payload,
+    );
+    const refreshToken = this.createToken(
+      &#x27;7d&#x27;,
+      process.env.JWT_REFRESH_TOKEN_KEY as string,
+      payload,
+    );
+    return { accessToken, refreshToken };
+  },
+  verifyTokenAndGetData: function (
+    token: string,
+    key: string,
+  ): ObjectRecordGeneric | null {
+    let payload: ObjectRecordGeneric | null = null;
+    verify(token, key, (err, decoded) =&gt; {
+      if (err &amp;&amp; err.message === &#x27;jwt expired&#x27;) {
+        logger.info(&#x27;Token error jwt expired&#x27;, err);
+        logger.error(&#x27;Token expired&#x27;);
+        throw new AuthorizationError(&#x27;No access&#x27;);
+      }
+      if (err) {
+        throw new Error(&#x27;Invalid token&#x27;);
+      }
+      if (decoded &amp;&amp; typeof decoded !== &#x27;string&#x27;) {
+        payload = decoded.data;
+        return payload;
+      }
+    });
+    return payload;
+  },
+  validate: function (tokenType: &#x27;email&#x27; | &#x27;refresh&#x27; | &#x27;access&#x27;) {
+    let errMessage = &#x27;Unauthorized&#x27;;
+    if (tokenType === &#x27;access&#x27;) {
+      errMessage = &#x27;No access&#x27;;
+    }
+    return async function (req: Request, _res: Response, next: NextFunction) {
+      const token = tokenHandler.getToken(req, tokenType);
+      if (!token) return next(new AuthorizationError(errMessage));
+      try {
+        const payload = tokenHandler.validateToken(token, tokenType);
+        if (!payload) throw new Error(&#x27;No payload&#x27;);
+        req.body.decoded = payload;
+        next();
+      } catch (error) {
+        next(error);
+      }
+    };
+  },
+  validateInfosTokens: function () {
+    return async function (req: Request, _res: Response, next: NextFunction) {
+      const accessToken = tokenHandler.getAccessToken(req);
+      const refreshToken = tokenHandler.getRefreshToken(req);
+
+      if (!accessToken || !refreshToken) {
+        return next(new AuthorizationError(&#x27;Unauthorized&#x27;));
+      }
+      try {
+        const payloadAccess = tokenHandler.verifyTokenAndGetData(
+          accessToken,
+          process.env.JWT_TOKEN_KEY as string,
+        );
+        const payloadRefresh = tokenHandler.verifyTokenAndGetData(
+          refreshToken,
+          process.env.JWT_REFRESH_TOKEN_KEY as string,
+        );
+        if (!payloadAccess || !payloadRefresh) {
+          return next(new AuthorizationError(&#x27;Unauthorized&#x27;));
+        }
+        if (payloadAccess.user_id !== payloadRefresh.user_id) {
+          return next(new AuthorizationError(&#x27;Unauthorized&#x27;));
+        }
+        next();
+      } catch (error) {
+        return next(error);
+      }
+    };
+  },
+  validateToken: (token: string, tokenType: &#x27;email&#x27; | &#x27;refresh&#x27; | &#x27;access&#x27;) =&gt; {
+    let payload;
+    switch (tokenType) {
+      case &#x27;email&#x27;:
+        return (payload = tokenHandler.verifyTokenAndGetData(
+          token,
+          process.env.JWT_EMAIL_TOKEN_KEY as string,
+        ));
+      case &#x27;refresh&#x27;:
+        return (payload = tokenHandler.verifyTokenAndGetData(
+          token,
+          process.env.JWT_REFRESH_TOKEN_KEY as string,
+        ));
+      case &#x27;access&#x27;:
+        return tokenHandler.verifyTokenAndGetData(
+          token,
+          process.env.JWT_TOKEN_KEY as string,
+        );
+      default:
+        return payload;
+    }
+  },
+  getToken: (
+    request: Request,
+    type: &#x27;email&#x27; | &#x27;refresh&#x27; | &#x27;access&#x27;,
+  ): string | null =&gt; {
+    switch (type) {
+      case &#x27;email&#x27;:
+        return tokenHandler.getEmailToken(request);
+      case &#x27;refresh&#x27;:
+        return tokenHandler.getRefreshToken(request);
+      case &#x27;access&#x27;:
+        return tokenHandler.getAccessToken(request);
+      default:
+        return null;
+    }
+  },
+  getEmailToken: function (request: Request): string | null {
+    const token = request.params.emailToken;
+    return token ? token : null;
+  },
+  getRefreshToken: function (request: Request): string {
+    const token = request.cookies.refreshToken;
+    return token;
+  },
+  getAccessToken: function (request: Request): string | null {
+    const authHeaders =
+      request.headers.Authorization || request.headers.authorization;
+    if (
+      authHeaders &amp;&amp;
+      typeof authHeaders === &#x27;string&#x27; &amp;&amp;
+      authHeaders.startsWith(&#x27;Bearer&#x27;)
+    ) {
+      const token = authHeaders.split(&#x27; &#x27;)[1];
+      return token;
+    } else {
+      return null;
+    }
+  },
+};
+export default tokenHandler;
+</textarea><pre id="annotations" style="display:none">[{&quot;file&quot;:&quot;app\\helpers\\token.handler.ts&quot;,&quot;line&quot;:46,&quot;character&quot;:26,&quot;text&quot;:&quot;data&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\helpers\\token.handler.ts&quot;,&quot;line&quot;:63,&quot;character&quot;:12,&quot;text&quot;:&quot;body&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\helpers\\token.handler.ts&quot;,&quot;line&quot;:63,&quot;character&quot;:17,&quot;text&quot;:&quot;decoded&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\helpers\\token.handler.ts&quot;,&quot;line&quot;:100,&quot;character&quot;:8,&quot;text&quot;:&quot;payload&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\helpers\\token.handler.ts&quot;,&quot;line&quot;:103,&quot;character&quot;:16,&quot;text&quot;:&quot;payload&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\helpers\\token.handler.ts&quot;,&quot;line&quot;:108,&quot;character&quot;:16,&quot;text&quot;:&quot;payload&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\helpers\\token.handler.ts&quot;,&quot;line&quot;:141,&quot;character&quot;:10,&quot;text&quot;:&quot;token&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\helpers\\token.handler.ts&quot;,&quot;line&quot;:141,&quot;character&quot;:26,&quot;text&quot;:&quot;cookies&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\helpers\\token.handler.ts&quot;,&quot;line&quot;:141,&quot;character&quot;:34,&quot;text&quot;:&quot;refreshToken&quot;,&quot;kind&quot;:1}]</pre></div>
+    <p class="footer-text">TypeScript Coverage Report generated by <a href="https://github.com/plantain-00/type-coverage">type-coverage</a> and <a href="https://github.com/alexcanessa/typescript-coverage-report">typescript-coverage-report</a> at Thu, 04 Jan 2024 18:32:37 GMT</p>
+    </body>
+  </html>
+  

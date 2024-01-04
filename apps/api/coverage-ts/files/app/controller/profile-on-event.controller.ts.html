@@ -1,0 +1,93 @@
+
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>profile-on-event.controller.ts</title>
+      <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" type="text/css" rel="stylesheet">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/codemirror.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/mode/javascript/javascript.min.js" type="text/javascript" charset="utf-8"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/codemirror.min.css" type="text/css" rel="stylesheet">
+<script src="..\..\..\assets\source-file.js" type="text/javascript" charset="utf-8"></script>
+<link href="..\..\..\assets\source-file.css" type="text/css" rel="stylesheet">
+    </head>
+    <body>
+    <div style="margin-top:3em" class="ui container"><h1 class="ui header"><a href="..\..\..\index.html">TypeScript coverage report</a></h1><table style="margin-top:2em" class="ui celled table"><thead class=""><tr class=""><th class="">Filename</th><th class="">Percent</th><th class="">Threshold</th><th class="">Total</th><th class="">Covered</th><th class="">Uncovered</th></tr></thead><tbody class=""><tr class="positive"><td class="">app\controller\profile-on-event.controller.ts</td><td class="">84.51%</td><td class="">80%</td><td class="">142</td><td class="">120</td><td class="">22</td></tr></tbody></table><textarea id="editor" readonly="" style="margin-top:3em">import UserInputError from &#x27;../helpers/errors/user-input.error&#x27;;
+import { profileOnEvent as ProfileOnEvent } from &#x27;../models/index&#x27;;
+import { event as Event } from &#x27;../models/index&#x27;;
+import { Request, Response } from &#x27;express&#x27;;
+import { invitationStatus } from &#x27;skillcoop-types&#x27;;
+import { generateBalancedTeam } from &#x27;../service/generate-teams&#x27;;
+import deleteDecodedKey from &#x27;../utils/delete-decoded&#x27;;
+//eslint-disable-next-line
+import { notifyUserHasBeenInvitedToEvent } from &#x27;../service/notification/subtype/user-invited-event&#x27;;
+//eslint-disable-next-line
+import { notifyTeamHasBeenGenerated } from &#x27;../service/notification/subtype/team-generated&#x27;;
+
+export default {
+  async updateStatus(req: Request, res: Response) {
+    deleteDecodedKey(req.body);
+
+    const { profile_id, event_id, status_name } = req.body;
+    let userMessage = &#x27;Status has been updated&#x27;;
+
+    const data = { profile_id, event_id, status_name, updated_at: undefined };
+    const event = await Event.findByPk(data.event_id);
+
+    if (status_name === &#x27;pending&#x27; || status_name === &#x27;declined&#x27;) {
+      if (event.organizer_id === profile_id) {
+        console.log(&#x27;User cannot change his status&#x27;);
+        return res
+          .status(200)
+          .json({ message: &#x27;Organizer cannot change his status&#x27; });
+      }
+      if (event.status_name === &#x27;completed&#x27;) {
+        console.log(&#x27;Event is already completed&#x27;);
+        return res.status(200).json({ message: &#x27;Event is already completed&#x27; });
+      }
+      if (event.status_name === &#x27;full&#x27;) {
+        await Event.update(event.id, { status_name: &#x27;open&#x27; });
+      }
+      await ProfileOnEvent.updateStatus(data);
+      return res.status(200).send(userMessage);
+    }
+
+    // check if the event is full
+    const confirmedParticipants = await ProfileOnEvent.findBy({
+      event_id: data.event_id,
+      status_name: invitationStatus.confirmed,
+    });
+
+    if (event.required_participants &lt;= confirmedParticipants.length) {
+      throw new UserInputError(&#x27;Event is already full&#x27;);
+    }
+
+    await ProfileOnEvent.updateStatus(data);
+
+    if (event.required_participants === confirmedParticipants.length + 1) {
+      await Event.update(event.id, { status_name: &#x27;full&#x27; });
+      await generateBalancedTeam(event.id);
+      await notifyTeamHasBeenGenerated(event.id);
+      userMessage = &#x27;Teams has been generated &#x27;;
+    }
+
+    res.status(200).json(userMessage);
+  },
+  async sendInvitationToEvent(req: Request, res: Response) {
+    deleteDecodedKey(req.body);
+    const { ids, event_id, initiator: profile_id } = req.body;
+
+    const data = ids.map((id: number) =&gt; ({
+      profile_id: id,
+      event_id,
+      status_name: &#x27;pending&#x27;,
+    }));
+    const isCreated = await ProfileOnEvent.createMany(data);
+    notifyUserHasBeenInvitedToEvent(event_id, profile_id, ids);
+    res.status(201).send({ success: isCreated });
+  },
+};
+</textarea><pre id="annotations" style="display:none">[{&quot;file&quot;:&quot;app\\controller\\profile-on-event.controller.ts&quot;,&quot;line&quot;:14,&quot;character&quot;:25,&quot;text&quot;:&quot;body&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\profile-on-event.controller.ts&quot;,&quot;line&quot;:16,&quot;character&quot;:12,&quot;text&quot;:&quot;profile_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\profile-on-event.controller.ts&quot;,&quot;line&quot;:16,&quot;character&quot;:24,&quot;text&quot;:&quot;event_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\profile-on-event.controller.ts&quot;,&quot;line&quot;:16,&quot;character&quot;:34,&quot;text&quot;:&quot;status_name&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\profile-on-event.controller.ts&quot;,&quot;line&quot;:16,&quot;character&quot;:54,&quot;text&quot;:&quot;body&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\profile-on-event.controller.ts&quot;,&quot;line&quot;:19,&quot;character&quot;:19,&quot;text&quot;:&quot;profile_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\profile-on-event.controller.ts&quot;,&quot;line&quot;:19,&quot;character&quot;:31,&quot;text&quot;:&quot;event_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\profile-on-event.controller.ts&quot;,&quot;line&quot;:19,&quot;character&quot;:41,&quot;text&quot;:&quot;status_name&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\profile-on-event.controller.ts&quot;,&quot;line&quot;:20,&quot;character&quot;:44,&quot;text&quot;:&quot;event_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\profile-on-event.controller.ts&quot;,&quot;line&quot;:22,&quot;character&quot;:8,&quot;text&quot;:&quot;status_name&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\profile-on-event.controller.ts&quot;,&quot;line&quot;:22,&quot;character&quot;:37,&quot;text&quot;:&quot;status_name&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\profile-on-event.controller.ts&quot;,&quot;line&quot;:23,&quot;character&quot;:33,&quot;text&quot;:&quot;profile_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\profile-on-event.controller.ts&quot;,&quot;line&quot;:42,&quot;character&quot;:21,&quot;text&quot;:&quot;event_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\profile-on-event.controller.ts&quot;,&quot;line&quot;:62,&quot;character&quot;:25,&quot;text&quot;:&quot;body&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\profile-on-event.controller.ts&quot;,&quot;line&quot;:63,&quot;character&quot;:12,&quot;text&quot;:&quot;ids&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\profile-on-event.controller.ts&quot;,&quot;line&quot;:63,&quot;character&quot;:17,&quot;text&quot;:&quot;event_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\profile-on-event.controller.ts&quot;,&quot;line&quot;:63,&quot;character&quot;:38,&quot;text&quot;:&quot;profile_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\profile-on-event.controller.ts&quot;,&quot;line&quot;:63,&quot;character&quot;:57,&quot;text&quot;:&quot;body&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\profile-on-event.controller.ts&quot;,&quot;line&quot;:65,&quot;character&quot;:10,&quot;text&quot;:&quot;data&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\profile-on-event.controller.ts&quot;,&quot;line&quot;:65,&quot;character&quot;:17,&quot;text&quot;:&quot;ids&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\profile-on-event.controller.ts&quot;,&quot;line&quot;:65,&quot;character&quot;:21,&quot;text&quot;:&quot;map&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\profile-on-event.controller.ts&quot;,&quot;line&quot;:67,&quot;character&quot;:6,&quot;text&quot;:&quot;event_id&quot;,&quot;kind&quot;:1}]</pre></div>
+    <p class="footer-text">TypeScript Coverage Report generated by <a href="https://github.com/plantain-00/type-coverage">type-coverage</a> and <a href="https://github.com/alexcanessa/typescript-coverage-report">typescript-coverage-report</a> at Thu, 04 Jan 2024 18:32:37 GMT</p>
+    </body>
+  </html>
+  

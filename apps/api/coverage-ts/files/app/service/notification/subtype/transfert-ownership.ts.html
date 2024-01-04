@@ -1,0 +1,127 @@
+
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>transfert-ownership.ts</title>
+      <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" type="text/css" rel="stylesheet">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/codemirror.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/mode/javascript/javascript.min.js" type="text/javascript" charset="utf-8"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/codemirror.min.css" type="text/css" rel="stylesheet">
+<script src="..\..\..\..\..\assets\source-file.js" type="text/javascript" charset="utf-8"></script>
+<link href="..\..\..\..\..\assets\source-file.css" type="text/css" rel="stylesheet">
+    </head>
+    <body>
+    <div style="margin-top:3em" class="ui container"><h1 class="ui header"><a href="..\..\..\..\..\index.html">TypeScript coverage report</a></h1><table style="margin-top:2em" class="ui celled table"><thead class=""><tr class=""><th class="">Filename</th><th class="">Percent</th><th class="">Threshold</th><th class="">Total</th><th class="">Covered</th><th class="">Uncovered</th></tr></thead><tbody class=""><tr class="positive"><td class="">app\service\notification\subtype\transfert-ownership.ts</td><td class="">99.36%</td><td class="">80%</td><td class="">156</td><td class="">155</td><td class="">1</td></tr></tbody></table><textarea id="editor" readonly="" style="margin-top:3em">import { hasActiveNotification } from &#x27;../../../utils/has-active-notification&#x27;;
+import { BuildNotificationMessage } from &#x27;../message.builder&#x27;;
+import { event as EventModel, profile as Profile } from &#x27;../../../models/index&#x27;;
+import type {
+  BuilderTransfertOwnershipMessage,
+  NotificationSubtype,
+  NotificationType,
+} from &#x27;skillcoop-types&#x27;;
+import { notificationSubtype, notificationType } from &#x27;skillcoop-types&#x27;;
+import { NotificationObserver } from &#x27;./core&#x27;;
+
+type ConstructorProps = {
+  eventId: number;
+  instigatorId: number;
+  subscriberId: number;
+  type: NotificationType;
+};
+
+type SendNotificationProps = {
+  subscriber: number[] | null;
+  eventDate: string;
+  username: string;
+  avatar_url?: string | null;
+};
+
+class TransfertOwnership extends NotificationObserver {
+  declare subtype: NotificationSubtype;
+
+  declare instigatorId: number;
+
+  declare subscriberId: number;
+
+  declare eventId: number;
+
+  declare builder: BuilderTransfertOwnershipMessage;
+
+  constructor({ eventId, instigatorId, type, subscriberId }: ConstructorProps) {
+    super(type);
+    this.subtype = notificationSubtype.transfertOwnership;
+    this.instigatorId = instigatorId;
+    this.subscriberId = subscriberId;
+    this.eventId = eventId;
+    const builder = new BuildNotificationMessage(this.subtype);
+    // TODO : find a way to infer correct type to builder and remove cast
+    this.builder = builder.getBuilder(
+      this.subtype,
+    ) as BuilderTransfertOwnershipMessage;
+  }
+  async getSubscribers(): Promise&lt;number[] | null&gt; {
+    const haveSubscribed = await hasActiveNotification([this.subscriberId]);
+    return haveSubscribed;
+  }
+  async getEventInfos() {
+    const eventInfos = await EventModel.findByPk(this.eventId);
+    return { eventDate: eventInfos.date };
+  }
+  async getInstigatorInfos() {
+    const { username, avatar_url } = await Profile.findByPk(this.instigatorId);
+    return { username, avatar_url };
+  }
+  async sendNotification({
+    subscriber,
+    username,
+    eventDate,
+    avatar_url,
+  }: SendNotificationProps) {
+    if (!subscriber) return null;
+    const message = this.builder(username, eventDate);
+    subscriber.forEach((id) =&gt; {
+      this.addNotificationToDatabase({
+        profileId: id,
+        message,
+        type_name: this.type,
+        subtype: this.subtype,
+        eventId: this.eventId,
+        instigatorId: this.instigatorId,
+        img_url: avatar_url,
+      });
+      this.triggerEvent(id);
+    });
+    return null;
+  }
+  async notify() {
+    const subscriber = await this.getSubscribers();
+    if (!subscriber) return null;
+    const { username, avatar_url } = await this.getInstigatorInfos();
+    const { eventDate } = await this.getEventInfos();
+    await this.sendNotification({
+      subscriber,
+      username,
+      eventDate,
+      avatar_url,
+    });
+  }
+}
+
+export const notifyTransfertOwnership = async (
+  eventId: number,
+  instigatorId: number,
+  subscriberId: number,
+) =&gt; {
+  const transfertOwnership = new TransfertOwnership({
+    type: notificationType.event,
+    eventId,
+    instigatorId,
+    subscriberId,
+  });
+  await transfertOwnership.notify();
+};
+</textarea><pre id="annotations" style="display:none">[{&quot;file&quot;:&quot;app\\service\\notification\\subtype\\transfert-ownership.ts&quot;,&quot;line&quot;:49,&quot;character&quot;:10,&quot;text&quot;:&quot;haveSubscribed&quot;,&quot;kind&quot;:1}]</pre></div>
+    <p class="footer-text">TypeScript Coverage Report generated by <a href="https://github.com/plantain-00/type-coverage">type-coverage</a> and <a href="https://github.com/alexcanessa/typescript-coverage-report">typescript-coverage-report</a> at Thu, 04 Jan 2024 18:32:37 GMT</p>
+    </body>
+  </html>
+  

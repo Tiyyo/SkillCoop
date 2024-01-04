@@ -1,0 +1,496 @@
+
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>seed.ts</title>
+      <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" type="text/css" rel="stylesheet">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/codemirror.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/mode/javascript/javascript.min.js" type="text/javascript" charset="utf-8"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/codemirror.min.css" type="text/css" rel="stylesheet">
+<script src="..\..\assets\source-file.js" type="text/javascript" charset="utf-8"></script>
+<link href="..\..\assets\source-file.css" type="text/css" rel="stylesheet">
+    </head>
+    <body>
+    <div style="margin-top:3em" class="ui container"><h1 class="ui header"><a href="..\..\index.html">TypeScript coverage report</a></h1><table style="margin-top:2em" class="ui celled table"><thead class=""><tr class=""><th class="">Filename</th><th class="">Percent</th><th class="">Threshold</th><th class="">Total</th><th class="">Covered</th><th class="">Uncovered</th></tr></thead><tbody class=""><tr class="positive"><td class="">prisma\seed.ts</td><td class="">98.02%</td><td class="">80%</td><td class="">756</td><td class="">741</td><td class="">15</td></tr></tbody></table><textarea id="editor" readonly="" style="margin-top:3em">import logger from &#x27;../app/helpers/logger&#x27;;
+import { faker } from &#x27;@faker-js/faker&#x27;;
+import { user as User } from &#x27;../app/models/index&#x27;;
+import { profile as Profile } from &#x27;../app/models/index&#x27;;
+import { image as Image } from &#x27;../app/models/index&#x27;;
+import { event as Event } from &#x27;../app/models/index&#x27;;
+import { status as Status } from &#x27;../app/models/index&#x27;;
+import { profileOnEvent as Participant } from &#x27;../app/models/index&#x27;;
+import { score as Score } from &#x27;../app/models/index&#x27;;
+import { friendslist as Friendlist } from &#x27;../app/models/index&#x27;;
+import { skillFoot as SkillFoot } from &#x27;../app/models/index&#x27;;
+import { notificationType as NotificationType } from &#x27;../app/models/index&#x27;;
+import authService from &#x27;../app/service/auth/auth&#x27;;
+import { getFormattedUTCTimestamp, getUTCString } from &#x27;date-handler&#x27;;
+
+function getRandomIntInclusive(min: number, max: number): number {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function getIntUnused(intAlreadyUsed: number[]): number {
+  const nbToPush = getRandomIntInclusive(1, 24);
+  if (intAlreadyUsed.find((int) =&gt; int == nbToPush)) {
+    return getIntUnused(intAlreadyUsed);
+  } else {
+    return nbToPush;
+  }
+  // intAlreadyUsed.push(nbToPush);
+}
+
+async function seed() {
+  logger.info(&#x27;Start seeding&#x27;);
+  const todayUTCString = getFormattedUTCTimestamp();
+  // create status
+  const status = [
+    { name: &#x27;pending&#x27; },
+    { name: &#x27;confirmed&#x27; },
+    { name: &#x27;declined&#x27; },
+    { name: &#x27;open&#x27; },
+    { name: &#x27;full&#x27; },
+    { name: &#x27;completed&#x27; },
+    { name: &#x27;cancelled&#x27; },
+  ];
+
+  for await (const item of status) {
+    await Status.create({ name: item.name });
+  }
+
+  const notificationTypes = [
+    { name: &#x27;event&#x27; },
+    { name: &#x27;friend&#x27; },
+    { name: &#x27;message&#x27; },
+    { name: &#x27;system&#x27; },
+  ];
+
+  for await (const item of notificationTypes) {
+    await NotificationType.create({ name: item.name });
+  }
+
+  const userToCreateInfos = [
+    {
+      email: &#x27;admin@admin.com&#x27;,
+      password: &#x27;admin&#x27;,
+      username: &#x27;Tiyyo&#x27;,
+      date_of_birth: &#x27;1992-12-09&#x27;,
+      first_name: &#x27;Steeve&#x27;,
+      last_name: &#x27;Matou&#x27;,
+    },
+    {
+      email: &#x27;haaland@haaland.com&#x27;,
+      password: &#x27;haaland&#x27;,
+      username: &#x27;Haaland&#x27;,
+      first_name: &#x27;Erling&#x27;,
+      last_name: &#x27;Haaland&#x27;,
+    },
+    {
+      email: &#x27;mbappe@mbappe.com&#x27;,
+      password: &#x27;mbappe&#x27;,
+      username: &#x27;Mbappe&#x27;,
+      first_name: &#x27;Kylian&#x27;,
+      last_name: &#x27;Mbappe&#x27;,
+    },
+    {
+      email: &#x27;bellingham@bellingham.com&#x27;,
+      password: &#x27;bellingham&#x27;,
+      username: &#x27;Bellingham&#x27;,
+      first_name: &#x27;Jude&#x27;,
+      last_name: &#x27;Bellingham&#x27;,
+    },
+    {
+      email: &#x27;vinicius@vinicius.com&#x27;,
+      password: &#x27;vinicius&#x27;,
+      username: &#x27;Vinicius&#x27;,
+      first_name: &#x27;Vinicius&#x27;,
+      last_name: &#x27;Junior&#x27;,
+    },
+    {
+      email: &#x27;saka@saka.com&#x27;,
+      password: &#x27;saka&#x27;,
+      username: &#x27;Saka&#x27;,
+      first_name: &#x27;Bukayo&#x27;,
+      last_name: &#x27;Saka&#x27;,
+    },
+    {
+      email: &#x27;osimhen@osimhen.com&#x27;,
+      password: &#x27;osimhen&#x27;,
+      username: &#x27;Osimhen&#x27;,
+      first_name: &#x27;Victor&#x27;,
+      last_name: &#x27;Osimhen&#x27;,
+    },
+    {
+      email: &#x27;musiala@musiala.com&#x27;,
+      password: &#x27;musiala&#x27;,
+      username: &#x27;Musiala&#x27;,
+      first_name: &#x27;Jamal&#x27;,
+      last_name: &#x27;Musiala&#x27;,
+    },
+    {
+      email: &#x27;foden@foden.com&#x27;,
+      password: &#x27;foden&#x27;,
+      username: &#x27;Foden&#x27;,
+      first_name: &#x27;Phil&#x27;,
+      last_name: &#x27;Foden&#x27;,
+    },
+    {
+      email: &#x27;kane@kane.com&#x27;,
+      password: &#x27;kane&#x27;,
+      username: &#x27;Kane&#x27;,
+      first_name: &#x27;Harry&#x27;,
+      last_name: &#x27;Kane&#x27;,
+    },
+  ];
+
+  for await (const infos of userToCreateInfos) {
+    const user = await authService.createUser({
+      email: infos.email,
+      password: infos.password,
+    });
+    if (!user) return logger.error(&#x27;Error while creating user&#x27;);
+    await User.update(user.id, { verified: 1 });
+
+    const profile = await Profile.create({
+      user_id: user.id,
+      username: infos.username,
+      first_name: infos.first_name,
+      last_name: infos.last_name,
+      active_notification: faker.number.int({ min: 0, max: 1 }),
+      created_at: todayUTCString,
+    });
+
+    await SkillFoot.create({
+      pace: faker.number.int({ min: 50, max: 100 }),
+      shooting: faker.number.int({ min: 50, max: 100 }),
+      passing: faker.number.int({ min: 50, max: 100 }),
+      dribbling: faker.number.int({ min: 50, max: 100 }),
+      defending: faker.number.int({ min: 50, max: 100 }),
+      rater_id: profile.id,
+      reviewee_id: profile.id,
+    });
+  }
+
+  // create 15 users + profile with avatar + skillfoot
+  let NB_USERS_TO_CREATE = 10;
+  const arrayToIterateOn = new Array(NB_USERS_TO_CREATE).fill(1);
+  //eslint-disable-next-line
+  for await (const _ of arrayToIterateOn) {
+    const user = await User.createUser({
+      email: faker.internet.email(),
+      password: faker.internet.password(),
+    });
+
+    const avatarUrl = faker.internet.avatar();
+    await Image.create({ url: avatarUrl });
+
+    const randomDate = faker.date.birthdate({ max: 2002, min: 1980 });
+    const birthdate = getUTCString(randomDate);
+
+    const profile = await Profile.create({
+      user_id: user.id,
+      username: faker.internet.userName().toLowerCase(),
+      first_name: faker.person.firstName(),
+      last_name: faker.person.lastName(),
+      avatar_url: avatarUrl,
+      date_of_birth: birthdate,
+      created_at: todayUTCString,
+    });
+
+    await SkillFoot.create({
+      pace: faker.number.int({ min: 10, max: 100 }),
+      shooting: faker.number.int({ min: 10, max: 100 }),
+      passing: faker.number.int({ min: 10, max: 100 }),
+      dribbling: faker.number.int({ min: 10, max: 100 }),
+      defending: faker.number.int({ min: 10, max: 100 }),
+      rater_id: profile.id,
+      reviewee_id: profile.id,
+    });
+  }
+
+  NB_USERS_TO_CREATE = 750;
+  const arrayToIterateOnTwo = new Array(NB_USERS_TO_CREATE).fill(1);
+  //eslint-disable-next-line
+  for await (const _ of arrayToIterateOnTwo) {
+    const user = await User.createUser({
+      email: faker.internet.email(),
+      password: faker.internet.password(),
+    });
+
+    const randomDate = faker.date.birthdate({ max: 2002, min: 1980 });
+    const birthdate = getUTCString(randomDate);
+
+    const profile = await Profile.create({
+      user_id: user.id,
+      username: faker.internet.userName().toLowerCase(),
+      first_name: faker.person.firstName(),
+      last_name: faker.person.lastName(),
+      date_of_birth: birthdate,
+      created_at: todayUTCString,
+    });
+
+    await SkillFoot.create({
+      pace: faker.number.int({ min: 10, max: 100 }),
+      shooting: faker.number.int({ min: 10, max: 100 }),
+      passing: faker.number.int({ min: 10, max: 100 }),
+      dribbling: faker.number.int({ min: 10, max: 100 }),
+      defending: faker.number.int({ min: 10, max: 100 }),
+      rater_id: profile.id,
+      reviewee_id: profile.id,
+    });
+  }
+
+  // create friendship between users
+  const twoAndThree = [2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+  const dataPendingRequestsTest = twoAndThree.map((id) =&gt; {
+    return {
+      adder_id: 1,
+      friend_id: id,
+      status_name: &#x27;pending&#x27;,
+    };
+  });
+  await Friendlist.createMany(dataPendingRequestsTest);
+
+  const arrayFourtoThriteen = new Array(10).fill(1);
+  const dataConfirmedRequests = arrayFourtoThriteen.map((_, index) =&gt; {
+    return {
+      adder_id: 1,
+      friend_id: index + 11,
+      status_name: &#x27;confirmed&#x27;,
+    };
+  });
+  await Friendlist.createMany(dataConfirmedRequests);
+
+  const array20 = new Array(20).fill(1);
+  const dataPendingRequestsAdmin = array20.map((_, index) =&gt; {
+    return {
+      adder_id: index + 21,
+      friend_id: 1,
+      status_name: &#x27;pending&#x27;,
+    };
+  });
+  await Friendlist.createMany(dataPendingRequestsAdmin);
+
+  // // create 5 past events organize by admin
+  const NB_EVENTS_TO_CREATE = 5;
+  const arrayToIterateOnEvents = new Array(NB_EVENTS_TO_CREATE).fill(1);
+  //eslint-disable-next-line
+  for await (const _ of arrayToIterateOnEvents) {
+    const randomDate = faker.date.past();
+    const date = getUTCString(randomDate);
+
+    const eventId = await Event.create({
+      date,
+      duration: 90,
+      location: faker.location.city(),
+      required_participants: 10,
+      organizer_id: 1,
+      status_name: &#x27;completed&#x27;,
+    });
+
+    // add score to each event
+    await Score.create({
+      event_id: Number(eventId),
+      score_team_1: faker.number.int({ min: 0, max: 20 }),
+      score_team_2: faker.number.int({ min: 0, max: 20 }),
+    });
+
+    // add 10 participants to each event
+    const NB_PARTICIPANTS_TO_CREATE = 10;
+    const arrayToIterateOnParticipants = new Array(
+      NB_PARTICIPANTS_TO_CREATE,
+    ).fill(1);
+
+    arrayToIterateOnParticipants.forEach(async (_, index) =&gt; {
+      await Participant.create({
+        event_id: eventId,
+        profile_id: index + 1,
+        team: index &lt; 5 ? 1 : 2,
+        status_name: &#x27;confirmed&#x27;,
+      });
+    });
+  }
+
+  // // create 3 future events
+  const NB_EVENTS_FUTURE_TO_CREATE = 3;
+  const arrayToIterateOnFutureEvents = new Array(
+    NB_EVENTS_FUTURE_TO_CREATE,
+  ).fill(1);
+
+  //eslint-disable-next-line
+  for await (const _ of arrayToIterateOnFutureEvents) {
+    const randomDate = faker.date.future();
+    const date = getUTCString(randomDate);
+
+    const eventId = await Event.create({
+      date,
+      duration: 90,
+      location: faker.location.city(),
+      required_participants: 10,
+      organizer_id: 1,
+      status_name: &#x27;full&#x27;,
+    });
+
+    // add 10 participants to each event
+    const NB_PARTICIPANTS_TO_CREATE = 10;
+    const arrayToIterateOnParticipants = new Array(
+      NB_PARTICIPANTS_TO_CREATE,
+    ).fill(1);
+
+    arrayToIterateOnParticipants.forEach(async (_, index) =&gt; {
+      await Participant.create({
+        event_id: Number(eventId),
+        profile_id: index + 1,
+        status_name: &#x27;confirmed&#x27;,
+        team: index &lt; 5 ? 1 : 2,
+      });
+    });
+  }
+
+  // create 50 past events
+  const NB_EVENTS_PAST_TO_CREATE_2 = 1000;
+  const arrayToIterateOnFutureEvents2 = new Array(
+    NB_EVENTS_PAST_TO_CREATE_2,
+  ).fill(1);
+
+  //eslint-disable-next-line
+  for await (const _ of arrayToIterateOnFutureEvents2) {
+    const randomDate = faker.date.past();
+    const date = getUTCString(randomDate);
+    const organizerId = getRandomIntInclusive(1, 24);
+
+    const eventId = await Event.create({
+      date,
+      duration: 90,
+      location: faker.location.city(),
+      required_participants: 10,
+      organizer_id: organizerId,
+      status_name: &#x27;completed&#x27;,
+    });
+
+    await Score.create({
+      event_id: Number(eventId),
+      score_team_1: faker.number.int({ min: 0, max: 20 }),
+      score_team_2: faker.number.int({ min: 0, max: 20 }),
+    });
+
+    await Participant.create({
+      event_id: Number(eventId),
+      profile_id: organizerId,
+      status_name: &#x27;confirmed&#x27;,
+      team: 1,
+    });
+    const intAlreadyUsed = [organizerId];
+
+    // add 10 participants to each event
+    const NB_PARTICIPANTS_TO_CREATE = 9;
+    const arrayToIterateOnParticipants = new Array(
+      NB_PARTICIPANTS_TO_CREATE,
+    ).fill(1);
+
+    arrayToIterateOnParticipants.forEach(async (_, index) =&gt; {
+      const unuserInt = getIntUnused(intAlreadyUsed);
+      if (!unuserInt) return logger.error(&#x27;Failed to get an unused int&#x27;);
+      intAlreadyUsed.push(unuserInt);
+      Participant.create({
+        event_id: Number(eventId),
+        profile_id: unuserInt,
+        status_name: &#x27;confirmed&#x27;,
+        team: index &lt; 4 ? 1 : 2,
+      });
+    });
+  }
+
+  const NB_EVENTS_PAST_TO_CREATE_3 = 50;
+  const arrayToIterateOnFutureEvents3 = new Array(
+    NB_EVENTS_PAST_TO_CREATE_3,
+  ).fill(1);
+
+  //eslint-disable-next-line
+  for await (const _ of arrayToIterateOnFutureEvents3) {
+    const randomDate = faker.date.past();
+    const date = getUTCString(randomDate);
+    const randomInt = getRandomIntInclusive(1, 24);
+
+    const eventId = await Event.create({
+      date,
+      duration: 90,
+      location: faker.location.city(),
+      required_participants: 10,
+      organizer_id: randomInt,
+      status_name: &#x27;full&#x27;,
+    });
+
+    await Participant.create({
+      event_id: Number(eventId),
+      profile_id: randomInt,
+      status_name: &#x27;confirmed&#x27;,
+      team: 1,
+    });
+    const intAlreadyUsed = [randomInt];
+
+    // add 10 participants to each event
+    const NB_PARTICIPANTS_TO_CREATE = 9;
+    const arrayToIterateOnParticipants = new Array(
+      NB_PARTICIPANTS_TO_CREATE,
+    ).fill(1);
+
+    getIntUnused(intAlreadyUsed);
+
+    arrayToIterateOnParticipants.forEach(async (_, index) =&gt; {
+      const unuserInt = getIntUnused(intAlreadyUsed);
+      if (!unuserInt) return logger.error(&#x27;Failed to get an unused int&#x27;);
+      intAlreadyUsed.push(unuserInt);
+
+      await Participant.create({
+        event_id: Number(eventId),
+        profile_id: unuserInt,
+        status_name: &#x27;confirmed&#x27;,
+        team: index &lt; 4 ? 1 : 2,
+      });
+    });
+  }
+
+  // create 2 open events
+  const NB_EVENTS_OPEN_TO_CREATE = 2;
+  const arrayToIterateOnOpenEvents = new Array(NB_EVENTS_OPEN_TO_CREATE).fill(
+    1,
+  );
+  const openParticipants = [1, 1, 1, 1, 1, 1];
+
+  //eslint-disable-next-line
+  for await (const _ of arrayToIterateOnOpenEvents) {
+    const randomDate = faker.date.future();
+    const date = getUTCString(randomDate);
+    const eventId = await Event.create({
+      date,
+      duration: 90,
+      location: faker.location.city(),
+      required_participants: 10,
+      organizer_id: 1,
+      status_name: &#x27;open&#x27;,
+    });
+
+    openParticipants.forEach(async (_, index) =&gt; {
+      await Participant.create({
+        event_id: Number(eventId),
+        profile_id: index + 1,
+        status_name: index &lt; 3 ? &#x27;confirmed&#x27; : &#x27;pending&#x27;,
+      });
+    });
+  }
+
+  logger.info(&#x27;Database has been seed&#x27;);
+}
+
+seed().catch((err) =&gt; {
+  logger.error(&#x27;Seeding has failed&#x27; + err);
+});
+</textarea><pre id="annotations" style="display:none">[{&quot;file&quot;:&quot;prisma\\seed.ts&quot;,&quot;line&quot;:166,&quot;character&quot;:19,&quot;text&quot;:&quot;_&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;prisma\\seed.ts&quot;,&quot;line&quot;:202,&quot;character&quot;:19,&quot;text&quot;:&quot;_&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;prisma\\seed.ts&quot;,&quot;line&quot;:244,&quot;character&quot;:57,&quot;text&quot;:&quot;_&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;prisma\\seed.ts&quot;,&quot;line&quot;:254,&quot;character&quot;:48,&quot;text&quot;:&quot;_&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;prisma\\seed.ts&quot;,&quot;line&quot;:267,&quot;character&quot;:19,&quot;text&quot;:&quot;_&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;prisma\\seed.ts&quot;,&quot;line&quot;:293,&quot;character&quot;:48,&quot;text&quot;:&quot;_&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;prisma\\seed.ts&quot;,&quot;line&quot;:310,&quot;character&quot;:19,&quot;text&quot;:&quot;_&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;prisma\\seed.ts&quot;,&quot;line&quot;:329,&quot;character&quot;:48,&quot;text&quot;:&quot;_&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;prisma\\seed.ts&quot;,&quot;line&quot;:346,&quot;character&quot;:19,&quot;text&quot;:&quot;_&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;prisma\\seed.ts&quot;,&quot;line&quot;:380,&quot;character&quot;:48,&quot;text&quot;:&quot;_&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;prisma\\seed.ts&quot;,&quot;line&quot;:399,&quot;character&quot;:19,&quot;text&quot;:&quot;_&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;prisma\\seed.ts&quot;,&quot;line&quot;:429,&quot;character&quot;:48,&quot;text&quot;:&quot;_&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;prisma\\seed.ts&quot;,&quot;line&quot;:451,&quot;character&quot;:19,&quot;text&quot;:&quot;_&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;prisma\\seed.ts&quot;,&quot;line&quot;:475,&quot;character&quot;:14,&quot;text&quot;:&quot;err&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;prisma\\seed.ts&quot;,&quot;line&quot;:476,&quot;character&quot;:38,&quot;text&quot;:&quot;err&quot;,&quot;kind&quot;:1}]</pre></div>
+    <p class="footer-text">TypeScript Coverage Report generated by <a href="https://github.com/plantain-00/type-coverage">type-coverage</a> and <a href="https://github.com/alexcanessa/typescript-coverage-report">typescript-coverage-report</a> at Thu, 04 Jan 2024 18:32:37 GMT</p>
+    </body>
+  </html>
+  

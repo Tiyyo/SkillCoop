@@ -6,12 +6,11 @@ import checkParams from '../utils/check-params';
 import NotFoundError from '../helpers/errors/not-found.error';
 import deleteDecodedKey from '../utils/delete-decoded';
 import { generateBalancedTeam } from '../service/generate-teams';
-//eslint-disable-next-line
+/*eslint-disable*/
 import { notifyEventInfosHasBeenUpdated } from '../service/notification/subtype/infos-event';
-//eslint-disable-next-line
 import { notifyUserHasBeenInvitedToEvent } from '../service/notification/subtype/user-invited-event';
-//eslint-disable-next-line
 import { notifyTransfertOwnership } from '../service/notification/subtype/transfert-ownership';
+/*eslint-enable*/
 import ForbidenError from '../helpers/errors/forbiden';
 
 export default {
@@ -154,7 +153,6 @@ export default {
     const [profileId, page] = checkParams(req.query.profileId, req.query.page);
     const events = await Event.getOrganizerEvents(profileId, page);
 
-    console.log('Event organize :', events);
     res.status(200).json(events);
   },
   async getPasts(req: Request, res: Response) {

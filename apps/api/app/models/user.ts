@@ -2,9 +2,8 @@
 import { getFormattedUTCTimestamp } from 'date-handler';
 import DatabaseError from '../helpers/errors/database.error';
 import { Core } from './core';
-import { DB, TableNames } from '../@types/database';
+import { TableNames } from '../@types/database';
 import { db } from '../helpers/client.db';
-import { SelectExpression } from 'kysely';
 
 export class User extends Core {
   tableName: TableNames = 'user';

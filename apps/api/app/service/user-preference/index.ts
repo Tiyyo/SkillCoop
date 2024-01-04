@@ -32,7 +32,7 @@ export class UserPreferenceHandler {
         ON 'theme_preference'.'user_id' = 'notification_preference'.'user_id'
       LEFT JOIN 'language_preference'
         ON 'language_preference'.'user_id' = 'notification_preference'.'user_id'
-      WHERE 'notification_preference'.'user_id' = 1
+      WHERE 'notification_preference'.'user_id' = ${this.userId}
       GROUP BY 'notification_preference'.'user_id'
     `.execute(db);
 

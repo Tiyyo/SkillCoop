@@ -61,9 +61,8 @@ export default {
   },
   async sendInvitationToEvent(req: Request, res: Response) {
     deleteDecodedKey(req.body);
-
     const { ids, event_id, initiator: profile_id } = req.body;
-    console.log(ids, event_id, profile_id);
+
     const data = ids.map((id: number) => ({
       profile_id: id,
       event_id,

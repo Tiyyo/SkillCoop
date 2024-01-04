@@ -18,6 +18,7 @@ export default {
 
     const userPreferenceHandler = new UserPreferenceHandler(userId);
     let userPreferences = await userPreferenceHandler.get();
+    console.log('userPreferences', userPreferences);
     if (!userPreferences) {
       try {
         await userPreferenceHandler.generateDefault();
@@ -56,6 +57,7 @@ export default {
   async updateTheme(req: Request, res: Response) {
     deleteDecodedKey(req.body);
     const { user_id, name } = req.body;
+    console.log('user_id', user_id, 'name', name);
     const isUpdated = await ThemePreference.updatePreference(user_id, name);
 
     res.status(200).json({ success: isUpdated });

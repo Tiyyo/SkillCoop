@@ -13,7 +13,7 @@ import flash from '../../assets/svg/flash.svg';
 import reward from '../../assets/svg/reward.svg';
 import capitalize from '../../utils/capitalize';
 import { sumValues } from '../../utils/sum-values';
-/*eslint-disable-next-line*/
+
 import associateNumberToString from '../../utils/associate-number-stringscale';
 
 function UserResumeSkills() {

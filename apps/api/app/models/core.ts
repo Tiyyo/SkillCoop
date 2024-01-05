@@ -56,6 +56,9 @@ export class Core<TTableNames extends keyof DB> {
       if (!result) throw new NotFoundError('Not found');
       return result;
     } catch (error) {
+      if (error instanceof NotFoundError) {
+        return undefined;
+      }
       if (error instanceof Error) {
         throw new DatabaseError(error);
       }

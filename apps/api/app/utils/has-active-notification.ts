@@ -22,6 +22,7 @@ export const hasActiveNotification = async (profileIds: number[]) => {
     },
     [],
   );
+
   return profileIdsWithNotificationOn.length > 0
     ? profileIdsWithNotificationOn
     : null;

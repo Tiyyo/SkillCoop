@@ -9,14 +9,17 @@ import userController from '../controller/user.controller';
 import logger from '../helpers/logger';
 /*eslint-disable */
 import { sseConnectionManager } from '../service/notification/sse-connection.manager';
+import { hasActiveNotification } from '../utils/has-active-notification';
 /*eslint-enable */
 
 const { getMe } = userController;
 const router: Router = express.Router();
 
-// router.route('/test').get(async (_req, res) => {
-//   res.status(200).json({ message: 'success' });
-// });
+router.route('/test').get(async (_req, res) => {
+  const notification = await hasActiveNotification([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+  console.log(notification);
+  res.status(200).json({ message: notification });
+});
 
 // this route need to be outsite of the apiRouter
 // to let the app access to it without 2 tokens

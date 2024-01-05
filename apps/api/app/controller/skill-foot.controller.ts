@@ -19,6 +19,7 @@ export default {
       defending: associateStringToNumber(defending),
       rater_id: profile_id,
       reviewee_id: profile_id,
+      created_at: '',
     };
 
     const isAlereadyExist = await SkillFoot.findUniqueWithTwoClause({
@@ -85,6 +86,7 @@ export default {
       rater_id,
       reviewee_id,
       event_id,
+      created_at: '',
     });
 
     res.status(201).send(!!skill);

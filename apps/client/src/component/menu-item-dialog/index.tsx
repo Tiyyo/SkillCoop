@@ -39,7 +39,7 @@ function MenuItemDialog({
     <AlertDialog>
       <AlertDialogTrigger
         className={cn(
-          hoverOn ? 'hover:bg-primary-200' : '',
+          hoverOn && 'hover:bg-primary-200',
           menuItemStyle,
           `w-full h-10 `,
         )}

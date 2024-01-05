@@ -15,7 +15,6 @@ function EventInvitationNotification({
       // for not display action if user has respond to the invitation
       // we gonna consider that if user has read the notification
       // he has respond to the invitation
-      console.log('success');
     },
   });
 

@@ -3,30 +3,26 @@ import DatabaseError from '../helpers/errors/database.error';
 import { Core } from './core';
 import UserInputError from '../helpers/errors/user-input.error';
 import { getFormattedUTCTimestamp } from 'date-handler';
-import { TableNames } from '../@types/database';
+import { tableNames } from '../@types/database';
 import { db } from '../helpers/client.db';
 
-export class Friendlist extends Core {
-  declare tableName: TableNames;
-
+export class Friendlist extends Core<typeof tableNames.profile_on_profile> {
   constructor(client: typeof db) {
     super(client);
-    this.tableName = 'profile_on_profile';
+    this.tableName = tableNames.profile_on_profile;
   }
   async findAllByPk(id: number) {
     try {
       const friendships = await this.client
         .selectFrom(this.tableName)
-        .select([
-          'friend_id',
-          'adder_id',
-          'status_name',
-          'avatar_url',
-          'username',
-          'profile.last_evaluation',
-        ])
+        .select(['friend_id', 'adder_id', 'status_name'])
         .limit(20)
         .innerJoin('profile', 'profile.id', 'profile_on_profile.friend_id')
+        .select([
+          'profile.avatar_url',
+          'profile.username',
+          'profile.last_evaluation',
+        ])
         .where('adder_id', '=', id)
         .where('status_name', '=', 'confirmed')
         .execute();
@@ -40,15 +36,13 @@ export class Friendlist extends Core {
     try {
       let query = this.client
         .selectFrom(this.tableName)
+        .select(['friend_id', 'adder_id', 'status_name'])
+        .innerJoin('profile', 'profile.id', 'profile_on_profile.friend_id')
         .select([
-          'friend_id',
-          'adder_id',
-          'status_name',
-          'avatar_url',
-          'username',
+          'profile.avatar_url',
+          'profile.username',
           'profile.last_evaluation',
         ])
-        .innerJoin('profile', 'profile.id', 'profile_on_profile.friend_id')
         .where('adder_id', '=', adder_id)
         .where('friend_id', '=', friend_id);
 
@@ -70,19 +64,16 @@ export class Friendlist extends Core {
     try {
       const friends = await this.client
         .selectFrom(this.tableName)
-        .select([
-          'friend_id',
-          'adder_id',
-          'status_name',
-          'avatar_url',
-          'username',
-          'profile.last_evaluation',
-        ])
+        .select(['friend_id', 'adder_id', 'status_name'])
         .offset(offset)
         .limit(20)
         .innerJoin('profile', 'profile.id', 'profile_on_profile.friend_id')
-        //@ts-ignore
-        .where('profile_on_profile.adder_id ', '=', profileId)
+        .select([
+          'profile.avatar_url',
+          'profile.username',
+          'profile.last_evaluation',
+        ])
+        .where('adder_id', '=', profileId)
         .where('status_name', '=', 'confirmed')
         .where('username', 'like', `%${query.toLowerCase()}%`)
         .execute();
@@ -165,15 +156,13 @@ export class Friendlist extends Core {
     try {
       const pendingRequests = await this.client
         .selectFrom(this.tableName)
+        .select(['friend_id', 'adder_id', 'status_name'])
+        .innerJoin('profile', 'profile.id', 'profile_on_profile.adder_id')
         .select([
-          'friend_id',
-          'adder_id',
-          'status_name',
-          'avatar_url',
-          'username',
+          'profile.avatar_url',
+          'profile.username',
           'profile.last_evaluation',
         ])
-        .innerJoin('profile', 'profile.id', 'profile_on_profile.adder_id')
         .where('friend_id', '=', id)
         .where('status_name', '=', 'pending')
         .execute();
@@ -237,7 +226,6 @@ FROM
       )
 AND friend_id <> ${profileId}
 LIMIT 14`.execute(this.client);
-      console.log('Suggest profile ', suggestProfiles.rows);
 
       return suggestProfiles.rows;
     } catch (error) {

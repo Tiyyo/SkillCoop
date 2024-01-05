@@ -1,6 +1,6 @@
-import { TableNames } from '../@types/database';
+import { tableNames } from '../@types/database';
 import { Core } from './core';
 
-export class Status extends Core {
-  tableName: TableNames = 'status';
+export class Status extends Core<typeof tableNames.status> {
+  tableName = tableNames.status;
 }

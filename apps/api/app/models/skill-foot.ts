@@ -1,4 +1,4 @@
-import { TableNames } from '../@types/database';
+import { tableNames } from '../@types/database';
 import DatabaseError from '../helpers/errors/database.error';
 import NotFoundError from '../helpers/errors/not-found.error';
 import computeGbRating from '../utils/compute-gb-rating';
@@ -7,11 +7,10 @@ import { db } from '../helpers/client.db';
 import { DB } from '../@types/database';
 import { ReferenceExpression } from 'kysely';
 
-export class SkillFoot extends Core {
-  tableName: TableNames = 'skill_foot';
-
+export class SkillFoot extends Core<typeof tableNames.skill_foot> {
   constructor(client: typeof db) {
     super(client);
+    this.tableName = tableNames.skill_foot;
   }
   async find(id: number) {
     type InferredResultType = {
@@ -52,12 +51,18 @@ export class SkillFoot extends Core {
         .selectFrom(this.tableName)
         .selectAll()
         .where(
-          key[0].toString() as unknown as ReferenceExpression<DB, TableNames>,
+          key[0].toString() as unknown as ReferenceExpression<
+            DB,
+            typeof tableNames.skill_foot
+          >,
           '=',
           value[0],
         )
         .where(
-          key[1].toString() as unknown as ReferenceExpression<DB, TableNames>,
+          key[1].toString() as unknown as ReferenceExpression<
+            DB,
+            typeof tableNames.skill_foot
+          >,
           '=',
           value[1],
         )

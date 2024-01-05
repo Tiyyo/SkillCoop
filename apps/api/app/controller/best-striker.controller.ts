@@ -18,9 +18,10 @@ export default {
       );
 
     const isCreated = await BestStriker.create({
+      event_id,
       profile_id,
       rater_id,
-      event_id,
+      created_at: '',
     });
 
     // this should be not possible to called

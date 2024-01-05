@@ -1,14 +1,12 @@
-import { TableNames } from '../@types/database';
+import { tableNames } from '../@types/database';
 import DatabaseError from '../helpers/errors/database.error';
 import { Core } from './core';
 import { db } from '../helpers/client.db';
 
-export class Notification extends Core {
-  declare tableName: TableNames;
-
+export class Notification extends Core<typeof tableNames.notification> {
   constructor(client: typeof db) {
     super(client);
-    this.tableName = 'notification';
+    this.tableName = tableNames.notification;
   }
   async getLast(profileId: number) {
     try {

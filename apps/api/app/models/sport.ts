@@ -1,6 +1,6 @@
-import { TableNames } from '../@types/database';
+import { tableNames } from '../@types/database';
 import { Core } from './core';
 
-export class Sport extends Core {
-  tableName: TableNames = 'sport';
+export class Sport extends Core<typeof tableNames.sport> {
+  tableName = tableNames.sport;
 }

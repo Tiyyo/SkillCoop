@@ -10,7 +10,6 @@ import {
   PenLine,
   ShieldCheck,
   SunMoon,
-  Trash2,
 } from 'lucide-react';
 
 function MenuSettings() {

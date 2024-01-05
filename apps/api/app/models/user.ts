@@ -2,17 +2,14 @@
 import { getFormattedUTCTimestamp } from 'date-handler';
 import DatabaseError from '../helpers/errors/database.error';
 import { Core } from './core';
-import { TableNames } from '../@types/database';
+import { tableNames } from '../@types/database';
 import { db } from '../helpers/client.db';
 
-export class User extends Core {
-  tableName: TableNames = 'user';
-
+export class User extends Core<typeof tableNames.user> {
   constructor(client: typeof db) {
     super(client);
+    this.tableName = tableNames.user;
   }
-  // issue with the inferred type of the return value
-  // email is inferred as string | number instead of string
   async createUser(data: {
     password: string;
     email: string;
@@ -27,7 +24,7 @@ export class User extends Core {
         .values(data)
         .returning(['id', 'email'])
         .execute();
-      //@ts-ignore
+
       return result;
     } catch (error) {
       throw new DatabaseError(error);

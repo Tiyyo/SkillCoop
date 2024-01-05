@@ -40,11 +40,7 @@ function NotificationSwitch({
       onChange={handleChangeSwitch}
     >
       <span className="text-xs">{capitalize(method)}</span>
-      <Switch
-        name={`${notificationType}_${method}`}
-        defaultChecked={value}
-        onClick={(e) => console.log((e.target as HTMLElement).dataset.state)}
-      />
+      <Switch name={`${notificationType}_${method}`} defaultChecked={value} />
     </form>
   );
 }

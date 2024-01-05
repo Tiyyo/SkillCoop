@@ -2,15 +2,13 @@ import { getFormattedUTCTimestamp } from 'date-handler';
 import DatabaseError from '../helpers/errors/database.error';
 import UserInputError from '../helpers/errors/user-input.error';
 import { Core } from './core';
-import { TableNames } from '../@types/database';
+import { tableNames } from '../@types/database';
 import { db } from '../helpers/client.db';
 
-export class ProfileOnEvent extends Core {
-  declare tableName: TableNames;
-
+export class ProfileOnEvent extends Core<typeof tableNames.profile_on_event> {
   constructor(client: typeof db) {
     super(client);
-    this.tableName = 'profile_on_event';
+    this.tableName = tableNames.profile_on_event;
   }
 
   async updateStatus(data: {

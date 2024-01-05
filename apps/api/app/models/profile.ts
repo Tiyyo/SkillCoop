@@ -1,42 +1,42 @@
-//@ts-nocheck
 import DatabaseError from '../helpers/errors/database.error';
 import { sql } from 'kysely';
 import { Core } from './core';
 import NotFoundError from '../helpers/errors/not-found.error';
-import { ProfileType } from '../@types/types';
 import { getFormattedUTCTimestamp } from 'date-handler';
-import { TableNames } from '../@types/database';
+import { DB, tableNames } from '../@types/database';
 import { db } from '../helpers/client.db';
+/*eslint-disable-next-line */
+import { InsertObjectOrList } from 'kysely/dist/cjs/parser/insert-values-parser';
 
 // TODO define a type for Profile
 
-export class Profile extends Core {
-  tableName: TableNames = 'profile';
-
+export class Profile extends Core<typeof tableNames.profile> {
   constructor(client: typeof db) {
     super(client);
+    this.tableName = tableNames.profile;
   }
-  async findAll() {
-    try {
-      const result = await this.client
-        .selectFrom('profile')
-        .select([
-          'profile.user_id',
-          'profile.avatar_url',
-          'profile.username',
-          'profile.date_of_birth',
-          'profile.first_name',
-          'profile.last_name',
-          'profile.location',
-          'profile.id as profile_id',
-        ])
-        .execute();
+  //TODO : change name of this method
+  // async findAll() {
+  //   try {
+  //     const result = await this.client
+  //       .selectFrom('profile')
+  //       .select([
+  //         'profile.user_id',
+  //         'profile.avatar_url',
+  //         'profile.username',
+  //         'profile.date_of_birth',
+  //         'profile.first_name',
+  //         'profile.last_name',
+  //         'profile.location',
+  //         'profile.id as profile_id',
+  //       ])
+  //       .execute();
 
-      return result;
-    } catch (error) {
-      throw new DatabaseError(error);
-    }
-  }
+  //     return result;
+  //   } catch (error) {
+  //     throw new DatabaseError(error);
+  //   }
+  // }
   async findOne(id: number) {
     const [profile] = await this.client
       .selectFrom('profile')
@@ -52,7 +52,7 @@ export class Profile extends Core {
         'profile.last_evaluation',
         'profile.id as profile_id',
       ])
-      .where('profile_id', '=', id)
+      .where('profile.id', '=', id)
       .execute();
 
     const [nbReview] = await this.client
@@ -95,13 +95,16 @@ export class Profile extends Core {
     return spreadProfile;
   }
   // TODO define a type for data
-  async create(data: Record<string, string | number>) {
+  // TODO change name of this method
+  async createOne(data: InsertObjectOrList<DB, typeof tableNames.profile>) {
     const todayUTCString = getFormattedUTCTimestamp();
+    //@ts-ignore
     data.created_at = todayUTCString;
+
     try {
       const result = await this.client
         .insertInto('profile')
-        .values({ ...data })
+        .values(data)
         .returning('id')
         .executeTakeFirst();
 
@@ -113,6 +116,7 @@ export class Profile extends Core {
   // TODO define a type for data
   async updateProfile(data: { profile_id: number; avatar_url?: string }) {
     const todayUTCString = getFormattedUTCTimestamp();
+    //@ts-ignore
     data.updated_at = todayUTCString;
 
     const { profile_id, ...rest } = data;
@@ -133,7 +137,7 @@ export class Profile extends Core {
   }
   async findByUserId(id: number) {
     try {
-      const [profile] = await this.client
+      const [result] = await this.client
         .selectFrom('profile')
         .select([
           'profile.user_id',
@@ -143,11 +147,11 @@ export class Profile extends Core {
           'profile.first_name',
           'profile.last_name',
           'profile.location',
-          'user.email as email',
           'profile.id as profile_id',
         ])
-        .leftJoin('skill_foot', 'profile_id', 'skill_foot.reviewee_id')
+        .leftJoin('skill_foot', 'profile.id', 'skill_foot.reviewee_id')
         .innerJoin('user', 'user.id', 'profile.user_id')
+        .select(['user.email as email'])
         .select(({ fn }) => [
           'profile.id',
           fn.count('skill_foot.id').as('nb_review'),
@@ -155,7 +159,7 @@ export class Profile extends Core {
         .where('profile.user_id', '=', id)
         .groupBy('profile.id')
         .execute();
-      if (!profile) return null;
+      if (!result) return null;
 
       const [nbAttendedEvents] = await this.client
         .selectFrom('profile_on_event')
@@ -163,7 +167,7 @@ export class Profile extends Core {
           fn.count('profile_on_event.event_id').as('nb_attended_events'),
         ])
         .innerJoin('event', 'event.id', 'profile_on_event.event_id')
-        .where('profile_on_event.profile_id', '=', profile.profile_id)
+        .where('profile_on_event.profile_id', '=', result.profile_id)
         .where('event.status_name', '=', 'completed')
         .execute();
 
@@ -174,17 +178,24 @@ export class Profile extends Core {
           fn.count('event.best_striker_id').as('nb_best_striker_bonus'),
         ])
         .where((eb) =>
-          eb('event.mvp_id', '=', profile.profile_id).or(
+          eb('event.mvp_id', '=', result.profile_id).or(
             'event.best_striker_id',
             '=',
-            profile.profile_id,
+            result.profile_id,
           ),
         )
         .execute();
 
-      if (profile) {
-        profile.nb_attended_events = nbAttendedEvents.nb_attended_events ?? 0;
-        profile.nb_bonus = nbBonus ?? 0;
+      type ReturnTypeProfile = typeof result & {
+        nb_attended_events: number;
+        nb_bonus: number;
+      };
+      const profile: Partial<ReturnTypeProfile> = result;
+
+      if (result) {
+        profile.nb_attended_events =
+          Number(nbAttendedEvents.nb_attended_events) ?? 0;
+        profile.nb_bonus = Number(nbBonus) ?? 0;
       }
       return profile;
     } catch (error) {
@@ -202,7 +213,7 @@ export class Profile extends Core {
     const offset = (page - 1) * 10;
 
     try {
-      const profiles = await sql<ProfileType>`
+      const profiles = await sql<Profile>`
       SELECT 
         profile.user_id,
         profile.avatar_url,

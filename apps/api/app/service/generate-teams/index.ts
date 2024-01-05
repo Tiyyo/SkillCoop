@@ -18,7 +18,6 @@ export function assignTeam(
 }
 
 export async function generateBalancedTeam(eventId: number) {
-  console.info('Algo has started');
   console.time('Algo time start');
 
   const config = await new ConfigGenerateTeams(eventId).init();
@@ -68,7 +67,6 @@ export function useRigthCondition(
   if (player.gb_rating === 0) {
     return conditions.ifZero(config.team1.length, config.team2.length);
   }
-  console.log(conditions);
   return conditions.regular(valueTeam1, valueTeam2);
 }
 

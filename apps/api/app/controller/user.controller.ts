@@ -13,7 +13,7 @@ export default {
     const userProfile = await Profile.findByUserId(userId);
 
     if (!userProfile) {
-      await Profile.create({ user_id: userId });
+      await Profile.create({ user_id: userId, created_at: '' });
       const createdUserProfile = await Profile.findByUserId(userId);
       return res.status(200).json({ userProfile: createdUserProfile });
     }
@@ -55,7 +55,10 @@ export default {
       throw new AuthorizationError('Operation not allowed');
     }
     const profile = await Profile.findByUserId(userId);
-    await Image.deleteBy({ url: profile.avatar_url });
+
+    if (profile?.avatar_url) {
+      await Image.deleteBy({ url: profile.avatar_url });
+    }
 
     const isDeleted = await User.delete(userId);
     res.status(204).json({ success: isDeleted });

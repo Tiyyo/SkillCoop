@@ -1,6 +1,8 @@
-import { TableNames } from '../@types/database';
+import { tableNames } from '../@types/database';
 import { Core } from './core';
 
-export class NotificationType extends Core {
-  tableName: TableNames = 'notification_type';
+export class NotificationType extends Core<
+  typeof tableNames.notification_type
+> {
+  tableName = tableNames.notification_type;
 }

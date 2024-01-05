@@ -44,7 +44,7 @@ async function seed() {
   ];
 
   for await (const item of status) {
-    await Status.create({ name: item.name });
+    await Status.create({ name: item.name, created_at: todayUTCString });
   }
 
   const notificationTypes = [
@@ -55,7 +55,10 @@ async function seed() {
   ];
 
   for await (const item of notificationTypes) {
-    await NotificationType.create({ name: item.name });
+    await NotificationType.create({
+      name: item.name,
+      created_at: todayUTCString,
+    });
   }
 
   const userToCreateInfos = [
@@ -140,7 +143,7 @@ async function seed() {
     if (!user) return logger.error('Error while creating user');
     await User.update(user.id, { verified: 1 });
 
-    const profile = await Profile.create({
+    const profile = await Profile.createOne({
       user_id: user.id,
       username: infos.username,
       first_name: infos.first_name,
@@ -148,6 +151,8 @@ async function seed() {
       active_notification: faker.number.int({ min: 0, max: 1 }),
       created_at: todayUTCString,
     });
+
+    if (!profile) return;
 
     await SkillFoot.create({
       pace: faker.number.int({ min: 50, max: 100 }),
@@ -157,6 +162,7 @@ async function seed() {
       defending: faker.number.int({ min: 50, max: 100 }),
       rater_id: profile.id,
       reviewee_id: profile.id,
+      created_at: todayUTCString,
     });
   }
 
@@ -168,15 +174,16 @@ async function seed() {
     const user = await User.createUser({
       email: faker.internet.email(),
       password: faker.internet.password(),
+      created_at: todayUTCString,
     });
 
     const avatarUrl = faker.internet.avatar();
-    await Image.create({ url: avatarUrl });
+    await Image.create({ url: avatarUrl, created_at: todayUTCString });
 
     const randomDate = faker.date.birthdate({ max: 2002, min: 1980 });
     const birthdate = getUTCString(randomDate);
 
-    const profile = await Profile.create({
+    const profile = await Profile.createOne({
       user_id: user.id,
       username: faker.internet.userName().toLowerCase(),
       first_name: faker.person.firstName(),
@@ -186,6 +193,8 @@ async function seed() {
       created_at: todayUTCString,
     });
 
+    if (!profile) return;
+
     await SkillFoot.create({
       pace: faker.number.int({ min: 10, max: 100 }),
       shooting: faker.number.int({ min: 10, max: 100 }),
@@ -194,6 +203,7 @@ async function seed() {
       defending: faker.number.int({ min: 10, max: 100 }),
       rater_id: profile.id,
       reviewee_id: profile.id,
+      created_at: todayUTCString,
     });
   }
 
@@ -204,12 +214,13 @@ async function seed() {
     const user = await User.createUser({
       email: faker.internet.email(),
       password: faker.internet.password(),
+      created_at: todayUTCString,
     });
 
     const randomDate = faker.date.birthdate({ max: 2002, min: 1980 });
     const birthdate = getUTCString(randomDate);
 
-    const profile = await Profile.create({
+    const profile = await Profile.createOne({
       user_id: user.id,
       username: faker.internet.userName().toLowerCase(),
       first_name: faker.person.firstName(),
@@ -217,6 +228,8 @@ async function seed() {
       date_of_birth: birthdate,
       created_at: todayUTCString,
     });
+
+    if (!profile) return;
 
     await SkillFoot.create({
       pace: faker.number.int({ min: 10, max: 100 }),
@@ -226,6 +239,7 @@ async function seed() {
       defending: faker.number.int({ min: 10, max: 100 }),
       rater_id: profile.id,
       reviewee_id: profile.id,
+      created_at: todayUTCString,
     });
   }
 
@@ -237,6 +251,7 @@ async function seed() {
       adder_id: 1,
       friend_id: id,
       status_name: 'pending',
+      created_at: todayUTCString,
     };
   });
   await Friendlist.createMany(dataPendingRequestsTest);
@@ -247,6 +262,7 @@ async function seed() {
       adder_id: 1,
       friend_id: index + 11,
       status_name: 'confirmed',
+      created_at: todayUTCString,
     };
   });
   await Friendlist.createMany(dataConfirmedRequests);
@@ -257,6 +273,7 @@ async function seed() {
       adder_id: index + 21,
       friend_id: 1,
       status_name: 'pending',
+      created_at: todayUTCString,
     };
   });
   await Friendlist.createMany(dataPendingRequestsAdmin);
@@ -276,6 +293,7 @@ async function seed() {
       required_participants: 10,
       organizer_id: 1,
       status_name: 'completed',
+      created_at: todayUTCString,
     });
 
     // add score to each event
@@ -283,6 +301,7 @@ async function seed() {
       event_id: Number(eventId),
       score_team_1: faker.number.int({ min: 0, max: 20 }),
       score_team_2: faker.number.int({ min: 0, max: 20 }),
+      created_at: todayUTCString,
     });
 
     // add 10 participants to each event
@@ -297,6 +316,7 @@ async function seed() {
         profile_id: index + 1,
         team: index < 5 ? 1 : 2,
         status_name: 'confirmed',
+        created_at: todayUTCString,
       });
     });
   }
@@ -319,6 +339,7 @@ async function seed() {
       required_participants: 10,
       organizer_id: 1,
       status_name: 'full',
+      created_at: todayUTCString,
     });
 
     // add 10 participants to each event
@@ -333,6 +354,7 @@ async function seed() {
         profile_id: index + 1,
         status_name: 'confirmed',
         team: index < 5 ? 1 : 2,
+        created_at: todayUTCString,
       });
     });
   }
@@ -356,12 +378,14 @@ async function seed() {
       required_participants: 10,
       organizer_id: organizerId,
       status_name: 'completed',
+      created_at: todayUTCString,
     });
 
     await Score.create({
       event_id: Number(eventId),
       score_team_1: faker.number.int({ min: 0, max: 20 }),
       score_team_2: faker.number.int({ min: 0, max: 20 }),
+      created_at: todayUTCString,
     });
 
     await Participant.create({
@@ -369,6 +393,7 @@ async function seed() {
       profile_id: organizerId,
       status_name: 'confirmed',
       team: 1,
+      created_at: todayUTCString,
     });
     const intAlreadyUsed = [organizerId];
 
@@ -387,6 +412,7 @@ async function seed() {
         profile_id: unuserInt,
         status_name: 'confirmed',
         team: index < 4 ? 1 : 2,
+        created_at: todayUTCString,
       });
     });
   }
@@ -409,6 +435,7 @@ async function seed() {
       required_participants: 10,
       organizer_id: randomInt,
       status_name: 'full',
+      created_at: todayUTCString,
     });
 
     await Participant.create({
@@ -416,6 +443,7 @@ async function seed() {
       profile_id: randomInt,
       status_name: 'confirmed',
       team: 1,
+      created_at: todayUTCString,
     });
     const intAlreadyUsed = [randomInt];
 
@@ -437,6 +465,7 @@ async function seed() {
         profile_id: unuserInt,
         status_name: 'confirmed',
         team: index < 4 ? 1 : 2,
+        created_at: todayUTCString,
       });
     });
   }
@@ -459,6 +488,7 @@ async function seed() {
       required_participants: 10,
       organizer_id: 1,
       status_name: 'open',
+      created_at: todayUTCString,
     });
 
     openParticipants.forEach(async (_, index) => {
@@ -466,6 +496,7 @@ async function seed() {
         event_id: Number(eventId),
         profile_id: index + 1,
         status_name: index < 3 ? 'confirmed' : 'pending',
+        created_at: todayUTCString,
       });
     });
   }

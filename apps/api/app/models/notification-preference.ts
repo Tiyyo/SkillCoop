@@ -1,4 +1,4 @@
-import { TableNames } from '../@types/database';
+import { tableNames } from '../@types/database';
 import { Core } from './core';
 import { db } from '../helpers/client.db';
 import DatabaseError from '../helpers/errors/database.error';
@@ -23,12 +23,12 @@ type UpdateNotificationPayload = TransportMethods & {
   updated_at?: string;
 };
 
-export class NotificationPreference extends Core {
-  tableName: TableNames;
-
+export class NotificationPreference extends Core<
+  typeof tableNames.notification_preference
+> {
   constructor(client: typeof db) {
     super(client);
-    this.tableName = 'notification_preference';
+    this.tableName = tableNames.notification_preference;
   }
   async updatePreference(updateObject: UpdateNotificationPreferenceObject) {
     const { user_id, type_name, ...methods } = updateObject;

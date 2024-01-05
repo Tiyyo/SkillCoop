@@ -1,15 +1,13 @@
-import { TableNames } from '../@types/database';
+import { tableNames } from '../@types/database';
 import { Core } from './core';
 import { db } from '../helpers/client.db';
 import DatabaseError from '../helpers/errors/database.error';
 import { getFormattedUTCTimestamp } from 'date-handler';
 
-export class ThemePreference extends Core {
-  tableName: TableNames;
-
+export class ThemePreference extends Core<typeof tableNames.theme_preference> {
   constructor(client: typeof db) {
     super(client);
-    this.tableName = 'theme_preference';
+    this.tableName = tableNames.theme_preference;
   }
 
   async updatePreference(userId: number, themeName: string) {

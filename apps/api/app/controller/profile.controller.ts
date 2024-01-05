@@ -18,7 +18,7 @@ export default {
   },
   async createOne(req: Request, res: Response) {
     const data = req.body;
-    const result = await Profile.create(data);
+    const result = await Profile.createOne(data);
 
     return res.status(201).json({ success: result });
   },
@@ -47,7 +47,11 @@ export default {
 
     if (!avatarImage) throw new UserInputError('No image provided');
 
-    const { username, avatar_url } = await Profile.findOne(Number(profile_id));
+    const profile = await Profile.findOne(Number(profile_id));
+    if (!profile) {
+      throw new UserInputError('Profile not found');
+    }
+    const { username, avatar_url } = profile;
 
     avatarImage.originalname = `avatar_${username}`;
 
@@ -59,13 +63,18 @@ export default {
       url: link,
       key: key,
       size: WIDTH_AVATAR,
+      created_at: '',
     });
 
     if (avatar_url) {
       const [imageToDelete] = await Image.findBy({ url: avatar_url });
       await Image.delete(imageToDelete.id);
-      await deleteImageFromBucket(imageToDelete.key);
+
+      if (imageToDelete.key) {
+        await deleteImageFromBucket(imageToDelete.key);
+      }
     }
+
     await Profile.updateProfile({ profile_id, avatar_url: link });
 
     return res.status(200).json({ link });

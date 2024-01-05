@@ -17,6 +17,7 @@ import capitalize from '../../utils/capitalize';
 import { useUpdateLanguagePreference } from '../../hooks/useUserPreference';
 import { useApp } from '../../store/app.store';
 import { updateLanguagePreferenceSchema } from 'schema/ts-schema';
+import toast from '../../utils/toast';
 
 function LanguageSettings() {
   const languageSymbols = Object.keys(languageSymbolToName);
@@ -39,7 +40,9 @@ function LanguageSettings() {
 
     const isValid =
       updateLanguagePreferenceSchema.safeParse(updatePreferenceData);
-    if (!isValid.success) return console.error(isValid.error);
+    if (!isValid.success) {
+      toast.error('We could not update your language preference.');
+    }
     updatePreference(updatePreferenceData);
   };
 

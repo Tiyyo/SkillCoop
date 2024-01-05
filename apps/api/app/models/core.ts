@@ -6,13 +6,17 @@ import { db } from '../helpers/client.db';
 import { TableNames } from '../@types/database';
 import { ReferenceExpression } from 'kysely';
 import { DB } from '../@types/database';
-import { InsertObject } from 'kysely/dist/cjs/parser/insert-values-parser';
+import {
+  InsertObject,
+  InsertObjectOrList,
+} from 'kysely/dist/cjs/parser/insert-values-parser';
+import { ExtractTableAlias } from 'kysely/dist/cjs/parser/table-parser';
 
-export class Core {
-  declare tableName: TableNames;
+export class Core<TTableNames extends keyof DB> {
+  declare tableName: TTableNames;
   declare client: typeof db;
-  //@ts-ignore
-  constructor(client) {
+
+  constructor(client: typeof db) {
     this.client = client;
   }
   async findAll() {
@@ -33,10 +37,10 @@ export class Core {
       const result = await this.client
         .selectFrom(this.tableName)
         .selectAll()
-        .where('id', '=', id)
+        .where(`id`, '=', id)
         .execute();
 
-      if (!result) throw new NotFoundError('Not found');
+      if (!result || result.length === 0) throw new NotFoundError('Not found');
 
       return result[0];
     } catch (error) {
@@ -53,7 +57,10 @@ export class Core {
 
       keys.forEach((key, index) => {
         query = query.where(
-          key.toString() as unknown as ReferenceExpression<DB, TableNames>,
+          key.toString() as unknown as ReferenceExpression<
+            DB,
+            ExtractTableAlias<DB, TTableNames>
+          >,
           '=',
           values[index],
         );
@@ -67,7 +74,7 @@ export class Core {
       throw new DatabaseError(error);
     }
   }
-  async create(data: InsertObject<DB, TableNames>) {
+  async create(data: InsertObjectOrList<DB, typeof this.tableName>) {
     const todayUTCString = getFormattedUTCTimestamp();
     data.created_at = todayUTCString;
 
@@ -126,7 +133,10 @@ export class Core {
 
       keys.forEach((key, index) => {
         query = query.where(
-          key.toString() as unknown as ReferenceExpression<DB, TableNames>,
+          key.toString() as unknown as ReferenceExpression<
+            DB,
+            ExtractTableAlias<DB, TTableNames>
+          >,
           '=',
           values[index],
         );

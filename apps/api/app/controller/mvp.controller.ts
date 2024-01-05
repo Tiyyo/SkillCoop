@@ -12,7 +12,12 @@ export default {
     if (!event || event.status_name !== 'completed')
       throw new Error('Event not found or not completed');
 
-    const isCreated = await Mvp.create({ profile_id, rater_id, event_id });
+    const isCreated = await Mvp.create({
+      profile_id,
+      rater_id,
+      event_id,
+      created_at: '',
+    });
     // this should be not possible to called
     if (!isCreated) throw new Error('Not created');
 

@@ -10,8 +10,6 @@ function Settings() {
     userId: userProfile?.user_id,
   });
 
-  console.log(userPreference);
-
   return (
     <>
       <Container className="lg:mt-4">

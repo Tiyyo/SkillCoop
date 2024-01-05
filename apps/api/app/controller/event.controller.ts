@@ -17,7 +17,7 @@ export default {
   async createOne(req: Request, res: Response) {
     // create one event
     // add organizer to the event
-    // add organizer to the participant list to this event
+    // add organizer to the participant list
     deleteDecodedKey(req.body);
     const { participants: ids, ...data } = req.body;
 
@@ -28,12 +28,14 @@ export default {
       duration: data.duration,
       location: data.location,
       required_participants: data.required_participants,
+      created_at: '',
     });
 
     await ProfileOnEvent.create({
       event_id: eventId,
       profile_id: data.organizer_id,
       status_name: 'confirmed',
+      created_at: '',
     });
 
     if (ids) {
@@ -83,7 +85,7 @@ export default {
       );
 
     const dataHasChange = possibleFieldsUpdated.some((field) => {
-      return data[field] !== event[field];
+      return data[field] !== event[field as keyof typeof event];
     });
 
     if (!dataHasChange)
@@ -133,7 +135,7 @@ export default {
 
     const event = await Event.findByPk(eventId);
 
-    if (!event || event.length === 0) throw new NotFoundError('No event');
+    if (!event) throw new NotFoundError('No event');
     if (event.organizer_id !== profileId)
       throw new AuthorizationError('Operation not allowed');
 

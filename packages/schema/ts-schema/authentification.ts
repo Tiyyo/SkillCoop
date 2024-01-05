@@ -20,8 +20,8 @@ export const passwordUpdateSchema = z
     old_password: z.string(),
     new_password: z
       .string()
-      .min(8, { message: 'Must contains at least 8 characters' })
-      .max(64, { message: 'Must contains at most 64 characters' })
+      .min(8, { message: 'Must contain at least 8 characters' })
+      .max(64, { message: 'Must contain at most 64 characters' })
       .trim()
       .refine((value) => /\w*[a-z]\w*/.test(value), {
         message: 'Must contain one lowercase',
@@ -33,7 +33,7 @@ export const passwordUpdateSchema = z
         message: 'Must contain one number',
       })
       .refine((value) => /[ `!@#$%^&*()_+\-=\]{};':"\\|,.<>?~]/.test(value), {
-        message: 'Must containe one special character',
+        message: 'Must contain one special character',
       }),
     confirm_new_password: z.string(),
   })
@@ -49,8 +49,8 @@ export const passwordUpdateSchema = z
 export const resetPasswordSchema = z.object({
   password: z
     .string()
-    .min(8, { message: 'Must contains at least 8 characters' })
-    .max(64, { message: 'Must contains at most 64 characters' })
+    .min(8, { message: 'Must contain at least 8 characters' })
+    .max(64, { message: 'Must contain at most 64 characters' })
     .trim()
     .refine((value) => /\w*[a-z]\w*/.test(value), {
       message: 'Must contain one lowercase',
@@ -62,7 +62,7 @@ export const resetPasswordSchema = z.object({
       message: 'Must contain one number',
     })
     .refine((value) => /[ `!@#$%^&*()_+\-=\]{};':"\\|,.<>?~]/.test(value), {
-      message: 'Must containe one special character',
+      message: 'Must contain one special character',
     }),
   confirmPassword: z.string(),
 }).refine((data) => data.password === data.confirmPassword, {
@@ -76,8 +76,8 @@ export const registerSchema: ZodType = z
     email: z.string().email({ message: 'This is not an valid email' }),
     password: z
       .string()
-      .min(8, { message: 'Must contains at least 8 characters' })
-      .max(64, { message: 'Must contains at most 64 characters' })
+      .min(8, { message: 'Must contain at least 8 characters' })
+      .max(64, { message: 'Must contain at most 64 characters' })
       .trim()
       .refine((value) => /\w*[a-z]\w*/.test(value), {
         message: 'Must contain one lowercase',
@@ -89,7 +89,7 @@ export const registerSchema: ZodType = z
         message: 'Must contain one number',
       })
       .refine((value) => /[ `!@#$%^&*()_+\-=\]{};':"\\|,.<>?~]/.test(value), {
-        message: 'Must containe one special character',
+        message: 'Must contain one special character',
       }),
     confirmedPassword: z.string(),
     termAndService: z.string().transform((value) => value === 'on'),

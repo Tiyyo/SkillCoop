@@ -13,7 +13,7 @@ import type {
   GoogleUserInfos,
   User as UserType,
 } from 'skillcoop-types';
-import { UserPreference } from '../user-preference';
+import { UserPreferenceHandler } from '../user-preference';
 
 export default {
   async createUser(data: {
@@ -36,7 +36,7 @@ export default {
         email,
         password: hashedPassword,
       });
-      await new UserPreference(newUser.id).generateDefaultPreferences();
+      await new UserPreferenceHandler(newUser.id).generateDefault();
       return newUser;
     } catch (error) {
       if (error instanceof Error) {
@@ -46,7 +46,9 @@ export default {
   },
   async login(data: UserType): Promise<Record<string, string>> {
     const { email, password } = data;
-    const [user] = await User.findBy({ email: email.trim() });
+    const user = await User.findOne({ email: email.trim() });
+    // const [user] = await User.findOne({ email: email.trim() });
+    console.log('user', user, 'email', email, 'password', password);
 
     if (!user)
       throw new UserInputError(

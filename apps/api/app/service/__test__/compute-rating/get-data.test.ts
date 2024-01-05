@@ -1,16 +1,16 @@
 import { getData } from '../../compute-rating/get-data';
-import sqlMethods from '../../compute-rating/sql-methods';
+import { PlayerStatInsight } from '../../compute-rating/sql-methods';
 
 describe('get data', () => {
   afterEach(() => {
     vi.restoreAllMocks();
   });
   it('should aggregate results from all queries', async () => {
-    sqlMethods.getNbMvpAwards = vi.fn().mockResolvedValue({ nb_mvp: 1 });
-    sqlMethods.getNbBestStrikerAwards = vi
+    PlayerStatInsight.mvp = vi.fn().mockResolvedValue({ nb_mvp: 1 });
+    PlayerStatInsight.bestStriker = vi
       .fn()
       .mockResolvedValue({ nb_best_striker: 1 });
-    sqlMethods.getUserOwnEvaluation = vi.fn().mockResolvedValue({
+    PlayerStatInsight.ownEvaluation = vi.fn().mockResolvedValue({
       user_own_evaluation: {
         pace: 10,
         dribbling: 20,
@@ -19,7 +19,7 @@ describe('get data', () => {
         shooting: 50,
       },
     });
-    sqlMethods.getAverageEvaluationReceived = vi.fn().mockResolvedValue({
+    PlayerStatInsight.averageEvaluation = vi.fn().mockResolvedValue({
       avg_evaluation_received: {
         pace: 90,
         dribbling: 80,

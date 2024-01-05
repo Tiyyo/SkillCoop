@@ -9,12 +9,6 @@ import DatabaseError from '../../helpers/errors/database.error';
 import logger from '../../helpers/logger';
 /*eslint-enable max-len*/
 
-type NotificationTypeDB = {
-  name: TNotificationTypes;
-  created_at: string;
-  updated_at: string;
-};
-
 export class DefaultUserPreference {
   userId: number;
 
@@ -27,7 +21,10 @@ export class DefaultUserPreference {
     await this.generateDefaultNotificationPreference();
   }
   async generateDefaultThemePreference() {
-    await ThemePreference.create({ user_id: this.userId }).catch((err) => {
+    await ThemePreference.createOne({
+      user_id: this.userId,
+      created_at: '',
+    }).catch((err) => {
       if (err instanceof DatabaseError) {
         throw new ServerError(
           'Theme preference creation failed',
@@ -37,7 +34,10 @@ export class DefaultUserPreference {
     });
   }
   async generateDefaultLanguagePreference() {
-    await LanguagePreference.create({ user_id: this.userId }).catch((err) => {
+    await LanguagePreference.createOne({
+      user_id: this.userId,
+      created_at: '',
+    }).catch((err) => {
       if (err instanceof DatabaseError) {
         throw new ServerError(
           'Language preference creation failed',
@@ -55,18 +55,24 @@ export class DefaultUserPreference {
       );
     });
 
-    const notificationTypesReduced = notificationTypes.reduce(
-      (acc: string[], curr: NotificationTypeDB) => {
+    const inferredNotificationTypesOnName = notificationTypes.map((type) => ({
+      ...type,
+      name: type.name as TNotificationTypes,
+    }));
+
+    const notificationTypesReduced = inferredNotificationTypesOnName.reduce(
+      (acc: TNotificationTypes[], curr) => {
         acc.push(curr.name);
         return acc;
       },
       [],
-    ) as TNotificationTypes[];
+    );
 
     const queries = notificationTypesReduced.map((type) => {
-      return NotificationPreference.create({
+      return NotificationPreference.createOne({
         user_id: this.userId,
         type_name: type,
+        created_at: '',
       });
     });
     await Promise.all(queries).catch((err) => {

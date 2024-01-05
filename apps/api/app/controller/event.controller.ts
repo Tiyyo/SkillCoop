@@ -21,21 +21,19 @@ export default {
     deleteDecodedKey(req.body);
     const { participants: ids, ...data } = req.body;
 
-    const eventId = await Event.create({
+    const eventId = await Event.createOne({
       organizer_id: data.organizer_id,
       status_name: 'open',
       date: data.date,
       duration: data.duration,
       location: data.location,
       required_participants: data.required_participants,
-      created_at: '',
     });
 
-    await ProfileOnEvent.create({
+    await ProfileOnEvent.createOne({
       event_id: eventId,
       profile_id: data.organizer_id,
       status_name: 'confirmed',
-      created_at: '',
     });
 
     if (ids) {

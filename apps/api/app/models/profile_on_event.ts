@@ -46,7 +46,9 @@ export class ProfileOnEvent extends Core<typeof tableNames.profile_on_event> {
       return !!result.numChangedRows;
     } catch (error) {
       if (error instanceof UserInputError) throw error;
-      throw new DatabaseError(error);
+      if (error instanceof Error) {
+        throw new DatabaseError(error);
+      }
     }
   }
   async find(findObject: Partial<InsertObject<DB, typeof this.tableName>>) {
@@ -66,24 +68,9 @@ export class ProfileOnEvent extends Core<typeof tableNames.profile_on_event> {
       if (!result || result.length === 0) throw new NotFoundError('Not found');
       return result;
     } catch (error) {
-      throw new DatabaseError(error);
+      if (error instanceof Error) {
+        throw new DatabaseError(error);
+      }
     }
   }
-  // async updateUnionFk(
-  //   profileId: number,
-  //   eventId: number,
-  //   data: Record<string, string | number>,
-  // ) {
-  //   const todayUTCString = getFormattedUTCTimestamp();
-  //   data.updated_at = todayUTCString;
-
-  //   const result = await this.client
-  //     .updateTable(this.tableName)
-  //     .set({ ...data })
-  //     .where('profile_id', '=', profileId)
-  //     .where('event_id', '=', eventId)
-  //     .executeTakeFirst();
-
-  //   return !!result.numUpdatedRows;
-  // }
 }

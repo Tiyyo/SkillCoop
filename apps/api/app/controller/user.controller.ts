@@ -5,6 +5,7 @@ import { user as User } from '../models/index';
 import bcrypt from 'bcrypt';
 import checkParams from '../utils/check-params';
 import AuthorizationError from '../helpers/errors/unauthorized.error';
+import NotFoundError from '../helpers/errors/not-found.error';
 
 export default {
   getMe: async (req: Request, res: Response) => {
@@ -30,6 +31,7 @@ export default {
     const { old_password, new_password, user_id } = req.body;
 
     const user = await User.findOne({ id: user_id });
+    if (!user) throw new NotFoundError('User not found');
 
     // check if old password match
     // create a new hash password

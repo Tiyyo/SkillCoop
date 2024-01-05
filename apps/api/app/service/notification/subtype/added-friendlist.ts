@@ -29,20 +29,21 @@ class UserHasBeenAddedToFriendlist extends NotificationObserver {
     ) as BuilderAddedToFriendlistNotificationMessage;
   }
   async getSubscribers(): Promise<number[] | null> {
-    const { active_notification } = await Profile.findOne({
+    const profile = await Profile.findOne({
       id: this.subscriberId,
     });
-    if (active_notification === 0) return null;
-    return active_notification === 0 ? null : [this.subscriberId];
+    if (!profile || profile.active_notification === 0) return null;
+    return profile.active_notification === 0 ? null : [this.subscriberId];
   }
   async getInstigatorInfos(): Promise<{
     username: string;
     avatar_url: string | null;
   }> {
-    const { username, avatar_url } = await Profile.findOne({
+    const profile = await Profile.findOne({
       id: this.instigatorId,
     });
-    if (!username) throw new Error('Instigator not found');
+    if (!profile || !profile.username) throw new Error('Instigator not found');
+    const { username, avatar_url } = profile;
     return { username, avatar_url };
   }
   async sendNotification(username: string, avatar_url: string | null = null) {

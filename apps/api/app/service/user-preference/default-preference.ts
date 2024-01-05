@@ -54,6 +54,11 @@ export class DefaultUserPreference {
         'DefaultUserPreference',
       );
     });
+    if (!notificationTypes)
+      throw new ServerError(
+        'No notification types found',
+        'DefaultUserPreference',
+      );
 
     const inferredNotificationTypesOnName = notificationTypes.map((type) => ({
       ...type,

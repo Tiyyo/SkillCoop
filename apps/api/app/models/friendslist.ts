@@ -29,7 +29,9 @@ export class Friendlist extends Core<typeof tableNames.profile_on_profile> {
 
       return friendships;
     } catch (error) {
-      throw new DatabaseError(error);
+      if (error instanceof Error) {
+        throw new DatabaseError(error);
+      }
     }
   }
   async find(adder_id: number, friend_id: number, status_name?: string) {
@@ -52,7 +54,9 @@ export class Friendlist extends Core<typeof tableNames.profile_on_profile> {
       const friend = await query.executeTakeFirst();
       return friend;
     } catch (error) {
-      throw new DatabaseError(error);
+      if (error instanceof Error) {
+        throw new DatabaseError(error);
+      }
     }
   }
   async findFriendByUsernameInUserFriendlist(
@@ -79,7 +83,9 @@ export class Friendlist extends Core<typeof tableNames.profile_on_profile> {
         .execute();
       return friends;
     } catch (error) {
-      throw new DatabaseError(error);
+      if (error instanceof Error) {
+        throw new DatabaseError(error);
+      }
     }
   }
   async sendRequest(adder_id: number, friend_id: number) {
@@ -110,7 +116,9 @@ export class Friendlist extends Core<typeof tableNames.profile_on_profile> {
 
       return !!Number(addPendingFriendship[0].numInsertedOrUpdatedRows);
     } catch (error) {
-      throw new DatabaseError(error);
+      if (error instanceof Error) {
+        throw new DatabaseError(error);
+      }
     }
   }
   async updateStatus({
@@ -149,7 +157,9 @@ export class Friendlist extends Core<typeof tableNames.profile_on_profile> {
 
       return !!Number(acceptFriendship.numUpdatedRows);
     } catch (error) {
-      throw new DatabaseError(error);
+      if (error instanceof Error) {
+        throw new DatabaseError(error);
+      }
     }
   }
   async findPendingRequests(id: number) {
@@ -169,7 +179,9 @@ export class Friendlist extends Core<typeof tableNames.profile_on_profile> {
 
       return pendingRequests;
     } catch (error) {
-      throw new DatabaseError(error);
+      if (error instanceof Error) {
+        throw new DatabaseError(error);
+      }
     }
   }
   async findSuggestProfile(profileId: number) {
@@ -229,7 +241,9 @@ LIMIT 14`.execute(this.client);
 
       return suggestProfiles.rows;
     } catch (error) {
-      throw new DatabaseError(error);
+      if (error instanceof Error) {
+        throw new DatabaseError(error);
+      }
     }
   }
 }

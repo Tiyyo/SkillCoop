@@ -27,7 +27,9 @@ export class LanguagePreference extends Core<
 
       return !!Number(result.numUpdatedRows);
     } catch (error) {
-      throw new DatabaseError(error);
+      if (error instanceof Error) {
+        throw new DatabaseError(error);
+      }
     }
   }
 }

@@ -11,7 +11,11 @@ export const hasActiveNotification = async (profileIds: number[]) => {
   // filterMap with reduce
   const profileIdsWithNotificationOn = profileInfos.reduce(
     (acc: number[], curr) => {
-      if (curr.status === 'fulfilled' && curr.value.active_notification === 1) {
+      if (
+        curr.status === 'fulfilled' &&
+        curr.value &&
+        curr.value.active_notification === 1
+      ) {
         acc.push(curr.value.id);
       }
       return acc;

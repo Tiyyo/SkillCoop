@@ -175,6 +175,7 @@ async function seed() {
       email: faker.internet.email(),
       password: faker.internet.password(),
     });
+    if (!user) return logger.error('Failed to create user');
 
     const avatarUrl = faker.internet.avatar();
     await Image.createOne({ url: avatarUrl, created_at: todayUTCString });
@@ -214,6 +215,7 @@ async function seed() {
       email: faker.internet.email(),
       password: faker.internet.password(),
     });
+    if (!user) return logger.error('Failed to create user');
 
     const randomDate = faker.date.birthdate({ max: 2002, min: 1980 });
     const birthdate = getUTCString(randomDate);

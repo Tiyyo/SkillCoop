@@ -7,7 +7,6 @@ import { NotificationObserver } from './core';
 import { hasActiveNotification } from '../../../utils/has-active-notification';
 import { BuildNotificationMessage } from '../message.builder';
 import type {
-  EventParticipant,
   BuildTeamsHasBeenGeneratedMessage,
   NotificationSubtype,
   NotificationType,
@@ -44,6 +43,7 @@ class TeamHasBeenGenerated extends NotificationObserver {
   }
   async getInfos() {
     const eventInfos = await EventModel.findOne({ id: this.eventId });
+    if (!eventInfos) throw new Error('Event not found');
     return { eventDate: eventInfos.date };
   }
   async sendNotification(subscribers: number[], eventDate: string) {

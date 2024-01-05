@@ -111,31 +111,11 @@ export class Profile extends Core<typeof tableNames.profile> {
 
       return result;
     } catch (error) {
-      throw new DatabaseError(error);
+      if (error instanceof Error) {
+        throw new DatabaseError(error);
+      }
     }
   }
-  // TODO define a type for data
-  // async updateProfile(data: { profile_id: number; avatar_url?: string }) {
-  //   const todayUTCString = getFormattedUTCTimestamp();
-  //   //@ts-ignore
-  //   data.updated_at = todayUTCString;
-
-  //   const { profile_id, ...rest } = data;
-  //   const profileIdConvertedNumber = Number(profile_id);
-  //   try {
-  //     const result = await this.client
-  //       .updateTable('profile')
-  //       .set({
-  //         ...rest,
-  //       })
-  //       .where('profile.id', '=', profileIdConvertedNumber)
-  //       .executeTakeFirst();
-
-  //     return !!result.numUpdatedRows;
-  //   } catch (error) {
-  //     throw new DatabaseError(error);
-  //   }
-  // }
   async findByUserId(id: number) {
     try {
       const [result] = await this.client
@@ -203,7 +183,9 @@ export class Profile extends Core<typeof tableNames.profile> {
       if (error instanceof NotFoundError) {
         throw error;
       }
-      throw new DatabaseError(error);
+      if (error instanceof Error) {
+        throw new DatabaseError(error);
+      }
     }
   }
   async findManyByUsername(

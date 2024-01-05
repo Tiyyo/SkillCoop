@@ -36,6 +36,12 @@ export default {
         email,
         password: hashedPassword,
       });
+      if (!newUser)
+        throw new ServerError(
+          'Error creating user',
+          'AuthService.createUser',
+          'line 39',
+        );
       await new UserPreferenceHandler(newUser.id).generateDefault();
       return newUser;
     } catch (error) {
@@ -91,12 +97,13 @@ export default {
     picture,
   }: GoogleUserInfos): Promise<UserInfosToken> {
     const password = randomBytes(16).toString('hex');
-    const isCreated = await this.createUser({ email, password });
-    if (!isCreated) throw new Error('Error creating user');
+    const user = await this.createUser({ email, password });
+    if (!user) throw new Error('Error creating user');
 
     // We need to get user_id in order to update verified status
     // TODO look if we cannot get insert id when create a new user
-    const userCreated = await User.findOne({ email });
+    const userCreated = await User.findOne({ email: user.email });
+    if (!userCreated) throw new ServerError('Error creating user');
 
     const username = `${given_name} ${family_name[0]}.`;
     await User.updateOne({ id: userCreated.id }, { verified: 1 });

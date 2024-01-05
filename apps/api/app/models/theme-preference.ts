@@ -26,7 +26,9 @@ export class ThemePreference extends Core<typeof tableNames.theme_preference> {
 
       return !!Number(result.numUpdatedRows);
     } catch (error) {
-      throw new DatabaseError(error);
+      if (error instanceof Error) {
+        throw new DatabaseError(error);
+      }
     }
   }
 }

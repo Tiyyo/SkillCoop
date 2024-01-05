@@ -22,13 +22,12 @@ export default {
       created_at: '',
     };
 
-    const isAlereadyExist = await SkillFoot.findUniqueWithTwoClause({
+    const userEval = await SkillFoot.findOne({
       rater_id: profile_id,
       reviewee_id: profile_id,
     });
 
-    if (isAlereadyExist.length > 0)
-      throw new UserInputError("User can't rate himself twice");
+    if (!userEval) throw new UserInputError("User can't rate himself twice");
 
     const skill = await SkillFoot.createOne(data);
 

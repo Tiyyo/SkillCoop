@@ -32,7 +32,9 @@ export class Notification extends Core<typeof tableNames.notification> {
 
       return result;
     } catch (error) {
-      throw new DatabaseError(error);
+      if (error instanceof Error) {
+        throw new DatabaseError(error);
+      }
     }
   }
 }

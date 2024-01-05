@@ -20,6 +20,8 @@ export default {
     const data = { profile_id, event_id, status_name, updated_at: undefined };
     const event = await Event.findOne({ id: data.event_id });
 
+    if (!event) throw new UserInputError('Event not found');
+
     if (status_name === 'pending' || status_name === 'declined') {
       if (event.organizer_id === profile_id) {
         return res
@@ -41,6 +43,8 @@ export default {
       event_id: data.event_id,
       status_name: invitationStatus.confirmed,
     });
+    if (!confirmedParticipants)
+      throw new UserInputError('Could not find participant');
 
     if (event.required_participants <= confirmedParticipants.length) {
       throw new UserInputError('Event is already full');

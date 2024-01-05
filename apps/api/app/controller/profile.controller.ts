@@ -67,6 +67,7 @@ export default {
 
     if (avatar_url) {
       const imageToDelete = await Image.findOne({ url: avatar_url });
+      if (!imageToDelete) throw new NotFoundError('Image not found');
       await Image.deleteOne({ id: imageToDelete.id });
 
       if (imageToDelete.key) {

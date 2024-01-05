@@ -1,11 +1,7 @@
 import { tableNames } from '../@types/database';
-import DatabaseError from '../helpers/errors/database.error';
-import NotFoundError from '../helpers/errors/not-found.error';
 import computeGbRating from '../utils/compute-gb-rating';
 import { Core } from './core';
 import { db } from '../helpers/client.db';
-import { DB } from '../@types/database';
-import { ReferenceExpression } from 'kysely';
 
 export class SkillFoot extends Core<typeof tableNames.skill_foot> {
   constructor(client: typeof db) {
@@ -41,38 +37,5 @@ export class SkillFoot extends Core<typeof tableNames.skill_foot> {
     };
 
     return extendedResult;
-  }
-  async findUniqueWithTwoClause(data: Record<string, number | string>) {
-    const key = Object.keys(data);
-    const value = Object.values(data);
-
-    try {
-      const result = await this.client
-        .selectFrom(this.tableName)
-        .selectAll()
-        .where(
-          key[0].toString() as unknown as ReferenceExpression<
-            DB,
-            typeof tableNames.skill_foot
-          >,
-          '=',
-          value[0],
-        )
-        .where(
-          key[1].toString() as unknown as ReferenceExpression<
-            DB,
-            typeof tableNames.skill_foot
-          >,
-          '=',
-          value[1],
-        )
-        .execute();
-
-      if (!result) throw new NotFoundError('Not found');
-
-      return result;
-    } catch (error) {
-      throw new DatabaseError(error);
-    }
   }
 }

@@ -58,6 +58,22 @@ export const getPastEventFn = async (
   };
 };
 
+export const getUpcomingEventFn = async (
+  data: EventQuery,
+): Promise<{
+  events: EventType[];
+  previousPage: number;
+  eventCount: number;
+}> => {
+  const response = await api.get(`api/event/upcoming`, { params: data });
+
+  return {
+    events: response.data.events,
+    eventCount: response.data.eventCount,
+    previousPage: data.page,
+  };
+};
+
 export const createEventFn = async (data: CreateEventData) => {
   const response = await api.post('api/event', data);
   return response.data;

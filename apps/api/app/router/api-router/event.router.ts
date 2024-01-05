@@ -14,6 +14,7 @@ const {
   getOne,
   getPasts,
   getAllByUser,
+  getUpcoming,
   createOne,
   generateTeams,
   updateOne,
@@ -38,14 +39,11 @@ router
     validateSchema(updateOrganizerSchema, canals.body),
     factory(updateOrganizer),
   );
-
-// query routes
 router.route('/past').get(factory(getPasts));
+router.route('/upcoming').get(factory(getUpcoming));
 
 router.route('/details/:eventId/:profileId').get(factory(getOne));
-
 router.route('/teams').post(factory(generateTeams));
-
 router.route('/:id/:profileId').delete(factory(deleteOne));
 
 export default router;

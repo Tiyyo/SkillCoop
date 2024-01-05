@@ -166,12 +166,18 @@ export default {
 
     res.status(200).json(events);
   },
+  async getUpcoming(req: Request, res: Response) {
+    const [profileId, page] = checkParams(req.query.profileId, req.query.page);
+    const events = await Event.getUpcomingEvents(profileId, page);
+    console.log(events);
+
+    res.status(200).json(events);
+  },
   async generateTeams(req: Request, res: Response) {
     deleteDecodedKey(req.body);
     const { eventId } = req.body;
 
     await generateBalancedTeam(eventId);
-
     res.status(200).json({
       success: true,
     });

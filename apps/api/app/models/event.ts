@@ -152,6 +152,8 @@ GROUP BY event.id
 ORDER BY date DESC
       `.execute(this.client);
 
+      console.log(result.rows);
+
       const parsedResult = result.rows.map((event: EventType) => {
         return {
           ...event,
@@ -295,6 +297,84 @@ AND EXISTS(
 )
 AND event.date < date('now')
       `.execute(this.client);
+
+    const parsedResult = result.rows.map((event) => {
+      return {
+        ...event,
+        participants:
+          typeof event.participants === 'string' &&
+          JSON.parse(event.participants),
+      };
+    });
+    return { events: parsedResult, eventCount: count.rows[0].total_event };
+  }
+  async getUpcomingEvents(profileId: number, page: number) {
+    const result = await sql<EventType>`
+SELECT 
+  event.id AS event_id,
+  event.date,
+  event.duration,
+  event.location,
+  event.required_participants,
+  event.nb_teams,
+  event.organizer_id,
+  event.status_name,
+  score.score_team_1,
+  score.score_team_2, 
+  (json_group_array(
+      json_object(
+          'profile_id' , participant.profile_id, 
+          'username' , profile.username	,
+          'avatar', profile.avatar_url,
+          'status', participant.status_name,
+          'team', participant.team
+        )
+      ) 
+  ) AS participants,
+  (SELECT participant.status_name
+  FROM profile_on_event AS participant
+  WHERE participant.profile_id = ${profileId} 
+  AND participant.event_id = event.id ) AS user_status,
+  (SELECT COUNT (*) 
+  FROM profile_on_event 
+  WHERE event_id = event.id 
+  AND status_name = 'confirmed') AS confirmed_participants
+FROM event
+LEFT JOIN score ON event.id = score.event_id
+JOIN profile_on_event AS participant ON event.id = participant.event_id
+JOIN profile ON participant.profile_id = profile.id
+WHERE user_status <> 'declined'
+AND EXISTS(
+  SELECT 1
+  FROM profile_on_event 
+  WHERE event_id = event.id
+  AND profile_id = ${profileId}
+)
+AND event.date > date('now')
+GROUP BY event.id
+ORDER BY date DESC
+LIMIT 10 OFFSET ${(page - 1) * 10}
+      `.execute(this.client);
+
+    const count = await sql<{ total_event: number }>`
+SELECT 
+  COUNT (event.id) AS total_event ,
+ (SELECT participant.status_name
+  FROM profile_on_event AS participant
+  WHERE participant.profile_id = ${profileId} 
+  AND participant.event_id = event.id) AS user_status
+FROM event
+WHERE user_status <> 'declined'
+AND EXISTS(
+  SELECT 1
+  FROM profile_on_event 
+  WHERE profile_on_event.event_id = event.id
+  AND profile_id = ${profileId}
+)
+AND event.date > datetime('now')
+      `.execute(this.client);
+
+    console.log('result: ', result);
 
     const parsedResult = result.rows.map((event) => {
       return {

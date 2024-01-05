@@ -22,7 +22,7 @@ import ConfirmedFriends from './feature/friends/confirmed.friends.tsx';
 import PendingFriends from './feature/friends/pending.friends.tsx';
 import AddFriends from './feature/friends/add.friends.tsx';
 import PastEvents from './feature/event/events/past.tsx';
-import IncomingEvents from './feature/event/events/incoming.tsx';
+import IncomingEvents from './feature/event/events/upcoming.tsx';
 import MyEvents from './feature/event/events/admin-event.tsx';
 import EventPage from './feature/event/event-page/index.tsx';
 import ProfileInfos from './feature/profile/index.tsx';

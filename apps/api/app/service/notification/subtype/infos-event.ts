@@ -7,6 +7,7 @@ import type {
   NotificationType,
 } from 'skillcoop-types';
 import { notificationSubtype, notificationType } from 'skillcoop-types';
+import NotFoundError from '../../../helpers/errors/not-found.error';
 
 export class EventInfosHasBeenUpdated extends NotificationObserver {
   declare subtype: NotificationSubtype;
@@ -27,9 +28,14 @@ export class EventInfosHasBeenUpdated extends NotificationObserver {
     return subscribersIds ? subscribersIds : null;
   }
   async getInfos() {
-    const eventInfos = await EventModel.findByPk(this.eventId);
-    const { avatar_url } = await Profile.findByPk(eventInfos.organizer_id);
-    return { eventDate: eventInfos.date, avatar_url };
+    const eventInfos = await EventModel.findOne({ id: this.eventId });
+    if (!eventInfos || !eventInfos.organizer_id)
+      throw new NotFoundError('Event not found');
+    const profile = await Profile.findOne({
+      id: eventInfos.organizer_id,
+    });
+    if (!profile) throw new NotFoundError('Profile not found');
+    return { eventDate: eventInfos.date, avatar_url: profile.avatar_url };
   }
   async sendNotification(
     subscribers?: number[],
@@ -42,7 +48,7 @@ export class EventInfosHasBeenUpdated extends NotificationObserver {
       this.addNotificationToDatabase({
         profileId: id,
         message,
-        type: this.type,
+        type_name: this.type,
         subtype: this.subtype,
         img_url,
         eventId: this.eventId,

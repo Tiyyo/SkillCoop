@@ -1,13 +1,27 @@
-import { ObjectRecordGeneric } from '../@types/types';
 import DatabaseError from '../helpers/errors/database.error';
 import NotFoundError from '../helpers/errors/not-found.error';
 import { getFormattedUTCTimestamp } from 'date-handler';
+import { db } from '../helpers/client.db';
+import { ReferenceExpression, UpdateObject } from 'kysely';
+import { DB } from '../@types/database';
+import {
+  InsertObject,
+  InsertObjectOrList,
+} from 'kysely/dist/cjs/parser/insert-values-parser';
+import { ExtractTableAlias } from 'kysely/dist/cjs/parser/table-parser';
 
-export class Core {
-  declare tableName: string;
-  declare client;
-  //@ts-ignore
-  constructor(client) {
+type OptionalCreatedAt = Partial<{ created_at: string }>;
+type InsertValues<T extends keyof DB> = Omit<
+  InsertObject<DB, T>,
+  'created_at'
+> &
+  OptionalCreatedAt;
+
+export class Core<TTableNames extends keyof DB> {
+  declare tableName: TTableNames;
+  declare client: typeof db;
+
+  constructor(client: typeof db) {
     this.client = client;
   }
   async findAll() {
@@ -16,98 +30,110 @@ export class Core {
         .selectFrom(this.tableName)
         .selectAll()
         .execute();
-      if (!result) throw new NotFoundError('Not found');
 
+      if (!result || result.length === 0) throw new NotFoundError('Not found');
       return result;
     } catch (error) {
-      throw new DatabaseError(error);
+      if (error instanceof Error) {
+        throw new DatabaseError(error);
+      }
     }
   }
-  async findByPk(id: number) {
+  async findOne(findObject: Partial<InsertObject<DB, TTableNames>>) {
+    const keys = Object.keys(findObject) as ReferenceExpression<
+      DB,
+      ExtractTableAlias<DB, TTableNames>
+    >[];
+    const values = Object.values(findObject);
     try {
-      const result = await this.client
-        .selectFrom(this.tableName)
-        .selectAll()
-        .where('id', '=', id)
-        .execute();
-
-      if (!result) throw new NotFoundError('Not found');
-
-      return result[0];
-    } catch (error) {
-      throw new DatabaseError(error);
-    }
-  }
-  // accept several where clause with the form of {key: value}
-  async findBy(data: Record<string, number | string | Date>) {
-    const keys = Object.keys(data);
-    const values = Object.values(data);
-
-    try {
-      let query = this.client.selectFrom(this.tableName).selectAll();
+      let promise = this.client.selectFrom(this.tableName).selectAll();
 
       keys.forEach((key, index) => {
-        query = query.where(key.toString(), '=', values[index]);
+        promise = promise.where(key, '=', values[index]);
       });
 
-      const result = await query.execute();
+      const result = await promise.executeTakeFirst();
       if (!result) throw new NotFoundError('Not found');
-
       return result;
     } catch (error) {
-      throw new DatabaseError(error);
+      if (error instanceof Error) {
+        throw new DatabaseError(error);
+      }
     }
   }
-  async create(data: ObjectRecordGeneric) {
+  async createOne(data: InsertValues<TTableNames>) {
     const todayUTCString = getFormattedUTCTimestamp();
     data.created_at = todayUTCString;
+
     try {
       const result = await this.client
         .insertInto(this.tableName)
-        .values(data)
+        .values(data as InsertObjectOrList<DB, TTableNames>)
         .execute();
 
       return Number(result[0].insertId);
     } catch (error) {
-      throw new DatabaseError(error);
+      if (error instanceof Error) {
+        throw new DatabaseError(error);
+      }
     }
   }
-  async createMany(data: Array<ObjectRecordGeneric>) {
+  async createMany(data: InsertValues<TTableNames>[]) {
     const todayUTCString = getFormattedUTCTimestamp();
-    data.forEach((el: ObjectRecordGeneric) => (el.created_at = todayUTCString));
+    data.forEach((el) => (el.created_at = todayUTCString));
 
     try {
       const result = await this.client
         .insertInto(this.tableName)
-        .values(data)
+        .values(data as InsertObjectOrList<DB, TTableNames>)
         .execute();
 
       return !!result[0].numInsertedOrUpdatedRows;
     } catch (error) {
-      throw new DatabaseError(error);
+      if (error instanceof Error) {
+        throw new DatabaseError(error);
+      }
     }
   }
-  async update(id: number, data: ObjectRecordGeneric) {
+  /**
+   *
+   * @param condition  An objetc with the form of {key: value} where
+     key is a column name and value is the value to compare
+   * @param updateObject An object with the form of {key: value} where
+      
+   * @returns
+   */
+  async updateOne(
+    condition: UpdateObject<
+      DB,
+      ExtractTableAlias<DB, TTableNames>,
+      ExtractTableAlias<DB, TTableNames>
+    >,
+    updateObject: UpdateObject<
+      DB,
+      ExtractTableAlias<DB, TTableNames>,
+      ExtractTableAlias<DB, TTableNames>
+    >,
+  ) {
     const todayUTCString = getFormattedUTCTimestamp();
+    //@ts-ignore
     data.updated_at = todayUTCString;
 
-    const result = await this.client
-      .updateTable(this.tableName)
-      .set({ ...data })
-      .where('id', '=', id)
-      .executeTakeFirst();
+    const conditionKeys = Object.keys(condition) as ReferenceExpression<
+      DB,
+      ExtractTableAlias<DB, TTableNames>
+    >[];
+    const conditionValues = Object.values(condition);
 
+    let promise = this.client.updateTable(this.tableName).set(updateObject);
+    conditionKeys.forEach((key, index) => {
+      promise = promise.where(key, '=', conditionValues[index]);
+    });
+
+    const result = await promise.executeTakeFirst();
     return !!Number(result.numUpdatedRows);
   }
-  async delete(id: number) {
-    const result = await this.client
-      .deleteFrom(this.tableName)
-      .where('id', '=', id)
-      .executeTakeFirst();
-
-    return !!Number(result.numDeletedRows);
-  }
-  async deleteBy(data: Record<string, number | string | Date>) {
+  async deleteOne(data: Record<string, number | string | Date>) {
     const keys = Object.keys(data);
     const values = Object.values(data);
 
@@ -115,15 +141,22 @@ export class Core {
       let query = this.client.deleteFrom(this.tableName);
 
       keys.forEach((key, index) => {
-        query = query.where(key.toString(), '=', values[index]);
+        query = query.where(
+          key.toString() as unknown as ReferenceExpression<
+            DB,
+            ExtractTableAlias<DB, TTableNames>
+          >,
+          '=',
+          values[index],
+        );
       });
-
       const result = await query.executeTakeFirst();
-      if (!result) throw new NotFoundError('Not found');
 
       return !!Number(result.numDeletedRows);
     } catch (error) {
-      throw new DatabaseError(error);
+      if (error instanceof Error) {
+        throw new DatabaseError(error);
+      }
     }
   }
 }

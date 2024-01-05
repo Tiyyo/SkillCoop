@@ -102,7 +102,8 @@ export async function deleteImageFromBucket(imageKey: string) {
     await s3.send(new DeleteObjectCommand(params));
     invalidateCache(imageKey);
   } catch (error) {
-    console.log(error);
-    logger.error('Object have not been delete from bucket');
+    if (error instanceof Error) {
+      logger.error(error.message + 'Object have not been delete from bucket');
+    }
   }
 }

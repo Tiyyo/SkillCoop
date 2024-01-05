@@ -14,12 +14,12 @@ export class ComputeRating {
   VALUE_BONUS = 100;
   skillNames = ['pace', 'defending', 'passing', 'dribbling', 'shooting'];
 
-  declare ownEval?: Skills;
-  declare receivedEval?: AvgSkill;
-  declare nbEvalReceived: number;
-  declare nb_mvp: number;
-  declare nb_best_striker: number;
-  declare profileId: number;
+  ownEval?: Skills;
+  receivedEval?: AvgSkill;
+  nbEvalReceived: number;
+  nb_mvp: number;
+  nb_best_striker: number;
+  profileId: number;
 
   constructor(
     userEvaluationsAndBonus: UserEvaluationsBonus,

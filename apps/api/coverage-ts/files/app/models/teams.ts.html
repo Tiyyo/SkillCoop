@@ -1,0 +1,145 @@
+
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>teams.ts</title>
+      <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" type="text/css" rel="stylesheet">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/codemirror.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/mode/javascript/javascript.min.js" type="text/javascript" charset="utf-8"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/codemirror.min.css" type="text/css" rel="stylesheet">
+<script src="..\..\..\assets\source-file.js" type="text/javascript" charset="utf-8"></script>
+<link href="..\..\..\assets\source-file.css" type="text/css" rel="stylesheet">
+    </head>
+    <body>
+    <div style="margin-top:3em" class="ui container"><h1 class="ui header"><a href="..\..\..\index.html">TypeScript coverage report</a></h1><table style="margin-top:2em" class="ui celled table"><thead class=""><tr class=""><th class="">Filename</th><th class="">Percent</th><th class="">Threshold</th><th class="">Total</th><th class="">Covered</th><th class="">Uncovered</th></tr></thead><tbody class=""><tr class="positive"><td class="">app\models\teams.ts</td><td class="">98.92%</td><td class="">80%</td><td class="">186</td><td class="">184</td><td class="">2</td></tr></tbody></table><textarea id="editor" readonly="" style="margin-top:3em">import { db } from &#x27;../helpers/client.db&#x27;;
+import ServerError from &#x27;../helpers/errors/server.error&#x27;;
+import computeRatingUser from &#x27;../service/compute-rating&#x27;;
+import { Player } from &#x27;skillcoop-types&#x27;;
+
+// TODO refactor and make smaller function
+
+export type Eval = {
+  avg_pace: number;
+  avg_defending: number;
+  avg_passing: number;
+  avg_dribbling: number;
+  avg_shooting: number;
+  gb_rating: number;
+  profileId: number;
+};
+
+type EventData = {
+  event_id: number;
+  ids_participants: string;
+  required_participants: number | null;
+  nb_teams: number | null;
+};
+
+export class ConfigGenerateTeams {
+  eventId: number;
+  team1: Player[];
+  team2: Player[];
+  nb_teams: number;
+  ids: number[];
+  values: number[];
+  participants: number;
+
+  constructor(eventId: number) {
+    this.eventId = eventId;
+    this.team1 = [];
+    this.team2 = [];
+    this.nb_teams = 0;
+    this.ids = [];
+    this.values = [];
+    this.participants = 0;
+  }
+  public async init() {
+    const eventData = await this.fetchEventData();
+    this.participants = eventData.required_participants!;
+    this.nb_teams = eventData.nb_teams!;
+
+    this.parsedEventDataIntoIds(eventData);
+    if (this.ids.length !== eventData.required_participants)
+      throw new ServerError(&#x27;Wrong participant number&#x27;, &#x27;TeamConfigGenerator&#x27;);
+
+    const promiseSettledResultEval = await this.getUsersEvals();
+    const evals = this.ensureAllParticipantsGotEvaluated(
+      promiseSettledResultEval,
+    );
+    this.mapsEvalIntoIdsAndValues(evals);
+
+    return {
+      team1: this.team1,
+      team2: this.team2,
+      nb_teams: this.nb_teams,
+      ids: this.ids,
+      values: this.values,
+      participants: this.participants,
+    };
+  }
+  private async fetchEventData() {
+    const [result] = await db
+      .selectFrom([&#x27;profile_on_event&#x27;])
+      .select([&#x27;profile_on_event.event_id&#x27;])
+      .select(({ fn }) =&gt; [
+        &#x27;profile_on_event.event_id&#x27;,
+        fn
+          .agg&lt;string&gt;(&#x27;group_concat&#x27;, [&#x27;profile_on_event.profile_id&#x27;])
+          .as(&#x27;ids_participants&#x27;),
+      ])
+      .leftJoin(&#x27;event&#x27;, &#x27;profile_on_event.event_id&#x27;, &#x27;event.id&#x27;)
+      .select([&#x27;event.required_participants&#x27;, &#x27;event.nb_teams&#x27;])
+      .where(&#x27;profile_on_event.event_id&#x27;, &#x27;=&#x27;, this.eventId)
+      .where(&#x27;profile_on_event.status_name&#x27;, &#x27;=&#x27;, &#x27;confirmed&#x27;)
+      .groupBy([&#x27;profile_on_event.event_id&#x27;, &#x27;event.required_participants&#x27;])
+      .execute();
+    return result;
+  }
+  private parsedEventDataIntoIds(eventData: EventData) {
+    const ids = eventData.ids_participants.split(&#x27;,&#x27;).map(Number);
+    this.ids = ids;
+  }
+  private async getUsersEvals() {
+    const participantEvals = await Promise.allSettled(
+      this.ids.map((id) =&gt; computeRatingUser(id)),
+    )
+      .then((res) =&gt; {
+        return res;
+      })
+      .catch((err) =&gt; console.log(&#x27;ERROR :&#x27;, err));
+    return participantEvals;
+  }
+  private ensureAllParticipantsGotEvaluated(
+    promiseResult: PromiseSettledResult&lt;Eval&gt;[] | void,
+  ) {
+    if (!promiseResult) return;
+    const evals = promiseResult.map((evaluation, index: number) =&gt; {
+      if (evaluation.status !== &#x27;fulfilled&#x27;) {
+        return {
+          avg_pace: 50,
+          avg_defending: 50,
+          avg_passing: 50,
+          avg_dribbling: 50,
+          avg_shooting: 50,
+          gb_rating: 50,
+          profile_id: Number(this.ids[index]),
+        };
+      } else {
+        return evaluation.value;
+      }
+    });
+    return evals as Eval[];
+  }
+  private mapsEvalIntoIdsAndValues(evals?: Eval[]) {
+    if (!evals) return;
+    evals.forEach((skill) =&gt; {
+      this.ids.push(skill.profileId);
+      this.values.push(skill.gb_rating);
+    });
+  }
+}
+</textarea><pre id="annotations" style="display:none">[{&quot;file&quot;:&quot;app\\models\\teams.ts&quot;,&quot;line&quot;:95,&quot;character&quot;:14,&quot;text&quot;:&quot;err&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\models\\teams.ts&quot;,&quot;line&quot;:95,&quot;character&quot;:45,&quot;text&quot;:&quot;err&quot;,&quot;kind&quot;:1}]</pre></div>
+    <p class="footer-text">TypeScript Coverage Report generated by <a href="https://github.com/plantain-00/type-coverage">type-coverage</a> and <a href="https://github.com/alexcanessa/typescript-coverage-report">typescript-coverage-report</a> at Fri, 05 Jan 2024 16:47:28 GMT</p>
+    </body>
+  </html>
+  

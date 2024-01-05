@@ -24,7 +24,7 @@ describe.skip('createOne', () => {
     Event.getEventById = vi
       .fn()
       .mockResolvedValue({ status_name: 'completed' });
-    BestStriker.create = vi.fn().mockResolvedValue(true);
+    BestStriker.createOne = vi.fn().mockResolvedValue(true);
     Event.updateBestStriker = vi.fn().mockResolvedValue(true);
 
     await createOne(req, res);
@@ -37,7 +37,7 @@ describe.skip('createOne', () => {
     Event.getEventById = vi
       .fn()
       .mockResolvedValue({ status_name: 'completed' });
-    BestStriker.create = vi.fn().mockResolvedValue(true);
+    BestStriker.createOne = vi.fn().mockResolvedValue(true);
     Event.updateBestStriker = vi.fn().mockResolvedValue(true);
 
     await createOne(req, res);
@@ -51,7 +51,7 @@ describe.skip('createOne', () => {
     Event.getEventById = vi
       .fn()
       .mockResolvedValue({ status_name: 'completed' });
-    BestStriker.create = vi.fn().mockResolvedValue(true);
+    BestStriker.createOne = vi.fn().mockResolvedValue(true);
     Event.updateBestStriker = vi.fn().mockResolvedValue(true);
 
     await createOne(req, res);
@@ -72,11 +72,11 @@ describe.skip('createOne', () => {
     Event.getEventById = vi
       .fn()
       .mockResolvedValue({ status_name: 'completed' });
-    BestStriker.create = vi.fn().mockResolvedValue(true);
+    BestStriker.createOne = vi.fn().mockResolvedValue(true);
     Event.updateBestStriker = vi.fn().mockResolvedValue(true);
 
     await createOne(req, res);
-    expect(BestStriker.create).toBeCalledWith({
+    expect(BestStriker.createOne).toBeCalledWith({
       profile_id: 1,
       rater_id: 2,
       event_id: 3,
@@ -88,7 +88,7 @@ describe.skip('createOne', () => {
     Event.getEventById = vi
       .fn()
       .mockResolvedValue({ status_name: 'completed' });
-    BestStriker.create = vi.fn().mockResolvedValue(false);
+    BestStriker.createOne = vi.fn().mockResolvedValue(false);
 
     await expect(async () => createOne(req, res)).rejects.toThrowError(
       'Not created',
@@ -100,7 +100,7 @@ describe.skip('createOne', () => {
     Event.getEventById = vi
       .fn()
       .mockResolvedValue({ status_name: 'completed' });
-    BestStriker.create = vi.fn().mockResolvedValue(true);
+    BestStriker.createOne = vi.fn().mockResolvedValue(true);
     Event.updateBestStriker = vi.fn().mockResolvedValue(true);
 
     await createOne(req, res);

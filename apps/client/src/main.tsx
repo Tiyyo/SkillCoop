@@ -25,26 +25,27 @@ import PastEvents from './feature/event/events/past.tsx';
 import IncomingEvents from './feature/event/events/incoming.tsx';
 import MyEvents from './feature/event/events/admin-event.tsx';
 import EventPage from './feature/event/event-page/index.tsx';
-import ProfileInfos from './feature/profile/infos/index.tsx';
-import UserResumeSkills from './feature/profile/skills/index.tsx';
+import ProfileInfos from './feature/profile/index.tsx';
+import UserResumeSkills from './feature/skills/index.tsx';
 import FriendProfile from './feature/friend-profile-page/index.tsx';
-/*eslint-disable-next-line */
+/*eslint-disable*/
 import ModalRouteRatingEvent from './feature/event/event-page/modal-route-rating.tsx';
-/*eslint-disable-next-line */
 import ControlAccesEventPage from './component/redirection/control-access-event.tsx';
 import Page404 from './component/404-page/index.tsx';
-/*eslint-disable-next-line */
 import ControlAccessOwnership from './component/redirection/control-access-ownership.tsx';
 import { Toaster } from 'sonner';
 import EndOfGameAwards from './feature/event/awards.tsx';
 import ForgotPassword from './feature/auth/forgot-password.tsx';
-/*eslint-disable-next-line */
 import ResetPasswordMiddleware from './component/redirection/control-reset-password.tsx';
 import NotificationContainer from './feature/notification/index.tsx';
-/*eslint-disable-next-line */
 import InvitationFromEventPage from './feature/event/event-page/invitation/index.tsx';
-/*eslint-disable-next-line */
 import InvitationFromCreateEventPage from './feature/event/create-event/invitation.tsx';
+import Settings from './feature/settings/index.tsx';
+import MenuSettings from './feature/settings/menu.tsx';
+import NotificationsSettings from './feature/settings/notifications.tsx';
+import LanguageSettings from './feature/settings/language.tsx';
+import ApparenceSettings from './feature/settings/apparence.tsx';
+/*eslint-enable*/
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -183,6 +184,16 @@ const router = createBrowserRouter([
           {
             path: 'skills',
             element: <UserResumeSkills />,
+          },
+          {
+            path: 'settings',
+            element: <Settings />,
+            children: [
+              { index: true, element: <MenuSettings /> },
+              { path: 'language', element: <LanguageSettings /> },
+              { path: 'notifications', element: <NotificationsSettings /> },
+              { path: 'apparence', element: <ApparenceSettings /> },
+            ],
           },
           { path: '*', element: <Page404 /> },
         ],

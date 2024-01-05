@@ -22,25 +22,18 @@ function MyEvents() {
     elementPerPage: NB_ELEMETNS_PER_PAGE,
     argsFn: { profileId },
   });
-  console.log(data);
 
   // const eventsOrganized = useMemo(() => {
   //   return data?.pages.map((page) => page?.events).flat();
   // }, [loading]);
 
   useEffect(() => {
-    console.log('Is component update correctly');
-    // setOrganizeEvent();
     if (data && data.pages) {
       const freshData = data.pages.map((page) => page?.events).flat();
-      console.log('FreshData ', freshData);
       setOrganizeEvent((prev) => {
         return { ...prev, events: freshData };
       });
-      // console.log('Pages :', data.pages.map((page) => page?.events).flat());
-      console.log('I update event data');
     }
-    console.log('Current State event :', organizeEvent);
   }, [loading]);
 
   // const allEvents = data?.pages

@@ -7,7 +7,6 @@ import { NotificationObserver } from './core';
 import { hasActiveNotification } from '../../../utils/has-active-notification';
 import { BuildNotificationMessage } from '../message.builder';
 import type {
-  EventParticipant,
   BuildTeamsHasBeenGeneratedMessage,
   NotificationSubtype,
   NotificationType,
@@ -31,19 +30,20 @@ class TeamHasBeenGenerated extends NotificationObserver {
     ) as BuildTeamsHasBeenGeneratedMessage;
   }
   async getSubscribers() {
-    const confirmedParticipants = await Participant.findBy({
+    const confirmedParticipants = await Participant.find({
       event_id: this.eventId,
       status_name: 'confirmed',
     });
     if (!confirmedParticipants) return null;
     const participantsIds = confirmedParticipants.map(
-      (participant: EventParticipant) => participant.profile_id,
+      (participant) => participant.profile_id,
     );
     const subscribersIds = await hasActiveNotification(participantsIds);
     return subscribersIds;
   }
   async getInfos() {
-    const eventInfos = await EventModel.findByPk(this.eventId);
+    const eventInfos = await EventModel.findOne({ id: this.eventId });
+    if (!eventInfos) throw new Error('Event not found');
     return { eventDate: eventInfos.date };
   }
   async sendNotification(subscribers: number[], eventDate: string) {
@@ -53,7 +53,7 @@ class TeamHasBeenGenerated extends NotificationObserver {
       this.addNotificationToDatabase({
         profileId: id,
         message,
-        type: this.type,
+        type_name: this.type,
         subtype: this.subtype,
         eventId: this.eventId,
       });

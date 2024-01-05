@@ -1,0 +1,155 @@
+
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>auth.controller.test.ts</title>
+      <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" type="text/css" rel="stylesheet">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/codemirror.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/mode/javascript/javascript.min.js" type="text/javascript" charset="utf-8"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/codemirror.min.css" type="text/css" rel="stylesheet">
+<script src="..\..\..\..\assets\source-file.js" type="text/javascript" charset="utf-8"></script>
+<link href="..\..\..\..\assets\source-file.css" type="text/css" rel="stylesheet">
+    </head>
+    <body>
+    <div style="margin-top:3em" class="ui container"><h1 class="ui header"><a href="..\..\..\..\index.html">TypeScript coverage report</a></h1><table style="margin-top:2em" class="ui celled table"><thead class=""><tr class=""><th class="">Filename</th><th class="">Percent</th><th class="">Threshold</th><th class="">Total</th><th class="">Covered</th><th class="">Uncovered</th></tr></thead><tbody class=""><tr class="positive"><td class="">app\controller\__test__\auth.controller.test.ts</td><td class="">98.58%</td><td class="">80%</td><td class="">211</td><td class="">208</td><td class="">3</td></tr></tbody></table><textarea id="editor" readonly="" style="margin-top:3em">import { mockResponse } from &#x27;./mock-response&#x27;;
+import authController from &#x27;../auth.controller&#x27;;
+import { Request } from &#x27;express&#x27;;
+import authService from &#x27;../../service/auth/auth&#x27;;
+import emailService from &#x27;../../utils/send-email&#x27;;
+import google from &#x27;../../service/auth/google&#x27;;
+
+const { register, signin } = authController;
+
+describe(&#x27;AuthController&#x27;, () =&gt; {
+  describe(&#x27;register&#x27;, () =&gt; {
+    afterEach(() =&gt; {
+      vi.resetAllMocks();
+    });
+    const mockRequest = {
+      body: {
+        email: &#x27;test@test.com&#x27;,
+        password: &#x27;123456&#x27;,
+      },
+    } as Request;
+
+    google.getOAuthToken = vi.fn().mockResolvedValue(true);
+    google.getUser = vi.fn().mockResolvedValue(true);
+
+    test.skip(&#x27;should return 201 when user is created&#x27;, async () =&gt; {
+      const res = mockResponse();
+      const req = mockRequest;
+      authService.createUser = vi.fn().mockResolvedValue(true);
+      emailService.sendVerify = vi.fn().mockResolvedValue(true);
+      await register(req, res);
+      expect(res.status).toBeCalledWith(201);
+    });
+    test.skip(`should call createUser
+      service with correct params`, async () =&gt; {
+      const res = mockResponse();
+      const req = mockRequest;
+      authService.createUser = vi.fn().mockResolvedValue(true);
+      emailService.sendVerify = vi.fn().mockResolvedValue(true);
+      await register(req, res);
+      expect(authService.createUser).toBeCalledWith(mockRequest.body);
+    });
+    test.skip(&#x27;should return true if user is created &#x27;, async () =&gt; {
+      const res = mockResponse();
+      const req = mockRequest;
+      authService.createUser = vi.fn().mockResolvedValue(true);
+      emailService.sendVerify = vi.fn().mockResolvedValue(true);
+      await register(req, res);
+      expect(res.json).toBeCalledWith(true);
+    });
+    test.skip(&#x27;should call create token with the correct params&#x27;, async () =&gt; {
+      // const res = mockResponse()
+      // const mockRequest
+      // authService.createUser = vi.fn().mockResolvedValue({ id: 1 })
+      // await register(req, res)
+      // expect(createAccessToken).toBeCalledWith(&#x27;1h&#x27;, { userId: 1 })
+    });
+    test.skip(&#x27;should send verify email with th correct params&#x27;, async () =&gt; {
+      // const res = mockResponse()
+      // const req = mockRequest
+      // authService.createUser = vi.fn().mockResolvedValue({ id: 1 })
+      // emailService.sendVerify = vi.fn().mockResolvedValue(true)
+      // await register(req, res)
+      // expect(emailService.sendVerify)
+      //.toBeCalledWith(req.email, &#x27;validate your email&#x27;, expect.toBe(string))
+    });
+  });
+  describe(&#x27;signin&#x27;, () =&gt; {
+    afterEach(() =&gt; {
+      vi.resetAllMocks();
+    });
+    const mockRequest = {
+      body: {
+        email: &#x27;john.doe@example.com&#x27;,
+        password: &#x27;123456&#x27;,
+      },
+    } as Request;
+
+    test.skip(&#x27;should return 200 when user is logged in&#x27;, async () =&gt; {
+      const res = mockResponse();
+      const req = mockRequest;
+      authService.login = vi.fn().mockResolvedValue(true);
+      await signin(req, res);
+      expect(res.status).toBeCalledWith(200);
+    });
+    test.skip(&#x27;should call login service with correct params&#x27;, async () =&gt; {
+      const res = mockResponse();
+      const req = mockRequest;
+      authService.login = vi.fn().mockResolvedValue(true);
+      await signin(req, res);
+      expect(authService.login).toBeCalledWith(mockRequest.body);
+    });
+    test.skip(&#x27;should return accesToken if user is logged in&#x27;, async () =&gt; {
+      const res = mockResponse();
+      const req = mockRequest;
+      authService.login = vi.fn().mockResolvedValue({
+        accessToken: &#x27;validAccessToken&#x27;,
+        refreshToken: &#x27;validRefreshToken&#x27;,
+      });
+      await signin(req, res);
+      expect(res.json).toBeCalledWith(
+        expect.objectContaining({ accessToken: expect.any(String) }),
+      );
+    });
+    test.skip(`should set refreshToken 
+      cookie if user is logged in`, async () =&gt; {
+      const res = mockResponse();
+      const req = mockRequest;
+      authService.login = vi.fn().mockResolvedValue({
+        accessToken: &#x27;validAccessToken&#x27;,
+        refreshToken: &#x27;validRefreshToken&#x27;,
+      });
+      await signin(req, res);
+      expect(res.cookie).toBeCalledWith(&#x27;refreshToken&#x27;, &#x27;validRefreshToken&#x27;, {
+        httpOnly: true,
+        sameSite: &#x27;none&#x27;,
+        secure: true,
+        maxAge: 24 * 60 * 60 * 1000,
+      });
+    });
+  });
+  describe(&#x27;refresh&#x27;, () =&gt; {
+    afterEach(() =&gt; {
+      vi.resetAllMocks();
+    });
+    test.skip(&#x27;should return 200 when token is refreshed&#x27;, async () =&gt; {
+      // test skipped
+    });
+    test.skip(`should return accesToken
+      if token is refreshed`, async () =&gt; {
+      // test skipped
+    });
+    test.skip(`should call createAccesToken
+      with correct params`, async () =&gt; {
+      // test skipped
+    });
+  });
+});
+</textarea><pre id="annotations" style="display:none">[{&quot;file&quot;:&quot;app\\controller\\__test__\\auth.controller.test.ts&quot;,&quot;line&quot;:39,&quot;character&quot;:64,&quot;text&quot;:&quot;body&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\__test__\\auth.controller.test.ts&quot;,&quot;line&quot;:89,&quot;character&quot;:59,&quot;text&quot;:&quot;body&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\__test__\\auth.controller.test.ts&quot;,&quot;line&quot;:100,&quot;character&quot;:34,&quot;text&quot;:&quot;accessToken&quot;,&quot;kind&quot;:1}]</pre></div>
+    <p class="footer-text">TypeScript Coverage Report generated by <a href="https://github.com/plantain-00/type-coverage">type-coverage</a> and <a href="https://github.com/alexcanessa/typescript-coverage-report">typescript-coverage-report</a> at Fri, 05 Jan 2024 16:47:28 GMT</p>
+    </body>
+  </html>
+  

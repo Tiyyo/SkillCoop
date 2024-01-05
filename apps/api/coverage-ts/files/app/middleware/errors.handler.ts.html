@@ -1,0 +1,140 @@
+
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>errors.handler.ts</title>
+      <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" type="text/css" rel="stylesheet">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/codemirror.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/mode/javascript/javascript.min.js" type="text/javascript" charset="utf-8"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/codemirror.min.css" type="text/css" rel="stylesheet">
+<script src="..\..\..\assets\source-file.js" type="text/javascript" charset="utf-8"></script>
+<link href="..\..\..\assets\source-file.css" type="text/css" rel="stylesheet">
+    </head>
+    <body>
+    <div style="margin-top:3em" class="ui container"><h1 class="ui header"><a href="..\..\..\index.html">TypeScript coverage report</a></h1><table style="margin-top:2em" class="ui celled table"><thead class=""><tr class=""><th class="">Filename</th><th class="">Percent</th><th class="">Threshold</th><th class="">Total</th><th class="">Covered</th><th class="">Uncovered</th></tr></thead><tbody class=""><tr class="positive"><td class="">app\middleware\errors.handler.ts</td><td class="">100.00%</td><td class="">80%</td><td class="">299</td><td class="">299</td><td class="">0</td></tr></tbody></table><textarea id="editor" readonly="" style="margin-top:3em">import { NextFunction, Request, Response } from &#x27;express&#x27;;
+import ServerError from &#x27;../helpers/errors/server.error&#x27;;
+import AuthorizationError from &#x27;../helpers/errors/unauthorized.error&#x27;;
+import ValidationError from &#x27;../helpers/errors/validation.error&#x27;;
+import logger from &#x27;../helpers/logger&#x27;;
+import NotFoundError from &#x27;../helpers/errors/not-found.error&#x27;;
+import UserInputError from &#x27;../helpers/errors/user-input.error&#x27;;
+import DatabaseError from &#x27;../helpers/errors/database.error&#x27;;
+import APITypeError from &#x27;../helpers/errors/type.error&#x27;;
+import ForbidenError from &#x27;../helpers/errors/forbiden&#x27;;
+
+export const errorHandler = (
+  error: unknown,
+  _req: Request,
+  res: Response,
+  next: NextFunction,// eslint-disable-line
+) =&gt; {
+  const devEnv = res.app.get(&#x27;env&#x27;) === &#x27;development&#x27;;
+  logger.info(devEnv);
+
+  if (error instanceof ValidationError &amp;&amp; devEnv) {
+    logger.error(error.name + &#x27; &#x27; + error.message);
+    return res.status(error.status).json({
+      error: error.fieldErrors,
+    });
+  }
+
+  if (error instanceof ValidationError &amp;&amp; !devEnv) {
+    logger.error(error.name + &#x27; &#x27; + error.message);
+    return res.status(error.status).json({
+      error: &#x27;Invalid data&#x27;,
+    });
+  }
+
+  if (error instanceof APITypeError &amp;&amp; devEnv) {
+    logger.error(error.message);
+    return res.status(error.status).json({
+      error: error.message,
+    });
+  }
+
+  if (error instanceof APITypeError &amp;&amp; !devEnv) {
+    logger.error(error.message);
+    return res.status(error.status).json({
+      error: error.userMessage,
+    });
+  }
+
+  if (error instanceof NotFoundError &amp;&amp; devEnv) {
+    logger.error(error.message);
+    return res.status(error.status).json({ error: error.message });
+  }
+
+  if (error instanceof NotFoundError &amp;&amp; !devEnv) {
+    logger.error(error.name);
+    return res.status(error.status).json({ error: error.userMessage });
+  }
+
+  if (error instanceof AuthorizationError &amp;&amp; devEnv) {
+    logger.error(error.message);
+    return res.status(error.status).json({ error: error.message });
+  }
+
+  if (error instanceof AuthorizationError &amp;&amp; !devEnv) {
+    logger.error(error.name);
+    return res.status(error.status).json({ error: error.userMessage });
+  }
+
+  if (error instanceof ServerError &amp;&amp; devEnv) {
+    logger.error(error.message);
+    return res.status(error.status).json({ error: error.message });
+  }
+
+  if (error instanceof ServerError &amp;&amp; !devEnv) {
+    logger.error(error.name);
+    return res.status(error.status).json({ error: error.userMessage });
+  }
+
+  if (error instanceof UserInputError &amp;&amp; devEnv) {
+    logger.error(error.message);
+    return res.status(error.status).json({ error: error.message });
+  }
+
+  if (error instanceof UserInputError &amp;&amp; !devEnv) {
+    logger.error(error.name);
+    return res.status(error.status).json({ error: error.userMessage });
+  }
+
+  if (error instanceof DatabaseError &amp;&amp; devEnv) {
+    logger.error(error.name + &#x27; &#x27; + error.message);
+    return res.status(error.status).json({ error: error.message });
+  }
+
+  if (error instanceof DatabaseError &amp;&amp; !devEnv) {
+    logger.error(error.name + &#x27; &#x27; + error.message);
+    return res.status(error.status).json({ error: error.userMessage });
+  }
+
+  if (error instanceof ForbidenError &amp;&amp; devEnv) {
+    logger.error(error.message);
+    return res.status(500).json({ error: error.message });
+  }
+
+  if (error instanceof ForbidenError &amp;&amp; !devEnv) {
+    logger.error(error.name);
+    return res.status(500).json({ error: error.userMessage });
+  }
+
+  if (error instanceof Error) {
+    logger.error(error.name + &#x27; &#x27; + error.message);
+    return res.status(500).json({ error: &#x27;Somethign went wrong&#x27; });
+  }
+
+  if (res.app.get(&#x27;env&#x27;) !== &#x27;development&#x27;) {
+    return res.status(500).send(&#x27;Internal Server Error&#x27;);
+  } else {
+    if (error instanceof Error) {
+      logger.error(&#x27;Unknow error&#x27; + &#x27; &#x27; + error.message);
+      return res.status(500).send({ error: error.message });
+    }
+  }
+};
+</textarea><pre id="annotations" style="display:none">[]</pre></div>
+    <p class="footer-text">TypeScript Coverage Report generated by <a href="https://github.com/plantain-00/type-coverage">type-coverage</a> and <a href="https://github.com/alexcanessa/typescript-coverage-report">typescript-coverage-report</a> at Fri, 05 Jan 2024 16:47:28 GMT</p>
+    </body>
+  </html>
+  

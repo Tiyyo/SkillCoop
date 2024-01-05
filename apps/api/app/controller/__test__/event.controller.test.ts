@@ -30,8 +30,8 @@ describe.skip('createOne', () => {
       },
     } as Request;
     const req = mockRequest;
-    Event.create = vi.fn().mockResolvedValue(true);
-    ProfileOnEvent.create = vi.fn().mockResolvedValue(true);
+    Event.createOne = vi.fn().mockResolvedValue(true);
+    ProfileOnEvent.createOne = vi.fn().mockResolvedValue(true);
     ProfileOnEvent.createMany = vi.fn().mockResolvedValue(true);
 
     await createOne(req, res);
@@ -50,8 +50,8 @@ describe.skip('createOne', () => {
       },
     } as Request;
     const req = mockRequest;
-    Event.create = vi.fn().mockResolvedValue(true);
-    ProfileOnEvent.create = vi.fn().mockResolvedValue(true);
+    Event.createOne = vi.fn().mockResolvedValue(true);
+    ProfileOnEvent.createOne = vi.fn().mockResolvedValue(true);
     ProfileOnEvent.createMany = vi.fn().mockResolvedValue(true);
 
     await createOne(req, res);
@@ -69,12 +69,12 @@ describe.skip('createOne', () => {
       },
     } as Request;
     const req = mockRequest;
-    Event.create = vi.fn().mockResolvedValue(true);
-    ProfileOnEvent.create = vi.fn().mockResolvedValue(true);
+    Event.createOne = vi.fn().mockResolvedValue(true);
+    ProfileOnEvent.createOne = vi.fn().mockResolvedValue(true);
     ProfileOnEvent.createMany = vi.fn().mockResolvedValue(true);
 
     await createOne(req, res);
-    expect(Event.create).toBeCalledWith({
+    expect(Event.createOne).toBeCalledWith({
       location: 'test',
       organizer_id: 1,
       date: '2021-10-10',
@@ -93,12 +93,12 @@ describe.skip('createOne', () => {
       },
     } as Request;
     const req = mockRequest;
-    Event.create = vi.fn().mockResolvedValue(7);
-    ProfileOnEvent.create = vi.fn().mockResolvedValue(true);
+    Event.createOne = vi.fn().mockResolvedValue(7);
+    ProfileOnEvent.createOne = vi.fn().mockResolvedValue(true);
     ProfileOnEvent.createMany = vi.fn().mockResolvedValue(true);
 
     await createOne(req, res);
-    expect(ProfileOnEvent.create).toBeCalledWith({
+    expect(ProfileOnEvent.createOne).toBeCalledWith({
       event_id: 7,
       profile_id: 1,
       status_name: 'confirmed',
@@ -116,8 +116,8 @@ describe.skip('createOne', () => {
       },
     } as Request;
     const req = mockRequest;
-    Event.create = vi.fn().mockResolvedValue(7);
-    ProfileOnEvent.create = vi.fn().mockResolvedValue(true);
+    Event.createOne = vi.fn().mockResolvedValue(7);
+    ProfileOnEvent.createOne = vi.fn().mockResolvedValue(true);
     ProfileOnEvent.createMany = vi.fn().mockResolvedValue(true);
 
     await createOne(req, res);
@@ -193,8 +193,8 @@ describe.skip('updateOne', () => {
   test('should return 204 when event is updated', async () => {
     const res = mockResponse();
     const req = mockRequest;
-    Event.findByPk = vi.fn().mockResolvedValue({ organizer_id: 2 });
-    Event.update = vi.fn().mockResolvedValue(true);
+    Event.findOne = vi.fn().mockResolvedValue({ organizer_id: 2 });
+    Event.updateOne = vi.fn().mockResolvedValue(true);
 
     await updateOne(req, res);
     expect(res.status).toBeCalledWith(204);
@@ -203,8 +203,8 @@ describe.skip('updateOne', () => {
         success true when event is updated`, async () => {
     const res = mockResponse();
     const req = mockRequest;
-    Event.findByPk = vi.fn().mockResolvedValue({ organizer_id: 2 });
-    Event.update = vi.fn().mockResolvedValue(true);
+    Event.findOne = vi.fn().mockResolvedValue({ organizer_id: 2 });
+    Event.updateOne = vi.fn().mockResolvedValue(true);
 
     await updateOne(req, res);
     expect(res.json).toBeCalledWith({ success: true });
@@ -212,17 +212,17 @@ describe.skip('updateOne', () => {
   test('should call find event by pk with the correct params', async () => {
     const res = mockResponse();
     const req = mockRequest;
-    Event.findByPk = vi.fn().mockResolvedValue({ organizer_id: 2 });
-    Event.update = vi.fn().mockResolvedValue(true);
+    Event.findOne = vi.fn().mockResolvedValue({ organizer_id: 2 });
+    Event.updateOne = vi.fn().mockResolvedValue(true);
 
     await updateOne(req, res);
-    expect(Event.findByPk).toBeCalledWith(req.body.event_id);
+    expect(Event.findOne).toBeCalledWith(req.body.event_id);
   });
   test('should throw an AuthorizationError if event is not found', async () => {
     const res = mockResponse();
     const req = mockRequest;
-    Event.findByPk = vi.fn().mockResolvedValue(null);
-    Event.update = vi.fn().mockResolvedValue(true);
+    Event.findOne = vi.fn().mockResolvedValue(null);
+    Event.updateOne = vi.fn().mockResolvedValue(true);
 
     await expect(async () => updateOne(req, res)).rejects.toThrowError(
       'Operation not allowed',
@@ -231,11 +231,11 @@ describe.skip('updateOne', () => {
   test('should call event update with the correct params', async () => {
     const res = mockResponse();
     const req = mockRequest;
-    Event.findByPk = vi.fn().mockResolvedValue({ organizer_id: 2 });
-    Event.update = vi.fn().mockResolvedValue(true);
+    Event.findOne = vi.fn().mockResolvedValue({ organizer_id: 2 });
+    Event.updateOne = vi.fn().mockResolvedValue(true);
 
     await updateOne(req, res);
-    expect(Event.update).toBeCalledWith(req.body.event_id, {
+    expect(Event.updateOne).toBeCalledWith(req.body.event_id, {
       location: 'test',
       duration: 90,
     });
@@ -254,8 +254,8 @@ describe.skip('deleteOne', () => {
   test('should return 204 when event has been deleted', async () => {
     const res = mockResponse();
     const req = mockRequest;
-    Event.findByPk = vi.fn().mockResolvedValue({ organizer_id: 2 });
-    Event.delete = vi.fn().mockResolvedValue(true);
+    Event.findOne = vi.fn().mockResolvedValue({ organizer_id: 2 });
+    Event.deleteOne = vi.fn().mockResolvedValue(true);
     //@ts-ignore
     await deleteOne(req, res);
     expect(res.status).toBeCalledWith(204);
@@ -264,8 +264,8 @@ describe.skip('deleteOne', () => {
       when event has been deleted`, async () => {
     const res = mockResponse();
     const req = mockRequest;
-    Event.findByPk = vi.fn().mockResolvedValue({ organizer_id: 2 });
-    Event.delete = vi.fn().mockResolvedValue(true);
+    Event.findOne = vi.fn().mockResolvedValue({ organizer_id: 2 });
+    Event.deleteOne = vi.fn().mockResolvedValue(true);
     //@ts-ignore
     await deleteOne(req, res);
     expect(res.json).toBeCalledWith({ success: true });
@@ -273,17 +273,17 @@ describe.skip('deleteOne', () => {
   test('should call find event by pk with the correct params', async () => {
     const res = mockResponse();
     const req = mockRequest;
-    Event.findByPk = vi.fn().mockResolvedValue({ organizer_id: 2 });
-    Event.delete = vi.fn().mockResolvedValue(true);
+    Event.findOne = vi.fn().mockResolvedValue({ organizer_id: 2 });
+    Event.deleteOne = vi.fn().mockResolvedValue(true);
     //@ts-ignore
     await deleteOne(req, res);
-    expect(Event.findByPk).toBeCalledWith(req.params.id);
+    expect(Event.findOne).toBeCalledWith(req.params.id);
   });
   test('should throw an Error No event if not event is found', async () => {
     const res = mockResponse();
     const req = mockRequest;
-    Event.findByPk = vi.fn().mockResolvedValue(null);
-    Event.delete = vi.fn().mockResolvedValue(true);
+    Event.findOne = vi.fn().mockResolvedValue(null);
+    Event.deleteOne = vi.fn().mockResolvedValue(true);
     //@ts-ignore
     await expect(async () => deleteOne(req, res)).rejects.toThrowError(
       'No event',
@@ -293,8 +293,8 @@ describe.skip('deleteOne', () => {
 if organizer is not equal to profileId`, async () => {
     const res = mockResponse();
     const req = mockRequest;
-    Event.findByPk = vi.fn().mockResolvedValue({ organier_id: 3 });
-    Event.delete = vi.fn().mockResolvedValue(true);
+    Event.findOne = vi.fn().mockResolvedValue({ organier_id: 3 });
+    Event.deleteOne = vi.fn().mockResolvedValue(true);
     //@ts-ignore
     await expect(async () => deleteOne(req, res)).rejects.toThrowError(
       'Operation not allowed',
@@ -303,11 +303,11 @@ if organizer is not equal to profileId`, async () => {
   test('should call event delete with the correct params', async () => {
     const res = mockResponse();
     const req = mockRequest;
-    Event.findByPk = vi.fn().mockResolvedValue({ organizer_id: 2 });
-    Event.delete = vi.fn().mockResolvedValue(true);
+    Event.findOne = vi.fn().mockResolvedValue({ organizer_id: 2 });
+    Event.deleteOne = vi.fn().mockResolvedValue(true);
     //@ts-ignore
     await deleteOne(req, res);
-    expect(Event.delete).toBeCalledWith(req.params.id);
+    expect(Event.deleteOne).toBeCalledWith(req.params.id);
   });
 });
 describe.skip('getAllByUser', () => {

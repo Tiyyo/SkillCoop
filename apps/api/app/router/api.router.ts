@@ -9,10 +9,9 @@ import scoreRouter from './api-router/score.router';
 import mvpRouter from './api-router/mvp.router';
 import bestStrikerRouter from './api-router/best-striker.router';
 import notificationRouter from './api-router/notification.router';
-import logger from '../helpers/logger';
+import userPreferenceRouter from './api-router/user-preference.router';
 
 const router: Router = express.Router();
-logger.info('Entry API router');
 
 router.use('/user', userRouter);
 router.use('/profile', profileRouter);
@@ -24,5 +23,6 @@ router.use('/score', scoreRouter);
 router.use('/mvp', mvpRouter);
 router.use('/best_striker', bestStrikerRouter);
 router.use('/notification', notificationRouter);
+router.use('/user-preference', userPreferenceRouter);
 
 export default router;

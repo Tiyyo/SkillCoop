@@ -21,7 +21,6 @@ function NotificationTrigger({ profileId }: { profileId?: number }) {
     onMessage: (event: MessageEvent) => {
       const data = JSON.parse(event.data);
       if (data.message.includes('new notification')) {
-        console.log('New notification');
         refetch();
       }
     },

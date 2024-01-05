@@ -3,51 +3,48 @@ import DatabaseError from '../helpers/errors/database.error';
 import { Core } from './core';
 import UserInputError from '../helpers/errors/user-input.error';
 import { getFormattedUTCTimestamp } from 'date-handler';
-// import { DBClientType } from '../@types/types.database';
+import { tableNames } from '../@types/database';
+import { db } from '../helpers/client.db';
 
-export class Friendlist extends Core {
-  declare tableName: string;
-
-  constructor(client: unknown) {
+export class Friendlist extends Core<typeof tableNames.profile_on_profile> {
+  constructor(client: typeof db) {
     super(client);
-    this.tableName = 'profile_on_profile';
+    this.tableName = tableNames.profile_on_profile;
   }
   async findAllByPk(id: number) {
     try {
       const friendships = await this.client
         .selectFrom(this.tableName)
-        .select([
-          'friend_id',
-          'adder_id',
-          'status_name',
-          'avatar_url',
-          'username',
-          'profile.last_evaluation',
-        ])
+        .select(['friend_id', 'adder_id', 'status_name'])
         .limit(20)
         .innerJoin('profile', 'profile.id', 'profile_on_profile.friend_id')
+        .select([
+          'profile.avatar_url',
+          'profile.username',
+          'profile.last_evaluation',
+        ])
         .where('adder_id', '=', id)
         .where('status_name', '=', 'confirmed')
         .execute();
 
       return friendships;
     } catch (error) {
-      throw new DatabaseError(error);
+      if (error instanceof Error) {
+        throw new DatabaseError(error);
+      }
     }
   }
-  async findOne(adder_id: number, friend_id: number, status_name?: string) {
+  async find(adder_id: number, friend_id: number, status_name?: string) {
     try {
       let query = this.client
         .selectFrom(this.tableName)
+        .select(['friend_id', 'adder_id', 'status_name'])
+        .innerJoin('profile', 'profile.id', 'profile_on_profile.friend_id')
         .select([
-          'friend_id',
-          'adder_id',
-          'status_name',
-          'avatar_url',
-          'username',
+          'profile.avatar_url',
+          'profile.username',
           'profile.last_evaluation',
         ])
-        .innerJoin('profile', 'profile.id', 'profile_on_profile.friend_id')
         .where('adder_id', '=', adder_id)
         .where('friend_id', '=', friend_id);
 
@@ -57,7 +54,9 @@ export class Friendlist extends Core {
       const friend = await query.executeTakeFirst();
       return friend;
     } catch (error) {
-      throw new DatabaseError(error);
+      if (error instanceof Error) {
+        throw new DatabaseError(error);
+      }
     }
   }
   async findFriendByUsernameInUserFriendlist(
@@ -69,24 +68,24 @@ export class Friendlist extends Core {
     try {
       const friends = await this.client
         .selectFrom(this.tableName)
-        .select([
-          'friend_id',
-          'adder_id',
-          'status_name',
-          'avatar_url',
-          'username',
-          'profile.last_evaluation',
-        ])
+        .select(['friend_id', 'adder_id', 'status_name'])
         .offset(offset)
         .limit(20)
         .innerJoin('profile', 'profile.id', 'profile_on_profile.friend_id')
-        .where('profile_on_profile.adder_id ', '=', profileId)
+        .select([
+          'profile.avatar_url',
+          'profile.username',
+          'profile.last_evaluation',
+        ])
+        .where('adder_id', '=', profileId)
         .where('status_name', '=', 'confirmed')
         .where('username', 'like', `%${query.toLowerCase()}%`)
         .execute();
       return friends;
     } catch (error) {
-      throw new DatabaseError(error);
+      if (error instanceof Error) {
+        throw new DatabaseError(error);
+      }
     }
   }
   async sendRequest(adder_id: number, friend_id: number) {
@@ -107,8 +106,9 @@ export class Friendlist extends Core {
       const addPendingFriendship = await this.client
         .insertInto(this.tableName)
         .values({
-          adder_id,
+          //@ts-ignore
           friend_id: friend_id,
+          adder_id,
           status_name: 'pending',
           created_at: todayUTCString,
         })
@@ -116,7 +116,9 @@ export class Friendlist extends Core {
 
       return !!Number(addPendingFriendship[0].numInsertedOrUpdatedRows);
     } catch (error) {
-      throw new DatabaseError(error);
+      if (error instanceof Error) {
+        throw new DatabaseError(error);
+      }
     }
   }
   async updateStatus({
@@ -134,8 +136,9 @@ export class Friendlist extends Core {
       await this.client
         .insertInto(this.tableName)
         .values({
-          adder_id: friend_id,
+          //@ts-ignore
           friend_id: adder_id,
+          adder_id: friend_id,
           status_name,
           created_at: todayUTCString,
         })
@@ -144,6 +147,7 @@ export class Friendlist extends Core {
       const acceptFriendship = await this.client
         .updateTable(this.tableName)
         .set({
+          //@ts-ignore
           status_name,
           updated_at: todayUTCString,
         })
@@ -153,29 +157,31 @@ export class Friendlist extends Core {
 
       return !!Number(acceptFriendship.numUpdatedRows);
     } catch (error) {
-      throw new DatabaseError(error);
+      if (error instanceof Error) {
+        throw new DatabaseError(error);
+      }
     }
   }
   async findPendingRequests(id: number) {
     try {
       const pendingRequests = await this.client
         .selectFrom(this.tableName)
+        .select(['friend_id', 'adder_id', 'status_name'])
+        .innerJoin('profile', 'profile.id', 'profile_on_profile.adder_id')
         .select([
-          'friend_id',
-          'adder_id',
-          'status_name',
-          'avatar_url',
-          'username',
+          'profile.avatar_url',
+          'profile.username',
           'profile.last_evaluation',
         ])
-        .innerJoin('profile', 'profile.id', 'profile_on_profile.adder_id')
         .where('friend_id', '=', id)
         .where('status_name', '=', 'pending')
         .execute();
 
       return pendingRequests;
     } catch (error) {
-      throw new DatabaseError(error);
+      if (error instanceof Error) {
+        throw new DatabaseError(error);
+      }
     }
   }
   async findSuggestProfile(profileId: number) {
@@ -232,11 +238,12 @@ FROM
       )
 AND friend_id <> ${profileId}
 LIMIT 14`.execute(this.client);
-      console.log('Suggest profile ', suggestProfiles.rows);
 
       return suggestProfiles.rows;
     } catch (error) {
-      throw new DatabaseError(error);
+      if (error instanceof Error) {
+        throw new DatabaseError(error);
+      }
     }
   }
 }

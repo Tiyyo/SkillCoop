@@ -1,4 +1,3 @@
-// can't destructurate import without conflict
 import winston from 'winston';
 import 'winston-daily-rotate-file';
 const { createLogger } = winston;

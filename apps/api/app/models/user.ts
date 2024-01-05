@@ -2,30 +2,33 @@
 import { getFormattedUTCTimestamp } from 'date-handler';
 import DatabaseError from '../helpers/errors/database.error';
 import { Core } from './core';
+import { tableNames } from '../@types/database';
+import { db } from '../helpers/client.db';
+import NotFoundError from '../helpers/errors/not-found.error';
 
-export class User extends Core {
-  tableName: string = 'user';
-  //@ts-ignore
-  constructor(client) {
+export class User extends Core<typeof tableNames.user> {
+  constructor(client: typeof db) {
     super(client);
+    this.tableName = tableNames.user;
   }
-  async createUser(data: {
-    password: string;
-    email: string;
-    created_at?: string;
-  }): Promise<{ id: number; email: string }> {
+  async create(data: { password: string; email: string }) {
     const todayUTCString = getFormattedUTCTimestamp();
-    data.created_at = todayUTCString;
+    const insertValues = {
+      ...data,
+      created_at: todayUTCString,
+    };
     try {
-      const result = await this.client
+      const [result] = await this.client
         .insertInto(this.tableName)
-        .values(data)
+        .values(insertValues)
         .returning(['id', 'email'])
         .execute();
-
-      return result[0];
+      if (!result) throw new NotFoundError('Could not create user');
+      return result;
     } catch (error) {
-      throw new DatabaseError(error);
+      if (error instanceof Error) {
+        throw new DatabaseError(error);
+      }
     }
   }
 }

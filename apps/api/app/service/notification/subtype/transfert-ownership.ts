@@ -51,11 +51,17 @@ class TransfertOwnership extends NotificationObserver {
     return haveSubscribed;
   }
   async getEventInfos() {
-    const eventInfos = await EventModel.findByPk(this.eventId);
+    const eventInfos = await EventModel.findOne({ id: this.eventId });
+    if (!eventInfos) throw new Error('Could not find event');
     return { eventDate: eventInfos.date };
   }
   async getInstigatorInfos() {
-    const { username, avatar_url } = await Profile.findByPk(this.instigatorId);
+    const profile = await Profile.findOne({
+      id: this.instigatorId,
+    });
+    if (!profile || !profile.username || !profile.avatar_url)
+      throw new Error('Instigator not found');
+    const { username, avatar_url } = profile;
     return { username, avatar_url };
   }
   async sendNotification({
@@ -70,7 +76,7 @@ class TransfertOwnership extends NotificationObserver {
       this.addNotificationToDatabase({
         profileId: id,
         message,
-        type: this.type,
+        type_name: this.type,
         subtype: this.subtype,
         eventId: this.eventId,
         instigatorId: this.instigatorId,

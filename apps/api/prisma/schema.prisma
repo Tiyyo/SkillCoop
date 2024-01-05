@@ -19,7 +19,10 @@ model user {
   verified    Int       @default(0)
   created_at  String
   updated_at  String? 
-  Profile     profile?
+  Profile     profile? // Why Profile have a caps ?
+  notification_preference notification_preference[]
+  theme_preference        theme_preference[]
+  language_preference     language_preference[]
 }
 
 model profile {
@@ -187,18 +190,56 @@ model best_striker_poll {
 }
 
 model notification {
-  id          Int       @id @default(autoincrement())
-  profile_id  Int
-  profile     profile   @relation("subscriber",fields: [profile_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  instigator_id  Int?
-  instigator     profile?  @relation("instigator", fields: [instigator_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  event_id    Int?
-  event       event?    @relation(fields: [event_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  img_url     String?
-  type        String
-  subtype     String?
-  message     String
-  is_read     Int       @default(0)
+  id              Int       @id @default(autoincrement())
+  profile_id      Int
+  profile         profile   @relation("subscriber",fields: [profile_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  instigator_id   Int?
+  instigator      profile?  @relation("instigator", fields: [instigator_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  event_id        Int?
+  event           event?    @relation(fields: [event_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  img_url         String?
+  type_name       String?
+  type            notification_type? @relation(fields: [type_name], references: [name], onDelete: SetNull, onUpdate: Cascade)
+  subtype         String?
+  message         String
+  is_read         Int       @default(0)
+  created_at      String
+  updated_at      String?
+}
+
+model notification_type {
+  name        String    @id @unique
+  created_at  String
+  updated_at  String?
+  notification notification[]
+  notification_preference notification_preference[]
+}
+
+model notification_preference {
+  user_id     Int
+  user        user                @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  type_name   String
+  type        notification_type   @relation(fields: [type_name], references: [name], onDelete: Cascade, onUpdate: Cascade)
+  email       Int                 @default(1)
+  push        Int                 @default(1)
+  website     Int                 @default(1)
+  created_at  String
+  updated_at  String?
+  @@id([user_id, type_name])
+}
+
+model theme_preference {
+  user_id     Int         @id
+  user        user        @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  name        String      @default("light")
+  created_at  String
+  updated_at  String?
+}
+
+model language_preference {
+  user_id     Int       @id
+  user        user      @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  name        String    @default("en")
   created_at  String
   updated_at  String?
 }

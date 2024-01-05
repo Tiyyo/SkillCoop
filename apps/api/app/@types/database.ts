@@ -4,6 +4,47 @@ export type Generated<T> = T extends ColumnType<infer S, infer I, infer U>
   : ColumnType<T, T | undefined, T>;
 export type Timestamp = ColumnType<Date, Date | string, Date | string>;
 
+export type TableNames =
+  | 'best_striker_poll'
+  | 'event'
+  | 'image'
+  | 'language_preference'
+  | 'mvp_poll'
+  | 'notification'
+  | 'notification_preference'
+  | 'notification_type'
+  | 'profile'
+  | 'profile_on_event'
+  | 'profile_on_profile'
+  | 'score'
+  | 'skill_foot'
+  | 'sport'
+  | 'status'
+  | 'theme_preference'
+  | 'user';
+
+// create an objet with all the table name to assert type them
+
+export const tableNames = {
+  best_striker_poll: 'best_striker_poll',
+  event: 'event',
+  image: 'image',
+  language_preference: 'language_preference',
+  mvp_poll: 'mvp_poll',
+  notification: 'notification',
+  notification_preference: 'notification_preference',
+  notification_type: 'notification_type',
+  profile: 'profile',
+  profile_on_event: 'profile_on_event',
+  profile_on_profile: 'profile_on_profile',
+  score: 'score',
+  skill_foot: 'skill_foot',
+  sport: 'sport',
+  status: 'status',
+  theme_preference: 'theme_preference',
+  user: 'user',
+} as const;
+
 export type best_striker_poll = {
   event_id: number;
   profile_id: number;
@@ -33,6 +74,12 @@ export type image = {
   created_at: string;
   updated_at: string | null;
 };
+export type language_preference = {
+  user_id: number;
+  name: Generated<string>;
+  created_at: string;
+  updated_at: string | null;
+};
 export type mvp_poll = {
   event_id: number;
   profile_id: number;
@@ -46,10 +93,24 @@ export type notification = {
   instigator_id: number | null;
   event_id: number | null;
   img_url: string | null;
-  type: string;
+  type_name: string | null;
   subtype: string | null;
   message: string;
   is_read: Generated<number>;
+  created_at: string;
+  updated_at: string | null;
+};
+export type notification_preference = {
+  user_id: number;
+  type_name: string;
+  email: Generated<number>;
+  push: Generated<number>;
+  website: Generated<number>;
+  created_at: string;
+  updated_at: string | null;
+};
+export type notification_type = {
+  name: string;
   created_at: string;
   updated_at: string | null;
 };
@@ -115,6 +176,12 @@ export type status = {
   created_at: string;
   updated_at: string | null;
 };
+export type theme_preference = {
+  user_id: number;
+  name: Generated<string>;
+  created_at: string;
+  updated_at: string | null;
+};
 export type user = {
   id: Generated<number>;
   email: string;
@@ -127,8 +194,11 @@ export type DB = {
   best_striker_poll: best_striker_poll;
   event: event;
   image: image;
+  language_preference: language_preference;
   mvp_poll: mvp_poll;
   notification: notification;
+  notification_preference: notification_preference;
+  notification_type: notification_type;
   profile: profile;
   profile_on_event: profile_on_event;
   profile_on_profile: profile_on_profile;
@@ -136,5 +206,6 @@ export type DB = {
   skill_foot: skill_foot;
   sport: sport;
   status: status;
+  theme_preference: theme_preference;
   user: user;
 };

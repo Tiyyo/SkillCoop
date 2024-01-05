@@ -1,0 +1,229 @@
+
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>database.ts</title>
+      <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" type="text/css" rel="stylesheet">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/codemirror.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/mode/javascript/javascript.min.js" type="text/javascript" charset="utf-8"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/codemirror.min.css" type="text/css" rel="stylesheet">
+<script src="..\..\..\assets\source-file.js" type="text/javascript" charset="utf-8"></script>
+<link href="..\..\..\assets\source-file.css" type="text/css" rel="stylesheet">
+    </head>
+    <body>
+    <div style="margin-top:3em" class="ui container"><h1 class="ui header"><a href="..\..\..\index.html">TypeScript coverage report</a></h1><table style="margin-top:2em" class="ui celled table"><thead class=""><tr class=""><th class="">Filename</th><th class="">Percent</th><th class="">Threshold</th><th class="">Total</th><th class="">Covered</th><th class="">Uncovered</th></tr></thead><tbody class=""><tr class="positive"><td class="">app\@types\database.ts</td><td class="">100.00%</td><td class="">80%</td><td class="">222</td><td class="">222</td><td class="">0</td></tr></tbody></table><textarea id="editor" readonly="" style="margin-top:3em">import type { ColumnType } from &#x27;kysely&#x27;;
+export type Generated&lt;T&gt; = T extends ColumnType&lt;infer S, infer I, infer U&gt;
+  ? ColumnType&lt;S, I | undefined, U&gt;
+  : ColumnType&lt;T, T | undefined, T&gt;;
+export type Timestamp = ColumnType&lt;Date, Date | string, Date | string&gt;;
+
+export type TableNames =
+  | &#x27;best_striker_poll&#x27;
+  | &#x27;event&#x27;
+  | &#x27;image&#x27;
+  | &#x27;language_preference&#x27;
+  | &#x27;mvp_poll&#x27;
+  | &#x27;notification&#x27;
+  | &#x27;notification_preference&#x27;
+  | &#x27;notification_type&#x27;
+  | &#x27;profile&#x27;
+  | &#x27;profile_on_event&#x27;
+  | &#x27;profile_on_profile&#x27;
+  | &#x27;score&#x27;
+  | &#x27;skill_foot&#x27;
+  | &#x27;sport&#x27;
+  | &#x27;status&#x27;
+  | &#x27;theme_preference&#x27;
+  | &#x27;user&#x27;;
+
+// create an objet with all the table name to assert type them
+
+export const tableNames = {
+  best_striker_poll: &#x27;best_striker_poll&#x27;,
+  event: &#x27;event&#x27;,
+  image: &#x27;image&#x27;,
+  language_preference: &#x27;language_preference&#x27;,
+  mvp_poll: &#x27;mvp_poll&#x27;,
+  notification: &#x27;notification&#x27;,
+  notification_preference: &#x27;notification_preference&#x27;,
+  notification_type: &#x27;notification_type&#x27;,
+  profile: &#x27;profile&#x27;,
+  profile_on_event: &#x27;profile_on_event&#x27;,
+  profile_on_profile: &#x27;profile_on_profile&#x27;,
+  score: &#x27;score&#x27;,
+  skill_foot: &#x27;skill_foot&#x27;,
+  sport: &#x27;sport&#x27;,
+  status: &#x27;status&#x27;,
+  theme_preference: &#x27;theme_preference&#x27;,
+  user: &#x27;user&#x27;,
+} as const;
+
+export type best_striker_poll = {
+  event_id: number;
+  profile_id: number;
+  rater_id: number;
+  created_at: string;
+  updated_at: string | null;
+};
+export type event = {
+  id: Generated&lt;number&gt;;
+  date: string;
+  duration: number;
+  location: string;
+  required_participants: number;
+  nb_teams: Generated&lt;number&gt;;
+  organizer_id: number | null;
+  status_name: string;
+  created_at: string;
+  updated_at: string | null;
+  mvp_id: number | null;
+  best_striker_id: number | null;
+};
+export type image = {
+  id: Generated&lt;number&gt;;
+  url: string;
+  key: string | null;
+  size: number | null;
+  created_at: string;
+  updated_at: string | null;
+};
+export type language_preference = {
+  user_id: number;
+  name: Generated&lt;string&gt;;
+  created_at: string;
+  updated_at: string | null;
+};
+export type mvp_poll = {
+  event_id: number;
+  profile_id: number;
+  rater_id: number;
+  created_at: string;
+  updated_at: string | null;
+};
+export type notification = {
+  id: Generated&lt;number&gt;;
+  profile_id: number;
+  instigator_id: number | null;
+  event_id: number | null;
+  img_url: string | null;
+  type_name: string | null;
+  subtype: string | null;
+  message: string;
+  is_read: Generated&lt;number&gt;;
+  created_at: string;
+  updated_at: string | null;
+};
+export type notification_preference = {
+  user_id: number;
+  type_name: string;
+  email: Generated&lt;number&gt;;
+  push: Generated&lt;number&gt;;
+  website: Generated&lt;number&gt;;
+  created_at: string;
+  updated_at: string | null;
+};
+export type notification_type = {
+  name: string;
+  created_at: string;
+  updated_at: string | null;
+};
+export type profile = {
+  id: Generated&lt;number&gt;;
+  user_id: number;
+  username: string | null;
+  first_name: string | null;
+  last_name: string | null;
+  location: string | null;
+  date_of_birth: string | null;
+  avatar_url: string | null;
+  last_evaluation: number | null;
+  active_notification: Generated&lt;number&gt;;
+  created_at: string;
+  updated_at: string | null;
+};
+export type profile_on_event = {
+  profile_id: number;
+  event_id: number;
+  team: number | null;
+  status_name: string;
+  created_at: string;
+  updated_at: string | null;
+};
+export type profile_on_profile = {
+  adder_id: number;
+  friend_id: number;
+  status_name: string | null;
+  created_at: string;
+  updated_at: string | null;
+};
+export type score = {
+  id: Generated&lt;number&gt;;
+  score_team_1: number;
+  score_team_2: number;
+  event_id: number;
+  created_at: string;
+  updated_at: string | null;
+};
+export type skill_foot = {
+  id: Generated&lt;number&gt;;
+  pace: number;
+  shooting: number;
+  passing: number;
+  dribbling: number;
+  defending: number;
+  created_at: string;
+  updated_at: string | null;
+  rater_id: number;
+  reviewee_id: number;
+  event_id: number | null;
+};
+export type sport = {
+  id: Generated&lt;number&gt;;
+  name: string;
+  created_at: string;
+  updated_at: string | null;
+};
+export type status = {
+  id: Generated&lt;number&gt;;
+  name: string;
+  created_at: string;
+  updated_at: string | null;
+};
+export type theme_preference = {
+  user_id: number;
+  name: Generated&lt;string&gt;;
+  created_at: string;
+  updated_at: string | null;
+};
+export type user = {
+  id: Generated&lt;number&gt;;
+  email: string;
+  password: string;
+  verified: Generated&lt;number&gt;;
+  created_at: string;
+  updated_at: string | null;
+};
+export type DB = {
+  best_striker_poll: best_striker_poll;
+  event: event;
+  image: image;
+  language_preference: language_preference;
+  mvp_poll: mvp_poll;
+  notification: notification;
+  notification_preference: notification_preference;
+  notification_type: notification_type;
+  profile: profile;
+  profile_on_event: profile_on_event;
+  profile_on_profile: profile_on_profile;
+  score: score;
+  skill_foot: skill_foot;
+  sport: sport;
+  status: status;
+  theme_preference: theme_preference;
+  user: user;
+};
+</textarea><pre id="annotations" style="display:none">[]</pre></div>
+    <p class="footer-text">TypeScript Coverage Report generated by <a href="https://github.com/plantain-00/type-coverage">type-coverage</a> and <a href="https://github.com/alexcanessa/typescript-coverage-report">typescript-coverage-report</a> at Fri, 05 Jan 2024 16:47:28 GMT</p>
+    </body>
+  </html>
+  

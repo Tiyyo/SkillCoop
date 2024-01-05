@@ -5,6 +5,7 @@ import { user as User } from '../models/index';
 import bcrypt from 'bcrypt';
 import checkParams from '../utils/check-params';
 import AuthorizationError from '../helpers/errors/unauthorized.error';
+import NotFoundError from '../helpers/errors/not-found.error';
 
 export default {
   getMe: async (req: Request, res: Response) => {
@@ -13,7 +14,7 @@ export default {
     const userProfile = await Profile.findByUserId(userId);
 
     if (!userProfile) {
-      await Profile.create({ user_id: userId });
+      await Profile.create({ user_id: userId, created_at: '' });
       const createdUserProfile = await Profile.findByUserId(userId);
       return res.status(200).json({ userProfile: createdUserProfile });
     }
@@ -22,14 +23,15 @@ export default {
   updateEmail: async (req: Request, res: Response) => {
     const { email, user_id } = req.body;
 
-    const userProfile = await User.update(user_id, { email });
+    const userProfile = await User.updateOne({ id: user_id }, { email });
 
     res.status(200).json({ success: userProfile, new_email: email });
   },
   updatePassword: async (req: Request, res: Response) => {
     const { old_password, new_password, user_id } = req.body;
 
-    const user = await User.findByPk(user_id);
+    const user = await User.findOne({ id: user_id });
+    if (!user) throw new NotFoundError('User not found');
 
     // check if old password match
     // create a new hash password
@@ -41,7 +43,10 @@ export default {
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(new_password, saltRounds);
 
-    const isUpdate = await User.update(user_id, { password: hashedPassword });
+    const isUpdate = await User.updateOne(
+      { id: user_id },
+      { password: hashedPassword },
+    );
 
     res.status(200).json({ success: isUpdate });
   },
@@ -55,9 +60,12 @@ export default {
       throw new AuthorizationError('Operation not allowed');
     }
     const profile = await Profile.findByUserId(userId);
-    await Image.deleteBy({ url: profile.avatar_url });
 
-    const isDeleted = await User.delete(userId);
+    if (profile?.avatar_url) {
+      await Image.deleteOne({ url: profile.avatar_url });
+    }
+
+    const isDeleted = await User.deleteOne({ id: userId });
     res.status(204).json({ success: isDeleted });
   },
 };

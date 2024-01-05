@@ -18,7 +18,6 @@ export function assignTeam(
 }
 
 export async function generateBalancedTeam(eventId: number) {
-  console.info('Algo has started');
   console.time('Algo time start');
 
   const config = await new ConfigGenerateTeams(eventId).init();
@@ -28,9 +27,10 @@ export async function generateBalancedTeam(eventId: number) {
   const participants = [...team1, ...team2];
 
   const updateParticipantQueries = participants.map((p, index) =>
-    ProfileOnEvent.updateUnionFk(p.profile_id, eventId, {
-      team: assignTeam(index, config.participants),
-    }),
+    ProfileOnEvent.updateOne(
+      { profile_id: p.profile_id, event_id: eventId },
+      { team: assignTeam(index, config.participants) },
+    ),
   );
 
   await Promise.allSettled(updateParticipantQueries);
@@ -68,7 +68,6 @@ export function useRigthCondition(
   if (player.gb_rating === 0) {
     return conditions.ifZero(config.team1.length, config.team2.length);
   }
-  console.log(conditions);
   return conditions.regular(valueTeam1, valueTeam2);
 }
 

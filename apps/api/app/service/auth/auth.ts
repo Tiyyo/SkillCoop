@@ -13,6 +13,7 @@ import type {
   GoogleUserInfos,
   User as UserType,
 } from 'skillcoop-types';
+import { UserPreferenceHandler } from '../user-preference';
 
 export default {
   async createUser(data: {
@@ -31,10 +32,17 @@ export default {
 
       if (!hashedPassword) throw new ServerError('hash password is missing');
 
-      const newUser = await User.createUser({
+      const newUser = await User.create({
         email,
         password: hashedPassword,
       });
+      if (!newUser)
+        throw new ServerError(
+          'Error creating user',
+          'AuthService.createUser',
+          'line 39',
+        );
+      await new UserPreferenceHandler(newUser.id).generateDefault();
       return newUser;
     } catch (error) {
       if (error instanceof Error) {
@@ -44,7 +52,9 @@ export default {
   },
   async login(data: UserType): Promise<Record<string, string>> {
     const { email, password } = data;
-    const [user] = await User.findBy({ email: email.trim() });
+    const user = await User.findOne({ email: email.trim() });
+    // const [user] = await User.findOne({ email: email.trim() });
+    console.log('user', user, 'email', email, 'password', password);
 
     if (!user)
       throw new UserInputError(
@@ -87,22 +97,24 @@ export default {
     picture,
   }: GoogleUserInfos): Promise<UserInfosToken> {
     const password = randomBytes(16).toString('hex');
-    const isCreated = await this.createUser({ email, password });
-    if (!isCreated) throw new Error('Error creating user');
+    const user = await this.createUser({ email, password });
+    if (!user) throw new Error('Error creating user');
 
     // We need to get user_id in order to update verified status
     // TODO look if we cannot get insert id when create a new user
-    const [userCreated] = await User.findBy({ email });
+    const userCreated = await User.findOne({ email: user.email });
+    if (!userCreated) throw new ServerError('Error creating user');
 
     const username = `${given_name} ${family_name[0]}.`;
-    await User.update(userCreated.id, { verified: 1 });
-    await Image.create({ url: picture });
-    await Profile.create({
+    await User.updateOne({ id: userCreated.id }, { verified: 1 });
+    await Image.createOne({ url: picture, created_at: '' });
+    await Profile.createOne({
       username,
       avatar_url: picture,
       first_name: given_name,
       last_name: family_name,
       user_id: userCreated.id,
+      created_at: '',
     });
     return { user_id: userCreated.id, email: userCreated.email };
   },

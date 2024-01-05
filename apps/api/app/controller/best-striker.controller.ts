@@ -17,10 +17,10 @@ export default {
         '14',
       );
 
-    const isCreated = await BestStriker.create({
+    const isCreated = await BestStriker.createOne({
+      event_id,
       profile_id,
       rater_id,
-      event_id,
     });
 
     // this should be not possible to called

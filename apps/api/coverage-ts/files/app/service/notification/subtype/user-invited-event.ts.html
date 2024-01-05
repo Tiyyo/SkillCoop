@@ -1,0 +1,132 @@
+
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>user-invited-event.ts</title>
+      <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" type="text/css" rel="stylesheet">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/codemirror.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/mode/javascript/javascript.min.js" type="text/javascript" charset="utf-8"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/codemirror.min.css" type="text/css" rel="stylesheet">
+<script src="..\..\..\..\..\assets\source-file.js" type="text/javascript" charset="utf-8"></script>
+<link href="..\..\..\..\..\assets\source-file.css" type="text/css" rel="stylesheet">
+    </head>
+    <body>
+    <div style="margin-top:3em" class="ui container"><h1 class="ui header"><a href="..\..\..\..\..\index.html">TypeScript coverage report</a></h1><table style="margin-top:2em" class="ui celled table"><thead class=""><tr class=""><th class="">Filename</th><th class="">Percent</th><th class="">Threshold</th><th class="">Total</th><th class="">Covered</th><th class="">Uncovered</th></tr></thead><tbody class=""><tr class="positive"><td class="">app\service\notification\subtype\user-invited-event.ts</td><td class="">100.00%</td><td class="">80%</td><td class="">168</td><td class="">168</td><td class="">0</td></tr></tbody></table><textarea id="editor" readonly="" style="margin-top:3em">import { NotificationObserver } from &#x27;./core&#x27;;
+import { event as EventModel, profile as Profile } from &#x27;../../../models/index&#x27;;
+import { BuildNotificationMessage } from &#x27;../message.builder&#x27;;
+import type {
+  BuilderUserInvitedToEventNotificationMessage,
+  NotificationSubtype,
+  NotificationType,
+} from &#x27;skillcoop-types&#x27;;
+import { notificationSubtype, notificationType } from &#x27;skillcoop-types&#x27;;
+import { hasActiveNotification } from &#x27;../../../utils/has-active-notification&#x27;;
+
+type ConstructorProps = {
+  eventId: number;
+  instigatorId: number;
+  invitedIds: number[];
+  type: NotificationType;
+};
+
+type SendNotificationProps = {
+  subscribers: number[];
+  eventDate: string;
+  username: string;
+  avatar_url?: string | null;
+};
+
+class UserHasBeenInvited extends NotificationObserver {
+  declare eventId: number;
+
+  declare instigatorId: number;
+
+  declare invitedIds: number[];
+
+  declare subtype: NotificationSubtype;
+
+  declare builder: BuilderUserInvitedToEventNotificationMessage;
+
+  constructor({ eventId, instigatorId, invitedIds, type }: ConstructorProps) {
+    super(type);
+    this.eventId = eventId;
+    this.instigatorId = instigatorId;
+    this.invitedIds = invitedIds;
+    this.subtype = notificationSubtype.userHasBeenInvitedToEvent;
+    const builder = new BuildNotificationMessage(this.subtype);
+    // TODO : find a way to infer correct type to builder and remove cast
+    this.builder = builder.getBuilder(
+      this.subtype,
+    ) as BuilderUserInvitedToEventNotificationMessage;
+  }
+  async getSubscribers(): Promise&lt;number[] | null&gt; {
+    const invitedIds = this.invitedIds;
+    return hasActiveNotification(invitedIds);
+  }
+  async getEventInfos() {
+    const eventInfos = await EventModel.findOne({ id: this.eventId });
+    return { eventDate: eventInfos.date };
+  }
+  async getInstigatorUsername(): Promise&lt;{
+    username: string;
+    avatar_url: string;
+  }&gt; {
+    const { username, avatar_url } = await Profile.findOne({
+      id: this.instigatorId,
+    });
+    if (!username || !avatar_url) throw new Error(&#x27;Instigator not found&#x27;);
+    return { username, avatar_url };
+  }
+  async sendNotification({
+    subscribers,
+    eventDate,
+    username,
+    avatar_url,
+  }: SendNotificationProps) {
+    if (!subscribers || !eventDate || !this.builder) return;
+    const message = this.builder(username, eventDate);
+    subscribers.forEach((id) =&gt; {
+      this.addNotificationToDatabase({
+        profileId: id,
+        message,
+        type_name: this.type,
+        eventId: this.eventId,
+        instigatorId: this.instigatorId,
+        subtype: this.subtype,
+        img_url: avatar_url,
+      });
+      this.triggerEvent(id);
+    });
+  }
+  async notify() {
+    const subscribers = await this.getSubscribers();
+    if (!subscribers) return;
+    const { eventDate } = await this.getEventInfos();
+    const { username, avatar_url } = await this.getInstigatorUsername();
+    await this.sendNotification({
+      subscribers,
+      eventDate,
+      username,
+      avatar_url,
+    });
+  }
+}
+
+export const notifyUserHasBeenInvitedToEvent = async (
+  eventId: number,
+  instigatorId: number,
+  subscribersIds: number[],
+) =&gt; {
+  const userHasBeenInvited = new UserHasBeenInvited({
+    eventId,
+    instigatorId,
+    invitedIds: subscribersIds,
+    type: notificationType.event,
+  });
+  await userHasBeenInvited.notify();
+};
+</textarea><pre id="annotations" style="display:none">[]</pre></div>
+    <p class="footer-text">TypeScript Coverage Report generated by <a href="https://github.com/plantain-00/type-coverage">type-coverage</a> and <a href="https://github.com/alexcanessa/typescript-coverage-report">typescript-coverage-report</a> at Fri, 05 Jan 2024 16:47:28 GMT</p>
+    </body>
+  </html>
+  

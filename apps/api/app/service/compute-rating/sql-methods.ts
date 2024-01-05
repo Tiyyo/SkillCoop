@@ -9,8 +9,8 @@ export type UserEvaluationsBonus = {
   avg_evaluation_received: AvgSkill | undefined;
 };
 
-export default {
-  getNbMvpAwards: async function (profileId: number) {
+export class PlayerStatInsight {
+  static async mvp(profileId: number) {
     const nbMvpResult = await sql<{ nb_mvp: number }>`
       SELECT 
         COUNT (*) AS nb_mvp
@@ -18,8 +18,8 @@ export default {
       WHERE mvp_id = ${profileId}
       `.execute(db);
     return nbMvpResult.rows[0];
-  },
-  getNbBestStrikerAwards: async function (profileId: number) {
+  }
+  static async bestStriker(profileId: number) {
     const nbBestStrikerResult = await sql<{ nb_best_striker: number }>`
        SELECT 
         COUNT (*) AS nb_best_striker
@@ -27,8 +27,8 @@ export default {
       WHERE best_striker_id = ${profileId}   
       `.execute(db);
     return nbBestStrikerResult.rows[0];
-  },
-  getUserOwnEvaluation: async function (profileId: number) {
+  }
+  static async ownEvaluation(profileId: number) {
     const userOwnEvalResult = await sql<Skills | undefined>`
           SELECT
             pace,
@@ -41,8 +41,8 @@ export default {
           AND reviewee_id = ${profileId}
         `.execute(db);
     return { user_own_evaluation: userOwnEvalResult.rows[0] };
-  },
-  getAverageEvaluationReceived: async function (profileId: number) {
+  }
+  static async averageEvaluation(profileId: number) {
     const avgEvalsReceivedResult = await sql<AvgSkill>`
       SELECT
         COUNT (*) AS nb_eval_received,
@@ -57,5 +57,5 @@ export default {
       GROUP BY reviewee_id
     `.execute(db);
     return { avg_evaluation_received: avgEvalsReceivedResult.rows[0] };
-  },
-};
+  }
+}

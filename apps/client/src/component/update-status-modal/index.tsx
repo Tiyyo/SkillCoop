@@ -44,7 +44,6 @@ function UpdateStatusModal({
   const { mutate: updateUserStatusInDb } = useUpdateParticipant({
     eventId,
     onSuccess: (response: any) => {
-      console.log(response);
       if (!nextStatus) return;
       if (response?.message === 'Organizer cannot change his status') {
         setIsOrganizer(true);

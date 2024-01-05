@@ -1,0 +1,127 @@
+
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>s3.ts</title>
+      <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" type="text/css" rel="stylesheet">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/codemirror.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/mode/javascript/javascript.min.js" type="text/javascript" charset="utf-8"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/codemirror.min.css" type="text/css" rel="stylesheet">
+<script src="..\..\..\..\assets\source-file.js" type="text/javascript" charset="utf-8"></script>
+<link href="..\..\..\..\assets\source-file.css" type="text/css" rel="stylesheet">
+    </head>
+    <body>
+    <div style="margin-top:3em" class="ui container"><h1 class="ui header"><a href="..\..\..\..\index.html">TypeScript coverage report</a></h1><table style="margin-top:2em" class="ui celled table"><thead class=""><tr class=""><th class="">Filename</th><th class="">Percent</th><th class="">Threshold</th><th class="">Total</th><th class="">Covered</th><th class="">Uncovered</th></tr></thead><tbody class=""><tr class="positive"><td class="">app\service\upload\s3.ts</td><td class="">98.68%</td><td class="">80%</td><td class="">152</td><td class="">150</td><td class="">2</td></tr></tbody></table><textarea id="editor" readonly="" style="margin-top:3em">import ServerError from &#x27;../../helpers/errors/server.error&#x27;;
+import logger from &#x27;../../helpers/logger&#x27;;
+import {
+  S3Client,
+  PutObjectCommand,
+  DeleteObjectCommand,
+} from &#x27;@aws-sdk/client-s3&#x27;;
+import {
+  CloudFrontClient,
+  CreateInvalidationCommand,
+} from &#x27;@aws-sdk/client-cloudfront&#x27;;
+import crypto from &#x27;crypto&#x27;;
+
+import resizeImage from &#x27;../../helpers/resize-image&#x27;;
+
+const region = process.env.BUCKET_REGION;
+const bucketName = process.env.BUCKET_NAME;
+const accessKeyId = process.env.ACCESS_KEY_BUCKET;
+const secretAccessKey = process.env.ACCESS_SECRET_KEY_S3;
+const cloudFrontDomain = process.env.CLOUDFRONT_DOMAIN;
+const cloudFrontDistributionId = process.env.CLOUDFRONT_DISTRIBUTION_ID;
+
+if (!region) throw new ServerError(&#x27;BUCKET_REGION env is not set&#x27;);
+if (!bucketName) throw new ServerError(&#x27;BUCKET_NAME env is not set&#x27;);
+if (!accessKeyId) throw new ServerError(&#x27;ACCESS_KEY_BUCKET env is not set&#x27;);
+if (!secretAccessKey) throw new ServerError(&#x27;ACCESS_SECRET_KEY_S3 is not set&#x27;);
+
+const randomImageName = (bytes = 16) =&gt;
+  crypto.randomBytes(bytes).toString(&#x27;hex&#x27;);
+
+const s3 = new S3Client({
+  credentials: {
+    accessKeyId,
+    secretAccessKey,
+  },
+  region,
+});
+
+const cloudFront = new CloudFrontClient({
+  credentials: {
+    accessKeyId,
+    secretAccessKey,
+  },
+  region,
+});
+
+export async function uploadImageToBucket(
+  file: Express.Multer.File,
+  { height, width }: { height: number; width: number },
+) {
+  const resizeFileBuffer = await resizeImage(file.buffer, height, width);
+  const imageKey = `${randomImageName()}_${file.originalname}_w${width}`;
+
+  const params = {
+    Bucket: bucketName,
+    Key: imageKey,
+    Body: resizeFileBuffer,
+    ContentType: file.mimetype,
+  };
+
+  const command = new PutObjectCommand(params);
+
+  await s3.send(command).catch((err) =&gt; {
+    if (err instanceof Error) {
+      throw new ServerError(&#x27;Upload to bucket has failed : &#x27; + err.message);
+    }
+  });
+  const link = `${cloudFrontDomain}/${imageKey}`;
+
+  return {
+    key: imageKey,
+    link: link,
+  };
+}
+
+export const invalidateCache = async (imageKey: string) =&gt; {
+  const invalidationParams = {
+    DistributionId: cloudFrontDistributionId,
+    InvalidationBatch: {
+      CallerReference: imageKey,
+      Paths: {
+        Quantity: 1,
+        Items: [`/${imageKey}`],
+      },
+    },
+  };
+  await cloudFront.send(new CreateInvalidationCommand(invalidationParams));
+};
+
+export async function deleteImageFromBucket(imageKey: string) {
+  if (!bucketName) throw new ServerError(&#x27;BUCKET_NAME env is not set&#x27;);
+
+  const params = {
+    Bucket: bucketName,
+    Key: imageKey,
+  };
+
+  if (!params || !params.Key || !params.Bucket)
+    throw new ServerError(&#x27;Params is missing a key or a bucket name&#x27;);
+
+  try {
+    await s3.send(new DeleteObjectCommand(params));
+    invalidateCache(imageKey);
+  } catch (error) {
+    if (error instanceof Error) {
+      logger.error(error.message + &#x27;Object have not been delete from bucket&#x27;);
+    }
+  }
+}
+</textarea><pre id="annotations" style="display:none">[{&quot;file&quot;:&quot;app\\service\\upload\\s3.ts&quot;,&quot;line&quot;:62,&quot;character&quot;:32,&quot;text&quot;:&quot;err&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\service\\upload\\s3.ts&quot;,&quot;line&quot;:63,&quot;character&quot;:8,&quot;text&quot;:&quot;err&quot;,&quot;kind&quot;:1}]</pre></div>
+    <p class="footer-text">TypeScript Coverage Report generated by <a href="https://github.com/plantain-00/type-coverage">type-coverage</a> and <a href="https://github.com/alexcanessa/typescript-coverage-report">typescript-coverage-report</a> at Fri, 05 Jan 2024 16:47:28 GMT</p>
+    </body>
+  </html>
+  

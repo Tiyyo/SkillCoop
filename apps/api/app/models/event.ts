@@ -1,17 +1,51 @@
 import { Core } from './core';
-import { sql } from 'kysely';
+import { InsertObject, sql } from 'kysely';
 import type { EventType } from 'skillcoop-types';
 import DatabaseError from '../helpers/errors/database.error';
 import { getFormattedUTCTimestamp } from 'date-handler';
+import { DB, tableNames } from '../@types/database';
+import { db } from '../helpers/client.db';
+/*eslint-disable */
+import { InsertObjectOrList } from 'kysely/dist/cjs/parser/insert-values-parser';
+/*eslint-enable */
+type OptionalCreatedAt = Partial<{ created_at: string }>;
+type InsertValues<T extends keyof DB> = Omit<
+  InsertObject<DB, T>,
+  'created_at'
+> &
+  OptionalCreatedAt;
 
-export class EventModel extends Core {
-  declare tableName: string;
-  declare client;
+export class EventModel extends Core<typeof tableNames.event> {
+  declare tableName;
 
-  //@ts-ignore
-  constructor(client) {
+  constructor(client: typeof db) {
     super(client);
-    this.tableName = 'event';
+    this.tableName = tableNames.event;
+  }
+  /**
+   *
+   * @param data
+   * @returns returns the id of the created event
+     @description Same methods as createOne but returns 
+                  the id of the created event
+   */
+  async create(data: InsertValues<typeof this.tableName>) {
+    const todayUTCString = getFormattedUTCTimestamp();
+    data.created_at = todayUTCString;
+
+    try {
+      const [result] = await this.client
+        .insertInto(this.tableName)
+        .values(data as InsertObjectOrList<DB, typeof this.tableName>)
+        .returning('id')
+        .execute();
+
+      return result;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new DatabaseError(error);
+      }
+    }
   }
   async getEventById(eventId: number, profileId: number) {
     try {
@@ -65,7 +99,9 @@ WHERE event.id = ${eventId}
       });
       return parsedResult[0];
     } catch (error) {
-      throw new DatabaseError(error);
+      if (error instanceof Error) {
+        throw new DatabaseError(error);
+      }
     }
   }
   async getEventByUserId(profileId: number) {
@@ -127,7 +163,9 @@ ORDER BY date DESC
 
       return parsedResult;
     } catch (error) {
-      throw new DatabaseError(error);
+      if (error instanceof Error) {
+        throw new DatabaseError(error);
+      }
     }
   }
   async getOrganizerEvents(profileId: number, page: number = 1) {
@@ -187,7 +225,9 @@ WHERE event.organizer_id = ${profileId}
 
       return { events: parsedResult, eventCount: count.rows[0].total_event };
     } catch (error) {
-      throw new DatabaseError(error);
+      if (error instanceof Error) {
+        throw new DatabaseError(error);
+      }
     }
   }
   async getPastEvents(profileId: number, page: number) {
@@ -295,7 +335,9 @@ WHERE id = ${eventId}
 
       return !!result.numAffectedRows;
     } catch (error) {
-      throw new DatabaseError(error);
+      if (error instanceof Error) {
+        throw new DatabaseError(error);
+      }
     }
   }
   async updateBestStriker(eventId: number) {
@@ -326,7 +368,9 @@ WHERE id = ${eventId}
 `.execute(this.client);
       return !!result.numAffectedRows;
     } catch (error) {
-      throw new DatabaseError(error);
+      if (error instanceof Error) {
+        throw new DatabaseError(error);
+      }
     }
   }
   async getSubscribers(eventId: number): Promise<number[] | undefined> {

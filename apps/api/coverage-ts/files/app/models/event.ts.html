@@ -1,0 +1,405 @@
+
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>event.ts</title>
+      <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" type="text/css" rel="stylesheet">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/codemirror.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/mode/javascript/javascript.min.js" type="text/javascript" charset="utf-8"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/codemirror.min.css" type="text/css" rel="stylesheet">
+<script src="..\..\..\assets\source-file.js" type="text/javascript" charset="utf-8"></script>
+<link href="..\..\..\assets\source-file.css" type="text/css" rel="stylesheet">
+    </head>
+    <body>
+    <div style="margin-top:3em" class="ui container"><h1 class="ui header"><a href="..\..\..\index.html">TypeScript coverage report</a></h1><table style="margin-top:2em" class="ui celled table"><thead class=""><tr class=""><th class="">Filename</th><th class="">Percent</th><th class="">Threshold</th><th class="">Total</th><th class="">Covered</th><th class="">Uncovered</th></tr></thead><tbody class=""><tr class="positive"><td class="">app\models\event.ts</td><td class="">98.35%</td><td class="">80%</td><td class="">242</td><td class="">238</td><td class="">4</td></tr></tbody></table><textarea id="editor" readonly="" style="margin-top:3em">import { Core } from &#x27;./core&#x27;;
+import { InsertObject, sql } from &#x27;kysely&#x27;;
+import type { EventType } from &#x27;skillcoop-types&#x27;;
+import DatabaseError from &#x27;../helpers/errors/database.error&#x27;;
+import { getFormattedUTCTimestamp } from &#x27;date-handler&#x27;;
+import { DB, tableNames } from &#x27;../@types/database&#x27;;
+import { db } from &#x27;../helpers/client.db&#x27;;
+import { InsertObjectOrList } from &#x27;kysely/dist/cjs/parser/insert-values-parser&#x27;;
+
+type OptionalCreatedAt = Partial&lt;{ created_at: string }&gt;;
+type InsertValues&lt;T extends keyof DB&gt; = Omit&lt;
+  InsertObject&lt;DB, T&gt;,
+  &#x27;created_at&#x27;
+&gt; &amp;
+  OptionalCreatedAt;
+
+export class EventModel extends Core&lt;typeof tableNames.event&gt; {
+  declare tableName;
+
+  constructor(client: typeof db) {
+    super(client);
+    this.tableName = tableNames.event;
+  }
+  /**
+   *
+   * @param data
+   * @returns returns the id of the created event
+     @description Same methods as createOne but returns 
+                  the id of the created event
+   */
+  async create(data: InsertValues&lt;typeof this.tableName&gt;) {
+    const todayUTCString = getFormattedUTCTimestamp();
+    data.created_at = todayUTCString;
+
+    try {
+      const [result] = await this.client
+        .insertInto(this.tableName)
+        .values(data as InsertObjectOrList&lt;DB, typeof this.tableName&gt;)
+        .returning(&#x27;id&#x27;)
+        .execute();
+
+      return result;
+    } catch (error) {
+      throw new DatabaseError(error);
+    }
+  }
+  async getEventById(eventId: number, profileId: number) {
+    try {
+      const result = await sql&lt;EventType&gt;`
+SELECT 
+  event.id AS event_id,
+  event.date,
+  event.duration,
+  event.location,
+  event.required_participants,
+  event.nb_teams,
+  event.organizer_id,
+  event.status_name,
+  event.mvp_id,
+  event.best_striker_id,
+  score.score_team_1,
+  score.score_team_2, 
+  (json_group_array(
+      json_object(
+          &#x27;profile_id&#x27; , participant.profile_id, 
+          &#x27;username&#x27; , profile.username	,
+          &#x27;avatar&#x27;, profile.avatar_url,
+          &#x27;status&#x27;, participant.status_name,
+          &#x27;last_evaluation&#x27;, profile.last_evaluation,
+          &#x27;team&#x27;, participant.team
+        )
+      ) 
+  ) AS participants,
+  (SELECT COUNT (*) 
+  FROM profile_on_event 
+  WHERE event_id = event.id 
+  AND status_name = &#x27;confirmed&#x27;) AS confirmed_participants,
+ (SELECT participant.status_name
+  FROM profile_on_event AS participant
+  WHERE participant.profile_id = ${profileId} 
+  AND participant.event_id = ${eventId} ) AS user_status
+FROM event
+LEFT JOIN score ON event.id = score.event_id
+JOIN profile_on_event AS participant ON event.id = participant.event_id
+JOIN profile ON participant.profile_id = profile.id
+WHERE event.id = ${eventId}
+      `.execute(this.client);
+
+      const parsedResult = result.rows.map((event: EventType) =&gt; {
+        return {
+          ...event,
+          participants:
+            typeof event.participants === &#x27;string&#x27; &amp;&amp;
+            JSON.parse(event.participants),
+        };
+      });
+      return parsedResult[0];
+    } catch (error) {
+      throw new DatabaseError(error);
+    }
+  }
+  async getEventByUserId(profileId: number) {
+    try {
+      const result = await sql&lt;EventType&gt;`
+SELECT 
+  event.id AS event_id,
+  event.date,
+  event.duration,
+  event.location,
+  event.required_participants,
+  event.nb_teams,
+  event.organizer_id,
+  event.status_name,
+  score.score_team_1,
+  score.score_team_2, 
+  (json_group_array(
+      json_object(
+          &#x27;profile_id&#x27; , participant.profile_id, 
+          &#x27;username&#x27; , profile.username	,
+          &#x27;avatar&#x27;, profile.avatar_url,
+          &#x27;status&#x27;, participant.status_name,
+          &#x27;last_evaluation&#x27;, profile.last_evaluation,
+          &#x27;team&#x27;, participant.team
+        )
+      ) 
+  ) AS participants,
+  (SELECT participant.status_name
+  FROM profile_on_event AS participant
+  WHERE participant.profile_id = ${profileId} 
+  AND participant.event_id = event.id) AS user_status,
+  (SELECT COUNT (*) 
+  FROM profile_on_event 
+  WHERE event_id = event.id 
+  AND status_name = &#x27;confirmed&#x27;) AS confirmed_participants
+FROM event
+LEFT JOIN score ON event.id = score.event_id
+JOIN profile_on_event AS participant ON event.id = participant.event_id
+JOIN profile ON participant.profile_id = profile.id
+WHERE user_status &lt;&gt; &#x27;declined&#x27;
+AND EXISTS(
+  SELECT 1
+  FROM profile_on_event 
+  WHERE event_id = event.id
+  AND profile_id = ${profileId}
+)
+GROUP BY event.id
+ORDER BY date DESC
+      `.execute(this.client);
+
+      const parsedResult = result.rows.map((event: EventType) =&gt; {
+        return {
+          ...event,
+          participants:
+            typeof event.participants === &#x27;string&#x27; &amp;&amp;
+            JSON.parse(event.participants),
+        };
+      });
+
+      return parsedResult;
+    } catch (error) {
+      throw new DatabaseError(error);
+    }
+  }
+  async getOrganizerEvents(profileId: number, page: number = 1) {
+    try {
+      const result = await sql&lt;EventType&gt;`
+SELECT 
+  event.id AS event_id,
+  event.date,
+  event.duration,
+  event.location,
+  event.required_participants,
+  event.nb_teams,
+  event.organizer_id,
+  event.status_name,
+  score.score_team_1,
+  score.score_team_2, 
+  (json_group_array(
+    json_object(
+        &#x27;profile_id&#x27; , participant.profile_id, 
+        &#x27;username&#x27; , profile.username	,
+        &#x27;avatar&#x27;, profile.avatar_url,
+        &#x27;status&#x27;, participant.status_name,
+        &#x27;team&#x27;, participant.team
+         )
+      ) 
+   ) AS participants,
+  (SELECT COUNT (*) 
+   FROM profile_on_event 
+   WHERE event_id = event.id 
+   AND status_name = &#x27;confirmed&#x27;
+   ) AS confirmed_participants
+FROM event
+LEFT JOIN score ON event.id = score.event_id
+JOIN profile_on_event AS participant ON event.id = participant.event_id
+JOIN profile ON participant.profile_id = profile.id
+WHERE event.organizer_id = ${profileId}
+GROUP BY event.id
+ORDER BY date DESC
+LIMIT 10 OFFSET ${(page - 1) * 10}
+      `.execute(this.client);
+
+      const count = await sql&lt;{ total_event: number }&gt;`
+SELECT 
+  COUNT (event.id) AS total_event 
+FROM event
+WHERE event.organizer_id = ${profileId}
+      `.execute(this.client);
+
+      const parsedResult = result.rows.map((event) =&gt; {
+        return {
+          ...event,
+          participants:
+            typeof event.participants === &#x27;string&#x27; &amp;&amp;
+            JSON.parse(event.participants),
+        };
+      });
+
+      return { events: parsedResult, eventCount: count.rows[0].total_event };
+    } catch (error) {
+      throw new DatabaseError(error);
+    }
+  }
+  async getPastEvents(profileId: number, page: number) {
+    const result = await sql&lt;EventType&gt;`
+SELECT 
+  event.id AS event_id,
+  event.date,
+  event.duration,
+  event.location,
+  event.required_participants,
+  event.nb_teams,
+  event.organizer_id,
+  event.status_name,
+  score.score_team_1,
+  score.score_team_2, 
+  (json_group_array(
+      json_object(
+          &#x27;profile_id&#x27; , participant.profile_id, 
+          &#x27;username&#x27; , profile.username	,
+          &#x27;avatar&#x27;, profile.avatar_url,
+          &#x27;status&#x27;, participant.status_name,
+          &#x27;team&#x27;, participant.team
+        )
+      ) 
+  ) AS participants,
+  (SELECT participant.status_name
+  FROM profile_on_event AS participant
+  WHERE participant.profile_id = ${profileId} 
+  AND participant.event_id = event.id ) AS user_status,
+  (SELECT COUNT (*) 
+  FROM profile_on_event 
+  WHERE event_id = event.id 
+  AND status_name = &#x27;confirmed&#x27;) AS confirmed_participants
+FROM event
+LEFT JOIN score ON event.id = score.event_id
+JOIN profile_on_event AS participant ON event.id = participant.event_id
+JOIN profile ON participant.profile_id = profile.id
+WHERE user_status &lt;&gt; &#x27;declined&#x27;
+AND EXISTS(
+  SELECT 1
+  FROM profile_on_event 
+  WHERE event_id = event.id
+  AND profile_id = ${profileId}
+)
+AND event.date &lt; date(&#x27;now&#x27;)
+GROUP BY event.id
+ORDER BY date DESC
+LIMIT 10 OFFSET ${(page - 1) * 10}
+      `.execute(this.client);
+
+    const count = await sql&lt;{ total_event: number }&gt;`
+SELECT 
+  COUNT (event.id) AS total_event ,
+ (SELECT participant.status_name
+  FROM profile_on_event AS participant
+  WHERE participant.profile_id = ${profileId} 
+  AND participant.event_id = event.id) AS user_status
+FROM event
+WHERE user_status &lt;&gt; &#x27;declined&#x27;
+AND EXISTS(
+  SELECT 1
+  FROM profile_on_event 
+  WHERE profile_on_event.event_id = event.id
+  AND profile_id = ${profileId}
+)
+AND event.date &lt; date(&#x27;now&#x27;)
+      `.execute(this.client);
+
+    const parsedResult = result.rows.map((event) =&gt; {
+      return {
+        ...event,
+        participants:
+          typeof event.participants === &#x27;string&#x27; &amp;&amp;
+          JSON.parse(event.participants),
+      };
+    });
+    return { events: parsedResult, eventCount: count.rows[0].total_event };
+  }
+  async updateMvp(eventId: number) {
+    const todayUTCString = getFormattedUTCTimestamp();
+    try {
+      const result = await sql`
+UPDATE event 
+SET mvp_id = (
+    SELECT 
+      profile_id
+    FROM(
+        SELECT MAX(nb_votes) AS max_votes ,
+            profile_id,
+            event_id
+        FROM (
+            SELECT 
+                profile_id,
+                event_id,
+                COUNT(mvp_poll.profile_id) AS nb_votes
+            FROM mvp_poll
+            WHERE mvp_poll.event_id = ${eventId}
+            GROUP BY profile_id 
+            ) 
+        )
+  ) ,
+    updated_at = ${todayUTCString}
+WHERE id = ${eventId}
+`.execute(this.client);
+
+      return !!result.numAffectedRows;
+    } catch (error) {
+      throw new DatabaseError(error);
+    }
+  }
+  async updateBestStriker(eventId: number) {
+    const todayUTCString = getFormattedUTCTimestamp();
+    try {
+      const result = await sql`
+UPDATE event 
+SET best_striker_id = (
+    SELECT 
+      profile_id
+    FROM(
+        SELECT MAX(nb_votes) AS max_votes ,
+            profile_id,
+            event_id
+        FROM (
+            SELECT 
+                profile_id,
+                event_id,
+                COUNT(best_striker_poll.profile_id) AS nb_votes
+            FROM best_striker_poll
+            WHERE best_striker_poll.event_id = ${eventId}
+            GROUP BY profile_id 
+            ) 
+        )
+  ) ,
+    updated_at = ${todayUTCString}
+WHERE id = ${eventId}
+`.execute(this.client);
+      return !!result.numAffectedRows;
+    } catch (error) {
+      throw new DatabaseError(error);
+    }
+  }
+  async getSubscribers(eventId: number): Promise&lt;number[] | undefined&gt; {
+    try {
+      const result = await sql&lt;{ profile_ids: string }&gt;`
+SELECT
+  (json_group_array(participant.profile_id)) AS profile_ids
+FROM event
+INNER JOIN profile_on_event AS participant ON event.id = participant.event_id
+INNER JOIN profile ON participant.profile_id = profile.id
+WHERE participant.event_id = ${eventId}
+AND profile.id &lt;&gt; event.organizer_id
+AND (participant.status_name = &#x27;confirmed&#x27; 
+OR (profile.active_notification = 1 AND participant.status_name = &#x27;pending&#x27;))
+GROUP BY participant.event_id`.execute(this.client);
+      const parsedJson: number[] =
+        result.rows.length &gt; 0
+          ? JSON.parse(result.rows[0].profile_ids)
+          : undefined;
+      return parsedJson;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new DatabaseError(error);
+      }
+    }
+  }
+}
+</textarea><pre id="annotations" style="display:none">[{&quot;file&quot;:&quot;app\\models\\event.ts&quot;,&quot;line&quot;:91,&quot;character&quot;:10,&quot;text&quot;:&quot;participants&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\models\\event.ts&quot;,&quot;line&quot;:152,&quot;character&quot;:10,&quot;text&quot;:&quot;participants&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\models\\event.ts&quot;,&quot;line&quot;:212,&quot;character&quot;:10,&quot;text&quot;:&quot;participants&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\models\\event.ts&quot;,&quot;line&quot;:292,&quot;character&quot;:8,&quot;text&quot;:&quot;participants&quot;,&quot;kind&quot;:1}]</pre></div>
+    <p class="footer-text">TypeScript Coverage Report generated by <a href="https://github.com/plantain-00/type-coverage">type-coverage</a> and <a href="https://github.com/alexcanessa/typescript-coverage-report">typescript-coverage-report</a> at Fri, 05 Jan 2024 16:47:28 GMT</p>
+    </body>
+  </html>
+  

@@ -1,7 +1,6 @@
 import qs from 'qs';
 import axios from 'axios';
 import ServerError from '../../helpers/errors/server.error';
-import logger from '../../helpers/logger';
 // TODO replace axios by fetch when avaiable in LTS
 
 type GoogleOAuthToken = {
@@ -27,10 +26,6 @@ type GoogleUserResult = {
 export default {
   async getOAuthToken({ code }: { code: string }) {
     const rootURL = 'https://oauth2.googleapis.com/token';
-
-    console.log('line 31 getOAuthToken :' + process.env.API_URL);
-    logger.info('line 32 getOAuthToken :' + process.env.API_URL);
-
     const options = {
       code,
       client_id: process.env.GOOGLE_CLIENT_ID,

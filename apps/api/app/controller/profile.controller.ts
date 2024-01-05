@@ -12,7 +12,7 @@ import NotFoundError from '../helpers/errors/not-found.error';
 export default {
   async getOne(req: Request, res: Response) {
     const [profileId] = checkParams(req.params.profileId);
-    const profile = await Profile.findOne(profileId);
+    const profile = await Profile.findOne({ id: profileId });
 
     return res.status(200).json(profile);
   },
@@ -23,8 +23,8 @@ export default {
     return res.status(201).json({ success: result });
   },
   async updateOne(req: Request, res: Response) {
-    const data = req.body.data;
-    const isUpdate = await Profile.updateProfile(data);
+    const { profile_id, ...data } = req.body.data;
+    const isUpdate = await Profile.updateOne({ id: profile_id }, data);
 
     return res.status(204).send({ success: isUpdate });
   },
@@ -46,8 +46,8 @@ export default {
     // return new image url
 
     if (!avatarImage) throw new UserInputError('No image provided');
+    const profile = await Profile.findOne({ id: Number(profile_id) });
 
-    const profile = await Profile.findOne(Number(profile_id));
     if (!profile) {
       throw new UserInputError('Profile not found');
     }
@@ -59,23 +59,22 @@ export default {
       height: WIDTH_AVATAR,
       width: WIDTH_AVATAR,
     });
-    await Image.create({
+    await Image.createOne({
       url: link,
       key: key,
       size: WIDTH_AVATAR,
-      created_at: '',
     });
 
     if (avatar_url) {
-      const [imageToDelete] = await Image.findBy({ url: avatar_url });
-      await Image.delete(imageToDelete.id);
+      const imageToDelete = await Image.findOne({ url: avatar_url });
+      await Image.deleteOne({ id: imageToDelete.id });
 
       if (imageToDelete.key) {
         await deleteImageFromBucket(imageToDelete.key);
       }
     }
 
-    await Profile.updateProfile({ profile_id, avatar_url: link });
+    await Profile.updateOne({ id: profile_id }, { avatar_url: link });
 
     return res.status(200).json({ link });
   },

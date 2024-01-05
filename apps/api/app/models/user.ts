@@ -10,18 +10,20 @@ export class User extends Core<typeof tableNames.user> {
     super(client);
     this.tableName = tableNames.user;
   }
-  async createUser(data: {
+  async create(data: {
     password: string;
     email: string;
-    created_at: string;
   }): Promise<{ id: number; email: string }> {
     const todayUTCString = getFormattedUTCTimestamp();
-    data.created_at = todayUTCString;
+    const insertValues = {
+      ...data,
+      created_at: todayUTCString,
+    };
 
     try {
       const [result] = await this.client
         .insertInto(this.tableName)
-        .values(data)
+        .values(insertValues)
         .returning(['id', 'email'])
         .execute();
 

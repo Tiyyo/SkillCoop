@@ -14,7 +14,10 @@ async function computeRatingUser(profileId: number) {
     profileId,
   ).compute();
 
-  await Profile.update(profileId, { last_evaluation: profileSkills.gb_rating });
+  await Profile.updateOne(
+    { id: profileId },
+    { last_evaluation: profileSkills.gb_rating },
+  );
   return profileSkills;
 }
 export default computeRatingUser;

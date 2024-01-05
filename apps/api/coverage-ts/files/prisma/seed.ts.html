@@ -11,7 +11,7 @@
 <link href="..\..\assets\source-file.css" type="text/css" rel="stylesheet">
     </head>
     <body>
-    <div style="margin-top:3em" class="ui container"><h1 class="ui header"><a href="..\..\index.html">TypeScript coverage report</a></h1><table style="margin-top:2em" class="ui celled table"><thead class=""><tr class=""><th class="">Filename</th><th class="">Percent</th><th class="">Threshold</th><th class="">Total</th><th class="">Covered</th><th class="">Uncovered</th></tr></thead><tbody class=""><tr class="positive"><td class="">prisma\seed.ts</td><td class="">98.02%</td><td class="">80%</td><td class="">756</td><td class="">741</td><td class="">15</td></tr></tbody></table><textarea id="editor" readonly="" style="margin-top:3em">import logger from &#x27;../app/helpers/logger&#x27;;
+    <div style="margin-top:3em" class="ui container"><h1 class="ui header"><a href="..\..\index.html">TypeScript coverage report</a></h1><table style="margin-top:2em" class="ui celled table"><thead class=""><tr class=""><th class="">Filename</th><th class="">Percent</th><th class="">Threshold</th><th class="">Total</th><th class="">Covered</th><th class="">Uncovered</th></tr></thead><tbody class=""><tr class="positive"><td class="">prisma\seed.ts</td><td class="">98.18%</td><td class="">80%</td><td class="">823</td><td class="">808</td><td class="">15</td></tr></tbody></table><textarea id="editor" readonly="" style="margin-top:3em">import logger from &#x27;../app/helpers/logger&#x27;;
 import { faker } from &#x27;@faker-js/faker&#x27;;
 import { user as User } from &#x27;../app/models/index&#x27;;
 import { profile as Profile } from &#x27;../app/models/index&#x27;;
@@ -57,7 +57,7 @@ async function seed() {
   ];
 
   for await (const item of status) {
-    await Status.create({ name: item.name });
+    await Status.createOne({ name: item.name, created_at: todayUTCString });
   }
 
   const notificationTypes = [
@@ -68,7 +68,10 @@ async function seed() {
   ];
 
   for await (const item of notificationTypes) {
-    await NotificationType.create({ name: item.name });
+    await NotificationType.createOne({
+      name: item.name,
+      created_at: todayUTCString,
+    });
   }
 
   const userToCreateInfos = [
@@ -151,7 +154,7 @@ async function seed() {
       password: infos.password,
     });
     if (!user) return logger.error(&#x27;Error while creating user&#x27;);
-    await User.update(user.id, { verified: 1 });
+    await User.updateOne({ id: user.id }, { verified: 1 });
 
     const profile = await Profile.create({
       user_id: user.id,
@@ -162,7 +165,9 @@ async function seed() {
       created_at: todayUTCString,
     });
 
-    await SkillFoot.create({
+    if (!profile) return;
+
+    await SkillFoot.createOne({
       pace: faker.number.int({ min: 50, max: 100 }),
       shooting: faker.number.int({ min: 50, max: 100 }),
       passing: faker.number.int({ min: 50, max: 100 }),
@@ -170,6 +175,7 @@ async function seed() {
       defending: faker.number.int({ min: 50, max: 100 }),
       rater_id: profile.id,
       reviewee_id: profile.id,
+      created_at: todayUTCString,
     });
   }
 
@@ -178,13 +184,13 @@ async function seed() {
   const arrayToIterateOn = new Array(NB_USERS_TO_CREATE).fill(1);
   //eslint-disable-next-line
   for await (const _ of arrayToIterateOn) {
-    const user = await User.createUser({
+    const user = await User.create({
       email: faker.internet.email(),
       password: faker.internet.password(),
     });
 
     const avatarUrl = faker.internet.avatar();
-    await Image.create({ url: avatarUrl });
+    await Image.createOne({ url: avatarUrl, created_at: todayUTCString });
 
     const randomDate = faker.date.birthdate({ max: 2002, min: 1980 });
     const birthdate = getUTCString(randomDate);
@@ -199,7 +205,9 @@ async function seed() {
       created_at: todayUTCString,
     });
 
-    await SkillFoot.create({
+    if (!profile) return;
+
+    await SkillFoot.createOne({
       pace: faker.number.int({ min: 10, max: 100 }),
       shooting: faker.number.int({ min: 10, max: 100 }),
       passing: faker.number.int({ min: 10, max: 100 }),
@@ -207,6 +215,7 @@ async function seed() {
       defending: faker.number.int({ min: 10, max: 100 }),
       rater_id: profile.id,
       reviewee_id: profile.id,
+      created_at: todayUTCString,
     });
   }
 
@@ -214,7 +223,7 @@ async function seed() {
   const arrayToIterateOnTwo = new Array(NB_USERS_TO_CREATE).fill(1);
   //eslint-disable-next-line
   for await (const _ of arrayToIterateOnTwo) {
-    const user = await User.createUser({
+    const user = await User.create({
       email: faker.internet.email(),
       password: faker.internet.password(),
     });
@@ -231,7 +240,9 @@ async function seed() {
       created_at: todayUTCString,
     });
 
-    await SkillFoot.create({
+    if (!profile) return;
+
+    await SkillFoot.createOne({
       pace: faker.number.int({ min: 10, max: 100 }),
       shooting: faker.number.int({ min: 10, max: 100 }),
       passing: faker.number.int({ min: 10, max: 100 }),
@@ -239,6 +250,7 @@ async function seed() {
       defending: faker.number.int({ min: 10, max: 100 }),
       rater_id: profile.id,
       reviewee_id: profile.id,
+      created_at: todayUTCString,
     });
   }
 
@@ -250,6 +262,7 @@ async function seed() {
       adder_id: 1,
       friend_id: id,
       status_name: &#x27;pending&#x27;,
+      created_at: todayUTCString,
     };
   });
   await Friendlist.createMany(dataPendingRequestsTest);
@@ -260,6 +273,7 @@ async function seed() {
       adder_id: 1,
       friend_id: index + 11,
       status_name: &#x27;confirmed&#x27;,
+      created_at: todayUTCString,
     };
   });
   await Friendlist.createMany(dataConfirmedRequests);
@@ -270,6 +284,7 @@ async function seed() {
       adder_id: index + 21,
       friend_id: 1,
       status_name: &#x27;pending&#x27;,
+      created_at: todayUTCString,
     };
   });
   await Friendlist.createMany(dataPendingRequestsAdmin);
@@ -282,20 +297,23 @@ async function seed() {
     const randomDate = faker.date.past();
     const date = getUTCString(randomDate);
 
-    const eventId = await Event.create({
+    const event = await Event.create({
       date,
       duration: 90,
       location: faker.location.city(),
       required_participants: 10,
       organizer_id: 1,
       status_name: &#x27;completed&#x27;,
+      created_at: todayUTCString,
     });
+    if (!event) return logger.error(&#x27;Failed to create event&#x27;);
 
     // add score to each event
-    await Score.create({
-      event_id: Number(eventId),
+    await Score.createOne({
+      event_id: Number(event.id),
       score_team_1: faker.number.int({ min: 0, max: 20 }),
       score_team_2: faker.number.int({ min: 0, max: 20 }),
+      created_at: todayUTCString,
     });
 
     // add 10 participants to each event
@@ -305,11 +323,12 @@ async function seed() {
     ).fill(1);
 
     arrayToIterateOnParticipants.forEach(async (_, index) =&gt; {
-      await Participant.create({
-        event_id: eventId,
+      await Participant.createOne({
         profile_id: index + 1,
+        event_id: event.id,
         team: index &lt; 5 ? 1 : 2,
         status_name: &#x27;confirmed&#x27;,
+        created_at: todayUTCString,
       });
     });
   }
@@ -325,15 +344,16 @@ async function seed() {
     const randomDate = faker.date.future();
     const date = getUTCString(randomDate);
 
-    const eventId = await Event.create({
+    const event = await Event.create({
       date,
       duration: 90,
       location: faker.location.city(),
       required_participants: 10,
       organizer_id: 1,
       status_name: &#x27;full&#x27;,
+      created_at: todayUTCString,
     });
-
+    if (!event) return logger.error(&#x27;Failed to create event&#x27;);
     // add 10 participants to each event
     const NB_PARTICIPANTS_TO_CREATE = 10;
     const arrayToIterateOnParticipants = new Array(
@@ -341,11 +361,12 @@ async function seed() {
     ).fill(1);
 
     arrayToIterateOnParticipants.forEach(async (_, index) =&gt; {
-      await Participant.create({
-        event_id: Number(eventId),
+      await Participant.createOne({
+        event_id: event.id,
         profile_id: index + 1,
         status_name: &#x27;confirmed&#x27;,
         team: index &lt; 5 ? 1 : 2,
+        created_at: todayUTCString,
       });
     });
   }
@@ -362,26 +383,30 @@ async function seed() {
     const date = getUTCString(randomDate);
     const organizerId = getRandomIntInclusive(1, 24);
 
-    const eventId = await Event.create({
+    const event = await Event.create({
       date,
       duration: 90,
       location: faker.location.city(),
       required_participants: 10,
       organizer_id: organizerId,
       status_name: &#x27;completed&#x27;,
+      created_at: todayUTCString,
     });
+    if (!event) return logger.error(&#x27;Failed to create event&#x27;);
 
-    await Score.create({
-      event_id: Number(eventId),
+    await Score.createOne({
+      event_id: event.id,
       score_team_1: faker.number.int({ min: 0, max: 20 }),
       score_team_2: faker.number.int({ min: 0, max: 20 }),
+      created_at: todayUTCString,
     });
 
-    await Participant.create({
-      event_id: Number(eventId),
+    await Participant.createOne({
+      event_id: event.id,
       profile_id: organizerId,
       status_name: &#x27;confirmed&#x27;,
       team: 1,
+      created_at: todayUTCString,
     });
     const intAlreadyUsed = [organizerId];
 
@@ -395,11 +420,12 @@ async function seed() {
       const unuserInt = getIntUnused(intAlreadyUsed);
       if (!unuserInt) return logger.error(&#x27;Failed to get an unused int&#x27;);
       intAlreadyUsed.push(unuserInt);
-      Participant.create({
-        event_id: Number(eventId),
+      Participant.createOne({
+        event_id: event.id,
         profile_id: unuserInt,
         status_name: &#x27;confirmed&#x27;,
         team: index &lt; 4 ? 1 : 2,
+        created_at: todayUTCString,
       });
     });
   }
@@ -415,20 +441,23 @@ async function seed() {
     const date = getUTCString(randomDate);
     const randomInt = getRandomIntInclusive(1, 24);
 
-    const eventId = await Event.create({
+    const event = await Event.create({
       date,
       duration: 90,
       location: faker.location.city(),
       required_participants: 10,
       organizer_id: randomInt,
       status_name: &#x27;full&#x27;,
+      created_at: todayUTCString,
     });
+    if (!event) return logger.error(&#x27;Failed to create event&#x27;);
 
-    await Participant.create({
-      event_id: Number(eventId),
+    await Participant.createOne({
+      event_id: event.id,
       profile_id: randomInt,
       status_name: &#x27;confirmed&#x27;,
       team: 1,
+      created_at: todayUTCString,
     });
     const intAlreadyUsed = [randomInt];
 
@@ -445,11 +474,12 @@ async function seed() {
       if (!unuserInt) return logger.error(&#x27;Failed to get an unused int&#x27;);
       intAlreadyUsed.push(unuserInt);
 
-      await Participant.create({
-        event_id: Number(eventId),
+      await Participant.createOne({
+        event_id: event.id,
         profile_id: unuserInt,
         status_name: &#x27;confirmed&#x27;,
         team: index &lt; 4 ? 1 : 2,
+        created_at: todayUTCString,
       });
     });
   }
@@ -465,20 +495,22 @@ async function seed() {
   for await (const _ of arrayToIterateOnOpenEvents) {
     const randomDate = faker.date.future();
     const date = getUTCString(randomDate);
-    const eventId = await Event.create({
+    const event = await Event.create({
       date,
       duration: 90,
       location: faker.location.city(),
       required_participants: 10,
       organizer_id: 1,
       status_name: &#x27;open&#x27;,
+      created_at: todayUTCString,
     });
-
+    if (!event) return logger.error(&#x27;Failed to create event&#x27;);
     openParticipants.forEach(async (_, index) =&gt; {
-      await Participant.create({
-        event_id: Number(eventId),
+      await Participant.createOne({
+        event_id: event.id,
         profile_id: index + 1,
         status_name: index &lt; 3 ? &#x27;confirmed&#x27; : &#x27;pending&#x27;,
+        created_at: todayUTCString,
       });
     });
   }
@@ -489,8 +521,8 @@ async function seed() {
 seed().catch((err) =&gt; {
   logger.error(&#x27;Seeding has failed&#x27; + err);
 });
-</textarea><pre id="annotations" style="display:none">[{&quot;file&quot;:&quot;prisma\\seed.ts&quot;,&quot;line&quot;:166,&quot;character&quot;:19,&quot;text&quot;:&quot;_&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;prisma\\seed.ts&quot;,&quot;line&quot;:202,&quot;character&quot;:19,&quot;text&quot;:&quot;_&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;prisma\\seed.ts&quot;,&quot;line&quot;:244,&quot;character&quot;:57,&quot;text&quot;:&quot;_&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;prisma\\seed.ts&quot;,&quot;line&quot;:254,&quot;character&quot;:48,&quot;text&quot;:&quot;_&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;prisma\\seed.ts&quot;,&quot;line&quot;:267,&quot;character&quot;:19,&quot;text&quot;:&quot;_&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;prisma\\seed.ts&quot;,&quot;line&quot;:293,&quot;character&quot;:48,&quot;text&quot;:&quot;_&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;prisma\\seed.ts&quot;,&quot;line&quot;:310,&quot;character&quot;:19,&quot;text&quot;:&quot;_&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;prisma\\seed.ts&quot;,&quot;line&quot;:329,&quot;character&quot;:48,&quot;text&quot;:&quot;_&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;prisma\\seed.ts&quot;,&quot;line&quot;:346,&quot;character&quot;:19,&quot;text&quot;:&quot;_&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;prisma\\seed.ts&quot;,&quot;line&quot;:380,&quot;character&quot;:48,&quot;text&quot;:&quot;_&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;prisma\\seed.ts&quot;,&quot;line&quot;:399,&quot;character&quot;:19,&quot;text&quot;:&quot;_&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;prisma\\seed.ts&quot;,&quot;line&quot;:429,&quot;character&quot;:48,&quot;text&quot;:&quot;_&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;prisma\\seed.ts&quot;,&quot;line&quot;:451,&quot;character&quot;:19,&quot;text&quot;:&quot;_&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;prisma\\seed.ts&quot;,&quot;line&quot;:475,&quot;character&quot;:14,&quot;text&quot;:&quot;err&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;prisma\\seed.ts&quot;,&quot;line&quot;:476,&quot;character&quot;:38,&quot;text&quot;:&quot;err&quot;,&quot;kind&quot;:1}]</pre></div>
-    <p class="footer-text">TypeScript Coverage Report generated by <a href="https://github.com/plantain-00/type-coverage">type-coverage</a> and <a href="https://github.com/alexcanessa/typescript-coverage-report">typescript-coverage-report</a> at Thu, 04 Jan 2024 18:32:37 GMT</p>
+</textarea><pre id="annotations" style="display:none">[{&quot;file&quot;:&quot;prisma\\seed.ts&quot;,&quot;line&quot;:172,&quot;character&quot;:19,&quot;text&quot;:&quot;_&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;prisma\\seed.ts&quot;,&quot;line&quot;:211,&quot;character&quot;:19,&quot;text&quot;:&quot;_&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;prisma\\seed.ts&quot;,&quot;line&quot;:257,&quot;character&quot;:57,&quot;text&quot;:&quot;_&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;prisma\\seed.ts&quot;,&quot;line&quot;:268,&quot;character&quot;:48,&quot;text&quot;:&quot;_&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;prisma\\seed.ts&quot;,&quot;line&quot;:282,&quot;character&quot;:19,&quot;text&quot;:&quot;_&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;prisma\\seed.ts&quot;,&quot;line&quot;:311,&quot;character&quot;:48,&quot;text&quot;:&quot;_&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;prisma\\seed.ts&quot;,&quot;line&quot;:329,&quot;character&quot;:19,&quot;text&quot;:&quot;_&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;prisma\\seed.ts&quot;,&quot;line&quot;:349,&quot;character&quot;:48,&quot;text&quot;:&quot;_&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;prisma\\seed.ts&quot;,&quot;line&quot;:367,&quot;character&quot;:19,&quot;text&quot;:&quot;_&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;prisma\\seed.ts&quot;,&quot;line&quot;:405,&quot;character&quot;:48,&quot;text&quot;:&quot;_&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;prisma\\seed.ts&quot;,&quot;line&quot;:425,&quot;character&quot;:19,&quot;text&quot;:&quot;_&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;prisma\\seed.ts&quot;,&quot;line&quot;:458,&quot;character&quot;:48,&quot;text&quot;:&quot;_&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;prisma\\seed.ts&quot;,&quot;line&quot;:481,&quot;character&quot;:19,&quot;text&quot;:&quot;_&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;prisma\\seed.ts&quot;,&quot;line&quot;:507,&quot;character&quot;:14,&quot;text&quot;:&quot;err&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;prisma\\seed.ts&quot;,&quot;line&quot;:508,&quot;character&quot;:38,&quot;text&quot;:&quot;err&quot;,&quot;kind&quot;:1}]</pre></div>
+    <p class="footer-text">TypeScript Coverage Report generated by <a href="https://github.com/plantain-00/type-coverage">type-coverage</a> and <a href="https://github.com/alexcanessa/typescript-coverage-report">typescript-coverage-report</a> at Fri, 05 Jan 2024 16:47:28 GMT</p>
     </body>
   </html>
   

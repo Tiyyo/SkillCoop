@@ -16,150 +16,45 @@
       "kind": 1
     },
     {
-      "file": "app\\helpers\\errors\\database.error.ts",
-      "line": 7,
-      "character": 14,
-      "text": "error",
-      "kind": 1
-    },
-    {
-      "file": "app\\helpers\\errors\\database.error.ts",
-      "line": 8,
-      "character": 10,
-      "text": "error",
-      "kind": 1
-    },
-    {
-      "file": "app\\helpers\\errors\\database.error.ts",
-      "line": 8,
-      "character": 16,
-      "text": "message",
-      "kind": 1
-    },
-    {
-      "file": "app\\helpers\\errors\\database.error.ts",
-      "line": 10,
-      "character": 19,
-      "text": "error",
-      "kind": 1
-    },
-    {
-      "file": "app\\helpers\\errors\\database.error.ts",
-      "line": 10,
-      "character": 25,
-      "text": "message",
-      "kind": 1
-    },
-    {
-      "file": "app\\helpers\\errors\\database.error.ts",
-      "line": 11,
-      "character": 27,
-      "text": "error",
-      "kind": 1
-    },
-    {
-      "file": "app\\helpers\\errors\\database.error.ts",
-      "line": 11,
-      "character": 33,
-      "text": "code",
-      "kind": 1
-    },
-    {
-      "file": "app\\helpers\\errors\\database.error.ts",
-      "line": 11,
-      "character": 43,
-      "text": "error",
-      "kind": 1
-    },
-    {
-      "file": "app\\helpers\\errors\\database.error.ts",
-      "line": 11,
-      "character": 49,
-      "text": "message",
-      "kind": 1
-    },
-    {
-      "file": "app\\models\\core.ts",
-      "line": 14,
-      "character": 14,
-      "text": "client",
-      "kind": 1
-    },
-    {
       "file": "app\\models\\event.ts",
-      "line": 60,
+      "line": 91,
       "character": 10,
       "text": "participants",
       "kind": 1
     },
     {
       "file": "app\\models\\event.ts",
-      "line": 121,
+      "line": 152,
       "character": 10,
       "text": "participants",
       "kind": 1
     },
     {
       "file": "app\\models\\event.ts",
-      "line": 181,
+      "line": 212,
       "character": 10,
       "text": "participants",
       "kind": 1
     },
     {
       "file": "app\\models\\event.ts",
-      "line": 261,
+      "line": 292,
       "character": 8,
       "text": "participants",
       "kind": 1
     },
     {
       "file": "app\\models\\profile.ts",
-      "line": 84,
+      "line": 85,
       "character": 8,
       "text": "spreadProfile",
       "kind": 1
     },
     {
       "file": "app\\models\\profile.ts",
-      "line": 87,
+      "line": 88,
       "character": 6,
       "text": "spreadProfile",
-      "kind": 1
-    },
-    {
-      "file": "app\\models\\profile.ts",
-      "line": 165,
-      "character": 59,
-      "text": "profile_id",
-      "kind": 1
-    },
-    {
-      "file": "app\\models\\profile.ts",
-      "line": 176,
-      "character": 42,
-      "text": "profile_id",
-      "kind": 1
-    },
-    {
-      "file": "app\\models\\profile.ts",
-      "line": 179,
-      "character": 20,
-      "text": "profile_id",
-      "kind": 1
-    },
-    {
-      "file": "app\\models\\profile.ts",
-      "line": 185,
-      "character": 16,
-      "text": "nb_attended_events",
-      "kind": 1
-    },
-    {
-      "file": "app\\models\\profile.ts",
-      "line": 186,
-      "character": 16,
-      "text": "nb_bonus",
       "kind": 1
     },
     {
@@ -227,14 +122,14 @@
     },
     {
       "file": "app\\service\\user-preference\\default-preference.ts",
-      "line": 29,
-      "character": 66,
+      "line": 26,
+      "character": 14,
       "text": "err",
       "kind": 1
     },
     {
       "file": "app\\service\\user-preference\\default-preference.ts",
-      "line": 30,
+      "line": 27,
       "character": 10,
       "text": "err",
       "kind": 1
@@ -242,7 +137,7 @@
     {
       "file": "app\\service\\user-preference\\default-preference.ts",
       "line": 39,
-      "character": 69,
+      "character": 14,
       "text": "err",
       "kind": 1
     },
@@ -276,14 +171,14 @@
     },
     {
       "file": "app\\service\\user-preference\\default-preference.ts",
-      "line": 71,
+      "line": 77,
       "character": 38,
       "text": "err",
       "kind": 1
     },
     {
       "file": "app\\service\\user-preference\\default-preference.ts",
-      "line": 72,
+      "line": 78,
       "character": 10,
       "text": "err",
       "kind": 1
@@ -368,14 +263,14 @@
     {
       "file": "app\\controller\\auth.controller.ts",
       "line": 70,
-      "character": 37,
+      "character": 42,
       "text": "decoded",
       "kind": 1
     },
     {
       "file": "app\\controller\\auth.controller.ts",
       "line": 70,
-      "character": 45,
+      "character": 50,
       "text": "user_id",
       "kind": 1
     },
@@ -529,21 +424,28 @@
     {
       "file": "app\\controller\\profile.controller.ts",
       "line": 25,
-      "character": 10,
+      "character": 12,
+      "text": "profile_id",
+      "kind": 1
+    },
+    {
+      "file": "app\\controller\\profile.controller.ts",
+      "line": 25,
+      "character": 27,
       "text": "data",
       "kind": 1
     },
     {
       "file": "app\\controller\\profile.controller.ts",
       "line": 25,
-      "character": 21,
+      "character": 40,
       "text": "body",
       "kind": 1
     },
     {
       "file": "app\\controller\\profile.controller.ts",
       "line": 25,
-      "character": 26,
+      "character": 45,
       "text": "data",
       "kind": 1
     },
@@ -563,8 +465,8 @@
     },
     {
       "file": "app\\controller\\profile.controller.ts",
-      "line": 49,
-      "character": 66,
+      "line": 48,
+      "character": 55,
       "text": "profile_id",
       "kind": 1
     },
@@ -583,175 +485,63 @@
       "kind": 1
     },
     {
-      "file": "app\\utils\\has-active-notification.ts",
-      "line": 20,
-      "character": 20,
-      "text": "curr",
-      "kind": 1
-    },
-    {
-      "file": "app\\utils\\has-active-notification.ts",
-      "line": 21,
-      "character": 10,
-      "text": "curr",
-      "kind": 1
-    },
-    {
-      "file": "app\\utils\\has-active-notification.ts",
-      "line": 21,
-      "character": 15,
-      "text": "status",
-      "kind": 1
-    },
-    {
-      "file": "app\\utils\\has-active-notification.ts",
-      "line": 21,
-      "character": 41,
-      "text": "curr",
-      "kind": 1
-    },
-    {
-      "file": "app\\utils\\has-active-notification.ts",
-      "line": 21,
-      "character": 46,
-      "text": "value",
-      "kind": 1
-    },
-    {
-      "file": "app\\utils\\has-active-notification.ts",
-      "line": 21,
-      "character": 52,
-      "text": "active_notification",
-      "kind": 1
-    },
-    {
-      "file": "app\\utils\\has-active-notification.ts",
-      "line": 22,
-      "character": 17,
-      "text": "curr",
-      "kind": 1
-    },
-    {
-      "file": "app\\utils\\has-active-notification.ts",
-      "line": 22,
-      "character": 22,
-      "text": "value",
-      "kind": 1
-    },
-    {
-      "file": "app\\utils\\has-active-notification.ts",
-      "line": 22,
-      "character": 28,
-      "text": "id",
-      "kind": 1
-    },
-    {
-      "file": "app\\service\\notification\\subtype\\transfert-ownership.ts",
-      "line": 49,
-      "character": 10,
-      "text": "haveSubscribed",
-      "kind": 1
-    },
-    {
       "file": "app\\controller\\event.controller.ts",
-      "line": 20,
+      "line": 21,
       "character": 25,
       "text": "body",
       "kind": 1
     },
     {
       "file": "app\\controller\\event.controller.ts",
-      "line": 21,
+      "line": 22,
       "character": 26,
       "text": "ids",
       "kind": 1
     },
     {
       "file": "app\\controller\\event.controller.ts",
-      "line": 21,
+      "line": 22,
       "character": 34,
       "text": "data",
       "kind": 1
     },
     {
       "file": "app\\controller\\event.controller.ts",
-      "line": 21,
+      "line": 22,
       "character": 47,
       "text": "body",
       "kind": 1
     },
     {
       "file": "app\\controller\\event.controller.ts",
-      "line": 24,
-      "character": 6,
-      "text": "organizer_id",
-      "kind": 1
-    },
-    {
-      "file": "app\\controller\\event.controller.ts",
-      "line": 24,
+      "line": 25,
       "character": 20,
       "text": "data",
       "kind": 1
     },
     {
       "file": "app\\controller\\event.controller.ts",
-      "line": 24,
+      "line": 25,
       "character": 25,
       "text": "organizer_id",
       "kind": 1
     },
     {
       "file": "app\\controller\\event.controller.ts",
-      "line": 26,
-      "character": 6,
-      "text": "date",
-      "kind": 1
-    },
-    {
-      "file": "app\\controller\\event.controller.ts",
-      "line": 26,
+      "line": 27,
       "character": 12,
       "text": "data",
       "kind": 1
     },
     {
       "file": "app\\controller\\event.controller.ts",
-      "line": 26,
+      "line": 27,
       "character": 17,
       "text": "date",
       "kind": 1
     },
     {
       "file": "app\\controller\\event.controller.ts",
-      "line": 27,
-      "character": 6,
-      "text": "duration",
-      "kind": 1
-    },
-    {
-      "file": "app\\controller\\event.controller.ts",
-      "line": 27,
-      "character": 16,
-      "text": "data",
-      "kind": 1
-    },
-    {
-      "file": "app\\controller\\event.controller.ts",
-      "line": 27,
-      "character": 21,
-      "text": "duration",
-      "kind": 1
-    },
-    {
-      "file": "app\\controller\\event.controller.ts",
-      "line": 28,
-      "character": 6,
-      "text": "location",
-      "kind": 1
-    },
-    {
-      "file": "app\\controller\\event.controller.ts",
       "line": 28,
       "character": 16,
       "text": "data",
@@ -761,201 +551,201 @@
       "file": "app\\controller\\event.controller.ts",
       "line": 28,
       "character": 21,
+      "text": "duration",
+      "kind": 1
+    },
+    {
+      "file": "app\\controller\\event.controller.ts",
+      "line": 29,
+      "character": 16,
+      "text": "data",
+      "kind": 1
+    },
+    {
+      "file": "app\\controller\\event.controller.ts",
+      "line": 29,
+      "character": 21,
       "text": "location",
       "kind": 1
     },
     {
       "file": "app\\controller\\event.controller.ts",
-      "line": 29,
-      "character": 6,
-      "text": "required_participants",
-      "kind": 1
-    },
-    {
-      "file": "app\\controller\\event.controller.ts",
-      "line": 29,
+      "line": 30,
       "character": 29,
       "text": "data",
       "kind": 1
     },
     {
       "file": "app\\controller\\event.controller.ts",
-      "line": 29,
+      "line": 30,
       "character": 34,
       "text": "required_participants",
       "kind": 1
     },
     {
       "file": "app\\controller\\event.controller.ts",
-      "line": 34,
-      "character": 6,
-      "text": "profile_id",
-      "kind": 1
-    },
-    {
-      "file": "app\\controller\\event.controller.ts",
-      "line": 34,
+      "line": 36,
       "character": 18,
       "text": "data",
       "kind": 1
     },
     {
       "file": "app\\controller\\event.controller.ts",
-      "line": 34,
+      "line": 36,
       "character": 23,
       "text": "organizer_id",
       "kind": 1
     },
     {
       "file": "app\\controller\\event.controller.ts",
-      "line": 38,
+      "line": 40,
       "character": 8,
       "text": "ids",
       "kind": 1
     },
     {
       "file": "app\\controller\\event.controller.ts",
-      "line": 39,
+      "line": 41,
       "character": 12,
       "text": "participantsToInvite",
       "kind": 1
     },
     {
       "file": "app\\controller\\event.controller.ts",
-      "line": 39,
+      "line": 41,
       "character": 35,
       "text": "ids",
       "kind": 1
     },
     {
       "file": "app\\controller\\event.controller.ts",
-      "line": 39,
+      "line": 41,
       "character": 39,
       "text": "map",
       "kind": 1
     },
     {
       "file": "app\\controller\\event.controller.ts",
-      "line": 47,
-      "character": 47,
+      "line": 49,
+      "character": 48,
       "text": "data",
       "kind": 1
     },
     {
       "file": "app\\controller\\event.controller.ts",
-      "line": 47,
-      "character": 52,
+      "line": 49,
+      "character": 53,
       "text": "organizer_id",
       "kind": 1
     },
     {
       "file": "app\\controller\\event.controller.ts",
-      "line": 65,
+      "line": 67,
       "character": 25,
       "text": "body",
       "kind": 1
     },
     {
       "file": "app\\controller\\event.controller.ts",
-      "line": 66,
+      "line": 68,
       "character": 12,
       "text": "event_id",
       "kind": 1
     },
     {
       "file": "app\\controller\\event.controller.ts",
-      "line": 66,
+      "line": 68,
       "character": 22,
       "text": "profile_id",
       "kind": 1
     },
     {
       "file": "app\\controller\\event.controller.ts",
-      "line": 66,
+      "line": 68,
       "character": 37,
       "text": "data",
       "kind": 1
     },
     {
       "file": "app\\controller\\event.controller.ts",
-      "line": 66,
+      "line": 68,
       "character": 50,
       "text": "body",
       "kind": 1
     },
     {
       "file": "app\\controller\\event.controller.ts",
-      "line": 76,
+      "line": 78,
       "character": 41,
       "text": "profile_id",
       "kind": 1
     },
     {
       "file": "app\\controller\\event.controller.ts",
-      "line": 85,
+      "line": 87,
       "character": 13,
       "text": "data",
       "kind": 1
     },
     {
       "file": "app\\controller\\event.controller.ts",
-      "line": 101,
+      "line": 103,
       "character": 25,
       "text": "body",
       "kind": 1
     },
     {
       "file": "app\\controller\\event.controller.ts",
-      "line": 102,
+      "line": 104,
       "character": 12,
       "text": "event_id",
       "kind": 1
     },
     {
       "file": "app\\controller\\event.controller.ts",
-      "line": 102,
+      "line": 104,
       "character": 22,
       "text": "organizer_id",
       "kind": 1
     },
     {
       "file": "app\\controller\\event.controller.ts",
-      "line": 102,
+      "line": 104,
       "character": 36,
       "text": "new_organizer_id",
       "kind": 1
     },
     {
       "file": "app\\controller\\event.controller.ts",
-      "line": 102,
+      "line": 104,
       "character": 61,
       "text": "body",
       "kind": 1
     },
     {
       "file": "app\\controller\\event.controller.ts",
-      "line": 105,
+      "line": 107,
       "character": 41,
       "text": "organizer_id",
       "kind": 1
     },
     {
       "file": "app\\controller\\event.controller.ts",
-      "line": 164,
+      "line": 169,
       "character": 25,
       "text": "body",
       "kind": 1
     },
     {
       "file": "app\\controller\\event.controller.ts",
-      "line": 165,
+      "line": 170,
       "character": 12,
       "text": "eventId",
       "kind": 1
     },
     {
       "file": "app\\controller\\event.controller.ts",
-      "line": 165,
+      "line": 170,
       "character": 28,
       "text": "body",
       "kind": 1
@@ -1059,34 +849,6 @@
       "kind": 1
     },
     {
-      "file": "app\\service\\notification\\subtype\\team-generated.ts",
-      "line": 41,
-      "character": 10,
-      "text": "subscribersIds",
-      "kind": 1
-    },
-    {
-      "file": "app\\service\\notification\\subtype\\team-generated.ts",
-      "line": 42,
-      "character": 11,
-      "text": "subscribersIds",
-      "kind": 1
-    },
-    {
-      "file": "app\\service\\notification\\subtype\\team-generated.ts",
-      "line": 63,
-      "character": 10,
-      "text": "subscribersIds",
-      "kind": 1
-    },
-    {
-      "file": "app\\service\\notification\\subtype\\team-generated.ts",
-      "line": 64,
-      "character": 9,
-      "text": "subscribersIds",
-      "kind": 1
-    },
-    {
       "file": "app\\controller\\profile-on-event.controller.ts",
       "line": 14,
       "character": 25,
@@ -1145,7 +907,7 @@
     {
       "file": "app\\controller\\profile-on-event.controller.ts",
       "line": 20,
-      "character": 44,
+      "character": 49,
       "text": "event_id",
       "kind": 1
     },
@@ -1172,70 +934,70 @@
     },
     {
       "file": "app\\controller\\profile-on-event.controller.ts",
-      "line": 42,
+      "line": 40,
       "character": 21,
       "text": "event_id",
       "kind": 1
     },
     {
       "file": "app\\controller\\profile-on-event.controller.ts",
-      "line": 62,
+      "line": 60,
       "character": 25,
       "text": "body",
       "kind": 1
     },
     {
       "file": "app\\controller\\profile-on-event.controller.ts",
-      "line": 63,
+      "line": 61,
       "character": 12,
       "text": "ids",
       "kind": 1
     },
     {
       "file": "app\\controller\\profile-on-event.controller.ts",
-      "line": 63,
+      "line": 61,
       "character": 17,
       "text": "event_id",
       "kind": 1
     },
     {
       "file": "app\\controller\\profile-on-event.controller.ts",
-      "line": 63,
+      "line": 61,
       "character": 38,
       "text": "profile_id",
       "kind": 1
     },
     {
       "file": "app\\controller\\profile-on-event.controller.ts",
-      "line": 63,
+      "line": 61,
       "character": 57,
       "text": "body",
       "kind": 1
     },
     {
       "file": "app\\controller\\profile-on-event.controller.ts",
-      "line": 65,
+      "line": 63,
       "character": 10,
       "text": "data",
       "kind": 1
     },
     {
       "file": "app\\controller\\profile-on-event.controller.ts",
-      "line": 65,
+      "line": 63,
       "character": 17,
       "text": "ids",
       "kind": 1
     },
     {
       "file": "app\\controller\\profile-on-event.controller.ts",
-      "line": 65,
+      "line": 63,
       "character": 21,
       "text": "map",
       "kind": 1
     },
     {
       "file": "app\\controller\\profile-on-event.controller.ts",
-      "line": 67,
+      "line": 65,
       "character": 6,
       "text": "event_id",
       "kind": 1
@@ -1319,121 +1081,65 @@
     },
     {
       "file": "app\\controller\\skill-foot.controller.ts",
-      "line": 57,
-      "character": 6,
-      "text": "pace",
-      "kind": 1
-    },
-    {
-      "file": "app\\controller\\skill-foot.controller.ts",
       "line": 58,
       "character": 6,
-      "text": "shooting",
+      "text": "pace",
       "kind": 1
     },
     {
       "file": "app\\controller\\skill-foot.controller.ts",
       "line": 59,
       "character": 6,
-      "text": "passing",
+      "text": "shooting",
       "kind": 1
     },
     {
       "file": "app\\controller\\skill-foot.controller.ts",
       "line": 60,
       "character": 6,
-      "text": "dribbling",
+      "text": "passing",
       "kind": 1
     },
     {
       "file": "app\\controller\\skill-foot.controller.ts",
       "line": 61,
       "character": 6,
-      "text": "defending",
+      "text": "dribbling",
       "kind": 1
     },
     {
       "file": "app\\controller\\skill-foot.controller.ts",
       "line": 62,
       "character": 6,
-      "text": "rater_id",
+      "text": "defending",
       "kind": 1
     },
     {
       "file": "app\\controller\\skill-foot.controller.ts",
       "line": 63,
       "character": 6,
-      "text": "reviewee_id",
+      "text": "rater_id",
       "kind": 1
     },
     {
       "file": "app\\controller\\skill-foot.controller.ts",
       "line": 64,
       "character": 6,
-      "text": "event_id",
-      "kind": 1
-    },
-    {
-      "file": "app\\controller\\skill-foot.controller.ts",
-      "line": 65,
-      "character": 12,
-      "text": "body",
-      "kind": 1
-    },
-    {
-      "file": "app\\controller\\skill-foot.controller.ts",
-      "line": 79,
-      "character": 6,
-      "text": "pace",
-      "kind": 1
-    },
-    {
-      "file": "app\\controller\\skill-foot.controller.ts",
-      "line": 80,
-      "character": 6,
-      "text": "shooting",
-      "kind": 1
-    },
-    {
-      "file": "app\\controller\\skill-foot.controller.ts",
-      "line": 81,
-      "character": 6,
-      "text": "passing",
-      "kind": 1
-    },
-    {
-      "file": "app\\controller\\skill-foot.controller.ts",
-      "line": 82,
-      "character": 6,
-      "text": "dribbling",
-      "kind": 1
-    },
-    {
-      "file": "app\\controller\\skill-foot.controller.ts",
-      "line": 83,
-      "character": 6,
-      "text": "defending",
-      "kind": 1
-    },
-    {
-      "file": "app\\controller\\skill-foot.controller.ts",
-      "line": 84,
-      "character": 6,
-      "text": "rater_id",
-      "kind": 1
-    },
-    {
-      "file": "app\\controller\\skill-foot.controller.ts",
-      "line": 85,
-      "character": 6,
       "text": "reviewee_id",
       "kind": 1
     },
     {
       "file": "app\\controller\\skill-foot.controller.ts",
-      "line": 86,
+      "line": 65,
       "character": 6,
       "text": "event_id",
+      "kind": 1
+    },
+    {
+      "file": "app\\controller\\skill-foot.controller.ts",
+      "line": 66,
+      "character": 12,
+      "text": "body",
       "kind": 1
     },
     {
@@ -1536,35 +1242,35 @@
     },
     {
       "file": "app\\controller\\user.controller.ts",
-      "line": 49,
+      "line": 52,
       "character": 10,
       "text": "tokenUserId",
       "kind": 1
     },
     {
       "file": "app\\controller\\user.controller.ts",
-      "line": 49,
+      "line": 52,
       "character": 28,
       "text": "body",
       "kind": 1
     },
     {
       "file": "app\\controller\\user.controller.ts",
-      "line": 49,
+      "line": 52,
       "character": 33,
       "text": "decoded",
       "kind": 1
     },
     {
       "file": "app\\controller\\user.controller.ts",
-      "line": 49,
+      "line": 52,
       "character": 41,
       "text": "user_id",
       "kind": 1
     },
     {
       "file": "app\\controller\\user.controller.ts",
-      "line": 51,
+      "line": 54,
       "character": 19,
       "text": "tokenUserId",
       "kind": 1
@@ -1605,27 +1311,6 @@
       "kind": 1
     },
     {
-      "file": "app\\controller\\score.controller.ts",
-      "line": 11,
-      "character": 25,
-      "text": "score_team_1",
-      "kind": 1
-    },
-    {
-      "file": "app\\controller\\score.controller.ts",
-      "line": 11,
-      "character": 39,
-      "text": "score_team_2",
-      "kind": 1
-    },
-    {
-      "file": "app\\controller\\score.controller.ts",
-      "line": 11,
-      "character": 53,
-      "text": "event_id",
-      "kind": 1
-    },
-    {
       "file": "app\\controller\\mvp.controller.ts",
       "line": 7,
       "character": 25,
@@ -1661,27 +1346,6 @@
       "kind": 1
     },
     {
-      "file": "app\\controller\\mvp.controller.ts",
-      "line": 14,
-      "character": 41,
-      "text": "profile_id",
-      "kind": 1
-    },
-    {
-      "file": "app\\controller\\mvp.controller.ts",
-      "line": 14,
-      "character": 53,
-      "text": "rater_id",
-      "kind": 1
-    },
-    {
-      "file": "app\\controller\\mvp.controller.ts",
-      "line": 14,
-      "character": 63,
-      "text": "event_id",
-      "kind": 1
-    },
-    {
       "file": "app\\controller\\best-striker.controller.ts",
       "line": 8,
       "character": 25,
@@ -1714,27 +1378,6 @@
       "line": 10,
       "character": 51,
       "text": "body",
-      "kind": 1
-    },
-    {
-      "file": "app\\controller\\best-striker.controller.ts",
-      "line": 20,
-      "character": 6,
-      "text": "profile_id",
-      "kind": 1
-    },
-    {
-      "file": "app\\controller\\best-striker.controller.ts",
-      "line": 21,
-      "character": 6,
-      "text": "rater_id",
-      "kind": 1
-    },
-    {
-      "file": "app\\controller\\best-striker.controller.ts",
-      "line": 22,
-      "character": 6,
-      "text": "event_id",
       "kind": 1
     },
     {
@@ -1836,20 +1479,6 @@
       "kind": 1
     },
     {
-      "file": "app\\controller\\user-preference.controller.ts",
-      "line": 59,
-      "character": 27,
-      "text": "user_id",
-      "kind": 1
-    },
-    {
-      "file": "app\\controller\\user-preference.controller.ts",
-      "line": 59,
-      "character": 44,
-      "text": "name",
-      "kind": 1
-    },
-    {
       "file": "app\\service\\notification\\sse-connection.manager.ts",
       "line": 9,
       "character": 8,
@@ -1865,105 +1494,105 @@
     },
     {
       "file": "prisma\\seed.ts",
-      "line": 166,
+      "line": 172,
       "character": 19,
       "text": "_",
       "kind": 1
     },
     {
       "file": "prisma\\seed.ts",
-      "line": 202,
+      "line": 211,
       "character": 19,
       "text": "_",
       "kind": 1
     },
     {
       "file": "prisma\\seed.ts",
-      "line": 244,
+      "line": 257,
       "character": 57,
       "text": "_",
       "kind": 1
     },
     {
       "file": "prisma\\seed.ts",
-      "line": 254,
+      "line": 268,
       "character": 48,
       "text": "_",
       "kind": 1
     },
     {
       "file": "prisma\\seed.ts",
-      "line": 267,
+      "line": 282,
       "character": 19,
       "text": "_",
       "kind": 1
     },
     {
       "file": "prisma\\seed.ts",
-      "line": 293,
+      "line": 311,
       "character": 48,
-      "text": "_",
-      "kind": 1
-    },
-    {
-      "file": "prisma\\seed.ts",
-      "line": 310,
-      "character": 19,
       "text": "_",
       "kind": 1
     },
     {
       "file": "prisma\\seed.ts",
       "line": 329,
-      "character": 48,
-      "text": "_",
-      "kind": 1
-    },
-    {
-      "file": "prisma\\seed.ts",
-      "line": 346,
       "character": 19,
       "text": "_",
       "kind": 1
     },
     {
       "file": "prisma\\seed.ts",
-      "line": 380,
+      "line": 349,
       "character": 48,
       "text": "_",
       "kind": 1
     },
     {
       "file": "prisma\\seed.ts",
-      "line": 399,
+      "line": 367,
       "character": 19,
       "text": "_",
       "kind": 1
     },
     {
       "file": "prisma\\seed.ts",
-      "line": 429,
+      "line": 405,
       "character": 48,
       "text": "_",
       "kind": 1
     },
     {
       "file": "prisma\\seed.ts",
-      "line": 451,
+      "line": 425,
       "character": 19,
       "text": "_",
       "kind": 1
     },
     {
       "file": "prisma\\seed.ts",
-      "line": 475,
+      "line": 458,
+      "character": 48,
+      "text": "_",
+      "kind": 1
+    },
+    {
+      "file": "prisma\\seed.ts",
+      "line": 481,
+      "character": 19,
+      "text": "_",
+      "kind": 1
+    },
+    {
+      "file": "prisma\\seed.ts",
+      "line": 507,
       "character": 14,
       "text": "err",
       "kind": 1
     },
     {
       "file": "prisma\\seed.ts",
-      "line": 476,
+      "line": 508,
       "character": 38,
       "text": "err",
       "kind": 1
@@ -1992,35 +1621,35 @@
     {
       "file": "app\\controller\\__test__\\event.controller.test.ts",
       "line": 218,
-      "character": 46,
+      "character": 45,
       "text": "body",
       "kind": 1
     },
     {
       "file": "app\\controller\\__test__\\event.controller.test.ts",
       "line": 218,
-      "character": 51,
+      "character": 50,
       "text": "event_id",
       "kind": 1
     },
     {
       "file": "app\\controller\\__test__\\event.controller.test.ts",
       "line": 237,
-      "character": 44,
+      "character": 47,
       "text": "body",
       "kind": 1
     },
     {
       "file": "app\\controller\\__test__\\event.controller.test.ts",
       "line": 237,
-      "character": 49,
+      "character": 52,
       "text": "event_id",
       "kind": 1
     },
     {
       "file": "app\\utils\\__test__\\has-active-notification.test.ts",
       "line": 9,
-      "character": 51,
+      "character": 50,
       "text": "id",
       "kind": 1
     },
@@ -2040,22 +1669,8 @@
     },
     {
       "file": "app\\utils\\__test__\\has-active-notification.test.ts",
-      "line": 16,
-      "character": 10,
-      "text": "result",
-      "kind": 1
-    },
-    {
-      "file": "app\\utils\\__test__\\has-active-notification.test.ts",
-      "line": 20,
-      "character": 11,
-      "text": "result",
-      "kind": 1
-    },
-    {
-      "file": "app\\utils\\__test__\\has-active-notification.test.ts",
       "line": 25,
-      "character": 51,
+      "character": 50,
       "text": "id",
       "kind": 1
     },
@@ -2065,24 +1680,10 @@
       "character": 8,
       "text": "id",
       "kind": 1
-    },
-    {
-      "file": "app\\utils\\__test__\\has-active-notification.test.ts",
-      "line": 32,
-      "character": 10,
-      "text": "result",
-      "kind": 1
-    },
-    {
-      "file": "app\\utils\\__test__\\has-active-notification.test.ts",
-      "line": 33,
-      "character": 11,
-      "text": "result",
-      "kind": 1
     }
   ],
-  "percentage": 97.06898253232015,
-  "total": 10133,
-  "covered": 9836,
-  "uncovered": 297
+  "percentage": 97.6909755628247,
+  "total": 10394,
+  "covered": 10154,
+  "uncovered": 240
 }

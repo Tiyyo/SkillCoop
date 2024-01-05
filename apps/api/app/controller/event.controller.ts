@@ -12,6 +12,7 @@ import { notifyUserHasBeenInvitedToEvent } from '../service/notification/subtype
 import { notifyTransfertOwnership } from '../service/notification/subtype/transfert-ownership';
 /*eslint-enable*/
 import ForbidenError from '../helpers/errors/forbiden';
+import ServerError from '../helpers/errors/server.error';
 
 export default {
   async createOne(req: Request, res: Response) {
@@ -21,7 +22,7 @@ export default {
     deleteDecodedKey(req.body);
     const { participants: ids, ...data } = req.body;
 
-    const eventId = await Event.createOne({
+    const event = await Event.create({
       organizer_id: data.organizer_id,
       status_name: 'open',
       date: data.date,
@@ -29,9 +30,10 @@ export default {
       location: data.location,
       required_participants: data.required_participants,
     });
+    if (!event) throw new ServerError('Failed to create event');
 
     await ProfileOnEvent.createOne({
-      event_id: eventId,
+      event_id: event.id,
       profile_id: data.organizer_id,
       status_name: 'confirmed',
     });
@@ -40,12 +42,12 @@ export default {
       const participantsToInvite = ids.map((id: number) => {
         return {
           profile_id: id,
-          event_id: eventId,
+          event_id: event.id,
           status_name: 'pending',
         };
       });
       await ProfileOnEvent.createMany(participantsToInvite);
-      notifyUserHasBeenInvitedToEvent(eventId, data.organizer_id, ids);
+      notifyUserHasBeenInvitedToEvent(event.id, data.organizer_id, ids);
       // send notification to invited users here
     }
     res.status(201).json({
@@ -65,7 +67,7 @@ export default {
     // only the organize can update the event
     deleteDecodedKey(req.body);
     const { event_id, profile_id, ...data } = req.body;
-    const event = await Event.findByPk(event_id);
+    const event = await Event.findOne({ id: event_id });
     const possibleFieldsUpdated = [
       'date',
       'duration',
@@ -90,7 +92,7 @@ export default {
       return res.status(201).json({
         message: 'Nothing to update',
       });
-    const isUpdated = await Event.update(event_id, data);
+    const isUpdated = await Event.updateOne({ id: event_id }, data);
 
     notifyEventInfosHasBeenUpdated(event_id);
 
@@ -102,7 +104,7 @@ export default {
     deleteDecodedKey(req.body);
     const { event_id, organizer_id, new_organizer_id } = req.body;
 
-    const event = await Event.findByPk(event_id);
+    const event = await Event.findOne({ id: event_id });
     if (!event || event.organizer_id !== organizer_id)
       throw new ForbidenError(
         'Operation not allowed : you are not the organizer',
@@ -111,9 +113,12 @@ export default {
         '63',
       );
 
-    const isUpdated = await Event.update(event_id, {
-      organizer_id: new_organizer_id,
-    });
+    const isUpdated = await Event.updateOne(
+      { id: event_id },
+      {
+        organizer_id: new_organizer_id,
+      },
+    );
 
     if (isUpdated) {
       await notifyTransfertOwnership(event_id, organizer_id, new_organizer_id);
@@ -131,13 +136,13 @@ export default {
       req.params.profileId,
     );
 
-    const event = await Event.findByPk(eventId);
+    const event = await Event.findOne({ id: eventId });
 
     if (!event) throw new NotFoundError('No event');
     if (event.organizer_id !== profileId)
       throw new AuthorizationError('Operation not allowed');
 
-    const isDeleted = await Event.delete(eventId);
+    const isDeleted = await Event.deleteOne({ id: eventId });
 
     res.status(204).json({
       success: isDeleted,

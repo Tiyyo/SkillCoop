@@ -44,7 +44,7 @@ async function seed() {
   ];
 
   for await (const item of status) {
-    await Status.create({ name: item.name, created_at: todayUTCString });
+    await Status.createOne({ name: item.name, created_at: todayUTCString });
   }
 
   const notificationTypes = [
@@ -55,7 +55,7 @@ async function seed() {
   ];
 
   for await (const item of notificationTypes) {
-    await NotificationType.create({
+    await NotificationType.createOne({
       name: item.name,
       created_at: todayUTCString,
     });
@@ -141,9 +141,9 @@ async function seed() {
       password: infos.password,
     });
     if (!user) return logger.error('Error while creating user');
-    await User.update(user.id, { verified: 1 });
+    await User.updateOne({ id: user.id }, { verified: 1 });
 
-    const profile = await Profile.createOne({
+    const profile = await Profile.create({
       user_id: user.id,
       username: infos.username,
       first_name: infos.first_name,
@@ -154,7 +154,7 @@ async function seed() {
 
     if (!profile) return;
 
-    await SkillFoot.create({
+    await SkillFoot.createOne({
       pace: faker.number.int({ min: 50, max: 100 }),
       shooting: faker.number.int({ min: 50, max: 100 }),
       passing: faker.number.int({ min: 50, max: 100 }),
@@ -171,19 +171,18 @@ async function seed() {
   const arrayToIterateOn = new Array(NB_USERS_TO_CREATE).fill(1);
   //eslint-disable-next-line
   for await (const _ of arrayToIterateOn) {
-    const user = await User.createUser({
+    const user = await User.create({
       email: faker.internet.email(),
       password: faker.internet.password(),
-      created_at: todayUTCString,
     });
 
     const avatarUrl = faker.internet.avatar();
-    await Image.create({ url: avatarUrl, created_at: todayUTCString });
+    await Image.createOne({ url: avatarUrl, created_at: todayUTCString });
 
     const randomDate = faker.date.birthdate({ max: 2002, min: 1980 });
     const birthdate = getUTCString(randomDate);
 
-    const profile = await Profile.createOne({
+    const profile = await Profile.create({
       user_id: user.id,
       username: faker.internet.userName().toLowerCase(),
       first_name: faker.person.firstName(),
@@ -195,7 +194,7 @@ async function seed() {
 
     if (!profile) return;
 
-    await SkillFoot.create({
+    await SkillFoot.createOne({
       pace: faker.number.int({ min: 10, max: 100 }),
       shooting: faker.number.int({ min: 10, max: 100 }),
       passing: faker.number.int({ min: 10, max: 100 }),
@@ -211,16 +210,15 @@ async function seed() {
   const arrayToIterateOnTwo = new Array(NB_USERS_TO_CREATE).fill(1);
   //eslint-disable-next-line
   for await (const _ of arrayToIterateOnTwo) {
-    const user = await User.createUser({
+    const user = await User.create({
       email: faker.internet.email(),
       password: faker.internet.password(),
-      created_at: todayUTCString,
     });
 
     const randomDate = faker.date.birthdate({ max: 2002, min: 1980 });
     const birthdate = getUTCString(randomDate);
 
-    const profile = await Profile.createOne({
+    const profile = await Profile.create({
       user_id: user.id,
       username: faker.internet.userName().toLowerCase(),
       first_name: faker.person.firstName(),
@@ -231,7 +229,7 @@ async function seed() {
 
     if (!profile) return;
 
-    await SkillFoot.create({
+    await SkillFoot.createOne({
       pace: faker.number.int({ min: 10, max: 100 }),
       shooting: faker.number.int({ min: 10, max: 100 }),
       passing: faker.number.int({ min: 10, max: 100 }),
@@ -286,7 +284,7 @@ async function seed() {
     const randomDate = faker.date.past();
     const date = getUTCString(randomDate);
 
-    const eventId = await Event.create({
+    const event = await Event.create({
       date,
       duration: 90,
       location: faker.location.city(),
@@ -295,10 +293,11 @@ async function seed() {
       status_name: 'completed',
       created_at: todayUTCString,
     });
+    if (!event) return logger.error('Failed to create event');
 
     // add score to each event
-    await Score.create({
-      event_id: Number(eventId),
+    await Score.createOne({
+      event_id: Number(event.id),
       score_team_1: faker.number.int({ min: 0, max: 20 }),
       score_team_2: faker.number.int({ min: 0, max: 20 }),
       created_at: todayUTCString,
@@ -311,9 +310,9 @@ async function seed() {
     ).fill(1);
 
     arrayToIterateOnParticipants.forEach(async (_, index) => {
-      await Participant.create({
-        event_id: eventId,
+      await Participant.createOne({
         profile_id: index + 1,
+        event_id: event.id,
         team: index < 5 ? 1 : 2,
         status_name: 'confirmed',
         created_at: todayUTCString,
@@ -332,7 +331,7 @@ async function seed() {
     const randomDate = faker.date.future();
     const date = getUTCString(randomDate);
 
-    const eventId = await Event.create({
+    const event = await Event.create({
       date,
       duration: 90,
       location: faker.location.city(),
@@ -341,7 +340,7 @@ async function seed() {
       status_name: 'full',
       created_at: todayUTCString,
     });
-
+    if (!event) return logger.error('Failed to create event');
     // add 10 participants to each event
     const NB_PARTICIPANTS_TO_CREATE = 10;
     const arrayToIterateOnParticipants = new Array(
@@ -349,8 +348,8 @@ async function seed() {
     ).fill(1);
 
     arrayToIterateOnParticipants.forEach(async (_, index) => {
-      await Participant.create({
-        event_id: Number(eventId),
+      await Participant.createOne({
+        event_id: event.id,
         profile_id: index + 1,
         status_name: 'confirmed',
         team: index < 5 ? 1 : 2,
@@ -371,7 +370,7 @@ async function seed() {
     const date = getUTCString(randomDate);
     const organizerId = getRandomIntInclusive(1, 24);
 
-    const eventId = await Event.create({
+    const event = await Event.create({
       date,
       duration: 90,
       location: faker.location.city(),
@@ -380,16 +379,17 @@ async function seed() {
       status_name: 'completed',
       created_at: todayUTCString,
     });
+    if (!event) return logger.error('Failed to create event');
 
-    await Score.create({
-      event_id: Number(eventId),
+    await Score.createOne({
+      event_id: event.id,
       score_team_1: faker.number.int({ min: 0, max: 20 }),
       score_team_2: faker.number.int({ min: 0, max: 20 }),
       created_at: todayUTCString,
     });
 
-    await Participant.create({
-      event_id: Number(eventId),
+    await Participant.createOne({
+      event_id: event.id,
       profile_id: organizerId,
       status_name: 'confirmed',
       team: 1,
@@ -407,8 +407,8 @@ async function seed() {
       const unuserInt = getIntUnused(intAlreadyUsed);
       if (!unuserInt) return logger.error('Failed to get an unused int');
       intAlreadyUsed.push(unuserInt);
-      Participant.create({
-        event_id: Number(eventId),
+      Participant.createOne({
+        event_id: event.id,
         profile_id: unuserInt,
         status_name: 'confirmed',
         team: index < 4 ? 1 : 2,
@@ -428,7 +428,7 @@ async function seed() {
     const date = getUTCString(randomDate);
     const randomInt = getRandomIntInclusive(1, 24);
 
-    const eventId = await Event.create({
+    const event = await Event.create({
       date,
       duration: 90,
       location: faker.location.city(),
@@ -437,9 +437,10 @@ async function seed() {
       status_name: 'full',
       created_at: todayUTCString,
     });
+    if (!event) return logger.error('Failed to create event');
 
-    await Participant.create({
-      event_id: Number(eventId),
+    await Participant.createOne({
+      event_id: event.id,
       profile_id: randomInt,
       status_name: 'confirmed',
       team: 1,
@@ -460,8 +461,8 @@ async function seed() {
       if (!unuserInt) return logger.error('Failed to get an unused int');
       intAlreadyUsed.push(unuserInt);
 
-      await Participant.create({
-        event_id: Number(eventId),
+      await Participant.createOne({
+        event_id: event.id,
         profile_id: unuserInt,
         status_name: 'confirmed',
         team: index < 4 ? 1 : 2,
@@ -481,7 +482,7 @@ async function seed() {
   for await (const _ of arrayToIterateOnOpenEvents) {
     const randomDate = faker.date.future();
     const date = getUTCString(randomDate);
-    const eventId = await Event.create({
+    const event = await Event.create({
       date,
       duration: 90,
       location: faker.location.city(),
@@ -490,10 +491,10 @@ async function seed() {
       status_name: 'open',
       created_at: todayUTCString,
     });
-
+    if (!event) return logger.error('Failed to create event');
     openParticipants.forEach(async (_, index) => {
-      await Participant.create({
-        event_id: Number(eventId),
+      await Participant.createOne({
+        event_id: event.id,
         profile_id: index + 1,
         status_name: index < 3 ? 'confirmed' : 'pending',
         created_at: todayUTCString,

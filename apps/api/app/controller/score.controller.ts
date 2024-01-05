@@ -9,15 +9,17 @@ export default {
     deleteDecodedKey(req.body);
     const { score_team_1, score_team_2, event_id } = req.body;
 
-    await Score.create({
+    await Score.createOne({
       score_team_1,
       score_team_2,
       event_id,
-      created_at: '',
     });
-    const isUpdate = await Event.update(event_id, {
-      status_name: eventStatus.completed,
-    });
+    const isUpdate = await Event.updateOne(
+      { id: event_id },
+      {
+        status_name: eventStatus.completed,
+      },
+    );
 
     res.status(201).json({ success: isUpdate });
   },

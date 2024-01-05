@@ -37,7 +37,8 @@ export class Profile extends Core<typeof tableNames.profile> {
   //     throw new DatabaseError(error);
   //   }
   // }
-  async findOne(id: number) {
+
+  async find(id: number) {
     const [profile] = await this.client
       .selectFrom('profile')
       .select([
@@ -96,7 +97,7 @@ export class Profile extends Core<typeof tableNames.profile> {
   }
   // TODO define a type for data
   // TODO change name of this method
-  async createOne(data: InsertObjectOrList<DB, typeof tableNames.profile>) {
+  async create(data: InsertObjectOrList<DB, typeof tableNames.profile>) {
     const todayUTCString = getFormattedUTCTimestamp();
     //@ts-ignore
     data.created_at = todayUTCString;
@@ -114,27 +115,27 @@ export class Profile extends Core<typeof tableNames.profile> {
     }
   }
   // TODO define a type for data
-  async updateProfile(data: { profile_id: number; avatar_url?: string }) {
-    const todayUTCString = getFormattedUTCTimestamp();
-    //@ts-ignore
-    data.updated_at = todayUTCString;
+  // async updateProfile(data: { profile_id: number; avatar_url?: string }) {
+  //   const todayUTCString = getFormattedUTCTimestamp();
+  //   //@ts-ignore
+  //   data.updated_at = todayUTCString;
 
-    const { profile_id, ...rest } = data;
-    const profileIdConvertedNumber = Number(profile_id);
-    try {
-      const result = await this.client
-        .updateTable('profile')
-        .set({
-          ...rest,
-        })
-        .where('profile.id', '=', profileIdConvertedNumber)
-        .executeTakeFirst();
+  //   const { profile_id, ...rest } = data;
+  //   const profileIdConvertedNumber = Number(profile_id);
+  //   try {
+  //     const result = await this.client
+  //       .updateTable('profile')
+  //       .set({
+  //         ...rest,
+  //       })
+  //       .where('profile.id', '=', profileIdConvertedNumber)
+  //       .executeTakeFirst();
 
-      return !!result.numUpdatedRows;
-    } catch (error) {
-      throw new DatabaseError(error);
-    }
-  }
+  //     return !!result.numUpdatedRows;
+  //   } catch (error) {
+  //     throw new DatabaseError(error);
+  //   }
+  // }
   async findByUserId(id: number) {
     try {
       const [result] = await this.client

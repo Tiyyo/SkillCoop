@@ -11,7 +11,7 @@
 <link href="..\..\..\assets\source-file.css" type="text/css" rel="stylesheet">
     </head>
     <body>
-    <div style="margin-top:3em" class="ui container"><h1 class="ui header"><a href="..\..\..\index.html">TypeScript coverage report</a></h1><table style="margin-top:2em" class="ui celled table"><thead class=""><tr class=""><th class="">Filename</th><th class="">Percent</th><th class="">Threshold</th><th class="">Total</th><th class="">Covered</th><th class="">Uncovered</th></tr></thead><tbody class=""><tr class="positive"><td class="">app\controller\user.controller.ts</td><td class="">86.71%</td><td class="">80%</td><td class="">143</td><td class="">124</td><td class="">19</td></tr></tbody></table><textarea id="editor" readonly="" style="margin-top:3em">import { Request, Response } from &#x27;express&#x27;;
+    <div style="margin-top:3em" class="ui container"><h1 class="ui header"><a href="..\..\..\index.html">TypeScript coverage report</a></h1><table style="margin-top:2em" class="ui celled table"><thead class=""><tr class=""><th class="">Filename</th><th class="">Percent</th><th class="">Threshold</th><th class="">Total</th><th class="">Covered</th><th class="">Uncovered</th></tr></thead><tbody class=""><tr class="positive"><td class="">app\controller\user.controller.ts</td><td class="">87.33%</td><td class="">80%</td><td class="">150</td><td class="">131</td><td class="">19</td></tr></tbody></table><textarea id="editor" readonly="" style="margin-top:3em">import { Request, Response } from &#x27;express&#x27;;
 import { profile as Profile } from &#x27;../models/index&#x27;;
 import { image as Image } from &#x27;../models/index&#x27;;
 import { user as User } from &#x27;../models/index&#x27;;
@@ -26,7 +26,7 @@ export default {
     const userProfile = await Profile.findByUserId(userId);
 
     if (!userProfile) {
-      await Profile.create({ user_id: userId });
+      await Profile.create({ user_id: userId, created_at: &#x27;&#x27; });
       const createdUserProfile = await Profile.findByUserId(userId);
       return res.status(200).json({ userProfile: createdUserProfile });
     }
@@ -35,14 +35,14 @@ export default {
   updateEmail: async (req: Request, res: Response) =&gt; {
     const { email, user_id } = req.body;
 
-    const userProfile = await User.update(user_id, { email });
+    const userProfile = await User.updateOne({ id: user_id }, { email });
 
     res.status(200).json({ success: userProfile, new_email: email });
   },
   updatePassword: async (req: Request, res: Response) =&gt; {
     const { old_password, new_password, user_id } = req.body;
 
-    const user = await User.findByPk(user_id);
+    const user = await User.findOne({ id: user_id });
 
     // check if old password match
     // create a new hash password
@@ -54,7 +54,10 @@ export default {
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(new_password, saltRounds);
 
-    const isUpdate = await User.update(user_id, { password: hashedPassword });
+    const isUpdate = await User.updateOne(
+      { id: user_id },
+      { password: hashedPassword },
+    );
 
     res.status(200).json({ success: isUpdate });
   },
@@ -68,14 +71,17 @@ export default {
       throw new AuthorizationError(&#x27;Operation not allowed&#x27;);
     }
     const profile = await Profile.findByUserId(userId);
-    await Image.deleteBy({ url: profile.avatar_url });
 
-    const isDeleted = await User.delete(userId);
+    if (profile?.avatar_url) {
+      await Image.deleteOne({ url: profile.avatar_url });
+    }
+
+    const isDeleted = await User.deleteOne({ id: userId });
     res.status(204).json({ success: isDeleted });
   },
 };
-</textarea><pre id="annotations" style="display:none">[{&quot;file&quot;:&quot;app\\controller\\user.controller.ts&quot;,&quot;line&quot;:10,&quot;character&quot;:12,&quot;text&quot;:&quot;decoded&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\user.controller.ts&quot;,&quot;line&quot;:10,&quot;character&quot;:28,&quot;text&quot;:&quot;body&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\user.controller.ts&quot;,&quot;line&quot;:11,&quot;character&quot;:10,&quot;text&quot;:&quot;userId&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\user.controller.ts&quot;,&quot;line&quot;:11,&quot;character&quot;:19,&quot;text&quot;:&quot;decoded&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\user.controller.ts&quot;,&quot;line&quot;:11,&quot;character&quot;:27,&quot;text&quot;:&quot;user_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\user.controller.ts&quot;,&quot;line&quot;:22,&quot;character&quot;:12,&quot;text&quot;:&quot;email&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\user.controller.ts&quot;,&quot;line&quot;:22,&quot;character&quot;:19,&quot;text&quot;:&quot;user_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\user.controller.ts&quot;,&quot;line&quot;:22,&quot;character&quot;:35,&quot;text&quot;:&quot;body&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\user.controller.ts&quot;,&quot;line&quot;:26,&quot;character&quot;:49,&quot;text&quot;:&quot;new_email&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\user.controller.ts&quot;,&quot;line&quot;:26,&quot;character&quot;:60,&quot;text&quot;:&quot;email&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\user.controller.ts&quot;,&quot;line&quot;:29,&quot;character&quot;:12,&quot;text&quot;:&quot;old_password&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\user.controller.ts&quot;,&quot;line&quot;:29,&quot;character&quot;:26,&quot;text&quot;:&quot;new_password&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\user.controller.ts&quot;,&quot;line&quot;:29,&quot;character&quot;:40,&quot;text&quot;:&quot;user_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\user.controller.ts&quot;,&quot;line&quot;:29,&quot;character&quot;:56,&quot;text&quot;:&quot;body&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\user.controller.ts&quot;,&quot;line&quot;:49,&quot;character&quot;:10,&quot;text&quot;:&quot;tokenUserId&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\user.controller.ts&quot;,&quot;line&quot;:49,&quot;character&quot;:28,&quot;text&quot;:&quot;body&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\user.controller.ts&quot;,&quot;line&quot;:49,&quot;character&quot;:33,&quot;text&quot;:&quot;decoded&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\user.controller.ts&quot;,&quot;line&quot;:49,&quot;character&quot;:41,&quot;text&quot;:&quot;user_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\user.controller.ts&quot;,&quot;line&quot;:51,&quot;character&quot;:19,&quot;text&quot;:&quot;tokenUserId&quot;,&quot;kind&quot;:1}]</pre></div>
-    <p class="footer-text">TypeScript Coverage Report generated by <a href="https://github.com/plantain-00/type-coverage">type-coverage</a> and <a href="https://github.com/alexcanessa/typescript-coverage-report">typescript-coverage-report</a> at Thu, 04 Jan 2024 18:32:37 GMT</p>
+</textarea><pre id="annotations" style="display:none">[{&quot;file&quot;:&quot;app\\controller\\user.controller.ts&quot;,&quot;line&quot;:10,&quot;character&quot;:12,&quot;text&quot;:&quot;decoded&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\user.controller.ts&quot;,&quot;line&quot;:10,&quot;character&quot;:28,&quot;text&quot;:&quot;body&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\user.controller.ts&quot;,&quot;line&quot;:11,&quot;character&quot;:10,&quot;text&quot;:&quot;userId&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\user.controller.ts&quot;,&quot;line&quot;:11,&quot;character&quot;:19,&quot;text&quot;:&quot;decoded&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\user.controller.ts&quot;,&quot;line&quot;:11,&quot;character&quot;:27,&quot;text&quot;:&quot;user_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\user.controller.ts&quot;,&quot;line&quot;:22,&quot;character&quot;:12,&quot;text&quot;:&quot;email&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\user.controller.ts&quot;,&quot;line&quot;:22,&quot;character&quot;:19,&quot;text&quot;:&quot;user_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\user.controller.ts&quot;,&quot;line&quot;:22,&quot;character&quot;:35,&quot;text&quot;:&quot;body&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\user.controller.ts&quot;,&quot;line&quot;:26,&quot;character&quot;:49,&quot;text&quot;:&quot;new_email&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\user.controller.ts&quot;,&quot;line&quot;:26,&quot;character&quot;:60,&quot;text&quot;:&quot;email&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\user.controller.ts&quot;,&quot;line&quot;:29,&quot;character&quot;:12,&quot;text&quot;:&quot;old_password&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\user.controller.ts&quot;,&quot;line&quot;:29,&quot;character&quot;:26,&quot;text&quot;:&quot;new_password&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\user.controller.ts&quot;,&quot;line&quot;:29,&quot;character&quot;:40,&quot;text&quot;:&quot;user_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\user.controller.ts&quot;,&quot;line&quot;:29,&quot;character&quot;:56,&quot;text&quot;:&quot;body&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\user.controller.ts&quot;,&quot;line&quot;:52,&quot;character&quot;:10,&quot;text&quot;:&quot;tokenUserId&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\user.controller.ts&quot;,&quot;line&quot;:52,&quot;character&quot;:28,&quot;text&quot;:&quot;body&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\user.controller.ts&quot;,&quot;line&quot;:52,&quot;character&quot;:33,&quot;text&quot;:&quot;decoded&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\user.controller.ts&quot;,&quot;line&quot;:52,&quot;character&quot;:41,&quot;text&quot;:&quot;user_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\user.controller.ts&quot;,&quot;line&quot;:54,&quot;character&quot;:19,&quot;text&quot;:&quot;tokenUserId&quot;,&quot;kind&quot;:1}]</pre></div>
+    <p class="footer-text">TypeScript Coverage Report generated by <a href="https://github.com/plantain-00/type-coverage">type-coverage</a> and <a href="https://github.com/alexcanessa/typescript-coverage-report">typescript-coverage-report</a> at Fri, 05 Jan 2024 16:47:28 GMT</p>
     </body>
   </html>
   

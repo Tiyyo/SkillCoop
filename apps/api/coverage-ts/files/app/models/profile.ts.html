@@ -11,46 +11,47 @@
 <link href="..\..\..\assets\source-file.css" type="text/css" rel="stylesheet">
     </head>
     <body>
-    <div style="margin-top:3em" class="ui container"><h1 class="ui header"><a href="..\..\..\index.html">TypeScript coverage report</a></h1><table style="margin-top:2em" class="ui celled table"><thead class=""><tr class=""><th class="">Filename</th><th class="">Percent</th><th class="">Threshold</th><th class="">Total</th><th class="">Covered</th><th class="">Uncovered</th></tr></thead><tbody class=""><tr class="positive"><td class="">app\models\profile.ts</td><td class="">97.01%</td><td class="">80%</td><td class="">234</td><td class="">227</td><td class="">7</td></tr></tbody></table><textarea id="editor" readonly="" style="margin-top:3em">//@ts-nocheck
-import DatabaseError from &#x27;../helpers/errors/database.error&#x27;;
+    <div style="margin-top:3em" class="ui container"><h1 class="ui header"><a href="..\..\..\index.html">TypeScript coverage report</a></h1><table style="margin-top:2em" class="ui celled table"><thead class=""><tr class=""><th class="">Filename</th><th class="">Percent</th><th class="">Threshold</th><th class="">Total</th><th class="">Covered</th><th class="">Uncovered</th></tr></thead><tbody class=""><tr class="positive"><td class="">app\models\profile.ts</td><td class="">99.06%</td><td class="">80%</td><td class="">213</td><td class="">211</td><td class="">2</td></tr></tbody></table><textarea id="editor" readonly="" style="margin-top:3em">import DatabaseError from &#x27;../helpers/errors/database.error&#x27;;
 import { sql } from &#x27;kysely&#x27;;
 import { Core } from &#x27;./core&#x27;;
 import NotFoundError from &#x27;../helpers/errors/not-found.error&#x27;;
-import { ProfileType } from &#x27;../@types/types&#x27;;
 import { getFormattedUTCTimestamp } from &#x27;date-handler&#x27;;
-import { TableNames } from &#x27;../@types/database&#x27;;
+import { DB, tableNames } from &#x27;../@types/database&#x27;;
 import { db } from &#x27;../helpers/client.db&#x27;;
+/*eslint-disable-next-line */
+import { InsertObjectOrList } from &#x27;kysely/dist/cjs/parser/insert-values-parser&#x27;;
 
 // TODO define a type for Profile
 
-export class Profile extends Core {
-  tableName: TableNames = &#x27;profile&#x27;;
-
+export class Profile extends Core&lt;typeof tableNames.profile&gt; {
   constructor(client: typeof db) {
     super(client);
+    this.tableName = tableNames.profile;
   }
-  async findAll() {
-    try {
-      const result = await this.client
-        .selectFrom(&#x27;profile&#x27;)
-        .select([
-          &#x27;profile.user_id&#x27;,
-          &#x27;profile.avatar_url&#x27;,
-          &#x27;profile.username&#x27;,
-          &#x27;profile.date_of_birth&#x27;,
-          &#x27;profile.first_name&#x27;,
-          &#x27;profile.last_name&#x27;,
-          &#x27;profile.location&#x27;,
-          &#x27;profile.id as profile_id&#x27;,
-        ])
-        .execute();
+  //TODO : change name of this method
+  // async findAll() {
+  //   try {
+  //     const result = await this.client
+  //       .selectFrom(&#x27;profile&#x27;)
+  //       .select([
+  //         &#x27;profile.user_id&#x27;,
+  //         &#x27;profile.avatar_url&#x27;,
+  //         &#x27;profile.username&#x27;,
+  //         &#x27;profile.date_of_birth&#x27;,
+  //         &#x27;profile.first_name&#x27;,
+  //         &#x27;profile.last_name&#x27;,
+  //         &#x27;profile.location&#x27;,
+  //         &#x27;profile.id as profile_id&#x27;,
+  //       ])
+  //       .execute();
 
-      return result;
-    } catch (error) {
-      throw new DatabaseError(error);
-    }
-  }
-  async findOne(id: number) {
+  //     return result;
+  //   } catch (error) {
+  //     throw new DatabaseError(error);
+  //   }
+  // }
+
+  async find(id: number) {
     const [profile] = await this.client
       .selectFrom(&#x27;profile&#x27;)
       .select([
@@ -65,7 +66,7 @@ export class Profile extends Core {
         &#x27;profile.last_evaluation&#x27;,
         &#x27;profile.id as profile_id&#x27;,
       ])
-      .where(&#x27;profile_id&#x27;, &#x27;=&#x27;, id)
+      .where(&#x27;profile.id&#x27;, &#x27;=&#x27;, id)
       .execute();
 
     const [nbReview] = await this.client
@@ -108,13 +109,16 @@ export class Profile extends Core {
     return spreadProfile;
   }
   // TODO define a type for data
-  async create(data: Record&lt;string, string | number&gt;) {
+  // TODO change name of this method
+  async create(data: InsertObjectOrList&lt;DB, typeof tableNames.profile&gt;) {
     const todayUTCString = getFormattedUTCTimestamp();
+    //@ts-ignore
     data.created_at = todayUTCString;
+
     try {
       const result = await this.client
         .insertInto(&#x27;profile&#x27;)
-        .values({ ...data })
+        .values(data)
         .returning(&#x27;id&#x27;)
         .executeTakeFirst();
 
@@ -124,29 +128,30 @@ export class Profile extends Core {
     }
   }
   // TODO define a type for data
-  async updateProfile(data: { profile_id: number; avatar_url?: string }) {
-    const todayUTCString = getFormattedUTCTimestamp();
-    data.updated_at = todayUTCString;
+  // async updateProfile(data: { profile_id: number; avatar_url?: string }) {
+  //   const todayUTCString = getFormattedUTCTimestamp();
+  //   //@ts-ignore
+  //   data.updated_at = todayUTCString;
 
-    const { profile_id, ...rest } = data;
-    const profileIdConvertedNumber = Number(profile_id);
-    try {
-      const result = await this.client
-        .updateTable(&#x27;profile&#x27;)
-        .set({
-          ...rest,
-        })
-        .where(&#x27;profile.id&#x27;, &#x27;=&#x27;, profileIdConvertedNumber)
-        .executeTakeFirst();
+  //   const { profile_id, ...rest } = data;
+  //   const profileIdConvertedNumber = Number(profile_id);
+  //   try {
+  //     const result = await this.client
+  //       .updateTable(&#x27;profile&#x27;)
+  //       .set({
+  //         ...rest,
+  //       })
+  //       .where(&#x27;profile.id&#x27;, &#x27;=&#x27;, profileIdConvertedNumber)
+  //       .executeTakeFirst();
 
-      return !!result.numUpdatedRows;
-    } catch (error) {
-      throw new DatabaseError(error);
-    }
-  }
+  //     return !!result.numUpdatedRows;
+  //   } catch (error) {
+  //     throw new DatabaseError(error);
+  //   }
+  // }
   async findByUserId(id: number) {
     try {
-      const [profile] = await this.client
+      const [result] = await this.client
         .selectFrom(&#x27;profile&#x27;)
         .select([
           &#x27;profile.user_id&#x27;,
@@ -156,11 +161,11 @@ export class Profile extends Core {
           &#x27;profile.first_name&#x27;,
           &#x27;profile.last_name&#x27;,
           &#x27;profile.location&#x27;,
-          &#x27;user.email as email&#x27;,
           &#x27;profile.id as profile_id&#x27;,
         ])
-        .leftJoin(&#x27;skill_foot&#x27;, &#x27;profile_id&#x27;, &#x27;skill_foot.reviewee_id&#x27;)
+        .leftJoin(&#x27;skill_foot&#x27;, &#x27;profile.id&#x27;, &#x27;skill_foot.reviewee_id&#x27;)
         .innerJoin(&#x27;user&#x27;, &#x27;user.id&#x27;, &#x27;profile.user_id&#x27;)
+        .select([&#x27;user.email as email&#x27;])
         .select(({ fn }) =&gt; [
           &#x27;profile.id&#x27;,
           fn.count(&#x27;skill_foot.id&#x27;).as(&#x27;nb_review&#x27;),
@@ -168,7 +173,7 @@ export class Profile extends Core {
         .where(&#x27;profile.user_id&#x27;, &#x27;=&#x27;, id)
         .groupBy(&#x27;profile.id&#x27;)
         .execute();
-      if (!profile) return null;
+      if (!result) return null;
 
       const [nbAttendedEvents] = await this.client
         .selectFrom(&#x27;profile_on_event&#x27;)
@@ -176,7 +181,7 @@ export class Profile extends Core {
           fn.count(&#x27;profile_on_event.event_id&#x27;).as(&#x27;nb_attended_events&#x27;),
         ])
         .innerJoin(&#x27;event&#x27;, &#x27;event.id&#x27;, &#x27;profile_on_event.event_id&#x27;)
-        .where(&#x27;profile_on_event.profile_id&#x27;, &#x27;=&#x27;, profile.profile_id)
+        .where(&#x27;profile_on_event.profile_id&#x27;, &#x27;=&#x27;, result.profile_id)
         .where(&#x27;event.status_name&#x27;, &#x27;=&#x27;, &#x27;completed&#x27;)
         .execute();
 
@@ -187,17 +192,24 @@ export class Profile extends Core {
           fn.count(&#x27;event.best_striker_id&#x27;).as(&#x27;nb_best_striker_bonus&#x27;),
         ])
         .where((eb) =&gt;
-          eb(&#x27;event.mvp_id&#x27;, &#x27;=&#x27;, profile.profile_id).or(
+          eb(&#x27;event.mvp_id&#x27;, &#x27;=&#x27;, result.profile_id).or(
             &#x27;event.best_striker_id&#x27;,
             &#x27;=&#x27;,
-            profile.profile_id,
+            result.profile_id,
           ),
         )
         .execute();
 
-      if (profile) {
-        profile.nb_attended_events = nbAttendedEvents.nb_attended_events ?? 0;
-        profile.nb_bonus = nbBonus ?? 0;
+      type ReturnTypeProfile = typeof result &amp; {
+        nb_attended_events: number;
+        nb_bonus: number;
+      };
+      const profile: Partial&lt;ReturnTypeProfile&gt; = result;
+
+      if (result) {
+        profile.nb_attended_events =
+          Number(nbAttendedEvents.nb_attended_events) ?? 0;
+        profile.nb_bonus = Number(nbBonus) ?? 0;
       }
       return profile;
     } catch (error) {
@@ -215,7 +227,7 @@ export class Profile extends Core {
     const offset = (page - 1) * 10;
 
     try {
-      const profiles = await sql&lt;ProfileType&gt;`
+      const profiles = await sql&lt;Profile&gt;`
       SELECT 
         profile.user_id,
         profile.avatar_url,
@@ -245,8 +257,8 @@ export class Profile extends Core {
     }
   }
 }
-</textarea><pre id="annotations" style="display:none">[{&quot;file&quot;:&quot;app\\models\\profile.ts&quot;,&quot;line&quot;:84,&quot;character&quot;:8,&quot;text&quot;:&quot;spreadProfile&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\models\\profile.ts&quot;,&quot;line&quot;:87,&quot;character&quot;:6,&quot;text&quot;:&quot;spreadProfile&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\models\\profile.ts&quot;,&quot;line&quot;:165,&quot;character&quot;:59,&quot;text&quot;:&quot;profile_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\models\\profile.ts&quot;,&quot;line&quot;:176,&quot;character&quot;:42,&quot;text&quot;:&quot;profile_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\models\\profile.ts&quot;,&quot;line&quot;:179,&quot;character&quot;:20,&quot;text&quot;:&quot;profile_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\models\\profile.ts&quot;,&quot;line&quot;:185,&quot;character&quot;:16,&quot;text&quot;:&quot;nb_attended_events&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\models\\profile.ts&quot;,&quot;line&quot;:186,&quot;character&quot;:16,&quot;text&quot;:&quot;nb_bonus&quot;,&quot;kind&quot;:1}]</pre></div>
-    <p class="footer-text">TypeScript Coverage Report generated by <a href="https://github.com/plantain-00/type-coverage">type-coverage</a> and <a href="https://github.com/alexcanessa/typescript-coverage-report">typescript-coverage-report</a> at Thu, 04 Jan 2024 18:32:37 GMT</p>
+</textarea><pre id="annotations" style="display:none">[{&quot;file&quot;:&quot;app\\models\\profile.ts&quot;,&quot;line&quot;:85,&quot;character&quot;:8,&quot;text&quot;:&quot;spreadProfile&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\models\\profile.ts&quot;,&quot;line&quot;:88,&quot;character&quot;:6,&quot;text&quot;:&quot;spreadProfile&quot;,&quot;kind&quot;:1}]</pre></div>
+    <p class="footer-text">TypeScript Coverage Report generated by <a href="https://github.com/plantain-00/type-coverage">type-coverage</a> and <a href="https://github.com/alexcanessa/typescript-coverage-report">typescript-coverage-report</a> at Fri, 05 Jan 2024 16:47:28 GMT</p>
     </body>
   </html>
   

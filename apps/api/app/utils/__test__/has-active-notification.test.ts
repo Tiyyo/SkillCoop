@@ -7,7 +7,7 @@ describe('hasActiveNotification', () => {
   });
   it('should return profile IDs with active notifications', async () => {
     // Mock findByPk to return different responses
-    Profile.findByPk = vi.fn().mockImplementation((id) =>
+    Profile.findOne = vi.fn().mockImplementation((id) =>
       Promise.resolve({
         id,
         active_notification: id % 2,
@@ -23,7 +23,7 @@ describe('hasActiveNotification', () => {
 
   it(`should return null if no profile 
     IDs have active notifications`, async () => {
-    Profile.findByPk = vi.fn().mockImplementation((id) =>
+    Profile.findOne = vi.fn().mockImplementation((id) =>
       Promise.resolve({
         id,
         active_notification: 0,

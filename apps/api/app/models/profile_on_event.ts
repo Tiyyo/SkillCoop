@@ -2,8 +2,11 @@ import { getFormattedUTCTimestamp } from 'date-handler';
 import DatabaseError from '../helpers/errors/database.error';
 import UserInputError from '../helpers/errors/user-input.error';
 import { Core } from './core';
-import { tableNames } from '../@types/database';
+import { DB, tableNames } from '../@types/database';
 import { db } from '../helpers/client.db';
+import NotFoundError from '../helpers/errors/not-found.error';
+import { InsertObject, ReferenceExpression } from 'kysely';
+import { ExtractTableAlias } from 'kysely/dist/cjs/parser/table-parser';
 
 export class ProfileOnEvent extends Core<typeof tableNames.profile_on_event> {
   constructor(client: typeof db) {
@@ -20,7 +23,7 @@ export class ProfileOnEvent extends Core<typeof tableNames.profile_on_event> {
     const todayUTCString = getFormattedUTCTimestamp();
     data.updated_at = todayUTCString;
 
-    //TODO check if a pending invitation exist
+    //check if a pending invitation exist
     try {
       const participantExistence = await this.client
         .selectFrom(this.tableName)
@@ -46,21 +49,41 @@ export class ProfileOnEvent extends Core<typeof tableNames.profile_on_event> {
       throw new DatabaseError(error);
     }
   }
-  async updateUnionFk(
-    profileId: number,
-    eventId: number,
-    data: Record<string, string | number>,
-  ) {
-    const todayUTCString = getFormattedUTCTimestamp();
-    data.updated_at = todayUTCString;
+  async find(findObject: Partial<InsertObject<DB, typeof this.tableName>>) {
+    const keys = Object.keys(findObject) as ReferenceExpression<
+      DB,
+      ExtractTableAlias<DB, typeof this.tableName>
+    >[];
+    const values = Object.values(findObject);
+    try {
+      let promise = this.client.selectFrom(this.tableName).selectAll();
 
-    const result = await this.client
-      .updateTable(this.tableName)
-      .set({ ...data })
-      .where('profile_id', '=', profileId)
-      .where('event_id', '=', eventId)
-      .executeTakeFirst();
+      keys.forEach((key, index) => {
+        promise = promise.where(key, '=', values[index]);
+      });
 
-    return !!result.numUpdatedRows;
+      const result = await promise.execute();
+      if (!result || result.length === 0) throw new NotFoundError('Not found');
+      return result;
+    } catch (error) {
+      throw new DatabaseError(error);
+    }
   }
+  // async updateUnionFk(
+  //   profileId: number,
+  //   eventId: number,
+  //   data: Record<string, string | number>,
+  // ) {
+  //   const todayUTCString = getFormattedUTCTimestamp();
+  //   data.updated_at = todayUTCString;
+
+  //   const result = await this.client
+  //     .updateTable(this.tableName)
+  //     .set({ ...data })
+  //     .where('profile_id', '=', profileId)
+  //     .where('event_id', '=', eventId)
+  //     .executeTakeFirst();
+
+  //   return !!result.numUpdatedRows;
+  // }
 }

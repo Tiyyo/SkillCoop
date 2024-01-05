@@ -87,6 +87,14 @@ export class Core<TTableNames extends keyof DB> {
       throw new DatabaseError(error);
     }
   }
+  /**
+   *
+   * @param condition  An objetc with the form of {key: value} where
+     key is a column name and value is the value to compare
+   * @param updateObject An object with the form of {key: value} where
+      
+   * @returns
+   */
   async updateOne(
     condition: UpdateObject<
       DB,

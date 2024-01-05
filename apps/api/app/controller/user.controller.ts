@@ -22,14 +22,14 @@ export default {
   updateEmail: async (req: Request, res: Response) => {
     const { email, user_id } = req.body;
 
-    const userProfile = await User.update(user_id, { email });
+    const userProfile = await User.updateOne({ id: user_id }, { email });
 
     res.status(200).json({ success: userProfile, new_email: email });
   },
   updatePassword: async (req: Request, res: Response) => {
     const { old_password, new_password, user_id } = req.body;
 
-    const user = await User.findByPk(user_id);
+    const user = await User.findOne({ id: user_id });
 
     // check if old password match
     // create a new hash password
@@ -41,7 +41,10 @@ export default {
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(new_password, saltRounds);
 
-    const isUpdate = await User.update(user_id, { password: hashedPassword });
+    const isUpdate = await User.updateOne(
+      { id: user_id },
+      { password: hashedPassword },
+    );
 
     res.status(200).json({ success: isUpdate });
   },
@@ -57,10 +60,10 @@ export default {
     const profile = await Profile.findByUserId(userId);
 
     if (profile?.avatar_url) {
-      await Image.deleteBy({ url: profile.avatar_url });
+      await Image.deleteOne({ url: profile.avatar_url });
     }
 
-    const isDeleted = await User.delete(userId);
+    const isDeleted = await User.deleteOne({ id: userId });
     res.status(204).json({ success: isDeleted });
   },
 };

@@ -32,7 +32,7 @@ export class Friendlist extends Core<typeof tableNames.profile_on_profile> {
       throw new DatabaseError(error);
     }
   }
-  async findOne(adder_id: number, friend_id: number, status_name?: string) {
+  async find(adder_id: number, friend_id: number, status_name?: string) {
     try {
       let query = this.client
         .selectFrom(this.tableName)

@@ -11,7 +11,7 @@
 <link href="..\..\..\assets\source-file.css" type="text/css" rel="stylesheet">
     </head>
     <body>
-    <div style="margin-top:3em" class="ui container"><h1 class="ui header"><a href="..\..\..\index.html">TypeScript coverage report</a></h1><table style="margin-top:2em" class="ui celled table"><thead class=""><tr class=""><th class="">Filename</th><th class="">Percent</th><th class="">Threshold</th><th class="">Total</th><th class="">Covered</th><th class="">Uncovered</th></tr></thead><tbody class=""><tr class="positive"><td class="">app\controller\skill-foot.controller.ts</td><td class="">84.36%</td><td class="">80%</td><td class="">179</td><td class="">151</td><td class="">28</td></tr></tbody></table><textarea id="editor" readonly="" style="margin-top:3em">import { skillFoot as SkillFoot } from &#x27;../models/index&#x27;;
+    <div style="margin-top:3em" class="ui container"><h1 class="ui header"><a href="..\..\..\index.html">TypeScript coverage report</a></h1><table style="margin-top:2em" class="ui celled table"><thead class=""><tr class=""><th class="">Filename</th><th class="">Percent</th><th class="">Threshold</th><th class="">Total</th><th class="">Covered</th><th class="">Uncovered</th></tr></thead><tbody class=""><tr class="positive"><td class="">app\controller\skill-foot.controller.ts</td><td class="">88.83%</td><td class="">80%</td><td class="">179</td><td class="">159</td><td class="">20</td></tr></tbody></table><textarea id="editor" readonly="" style="margin-top:3em">import { skillFoot as SkillFoot } from &#x27;../models/index&#x27;;
 import { Request, Response } from &#x27;express&#x27;;
 import associateStringToNumber from &#x27;../utils/associate-string-number&#x27;;
 import UserInputError from &#x27;../helpers/errors/user-input.error&#x27;;
@@ -32,6 +32,7 @@ export default {
       defending: associateStringToNumber(defending),
       rater_id: profile_id,
       reviewee_id: profile_id,
+      created_at: &#x27;&#x27;,
     };
 
     const isAlereadyExist = await SkillFoot.findUniqueWithTwoClause({
@@ -42,7 +43,7 @@ export default {
     if (isAlereadyExist.length &gt; 0)
       throw new UserInputError(&quot;User can&#x27;t rate himself twice&quot;);
 
-    const skill = await SkillFoot.create(data);
+    const skill = await SkillFoot.createOne(data);
 
     res.status(201).send({ success: !!skill });
   },
@@ -52,16 +53,16 @@ export default {
       req.query.reviewee_id,
       req.query.event_id,
     );
-    const skill = await SkillFoot.findBy({ rater_id, reviewee_id, event_id });
+    const skill = await SkillFoot.findOne({ rater_id, reviewee_id, event_id });
 
-    if (skill.length === 0) return res.status(200).json({ rating: null });
+    if (!skill) return res.status(200).json({ rating: null });
 
     const average = computeGbRating({
-      avg_pace: skill[0].pace,
-      avg_shooting: skill[0].shooting,
-      avg_passing: skill[0].passing,
-      avg_dribbling: skill[0].dribbling,
-      avg_defending: skill[0].defending,
+      avg_pace: skill.pace,
+      avg_shooting: skill.shooting,
+      avg_passing: skill.passing,
+      avg_dribbling: skill.dribbling,
+      avg_defending: skill.defending,
     });
 
     res.status(200).json({ rating: average });
@@ -78,18 +79,18 @@ export default {
       event_id,
     } = req.body;
 
-    const isAlereadyExist = await SkillFoot.findBy({
+    const isAlereadyExist = await SkillFoot.findOne({
       rater_id,
       reviewee_id,
       event_id,
     });
 
-    if (isAlereadyExist.length &gt; 0)
+    if (isAlereadyExist)
       throw new UserInputError(
         &quot;User can&#x27;t rate the same player twice per event&quot;,
       );
 
-    const skill = await SkillFoot.create({
+    const skill = await SkillFoot.createOne({
       pace,
       shooting,
       passing,
@@ -98,6 +99,7 @@ export default {
       rater_id,
       reviewee_id,
       event_id,
+      created_at: &#x27;&#x27;,
     });
 
     res.status(201).send(!!skill);
@@ -117,8 +119,8 @@ export default {
     }
   },
 };
-</textarea><pre id="annotations" style="display:none">[{&quot;file&quot;:&quot;app\\controller\\skill-foot.controller.ts&quot;,&quot;line&quot;:10,&quot;character&quot;:12,&quot;text&quot;:&quot;pace&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\skill-foot.controller.ts&quot;,&quot;line&quot;:10,&quot;character&quot;:18,&quot;text&quot;:&quot;shooting&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\skill-foot.controller.ts&quot;,&quot;line&quot;:10,&quot;character&quot;:28,&quot;text&quot;:&quot;passing&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\skill-foot.controller.ts&quot;,&quot;line&quot;:10,&quot;character&quot;:37,&quot;text&quot;:&quot;dribbling&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\skill-foot.controller.ts&quot;,&quot;line&quot;:10,&quot;character&quot;:48,&quot;text&quot;:&quot;defending&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\skill-foot.controller.ts&quot;,&quot;line&quot;:10,&quot;character&quot;:59,&quot;text&quot;:&quot;profile_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\skill-foot.controller.ts&quot;,&quot;line&quot;:11,&quot;character&quot;:10,&quot;text&quot;:&quot;body&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\skill-foot.controller.ts&quot;,&quot;line&quot;:19,&quot;character&quot;:6,&quot;text&quot;:&quot;rater_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\skill-foot.controller.ts&quot;,&quot;line&quot;:19,&quot;character&quot;:16,&quot;text&quot;:&quot;profile_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\skill-foot.controller.ts&quot;,&quot;line&quot;:20,&quot;character&quot;:6,&quot;text&quot;:&quot;reviewee_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\skill-foot.controller.ts&quot;,&quot;line&quot;:20,&quot;character&quot;:19,&quot;text&quot;:&quot;profile_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\skill-foot.controller.ts&quot;,&quot;line&quot;:57,&quot;character&quot;:6,&quot;text&quot;:&quot;pace&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\skill-foot.controller.ts&quot;,&quot;line&quot;:58,&quot;character&quot;:6,&quot;text&quot;:&quot;shooting&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\skill-foot.controller.ts&quot;,&quot;line&quot;:59,&quot;character&quot;:6,&quot;text&quot;:&quot;passing&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\skill-foot.controller.ts&quot;,&quot;line&quot;:60,&quot;character&quot;:6,&quot;text&quot;:&quot;dribbling&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\skill-foot.controller.ts&quot;,&quot;line&quot;:61,&quot;character&quot;:6,&quot;text&quot;:&quot;defending&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\skill-foot.controller.ts&quot;,&quot;line&quot;:62,&quot;character&quot;:6,&quot;text&quot;:&quot;rater_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\skill-foot.controller.ts&quot;,&quot;line&quot;:63,&quot;character&quot;:6,&quot;text&quot;:&quot;reviewee_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\skill-foot.controller.ts&quot;,&quot;line&quot;:64,&quot;character&quot;:6,&quot;text&quot;:&quot;event_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\skill-foot.controller.ts&quot;,&quot;line&quot;:65,&quot;character&quot;:12,&quot;text&quot;:&quot;body&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\skill-foot.controller.ts&quot;,&quot;line&quot;:79,&quot;character&quot;:6,&quot;text&quot;:&quot;pace&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\skill-foot.controller.ts&quot;,&quot;line&quot;:80,&quot;character&quot;:6,&quot;text&quot;:&quot;shooting&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\skill-foot.controller.ts&quot;,&quot;line&quot;:81,&quot;character&quot;:6,&quot;text&quot;:&quot;passing&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\skill-foot.controller.ts&quot;,&quot;line&quot;:82,&quot;character&quot;:6,&quot;text&quot;:&quot;dribbling&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\skill-foot.controller.ts&quot;,&quot;line&quot;:83,&quot;character&quot;:6,&quot;text&quot;:&quot;defending&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\skill-foot.controller.ts&quot;,&quot;line&quot;:84,&quot;character&quot;:6,&quot;text&quot;:&quot;rater_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\skill-foot.controller.ts&quot;,&quot;line&quot;:85,&quot;character&quot;:6,&quot;text&quot;:&quot;reviewee_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\skill-foot.controller.ts&quot;,&quot;line&quot;:86,&quot;character&quot;:6,&quot;text&quot;:&quot;event_id&quot;,&quot;kind&quot;:1}]</pre></div>
-    <p class="footer-text">TypeScript Coverage Report generated by <a href="https://github.com/plantain-00/type-coverage">type-coverage</a> and <a href="https://github.com/alexcanessa/typescript-coverage-report">typescript-coverage-report</a> at Thu, 04 Jan 2024 18:32:37 GMT</p>
+</textarea><pre id="annotations" style="display:none">[{&quot;file&quot;:&quot;app\\controller\\skill-foot.controller.ts&quot;,&quot;line&quot;:10,&quot;character&quot;:12,&quot;text&quot;:&quot;pace&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\skill-foot.controller.ts&quot;,&quot;line&quot;:10,&quot;character&quot;:18,&quot;text&quot;:&quot;shooting&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\skill-foot.controller.ts&quot;,&quot;line&quot;:10,&quot;character&quot;:28,&quot;text&quot;:&quot;passing&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\skill-foot.controller.ts&quot;,&quot;line&quot;:10,&quot;character&quot;:37,&quot;text&quot;:&quot;dribbling&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\skill-foot.controller.ts&quot;,&quot;line&quot;:10,&quot;character&quot;:48,&quot;text&quot;:&quot;defending&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\skill-foot.controller.ts&quot;,&quot;line&quot;:10,&quot;character&quot;:59,&quot;text&quot;:&quot;profile_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\skill-foot.controller.ts&quot;,&quot;line&quot;:11,&quot;character&quot;:10,&quot;text&quot;:&quot;body&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\skill-foot.controller.ts&quot;,&quot;line&quot;:19,&quot;character&quot;:6,&quot;text&quot;:&quot;rater_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\skill-foot.controller.ts&quot;,&quot;line&quot;:19,&quot;character&quot;:16,&quot;text&quot;:&quot;profile_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\skill-foot.controller.ts&quot;,&quot;line&quot;:20,&quot;character&quot;:6,&quot;text&quot;:&quot;reviewee_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\skill-foot.controller.ts&quot;,&quot;line&quot;:20,&quot;character&quot;:19,&quot;text&quot;:&quot;profile_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\skill-foot.controller.ts&quot;,&quot;line&quot;:58,&quot;character&quot;:6,&quot;text&quot;:&quot;pace&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\skill-foot.controller.ts&quot;,&quot;line&quot;:59,&quot;character&quot;:6,&quot;text&quot;:&quot;shooting&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\skill-foot.controller.ts&quot;,&quot;line&quot;:60,&quot;character&quot;:6,&quot;text&quot;:&quot;passing&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\skill-foot.controller.ts&quot;,&quot;line&quot;:61,&quot;character&quot;:6,&quot;text&quot;:&quot;dribbling&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\skill-foot.controller.ts&quot;,&quot;line&quot;:62,&quot;character&quot;:6,&quot;text&quot;:&quot;defending&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\skill-foot.controller.ts&quot;,&quot;line&quot;:63,&quot;character&quot;:6,&quot;text&quot;:&quot;rater_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\skill-foot.controller.ts&quot;,&quot;line&quot;:64,&quot;character&quot;:6,&quot;text&quot;:&quot;reviewee_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\skill-foot.controller.ts&quot;,&quot;line&quot;:65,&quot;character&quot;:6,&quot;text&quot;:&quot;event_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\skill-foot.controller.ts&quot;,&quot;line&quot;:66,&quot;character&quot;:12,&quot;text&quot;:&quot;body&quot;,&quot;kind&quot;:1}]</pre></div>
+    <p class="footer-text">TypeScript Coverage Report generated by <a href="https://github.com/plantain-00/type-coverage">type-coverage</a> and <a href="https://github.com/alexcanessa/typescript-coverage-report">typescript-coverage-report</a> at Fri, 05 Jan 2024 16:47:28 GMT</p>
     </body>
   </html>
   

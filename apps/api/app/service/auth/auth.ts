@@ -32,7 +32,7 @@ export default {
 
       if (!hashedPassword) throw new ServerError('hash password is missing');
 
-      const newUser = await User.createUser({
+      const newUser = await User.create({
         email,
         password: hashedPassword,
       });
@@ -96,11 +96,11 @@ export default {
 
     // We need to get user_id in order to update verified status
     // TODO look if we cannot get insert id when create a new user
-    const [userCreated] = await User.findBy({ email });
+    const userCreated = await User.findOne({ email });
 
     const username = `${given_name} ${family_name[0]}.`;
-    await User.update(userCreated.id, { verified: 1 });
-    await Image.create({ url: picture, created_at: '' });
+    await User.updateOne({ id: userCreated.id }, { verified: 1 });
+    await Image.createOne({ url: picture, created_at: '' });
     await Profile.createOne({
       username,
       avatar_url: picture,

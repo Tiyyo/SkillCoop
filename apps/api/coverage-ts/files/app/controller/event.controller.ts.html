@@ -11,7 +11,7 @@
 <link href="..\..\..\assets\source-file.css" type="text/css" rel="stylesheet">
     </head>
     <body>
-    <div style="margin-top:3em" class="ui container"><h1 class="ui header"><a href="..\..\..\index.html">TypeScript coverage report</a></h1><table style="margin-top:2em" class="ui celled table"><thead class=""><tr class=""><th class="">Filename</th><th class="">Percent</th><th class="">Threshold</th><th class="">Total</th><th class="">Covered</th><th class="">Uncovered</th></tr></thead><tbody class=""><tr class="positive"><td class="">app\controller\event.controller.ts</td><td class="">85.43%</td><td class="">80%</td><td class="">302</td><td class="">258</td><td class="">44</td></tr></tbody></table><textarea id="editor" readonly="" style="margin-top:3em">import { event as Event } from &#x27;../models/index&#x27;;
+    <div style="margin-top:3em" class="ui container"><h1 class="ui header"><a href="..\..\..\index.html">TypeScript coverage report</a></h1><table style="margin-top:2em" class="ui celled table"><thead class=""><tr class=""><th class="">Filename</th><th class="">Percent</th><th class="">Threshold</th><th class="">Total</th><th class="">Covered</th><th class="">Uncovered</th></tr></thead><tbody class=""><tr class="positive"><td class="">app\controller\event.controller.ts</td><td class="">87.86%</td><td class="">80%</td><td class="">313</td><td class="">275</td><td class="">38</td></tr></tbody></table><textarea id="editor" readonly="" style="margin-top:3em">import { event as Event } from &#x27;../models/index&#x27;;
 import { profileOnEvent as ProfileOnEvent } from &#x27;../models/index&#x27;;
 import { Request, Response } from &#x27;express&#x27;;
 import AuthorizationError from &#x27;../helpers/errors/unauthorized.error&#x27;;
@@ -25,16 +25,17 @@ import { notifyUserHasBeenInvitedToEvent } from &#x27;../service/notification/su
 import { notifyTransfertOwnership } from &#x27;../service/notification/subtype/transfert-ownership&#x27;;
 /*eslint-enable*/
 import ForbidenError from &#x27;../helpers/errors/forbiden&#x27;;
+import ServerError from &#x27;../helpers/errors/server.error&#x27;;
 
 export default {
   async createOne(req: Request, res: Response) {
     // create one event
     // add organizer to the event
-    // add organizer to the participant list to this event
+    // add organizer to the participant list
     deleteDecodedKey(req.body);
     const { participants: ids, ...data } = req.body;
 
-    const eventId = await Event.create({
+    const event = await Event.create({
       organizer_id: data.organizer_id,
       status_name: &#x27;open&#x27;,
       date: data.date,
@@ -42,9 +43,10 @@ export default {
       location: data.location,
       required_participants: data.required_participants,
     });
+    if (!event) throw new ServerError(&#x27;Failed to create event&#x27;);
 
-    await ProfileOnEvent.create({
-      event_id: eventId,
+    await ProfileOnEvent.createOne({
+      event_id: event.id,
       profile_id: data.organizer_id,
       status_name: &#x27;confirmed&#x27;,
     });
@@ -53,12 +55,12 @@ export default {
       const participantsToInvite = ids.map((id: number) =&gt; {
         return {
           profile_id: id,
-          event_id: eventId,
+          event_id: event.id,
           status_name: &#x27;pending&#x27;,
         };
       });
       await ProfileOnEvent.createMany(participantsToInvite);
-      notifyUserHasBeenInvitedToEvent(eventId, data.organizer_id, ids);
+      notifyUserHasBeenInvitedToEvent(event.id, data.organizer_id, ids);
       // send notification to invited users here
     }
     res.status(201).json({
@@ -78,7 +80,7 @@ export default {
     // only the organize can update the event
     deleteDecodedKey(req.body);
     const { event_id, profile_id, ...data } = req.body;
-    const event = await Event.findByPk(event_id);
+    const event = await Event.findOne({ id: event_id });
     const possibleFieldsUpdated = [
       &#x27;date&#x27;,
       &#x27;duration&#x27;,
@@ -96,14 +98,14 @@ export default {
       );
 
     const dataHasChange = possibleFieldsUpdated.some((field) =&gt; {
-      return data[field] !== event[field];
+      return data[field] !== event[field as keyof typeof event];
     });
 
     if (!dataHasChange)
       return res.status(201).json({
         message: &#x27;Nothing to update&#x27;,
       });
-    const isUpdated = await Event.update(event_id, data);
+    const isUpdated = await Event.updateOne({ id: event_id }, data);
 
     notifyEventInfosHasBeenUpdated(event_id);
 
@@ -115,7 +117,7 @@ export default {
     deleteDecodedKey(req.body);
     const { event_id, organizer_id, new_organizer_id } = req.body;
 
-    const event = await Event.findByPk(event_id);
+    const event = await Event.findOne({ id: event_id });
     if (!event || event.organizer_id !== organizer_id)
       throw new ForbidenError(
         &#x27;Operation not allowed : you are not the organizer&#x27;,
@@ -124,9 +126,12 @@ export default {
         &#x27;63&#x27;,
       );
 
-    const isUpdated = await Event.update(event_id, {
-      organizer_id: new_organizer_id,
-    });
+    const isUpdated = await Event.updateOne(
+      { id: event_id },
+      {
+        organizer_id: new_organizer_id,
+      },
+    );
 
     if (isUpdated) {
       await notifyTransfertOwnership(event_id, organizer_id, new_organizer_id);
@@ -144,13 +149,13 @@ export default {
       req.params.profileId,
     );
 
-    const event = await Event.findByPk(eventId);
+    const event = await Event.findOne({ id: eventId });
 
-    if (!event || event.length === 0) throw new NotFoundError(&#x27;No event&#x27;);
+    if (!event) throw new NotFoundError(&#x27;No event&#x27;);
     if (event.organizer_id !== profileId)
       throw new AuthorizationError(&#x27;Operation not allowed&#x27;);
 
-    const isDeleted = await Event.delete(eventId);
+    const isDeleted = await Event.deleteOne({ id: eventId });
 
     res.status(204).json({
       success: isDeleted,
@@ -185,8 +190,8 @@ export default {
     });
   },
 };
-</textarea><pre id="annotations" style="display:none">[{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:20,&quot;character&quot;:25,&quot;text&quot;:&quot;body&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:21,&quot;character&quot;:26,&quot;text&quot;:&quot;ids&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:21,&quot;character&quot;:34,&quot;text&quot;:&quot;data&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:21,&quot;character&quot;:47,&quot;text&quot;:&quot;body&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:24,&quot;character&quot;:6,&quot;text&quot;:&quot;organizer_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:24,&quot;character&quot;:20,&quot;text&quot;:&quot;data&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:24,&quot;character&quot;:25,&quot;text&quot;:&quot;organizer_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:26,&quot;character&quot;:6,&quot;text&quot;:&quot;date&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:26,&quot;character&quot;:12,&quot;text&quot;:&quot;data&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:26,&quot;character&quot;:17,&quot;text&quot;:&quot;date&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:27,&quot;character&quot;:6,&quot;text&quot;:&quot;duration&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:27,&quot;character&quot;:16,&quot;text&quot;:&quot;data&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:27,&quot;character&quot;:21,&quot;text&quot;:&quot;duration&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:28,&quot;character&quot;:6,&quot;text&quot;:&quot;location&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:28,&quot;character&quot;:16,&quot;text&quot;:&quot;data&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:28,&quot;character&quot;:21,&quot;text&quot;:&quot;location&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:29,&quot;character&quot;:6,&quot;text&quot;:&quot;required_participants&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:29,&quot;character&quot;:29,&quot;text&quot;:&quot;data&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:29,&quot;character&quot;:34,&quot;text&quot;:&quot;required_participants&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:34,&quot;character&quot;:6,&quot;text&quot;:&quot;profile_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:34,&quot;character&quot;:18,&quot;text&quot;:&quot;data&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:34,&quot;character&quot;:23,&quot;text&quot;:&quot;organizer_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:38,&quot;character&quot;:8,&quot;text&quot;:&quot;ids&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:39,&quot;character&quot;:12,&quot;text&quot;:&quot;participantsToInvite&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:39,&quot;character&quot;:35,&quot;text&quot;:&quot;ids&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:39,&quot;character&quot;:39,&quot;text&quot;:&quot;map&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:47,&quot;character&quot;:47,&quot;text&quot;:&quot;data&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:47,&quot;character&quot;:52,&quot;text&quot;:&quot;organizer_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:65,&quot;character&quot;:25,&quot;text&quot;:&quot;body&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:66,&quot;character&quot;:12,&quot;text&quot;:&quot;event_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:66,&quot;character&quot;:22,&quot;text&quot;:&quot;profile_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:66,&quot;character&quot;:37,&quot;text&quot;:&quot;data&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:66,&quot;character&quot;:50,&quot;text&quot;:&quot;body&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:76,&quot;character&quot;:41,&quot;text&quot;:&quot;profile_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:85,&quot;character&quot;:13,&quot;text&quot;:&quot;data&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:101,&quot;character&quot;:25,&quot;text&quot;:&quot;body&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:102,&quot;character&quot;:12,&quot;text&quot;:&quot;event_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:102,&quot;character&quot;:22,&quot;text&quot;:&quot;organizer_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:102,&quot;character&quot;:36,&quot;text&quot;:&quot;new_organizer_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:102,&quot;character&quot;:61,&quot;text&quot;:&quot;body&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:105,&quot;character&quot;:41,&quot;text&quot;:&quot;organizer_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:164,&quot;character&quot;:25,&quot;text&quot;:&quot;body&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:165,&quot;character&quot;:12,&quot;text&quot;:&quot;eventId&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:165,&quot;character&quot;:28,&quot;text&quot;:&quot;body&quot;,&quot;kind&quot;:1}]</pre></div>
-    <p class="footer-text">TypeScript Coverage Report generated by <a href="https://github.com/plantain-00/type-coverage">type-coverage</a> and <a href="https://github.com/alexcanessa/typescript-coverage-report">typescript-coverage-report</a> at Thu, 04 Jan 2024 18:32:37 GMT</p>
+</textarea><pre id="annotations" style="display:none">[{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:21,&quot;character&quot;:25,&quot;text&quot;:&quot;body&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:22,&quot;character&quot;:26,&quot;text&quot;:&quot;ids&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:22,&quot;character&quot;:34,&quot;text&quot;:&quot;data&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:22,&quot;character&quot;:47,&quot;text&quot;:&quot;body&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:25,&quot;character&quot;:20,&quot;text&quot;:&quot;data&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:25,&quot;character&quot;:25,&quot;text&quot;:&quot;organizer_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:27,&quot;character&quot;:12,&quot;text&quot;:&quot;data&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:27,&quot;character&quot;:17,&quot;text&quot;:&quot;date&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:28,&quot;character&quot;:16,&quot;text&quot;:&quot;data&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:28,&quot;character&quot;:21,&quot;text&quot;:&quot;duration&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:29,&quot;character&quot;:16,&quot;text&quot;:&quot;data&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:29,&quot;character&quot;:21,&quot;text&quot;:&quot;location&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:30,&quot;character&quot;:29,&quot;text&quot;:&quot;data&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:30,&quot;character&quot;:34,&quot;text&quot;:&quot;required_participants&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:36,&quot;character&quot;:18,&quot;text&quot;:&quot;data&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:36,&quot;character&quot;:23,&quot;text&quot;:&quot;organizer_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:40,&quot;character&quot;:8,&quot;text&quot;:&quot;ids&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:41,&quot;character&quot;:12,&quot;text&quot;:&quot;participantsToInvite&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:41,&quot;character&quot;:35,&quot;text&quot;:&quot;ids&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:41,&quot;character&quot;:39,&quot;text&quot;:&quot;map&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:49,&quot;character&quot;:48,&quot;text&quot;:&quot;data&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:49,&quot;character&quot;:53,&quot;text&quot;:&quot;organizer_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:67,&quot;character&quot;:25,&quot;text&quot;:&quot;body&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:68,&quot;character&quot;:12,&quot;text&quot;:&quot;event_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:68,&quot;character&quot;:22,&quot;text&quot;:&quot;profile_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:68,&quot;character&quot;:37,&quot;text&quot;:&quot;data&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:68,&quot;character&quot;:50,&quot;text&quot;:&quot;body&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:78,&quot;character&quot;:41,&quot;text&quot;:&quot;profile_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:87,&quot;character&quot;:13,&quot;text&quot;:&quot;data&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:103,&quot;character&quot;:25,&quot;text&quot;:&quot;body&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:104,&quot;character&quot;:12,&quot;text&quot;:&quot;event_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:104,&quot;character&quot;:22,&quot;text&quot;:&quot;organizer_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:104,&quot;character&quot;:36,&quot;text&quot;:&quot;new_organizer_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:104,&quot;character&quot;:61,&quot;text&quot;:&quot;body&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:107,&quot;character&quot;:41,&quot;text&quot;:&quot;organizer_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:169,&quot;character&quot;:25,&quot;text&quot;:&quot;body&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:170,&quot;character&quot;:12,&quot;text&quot;:&quot;eventId&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\event.controller.ts&quot;,&quot;line&quot;:170,&quot;character&quot;:28,&quot;text&quot;:&quot;body&quot;,&quot;kind&quot;:1}]</pre></div>
+    <p class="footer-text">TypeScript Coverage Report generated by <a href="https://github.com/plantain-00/type-coverage">type-coverage</a> and <a href="https://github.com/alexcanessa/typescript-coverage-report">typescript-coverage-report</a> at Fri, 05 Jan 2024 16:47:28 GMT</p>
     </body>
   </html>
   

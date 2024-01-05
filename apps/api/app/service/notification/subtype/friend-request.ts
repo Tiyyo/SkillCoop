@@ -29,7 +29,9 @@ class UserReceivedFriendRequest extends NotificationObserver {
     ) as BuilderFriendRequestNotificationMessage;
   }
   async getSubscribers(): Promise<number[] | null> {
-    const { active_notification } = await Profile.findByPk(this.subscriberId);
+    const { active_notification } = await Profile.findOne({
+      id: this.subscriberId,
+    });
     if (active_notification === 0) return null;
     return active_notification === 0 ? null : [this.subscriberId];
   }
@@ -37,7 +39,10 @@ class UserReceivedFriendRequest extends NotificationObserver {
     username: string;
     avatar_url: string | null;
   }> {
-    const { username, avatar_url } = await Profile.findByPk(this.instigatorId);
+    const { username, avatar_url } = await Profile.findOne({
+      id: this.instigatorId,
+    });
+    if (!username) throw new Error('Instigator not found');
     return { username, avatar_url };
   }
   async sendNotification(username: string, img_url: string | null = null) {

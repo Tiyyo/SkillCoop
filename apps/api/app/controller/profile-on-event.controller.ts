@@ -18,7 +18,7 @@ export default {
     let userMessage = 'Status has been updated';
 
     const data = { profile_id, event_id, status_name, updated_at: undefined };
-    const event = await Event.findByPk(data.event_id);
+    const event = await Event.findOne({ id: data.event_id });
 
     if (status_name === 'pending' || status_name === 'declined') {
       if (event.organizer_id === profile_id) {
@@ -30,14 +30,14 @@ export default {
         return res.status(200).json({ message: 'Event is already completed' });
       }
       if (event.status_name === 'full') {
-        await Event.update(event.id, { status_name: 'open' });
+        await Event.updateOne({ id: event.id }, { status_name: 'open' });
       }
       await ProfileOnEvent.updateStatus(data);
       return res.status(200).send(userMessage);
     }
 
     // check if the event is full
-    const confirmedParticipants = await ProfileOnEvent.findBy({
+    const confirmedParticipants = await ProfileOnEvent.find({
       event_id: data.event_id,
       status_name: invitationStatus.confirmed,
     });
@@ -49,7 +49,7 @@ export default {
     await ProfileOnEvent.updateStatus(data);
 
     if (event.required_participants === confirmedParticipants.length + 1) {
-      await Event.update(event.id, { status_name: 'full' });
+      await Event.updateOne({ id: event.id }, { status_name: 'full' });
       await generateBalancedTeam(event.id);
       await notifyTeamHasBeenGenerated(event.id);
       userMessage = 'Teams has been generated ';

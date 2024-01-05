@@ -18,7 +18,7 @@ export class NotificationObserver {
     img_url,
     eventId,
   }: NotificationParams) {
-    await NotificationModel.create({
+    await NotificationModel.createOne({
       profile_id: profileId,
       message,
       subtype,

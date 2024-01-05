@@ -11,21 +11,30 @@
 <link href="..\..\..\assets\source-file.css" type="text/css" rel="stylesheet">
     </head>
     <body>
-    <div style="margin-top:3em" class="ui container"><h1 class="ui header"><a href="..\..\..\index.html">TypeScript coverage report</a></h1><table style="margin-top:2em" class="ui celled table"><thead class=""><tr class=""><th class="">Filename</th><th class="">Percent</th><th class="">Threshold</th><th class="">Total</th><th class="">Covered</th><th class="">Uncovered</th></tr></thead><tbody class=""><tr class="positive"><td class="">app\models\core.ts</td><td class="">99.55%</td><td class="">80%</td><td class="">223</td><td class="">222</td><td class="">1</td></tr></tbody></table><textarea id="editor" readonly="" style="margin-top:3em">import { ObjectRecordGeneric } from &#x27;../@types/types&#x27;;
-import DatabaseError from &#x27;../helpers/errors/database.error&#x27;;
+    <div style="margin-top:3em" class="ui container"><h1 class="ui header"><a href="..\..\..\index.html">TypeScript coverage report</a></h1><table style="margin-top:2em" class="ui celled table"><thead class=""><tr class=""><th class="">Filename</th><th class="">Percent</th><th class="">Threshold</th><th class="">Total</th><th class="">Covered</th><th class="">Uncovered</th></tr></thead><tbody class=""><tr class="positive"><td class="">app\models\core.ts</td><td class="">100.00%</td><td class="">80%</td><td class="">254</td><td class="">254</td><td class="">0</td></tr></tbody></table><textarea id="editor" readonly="" style="margin-top:3em">import DatabaseError from &#x27;../helpers/errors/database.error&#x27;;
 import NotFoundError from &#x27;../helpers/errors/not-found.error&#x27;;
 import { getFormattedUTCTimestamp } from &#x27;date-handler&#x27;;
 import { db } from &#x27;../helpers/client.db&#x27;;
-import { TableNames } from &#x27;../@types/database&#x27;;
-import { ReferenceExpression } from &#x27;kysely&#x27;;
+import { ReferenceExpression, UpdateObject } from &#x27;kysely&#x27;;
 import { DB } from &#x27;../@types/database&#x27;;
-import { InsertObject } from &#x27;kysely/dist/cjs/parser/insert-values-parser&#x27;;
+import {
+  InsertObject,
+  InsertObjectOrList,
+} from &#x27;kysely/dist/cjs/parser/insert-values-parser&#x27;;
+import { ExtractTableAlias } from &#x27;kysely/dist/cjs/parser/table-parser&#x27;;
 
-export class Core {
-  declare tableName: TableNames;
+type OptionalCreatedAt = Partial&lt;{ created_at: string }&gt;;
+type InsertValues&lt;T extends keyof DB&gt; = Omit&lt;
+  InsertObject&lt;DB, T&gt;,
+  &#x27;created_at&#x27;
+&gt; &amp;
+  OptionalCreatedAt;
+
+export class Core&lt;TTableNames extends keyof DB&gt; {
+  declare tableName: TTableNames;
   declare client: typeof db;
-  //@ts-ignore
-  constructor(client) {
+
+  constructor(client: typeof db) {
     this.client = client;
   }
   async findAll() {
@@ -34,60 +43,41 @@ export class Core {
         .selectFrom(this.tableName)
         .selectAll()
         .execute();
-      if (!result) throw new NotFoundError(&#x27;Not found&#x27;);
 
+      if (!result || result.length === 0) throw new NotFoundError(&#x27;Not found&#x27;);
       return result;
     } catch (error) {
       throw new DatabaseError(error);
     }
   }
-  async findByPk(id: number) {
+  async findOne(findObject: Partial&lt;InsertObject&lt;DB, TTableNames&gt;&gt;) {
+    const keys = Object.keys(findObject) as ReferenceExpression&lt;
+      DB,
+      ExtractTableAlias&lt;DB, TTableNames&gt;
+    &gt;[];
+    const values = Object.values(findObject);
     try {
-      const result = await this.client
-        .selectFrom(this.tableName)
-        .selectAll()
-        .where(&#x27;id&#x27;, &#x27;=&#x27;, id)
-        .execute();
-
-      if (!result) throw new NotFoundError(&#x27;Not found&#x27;);
-
-      return result[0];
-    } catch (error) {
-      throw new DatabaseError(error);
-    }
-  }
-  // accept several where clause with the form of {key: value}
-  async findBy(data: Record&lt;string, number | string | Date&gt;) {
-    const keys = Object.keys(data);
-    const values = Object.values(data);
-
-    try {
-      let query = this.client.selectFrom(this.tableName).selectAll();
+      let promise = this.client.selectFrom(this.tableName).selectAll();
 
       keys.forEach((key, index) =&gt; {
-        query = query.where(
-          key.toString() as unknown as ReferenceExpression&lt;DB, TableNames&gt;,
-          &#x27;=&#x27;,
-          values[index],
-        );
+        promise = promise.where(key, &#x27;=&#x27;, values[index]);
       });
 
-      const result = await query.execute();
+      const result = await promise.executeTakeFirst();
       if (!result) throw new NotFoundError(&#x27;Not found&#x27;);
-
       return result;
     } catch (error) {
       throw new DatabaseError(error);
     }
   }
-  async create(data: InsertObject&lt;DB, TableNames&gt;) {
+  async createOne(data: InsertValues&lt;TTableNames&gt;) {
     const todayUTCString = getFormattedUTCTimestamp();
     data.created_at = todayUTCString;
 
     try {
       const result = await this.client
         .insertInto(this.tableName)
-        .values(data)
+        .values(data as InsertObjectOrList&lt;DB, TTableNames&gt;)
         .execute();
 
       return Number(result[0].insertId);
@@ -95,14 +85,14 @@ export class Core {
       throw new DatabaseError(error);
     }
   }
-  async createMany(data: InsertObject&lt;DB, TableNames&gt;[]) {
+  async createMany(data: InsertValues&lt;TTableNames&gt;[]) {
     const todayUTCString = getFormattedUTCTimestamp();
     data.forEach((el) =&gt; (el.created_at = todayUTCString));
 
     try {
       const result = await this.client
         .insertInto(this.tableName)
-        .values(data)
+        .values(data as InsertObjectOrList&lt;DB, TTableNames&gt;)
         .execute();
 
       return !!result[0].numInsertedOrUpdatedRows;
@@ -110,27 +100,45 @@ export class Core {
       throw new DatabaseError(error);
     }
   }
-  async update(id: number, data: ObjectRecordGeneric) {
+  /**
+   *
+   * @param condition  An objetc with the form of {key: value} where
+     key is a column name and value is the value to compare
+   * @param updateObject An object with the form of {key: value} where
+      
+   * @returns
+   */
+  async updateOne(
+    condition: UpdateObject&lt;
+      DB,
+      ExtractTableAlias&lt;DB, TTableNames&gt;,
+      ExtractTableAlias&lt;DB, TTableNames&gt;
+    &gt;,
+    updateObject: UpdateObject&lt;
+      DB,
+      ExtractTableAlias&lt;DB, TTableNames&gt;,
+      ExtractTableAlias&lt;DB, TTableNames&gt;
+    &gt;,
+  ) {
     const todayUTCString = getFormattedUTCTimestamp();
+    //@ts-ignore
     data.updated_at = todayUTCString;
 
-    const result = await this.client
-      .updateTable(this.tableName)
-      .set({ ...data })
-      .where(&#x27;id&#x27;, &#x27;=&#x27;, id)
-      .executeTakeFirst();
+    const conditionKeys = Object.keys(condition) as ReferenceExpression&lt;
+      DB,
+      ExtractTableAlias&lt;DB, TTableNames&gt;
+    &gt;[];
+    const conditionValues = Object.values(condition);
 
+    let promise = this.client.updateTable(this.tableName).set(updateObject);
+    conditionKeys.forEach((key, index) =&gt; {
+      promise = promise.where(key, &#x27;=&#x27;, conditionValues[index]);
+    });
+
+    const result = await promise.executeTakeFirst();
     return !!Number(result.numUpdatedRows);
   }
-  async delete(id: number) {
-    const result = await this.client
-      .deleteFrom(this.tableName)
-      .where(&#x27;id&#x27;, &#x27;=&#x27;, id)
-      .executeTakeFirst();
-
-    return !!Number(result.numDeletedRows);
-  }
-  async deleteBy(data: Record&lt;string, number | string | Date&gt;) {
+  async deleteOne(data: Record&lt;string, number | string | Date&gt;) {
     const keys = Object.keys(data);
     const values = Object.values(data);
 
@@ -139,23 +147,133 @@ export class Core {
 
       keys.forEach((key, index) =&gt; {
         query = query.where(
-          key.toString() as unknown as ReferenceExpression&lt;DB, TableNames&gt;,
+          key.toString() as unknown as ReferenceExpression&lt;
+            DB,
+            ExtractTableAlias&lt;DB, TTableNames&gt;
+          &gt;,
           &#x27;=&#x27;,
           values[index],
         );
       });
-
       const result = await query.executeTakeFirst();
-      if (!result) throw new NotFoundError(&#x27;Not found&#x27;);
 
       return !!Number(result.numDeletedRows);
     } catch (error) {
       throw new DatabaseError(error);
     }
   }
+  // async delete(id: number) {
+  //   const result = await this.client
+  //     .deleteFrom(this.tableName)
+  //     .where(&#x27;id&#x27;, &#x27;=&#x27;, id)
+  //     .executeTakeFirst();
+  //   return !!Number(result.numDeletedRows);
+  // }
+  // async findByPk(id: number) {
+  //   try {
+  //     const result = await this.client
+  //       .selectFrom(this.tableName)
+  //       .selectAll()
+  //       .where(`id`, &#x27;=&#x27;, id)
+  //       .execute();
+
+  //     if (!result || result.length === 0) throw new NotFoundError(&#x27;Not found&#x27;);
+
+  //     return result[0];
+  //   } catch (error) {
+  //     throw new DatabaseError(error);
+  //   }
+  // }
+  // accept several where clause with the form of {key: value}
+  // async findBy(data: Record&lt;string, number | string | Date&gt;) {
+  //   const keys = Object.keys(data);
+  //   const values = Object.values(data);
+
+  //   try {
+  //     let query = this.client.selectFrom(this.tableName).selectAll();
+
+  //     keys.forEach((key, index) =&gt; {
+  //       query = query.where(
+  //         key.toString() as unknown as ReferenceExpression&lt;
+  //           DB,
+  //           ExtractTableAlias&lt;DB, TTableNames&gt;
+  //         &gt;,
+  //         &#x27;=&#x27;,
+  //         values[index],
+  //       );
+  //     });
+
+  //     const result = await query.execute();
+  //     if (!result) throw new NotFoundError(&#x27;Not found&#x27;);
+
+  //     return result;
+  //   } catch (error) {
+  //     throw new DatabaseError(error);
+  //   }
+  // }
+  // async create(data: InsertObjectOrList&lt;DB, typeof this.tableName&gt;) {
+  //   const todayUTCString = getFormattedUTCTimestamp();
+  //   // @ts-ignore
+  //   data.created_at = todayUTCString;
+
+  //   try {
+  //     const result = await this.client
+  //       .insertInto(this.tableName)
+  //       .values(data)
+  //       .execute();
+
+  //     return Number(result[0].insertId);
+  //   } catch (error) {
+  //     throw new DatabaseError(error);
+  //   }
+  // }
+  // async update(id: number, data: UpdateObject&lt;DB, TTableNames&gt;) {
+  //   const todayUTCString = getFormattedUTCTimestamp();
+  //   data.updated_at = todayUTCString;
+
+  //   const result = await this.client
+  //     .updateTable(this.tableName)
+  //     .set(data)
+  //     .where(&#x27;id&#x27;, &#x27;=&#x27;, id)
+  //     .executeTakeFirst();
+
+  //   return !!Number(result.numUpdatedRows);
+  // }
+  // async delete(id: number) {
+  //   const result = await this.client
+  //     .deleteFrom(this.tableName)
+  //     .where(&#x27;id&#x27;, &#x27;=&#x27;, id)
+  //     .executeTakeFirst();
+
+  //   return !!Number(result.numDeletedRows);
+  // }
+  // async deleteOne(data: Record&lt;string, number | string | Date&gt;) {
+  //   const keys = Object.keys(data);
+  //   const values = Object.values(data);
+
+  //   try {
+  //     let query = this.client.deleteFrom(this.tableName);
+
+  //     keys.forEach((key, index) =&gt; {
+  //       query = query.where(
+  //         key.toString() as unknown as ReferenceExpression&lt;
+  //           DB,
+  //           ExtractTableAlias&lt;DB, TTableNames&gt;
+  //         &gt;,
+  //         &#x27;=&#x27;,
+  //         values[index],
+  //       );
+  //     });
+  //     const result = await query.executeTakeFirst();
+
+  //     return !!Number(result.numDeletedRows);
+  //   } catch (error) {
+  //     throw new DatabaseError(error);
+  //   }
+  // }
 }
-</textarea><pre id="annotations" style="display:none">[{&quot;file&quot;:&quot;app\\models\\core.ts&quot;,&quot;line&quot;:14,&quot;character&quot;:14,&quot;text&quot;:&quot;client&quot;,&quot;kind&quot;:1}]</pre></div>
-    <p class="footer-text">TypeScript Coverage Report generated by <a href="https://github.com/plantain-00/type-coverage">type-coverage</a> and <a href="https://github.com/alexcanessa/typescript-coverage-report">typescript-coverage-report</a> at Thu, 04 Jan 2024 18:32:37 GMT</p>
+</textarea><pre id="annotations" style="display:none">[]</pre></div>
+    <p class="footer-text">TypeScript Coverage Report generated by <a href="https://github.com/plantain-00/type-coverage">type-coverage</a> and <a href="https://github.com/alexcanessa/typescript-coverage-report">typescript-coverage-report</a> at Fri, 05 Jan 2024 16:47:28 GMT</p>
     </body>
   </html>
   

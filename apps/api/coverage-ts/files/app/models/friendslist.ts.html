@@ -11,35 +11,31 @@
 <link href="..\..\..\assets\source-file.css" type="text/css" rel="stylesheet">
     </head>
     <body>
-    <div style="margin-top:3em" class="ui container"><h1 class="ui header"><a href="..\..\..\index.html">TypeScript coverage report</a></h1><table style="margin-top:2em" class="ui celled table"><thead class=""><tr class=""><th class="">Filename</th><th class="">Percent</th><th class="">Threshold</th><th class="">Total</th><th class="">Covered</th><th class="">Uncovered</th></tr></thead><tbody class=""><tr class="positive"><td class="">app\models\friendslist.ts</td><td class="">100.00%</td><td class="">80%</td><td class="">209</td><td class="">209</td><td class="">0</td></tr></tbody></table><textarea id="editor" readonly="" style="margin-top:3em">import { sql } from &#x27;kysely&#x27;;
+    <div style="margin-top:3em" class="ui container"><h1 class="ui header"><a href="..\..\..\index.html">TypeScript coverage report</a></h1><table style="margin-top:2em" class="ui celled table"><thead class=""><tr class=""><th class="">Filename</th><th class="">Percent</th><th class="">Threshold</th><th class="">Total</th><th class="">Covered</th><th class="">Uncovered</th></tr></thead><tbody class=""><tr class="positive"><td class="">app\models\friendslist.ts</td><td class="">100.00%</td><td class="">80%</td><td class="">211</td><td class="">211</td><td class="">0</td></tr></tbody></table><textarea id="editor" readonly="" style="margin-top:3em">import { sql } from &#x27;kysely&#x27;;
 import DatabaseError from &#x27;../helpers/errors/database.error&#x27;;
 import { Core } from &#x27;./core&#x27;;
 import UserInputError from &#x27;../helpers/errors/user-input.error&#x27;;
 import { getFormattedUTCTimestamp } from &#x27;date-handler&#x27;;
-import { TableNames } from &#x27;../@types/database&#x27;;
+import { tableNames } from &#x27;../@types/database&#x27;;
 import { db } from &#x27;../helpers/client.db&#x27;;
 
-export class Friendlist extends Core {
-  declare tableName: TableNames;
-
+export class Friendlist extends Core&lt;typeof tableNames.profile_on_profile&gt; {
   constructor(client: typeof db) {
     super(client);
-    this.tableName = &#x27;profile_on_profile&#x27;;
+    this.tableName = tableNames.profile_on_profile;
   }
   async findAllByPk(id: number) {
     try {
       const friendships = await this.client
         .selectFrom(this.tableName)
-        .select([
-          &#x27;friend_id&#x27;,
-          &#x27;adder_id&#x27;,
-          &#x27;status_name&#x27;,
-          &#x27;avatar_url&#x27;,
-          &#x27;username&#x27;,
-          &#x27;profile.last_evaluation&#x27;,
-        ])
+        .select([&#x27;friend_id&#x27;, &#x27;adder_id&#x27;, &#x27;status_name&#x27;])
         .limit(20)
         .innerJoin(&#x27;profile&#x27;, &#x27;profile.id&#x27;, &#x27;profile_on_profile.friend_id&#x27;)
+        .select([
+          &#x27;profile.avatar_url&#x27;,
+          &#x27;profile.username&#x27;,
+          &#x27;profile.last_evaluation&#x27;,
+        ])
         .where(&#x27;adder_id&#x27;, &#x27;=&#x27;, id)
         .where(&#x27;status_name&#x27;, &#x27;=&#x27;, &#x27;confirmed&#x27;)
         .execute();
@@ -49,19 +45,17 @@ export class Friendlist extends Core {
       throw new DatabaseError(error);
     }
   }
-  async findOne(adder_id: number, friend_id: number, status_name?: string) {
+  async find(adder_id: number, friend_id: number, status_name?: string) {
     try {
       let query = this.client
         .selectFrom(this.tableName)
+        .select([&#x27;friend_id&#x27;, &#x27;adder_id&#x27;, &#x27;status_name&#x27;])
+        .innerJoin(&#x27;profile&#x27;, &#x27;profile.id&#x27;, &#x27;profile_on_profile.friend_id&#x27;)
         .select([
-          &#x27;friend_id&#x27;,
-          &#x27;adder_id&#x27;,
-          &#x27;status_name&#x27;,
-          &#x27;avatar_url&#x27;,
-          &#x27;username&#x27;,
+          &#x27;profile.avatar_url&#x27;,
+          &#x27;profile.username&#x27;,
           &#x27;profile.last_evaluation&#x27;,
         ])
-        .innerJoin(&#x27;profile&#x27;, &#x27;profile.id&#x27;, &#x27;profile_on_profile.friend_id&#x27;)
         .where(&#x27;adder_id&#x27;, &#x27;=&#x27;, adder_id)
         .where(&#x27;friend_id&#x27;, &#x27;=&#x27;, friend_id);
 
@@ -83,19 +77,16 @@ export class Friendlist extends Core {
     try {
       const friends = await this.client
         .selectFrom(this.tableName)
-        .select([
-          &#x27;friend_id&#x27;,
-          &#x27;adder_id&#x27;,
-          &#x27;status_name&#x27;,
-          &#x27;avatar_url&#x27;,
-          &#x27;username&#x27;,
-          &#x27;profile.last_evaluation&#x27;,
-        ])
+        .select([&#x27;friend_id&#x27;, &#x27;adder_id&#x27;, &#x27;status_name&#x27;])
         .offset(offset)
         .limit(20)
         .innerJoin(&#x27;profile&#x27;, &#x27;profile.id&#x27;, &#x27;profile_on_profile.friend_id&#x27;)
-        //@ts-ignore
-        .where(&#x27;profile_on_profile.adder_id &#x27;, &#x27;=&#x27;, profileId)
+        .select([
+          &#x27;profile.avatar_url&#x27;,
+          &#x27;profile.username&#x27;,
+          &#x27;profile.last_evaluation&#x27;,
+        ])
+        .where(&#x27;adder_id&#x27;, &#x27;=&#x27;, profileId)
         .where(&#x27;status_name&#x27;, &#x27;=&#x27;, &#x27;confirmed&#x27;)
         .where(&#x27;username&#x27;, &#x27;like&#x27;, `%${query.toLowerCase()}%`)
         .execute();
@@ -178,15 +169,13 @@ export class Friendlist extends Core {
     try {
       const pendingRequests = await this.client
         .selectFrom(this.tableName)
+        .select([&#x27;friend_id&#x27;, &#x27;adder_id&#x27;, &#x27;status_name&#x27;])
+        .innerJoin(&#x27;profile&#x27;, &#x27;profile.id&#x27;, &#x27;profile_on_profile.adder_id&#x27;)
         .select([
-          &#x27;friend_id&#x27;,
-          &#x27;adder_id&#x27;,
-          &#x27;status_name&#x27;,
-          &#x27;avatar_url&#x27;,
-          &#x27;username&#x27;,
+          &#x27;profile.avatar_url&#x27;,
+          &#x27;profile.username&#x27;,
           &#x27;profile.last_evaluation&#x27;,
         ])
-        .innerJoin(&#x27;profile&#x27;, &#x27;profile.id&#x27;, &#x27;profile_on_profile.adder_id&#x27;)
         .where(&#x27;friend_id&#x27;, &#x27;=&#x27;, id)
         .where(&#x27;status_name&#x27;, &#x27;=&#x27;, &#x27;pending&#x27;)
         .execute();
@@ -250,7 +239,6 @@ FROM
       )
 AND friend_id &lt;&gt; ${profileId}
 LIMIT 14`.execute(this.client);
-      console.log(&#x27;Suggest profile &#x27;, suggestProfiles.rows);
 
       return suggestProfiles.rows;
     } catch (error) {
@@ -259,7 +247,7 @@ LIMIT 14`.execute(this.client);
   }
 }
 </textarea><pre id="annotations" style="display:none">[]</pre></div>
-    <p class="footer-text">TypeScript Coverage Report generated by <a href="https://github.com/plantain-00/type-coverage">type-coverage</a> and <a href="https://github.com/alexcanessa/typescript-coverage-report">typescript-coverage-report</a> at Thu, 04 Jan 2024 18:32:37 GMT</p>
+    <p class="footer-text">TypeScript Coverage Report generated by <a href="https://github.com/plantain-00/type-coverage">type-coverage</a> and <a href="https://github.com/alexcanessa/typescript-coverage-report">typescript-coverage-report</a> at Fri, 05 Jan 2024 16:47:28 GMT</p>
     </body>
   </html>
   

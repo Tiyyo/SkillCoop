@@ -51,14 +51,17 @@ class UserHasBeenInvited extends NotificationObserver {
     return hasActiveNotification(invitedIds);
   }
   async getEventInfos() {
-    const eventInfos = await EventModel.findByPk(this.eventId);
+    const eventInfos = await EventModel.findOne({ id: this.eventId });
     return { eventDate: eventInfos.date };
   }
   async getInstigatorUsername(): Promise<{
     username: string;
     avatar_url: string;
   }> {
-    const { username, avatar_url } = await Profile.findByPk(this.instigatorId);
+    const { username, avatar_url } = await Profile.findOne({
+      id: this.instigatorId,
+    });
+    if (!username || !avatar_url) throw new Error('Instigator not found');
     return { username, avatar_url };
   }
   async sendNotification({

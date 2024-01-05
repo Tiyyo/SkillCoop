@@ -11,7 +11,7 @@
 <link href="..\..\..\assets\source-file.css" type="text/css" rel="stylesheet">
     </head>
     <body>
-    <div style="margin-top:3em" class="ui container"><h1 class="ui header"><a href="..\..\..\index.html">TypeScript coverage report</a></h1><table style="margin-top:2em" class="ui celled table"><thead class=""><tr class=""><th class="">Filename</th><th class="">Percent</th><th class="">Threshold</th><th class="">Total</th><th class="">Covered</th><th class="">Uncovered</th></tr></thead><tbody class=""><tr class="positive"><td class="">app\controller\auth.controller.ts</td><td class="">93.99%</td><td class="">80%</td><td class="">449</td><td class="">422</td><td class="">27</td></tr></tbody></table><textarea id="editor" readonly="" style="margin-top:3em">import { Request, Response } from &#x27;express&#x27;;
+    <div style="margin-top:3em" class="ui container"><h1 class="ui header"><a href="..\..\..\index.html">TypeScript coverage report</a></h1><table style="margin-top:2em" class="ui celled table"><thead class=""><tr class=""><th class="">Filename</th><th class="">Percent</th><th class="">Threshold</th><th class="">Total</th><th class="">Covered</th><th class="">Uncovered</th></tr></thead><tbody class=""><tr class="positive"><td class="">app\controller\auth.controller.ts</td><td class="">94.03%</td><td class="">80%</td><td class="">452</td><td class="">425</td><td class="">27</td></tr></tbody></table><textarea id="editor" readonly="" style="margin-top:3em">import { Request, Response } from &#x27;express&#x27;;
 import authService from &#x27;../service/auth/auth&#x27;;
 import google from &#x27;../service/auth/google&#x27;;
 import { user as User } from &#x27;../models/index&#x27;;
@@ -70,7 +70,7 @@ export default {
       email,
       password,
     });
-    // production cookie
+
     res.cookie(&#x27;refreshToken&#x27;, refreshToken, {
       httpOnly: true,
       sameSite: &#x27;none&#x27;,
@@ -81,7 +81,7 @@ export default {
   },
   async refresh(req: Request, res: Response) {
     const { decoded } = req.body;
-    const user = await User.findByPk(decoded.user_id);
+    const user = await User.findOne({ id: decoded.user_id });
     if (!user) {
       res.clearCookie(&#x27;refreshToken&#x27;, { sameSite: &#x27;none&#x27;, secure: true });
       throw new AuthorizationError(&#x27;Unauthorized&#x27;);
@@ -126,7 +126,7 @@ export default {
         &#x27;googleAuth&#x27;,
         &#x27;105&#x27;,
       );
-    const [user] = await User.findBy({ email });
+    const user = await User.findOne({ email });
 
     let userInfos;
     if (!user) {
@@ -165,7 +165,7 @@ export default {
       //eslint-disable-line
       throw new ServerError(&#x27;User id is not matching&#x27;, &#x27;verifyEmail&#x27;, &#x27; 136&#x27;);
 
-    const verifiedUser = await User.update(userId, { verified: 1 });
+    const verifiedUser = await User.updateOne({ id: userId }, { verified: 1 });
     if (!verifiedUser)
       throw new ServerError(&quot;Couldn&#x27;t verify user&quot;, &#x27;verifyEmail&#x27;, &#x27; 144&#x27;);
 
@@ -173,7 +173,7 @@ export default {
   },
   async resendEmail(req: Request, res: Response) {
     const { email } = req.body;
-    const [user] = await User.findBy({ email });
+    const user = await User.findOne({ email });
 
     if (!user)
       throw new NotFoundError(
@@ -199,7 +199,7 @@ export default {
   },
   async forgotPassword(req: Request, res: Response) {
     const { email } = req.body;
-    const [user] = await User.findBy({ email });
+    const user = await User.findOne({ email });
     if (user &amp;&amp; user.verified === 0) {
       throw new ForbidenError(
         &#x27;User accound not verified&#x27;,
@@ -296,8 +296,12 @@ export default {
       );
       if (!infos || !infos.user_id)
         return res.status(200).json({ message: &#x27;expire&#x27; });
+
       if (infos &amp;&amp; infos.user_id) {
-        await User.update(+infos.user_id, { password: hashedPassword });
+        await User.updateOne(
+          { id: +infos.user_id },
+          { password: hashedPassword },
+        );
         res.status(200).json({ message: &#x27;success&#x27; });
       }
     } catch (error) {
@@ -305,8 +309,8 @@ export default {
     }
   },
 };
-</textarea><pre id="annotations" style="display:none">[{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:18,&quot;character&quot;:12,&quot;text&quot;:&quot;email&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:18,&quot;character&quot;:19,&quot;text&quot;:&quot;password&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:18,&quot;character&quot;:36,&quot;text&quot;:&quot;body&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:52,&quot;character&quot;:12,&quot;text&quot;:&quot;email&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:52,&quot;character&quot;:19,&quot;text&quot;:&quot;password&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:52,&quot;character&quot;:36,&quot;text&quot;:&quot;body&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:69,&quot;character&quot;:12,&quot;text&quot;:&quot;decoded&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:69,&quot;character&quot;:28,&quot;text&quot;:&quot;body&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:70,&quot;character&quot;:37,&quot;text&quot;:&quot;decoded&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:70,&quot;character&quot;:45,&quot;text&quot;:&quot;user_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:117,&quot;character&quot;:8,&quot;text&quot;:&quot;userInfos&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:119,&quot;character&quot;:6,&quot;text&quot;:&quot;userInfos&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:127,&quot;character&quot;:6,&quot;text&quot;:&quot;userInfos&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:161,&quot;character&quot;:12,&quot;text&quot;:&quot;email&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:161,&quot;character&quot;:26,&quot;text&quot;:&quot;body&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:187,&quot;character&quot;:12,&quot;text&quot;:&quot;email&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:187,&quot;character&quot;:26,&quot;text&quot;:&quot;body&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:246,&quot;character&quot;:10,&quot;text&quot;:&quot;token&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:246,&quot;character&quot;:22,&quot;text&quot;:&quot;cookies&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:246,&quot;character&quot;:30,&quot;text&quot;:&quot;_rset&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:262,&quot;character&quot;:12,&quot;text&quot;:&quot;password&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:262,&quot;character&quot;:29,&quot;text&quot;:&quot;body&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:266,&quot;character&quot;:14,&quot;text&quot;:&quot;err&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:267,&quot;character&quot;:12,&quot;text&quot;:&quot;err&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:277,&quot;character&quot;:10,&quot;text&quot;:&quot;token&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:277,&quot;character&quot;:22,&quot;text&quot;:&quot;cookies&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:277,&quot;character&quot;:30,&quot;text&quot;:&quot;_rset&quot;,&quot;kind&quot;:1}]</pre></div>
-    <p class="footer-text">TypeScript Coverage Report generated by <a href="https://github.com/plantain-00/type-coverage">type-coverage</a> and <a href="https://github.com/alexcanessa/typescript-coverage-report">typescript-coverage-report</a> at Thu, 04 Jan 2024 18:32:37 GMT</p>
+</textarea><pre id="annotations" style="display:none">[{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:18,&quot;character&quot;:12,&quot;text&quot;:&quot;email&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:18,&quot;character&quot;:19,&quot;text&quot;:&quot;password&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:18,&quot;character&quot;:36,&quot;text&quot;:&quot;body&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:52,&quot;character&quot;:12,&quot;text&quot;:&quot;email&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:52,&quot;character&quot;:19,&quot;text&quot;:&quot;password&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:52,&quot;character&quot;:36,&quot;text&quot;:&quot;body&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:69,&quot;character&quot;:12,&quot;text&quot;:&quot;decoded&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:69,&quot;character&quot;:28,&quot;text&quot;:&quot;body&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:70,&quot;character&quot;:42,&quot;text&quot;:&quot;decoded&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:70,&quot;character&quot;:50,&quot;text&quot;:&quot;user_id&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:117,&quot;character&quot;:8,&quot;text&quot;:&quot;userInfos&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:119,&quot;character&quot;:6,&quot;text&quot;:&quot;userInfos&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:127,&quot;character&quot;:6,&quot;text&quot;:&quot;userInfos&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:161,&quot;character&quot;:12,&quot;text&quot;:&quot;email&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:161,&quot;character&quot;:26,&quot;text&quot;:&quot;body&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:187,&quot;character&quot;:12,&quot;text&quot;:&quot;email&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:187,&quot;character&quot;:26,&quot;text&quot;:&quot;body&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:246,&quot;character&quot;:10,&quot;text&quot;:&quot;token&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:246,&quot;character&quot;:22,&quot;text&quot;:&quot;cookies&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:246,&quot;character&quot;:30,&quot;text&quot;:&quot;_rset&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:262,&quot;character&quot;:12,&quot;text&quot;:&quot;password&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:262,&quot;character&quot;:29,&quot;text&quot;:&quot;body&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:266,&quot;character&quot;:14,&quot;text&quot;:&quot;err&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:267,&quot;character&quot;:12,&quot;text&quot;:&quot;err&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:277,&quot;character&quot;:10,&quot;text&quot;:&quot;token&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:277,&quot;character&quot;:22,&quot;text&quot;:&quot;cookies&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;app\\controller\\auth.controller.ts&quot;,&quot;line&quot;:277,&quot;character&quot;:30,&quot;text&quot;:&quot;_rset&quot;,&quot;kind&quot;:1}]</pre></div>
+    <p class="footer-text">TypeScript Coverage Report generated by <a href="https://github.com/plantain-00/type-coverage">type-coverage</a> and <a href="https://github.com/alexcanessa/typescript-coverage-report">typescript-coverage-report</a> at Fri, 05 Jan 2024 16:47:28 GMT</p>
     </body>
   </html>
   

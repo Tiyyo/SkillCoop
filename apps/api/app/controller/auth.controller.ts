@@ -57,7 +57,7 @@ export default {
       email,
       password,
     });
-    // production cookie
+
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
       sameSite: 'none',
@@ -68,7 +68,7 @@ export default {
   },
   async refresh(req: Request, res: Response) {
     const { decoded } = req.body;
-    const user = await User.findByPk(decoded.user_id);
+    const user = await User.findOne({ id: decoded.user_id });
     if (!user) {
       res.clearCookie('refreshToken', { sameSite: 'none', secure: true });
       throw new AuthorizationError('Unauthorized');
@@ -113,7 +113,7 @@ export default {
         'googleAuth',
         '105',
       );
-    const [user] = await User.findBy({ email });
+    const user = await User.findOne({ email });
 
     let userInfos;
     if (!user) {
@@ -152,7 +152,7 @@ export default {
       //eslint-disable-line
       throw new ServerError('User id is not matching', 'verifyEmail', ' 136');
 
-    const verifiedUser = await User.update(userId, { verified: 1 });
+    const verifiedUser = await User.updateOne({ id: userId }, { verified: 1 });
     if (!verifiedUser)
       throw new ServerError("Couldn't verify user", 'verifyEmail', ' 144');
 
@@ -160,7 +160,7 @@ export default {
   },
   async resendEmail(req: Request, res: Response) {
     const { email } = req.body;
-    const [user] = await User.findBy({ email });
+    const user = await User.findOne({ email });
 
     if (!user)
       throw new NotFoundError(
@@ -186,7 +186,7 @@ export default {
   },
   async forgotPassword(req: Request, res: Response) {
     const { email } = req.body;
-    const [user] = await User.findBy({ email });
+    const user = await User.findOne({ email });
     if (user && user.verified === 0) {
       throw new ForbidenError(
         'User accound not verified',
@@ -283,8 +283,12 @@ export default {
       );
       if (!infos || !infos.user_id)
         return res.status(200).json({ message: 'expire' });
+
       if (infos && infos.user_id) {
-        await User.update(+infos.user_id, { password: hashedPassword });
+        await User.updateOne(
+          { id: +infos.user_id },
+          { password: hashedPassword },
+        );
         res.status(200).json({ message: 'success' });
       }
     } catch (error) {

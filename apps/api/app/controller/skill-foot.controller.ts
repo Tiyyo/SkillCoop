@@ -30,7 +30,7 @@ export default {
     if (isAlereadyExist.length > 0)
       throw new UserInputError("User can't rate himself twice");
 
-    const skill = await SkillFoot.create(data);
+    const skill = await SkillFoot.createOne(data);
 
     res.status(201).send({ success: !!skill });
   },
@@ -40,16 +40,16 @@ export default {
       req.query.reviewee_id,
       req.query.event_id,
     );
-    const skill = await SkillFoot.findBy({ rater_id, reviewee_id, event_id });
+    const skill = await SkillFoot.findOne({ rater_id, reviewee_id, event_id });
 
-    if (skill.length === 0) return res.status(200).json({ rating: null });
+    if (!skill) return res.status(200).json({ rating: null });
 
     const average = computeGbRating({
-      avg_pace: skill[0].pace,
-      avg_shooting: skill[0].shooting,
-      avg_passing: skill[0].passing,
-      avg_dribbling: skill[0].dribbling,
-      avg_defending: skill[0].defending,
+      avg_pace: skill.pace,
+      avg_shooting: skill.shooting,
+      avg_passing: skill.passing,
+      avg_dribbling: skill.dribbling,
+      avg_defending: skill.defending,
     });
 
     res.status(200).json({ rating: average });
@@ -66,18 +66,18 @@ export default {
       event_id,
     } = req.body;
 
-    const isAlereadyExist = await SkillFoot.findBy({
+    const isAlereadyExist = await SkillFoot.findOne({
       rater_id,
       reviewee_id,
       event_id,
     });
 
-    if (isAlereadyExist.length > 0)
+    if (isAlereadyExist)
       throw new UserInputError(
         "User can't rate the same player twice per event",
       );
 
-    const skill = await SkillFoot.create({
+    const skill = await SkillFoot.createOne({
       pace,
       shooting,
       passing,

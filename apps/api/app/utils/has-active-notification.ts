@@ -4,7 +4,7 @@ import { profile as Profile } from '../models/index';
 
 export const hasActiveNotification = async (profileIds: number[]) => {
   const profileInfosInvitedUserQuery = profileIds.map((id) =>
-    Profile.findByPk(id),
+    Profile.findOne({ id }),
   );
 
   const profileInfos = await Promise.allSettled(profileInfosInvitedUserQuery);

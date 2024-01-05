@@ -31,19 +31,19 @@ class TeamHasBeenGenerated extends NotificationObserver {
     ) as BuildTeamsHasBeenGeneratedMessage;
   }
   async getSubscribers() {
-    const confirmedParticipants = await Participant.findBy({
+    const confirmedParticipants = await Participant.find({
       event_id: this.eventId,
       status_name: 'confirmed',
     });
     if (!confirmedParticipants) return null;
     const participantsIds = confirmedParticipants.map(
-      (participant: EventParticipant) => participant.profile_id,
+      (participant) => participant.profile_id,
     );
     const subscribersIds = await hasActiveNotification(participantsIds);
     return subscribersIds;
   }
   async getInfos() {
-    const eventInfos = await EventModel.findByPk(this.eventId);
+    const eventInfos = await EventModel.findOne({ id: this.eventId });
     return { eventDate: eventInfos.date };
   }
   async sendNotification(subscribers: number[], eventDate: string) {

@@ -83,7 +83,7 @@ function SelectInput({
           <input
             type="text"
             className="bg-base-light border border-gray-300 
-            font-semibold text-primary-1100text-xs rounded-lg 
+            font-semibold text-primary-1100 text-xs rounded-lg 
             block w-full h-7 pl-2  border-none"
             disabled={disabled}
             defaultValue={

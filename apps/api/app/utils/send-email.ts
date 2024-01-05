@@ -46,8 +46,8 @@ export default {
     email,
     userId,
   }: SendResetPasswordEmail) {
-    const url = `${process.env.API_URL}/auth/
-                  ${userId}/reset-password/${resetToken}`;
+    /*eslint-disable-next-line */
+    const url = `${process.env.API_URL}/auth/${userId}/reset-password/${resetToken}`;
 
     const text = `You asked to reset your password. 
               To continue, click on the link below. : ${url}`;

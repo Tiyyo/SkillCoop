@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Datepicker from 'tailwind-datepicker-react';
 import { ArrowLeft, ArrowRight, Calendar } from 'lucide-react';
 import { getDefaultDatePicker, todayLocalInputFormat } from 'date-handler/src';
@@ -78,10 +78,6 @@ function InputDate({
   const handleClose = (state: boolean) => {
     setShow(state);
   };
-
-  useEffect(() => {
-    setHasError(error);
-  }, [error]);
 
   return (
     <div className="relative w-full flex gap-x-2.5 items-center py-4">

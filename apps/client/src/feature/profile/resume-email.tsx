@@ -18,6 +18,7 @@ function ResumeEmailInfos({ email }: { email?: string | null }) {
   const [currentEmail, setCurrentEmail] = useState(email);
   const [errorText, setErrorText] = useState('');
   const [editActiveState, setEditActiveState] = useState(false);
+  const [countRender, setCountRender] = useState(0);
   const { register, handleSubmit } = useForm<UpdateEmail>({
     resolver: zodResolver(emailSchema),
   });
@@ -28,6 +29,7 @@ function ResumeEmailInfos({ email }: { email?: string | null }) {
     },
     onError: () => {
       setErrorText('Email already used');
+      setCountRender((prev) => prev + 1);
     },
   });
   const getEditState = (state: boolean) => {
@@ -47,7 +49,11 @@ function ResumeEmailInfos({ email }: { email?: string | null }) {
 
   return (
     <>
-      <ErrorNotification message={errorText} interval={5000} />
+      <ErrorNotification
+        message={errorText}
+        interval={5000}
+        key={countRender}
+      />
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col pl-8 lg:pl-36 w-full xl:w-1/2"

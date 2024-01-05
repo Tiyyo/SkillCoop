@@ -25,14 +25,16 @@ function Register() {
     onSuccess: () => {
       navigate('/verify-email', { state: { email: currentEmail } });
     },
-    onError: (error: any) => {
-      setResponseErrorServer(error.response.data);
+    onError: () => {
+      setResponseErrorServer('Could not create your account');
+      setRenderCount((prev) => prev + 1);
     },
   });
   const navigate = useNavigate();
   const location = useLocation();
   const [currentEmail, setCurrentEmail] = useState<string | null>(null);
   const [responseErrorServer, setResponseErrorServer] = useState('');
+  const [renderCount, setRenderCount] = useState(0);
   const from = location.state?.from?.pathname || '/';
 
   const {
@@ -64,7 +66,7 @@ function Register() {
           className="flex flex-col w-[90%] max-w-lg bg-base-light 
           py-7 px-6 rounded-lg"
         >
-          <ErrorNotification message={responseErrorServer} />
+          <ErrorNotification message={responseErrorServer} key={renderCount} />
           <SocialButton value="Continue with google" href={getGoogleUrl(from)}>
             <Google />
           </SocialButton>

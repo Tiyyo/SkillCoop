@@ -5,30 +5,30 @@ import { cn } from '../../lib/utils';
 type ErrorNotificationProps = {
   message?: string;
   interval?: number;
+  key: number;
 };
 
 function ErrorNotification({
   message,
   interval = 3500,
+  key,
 }: ErrorNotificationProps) {
-  const [errorMessage, setErrorMessage] = useState<string | undefined>();
   const [isOpen, setIsOpen] = useState(false);
-
-  const closeAfterXSeconds = setTimeout(() => {
-    setIsOpen(false);
-  }, interval);
+  const [currentMessage, setCurrentMessage] = useState<string | undefined>('');
 
   useEffect(() => {
-    if (message) {
+    setCurrentMessage(message);
+    if (message !== currentMessage) {
       setIsOpen(true);
-      setErrorMessage(message);
+
+      const timer = setTimeout(() => {
+        setIsOpen(false);
+        setCurrentMessage('');
+      }, interval);
+
+      return () => clearTimeout(timer);
     }
-    closeAfterXSeconds;
-    () => {
-      clearTimeout(closeAfterXSeconds);
-      return setErrorMessage(undefined);
-    };
-  }, [message, errorMessage]);
+  }, [message, key]);
 
   return (
     <div
@@ -43,7 +43,7 @@ function ErrorNotification({
           h-6 w-6 py-0.5 hover:bg-opacity-5 hover:bg-gray-600 rounded"
         onClick={() => setIsOpen(false)}
       />
-      <p className="text-xs text-center">{errorMessage}</p>
+      <p className="text-xs text-center">{message}</p>
     </div>
   );
 }

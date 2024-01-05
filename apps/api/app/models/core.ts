@@ -117,19 +117,17 @@ export class Core<TTableNames extends keyof DB> {
   ) {
     const todayUTCString = getFormattedUTCTimestamp();
     //@ts-ignore
-    data.updated_at = todayUTCString;
+    updateObject.updated_at = todayUTCString;
 
     const conditionKeys = Object.keys(condition) as ReferenceExpression<
       DB,
       ExtractTableAlias<DB, TTableNames>
     >[];
     const conditionValues = Object.values(condition);
-
     let promise = this.client.updateTable(this.tableName).set(updateObject);
     conditionKeys.forEach((key, index) => {
       promise = promise.where(key, '=', conditionValues[index]);
     });
-
     const result = await promise.executeTakeFirst();
     return !!Number(result.numUpdatedRows);
   }

@@ -148,11 +148,13 @@ export default {
       token,
       process.env.JWT_EMAIL_TOKEN_KEY as string,
     );
+
     if (userInfos && userId !== (userInfos as UserInfosToken).user_id)
       //eslint-disable-line
       throw new ServerError('User id is not matching', 'verifyEmail', ' 136');
 
     const verifiedUser = await User.updateOne({ id: userId }, { verified: 1 });
+
     if (!verifiedUser)
       throw new ServerError("Couldn't verify user", 'verifyEmail', ' 144');
 

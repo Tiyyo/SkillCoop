@@ -45,7 +45,7 @@ function ForgotPassword() {
         <h1 className="text-lg my-4 font-semibold opacity-30 text-primary-1100">
           Reset your password
         </h1>
-        // TODO: refactor make this form a component and include his state
+        {/* TODO: refactor make this form a component and include his state */}
         {!hasBeenSent ? (
           <form
             className="flex flex-col items-center gap-y-5 p-6 bg-base-light 
@@ -75,10 +75,10 @@ function ForgotPassword() {
           >
             <p className="text-xs font-light text-center">
               If there is an account linked to this email, you will receive an
-              email.
+              email with further instructions.
             </p>
             <img src={envelope} className="h-14" alt="envelope" />
-            <p>An email has been sent; you can now reset your password.</p>
+            <p>An email has been sent, you can now reset your password.</p>
             <p>The reception of this email may take a few minutes.</p>
 
             <Link

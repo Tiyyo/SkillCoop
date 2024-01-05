@@ -53,8 +53,6 @@ export default {
   async login(data: UserType): Promise<Record<string, string>> {
     const { email, password } = data;
     const user = await User.findOne({ email: email.trim() });
-    // const [user] = await User.findOne({ email: email.trim() });
-    console.log('user', user, 'email', email, 'password', password);
 
     if (!user)
       throw new UserInputError(

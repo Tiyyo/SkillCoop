@@ -17,7 +17,6 @@ const router: Router = express.Router();
 
 router.route('/test').get(async (_req, res) => {
   const notification = await hasActiveNotification([1, 2, 3, 4, 5, 6, 7, 8, 9]);
-  console.log(notification);
   res.status(200).json({ message: notification });
 });
 

@@ -35,9 +35,6 @@ function Input({
     }
   };
 
-  useEffect(() => {
-    setHasError(error);
-  }, [error]);
   return (
     <>
       <div className="w-full flex gap-x-2.5 items-center py-4">

@@ -13,6 +13,7 @@ import ErrorNotification from '../../component/error/notification';
 function ForgotPassword() {
   const [hasBeenSent, setHasBeenSent] = useState(false);
   const [error, setError] = useState('');
+  const [countRender, setCountRender] = useState(0);
   const { mutate: sendEmailWithResetLink, isLoading } = useMutation({
     mutationFn: async (email: string) => {
       return forgotPasswordFn(email);
@@ -22,6 +23,7 @@ function ForgotPassword() {
     },
     onError: () => {
       setError('This email is not associated with an account');
+      setCountRender((prev) => prev + 1);
     },
   });
 
@@ -59,7 +61,7 @@ function ForgotPassword() {
               If you have a verified email adress, you will received an email to
               reset your password.
             </p>
-            <ErrorNotification message={error} />
+            <ErrorNotification message={error} key={countRender} />
             <FormField name="email" label="Email adress" />
             <Button
               textContent="Reset my password"

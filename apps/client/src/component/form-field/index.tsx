@@ -43,10 +43,6 @@ function FormField({
     setIcon(!icon);
   }
 
-  useEffect(() => {
-    setErrorText(error);
-  }, [error]);
-
   return (
     <div className="w-full">
       <div className="relative my-1">

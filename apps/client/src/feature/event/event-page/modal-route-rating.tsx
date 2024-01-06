@@ -18,6 +18,7 @@ import { participantSkillSchema } from 'schema/ts-schema';
 import type { EvaluationParticipantSkill } from 'skillcoop-types';
 import { cn } from '../../../lib/utils';
 
+// Shitty component, need to be refactored or rewrite
 function ModalRouteRatingEvent() {
   const { userProfile } = useApp();
   const navigate = useNavigate();

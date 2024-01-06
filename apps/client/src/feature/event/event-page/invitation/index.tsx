@@ -18,13 +18,15 @@ function InvitationFromEventPage() {
   const { userProfile } = useApp();
   const { data: eventState, updateParticipants } = useEvent();
   const location = useLocation();
-  const [eventId, setEventId] = useState<number | undefined>(undefined);
+  const [eventId, setEventId] = useState<number | undefined>(
+    location.state?.eventId,
+  );
 
   // get eventId from url state
   const profileId = userProfile?.profile_id;
-  useEffect(() => {
-    setEventId(location.state?.eventId);
-  }, []);
+  // useEffect(() => {
+  //   setEventId(location.state?.eventId);
+  // }, []);
 
   const {
     getSearchValue,

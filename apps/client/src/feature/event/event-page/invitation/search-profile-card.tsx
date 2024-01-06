@@ -38,16 +38,23 @@ function SearchProfileCard({
     }
   };
 
-  useEffect(() => {
-    if (!eventStateData) return;
+  if (eventStateData) {
     const isSelected = eventStateData.staged_participants?.some(
       (p) => p.profile_id === friendId,
     );
+    isSelected && setIsSelected(true);
+  }
 
-    if (isSelected) {
-      setIsSelected(true);
-    }
-  }, [eventStateData]);
+  // useEffect(() => {
+  //   if (!eventStateData) return;
+  //   const isSelected = eventStateData.staged_participants?.some(
+  //     (p) => p.profile_id === friendId,
+  //   );
+
+  //   if (isSelected) {
+  //     setIsSelected(true);
+  //   }
+  // }, [eventStateData]);
 
   return (
     <div

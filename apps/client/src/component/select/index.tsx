@@ -1,9 +1,4 @@
-import {
-  useState,
-  type ComponentPropsWithoutRef,
-  useEffect,
-  useId,
-} from 'react';
+import { useState, type ComponentPropsWithoutRef, useId } from 'react';
 import { cn } from '../../lib/utils';
 import { useEvent } from '../../store/event.store';
 import toast from '../../utils/toast';
@@ -60,10 +55,6 @@ function SelectInput({
       updateState(e.target.value);
     }
   };
-
-  useEffect(() => {
-    setHasError(error);
-  }, [error]);
 
   return (
     <div className="w-full flex gap-x-2.5 items-center py-4">

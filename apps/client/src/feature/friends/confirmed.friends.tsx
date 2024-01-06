@@ -6,9 +6,11 @@ import { useConfirmedfriends } from '../../hooks/useConfirmedFriends';
 import SubHeader from '../../component/header/sub-header';
 import Container from '../../layout/container';
 import { ArrowRight } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 function ConfirmedFriends() {
   // TODO implement infinite scroll
+  const { t } = useTranslation('title');
   const { userProfile } = useApp();
   const profileId = userProfile?.profile_id;
   const { confirmedFriends, loading, isError } = useConfirmedfriends({
@@ -18,12 +20,11 @@ function ConfirmedFriends() {
   return (
     <>
       <SubHeader
-        title="My friends"
+        title={t('myFriends')}
         isPlusExist={true}
         linkFromPlus="add"
-        textButton="Add New Friend"
-        legend="Here is the list of your friends. 
-        You can see their profile by clicking on their avatar."
+        textButton={t('addNewFriend')}
+        legend={t('myFriendsLegend')}
       />
       <Container className="flex-grow">
         <div className="flex justify-between items-center">
@@ -35,7 +36,7 @@ function ConfirmedFriends() {
             transition-all duration-300 font-medium
           hover:text-dark cursor-pointer"
           >
-            View pending request
+            {t('viewPendingRequest')}
             <ArrowRight size={16} />
           </Link>
         </div>

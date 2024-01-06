@@ -6,8 +6,10 @@ import { useApp } from '../../store/app.store';
 import { useSearchProfile } from '../../hooks/useSearchProfile';
 import { useSuggestProfile } from '../../hooks/useSuggestProfile';
 import Container from '../../layout/container';
+import { useTranslation } from 'react-i18next';
 
 function AddFriends() {
+  const { t } = useTranslation('title');
   const { userProfile } = useApp();
   const profileId = userProfile?.profile_id;
   const { searchProfiles: suggestedOrSearched, pendingFriends } = useFriends();
@@ -27,7 +29,7 @@ function AddFriends() {
   return (
     <>
       <Container className="w-full lg:mt-4">
-        <TitleH2 title="Add new" legend="Search user by their username" />
+        <TitleH2 title={t('addNew')} legend={t('addNewLegend')} />
       </Container>
       <Container className="flex-grow lg:mt-4">
         <div className="px-4 py-2">
@@ -35,11 +37,11 @@ function AddFriends() {
         </div>
         <div
           className="grid py-2 justify-center"
+          //  TODO: Move this into tailwind theme
           style={{
             gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 2fr))',
           }}
         >
-          {/* can't use filterMap  */}
           {suggestedOrSearched &&
             suggestedOrSearched
               .filter((item) =>

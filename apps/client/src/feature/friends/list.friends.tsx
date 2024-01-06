@@ -1,6 +1,8 @@
 import FriendCardSkeleton from '../../component/friend-card/skeleton';
 import FriendCard from '../../component/friend-card';
 import type { Friend } from 'skillcoop-types';
+import { useTranslation } from 'react-i18next';
+import ErrorFallback from '../../component/error-fallback';
 
 type FriendlistProps = {
   friends?: Friend[];
@@ -17,10 +19,12 @@ function Friendlist({
   stringKey,
   activeLinkProfile = false,
 }: FriendlistProps) {
+  const { t } = useTranslation('sytem');
   const NB_SKELETON = 14;
 
   //  TODO : handle error
-  if (error) return <div>An expected error occurs</div>;
+  if (error) return <ErrorFallback />;
+
   if (loading)
     return (
       <div className="relative grid grid-cols-2 py-8 gap-2 bg-base-light z-10">
@@ -34,7 +38,7 @@ function Friendlist({
     <>
       {friends?.length === 0 ? (
         <div className="text-center italic text-xs py-4 text-light">
-          No friends found.
+          {t('noFriendsFound')}.
         </div>
       ) : (
         <div

@@ -1,4 +1,6 @@
 {
+  "addNew": "Add New",
+  "addNewLegend": "Search user by their username.",
   "addNewEvent": "Add New Event",
   "addNewFriend": "Add New Friend",
   "createNewEvent": "Create a new Event",

@@ -12,8 +12,10 @@ import { useUpdateEmail } from '../../hooks/useProfile';
 import type { UpdateEmail } from 'skillcoop-types';
 import { updateEmailSchema } from 'schema/ts-schema';
 import toast from '../../utils/toast';
+import { useTranslation } from 'react-i18next';
 
 function ResumeEmailInfos({ email }: { email?: string | null }) {
+  const { t } = useTranslation('system');
   const { userProfile } = useApp();
   const [currentEmail, setCurrentEmail] = useState(email);
   const [errorText, setErrorText] = useState('');
@@ -25,10 +27,10 @@ function ResumeEmailInfos({ email }: { email?: string | null }) {
   const { mutate: updateEmail, isLoading } = useUpdateEmail({
     onSuccess: (res: any) => {
       setCurrentEmail(res.new_email);
-      toast.success('Email updated');
+      toast.success(t('emailUpdated'));
     },
     onError: () => {
-      setErrorText('Email already used');
+      setErrorText(t('emailAlreadyUsed'));
       setCountRender((prev) => prev + 1);
     },
   });
@@ -41,7 +43,7 @@ function ResumeEmailInfos({ email }: { email?: string | null }) {
     data.user_id = userProfile.user_id;
     const isValid = updateEmailSchema.safeParse(data);
     if (!isValid.success) {
-      setErrorText('Something went wrong. Please try again later');
+      setErrorText(t('somethingWentWrong'));
       return;
     }
     updateEmail(data);

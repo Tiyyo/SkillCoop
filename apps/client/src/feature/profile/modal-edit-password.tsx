@@ -8,6 +8,7 @@ import { useMutation } from '@tanstack/react-query';
 import { updatePasswordFn } from '../../api/api.fn';
 import { useApp } from '../../store/app.store';
 import toast from '../../utils/toast';
+import { useTranslation } from 'react-i18next';
 
 type UpdatePasswordField = {
   old_password: string;
@@ -17,6 +18,7 @@ type UpdatePasswordField = {
 };
 
 function EditModalPassword({ children }: { children: React.ReactNode }) {
+  const { t } = useTranslation('system');
   const { userProfile } = useApp();
   //should be in a hook
   const { mutate: updatePassword } = useMutation({
@@ -24,10 +26,10 @@ function EditModalPassword({ children }: { children: React.ReactNode }) {
       return updatePasswordFn(data);
     },
     onSuccess: () => {
-      toast.success('Password updated');
+      toast.success(t('passwordUpdated'));
     },
     onError: () => {
-      toast.error('Something went wrong');
+      toast.error(t('somethingWentWrong'));
     },
   });
 
@@ -62,7 +64,7 @@ function EditModalPassword({ children }: { children: React.ReactNode }) {
           <FormField
             name="old_password"
             type="password"
-            label="your old password"
+            label={t('yourOldPassword')}
             subicon={<EyeOff size={18} />}
             register={register}
           >
@@ -71,7 +73,7 @@ function EditModalPassword({ children }: { children: React.ReactNode }) {
           <FormField
             name="new_password"
             type="password"
-            label="New password"
+            label={t('newPassword')}
             subicon={<EyeOff size={18} />}
             error={
               (errors?.new_password?.message as string) ||
@@ -84,7 +86,7 @@ function EditModalPassword({ children }: { children: React.ReactNode }) {
           <FormField
             name="confirm_new_password"
             type="password"
-            label="Confirm your new password"
+            label={t('confirmNewPassword')}
             subicon={<EyeOff size={18} />}
             error={errors?.confirm_new_password?.message as string}
             register={register}
@@ -97,7 +99,7 @@ function EditModalPassword({ children }: { children: React.ReactNode }) {
             cursor-pointerhover:bg-base duration-200 transition-all 
             rounded-lg"
           >
-            Edit password
+            {t('editPassword')}
           </button>
         </form>
       </DialogContent>

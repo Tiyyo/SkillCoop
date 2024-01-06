@@ -4,8 +4,10 @@ import type { EventType } from 'skillcoop-types';
 import EventList from '../resume-events/list';
 import ErrorFallback from '../../../component/error-fallback';
 import useInfinite from '../../../hooks/useInfinite';
+import { useTranslation } from 'react-i18next';
 
 function IncomingEvents() {
+  const { t } = useTranslation('title');
   const NB_ELEMETNS_PER_PAGE = 10;
   const { userProfile } = useApp();
   const profileId = userProfile?.profile_id;
@@ -25,12 +27,12 @@ function IncomingEvents() {
   return (
     <EventList
       events={upcomingEvent}
-      title="Upcoming Events"
+      title={t('upcomingEvents')}
       loading={loading}
       linkOff
       triggerNextPage={fetchNextPage}
       hasMore={hasNextPage}
-      legendHeader="Next events scheduled"
+      legendHeader={t('upcomingEventsLegend')}
       showcaseNext
     />
   );

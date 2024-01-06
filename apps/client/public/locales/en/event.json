@@ -1,4 +1,5 @@
 {
+  "areGoing": "are going",
   "balancedGeneratedTeams": "Balanced generated teams",
   "cancel": "Cancel",
   "cancelled": "cancelled",
@@ -23,6 +24,7 @@
   "kickOff": "Kick Off",
   "location": "Location",
   "member": "Member",
+  "nextEvent": "Next event",
   "open": "open",
   "organizer": "Organizer",
   "pace": "Pace",
@@ -54,5 +56,7 @@
   "youCannotSetEventPast": "You can't set a date in the past",
   "youCannotUpdateMoreThanSet": "You cannot update the number of required participants   because there are already more participants than the number you want to set",
   "youHaveBeenInvited": "You have been invited to join this event",
+  "yourVoteHasBeenRecorded": "Your vote has been recorded",
+  "youAlreadyVoted": "You already voted for this category",
   "wouldYouLikeToParticipate": "Would you like to confirm your participation ?"
 }

@@ -4,8 +4,10 @@ import { useApp } from '../../../store/app.store';
 import { useResumeEvents } from '../../../hooks/useResumeEvents';
 import SubHeader from '../../../component/header/sub-header';
 import ErrorFallback from '../../../component/error-fallback';
+import { useTranslation } from 'react-i18next';
 
 function ResumeEvents() {
+  const { t } = useTranslation('title');
   const { userProfile } = useApp();
   const profileId = userProfile?.profile_id;
   const { events, loading, isError } = useResumeEvents({
@@ -17,12 +19,11 @@ function ResumeEvents() {
   return (
     <>
       <SubHeader
-        title="Events"
+        title={t('events')}
         isPlusExist={true}
         linkFromPlus="/new-event"
-        textButton="Add New Event"
-        legend="Brief summary of the events you have participated in and your
-            upcoming scheduled events"
+        textButton={t('addNewEvent')}
+        legend={t('eventsLegend')}
       />
       {loading ? (
         <Spinner />
@@ -30,15 +31,15 @@ function ResumeEvents() {
         <>
           <EventList
             events={events.incoming}
-            title="Incoming"
+            title={t('upcoming')}
             linkTo="/events/incoming"
             nbEventToDisplay={2}
             noHeader
           />
           <EventList
             events={events.past}
-            title="Past"
-            legendHeader="The two latest events you have participated in"
+            title={t('past')}
+            legendHeader={t('pastLegend')}
             linkTo="/events/past"
             nbEventToDisplay={2}
           />

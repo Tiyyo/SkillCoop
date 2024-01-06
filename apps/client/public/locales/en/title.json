@@ -15,6 +15,8 @@
   "myEventsLegend": "All events where you have ownership rights.",
   "myFriends": "My Friends",
   "myFriendsLegend": "Here is the list of your friends. You can see their profile by clicking on their avatar.",
+  "past": "Past",
+  "pastLegend": "The two latest events you have participated in",
   "pastEvents": "Past Events",
   "pastEventsLegend": "Brief summary of the events you have participated in.",
   "pendingRequest": "Pending Friends",
@@ -25,6 +27,7 @@
   "settings": "Settings",
   "settingsLegend": "Customize your account, manage privacy, and set up notifications.",
   "stats": "Stats",
+  "upcoming": "Upcoming",
   "upcomingEvents": "Upcoming Events",
   "upcomingEventsLegend": "Next events scheduled.",
   "viewPendingRequest": "View Pending Request"

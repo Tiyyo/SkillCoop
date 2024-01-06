@@ -4,6 +4,7 @@ import Badge from '../../../component/badge';
 import Score from '../../../component/score';
 import type { EventParticipant, EventStatus } from 'skillcoop-types';
 import { ArrowRight } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 type EventCardProps = {
   date: string;
@@ -32,6 +33,7 @@ function EventCard({
   participants,
   eventId,
 }: EventCardProps) {
+  const { t } = useTranslation('event');
   const displayCorrectStatus = (userStatus: string, eventStatus: string) => {
     return userStatus === 'pending' ? 'invited' : eventStatus;
   };
@@ -59,7 +61,9 @@ function EventCard({
               className=" h-8 md:h-10 lg:h-18"
             />
             <div className="flex-shrink-0">
-              <div className="hidden md:block lg:font-semibold">Team</div>
+              <div className="hidden md:block lg:font-semibold">
+                {t('team')}
+              </div>
               <Avatars
                 participants={participants}
                 team={1}
@@ -89,7 +93,9 @@ function EventCard({
               className=" h-8 md:h-10 lg:h-18"
             />
             <div className="flex-shrink-0">
-              <div className="hidden md:block lg:font-semibold">Team</div>
+              <div className="hidden md:block lg:font-semibold">
+                {t('team')}
+              </div>
               <Avatars
                 participants={participants}
                 team={2}
@@ -112,7 +118,7 @@ function EventCard({
               />
               <p className="font-light lg:text-xs relative translate-x-1">
                 <span className="font-semibold">{confirmedParticipants} </span>/
-                <span> {requiredParticipants}</span> are going
+                <span> {requiredParticipants}</span> {t('arGoing')}
               </p>
             </div>
           )}
@@ -125,7 +131,7 @@ function EventCard({
           duration-300 transition-colors"
         >
           <span className="flex items-center gap-x-0.5">
-            Details
+            {t('details')}
             <ArrowRight size={14} className="selt-center" />
           </span>
         </Link>

@@ -5,8 +5,10 @@ import type { EventType } from 'skillcoop-types';
 import useInfinite from '../../../hooks/useInfinite';
 import { useEffect, useId, useState } from 'react';
 import ErrorFallback from '../../../component/error-fallback';
+import { useTranslation } from 'react-i18next';
 
 function MyEvents() {
+  const { t } = useTranslation('title');
   const ID = useId();
   const NB_ELEMETNS_PER_PAGE = 10;
   const [organizeEvent, setOrganizeEvent] = useState<{
@@ -46,12 +48,12 @@ function MyEvents() {
     <EventList
       key={ID}
       events={organizeEvent.events}
-      title="My events"
+      title={t('myEvents')}
       loading={loading}
       linkOff
       triggerNextPage={fetchNextPage}
       hasMore={hasNextPage}
-      legendHeader="All events where you have ownership rights"
+      legendHeader={t('myEventsLegend')}
     />
   );
 }

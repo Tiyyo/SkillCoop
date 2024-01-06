@@ -209,18 +209,18 @@ const router = createBrowserRouter([
   { path: '*', element: <Page404 /> },
 ]);
 
-i18next.init({
-  fallbackLng: 'en',
-  lng: 'en',
-  ns: ['landing-page', 'auth', 'event', 'system', 'title'],
-  backend: {
-    loadPath: '/locales/{{lng}}/{{ns}}.json',
-  },
-  debug: true,
-  interpolation: {
-    escapeValue: false,
-  },
-});
+// i18next.init({
+//   fallbackLng: 'en',
+//   lng: 'en',
+//   ns: ['landing-page', 'auth', 'event', 'system', 'title'],
+//   backend: {
+//     loadPath: '/locales/{{lng}}/{{ns}}.json',
+//   },
+//   debug: true,
+//   interpolation: {
+//     escapeValue: false,
+//   },
+// });
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

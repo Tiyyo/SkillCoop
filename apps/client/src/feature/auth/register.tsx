@@ -18,15 +18,17 @@ import checkIfString from '../../utils/check-string';
 import ErrorContainer from '../../component/error';
 import ErrorNotification from '../../component/error/notification';
 import { AtSign, Eye, EyeOff } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 function Register() {
+  const { t } = useTranslation('auth');
   const { mutate: signUpUser, isLoading } = useMutation({
     mutationFn: async (userData: RegisterUser) => signUpUserFn(userData),
     onSuccess: () => {
       navigate('/verify-email', { state: { email: currentEmail } });
     },
     onError: () => {
-      setResponseErrorServer('Could not create your account');
+      setResponseErrorServer(t('couldNotCreateAccount'));
       setRenderCount((prev) => prev + 1);
     },
   });
@@ -60,14 +62,17 @@ function Register() {
     <Page>
       <Center>
         <h1 className="py-4 text-xl font-bold text-primary-1100 text-center">
-          Create your SkillCoop account
+          {t('createSkillcoop')}
         </h1>
         <div
           className="flex flex-col w-[90%] max-w-lg bg-base-light 
           py-7 px-6 rounded-lg"
         >
           <ErrorNotification message={responseErrorServer} key={renderCount} />
-          <SocialButton value="Continue with google" href={getGoogleUrl(from)}>
+          <SocialButton
+            value={t('continueWithGoogle')}
+            href={getGoogleUrl(from)}
+          >
             <Google />
           </SocialButton>
           <SeparatorLine />
@@ -78,7 +83,7 @@ function Register() {
             <FormField
               type="email"
               name="email"
-              label="Email"
+              label={t('email')}
               error={checkIfString(errors.email?.message)}
               register={register}
             >
@@ -87,7 +92,7 @@ function Register() {
             <FormField
               type="password"
               name="password"
-              label="Password"
+              label={t('password')}
               subicon={<EyeOff size={16} />}
               error={checkIfString(errors.password?.message)}
               register={register}
@@ -97,7 +102,7 @@ function Register() {
             <FormField
               type="password"
               name="confirmedPassword"
-              label="Confirm your password"
+              label={t('confirmYourPassword')}
               subicon={<EyeOff size={16} />}
               //TODO: find the right type
               error={checkIfString((errors as any).confirm?.message)}
@@ -106,13 +111,13 @@ function Register() {
               <Eye size={16} />
             </FormField>
             <div className="text-xxs flex items-start self-start">
-              <p>Password must contains</p>
+              <p>{t('passwordContains')}</p>
               <ul className="list-disc ml-7">
-                <li>8 characters</li>
-                <li>1 number</li>
-                <li>1 lowercase letter</li>
-                <li>1 uppercase letter</li>
-                <li>1 special characters</li>
+                <li>8 {t('characters')}</li>
+                <li>1 {t('number')}</li>
+                <li>1 {t('lowercaseLetter')}</li>
+                <li>1 {t('uppercaseLetter')}</li>
+                <li>1 {t('specialCharacter')}</li>
               </ul>
             </div>
             <label
@@ -125,33 +130,31 @@ function Register() {
                 className="mr-1"
                 {...register('termAndService')}
               />
-              By signing up, you agree to the
+              {t('agreeToTerms')}
               <Link
                 to="/terms-and-service"
                 className="underline underline-offset-2 ml-1 
               text-primary-800 inline"
               >
-                Terms and Service
+                {t('landing-page:termsAndConditions')}
               </Link>
             </label>
             <ErrorContainer
               errorValue={
-                errors.termAndService
-                  ? 'You have to accept Terms and Service'
-                  : ''
+                errors.termAndService ? t('youHaveToAcceptTerms') : ''
               }
             />
             <Button
-              textContent="Register"
+              textContent={t('register')}
               type="submit"
               isLoading={isLoading}
             />
           </form>
         </div>
         <p className="text-xs py-2">
-          Already have an account ?{' '}
+          {t('alreadyHaveAccount')} ?{' '}
           <Link to="/login" className="text-primary-1000 font-bold">
-            Log in
+            {t('logIn')}
           </Link>
         </p>
       </Center>

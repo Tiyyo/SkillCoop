@@ -7,8 +7,11 @@ import { Link, useLocation } from 'react-router-dom';
 import { sendEmailVerifyFn } from '../../api/api.fn';
 import toast from '../../utils/toast';
 import { emailSchema } from 'schema/ts-schema';
+import { useTranslation } from 'react-i18next';
+import capitalize from '../../utils/capitalize';
 
 function VerifyEmail() {
+  const { t } = useTranslation('auth');
   const location = useLocation();
   const email = location.state?.email;
   const { mutate: sendEmailVerify } = useMutation({
@@ -35,7 +38,9 @@ function VerifyEmail() {
           font-semibold text-primary-1100 py-3 px-4"
         >
           <Link to="/">
-            <p className="hover:text-primary-600 cursor-pointer">HOME</p>
+            <p className="hover:text-primary-600 cursor-pointer">
+              {capitalize(t('home'))}
+            </p>
           </Link>
         </nav>
         <Center>
@@ -48,17 +53,17 @@ function VerifyEmail() {
               className="object-contain aspect-square h-11 
               absolute -top-2.5 -right-2"
             />
-            <h1>An Email has been sent</h1>
+            <h1 className="text-center">{t('emailHasBeenSent')}</h1>
             <img src={envelope} className="h-14" />
-            <p>Please verify your Email</p>
+            <p className="text-center">{t('pleaseVerifyEmail')}</p>
           </div>
           <p className="text-xs py-4 text-primary-1100">
-            Your mailbox is empty ?{' '}
+            {t('emptyMailbox')} ?{' '}
             <span
               className="text-accent-700 cursor-pointer"
               onClick={handleClick}
             >
-              click here to resend an email
+              {t('clickToResendEmail')}
             </span>
           </p>
         </Center>

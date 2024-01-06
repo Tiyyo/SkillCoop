@@ -27,6 +27,7 @@ export const useApp = () => {
   const signout = useAppStore((state) => state.signout);
 
   const { data, isLoading, isFetching, isSuccess } = useGetMe({ userProfile });
+  console.log('Data get Me', data);
 
   useEffect(() => {
     if (data === 'Unecessary call') return;

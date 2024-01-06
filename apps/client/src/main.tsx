@@ -1,4 +1,5 @@
-import React from 'react';
+import i18next from './i18/i18n.ts';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 // import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -45,6 +46,7 @@ import MenuSettings from './feature/settings/menu.tsx';
 import NotificationsSettings from './feature/settings/notifications.tsx';
 import LanguageSettings from './feature/settings/language.tsx';
 import ApparenceSettings from './feature/settings/apparence.tsx';
+import LoadingPage from './component/loading-page/index.tsx';
 /*eslint-enable*/
 
 export const queryClient = new QueryClient({
@@ -207,11 +209,26 @@ const router = createBrowserRouter([
   { path: '*', element: <Page404 /> },
 ]);
 
+i18next.init({
+  fallbackLng: 'en',
+  lng: 'fr',
+  ns: ['landing-page', 'auth'],
+  backend: {
+    loadPath: '/locales/{{lng}}/{{ns}}.json',
+  },
+  debug: true,
+  interpolation: {
+    escapeValue: false,
+  },
+});
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <Toaster />
+      {/* <Suspense fallback={<LoadingPage />}> */}
       <RouterProvider router={router} />
+      {/* </Suspense> */}
     </QueryClientProvider>
   </React.StrictMode>,
 );

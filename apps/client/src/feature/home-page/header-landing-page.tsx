@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 function HeaderLandingPage() {
+  const { t } = useTranslation();
   return (
     <header className="h-20 py-5 px-4 flex justify-between items-center">
       <div>
@@ -10,14 +12,14 @@ function HeaderLandingPage() {
       </div>
       <div className="text-sm flex items-center gap-x-2">
         <Link to="/login" className="text-grey-sub-text">
-          Login
+          {t('login')}
         </Link>
         <Link
           to="/register"
           className="px-4 py-2  bg-primary-200 font-semibold text-primary-100 
               border border-primary-100 rounded-full"
         >
-          Join us
+          {t('joinUs')}
         </Link>
       </div>
     </header>

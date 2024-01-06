@@ -1,6 +1,8 @@
 import BenefitCard from './benefit-card';
+import { useTranslation } from 'react-i18next';
 
 function Benefits() {
+  const { t } = useTranslation();
   return (
     <section className="bg-primary-gradient mx-auto pt-14">
       <p
@@ -8,17 +10,16 @@ function Benefits() {
           font-semibold tracking-wider"
       >
         <img src="/images/before-title.svg" alt="prefix icon title" />
-        <span>WHAT WE ARE OFFERING</span>
+        <span>{t('headTitleBenefits')}</span>
       </p>
       <h2
         className="text-primary-1100 font-bold 
         text-center text-3xl py-3 tracking-tighter"
       >
-        Our Features
+        {t('ourFeatures')}
       </h2>
       <p className="text-center px-6 text-primary-1100">
-        Create and manage football event with our all in one app and improve
-        your journey
+        {t('subtitleBenefits')}
       </p>
       <div
         className="flex flex-col sm:flex-row flex-wrap gap-x-24
@@ -26,9 +27,8 @@ function Benefits() {
          "
       >
         <BenefitCard
-          title="Simplify"
-          description="Gather all the tools you need 
-          to create and manage events in one place."
+          title={t('simplify')}
+          description={t('simplifyDescription')}
         >
           <img
             src="/images/calendar-green.png"
@@ -37,10 +37,8 @@ function Benefits() {
           />
         </BenefitCard>
         <BenefitCard
-          title="Think Less"
-          description="Skillcoop genrate balanced teams for you and keeps all
-              participants informed of any changes, allowing you to focus on
-              what matters."
+          title={t('thinkless')}
+          description={t('thinklessDescription')}
         >
           <img
             src="/images/group-people-green.png"
@@ -48,12 +46,7 @@ function Benefits() {
             className="h-20 object-fill"
           />
         </BenefitCard>
-        <BenefitCard
-          title="Connect"
-          description="Seamlessly communicate with 
-          participants through integrated chat
-          features, enhancing your event management experience."
-        >
+        <BenefitCard title={t('connect')} description={t('connectDescription')}>
           <img
             src="/images/chat-bubbles-green.png"
             alt="feature 1"

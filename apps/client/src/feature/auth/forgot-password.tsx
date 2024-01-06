@@ -9,8 +9,10 @@ import { useState } from 'react';
 import envelope from '../../assets/svg/envelope.svg';
 import { Link } from 'react-router-dom';
 import ErrorNotification from '../../component/error/notification';
+import { useTranslation } from 'react-i18next';
 
 function ForgotPassword() {
+  const { t } = useTranslation('auth');
   const [hasBeenSent, setHasBeenSent] = useState(false);
   const [error, setError] = useState('');
   const [countRender, setCountRender] = useState(0);
@@ -45,7 +47,7 @@ function ForgotPassword() {
     <Page>
       <Center>
         <h1 className="text-lg my-4 font-semibold opacity-30 text-primary-1100">
-          Reset your password
+          {t('resetYourPassword')}
         </h1>
         {/* TODO: refactor make this form a component and include his state */}
         {!hasBeenSent ? (
@@ -55,16 +57,15 @@ function ForgotPassword() {
             onSubmit={handleSubmit}
           >
             <p className="self-start text-sm text-primary-1100">
-              Enter the email adress associated with your account.
+              {t('enterMailAssociated')}
             </p>
             <p className="self-start text-sm text-primary-1100">
-              If you have a verified email adress, you will received an email to
-              reset your password.
+              {t('ifYouHaveVerifiedAccound')}
             </p>
             <ErrorNotification message={error} key={countRender} />
-            <FormField name="email" label="Email adress" />
+            <FormField name="email" label={t('email')} />
             <Button
-              textContent="Reset my password"
+              textContent={t('resetMyPassword')}
               type="submit"
               className="text-sm"
               isLoading={isLoading}
@@ -76,12 +77,13 @@ function ForgotPassword() {
             max-w-lg rounded-sm w-3/4 text-center text-sm"
           >
             <p className="text-xs font-light text-center">
-              If there is an account linked to this email, you will receive an
-              email with further instructions.
+              {t('ifThereIsAnAccount')}
             </p>
             <img src={envelope} className="h-14" alt="envelope" />
-            <p>An email has been sent, you can now reset your password.</p>
-            <p>The reception of this email may take a few minutes.</p>
+            <p>
+              {t('emailHasBeenSent')}, {t('youCanNowResetPassword')}
+            </p>
+            <p>{t('theReceptionMayTakeFewMinutes')}</p>
 
             <Link
               to="/login"
@@ -90,7 +92,7 @@ function ForgotPassword() {
              text-white  px-3 w-[70%] 
                  max-w-xs font-bold uppercase shadow-sm tracking-wide"
             >
-              I understood
+              {t('understood')}
             </Link>
           </div>
         )}

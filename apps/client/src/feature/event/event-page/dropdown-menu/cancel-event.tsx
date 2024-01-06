@@ -3,6 +3,7 @@ import MenuItemDialog from '../../../../component/menu-item-dialog';
 import { useUpdateSingleEvent } from '../../../../hooks/useSingleEvent';
 import { EventStatus, eventStatus as eventStatusType } from 'skillcoop-types';
 import { useEvent } from '../../../../store/event.store';
+import { useTranslation } from 'react-i18next';
 
 type CancelEventMenuItemProps = {
   isAdmin: boolean;
@@ -17,6 +18,7 @@ function CancelEventMenuItem({
   profileId,
   eventStatus,
 }: CancelEventMenuItemProps) {
+  const { t } = useTranslation('event');
   const { updateStatusName } = useEvent();
   const { mutate: cancelEvent } = useUpdateSingleEvent({
     eventId,
@@ -39,13 +41,14 @@ function CancelEventMenuItem({
         profile_id: profileId,
         status_name: 'cancelled',
       }}
-      description={`This action cannot be undone. 
-                this will permanently delete your event.`}
+      description={
+        t('system:thisActionCannotBeUndone') + ' ' + t('thisWillCancelTheEvent')
+      }
       hoverOn
     >
       <div className="flex items-center gap-2">
         <Ban size="16" />
-        <span>Cancel</span>
+        <span>{t('cancel')}</span>
       </div>
     </MenuItemDialog>
   );

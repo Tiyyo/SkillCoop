@@ -6,6 +6,7 @@ import {
 } from '../../store/create-event.store';
 import type { Friend } from 'skillcoop-types';
 import FriendCard from '../friend-card';
+import { useTranslation } from 'react-i18next';
 
 type FriendCardProps = {
   profileSearchResult: Friend[] | undefined | null;
@@ -24,6 +25,7 @@ function FriendCards({
   activeFilter = false,
   loading,
 }: FriendCardProps) {
+  const { t } = useTranslation('system');
   const { data: event } = useCreateEvent();
 
   if (loading) {
@@ -33,7 +35,7 @@ function FriendCards({
   if (!profileSearchResult) {
     return (
       <div className="text-center italic text-xs py-12 text-light">
-        No friends found
+        {t('noFriendsFound')}
       </div>
     );
   }

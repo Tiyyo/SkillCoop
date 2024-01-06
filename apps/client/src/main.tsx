@@ -211,8 +211,8 @@ const router = createBrowserRouter([
 
 i18next.init({
   fallbackLng: 'en',
-  lng: 'fr',
-  ns: ['landing-page', 'auth'],
+  lng: 'en',
+  ns: ['landing-page', 'auth', 'event', 'system', 'title'],
   backend: {
     loadPath: '/locales/{{lng}}/{{ns}}.json',
   },

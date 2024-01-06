@@ -3,6 +3,8 @@
   "addNewFriend": "Add New Friend",
   "createNewEvent": "Create a new Event",
   "createNewEventLegend": "Set the details and start something special.",
+  "event": "Event",
+  "eventLegend": "Event details informations",
   "events": "Events",
   "eventsLegend": "Brief summary of the events you have participated in and your upcoming scheduled events",
   "graphSkillVizualisation": "Graph Skill Visualization.",

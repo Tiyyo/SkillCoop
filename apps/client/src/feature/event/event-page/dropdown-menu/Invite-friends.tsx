@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import type { EventStatus } from 'skillcoop-types';
 import { UserPlus } from 'lucide-react';
 import { DropdownMenuItem } from '../../../../lib/ui/dropdown';
+import { useTranslation } from 'react-i18next';
 
 function InviteFriendsMeuItems({
   eventStatus,
@@ -10,6 +11,7 @@ function InviteFriendsMeuItems({
   eventStatus: EventStatus | null;
   eventId?: number;
 }) {
+  const { t } = useTranslation('event');
   return (
     <>
       {eventStatus !== 'completed' && eventId && (
@@ -23,7 +25,7 @@ function InviteFriendsMeuItems({
             className="flex items-center gap-2"
           >
             <UserPlus size={16} />
-            <p>Invite friends</p>
+            <p>{t('inviteFriends')}</p>
           </Link>
         </DropdownMenuItem>
       )}

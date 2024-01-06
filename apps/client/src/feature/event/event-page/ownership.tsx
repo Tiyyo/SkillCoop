@@ -14,6 +14,7 @@ import associateNumberToString from '../../../utils/associate-number-stringscale
 import { cn } from '../../../lib/utils';
 import Container from '../../../layout/container';
 import TitleH2 from '../../../component/title-h2';
+import { useTranslation } from 'react-i18next';
 
 type TransfertOwnershipProps = {
   data: EventType;
@@ -24,6 +25,7 @@ function TransfertOwnership({
   data: event,
   profileId,
 }: TransfertOwnershipProps) {
+  const { t } = useTranslation('system');
   const [selectedProfile, setSelectedProfile] = useState<number | null>(null);
   const navigate = useNavigate();
   const { updateOrganizerId } = useEvent();
@@ -57,7 +59,7 @@ function TransfertOwnership({
     const isValid = updateOrganizerSchema.safeParse(data);
     if (isValid.success) transfertOwnership(data);
   };
-
+  //Shitty as fuck
   return (
     <Container className="lg:mt-4 flex-grow flex flex-col">
       <TitleH2
@@ -83,7 +85,7 @@ function TransfertOwnership({
                   className="text-center w-full italic text-xs py-4
                    text-light"
                 >
-                  No participants found
+                  {t('noParticipantsFound')}
                 </div>
               )}
               {participants.map((participant) => (

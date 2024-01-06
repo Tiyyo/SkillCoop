@@ -12,6 +12,7 @@ import toast from '../../../utils/toast';
 import Container from '../../../layout/container';
 import TitleH2 from '../../../component/title-h2';
 import { useEvent } from '../../../store/event.store';
+import { useTranslation } from 'react-i18next';
 
 type EventPageScoreProps = {
   eventId: number;
@@ -30,6 +31,7 @@ function EventPageScore({
   eventDate,
   eventStatus,
 }: EventPageScoreProps) {
+  const { t } = useTranslation('event');
   const { userProfile } = useApp();
   const { updateStatusName } = useEvent();
   const profileId = userProfile?.profile_id;
@@ -85,7 +87,7 @@ function EventPageScore({
       >
         <div>
           <label htmlFor="score_team_1" className="px-3 text-xs">
-            Team A
+            {t('team')} A
           </label>
           <input
             type="text"
@@ -111,7 +113,7 @@ function EventPageScore({
             defaultValue={scoreTeam2 ?? ''}
           />
           <label htmlFor="score_team_2" className="px-3 text-xs">
-            Team B
+            {t('team')} B
           </label>
         </div>
         {eventStatus === 'full' && isAdmin && (
@@ -119,7 +121,7 @@ function EventPageScore({
             type="submit"
             className="py-1 mt-8 w-20"
             isLoading={isLoading}
-            textContent="SAVE"
+            textContent={t('save')}
           />
         )}
       </form>

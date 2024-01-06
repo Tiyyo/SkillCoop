@@ -2,6 +2,7 @@ import { useEvent } from '../../../../store/event.store';
 import { Friend } from 'skillcoop-types';
 import SearchProfileCard from './search-profile-card';
 import SkeletonsLoader from './skeletons-loader';
+import { useTranslation } from 'react-i18next';
 
 type SearchFriendResultProps = {
   profileSearchResult?: Friend[] | null;
@@ -12,6 +13,7 @@ function SearchResult({
   profileSearchResult,
   loading = true,
 }: SearchFriendResultProps) {
+  const { t } = useTranslation('system');
   const { data: eventState } = useEvent();
 
   if (loading) {
@@ -21,7 +23,7 @@ function SearchResult({
   if (!profileSearchResult) {
     return (
       <div className="text-center italic text-xs py-12 text-light">
-        No friends found
+        {t('noFriendsFound')}
       </div>
     );
   }

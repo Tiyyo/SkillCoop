@@ -18,8 +18,10 @@ import { useUpdateLanguagePreference } from '../../hooks/useUserPreference';
 import { useApp } from '../../store/app.store';
 import { updateLanguagePreferenceSchema } from 'schema/ts-schema';
 import toast from '../../utils/toast';
+import { useTranslation } from 'react-i18next';
 
 function LanguageSettings() {
+  const { t } = useTranslation('system');
   const languageSymbols = Object.keys(languageSymbolToName);
   const languageNames = Object.values(languageSymbolToName);
   const { userProfile } = useApp();
@@ -41,14 +43,14 @@ function LanguageSettings() {
     const isValid =
       updateLanguagePreferenceSchema.safeParse(updatePreferenceData);
     if (!isValid.success) {
-      toast.error('We could not update your language preference.');
+      toast.error(t('couldNotUpdateLanguage'));
     }
     updatePreference(updatePreferenceData);
   };
 
   return (
     <Container className="lg:mt-4 h-screen p-5">
-      <h3 className="font-medium font-sm py-2">Language</h3>
+      <h3 className="font-medium font-sm py-2">{t('language')}</h3>
       <form onChange={handleChange}>
         <Select>
           <SelectTrigger className="w-full max-w-xl">
@@ -56,7 +58,7 @@ function LanguageSettings() {
               placeholder={
                 language
                   ? capitalize(languageSymbolToName[`${language}`])
-                  : 'Select a Language'
+                  : t('selectLanguage')
               }
               className="w-12"
             />
@@ -65,7 +67,7 @@ function LanguageSettings() {
             <SelectGroup>
               {languageSymbols.map((symbol, index) => (
                 <SelectItem value={symbol}>
-                  {capitalize(languageNames[index])}
+                  {t(capitalize(languageNames[index]))}
                 </SelectItem>
               ))}
             </SelectGroup>

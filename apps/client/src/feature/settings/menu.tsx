@@ -11,32 +11,37 @@ import {
   ShieldCheck,
   SunMoon,
 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 function MenuSettings() {
+  const { t } = useTranslation('system');
   return (
     <div className="flex flex-col flex-grow justify-between">
       <Container className="lg:mt-4">
-        <MenuSettingItem link="language" name="language">
+        <MenuSettingItem link="language" name={t('language')}>
           <Flag size={18} />
         </MenuSettingItem>
-        <MenuSettingItem link="notifications" name="notifications">
+        <MenuSettingItem link="notifications" name={t('notifications')}>
           <Bell size={18} />
         </MenuSettingItem>
-        <MenuSettingItem link="apparence" name="apparence">
+        <MenuSettingItem link="apparence" name={t('apparence')}>
           <SunMoon size={18} />
         </MenuSettingItem>
       </Container>
       <Container className="flex-grow lg:mt-4">
-        <MenuSettingItem link="faq" name="FAQ">
+        <MenuSettingItem link="faq" name={t('faq')}>
           <HelpCircle size={18} />
         </MenuSettingItem>
-        <MenuSettingItem link="privacy-policy" name="privacy policy">
+        <MenuSettingItem link="privacy-policy" name={t('privacyPolicy')}>
           <ShieldCheck size={18} />
         </MenuSettingItem>
-        <MenuSettingItem link="terms-and-service" name="terms and service">
+        <MenuSettingItem
+          link="terms-and-service"
+          name={t('termsAndConditions')}
+        >
           <PenLine size={18} />
         </MenuSettingItem>
-        <MenuSettingItem link="contact-us" name="contact us">
+        <MenuSettingItem link="contact-us" name={t('contactUs')}>
           <MessagesSquare size={18} />
         </MenuSettingItem>
       </Container>

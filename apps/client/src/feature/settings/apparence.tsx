@@ -5,8 +5,10 @@ import { useApp } from '../../store/app.store';
 import { UserPreference, themeAssertion } from 'skillcoop-types';
 import { useUpdateThemePreference } from '../../hooks/useUserPreference';
 import { updateThemePreferenceSchema } from 'schema/ts-schema';
+import { useTranslation } from 'react-i18next';
 
 function ApparenceSettings() {
+  const { t } = useTranslation('system');
   const { userProfile } = useApp();
   const { mutate: updatePreference } = useUpdateThemePreference({});
   const ctx = useOutletContext<UserPreference>();
@@ -31,14 +33,14 @@ function ApparenceSettings() {
   };
   return (
     <Container className="lg:mt-4 flex-grow p-5">
-      <h3 className="font-medium text-sm py-2">Theme</h3>
+      <h3 className="font-medium text-sm py-2">{t('theme')}</h3>
       <form
         className="flex items-center justify-end gap-3"
         onChange={handleChangeSwitch}
       >
-        <span className="text-xs">Dark</span>
+        <span className="text-xs">{t('dark')}</span>
         <Switch defaultChecked={theme === 'light' ? true : false} />
-        <span className="text-xs">Light</span>
+        <span className="text-xs">{t('ligth')}</span>
       </form>
     </Container>
   );

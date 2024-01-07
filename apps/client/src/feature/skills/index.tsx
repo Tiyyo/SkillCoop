@@ -11,7 +11,6 @@ import Container from '../../layout/container';
 import strongbox from '../../assets/svg/strongbox.svg';
 import flash from '../../assets/svg/flash.svg';
 import reward from '../../assets/svg/reward.svg';
-import capitalize from '../../utils/capitalize';
 import { sumValues } from '../../utils/sum-values';
 import associateNumberToString from '../../utils/associate-number-stringscale';
 import { useTranslation } from 'react-i18next';

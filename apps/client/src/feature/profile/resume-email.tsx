@@ -54,13 +54,12 @@ function ResumeEmailInfos({ email }: { email?: string | null }) {
     updateEmail(data);
   };
 
-  console.log(errors);
   return (
     <>
       <ErrorNotification
         message={errorText || t(errors?.email?.message as string)}
         interval={5000}
-        key={countRender}
+        triggerRender={countRender}
       />
       <form
         onSubmit={handleSubmit(onSubmit)}

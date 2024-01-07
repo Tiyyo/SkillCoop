@@ -71,9 +71,7 @@ function ResumeProfile({ infos }: { infos: Infos }) {
                 </div>
               </div>
               <EditModalPassword>
-                <button type="button" className="">
-                  <Edit2 className="text-light" size={18} />
-                </button>
+                <Edit2 className="text-light" size={18} />
               </EditModalPassword>
             </div>
           </div>

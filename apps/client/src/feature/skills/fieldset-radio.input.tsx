@@ -1,5 +1,4 @@
 import { useId, useState } from 'react';
-import capitalize from '../../utils/capitalize';
 import { cn } from '../../lib/utils';
 import { useTranslation } from 'react-i18next';
 

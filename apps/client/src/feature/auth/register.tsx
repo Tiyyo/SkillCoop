@@ -68,7 +68,10 @@ function Register() {
           className="flex flex-col w-[90%] max-w-lg bg-base-light 
           py-7 px-6 rounded-lg"
         >
-          <ErrorNotification message={responseErrorServer} key={renderCount} />
+          <ErrorNotification
+            message={responseErrorServer}
+            triggerRender={renderCount}
+          />
           <SocialButton
             value={t('continueWithGoogle')}
             href={getGoogleUrl(from)}

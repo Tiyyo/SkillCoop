@@ -70,7 +70,7 @@ function LanguageSettings() {
           <SelectContent>
             <SelectGroup>
               {languageSymbols.map((symbol, index) => (
-                <SelectItem value={symbol}>
+                <SelectItem value={symbol} key={index}>
                   {t(languageNames[index])}
                 </SelectItem>
               ))}

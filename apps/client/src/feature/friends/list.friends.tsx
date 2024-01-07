@@ -1,4 +1,3 @@
-import FriendCardSkeleton from '../../component/friend-card/skeleton';
 import FriendCard from '../../component/friend-card';
 import type { Friend } from 'skillcoop-types';
 import { useTranslation } from 'react-i18next';

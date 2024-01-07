@@ -62,7 +62,7 @@ function ForgotPassword() {
             <p className="self-start text-sm text-primary-1100">
               {t('ifYouHaveVerifiedAccound')}
             </p>
-            <ErrorNotification message={error} key={countRender} />
+            <ErrorNotification message={error} triggerRender={countRender} />
             <FormField name="email" label={t('email')} />
             <Button
               textContent={t('resetMyPassword')}

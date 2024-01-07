@@ -245,7 +245,7 @@ i18next.init({
   backend: {
     loadPath: '/locales/{{lng}}/{{ns}}.json',
   },
-  debug: true,
+  debug: false,
   interpolation: {
     escapeValue: false,
   },

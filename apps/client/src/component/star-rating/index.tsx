@@ -1,4 +1,4 @@
-import { HTMLInputTypeAttribute, Suspense, useId } from 'react';
+import { HTMLInputTypeAttribute, useId } from 'react';
 import './rating-input.css';
 import { useTranslation } from 'react-i18next';
 

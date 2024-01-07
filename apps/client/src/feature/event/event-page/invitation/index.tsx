@@ -7,7 +7,6 @@ import { useSearchResultOrDefault } from '../../../../hooks/useSearchResultOrDef
 import Container from '../../../../layout/container';
 import { useEvent } from '../../../../store/event.store';
 import { useApp } from '../../../../store/app.store';
-import { useEffect, useState } from 'react';
 import { inviteParticipantSchema } from 'schema/ts-schema';
 import toast from '../../../../utils/toast';
 import { useSendEventInvitation } from '../../../../hooks/useSingleEvent';

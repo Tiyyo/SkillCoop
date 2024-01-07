@@ -8,7 +8,6 @@ import Button from '../../../component/button';
 import { useNavigate } from 'react-router-dom';
 import { useTransfertOwnership } from '../../../hooks/useSingleEvent';
 import { useEvent } from '../../../store/event.store';
-import capitalize from '../../../utils/capitalize';
 /*eslint-disable-next-line*/
 import associateNumberToString from '../../../utils/associate-number-stringscale';
 import { cn } from '../../../lib/utils';

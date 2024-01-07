@@ -3,6 +3,7 @@ import FriendCard from '../../component/friend-card';
 import type { Friend } from 'skillcoop-types';
 import { useTranslation } from 'react-i18next';
 import ErrorFallback from '../../component/error-fallback';
+import SkeletonFallback from '../../component/skeleton-fallback';
 
 type FriendlistProps = {
   friends?: Friend[];
@@ -19,20 +20,10 @@ function Friendlist({
   stringKey,
   activeLinkProfile = false,
 }: FriendlistProps) {
-  const { t } = useTranslation('sytem');
-  const NB_SKELETON = 14;
+  const { t } = useTranslation('system');
 
-  //  TODO : handle error
   if (error) return <ErrorFallback />;
-
-  if (loading)
-    return (
-      <div className="relative grid grid-cols-2 py-8 gap-2 bg-base-light z-10">
-        {[...Array(NB_SKELETON)].map((_, i) => (
-          <FriendCardSkeleton key={i} />
-        ))}
-      </div>
-    );
+  if (loading) return <SkeletonFallback />;
 
   return (
     <>

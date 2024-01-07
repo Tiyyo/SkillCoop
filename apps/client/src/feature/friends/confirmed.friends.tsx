@@ -7,6 +7,8 @@ import SubHeader from '../../component/header/sub-header';
 import Container from '../../layout/container';
 import { ArrowRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { Suspense } from 'react';
+import SkeletonFallback from '../../component/skeleton-fallback';
 
 function ConfirmedFriends() {
   // TODO implement infinite scroll
@@ -40,12 +42,14 @@ function ConfirmedFriends() {
             <ArrowRight size={16} />
           </Link>
         </div>
-        <Friendlist
-          loading={loading}
-          friends={confirmedFriends}
-          error={isError}
-          activeLinkProfile
-        />
+        <Suspense fallback={<SkeletonFallback />}>
+          <Friendlist
+            loading={loading}
+            friends={confirmedFriends}
+            error={isError}
+            activeLinkProfile
+          />
+        </Suspense>
       </Container>
     </>
   );

@@ -118,7 +118,7 @@ function EventCard({
               />
               <p className="font-light lg:text-xs relative translate-x-1">
                 <span className="font-semibold">{confirmedParticipants} </span>/
-                <span> {requiredParticipants}</span> {t('arGoing')}
+                <span> {requiredParticipants}</span> {t('areGoing')}
               </p>
             </div>
           )}

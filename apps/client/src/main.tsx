@@ -47,6 +47,7 @@ import NotificationsSettings from './feature/settings/notifications.tsx';
 import LanguageSettings from './feature/settings/language.tsx';
 import ApparenceSettings from './feature/settings/apparence.tsx';
 import LoadingPage from './component/loading-page/index.tsx';
+import App from './app.tsx';
 /*eslint-enable*/
 
 export const queryClient = new QueryClient({
@@ -114,10 +115,10 @@ const router = createBrowserRouter([
         path: '/new-event',
         element: <CreateEvent />,
       },
-      {
-        path: '/new-event/invitation',
-        element: <InvitationFromCreateEventPage />,
-      },
+      // {
+      //   path: '/new-event/invitation',
+      //   element: <InvitationFromCreateEventPage />,
+      // },
       {
         path: '/event/:eventId/invitation',
         element: <InvitationFromEventPage />,
@@ -209,25 +210,26 @@ const router = createBrowserRouter([
   { path: '*', element: <Page404 /> },
 ]);
 
-// i18next.init({
-//   fallbackLng: 'en',
-//   lng: 'en',
-//   ns: ['landing-page', 'auth', 'event', 'system', 'title'],
-//   backend: {
-//     loadPath: '/locales/{{lng}}/{{ns}}.json',
-//   },
-//   debug: true,
-//   interpolation: {
-//     escapeValue: false,
-//   },
-// });
+i18next.init({
+  fallbackLng: 'en',
+  lng: 'fr',
+  ns: ['landing-page', 'auth', 'event', 'system', 'title'],
+  backend: {
+    loadPath: '/locales/{{lng}}/{{ns}}.json',
+  },
+  debug: true,
+  interpolation: {
+    escapeValue: false,
+  },
+});
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <Toaster />
       {/* <Suspense fallback={<LoadingPage />}> */}
-      <RouterProvider router={router} />
+      {/* <App /> */}
+      <RouterProvider router={router} fallbackElement={<LoadingPage />} />
       {/* </Suspense> */}
     </QueryClientProvider>
   </React.StrictMode>,

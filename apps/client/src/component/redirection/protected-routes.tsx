@@ -4,7 +4,6 @@ import LandingPage from '../../feature/home-page/landing-page';
 
 function Protected({ children }: { children: React.ReactNode }) {
   const { isAuth, loading } = useApp();
-  console.log('isAuth', loading);
   if (loading) return <LoadingPage />;
 
   return isAuth ? <>{children}</> : <LandingPage />;

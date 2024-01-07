@@ -4,47 +4,6 @@ export type Generated<T> = T extends ColumnType<infer S, infer I, infer U>
   : ColumnType<T, T | undefined, T>;
 export type Timestamp = ColumnType<Date, Date | string, Date | string>;
 
-export type TableNames =
-  | 'best_striker_poll'
-  | 'event'
-  | 'image'
-  | 'language_preference'
-  | 'mvp_poll'
-  | 'notification'
-  | 'notification_preference'
-  | 'notification_type'
-  | 'profile'
-  | 'profile_on_event'
-  | 'profile_on_profile'
-  | 'score'
-  | 'skill_foot'
-  | 'sport'
-  | 'status'
-  | 'theme_preference'
-  | 'user';
-
-// create an objet with all the table name to assert type them
-
-export const tableNames = {
-  best_striker_poll: 'best_striker_poll',
-  event: 'event',
-  image: 'image',
-  language_preference: 'language_preference',
-  mvp_poll: 'mvp_poll',
-  notification: 'notification',
-  notification_preference: 'notification_preference',
-  notification_type: 'notification_type',
-  profile: 'profile',
-  profile_on_event: 'profile_on_event',
-  profile_on_profile: 'profile_on_profile',
-  score: 'score',
-  skill_foot: 'skill_foot',
-  sport: 'sport',
-  status: 'status',
-  theme_preference: 'theme_preference',
-  user: 'user',
-} as const;
-
 export type best_striker_poll = {
   event_id: number;
   profile_id: number;

@@ -21,7 +21,11 @@ function ResumeEmailInfos({ email }: { email?: string | null }) {
   const [errorText, setErrorText] = useState('');
   const [editActiveState, setEditActiveState] = useState(false);
   const [countRender, setCountRender] = useState(0);
-  const { register, handleSubmit } = useForm<UpdateEmail>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<UpdateEmail>({
     resolver: zodResolver(emailSchema),
   });
   const { mutate: updateEmail, isLoading } = useUpdateEmail({
@@ -44,15 +48,17 @@ function ResumeEmailInfos({ email }: { email?: string | null }) {
     const isValid = updateEmailSchema.safeParse(data);
     if (!isValid.success) {
       setErrorText(t('somethingWentWrong'));
+      setCountRender((prev) => prev + 1);
       return;
     }
     updateEmail(data);
   };
 
+  console.log(errors);
   return (
     <>
       <ErrorNotification
-        message={errorText}
+        message={errorText || t(errors?.email?.message as string)}
         interval={5000}
         key={countRender}
       />

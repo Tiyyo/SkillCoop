@@ -24,7 +24,7 @@ function ForgotPassword() {
       setHasBeenSent(true);
     },
     onError: () => {
-      setError('This email is not associated with an account');
+      setError(t('toast:thisEmailIsNotAssociated'));
       setCountRender((prev) => prev + 1);
     },
   });
@@ -36,7 +36,7 @@ function ForgotPassword() {
     };
     const isValid = emailSchema.safeParse(data);
     if (!isValid.success) {
-      setError('This is not a valid email');
+      setError(t('toast:thisIsNotAValidEmail'));
     } else {
       sendEmailWithResetLink(data.email);
     }

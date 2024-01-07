@@ -23,5 +23,8 @@
   "youAttended": "You attended",
   "youReceived": "You received",
   "rewardsInclude": "rewards, which may include bonuses or ratings.",
-  "eventPlurial": "event(s)"
+  "eventPlurial": "event(s)",
+  "attendance": "Attendance",
+  "averageRating": "Average Rating",
+  "awards": "Awards"
 }

@@ -35,5 +35,7 @@
   "viewPendingRequest": "Voir les demandes en attente",
   "haveNotEvaluatedYet": "Vous n'avez pas encore estimé vos compétences. Estimer vos compétences permet à l'algorithme d'associer plus précisément les utilisateurs lors de l'appariement pour un événement.",
   "transfertRights": "Transférer les droits",
-  "transfertRightsLegend": "À quels participants souhaitez-vous transférer vos droits d'organisateur pour cet événement ?"
+  "transfertRightsLegend": "À quels participants souhaitez-vous transférer vos droits d'organisateur pour cet événement ?",
+  "sharedEvents": "Événements partagés",
+  "sharedEventsLegend": "Derniers événements que vous avez partagés avec {{username}}"
 }

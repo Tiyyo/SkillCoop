@@ -35,5 +35,7 @@
   "viewPendingRequest": "View Pending Request",
   "haveNotEvaluatedYet": "You haven't estimated your skills yet. Estimating your skills allows the algorithm to more accurately match users during event matchmaking.",
   "transfertRights": "Transfer Rights",
-  "transfertRightsLegend": "To which participants do you want to transfer your organizer rights for this event ?."
+  "transfertRightsLegend": "To which participants do you want to transfer your organizer rights for this event ?.",
+  "sharedEvents": "Shared Events",
+  "sharedEventsLegend": "Last events you shared with {{username}}"
 }

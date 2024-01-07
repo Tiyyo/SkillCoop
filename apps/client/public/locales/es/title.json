@@ -40,5 +40,7 @@
   "rewardsInclude": "recompensas, que pueden incluir bonificaciones o calificaciones.",
   "eventPlurial": "evento(s)",
   "transfertRights": "Transferir derechos",
-  "transfertRightsLegend": "¿A qué participantes quieres transferir tus derechos de organizador para este evento?"
+  "transfertRightsLegend": "¿A qué participantes quieres transferir tus derechos de organizador para este evento?",
+  "sharedEvents": "Eventos compartidos",
+  "sharedEventsLegend": "Últimos eventos compartidos con {{username}}"
 }

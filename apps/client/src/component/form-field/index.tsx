@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ComponentPropsWithoutRef } from 'react';
 import { cn } from '../../lib/utils';
 import { XCircle } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface FormFieldProps extends ComponentPropsWithoutRef<'input'> {
   name: string;
@@ -29,6 +30,8 @@ function FormField({
   register,
   ...props
 }: FormFieldProps) {
+  const { t } = useTranslation('zod');
+  // TDOD: Move this logic into a custom hook
   const [errorText, setErrorText] = useState(error);
   const [icon, setIcon] = useState(false);
 
@@ -42,6 +45,10 @@ function FormField({
   function toggleIcon() {
     setIcon(!icon);
   }
+
+  useEffect(() => {
+    setErrorText(error);
+  }, [error]);
 
   return (
     <div className="w-full">
@@ -94,7 +101,7 @@ function FormField({
               text-xs font-semibold`}
         >
           <XCircle size={16} />
-          <p>{errorText}</p>
+          <p>{t(errorText)}</p>
         </div>
       )}
     </div>

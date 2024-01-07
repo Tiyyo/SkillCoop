@@ -17,6 +17,8 @@
   "friendHasBeenAdded": "{{username}} has been added to your friend list",
   "eventSet": "Event set",
   "atOn": "At {{startTime}} on {{startDate}}",
-  "invitationsSent": "Invitations sent",
-  "invitationSentTo": "Invitation sent to {{username}}"
+  "invitationSent": "Invitation(s) sent",
+  "invitationSentTo": "Invitation sent to {{username}}",
+  "thisEmailIsNotAssociated": "This email is not associated with an account",
+  "thisIsNotAValidEmail": "This is not a valid email"
 }

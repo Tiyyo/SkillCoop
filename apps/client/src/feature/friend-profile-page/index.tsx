@@ -12,8 +12,10 @@ import AvatarRectangle from '../../component/avatar-rectangle';
 import FriendStatsMobile from './stats-mobile';
 import { getAge } from 'date-handler/src';
 import { Suspense } from 'react';
+import { useTranslation } from 'react-i18next';
 
 function FriendProfile() {
+  const { t } = useTranslation('title');
   const params = useParams<{ id: string }>();
   const profileId = Number(params.id);
   const { data: profile } = useGetProfile({ profileId });
@@ -96,7 +98,7 @@ function FriendProfile() {
           {/*      TODO : move this into his own component */}
           {hasBeenEvaluated && (
             <Container className="lg:w-1/2 lg:rounded-r-none">
-              <TitleH2 title="Stats" />
+              <TitleH2 title={t('stats')} />
               <div className="py-2 max-h-96">
                 <RadarChart
                   skills={evaluateProfile}
@@ -111,8 +113,8 @@ function FriendProfile() {
           )}
           <Container className="lg:w-1/2 lg:rounded-l-none">
             <TitleH2
-              title="Shared Events"
-              legend={`Last events you shared with ${profile?.username}`}
+              title={t('sharedEvents')}
+              legend={t('sharedEventsLegend', { username: profile?.username })}
             />
           </Container>
         </div>

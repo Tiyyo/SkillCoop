@@ -237,6 +237,7 @@ i18next.init({
     'toast',
     'skill',
     'notification',
+    'zod',
   ],
   backend: {
     loadPath: '/locales/{{lng}}/{{ns}}.json',

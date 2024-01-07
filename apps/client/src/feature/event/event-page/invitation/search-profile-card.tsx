@@ -1,11 +1,11 @@
-import capitalize from '../../../../utils/capitalize';
 /*eslint-disable*/
 import associateNumberToString from '../../../../utils/associate-number-stringscale';
-import { useEffect, useState } from 'react';
 import { invitationStatus } from 'skillcoop-types';
 import { useEvent } from '../../../../store/event.store';
 import AvatarSmallWithBorder from '../../../../component/avatar/avatar-border-small';
 /*eslint-enabled*/
+import { useTranslation } from 'react-i18next';
+
 type SearchProfileCardProps = {
   avatar: string;
   username: string;
@@ -19,14 +19,20 @@ function SearchProfileCard({
   friendId,
   lastEvaluationRecorded,
 }: SearchProfileCardProps) {
+  const { t } = useTranslation('skill');
+  const translatedLastEvaluation =
+    lastEvaluationRecorded &&
+    t(associateNumberToString(lastEvaluationRecorded));
   // handle selection of friends to invite to event
-  const [isSelected, setIsSelected] = useState(false);
   const { addToStaged, removeFromStaged, data: eventStateData } = useEvent();
+  // TODO : use useMemo if performance issue
+  const isSelected = eventStateData.staged_participants?.some(
+    (p) => p.profile_id === friendId,
+  );
 
   const handleClickSelection = () => {
     if (isSelected) {
       removeFromStaged(friendId);
-      setIsSelected(false);
     } else {
       const updatedParticipantInfos = {
         profile_id: friendId,
@@ -37,24 +43,6 @@ function SearchProfileCard({
       addToStaged(updatedParticipantInfos);
     }
   };
-
-  if (eventStateData) {
-    const isSelected = eventStateData.staged_participants?.some(
-      (p) => p.profile_id === friendId,
-    );
-    isSelected && setIsSelected(true);
-  }
-
-  // useEffect(() => {
-  //   if (!eventStateData) return;
-  //   const isSelected = eventStateData.staged_participants?.some(
-  //     (p) => p.profile_id === friendId,
-  //   );
-
-  //   if (isSelected) {
-  //     setIsSelected(true);
-  //   }
-  // }, [eventStateData]);
 
   return (
     <div
@@ -70,8 +58,7 @@ function SearchProfileCard({
       <div className="flex flex-col gap-1">
         <p className="text-center text-xs">{username}</p>
         <p className="text-center text-xxs text-light">
-          {lastEvaluationRecorded &&
-            capitalize(associateNumberToString(lastEvaluationRecorded))}
+          {translatedLastEvaluation}
         </p>
       </div>
     </div>

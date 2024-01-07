@@ -23,5 +23,8 @@
   "youAttended": "Vous avez participé à",
   "youReceived": "Vous avez reçu",
   "rewardsInclude": "récompenses, qui peuvent inclure des bonus ou des évaluations.",
-  "eventPlurial": "événement(s)"
+  "eventPlurial": "événement(s)",
+  "attendance": "Présence",
+  "averageRating": "Note moyenne",
+  "awards": "Récompenses"
 }

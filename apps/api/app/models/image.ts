@@ -1,4 +1,4 @@
-import { tableNames } from '../@types/database';
+import { tableNames } from '../@types/types';
 import { Core } from './core';
 
 export class Image extends Core<typeof tableNames.image> {

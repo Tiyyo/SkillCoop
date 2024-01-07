@@ -1,4 +1,4 @@
-import { tableNames } from '../@types/database';
+import { tableNames } from '../@types/types';
 import DatabaseError from '../helpers/errors/database.error';
 import { Core } from './core';
 import { db } from '../helpers/client.db';

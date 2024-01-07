@@ -1,4 +1,4 @@
-import { tableNames } from '../@types/database';
+import { tableNames } from '../@types/types';
 import { Core } from './core';
 
 export class Mvp extends Core<typeof tableNames.mvp_poll> {

@@ -2,11 +2,12 @@ import { getFormattedUTCTimestamp } from 'date-handler';
 import DatabaseError from '../helpers/errors/database.error';
 import UserInputError from '../helpers/errors/user-input.error';
 import { Core } from './core';
-import { DB, tableNames } from '../@types/database';
+import { DB } from '../@types/database';
 import { db } from '../helpers/client.db';
 import NotFoundError from '../helpers/errors/not-found.error';
 import { InsertObject, ReferenceExpression } from 'kysely';
 import { ExtractTableAlias } from 'kysely/dist/cjs/parser/table-parser';
+import { tableNames } from '../@types/types';
 
 export class ProfileOnEvent extends Core<typeof tableNames.profile_on_event> {
   constructor(client: typeof db) {

@@ -3,10 +3,11 @@ import { sql } from 'kysely';
 import { Core } from './core';
 import NotFoundError from '../helpers/errors/not-found.error';
 import { getFormattedUTCTimestamp } from 'date-handler';
-import { DB, tableNames } from '../@types/database';
+import { DB } from '../@types/database';
 import { db } from '../helpers/client.db';
 /*eslint-disable-next-line */
 import { InsertObjectOrList } from 'kysely/dist/cjs/parser/insert-values-parser';
+import { tableNames } from '../@types/types';
 
 // TODO define a type for Profile
 

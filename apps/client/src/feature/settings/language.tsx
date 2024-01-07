@@ -13,15 +13,15 @@ import {
   UserPreference,
   languageSymbolToName,
 } from 'skillcoop-types';
-import capitalize from '../../utils/capitalize';
 import { useUpdateLanguagePreference } from '../../hooks/useUserPreference';
 import { useApp } from '../../store/app.store';
 import { updateLanguagePreferenceSchema } from 'schema/ts-schema';
 import toast from '../../utils/toast';
 import { useTranslation } from 'react-i18next';
+import { storeInLocalStorage } from '../../utils/store-in-local';
 
 function LanguageSettings() {
-  const { t } = useTranslation('system');
+  const { t, i18n } = useTranslation('system');
   const languageSymbols = Object.keys(languageSymbolToName);
   const languageNames = Object.values(languageSymbolToName);
   const { userProfile } = useApp();
@@ -33,7 +33,11 @@ function LanguageSettings() {
   const handleChange = (e: React.FormEvent<HTMLFormElement>) => {
     const languageSymbol = (e.target as HTMLSelectElement)
       .value as LanguageSymbol;
-
+    i18n.changeLanguage(languageSymbol);
+    //update language for language detection module
+    localStorage.setItem('i18nextLng', languageSymbol);
+    //update userPreferenes object in localStorage
+    storeInLocalStorage('_userPreferences', { language: languageSymbol });
     if (!userProfile?.user_id) return;
     const updatePreferenceData = {
       user_id: userProfile.user_id,
@@ -57,7 +61,7 @@ function LanguageSettings() {
             <SelectValue
               placeholder={
                 language
-                  ? capitalize(languageSymbolToName[`${language}`])
+                  ? t(languageSymbolToName[`${language}`])
                   : t('selectLanguage')
               }
               className="w-12"

@@ -227,7 +227,10 @@ const router = createBrowserRouter([
 
 i18next.init({
   fallbackLng: 'en',
-  lng: 'fr',
+  detection: {
+    order: ['localStorage', 'navigator'],
+    // other detection options
+  },
   ns: [
     'landing-page',
     'auth',
@@ -252,10 +255,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <Toaster />
-      {/* <Suspense fallback={<LoadingPage />}> */}
-      {/* <App /> */}
       <RouterProvider router={router} fallbackElement={<LoadingPage />} />
-      {/* </Suspense> */}
     </QueryClientProvider>
   </React.StrictMode>,
 );

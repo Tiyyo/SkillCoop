@@ -32,5 +32,13 @@
   "upcoming": "Próximos",
   "upcomingEvents": "Eventos próximos",
   "upcomingEventsLegend": "Próximos eventos programados.",
-  "viewPendingRequest": "Ver solicitudes pendientes"
+  "viewPendingRequest": "Ver solicitudes pendientes",
+  "haveNotEvaluatedYet": "Aún no has estimado tus habilidades. Estimar tus habilidades permite que el algoritmo empareje a los usuarios de manera más precisa durante la organización de eventos.",
+  "youHaveProficiency": "Tienes una estimación de competencia de",
+  "youAttended": "Asististe a",
+  "youReceived": "Recibiste",
+  "rewardsInclude": "recompensas, que pueden incluir bonificaciones o calificaciones.",
+  "eventPlurial": "evento(s)",
+  "transfertRights": "Transferir derechos",
+  "transfertRightsLegend": "¿A qué participantes quieres transferir tus derechos de organizador para este evento?"
 }

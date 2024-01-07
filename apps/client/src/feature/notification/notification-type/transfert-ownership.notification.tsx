@@ -2,26 +2,26 @@ import { Link } from 'react-router-dom';
 import CoreNotification from '../core';
 import { ArrowRight } from 'lucide-react';
 import type { Notification } from 'skillcoop-types';
+import { useTranslation } from 'react-i18next';
 
 function TransfertOwnershipNotification({
   notification,
 }: {
   notification: Notification;
 }) {
+  const { t } = useTranslation('notification');
   const username = notification.message.split(' ').shift();
 
   const buildMessage = () => {
     if (username) {
       const messageWithoutUsername = notification.message.split(username)[1];
       const splitWordOn = 'scheduled on';
-      const firstPart = messageWithoutUsername.split(splitWordOn)[0];
       const date = messageWithoutUsername.split(splitWordOn)[1];
       return (
         <>
-          <span className="font-medium text-dark">{username}</span>
-          {firstPart}
-          {splitWordOn}
-          <span className="font-medium text-dark">{date}</span>
+          <span className="font-medium text-dark">{username} </span>
+          {t('hastransferredToYou')}
+          <span className="font-medium text-dark"> {date}</span>
         </>
       );
     }
@@ -42,7 +42,7 @@ function TransfertOwnershipNotification({
         font-semibold text-primary-1000 
         underline underline-offset-4 pr-4"
       >
-        Go to event page
+        {t('goToEventPage')}
         <ArrowRight size={14} />
       </Link>
     </CoreNotification>

@@ -67,7 +67,7 @@ function LanguageSettings() {
             <SelectGroup>
               {languageSymbols.map((symbol, index) => (
                 <SelectItem value={symbol}>
-                  {t(capitalize(languageNames[index]))}
+                  {t(languageNames[index])}
                 </SelectItem>
               ))}
             </SelectGroup>

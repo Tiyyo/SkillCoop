@@ -1,0 +1,22 @@
+{
+  "youAreNowFriendsWith": "You are now friends with",
+  "youHaveReceivedAFriend": "You have received a friend request from",
+  "goToEventPage": "Go to event page",
+  "detailsScheduledOn": "Certain details for the event scheduled",
+  "inWhichYouAreParticipating": "in which you are participating, have been updated",
+  "youHaveBeenInvitedBy": "You have been invited by",
+  "toTheEvent": "to an event on",
+  "friend": "Friends",
+  "event": "Events",
+  "all": "All",
+  "eventScheduledOn": "Event scheduled on",
+  "hasReachedItsMaximumNumberOfParticipants": "has reached its required number of participants and teams have been generated",
+  "hastransferredToYou": "has transferred to you his ownership rights for the event scheduled on",
+  "yesterday": "yesterday",
+  "justNow": "just now",
+  "minutesAgo": "{{number}}min ago",
+  "hoursAgo": "{{number}}h ago",
+  "daysAgo": "{{number}}d ago",
+  "weeksAgo": "{{number}}w ago",
+  "monthsAgo": "{{number}} month ago"
+}

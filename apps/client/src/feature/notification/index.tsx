@@ -5,8 +5,10 @@ import NotificationFilters from './filters';
 import { useNotifications } from '../../store/notification.store';
 import { useEffect, useLayoutEffect } from 'react';
 import { useGetNotifications } from '../../hooks/useNotification';
+import { useTranslation } from 'react-i18next';
 
 function NotificationContainer() {
+  const { t } = useTranslation('system');
   const { userProfile } = useApp();
   const { activeFilter, notifications, setNotification } = useNotifications();
   const {
@@ -39,21 +41,21 @@ function NotificationContainer() {
           lg:rounded-t-lg rounded-b-none"
       >
         <h2 className="font-semibold text-sm lg:text-lg px-3 py-2">
-          Notifications
+          {t('notifications')}
         </h2>
         <NotificationFilters />
       </Container>
       <Container className="flex-grow px-1.5 lg:rounded-none lg: rounded-b-lg">
         {notifications && notifications.length === 0 && (
           <p className="text-sm text-light text-center mt-4">
-            You don&apos;t have any notifications
+            {t('noNotifications')}
           </p>
         )}
         {notifications &&
           notifications
             .filter((notification) => {
               if (activeFilter === 'all') return true;
-              return notification.type === activeFilter;
+              return notification.type_name === activeFilter;
             })
             .map((notification) => <DispatchNotifications {...notification} />)}
       </Container>

@@ -1,8 +1,3 @@
 {
-  "youCannotRevokeYourParticipation": "You cannot revoke your participation in this event as you are the organizer.",
-  "youHaveToTransferOwnership": "You have to transfer your ownership to another participant first.",
-  "doYouWantToStayInvited": "Do you want to stay invited ?",
-  "ifNoYouWillNoLonger": "If not you will no longer have access to this event.",
-  "yesIdo": "Yes I do",
-  "noIdont": "No I don't"
+  "noNotifications": "You don't have any notifications"
 }

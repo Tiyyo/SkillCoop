@@ -76,8 +76,8 @@ function EventPageScore({
   if (eventStatus === 'cancelled') return null;
   if (eventStatus === 'open') return null;
   return (
-    <Container className="flex flex-col min-w-[320px]">
-      <TitleH2 title="Final Score" />
+    <Container className="flex flex-col min-w-[335px]">
+      <TitleH2 title={t('finalScore')} />
       {/* "bg-base-light mx-2 rounded-md py-4 px-3 flex flex-col items-center
       justify-between w-full" */}
       <form
@@ -119,7 +119,7 @@ function EventPageScore({
         {eventStatus === 'full' && isAdmin && (
           <Button
             type="submit"
-            className="py-1 mt-8 w-20"
+            className="py-1 mt-8"
             isLoading={isLoading}
             textContent={t('save')}
           />

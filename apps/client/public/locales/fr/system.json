@@ -64,5 +64,12 @@
   "yourOldPassword": "Votre ancien mot de passe",
   "cancel": "Annuler",
   "continue": "Continuer",
-  "areYouSure": "Êtes-vous absolument sûr ?"
+  "areYouSure": "Êtes-vous absolument sûr ?",
+  "event": "Événement",
+  "transfert": "Transférer",
+  "noNotifications": "Vous n'avez aucune notification",
+  "all": "Tout",
+  "events": "Événements",
+  "accept": "Accepter",
+  "decline": "Refuser"
 }

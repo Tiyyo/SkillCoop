@@ -18,5 +18,10 @@
   "performanceAt": "performance at an",
   "levelForThisEvent": "level for this event.",
   "youCanEvaluateSkillOf": "You can evaluate the skill of",
-  "moreAccurateAlgo": " on this event. This can help to make the balanced of generated team more accurate"
+  "moreAccurateAlgo": " on this event. This can help to make the balanced of generated team more accurate",
+  "youHaveProficiency": "You have a proficiency estimate of",
+  "youAttended": "You attended",
+  "youReceived": "You received",
+  "rewardsInclude": "rewards, which may include bonuses or ratings.",
+  "eventPlurial": "event(s)"
 }

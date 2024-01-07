@@ -40,7 +40,7 @@ function ApparenceSettings() {
       >
         <span className="text-xs">{t('dark')}</span>
         <Switch defaultChecked={theme === 'light' ? true : false} />
-        <span className="text-xs">{t('ligth')}</span>
+        <span className="text-xs">{t('light')}</span>
       </form>
     </Container>
   );

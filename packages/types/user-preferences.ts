@@ -6,13 +6,13 @@ export type LanguageSymbol = 'en' | 'es' | 'fr'
 
 export const languageNameToSymbol = {
   english: 'en',
-  spannish: 'es',
+  spanish: 'es',
   french: 'fr',
 } as const
 
 export const languageSymbolToName = {
   en: 'english',
-  es: 'spannish',
+  es: 'spanish',
   fr: 'french',
 } as const
 

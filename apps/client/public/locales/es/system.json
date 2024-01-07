@@ -64,5 +64,12 @@
   "yourOldPassword": "Tu contraseña antigua",
   "cancel": "Cancelar",
   "continue": "Continuar",
-  "areYouSure": "¿Estás absolutamente seguro?"
+  "areYouSure": "¿Estás absolutamente seguro?",
+  "event": "Evento",
+  "transfert": "Transferir",
+  "noNotifications": "No tienes ninguna notificación",
+  "all": "Todos",
+  "events": "Eventos",
+  "accept": "Aceptar",
+  "decline": "Rechazar"
 }

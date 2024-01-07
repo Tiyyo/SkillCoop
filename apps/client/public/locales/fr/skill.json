@@ -18,5 +18,10 @@
   "performanceAt": "performance à un",
   "levelForThisEvent": "niveau pour cet événement.",
   "youCanEvaluateSkillOf": "Vous pouvez évaluer la compétence de",
-  "moreAccurateAlgo": " sur cet événement. Cela peut aider à rendre l'équilibrage des équipes générées plus précis"
+  "moreAccurateAlgo": " sur cet événement. Cela peut aider à rendre l'équilibrage des équipes générées plus précis",
+  "youHaveProficiency": "Votre estimation de compétence est de",
+  "youAttended": "Vous avez participé à",
+  "youReceived": "Vous avez reçu",
+  "rewardsInclude": "récompenses, qui peuvent inclure des bonus ou des évaluations.",
+  "eventPlurial": "événement(s)"
 }

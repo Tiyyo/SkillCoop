@@ -64,5 +64,12 @@
   "yourOldPassword": "Your old password",
   "cancel": "Cancel",
   "continue": "Continue",
-  "areYouSure": "Are you absolutely sure ?"
+  "areYouSure": "Are you absolutely sure ?",
+  "event": "Event",
+  "transfert": "Transfert",
+  "noNotifications": "You don't have any notifications",
+  "all": "All",
+  "events": "Events",
+  "accept": "Accept",
+  "decline": "Decline"
 }

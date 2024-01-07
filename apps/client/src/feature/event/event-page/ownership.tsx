@@ -63,9 +63,8 @@ function TransfertOwnership({
   return (
     <Container className="lg:mt-4 flex-grow flex flex-col">
       <TitleH2
-        title="Transfert Rights"
-        legend="To which participants do you want to transfer 
-        your organizer rights for this event ?"
+        title={t('title:transfertRights')}
+        legend={t('title:transfertRightsLegend')}
       />
       <form
         className="flex-grow flex flex-col justify-between 
@@ -106,10 +105,11 @@ function TransfertOwnership({
                     <div className="flex items-center gap-x-3">
                       <p className="text-xxs text-light">
                         {participant.last_evaluation
-                          ? capitalize(
-                              associateNumberToString(
-                                participant.last_evaluation,
-                              ),
+                          ? t(
+                              'skill:' +
+                                associateNumberToString(
+                                  participant.last_evaluation,
+                                ),
                             )
                           : ''}
                       </p>
@@ -121,7 +121,7 @@ function TransfertOwnership({
           )}
         </div>
         <Button
-          textContent="Transfert"
+          textContent={t('transfert')}
           type="submit"
           variant="light"
           isLoading={isLoading}

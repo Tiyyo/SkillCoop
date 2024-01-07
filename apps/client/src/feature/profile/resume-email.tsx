@@ -97,7 +97,7 @@ function ResumeEmailInfos({ email }: { email?: string | null }) {
             type="submit"
             isLoading={isLoading}
             variant="light"
-            textContent="Edit Email"
+            textContent={t('editEmail')}
           />
         )}
       </form>

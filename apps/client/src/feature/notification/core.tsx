@@ -1,6 +1,7 @@
 import capitalize from '../../utils/capitalize';
 import { useMarkNotificationAsRead } from '../../hooks/useNotification';
 import { useNotifications } from '../../store/notification.store';
+import { useTranslation } from 'react-i18next';
 
 type CoreNotificationProps = {
   id: number;
@@ -57,12 +58,12 @@ function createdSince(date: string) {
 
   if (diff < ONE_MINUTE) return 'just now';
   if (diff < ONE_HOUR) return `${Math.floor(diff / ONE_MINUTE)} min ago`;
-  if (diff < ONE_DAY) return `${Math.floor(diff / ONE_HOUR)}h ago`;
+  if (diff < ONE_DAY) return `${Math.floor(diff / ONE_HOUR)} h ago`;
   if (diff < 2 * ONE_DAY) return 'yesterday';
   if (diff > 2 * ONE_DAY && diff < ONE_WEEK)
-    return `${Math.floor(diff / ONE_DAY)}d ago`;
+    return `${Math.floor(diff / ONE_DAY)} d ago`;
   if (diff > ONE_WEEK && diff < 2 * ONE_MONTH)
-    return `${Math.floor(diff / ONE_WEEK)}w ago`;
+    return `${Math.floor(diff / ONE_WEEK)} w ago`;
   if (diff > 2 * ONE_MONTH) return `${Math.floor(diff / ONE_MONTH)} month ago`;
 }
 
@@ -75,6 +76,19 @@ function CoreNotification({
   isRead,
   createdAt,
 }: CoreNotificationProps) {
+  const { t } = useTranslation('notification');
+  const getCreatedSinceTranslated = (str: string | undefined) => {
+    if (!str) return;
+    if (str === 'just now') return t('justNow');
+    if (str === 'yesterday') return t('yesterday');
+    const indicator = str.split(' ')[1];
+    const number = str.split(' ')[0];
+    if (indicator === 'min') return t('minutesAgo', { number });
+    if (indicator === 'h') return t('hoursAgo', { number });
+    if (indicator === 'd') return t('daysAgo', { number });
+    if (indicator === 'w') return t('weeksAgo', { number });
+    if (indicator === 'month') return t('monthsAgo', { number });
+  };
   const { markAsReadInStore } = useNotifications();
   const { mutate: markAsRead } = useMarkNotificationAsRead({
     onSuccess: () => {
@@ -101,7 +115,7 @@ function CoreNotification({
         <p className="text-xs lg:text-sm font-normal text-grey-sub-text">
           {message}{' '}
           <span className="text-xxs lg:text-xs mx-2 text-slate-400">
-            {createdSince(createdAt)}
+            {getCreatedSinceTranslated(createdSince(createdAt))}
           </span>
         </p>
 

@@ -115,10 +115,14 @@ const router = createBrowserRouter([
         path: '/new-event',
         element: <CreateEvent />,
       },
-      // {
-      //   path: '/new-event/invitation',
-      //   element: <InvitationFromCreateEventPage />,
-      // },
+      {
+        path: '/new-event/invitation',
+        element: (
+          <Suspense fallback="coucou">
+            <InvitationFromCreateEventPage />
+          </Suspense>
+        ),
+      },
       {
         path: '/event/:eventId/invitation',
         element: <InvitationFromEventPage />,
@@ -190,7 +194,11 @@ const router = createBrowserRouter([
           },
           {
             path: 'skills',
-            element: <UserResumeSkills />,
+            element: (
+              <Suspense fallback="cououou">
+                <UserResumeSkills />
+              </Suspense>
+            ),
           },
           {
             path: 'settings',
@@ -207,7 +215,11 @@ const router = createBrowserRouter([
       },
       {
         path: '/notification',
-        element: <NotificationContainer />,
+        element: (
+          <Suspense fallback="coucou">
+            <NotificationContainer />,
+          </Suspense>
+        ),
       },
     ],
   },
@@ -217,7 +229,16 @@ const router = createBrowserRouter([
 i18next.init({
   fallbackLng: 'en',
   lng: 'fr',
-  ns: ['landing-page', 'auth', 'event', 'system', 'title', 'toast'],
+  ns: [
+    'landing-page',
+    'auth',
+    'event',
+    'system',
+    'title',
+    'toast',
+    'skill',
+    'notification',
+  ],
   backend: {
     loadPath: '/locales/{{lng}}/{{ns}}.json',
   },

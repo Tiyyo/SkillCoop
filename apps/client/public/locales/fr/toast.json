@@ -1,0 +1,11 @@
+{
+  "error": "Erreur",
+  "couldNotFindPage": "Désolé, nous n'avons pas pu trouver cette page.",
+  "youCanFindPlentyOfThings": "Mais ne vous inquiétez pas, vous pouvez trouver plein d'autres choses sur notre page d'accueil.",
+  "backToHomepage": "Retour à la page d'accueil",
+  "emailNotVerified": "Email non vérifié",
+  "emailAlreadyExists": "L'email existe déjà",
+  "badCredentials": "Mauvaises informations d'identification",
+  "pleaseVerifyEmail": "Veuillez vérifier votre adresse email",
+  "unexpectedError": "Une erreur inattendue s'est produite"
+}

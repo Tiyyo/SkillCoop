@@ -149,7 +149,11 @@ const router = createBrowserRouter([
         children: [
           {
             path: 'evaluate/:profileId',
-            element: <ModalRouteRatingEvent />,
+            element: (
+              <Suspense fallback="cooucou">
+                <ModalRouteRatingEvent />
+              </Suspense>
+            ),
           },
         ],
       },
@@ -213,7 +217,7 @@ const router = createBrowserRouter([
 i18next.init({
   fallbackLng: 'en',
   lng: 'fr',
-  ns: ['landing-page', 'auth', 'event', 'system', 'title'],
+  ns: ['landing-page', 'auth', 'event', 'system', 'title', 'toast'],
   backend: {
     loadPath: '/locales/{{lng}}/{{ns}}.json',
   },

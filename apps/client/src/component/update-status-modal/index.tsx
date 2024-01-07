@@ -13,6 +13,7 @@ import { useRef, useState } from 'react';
 import { X } from 'lucide-react';
 import { useUpdateParticipant } from '../../hooks/useSingleEvent';
 import toast from '../../utils/toast';
+import { useTranslation } from 'react-i18next';
 
 type UpdateStatusModalProps = {
   children?: React.ReactNode;
@@ -35,6 +36,7 @@ function UpdateStatusModal({
   eventId,
   profileId,
 }: UpdateStatusModalProps) {
+  const { t } = useTranslation('event');
   const { updateUserStatus: updateUserStatusInStore, updateParticipantStatus } =
     useEvent();
   const [nextStatus, setNextStatus] = useState<InvitationStatus | null>(null);
@@ -87,21 +89,18 @@ function UpdateStatusModal({
           {isOrganizer ? (
             <>
               <p className="text-center my-2">
-                You cannot revoke your participation in this event as you are
-                the organizer.
+                {t('youCannotRevokeYourParticipation')}
               </p>
-              <p className="text-center">
-                You have to transfer your ownership to another participant first
-              </p>
+              <p className="text-center">{t('youHaveToTransferOwnership')}</p>
             </>
           ) : (
             <>
               <AlertDialogHeader>
                 <AlertDialogTitle className="text-center">
-                  Do you want to stay invited ?
+                  {t('doYouWantToStayInvited')}
                 </AlertDialogTitle>
                 <AlertDialogDescription className="text-center">
-                  If not you will no longer have access to this event
+                  {t('ifNoYouWillNoLonger')}
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <div
@@ -118,7 +117,7 @@ function UpdateStatusModal({
                   }
                   onClick={handleClickStatus}
                 >
-                  Yes, I do
+                  {t('yesIdo')}
                 </button>
                 <button
                   value={invitationStatus.declined}
@@ -129,7 +128,7 @@ function UpdateStatusModal({
                   }
                   onClick={handleClickStatus}
                 >
-                  No, I don't
+                  {t('noIdont')}
                 </button>
               </div>
             </>

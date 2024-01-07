@@ -58,5 +58,12 @@
   "youHaveBeenInvited": "Has sido invitado a unirte a este evento",
   "yourVoteHasBeenRecorded": "Tu voto ha sido registrado",
   "youAlreadyVoted": "Ya has votado por esta categoría",
-  "wouldYouLikeToParticipate": "¿Te gustaría confirmar tu participación?"
+  "wouldYouLikeToParticipate": "¿Te gustaría confirmar tu participación?",
+  "kickoff": "Saqué de inicio",
+  "youCannotRevokeYourParticipation": "No puedes revocar tu participación en este evento ya que eres el organizador.",
+  "youHaveToTransferOwnership": "Debes transferir primero tu propiedad a otro participante.",
+  "doYouWantToStayInvited": "¿Quieres seguir invitado?",
+  "ifNoYouWillNoLonger": "Si no, ya no tendrás acceso a este evento.",
+  "yesIdo": "Sí, quiero",
+  "noIdont": "No, no quiero"
 }

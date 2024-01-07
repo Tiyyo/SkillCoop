@@ -1,14 +1,16 @@
 import { Bell, ChevronDown, Settings } from 'lucide-react';
 import Avatar from '../avatar';
+import { useTranslation } from 'react-i18next';
 
 function TopBanner() {
+  const { t } = useTranslation('system');
   return (
     <div
       className="flex justify-between bg-base w-full h-20 
       lg:rounded-lg lg:mt-2 shadow-md p-5"
     >
-      <div className="flex flex-col justify-center">
-        <p className="font-light">Welcome Back !</p>
+      {/* <div className="flex flex-col justify-center">
+        <p className="font-light">{t('welcomeBack')} !</p>
         <p className="font-semibold">
           <span>Steeve</span> <span>Matou</span>
         </p>
@@ -36,7 +38,7 @@ function TopBanner() {
         <div className="bg-primary-210 text-primary-100 p-1 rounded-sm">
           <ChevronDown size={20} />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

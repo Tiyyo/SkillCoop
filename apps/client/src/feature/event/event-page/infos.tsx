@@ -143,7 +143,7 @@ function EventPageInfos({
       <div className="flex justify-between items-center">
         <TitleH2
           title={t('title:event') + ' ' + `#${eventId}`}
-          legend={t('eventLegend')}
+          legend={t('title:eventLegend')}
         />
         <div
           className="flex justify-between items-baseline my-1 

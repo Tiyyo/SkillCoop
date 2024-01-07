@@ -1,0 +1,22 @@
+{
+  "beginner": "Débutant",
+  "novice": "Novice",
+  "intermediate": "Intermédiaire",
+  "advanced": "Avancé",
+  "expert": "Expert",
+  "haveParticipedTo": "a participé à",
+  "received": "reçu",
+  "ratingOrBonus": "évaluation ou bonus",
+  "hereIs": "Voici",
+  "averageSkills": "compétences moyennes",
+  "defending": "Défense",
+  "dribbling": "Dribble",
+  "passing": "Passes",
+  "shooting": "Tir",
+  "pace": "Vitesse",
+  "youHaveEvaluated": "Vous avez évalué",
+  "performanceAt": "performance à un",
+  "levelForThisEvent": "niveau pour cet événement.",
+  "youCanEvaluateSkillOf": "Vous pouvez évaluer la compétence de",
+  "moreAccurateAlgo": " sur cet événement. Cela peut aider à rendre l'équilibrage des équipes générées plus précis"
+}

@@ -11,6 +11,7 @@ import { CreateEventStateStore } from '../../store/create-event.store';
 import { EventStateStore } from '../../store/event.store';
 import AvatarSmallWithBorder from '../avatar/avatar-border-small';
 import { cn } from '../../lib/utils';
+import { useTranslation } from 'react-i18next';
 
 type FriendCardProps = {
   avatar: string;
@@ -39,6 +40,10 @@ function FriendCard({
   addFriendToState,
   removeFriendFromState,
 }: FriendCardProps) {
+  const { t } = useTranslation('skill');
+  const translateSkillEvaluation =
+    lastEvaluationRecorded &&
+    t(associateNumberToString(lastEvaluationRecorded));
   // Accept or decline invitation
   const { handleActionOnInviation } = useActionsPendingFriendCard({
     friendId,
@@ -77,8 +82,7 @@ function FriendCard({
           <p className="text-center text-xs">{username}</p>
           <div className="flex justify-center items-center gap-x-2">
             <p className="text-center text-xxs text-light">
-              {lastEvaluationRecorded &&
-                capitalize(associateNumberToString(lastEvaluationRecorded))}
+              {lastEvaluationRecorded && translateSkillEvaluation}
             </p>
             {status === 'pending' && (
               <div className="flex items-center gap-1.5">

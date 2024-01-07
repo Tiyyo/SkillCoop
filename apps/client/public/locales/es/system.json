@@ -24,6 +24,7 @@
   "friendsNotificationLegend": "Gestiona tus alertas para interacciones con tus contactos.",
   "french": "Francés",
   "home": "Inicio",
+  "invite": "Invitar",
   "language": "Idioma",
   "lastName": "Apellido",
   "light": "Claro",
@@ -60,5 +61,8 @@
   "username": "Nombre de usuario",
   "website": "Sitio web",
   "welcomeBack": "Bienvenido de nuevo",
-  "yourOldPassword": "Tu contraseña antigua"
+  "yourOldPassword": "Tu contraseña antigua",
+  "cancel": "Cancelar",
+  "continue": "Continuar",
+  "areYouSure": "¿Estás absolutamente seguro?"
 }

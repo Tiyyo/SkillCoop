@@ -97,7 +97,7 @@ function SelectInput({
             {...props}
           >
             <option className="text-xs font-light text-ligh">
-              Pick an option
+              {t('pickAnOption')}
             </option>
             {options.map((option: any, index) => (
               <option key={index + idComponent} value={option.value}>

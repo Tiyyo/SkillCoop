@@ -1,11 +1,13 @@
 import { cn } from '../../lib/utils';
 import { eventStatus } from 'skillcoop-types';
+import { useTranslation } from 'react-i18next';
 
 type BadgeProps = {
   content: string;
 };
 
 function Badge({ content }: BadgeProps) {
+  const { t } = useTranslation('event');
   return (
     <div
       className={cn(
@@ -15,7 +17,7 @@ function Badge({ content }: BadgeProps) {
         content === eventStatus.cancelled && 'bg-red-100 border-red-300',
       )}
     >
-      {content}
+      {t(content)}
     </div>
   );
 }

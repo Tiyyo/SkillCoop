@@ -14,9 +14,9 @@
   "passing": "Pases",
   "shooting": "Disparo",
   "pace": "Ritmo",
-  "youHaveEvaluated": "Has evaluado",
-  "performanceAt": "rendimiento a un",
-  "levelForThisEvent": "nivel para este evento.",
+  "youHaveEvaluated": "Has evaluado el rendimiento de",
+  "performanceAt": "en un nivel",
+  "levelForThisEvent": "para este evento.",
   "youCanEvaluateSkillOf": "Puedes evaluar la habilidad de",
   "moreAccurateAlgo": " en este evento. Esto puede ayudar a hacer el equilibrio de los equipos generados más preciso"
 }

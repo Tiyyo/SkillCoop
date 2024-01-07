@@ -64,9 +64,7 @@ function EventPageScore({
     if (!isScoreDataValid.success || !isStatusDataValid.success || !profileId)
       return;
     if (new Date(eventDate) > new Date()) {
-      toast.error(
-        'You cannot save a score for an event that has not happened yet',
-      );
+      toast.error(t('toast:cannontSaveScore'));
       return;
     }
     saveScore(postScoreData);

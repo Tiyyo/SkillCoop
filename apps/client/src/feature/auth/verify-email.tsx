@@ -19,7 +19,7 @@ function VerifyEmail() {
       return sendEmailVerifyFn(email);
     },
     onSuccess: () => {
-      toast.emailSent();
+      toast.emailSent(t('toast:emailSent'));
     },
   });
 

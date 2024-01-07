@@ -52,7 +52,7 @@ function UpdateStatusModal({
         return;
       }
       if (response?.message === 'Event is already completed') {
-        toast.error('Event is already completed');
+        toast.error(t('toast:eventIsCompleted'));
       }
       if (response === 'Status has been updated') {
         updateUserStatusInStore(nextStatus);

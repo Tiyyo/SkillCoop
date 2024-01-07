@@ -7,5 +7,16 @@
   "emailAlreadyExists": "Email already exists",
   "badCredentials": "Bad credentials",
   "pleaseVerifyEmail": "Please verify your email address",
-  "unexpectedError": "An unexpected error occurred"
+  "unexpectedError": "An unexpected error occurred",
+  "thereIsAlreadyPendingRequest": "There already is a pending request",
+  "eventIsCompleted": "Event is already completed",
+  "emailSent": "Email sent",
+  "cannotCreateEventInPast": "You cannot create event in the past",
+  "cannontSaveScore": "You cannot save a score for an event that has not happened yet",
+  "errorUpdateAvatar": "Error while updating avatar",
+  "friendHasBeenAdded": "{{username}} has been added to your friend list",
+  "eventSet": "Event set",
+  "atOn": "At {{startTime}} on {{startDate}}",
+  "invitationsSent": "Invitations sent",
+  "invitationSentTo": "Invitation sent to {{username}}"
 }

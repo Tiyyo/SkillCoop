@@ -8,5 +8,16 @@
   "badCredentials": "Credenciales incorrectas",
   "pleaseVerifyEmail": "Por favor verifica tu dirección de correo electrónico",
   "unexpectedError": "Ocurrió un error inesperado",
-  "pickAnOption": "Elige una opción"
+  "pickAnOption": "Elige una opción",
+  "thereIsAlreadyPendingRequest": "Ya hay una solicitud pendiente",
+  "eventIsCompleted": "El evento ya se ha completado",
+  "emailSent": "Correo enviado",
+  "cannotCreateEventInPast": "No puedes crear un evento en el pasado",
+  "cannontSaveScore": "No puedes guardar una puntuación para un evento que aún no ha sucedido",
+  "errorUpdateAvatar": "Error al actualizar el avatar",
+  "friendHasBeenAdded": "{{username}} ha sido añadido a tu lista de amigos",
+  "eventSet": "Evento establecido",
+  "atOn": "A las {{startTime}} del {{startDate}}",
+  "invitationsSent": "Invitaciones enviadas",
+  "invitationSentTo": "Invitación enviada a {{username}}"
 }

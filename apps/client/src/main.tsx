@@ -47,7 +47,6 @@ import NotificationsSettings from './feature/settings/notifications.tsx';
 import LanguageSettings from './feature/settings/language.tsx';
 import ApparenceSettings from './feature/settings/apparence.tsx';
 import LoadingPage from './component/loading-page/index.tsx';
-import App from './app.tsx';
 /*eslint-enable*/
 
 export const queryClient = new QueryClient({

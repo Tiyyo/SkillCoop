@@ -32,7 +32,7 @@ function AvatarEdit({ avatar }: { avatar: string | null }) {
       setProfileAvatar(response.link);
     },
     onError: () => {
-      toast.error('Error while updating avatar');
+      toast.error(t('toast:errorUpdateAvatar'));
     },
   });
 

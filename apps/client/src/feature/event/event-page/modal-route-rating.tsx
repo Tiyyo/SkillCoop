@@ -131,7 +131,7 @@ function ModalRouteRatingEvent() {
           <X
             size={24}
             className="cursor-pointer hover:opacity-75 hover:text-primary-1000 
-duration-300 transition-color"
+            duration-300 transition-color"
             onClick={() => navigate(-1)}
           />
         </div>

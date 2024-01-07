@@ -17,25 +17,22 @@ export default {
       duration: 2500,
     });
   },
-  addFriend(username: string) {
-    toast(`${username} has been added to your friend list`, {
+  addFriend(message: string) {
+    toast(message, {
       icon: <BadgeCheck size={24} className="text-primary-600" />,
       position: 'top-right',
       duration: 2500,
     });
   },
-  invitationSent(username?: string) {
-    const message = username
-      ? `Invitation sent to ${username}`
-      : `Invitation sent`;
+  invitationSent(message: string) {
     toast(message, {
       icon: <Send size={24} className="text-primary-600" />,
       position: 'top-right',
       duration: 2000,
     });
   },
-  emailSent() {
-    toast('Email sent', {
+  emailSent(email: string) {
+    toast(email, {
       icon: <Send size={24} className="text-primary-600" />,
       position: 'top-right',
       duration: 2000,

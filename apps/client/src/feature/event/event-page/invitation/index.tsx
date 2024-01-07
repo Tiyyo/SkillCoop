@@ -42,7 +42,7 @@ function InvitationFromEventPage() {
     useSendEventInvitation({
       eventId,
       onSuccess: () => {
-        toast.invitationSent();
+        toast.invitationSent(t('toast:invitationSent'));
         updateParticipants(eventState?.staged_participants ?? []);
         setTimeout(() => {
           navigate(-1);

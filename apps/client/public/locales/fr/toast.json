@@ -7,5 +7,16 @@
   "emailAlreadyExists": "L'email existe déjà",
   "badCredentials": "Mauvaises informations d'identification",
   "pleaseVerifyEmail": "Veuillez vérifier votre adresse email",
-  "unexpectedError": "Une erreur inattendue s'est produite"
+  "unexpectedError": "Une erreur inattendue s'est produite",
+  "thereIsAlreadyPendingRequest": "Il y a déjà une demande en attente",
+  "eventIsCompleted": "L'événement est déjà terminé",
+  "emailSent": "Email envoyé",
+  "cannotCreateEventInPast": "Vous ne pouvez pas créer un événement dans le passé",
+  "cannontSaveScore": "Vous ne pouvez pas enregistrer un score pour un événement qui n'a pas encore eu lieu",
+  "errorUpdateAvatar": "Erreur lors de la mise à jour de l'avatar",
+  "friendHasBeenAdded": "{{username}} a été ajouté(e) à votre liste d'amis",
+  "eventSet": "Événement planifié",
+  "atOn": "À {{startTime}} le {{startDate}}",
+  "invitationsSent": "Invitations envoyées",
+  "invitationSentTo": "Invitation envoyée à {{username}}"
 }

@@ -33,11 +33,11 @@ function ProfileCard({
 
   const { mutate: sendInvitation } = useInviteFriend({
     onSuccess: () => {
-      toast.invitationSent(username);
+      toast.invitationSent(t('toast:invitationSentTo', { username }));
       removeSearchProfile(username);
     },
     onError: () => {
-      toast.error('There already is a pending request');
+      toast.error(t('toast:thereIsAlreadyPendingRequest'));
     },
   });
   const { removeSearchProfile } = useFriendStore();
@@ -48,7 +48,7 @@ function ProfileCard({
     };
     const isValid = createInvitationSchema.safeParse(data);
     if (!isValid.success) {
-      toast.error('Something went wrong');
+      toast.error(t('system:somethingWentWrong'));
       return;
     }
     sendInvitation(data);

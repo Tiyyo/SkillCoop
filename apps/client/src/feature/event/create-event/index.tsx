@@ -63,7 +63,7 @@ function CreateEvent() {
     }
     const isPast = isPastDate(data.date);
     if (isPast) {
-      toast.error('You cannot create an event in the past');
+      toast.error(t('toast:cannotCreateEventInPast'));
       return;
     }
     data.date = getUTCString(new Date(data.date));

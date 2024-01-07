@@ -2,8 +2,10 @@ import { useRef, useState } from 'react';
 import { useApp } from '../../store/app.store';
 import toast from '../../utils/toast';
 import { useUpdateAvatar } from '../../hooks/useProfile';
+import { useTranslation } from 'react-i18next';
 
 function AvatarEdit({ avatar }: { avatar: string | null }) {
+  const { t } = useTranslation('system');
   const { userProfile } = useApp();
   const [profileAvatar, setProfileAvatar] = useState<string | null>(avatar);
   const imageInputRef = useRef<HTMLInputElement>(null);
@@ -30,7 +32,7 @@ function AvatarEdit({ avatar }: { avatar: string | null }) {
       setProfileAvatar(response.link);
     },
     onError: () => {
-      toast.error('Error while updating avatar');
+      toast.error(t('toast:errorUpdateAvatar'));
     },
   });
 
@@ -44,10 +46,10 @@ function AvatarEdit({ avatar }: { avatar: string | null }) {
         return type === e.target.files[0].type;
       })
     ) {
-      toast.error('File must be an png or jpg type');
+      toast.error(t('fileMustBe'));
       return;
     } else if (e.target.files[0].size > MAX_SIZE_IMAGE) {
-      toast.error('File must not exceded 5 mo');
+      toast.error(t('fileMustNoTExceed') + ' 5 mo');
       return;
     } else {
       const formData = new FormData();
@@ -70,7 +72,7 @@ function AvatarEdit({ avatar }: { avatar: string | null }) {
           className="object-cover h-full w-full"
         />
       </label>
-      <p>Edit avatar</p>
+      <p>{t('editAvatar')}</p>
       <input
         type="file"
         hidden

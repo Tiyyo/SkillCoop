@@ -3,6 +3,7 @@ import Calendar from '../../assets/icon/Calendar';
 import NavMobileLink from '../nav-link';
 import Profile from '../../assets/icon/Profile';
 import Friends from '../../assets/icon/Friends';
+import { useTranslation } from 'react-i18next';
 
 function MobileNav({
   menuIsOpen,
@@ -11,6 +12,7 @@ function MobileNav({
   menuIsOpen: boolean;
   setClose: (value: boolean) => void;
 }) {
+  const { t } = useTranslation('system');
   return (
     <div
       className={`absolute z-20 bg-base-light shadow-sm rounded-b-xl  ${
@@ -22,28 +24,32 @@ function MobileNav({
           menuIsOpen ? 'opacity-100' : 'opacity-0 -translate-y-96'
         }`}
       >
-        <NavMobileLink to="/" value="Home" setClose={setClose}>
+        <NavMobileLink to="/" value={t('home')} setClose={setClose}>
           <Home size={20} />
         </NavMobileLink>
-        <NavMobileLink to="/user/profile" value="Profile" setClose={setClose}>
+        <NavMobileLink
+          to="/user/profile"
+          value={t('profile')}
+          setClose={setClose}
+        >
           <Profile />
         </NavMobileLink>
-        <NavMobileLink to="/contact" value="Contact" setClose={setClose}>
+        <NavMobileLink to="/contact" value={t('friends')} setClose={setClose}>
           <Friends />
         </NavMobileLink>
-        <NavMobileLink to="/my-event" value="My Events" setClose={setClose}>
+        <NavMobileLink to="/my-event" value={t('myEvents')} setClose={setClose}>
           <Calendar />
         </NavMobileLink>
         <NavMobileLink
           to="/events/incoming"
-          value="Upcoming Events"
+          value={t('upcomingEvents')}
           setClose={setClose}
         >
           <CalendarClock size={20} />
         </NavMobileLink>
         <NavMobileLink
           to="/events/past"
-          value="Past Events"
+          value={t('pastEvents')}
           setClose={setClose}
         >
           <History size={20} />

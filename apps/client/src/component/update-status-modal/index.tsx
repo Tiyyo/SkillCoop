@@ -13,6 +13,7 @@ import { useRef, useState } from 'react';
 import { X } from 'lucide-react';
 import { useUpdateParticipant } from '../../hooks/useSingleEvent';
 import toast from '../../utils/toast';
+import { useTranslation } from 'react-i18next';
 
 type UpdateStatusModalProps = {
   children?: React.ReactNode;
@@ -28,13 +29,14 @@ rounded-md text-sm font-medium ring-offset-background
 transition-colors focus-visible:outline-none focus-visible:ring-2 
 focus-visible:ring-ring focus-visible:ring-offset-2 
 disabled:pointer-events-none disabled:opacity-50 text-primary-foreground 
-hover:bg-primary/90 h-10 w-24 py-2 m-0;`;
+hover:bg-primary/90 h-10 px-4 py-2 m-0;`;
 
 function UpdateStatusModal({
   children,
   eventId,
   profileId,
 }: UpdateStatusModalProps) {
+  const { t } = useTranslation('event');
   const { updateUserStatus: updateUserStatusInStore, updateParticipantStatus } =
     useEvent();
   const [nextStatus, setNextStatus] = useState<InvitationStatus | null>(null);
@@ -50,7 +52,7 @@ function UpdateStatusModal({
         return;
       }
       if (response?.message === 'Event is already completed') {
-        toast.error('Event is already completed');
+        toast.error(t('toast:eventIsCompleted'));
       }
       if (response === 'Status has been updated') {
         updateUserStatusInStore(nextStatus);
@@ -87,21 +89,18 @@ function UpdateStatusModal({
           {isOrganizer ? (
             <>
               <p className="text-center my-2">
-                You cannot revoke your participation in this event as you are
-                the organizer.
+                {t('youCannotRevokeYourParticipation')}
               </p>
-              <p className="text-center">
-                You have to transfer your ownership to another participant first
-              </p>
+              <p className="text-center">{t('youHaveToTransferOwnership')}</p>
             </>
           ) : (
             <>
               <AlertDialogHeader>
                 <AlertDialogTitle className="text-center">
-                  Do you want to stay invited ?
+                  {t('doYouWantToStayInvited')}
                 </AlertDialogTitle>
                 <AlertDialogDescription className="text-center">
-                  If not you will no longer have access to this event
+                  {t('ifNoYouWillNoLonger')}
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <div
@@ -118,7 +117,7 @@ function UpdateStatusModal({
                   }
                   onClick={handleClickStatus}
                 >
-                  Yes, I do
+                  {t('yesIdo')}
                 </button>
                 <button
                   value={invitationStatus.declined}
@@ -129,7 +128,7 @@ function UpdateStatusModal({
                   }
                   onClick={handleClickStatus}
                 >
-                  No, I don't
+                  {t('noIdont')}
                 </button>
               </div>
             </>

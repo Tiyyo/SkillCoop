@@ -152,8 +152,6 @@ GROUP BY event.id
 ORDER BY date DESC
       `.execute(this.client);
 
-      console.log(result.rows);
-
       const parsedResult = result.rows.map((event: EventType) => {
         return {
           ...event,
@@ -373,8 +371,6 @@ AND EXISTS(
 )
 AND event.date > datetime('now')
       `.execute(this.client);
-
-    console.log('result: ', result);
 
     const parsedResult = result.rows.map((event) => {
       return {

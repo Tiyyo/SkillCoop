@@ -2,8 +2,10 @@ import { Trash2 } from 'lucide-react';
 import MenuItemDialog from '../../component/menu-item-dialog';
 import { useDeleteUser } from '../../hooks/useProfile';
 import { useApp } from '../../store/app.store';
+import { useTranslation } from 'react-i18next';
 
 function DeleteUserAccount() {
+  const { t } = useTranslation('system');
   const { userProfile, setIsAuth } = useApp();
   const { mutate: deleteUserAccount } = useDeleteUser({
     onSuccess: () => {
@@ -25,7 +27,7 @@ function DeleteUserAccount() {
         <span className="px-2.5">
           <Trash2 size={18} />
         </span>
-        Delete your account
+        {t('deleteYourAccount')}
       </div>
     </MenuItemDialog>
   );

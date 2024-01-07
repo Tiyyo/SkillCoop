@@ -2,6 +2,7 @@ import { Dices } from 'lucide-react';
 import { DropdownMenuItem } from '../../../../lib/ui/dropdown';
 import { EventStatus } from 'skillcoop-types';
 import { useGenerateTeams } from '../../../../hooks/useSingleEvent';
+import { useTranslation } from 'react-i18next';
 
 type GenerateTeamsMenuItemProps = {
   isAdmin: boolean;
@@ -16,6 +17,7 @@ function GenerateTeamsMenuItem({
   eventId,
   eventStatus,
 }: GenerateTeamsMenuItemProps) {
+  const { t } = useTranslation('event');
   const { mutate: generateTeams } = useGenerateTeams({
     eventId,
     onSuccess: () => window.location.reload(),
@@ -31,7 +33,9 @@ function GenerateTeamsMenuItem({
       {eventStatus === 'full' && (
         <DropdownMenuItem className={menuItemStyle}>
           <Dices size="16" />
-          <button onClick={handleClickGenerateTeams}>Generate teams</button>
+          <button onClick={handleClickGenerateTeams}>
+            {t('generateTeams')}
+          </button>
         </DropdownMenuItem>
       )}
     </>

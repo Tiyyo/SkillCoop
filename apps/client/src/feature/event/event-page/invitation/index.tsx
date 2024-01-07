@@ -7,26 +7,20 @@ import { useSearchResultOrDefault } from '../../../../hooks/useSearchResultOrDef
 import Container from '../../../../layout/container';
 import { useEvent } from '../../../../store/event.store';
 import { useApp } from '../../../../store/app.store';
-import { useEffect, useState } from 'react';
 import { inviteParticipantSchema } from 'schema/ts-schema';
 import toast from '../../../../utils/toast';
 import { useSendEventInvitation } from '../../../../hooks/useSingleEvent';
 import SearchResult from './search-result';
+import { useTranslation } from 'react-i18next';
 
 function InvitationFromEventPage() {
+  const { t } = useTranslation('system');
   const navigate = useNavigate();
   const { userProfile } = useApp();
   const { data: eventState, updateParticipants } = useEvent();
   const location = useLocation();
-  const [eventId, setEventId] = useState<number | undefined>(
-    location.state?.eventId,
-  );
-
-  // get eventId from url state
+  const eventId = location.state?.eventId;
   const profileId = userProfile?.profile_id;
-  // useEffect(() => {
-  //   setEventId(location.state?.eventId);
-  // }, []);
 
   const {
     getSearchValue,
@@ -40,21 +34,21 @@ function InvitationFromEventPage() {
     useSendEventInvitation({
       eventId,
       onSuccess: () => {
-        toast.invitationSent();
+        toast.invitationSent(t('toast:invitationSent'));
         updateParticipants(eventState?.staged_participants ?? []);
         setTimeout(() => {
           navigate(-1);
         }, 1500);
       },
       onError: () => {
-        toast.error('Something went wrong ... Try agian later');
+        toast.error(t('somethingWentWrong'));
       },
     });
 
   const handleClickSendInvitation = (e: React.MouseEvent) => {
     e.preventDefault();
     if (!eventState.participants || !eventId) {
-      toast.error('Something went wrong ... Try agian later');
+      toast.error(t('somethingWentWrong'));
       navigate(-1);
       return;
     }
@@ -67,7 +61,7 @@ function InvitationFromEventPage() {
     };
     const isValid = inviteParticipantSchema.safeParse(data);
     if (!isValid.success) {
-      toast.error('Something went wrong ... Try agian later');
+      toast.error(t('somethingWentWrong'));
       return;
     }
     sendInvitation(data);
@@ -76,8 +70,8 @@ function InvitationFromEventPage() {
   return (
     <Container className="lg:mt-4 h-full flex-grow flex flex-col">
       <TitleH2
-        title="Invite your friends"
-        legend="Select the friends you'd like to invite to join this event."
+        title={t('title:inviteYourFriends')}
+        legend={t('title:inviteYourFriendsLegend')}
       />
       <div className="flex-grow flex flex-col justify-between h-full">
         <div className="flex-grow py-4 px-4 flex flex-col justify-center">
@@ -91,7 +85,7 @@ function InvitationFromEventPage() {
         </div>
         <div className="flex w-full justify-center px-2">
           <Button
-            textContent="Send Invitation"
+            textContent={t('event:sendInvitation')}
             type="submit"
             isLoading={isInvitationLoading}
             onClick={handleClickSendInvitation}

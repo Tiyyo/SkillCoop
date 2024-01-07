@@ -8,8 +8,10 @@ import {
 } from '../../lib/ui/dropdown';
 import { User, Trophy, Settings, LogOut } from 'lucide-react';
 import useLogout from '../../hooks/useLogout';
+import { useTranslation } from 'react-i18next';
 
 function NavUser({ children }: { children: JSX.Element }) {
+  const { t } = useTranslation('system');
   const { logout } = useLogout();
 
   const menuItemStyle = `'flex gap-2 items-center 
@@ -24,25 +26,25 @@ function NavUser({ children }: { children: JSX.Element }) {
           <NavLink to="/user/profile">
             <DropdownMenuItem className={menuItemStyle}>
               <User size={16} />
-              <span>Profile</span>
+              <span>{t('profile')}</span>
             </DropdownMenuItem>
           </NavLink>
           <NavLink to="/user/skills">
             <DropdownMenuItem className={menuItemStyle}>
               <Trophy size={16} />
-              <span>Skills</span>
+              <span>{t('skills')}</span>
             </DropdownMenuItem>
           </NavLink>
           <NavLink to="/user/settings">
             <DropdownMenuItem className={menuItemStyle}>
               <Settings size={16} />
-              <span>Settings</span>
+              <span>{t('settings')}</span>
             </DropdownMenuItem>
           </NavLink>
           <DropdownMenuSeparator className="bg-light" />
           <DropdownMenuItem className={menuItemStyle} onClick={() => logout()}>
             <LogOut size={16} />
-            <span>Logout</span>
+            <span>{t('logout')}</span>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

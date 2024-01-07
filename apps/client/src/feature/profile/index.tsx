@@ -1,18 +1,18 @@
 import { useApp } from '../../store/app.store';
-// import DeleteUser from './delete-user';
 import ResumeProfile from './resume-profile';
 import SubHeader from '../../component/header/sub-header';
+import { useTranslation } from 'react-i18next';
 
 function ProfileInfos() {
+  const { t } = useTranslation('title');
   const { userProfile } = useApp();
 
   return (
     <>
       <SubHeader
-        title="Profile"
+        title={t('profile')}
         isPlusExist={false}
-        legend="You can update all 
-        your profile informations here"
+        legend={t('profileLegend')}
       />
       <ResumeProfile
         infos={{
@@ -26,7 +26,6 @@ function ProfileInfos() {
           email: userProfile?.email ?? null,
         }}
       />
-      {/* <DeleteUser /> */}
     </>
   );
 }

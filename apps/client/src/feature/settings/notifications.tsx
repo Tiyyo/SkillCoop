@@ -2,10 +2,12 @@ import { useOutletContext } from 'react-router-dom';
 import Container from '../../layout/container';
 import { NotificationMethodSetting, UserPreference } from 'skillcoop-types';
 import NotificationSetting from './notification-setting';
+import { useTranslation } from 'react-i18next';
 
 type NotificationMethodSettings = Record<string, NotificationMethodSetting>;
 
 function NotificationsSettings() {
+  const { t } = useTranslation('system');
   const ctx = useOutletContext<UserPreference>();
   if (!ctx) return null;
   const { prefered_notifications } = ctx;
@@ -18,26 +20,24 @@ function NotificationsSettings() {
   return (
     <Container className="lg:mt-4 p-5">
       <NotificationSetting
-        type="event"
+        type={t('event')}
         settings={userNotificationSetting.event}
-        legend="Manage how you receive alerts about important 
-        events you attending"
+        legend={t('eventNotificationLegend')}
       />
       <NotificationSetting
-        type="friend"
+        type={t('friends')}
         settings={userNotificationSetting.friend}
-        legend="Manage your alerts for interactions with your contacts."
+        legend={t('friendsNotificationLegend')}
       />
       <NotificationSetting
-        type="message"
+        type={t('messages')}
         settings={userNotificationSetting.message}
-        legend="Manage how you receive notifications for new messages."
+        legend={t('messagesNotificationLegend')}
       />
       <NotificationSetting
-        type="system"
+        type={t('system')}
         settings={userNotificationSetting.system}
-        legend="Manage how you stay updated with essential 
-        system updates and announcements"
+        legend={t('systemNotificationLegend')}
       />
     </Container>
   );

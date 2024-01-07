@@ -1,4 +1,5 @@
 import { cn } from '../../lib/utils';
+import { useTranslation } from 'react-i18next';
 
 function WelcomeMessage({
   username,
@@ -7,9 +8,10 @@ function WelcomeMessage({
   username?: string;
   className?: string;
 }) {
+  const { t } = useTranslation('system');
   return (
     <div className={cn(className)}>
-      <p className="font-light">Welcome Back !</p>
+      <p className="font-light">{t('welcomeBack')} !</p>
       <p className="font-semibold">
         <span>{username}</span>
       </p>

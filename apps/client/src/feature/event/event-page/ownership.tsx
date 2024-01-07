@@ -8,12 +8,12 @@ import Button from '../../../component/button';
 import { useNavigate } from 'react-router-dom';
 import { useTransfertOwnership } from '../../../hooks/useSingleEvent';
 import { useEvent } from '../../../store/event.store';
-import capitalize from '../../../utils/capitalize';
 /*eslint-disable-next-line*/
 import associateNumberToString from '../../../utils/associate-number-stringscale';
 import { cn } from '../../../lib/utils';
 import Container from '../../../layout/container';
 import TitleH2 from '../../../component/title-h2';
+import { useTranslation } from 'react-i18next';
 
 type TransfertOwnershipProps = {
   data: EventType;
@@ -24,6 +24,7 @@ function TransfertOwnership({
   data: event,
   profileId,
 }: TransfertOwnershipProps) {
+  const { t } = useTranslation('system');
   const [selectedProfile, setSelectedProfile] = useState<number | null>(null);
   const navigate = useNavigate();
   const { updateOrganizerId } = useEvent();
@@ -57,13 +58,12 @@ function TransfertOwnership({
     const isValid = updateOrganizerSchema.safeParse(data);
     if (isValid.success) transfertOwnership(data);
   };
-
+  //Shitty as fuck
   return (
     <Container className="lg:mt-4 flex-grow flex flex-col">
       <TitleH2
-        title="Transfert Rights"
-        legend="To which participants do you want to transfer 
-        your organizer rights for this event ?"
+        title={t('title:transfertRights')}
+        legend={t('title:transfertRightsLegend')}
       />
       <form
         className="flex-grow flex flex-col justify-between 
@@ -83,7 +83,7 @@ function TransfertOwnership({
                   className="text-center w-full italic text-xs py-4
                    text-light"
                 >
-                  No participants found
+                  {t('noParticipantsFound')}
                 </div>
               )}
               {participants.map((participant) => (
@@ -104,10 +104,11 @@ function TransfertOwnership({
                     <div className="flex items-center gap-x-3">
                       <p className="text-xxs text-light">
                         {participant.last_evaluation
-                          ? capitalize(
-                              associateNumberToString(
-                                participant.last_evaluation,
-                              ),
+                          ? t(
+                              'skill:' +
+                                associateNumberToString(
+                                  participant.last_evaluation,
+                                ),
                             )
                           : ''}
                       </p>
@@ -119,7 +120,7 @@ function TransfertOwnership({
           )}
         </div>
         <Button
-          textContent="Transfert"
+          textContent={t('transfert')}
           type="submit"
           variant="light"
           isLoading={isLoading}

@@ -1,4 +1,5 @@
-import React from 'react';
+import i18next from './i18/i18n.ts';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 // import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -45,6 +46,7 @@ import MenuSettings from './feature/settings/menu.tsx';
 import NotificationsSettings from './feature/settings/notifications.tsx';
 import LanguageSettings from './feature/settings/language.tsx';
 import ApparenceSettings from './feature/settings/apparence.tsx';
+import LoadingPage from './component/loading-page/index.tsx';
 /*eslint-enable*/
 
 export const queryClient = new QueryClient({
@@ -114,7 +116,11 @@ const router = createBrowserRouter([
       },
       {
         path: '/new-event/invitation',
-        element: <InvitationFromCreateEventPage />,
+        element: (
+          <Suspense fallback="coucou">
+            <InvitationFromCreateEventPage />
+          </Suspense>
+        ),
       },
       {
         path: '/event/:eventId/invitation',
@@ -146,7 +152,11 @@ const router = createBrowserRouter([
         children: [
           {
             path: 'evaluate/:profileId',
-            element: <ModalRouteRatingEvent />,
+            element: (
+              <Suspense fallback="cooucou">
+                <ModalRouteRatingEvent />
+              </Suspense>
+            ),
           },
         ],
       },
@@ -183,7 +193,11 @@ const router = createBrowserRouter([
           },
           {
             path: 'skills',
-            element: <UserResumeSkills />,
+            element: (
+              <Suspense fallback="cououou">
+                <UserResumeSkills />
+              </Suspense>
+            ),
           },
           {
             path: 'settings',
@@ -200,18 +214,48 @@ const router = createBrowserRouter([
       },
       {
         path: '/notification',
-        element: <NotificationContainer />,
+        element: (
+          <Suspense fallback="coucou">
+            <NotificationContainer />,
+          </Suspense>
+        ),
       },
     ],
   },
   { path: '*', element: <Page404 /> },
 ]);
 
+i18next.init({
+  fallbackLng: 'en',
+  detection: {
+    order: ['localStorage', 'navigator'],
+    // other detection options
+  },
+  ns: [
+    'landing-page',
+    'auth',
+    'event',
+    'system',
+    'title',
+    'toast',
+    'skill',
+    'notification',
+    'zod',
+  ],
+  backend: {
+    loadPath: '/locales/{{lng}}/{{ns}}.json',
+  },
+  debug: false,
+  interpolation: {
+    escapeValue: false,
+  },
+});
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <Toaster />
-      <RouterProvider router={router} />
+      <RouterProvider router={router} fallbackElement={<LoadingPage />} />
     </QueryClientProvider>
   </React.StrictMode>,
 );

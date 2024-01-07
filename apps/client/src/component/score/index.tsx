@@ -1,6 +1,7 @@
 import { getStartingTime, getEndingTime, getDate } from 'date-handler/src';
 import type { EventStatus } from 'skillcoop-types';
 import { eventStatus as eventStatusAssertion } from 'skillcoop-types';
+import { useTranslation } from 'react-i18next';
 
 type ScoreProps = {
   date: string;
@@ -19,6 +20,7 @@ function Score({
   scoreTeamB,
   eventStatus,
 }: ScoreProps) {
+  const { t } = useTranslation('event');
   const isScoreValid = (score: number | null | undefined) => {
     return score !== null && score !== undefined;
   };
@@ -38,8 +40,8 @@ function Score({
       return 'Today';
     }
     return eventStatus === eventStatusAssertion.completed
-      ? 'Final score'
-      : 'Kick off';
+      ? t('finalScore')
+      : t('kickoff');
   };
   return (
     <div

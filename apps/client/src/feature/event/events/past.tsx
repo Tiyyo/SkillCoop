@@ -4,10 +4,12 @@ import EventList from '../resume-events/list';
 import type { EventType } from 'skillcoop-types';
 import useInfinite from '../../../hooks/useInfinite';
 import ErrorFallback from '../../../component/error-fallback';
+import { useTranslation } from 'react-i18next';
 
 function PastEvents() {
   //TODO : implement skeleton loading
   //TODO : implement error handling
+  const { t } = useTranslation('title');
   const NB_ELEMETNS_PER_PAGE = 10;
   const { userProfile } = useApp();
   const profileId = userProfile?.profile_id;
@@ -26,12 +28,12 @@ function PastEvents() {
   return (
     <EventList
       events={allEvents ?? null}
-      title="Past Events"
+      title={t('pastEvents')}
       loading={loading}
       linkOff
       triggerNextPage={fetchNextPage}
       hasMore={hasNextPage}
-      legendHeader="Brief summary of the events you have participated in"
+      legendHeader={t('pastEventsLegend')}
     />
   );
 }

@@ -4,6 +4,7 @@ import EventCard from '../card';
 import InfiniteScroll from '../../../../component/infinite-scroll';
 import { useCallback } from 'react';
 import ShowcaseEventCard from '../showcase-card';
+import { useTranslation } from 'react-i18next';
 
 type EventListProps = {
   title: string;
@@ -33,6 +34,7 @@ function EventList({
   noHeader,
   showcaseNext,
 }: EventListProps) {
+  const { t } = useTranslation('system');
   const nbEvent: number | undefined = nbEventToDisplay
     ? nbEventToDisplay
     : undefined;
@@ -88,7 +90,7 @@ function EventList({
       )}
       {isEventsEmpty && (
         <div className="w-full text-center italic text-xs py-4 text-light">
-          No event found.
+          {t('noEventsFound')}.
         </div>
       )}
       <InfiniteScroll

@@ -57,14 +57,14 @@ class UserHasBeenInvited extends NotificationObserver {
   }
   async getInstigatorUsername(): Promise<{
     username: string;
-    avatar_url: string;
+    avatar_url: string | null;
   }> {
     const profile = await Profile.findOne({
       id: this.instigatorId,
     });
     if (!profile) throw new Error('Instigator not found');
     const { username, avatar_url } = profile;
-    if (!username || !avatar_url) throw new Error('Instigator not found');
+    if (!username) throw new Error('Instigator not found');
     return { username, avatar_url };
   }
   async sendNotification({

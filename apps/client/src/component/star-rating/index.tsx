@@ -1,5 +1,6 @@
 import { HTMLInputTypeAttribute, useId } from 'react';
 import './rating-input.css';
+import { useTranslation } from 'react-i18next';
 
 type RatingInputProps<T> = {
   value: T;
@@ -29,6 +30,9 @@ function Star<T extends HTMLInputTypeAttribute>({
 }
 
 function GroupedStars({ name, legend }: { name: string; legend: string }) {
+  const { t } = useTranslation('skill');
+  const translatedLegend = t(legend.toLowerCase());
+
   const NB_STARS = 10;
   const MAX_VALUES = 100;
   const STEP = MAX_VALUES / NB_STARS;
@@ -37,7 +41,7 @@ function GroupedStars({ name, legend }: { name: string; legend: string }) {
 
   return (
     <fieldset name={name} className="flex flex-row-reverse gap-1 rating w-fit">
-      <legend className="text-sm font-semibold">{legend}</legend>
+      <legend className="text-sm font-semibold">{translatedLegend}</legend>
       {stars.map((_, index) => (
         <Star
           key={index + id}

@@ -12,6 +12,7 @@ import toast from '../../../utils/toast';
 import Container from '../../../layout/container';
 import TitleH2 from '../../../component/title-h2';
 import { useEvent } from '../../../store/event.store';
+import { useTranslation } from 'react-i18next';
 
 type EventPageScoreProps = {
   eventId: number;
@@ -30,6 +31,7 @@ function EventPageScore({
   eventDate,
   eventStatus,
 }: EventPageScoreProps) {
+  const { t } = useTranslation('event');
   const { userProfile } = useApp();
   const { updateStatusName } = useEvent();
   const profileId = userProfile?.profile_id;
@@ -62,9 +64,7 @@ function EventPageScore({
     if (!isScoreDataValid.success || !isStatusDataValid.success || !profileId)
       return;
     if (new Date(eventDate) > new Date()) {
-      toast.error(
-        'You cannot save a score for an event that has not happened yet',
-      );
+      toast.error(t('toast:cannontSaveScore'));
       return;
     }
     saveScore(postScoreData);
@@ -74,8 +74,8 @@ function EventPageScore({
   if (eventStatus === 'cancelled') return null;
   if (eventStatus === 'open') return null;
   return (
-    <Container className="flex flex-col min-w-[320px]">
-      <TitleH2 title="Final Score" />
+    <Container className="flex flex-col min-w-[335px]">
+      <TitleH2 title={t('finalScore')} />
       {/* "bg-base-light mx-2 rounded-md py-4 px-3 flex flex-col items-center
       justify-between w-full" */}
       <form
@@ -85,7 +85,7 @@ function EventPageScore({
       >
         <div>
           <label htmlFor="score_team_1" className="px-3 text-xs">
-            Team A
+            {t('team')} A
           </label>
           <input
             type="text"
@@ -111,15 +111,15 @@ function EventPageScore({
             defaultValue={scoreTeam2 ?? ''}
           />
           <label htmlFor="score_team_2" className="px-3 text-xs">
-            Team B
+            {t('team')} B
           </label>
         </div>
         {eventStatus === 'full' && isAdmin && (
           <Button
             type="submit"
-            className="py-1 mt-8 w-20"
+            className="py-1 mt-8"
             isLoading={isLoading}
-            textContent="SAVE"
+            textContent={t('save')}
           />
         )}
       </form>

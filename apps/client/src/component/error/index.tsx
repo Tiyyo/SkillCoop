@@ -1,18 +1,22 @@
+import { useTranslation } from 'react-i18next';
+
 function displayErrorMessage(errorValue: string | undefined): string {
+  const { t } = useTranslation('toast');
   if (!errorValue) return '';
   if (errorValue.includes('Email not verified')) {
-    return 'Please verify your email !';
+    t('emailAlreadyExists');
+    return t('pleaseVerifyEmail') + ' !';
   }
   if (errorValue.includes('Email already exist')) {
-    return 'Email already exist !';
+    return t('emailAlreadyExists');
   }
   if (
     errorValue.includes('Password') ||
     errorValue.includes("Can't find any user")
   ) {
-    return 'Bad crendentials !';
+    return t('badCredentials') + ' !';
   }
-  return errorValue;
+  return t(errorValue);
 }
 
 function ErrorContainer({ errorValue }: { errorValue: string | undefined }) {

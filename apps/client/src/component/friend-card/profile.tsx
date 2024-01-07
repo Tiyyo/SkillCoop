@@ -5,6 +5,7 @@ import associateNumberToString from '../../utils/associate-number-stringscale';
 import { useInviteFriend } from '../../hooks/useFriends';
 import AvatarWithBorder from '../avatar/avatar-border';
 import capitalize from '../../utils/capitalize';
+import { useTranslation } from 'react-i18next';
 
 type ProfileCardProps = {
   avatar: string | null;
@@ -25,17 +26,21 @@ function ProfileCard({
   relation,
   lastEvaluationRecorded,
 }: ProfileCardProps) {
+  const { t } = useTranslation('skill');
+  const translateSkillEvaluation =
+    lastEvaluationRecorded &&
+    t(associateNumberToString(lastEvaluationRecorded));
+
   const { mutate: sendInvitation } = useInviteFriend({
     onSuccess: () => {
-      toast.invitationSent(username);
+      toast.invitationSent(t('toast:invitationSentTo', { username }));
       removeSearchProfile(username);
     },
     onError: () => {
-      toast.error('There already is a pending request');
+      toast.error(t('toast:thereIsAlreadyPendingRequest'));
     },
   });
   const { removeSearchProfile } = useFriendStore();
-
   const handleActionInviation = () => {
     const data = {
       adder_id: profileId,
@@ -43,7 +48,7 @@ function ProfileCard({
     };
     const isValid = createInvitationSchema.safeParse(data);
     if (!isValid.success) {
-      toast.error('Something went wrong');
+      toast.error(t('system:somethingWentWrong'));
       return;
     }
     sendInvitation(data);
@@ -61,10 +66,7 @@ function ProfileCard({
           {capitalize(username)}
         </p>
         <p>
-          <span>
-            {lastEvaluationRecorded &&
-              associateNumberToString(lastEvaluationRecorded)}
-          </span>
+          <span>{lastEvaluationRecorded && translateSkillEvaluation}</span>
           {!relation && (
             <button
               type="button"
@@ -74,7 +76,7 @@ function ProfileCard({
                   hover:bg-primary-700 
                     transition-all duration-300 ease-in-out"
             >
-              Invite
+              {t('system:invite')}
             </button>
           )}
         </p>

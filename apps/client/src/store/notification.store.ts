@@ -51,11 +51,11 @@ export const useNotifications = () => {
   ).length;
 
   const eventUnreadNotifications = notifications?.filter(
-    (notif) => notif.is_read === 0 && notif.type === 'event',
+    (notif) => notif.is_read === 0 && notif.type_name === 'event',
   ).length;
 
   const friendUnreadNotifications = notifications?.filter(
-    (notif) => notif.is_read === 0 && notif.type === 'friend',
+    (notif) => notif.is_read === 0 && notif.type_name === 'friend',
   ).length;
 
   return {

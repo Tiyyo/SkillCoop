@@ -5,13 +5,13 @@ import { cn } from '../../lib/utils';
 type ErrorNotificationProps = {
   message?: string;
   interval?: number;
-  key: number;
+  triggerRender: number;
 };
 
 function ErrorNotification({
   message,
   interval = 3500,
-  key,
+  triggerRender,
 }: ErrorNotificationProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [currentMessage, setCurrentMessage] = useState<string | undefined>('');
@@ -28,7 +28,7 @@ function ErrorNotification({
 
       return () => clearTimeout(timer);
     }
-  }, [message, key]);
+  }, [message, triggerRender]);
 
   return (
     <div

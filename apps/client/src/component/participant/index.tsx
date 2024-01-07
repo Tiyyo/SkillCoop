@@ -9,6 +9,7 @@ import Avatar from '../avatar';
 import { useApp } from '../../store/app.store';
 import ParticipantStatusMark from '../status';
 import type { EventStatus } from 'skillcoop-types';
+import { useTranslation } from 'react-i18next';
 
 type ParticipantProps = {
   avatar: string | null;
@@ -35,6 +36,7 @@ function Participant({
   isMvp,
   isBestStriker,
 }: ParticipantProps) {
+  const { t } = useTranslation('event');
   const { userProfile } = useApp();
   const userProfileId = userProfile?.profile_id;
   const [isChecked, setIsChecked] = useState<boolean>(
@@ -115,7 +117,7 @@ function Participant({
               text-xs text-center font-light
                text-grey-sub-text"
             >
-              <span>{isAdmin ? 'Organizer' : 'Member'}</span>
+              <span>{isAdmin ? t('organizer') : t('member')}</span>
               <span>
                 {isBestStriker && <img src={soccerBall} className="h-4" />}
               </span>

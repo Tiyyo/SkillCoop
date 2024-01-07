@@ -6,6 +6,7 @@ import { useEvent } from '../../../store/event.store';
 import { useUpdateParticipant } from '../../../hooks/useSingleEvent';
 import Container from '../../../layout/container';
 import LeftBorder from '../../../component/left-border';
+import { useTranslation } from 'react-i18next';
 
 type CallToActionInvitationProps = {
   eventId?: number;
@@ -18,6 +19,7 @@ function CallToActionInvitation({
   profileId,
   eventStatus,
 }: CallToActionInvitationProps) {
+  const { t } = useTranslation('event');
   const { mutate: updateParticipantDb } = useUpdateParticipant({
     eventId,
   });
@@ -31,7 +33,7 @@ function CallToActionInvitation({
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     if (eventStatus === 'full') {
-      toast.error('This event is full, you cannot join it');
+      toast.error(t('thisEventisFull'));
       return;
     }
     const status = (e.target as HTMLButtonElement).value;
@@ -43,7 +45,7 @@ function CallToActionInvitation({
     };
     const isValid = updateParticipantSchema.safeParse(data);
     if (!isValid.success) {
-      toast.error('Something went wrong..., Try again later');
+      toast.error(t('system:somethingWentWrong'));
     } else {
       updateParticipantDb(data);
       updateUserStatus(status);
@@ -63,11 +65,9 @@ function CallToActionInvitation({
             className="w-full ml-2 flex flex-col lg:flex-row 
             items-center text-xs self-start"
           >
-            <p className="mx-1">You have been invited to this event.</p>
+            <p className="mx-1">{t('youHaveBeenInvited')}</p>
             <span>{'    '}</span>
-            <p className="mr-2">
-              Would you like to confirm your participation ?
-            </p>
+            <p className="mr-2">{t('wouldYouLikeToParticipate')}</p>
             <div className="flex gap-3 justify-center py-1">
               <button
                 value="confirmed"

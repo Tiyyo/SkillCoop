@@ -2,22 +2,22 @@ import { useFriendInvitationActions } from '../../../hooks/useFriends';
 import type { Notification } from 'skillcoop-types';
 import { invitationStatus } from 'skillcoop-types';
 import CoreNotification from '../core';
+import { useTranslation } from 'react-i18next';
 
 function FriendRequestNotification({
   notification,
 }: {
   notification: Notification;
 }) {
+  const { t } = useTranslation('notification');
   const { mutate: acceptOrDeclineInvitation } = useFriendInvitationActions({});
   const originalMessage = notification.message;
   const splitWordFrom = 'from';
-  const firstpartMessage = originalMessage.split(splitWordFrom)[0];
   const username = originalMessage.split(splitWordFrom)[1];
   const buildMessage = () => {
     return (
       <>
-        {firstpartMessage}
-        {splitWordFrom}
+        {t('notification:youHaveReceivedAFriend')}
         <span className="font-medium text-dark">{username}</span>
       </>
     );
@@ -46,14 +46,14 @@ function FriendRequestNotification({
           value={invitationStatus.confirmed}
           onClick={handleClickActionOnInvition}
         >
-          Accept
+          {t('system:accept')}
         </button>
         <button
           className="px-2 py-1 bg-primary-210"
           value={invitationStatus.declined}
           onClick={handleClickActionOnInvition}
         >
-          Decline
+          {t('system:decline')}
         </button>
       </div>
     </CoreNotification>

@@ -2,28 +2,24 @@ import { Link } from 'react-router-dom';
 import CoreNotification from '../core';
 import { ArrowRight } from 'lucide-react';
 import type { Notification } from 'skillcoop-types';
+import { useTranslation } from 'react-i18next';
 
 function EventInfosUpdatedNotification({
   notification,
 }: {
   notification: Notification;
 }) {
+  const { t } = useTranslation('notification');
   const originalMessage = notification.message;
-  const splitWordOn = 'on';
-  const splitWordIn = ', in';
-  const firstPart = originalMessage.split(splitWordOn)[0];
-  const secondPart = originalMessage.split(splitWordIn)[1];
   const dateRegex = /on\s(.*?),\s+in/;
-
   const buildMessage = () => {
     const date = originalMessage.match(dateRegex);
     if (date && date[1]) {
       return (
         <>
-          {firstPart}
-          {splitWordOn} <span className="font-medium text-dark">{date[1]}</span>
-          {splitWordIn}
-          {secondPart}
+          {t('detailsScheduledOn')}
+          <span className="font-medium text-dark"> {date[1]}, </span>
+          {t('inWhichYouAreParticipating')}
         </>
       );
     }
@@ -42,7 +38,7 @@ function EventInfosUpdatedNotification({
         font-semibold text-primary-1000 
         underline underline-offset-4 pr-4"
       >
-        Go to event page
+        {t('goToEventPage')}
         <ArrowRight size={14} />
       </Link>
     </CoreNotification>

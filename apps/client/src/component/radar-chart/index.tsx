@@ -8,6 +8,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Radar } from 'react-chartjs-2';
+import { useTranslation } from 'react-i18next';
 
 ChartJS.register(
   RadialLinearScale,
@@ -26,11 +27,15 @@ type RadarChartProps = {
 };
 
 function RadarChart({ skills, min, max, displayTicks }: RadarChartProps) {
+  const { t } = useTranslation('skill');
   if (!skills) return;
   const labels = Object.keys(skills);
+  const translatedLabels = labels.map((label) => {
+    return t(label);
+  });
   const dataSkills = Object.values(skills);
   const data = {
-    labels: labels,
+    labels: translatedLabels,
     datasets: [
       {
         data: dataSkills,

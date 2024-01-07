@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import { cn } from '../../lib/utils';
-import capitalize from '../../utils/capitalize';
-import { NotificationFilters } from 'skillcoop-types';
-import { notificationFilters } from 'skillcoop-types';
+import { type NotificationFilters, notificationFilters } from 'skillcoop-types';
 import { useNotifications } from '../../store/notification.store';
+import { useTranslation } from 'react-i18next';
 
 type FilterBtnProps = {
   onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
@@ -18,6 +17,7 @@ function FilterBtn({
   componentFilter,
   unread,
 }: FilterBtnProps) {
+  const { t } = useTranslation('notification');
   const [isActive, setIsActive] = useState<boolean>(false);
 
   useEffect(() => {
@@ -40,7 +40,7 @@ function FilterBtn({
         )}
         onClick={onClick}
       >
-        {capitalize(componentFilter)}
+        {t(componentFilter)}
       </button>
       {Number(unread) > 0 && (
         <span
@@ -61,6 +61,7 @@ function NotificationFilters() {
     eventUnreadNotifications,
     friendUnreadNotifications,
   } = useNotifications();
+
   const filters = [
     { key: notificationFilters.all, unread: allUnreadNotifications },
     {
@@ -69,6 +70,7 @@ function NotificationFilters() {
     },
     { key: notificationFilters.friend, unread: friendUnreadNotifications },
   ];
+
   const handleClickFilters = (e: React.MouseEvent<HTMLButtonElement>) => {
     const { value } = e.currentTarget;
     setActiveFilter(value as NotificationFilters);

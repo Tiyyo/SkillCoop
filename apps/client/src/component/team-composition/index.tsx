@@ -5,6 +5,7 @@ import { EventParticipant } from 'skillcoop-types';
 import { UseMutateFunction } from '@tanstack/react-query';
 import { voteSchema } from 'schema/ts-schema';
 import { useApp } from '../../store/app.store';
+import { useTranslation } from 'react-i18next';
 
 type TeamCompositionProps = {
   participants: EventParticipant[] | string;
@@ -21,6 +22,7 @@ function TeamComposition({
   nameInput,
   mutationFn,
 }: TeamCompositionProps) {
+  const { t } = useTranslation('event');
   const { userProfile } = useApp();
   const userProfileId = userProfile?.profile_id;
   const [currentIdpActive, setCurrentIdActive] = useState<string>();
@@ -59,17 +61,17 @@ function TeamComposition({
       onChange={handleChangeForm}
     >
       <h2 className="text-sm font-semibold flex items-center py-1.5">
-        Team composition
+        {t('teamComposition')}
       </h2>
       <Team
-        title="Team A"
+        title={t('team') + ' A'}
         participants={participants}
         teamTofileter={1}
         currentIdActive={currentIdpActive}
         nameInput={nameInput}
       />
       <Team
-        title="Team B"
+        title={t('team') + ' B'}
         participants={participants}
         teamTofileter={2}
         currentIdActive={currentIdpActive}
@@ -77,7 +79,7 @@ function TeamComposition({
       />
       <Button
         type="submit"
-        textContent="Submit your vote"
+        textContent={t('submitYourVote')}
         className="my-4 mx-auto"
       />
     </form>

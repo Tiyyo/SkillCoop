@@ -11,12 +11,12 @@ import Container from '../../layout/container';
 import strongbox from '../../assets/svg/strongbox.svg';
 import flash from '../../assets/svg/flash.svg';
 import reward from '../../assets/svg/reward.svg';
-import capitalize from '../../utils/capitalize';
 import { sumValues } from '../../utils/sum-values';
-
 import associateNumberToString from '../../utils/associate-number-stringscale';
+import { useTranslation } from 'react-i18next';
 
 function UserResumeSkills() {
+  const { t } = useTranslation('skill');
   const idComp = useId();
   const { userProfile } = useApp();
   const ALL_SKILLS = ['defending', 'dribbling', 'passing', 'shooting', 'pace'];
@@ -65,16 +65,15 @@ function UserResumeSkills() {
   return (
     <Container className="w-full flex flex-col lg:flex-row lg:mt-4 gap-y-6">
       <div className="basis-1/2">
-        <TitleH2 title="Stats" />
+        <TitleH2 title={t('title:stats')} />
         <div className="flex flex-col py-4 gap-y-2 w-full ">
           <div className="flex items-center gap-x-2">
             <img src={flash} className="bg-primary-100 h-8 p-1 rounded-lg" />
             <p>
-              You have an{' '}
+              {t('youHaveProficiency')}{' '}
               <span className="font-semibold text-primary-1100">
-                {capitalize(associateNumberToString(gbRating ?? 0))}
+                {t(associateNumberToString(gbRating ?? 0))}
               </span>
-              -level proficiency estimate.
             </p>
           </div>
           <div className="flex items-center gap-x-2">
@@ -83,17 +82,17 @@ function UserResumeSkills() {
               className="bg-primary-100 h-8 p-1 rounded-lg"
             />
             <p>
-              You attended{' '}
+              {t('youAttended')}{' '}
               <span className="font-semibold text-primary-1100">
                 {userProfile?.nb_attended_events ?? 0}
               </span>{' '}
-              event(s)
+              {t('eventPlurial')}
             </p>
           </div>
           <div className="flex items-center gap-x-2">
             <img src={reward} className="bg-primary-100 h-8 p-1 rounded-lg" />
             <p>
-              You received{' '}
+              {t('youReceived')}{' '}
               <span className="font-semibold text-primary-1100">
                 {sumValues(
                   userProfile?.nb_mvp_bonus,
@@ -101,20 +100,18 @@ function UserResumeSkills() {
                   userProfile?.nb_best_striker_bonus,
                 )}
               </span>{' '}
-              rewards, which may include bonuses or ratings.
+              {t('rewardsInclude')}
             </p>
           </div>
         </div>
       </div>
       <div className="basis-1/2">
         <TitleH2
-          title="Graph Skill Visualization"
+          title={t('title:graphSkillVizualisation')}
           legend={
             !hasBeenEvaluated
-              ? `You haven't estimated your skills yet. Estimating your skills
-              allows the algorithm to more accurately match users during event
-              matchmaking.`
-              : ''
+              ? t('title:haveNotEvaluatedYet')
+              : t('title:graphSkillVizualisationLegend')
           }
         />
         {hasBeenEvaluated ? (
@@ -136,7 +133,7 @@ function UserResumeSkills() {
               ))}
               <Button
                 type="submit"
-                textContent="Send evaluation"
+                textContent={t('event:sendEvaluation')}
                 className="text-sm my-8 self-center"
               />
             </form>

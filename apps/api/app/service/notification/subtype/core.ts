@@ -1,6 +1,6 @@
 import { notification as NotificationModel } from '../../../models';
 import { notificationEventManager } from '../notification-event.manager';
-import { NotificationParams, NotificationType } from 'skillcoop-types';
+import { NotificationParams, NotificationType } from '@skillcoop/types';
 
 export class NotificationObserver {
   // profileId is an id of a subscriber

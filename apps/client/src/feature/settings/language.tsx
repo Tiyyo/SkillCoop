@@ -12,11 +12,11 @@ import {
   LanguageSymbol,
   UserPreference,
   languageSymbolToName,
-} from 'skillcoop-types';
+} from '@skillcoop/types/src';
 import capitalize from '../../utils/capitalize';
 import { useUpdateLanguagePreference } from '../../hooks/useUserPreference';
 import { useApp } from '../../store/app.store';
-import { updateLanguagePreferenceSchema } from 'schema/ts-schema';
+import { updateLanguagePreferenceSchema } from '@skillcoop/schema/src';
 import toast from '../../utils/toast';
 
 function LanguageSettings() {

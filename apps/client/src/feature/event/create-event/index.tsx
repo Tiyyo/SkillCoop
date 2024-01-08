@@ -1,6 +1,6 @@
 import Button from '../../../component/button';
 import { useRef, useState } from 'react';
-import { createEventSchema } from 'schema/ts-schema';
+import { createEventSchema } from '@skillcoop/schema/src';
 import Input from '../../../component/input';
 import SelectInput from '../../../component/select';
 import InputDate from '../../../component/date-picker';
@@ -20,7 +20,7 @@ import {
 } from '../../../constant/select.options';
 import toast from '../../../utils/toast';
 import Container from '../../../layout/container';
-import { getUTCString, isPastDate } from 'date-handler/src';
+import { getUTCString, isPastDate } from '@skillcoop/date-handler/src';
 
 function CreateEvent() {
   const { userProfile } = useApp();

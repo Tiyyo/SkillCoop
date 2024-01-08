@@ -1,10 +1,10 @@
 // import { DBClientType } from '../@types/types.database';
-import { getFormattedUTCTimestamp } from 'date-handler';
 import DatabaseError from '../helpers/errors/database.error';
 import { Core } from './core';
 import { tableNames } from '../@types/database';
 import { db } from '../helpers/client.db';
 import NotFoundError from '../helpers/errors/not-found.error';
+import { getFormattedUTCTimestamp } from '@skillcoop/date-handler';
 
 export class User extends Core<typeof tableNames.user> {
   constructor(client: typeof db) {

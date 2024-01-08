@@ -1,4 +1,4 @@
-import { useState, type ComponentPropsWithoutRef, useEffect } from 'react';
+import { useState, type ComponentPropsWithoutRef } from 'react';
 import { cn } from '../../lib/utils';
 
 interface InputProps extends ComponentPropsWithoutRef<'input'> {

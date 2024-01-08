@@ -1,13 +1,17 @@
 {
-  "name": "skillcoop-types",
+  "name": "@skillcoop/types",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.ts",
-  "scripts": {},
-  "keywords": [],
-  "author": "",
+  "main": "dist/index",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "pnpm run clean:build && pnpm run compile",
+    "compile": "tsc -p tsconfig.build.json",
+    "clean:build": "rimraf ./dist",
+    "prepublishOnly": "pnpm run build"
+  },
   "license": "ISC",
   "devDependencies": {
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "rimraf": "^5.0.5"
   }
 }

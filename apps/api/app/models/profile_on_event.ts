@@ -1,4 +1,4 @@
-import { getFormattedUTCTimestamp } from 'date-handler';
+import { getFormattedUTCTimestamp } from '@skillcoop/date-handler';
 import DatabaseError from '../helpers/errors/database.error';
 import UserInputError from '../helpers/errors/user-input.error';
 import { Core } from './core';

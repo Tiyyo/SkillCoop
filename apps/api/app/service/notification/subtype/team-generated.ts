@@ -1,4 +1,4 @@
-import { notificationSubtype, notificationType } from 'skillcoop-types';
+import { notificationSubtype, notificationType } from '@skillcoop/types';
 import {
   profileOnEvent as Participant,
   event as EventModel,
@@ -10,7 +10,7 @@ import type {
   BuildTeamsHasBeenGeneratedMessage,
   NotificationSubtype,
   NotificationType,
-} from 'skillcoop-types';
+} from '@skillcoop/types';
 
 class TeamHasBeenGenerated extends NotificationObserver {
   declare subtype: NotificationSubtype;

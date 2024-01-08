@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { cn } from '../../lib/utils';
 import capitalize from '../../utils/capitalize';
-import { NotificationFilters } from 'skillcoop-types';
-import { notificationFilters } from 'skillcoop-types';
+import { NotificationFilters } from '@skillcoop/types/src';
+import { notificationFilters } from '@skillcoop/types/src';
 import { useNotifications } from '../../store/notification.store';
 
 type FilterBtnProps = {

@@ -1,4 +1,4 @@
-import type { NotificationType as TNotificationTypes } from 'skillcoop-types';
+import type { NotificationType as TNotificationTypes } from '@skillcoop/types';
 import { themePreference as ThemePreference } from '../../models/index';
 import { languagePreference as LanguagePreference } from '../../models/index';
 /*eslint-disable max-len*/

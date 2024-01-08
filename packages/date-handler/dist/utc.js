@@ -61,3 +61,4 @@ function getFormatedUTCDate(date) {
     }).format(date);
     return formatedUTCDate;
 }
+//# sourceMappingURL=utc.js.map

@@ -1,7 +1,7 @@
 import { tableNames } from '../@types/database';
 import { Core } from './core';
 import { db } from '../helpers/client.db';
-import { getFormattedUTCTimestamp } from 'date-handler';
+import { getFormattedUTCTimestamp } from '@skillcoop/date-handler';
 import DatabaseError from '../helpers/errors/database.error';
 
 export class LanguagePreference extends Core<

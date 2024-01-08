@@ -5,8 +5,8 @@ import type {
   BuilderTransfertOwnershipMessage,
   NotificationSubtype,
   NotificationType,
-} from 'skillcoop-types';
-import { notificationSubtype, notificationType } from 'skillcoop-types';
+} from '@skillcoop/types';
+import { notificationSubtype, notificationType } from '@skillcoop/types';
 import { NotificationObserver } from './core';
 
 type ConstructorProps = {

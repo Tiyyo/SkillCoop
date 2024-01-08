@@ -7,8 +7,8 @@ import { useSearchResultOrDefault } from '../../../../hooks/useSearchResultOrDef
 import Container from '../../../../layout/container';
 import { useEvent } from '../../../../store/event.store';
 import { useApp } from '../../../../store/app.store';
-import { useEffect, useState } from 'react';
-import { inviteParticipantSchema } from 'schema/ts-schema';
+import { useState } from 'react';
+import { inviteParticipantSchema } from '@skillcoop/schema/src';
 import toast from '../../../../utils/toast';
 import { useSendEventInvitation } from '../../../../hooks/useSingleEvent';
 import SearchResult from './search-result';
@@ -18,9 +18,7 @@ function InvitationFromEventPage() {
   const { userProfile } = useApp();
   const { data: eventState, updateParticipants } = useEvent();
   const location = useLocation();
-  const [eventId, setEventId] = useState<number | undefined>(
-    location.state?.eventId,
-  );
+  const [eventId] = useState<number | undefined>(location.state?.eventId);
 
   // get eventId from url state
   const profileId = userProfile?.profile_id;

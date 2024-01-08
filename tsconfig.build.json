@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "target": "ES6",
+    "sourceMap": true,
+    "strict": true,
+    "declaration": true,
+    "noEmitOnError": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "types": [],
+    "jsx": "react",
+    "noEmit": false,
+  },
+  "exclude": [
+    "node_modules",
+    "dist",
+    "coverage",
+    "__test__",
+  ]
+}

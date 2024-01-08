@@ -1,21 +1,26 @@
 {
-  "name": "deploy_monorepo",
+  "name": "skillcoop",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Monorepo for skillcoop.com related applications",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
-    "api": "pnpm --filter api",
-    "client": "pnpm --filter client",
-    "date": "pnpm --filter date-handler",
-    "schema" : "pnpm --filter schema"
+    "clean": "pnpm -r clean:build",
+    "api": "pnpm --filter @skillcoop/api",
+    "client": "pnpm --filter @skillcoop/client",
+    "date": "pnpm --filter @skillcoop/date-handler",
+    "type": "pnpm --filter @skillcoop/types",
+    "schema": "pnpm --filter @skillcoop/schema"
   },
-  "keywords": [],
-  "author": "",
   "license": "ISC",
   "devDependencies": {
     "eslint": "^8.45.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.1",
-    "prettier": "^3.0.3"
+    "prettier": "^3.0.3",
+    "typescript": "^5.3.3"
   }
 }

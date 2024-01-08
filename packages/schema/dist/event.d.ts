@@ -9,23 +9,23 @@ export declare const createEventSchema: z.ZodObject<{
     status_name: z.ZodOptional<z.ZodEnum<["open"]>>;
     participants: z.ZodOptional<z.ZodArray<z.ZodNumber, "many">>;
 }, "strip", z.ZodTypeAny, {
-    start_date?: string;
-    start_time?: string;
-    duration?: number;
-    location?: string;
-    required_participants?: number;
-    organizer_id?: number;
-    status_name?: "open";
-    participants?: number[];
+    start_date: string;
+    start_time: string;
+    duration: number;
+    location: string;
+    required_participants: number;
+    organizer_id: number;
+    status_name?: "open" | undefined;
+    participants?: number[] | undefined;
 }, {
-    start_date?: string;
-    start_time?: string;
-    duration?: number;
-    location?: string;
-    required_participants?: number;
-    organizer_id?: number;
-    status_name?: "open";
-    participants?: number[];
+    start_date: string;
+    start_time: string;
+    duration: number;
+    location: string;
+    required_participants: number;
+    organizer_id: number;
+    status_name?: "open" | undefined;
+    participants?: number[] | undefined;
 }>;
 export declare const updateEventSchema: z.ZodObject<{
     date: z.ZodOptional<z.ZodString>;
@@ -36,32 +36,32 @@ export declare const updateEventSchema: z.ZodObject<{
     status_name: z.ZodOptional<z.ZodEnum<["open", "full", "cancelled", "completed"]>>;
     participants: z.ZodOptional<z.ZodArray<z.ZodNumber, "many">>;
 }, "strip", z.ZodTypeAny, {
-    date?: string;
-    duration?: number;
-    location?: string;
-    required_participants?: number;
-    profile_id?: number;
-    status_name?: "open" | "full" | "cancelled" | "completed";
-    participants?: number[];
+    profile_id: number;
+    date?: string | undefined;
+    duration?: number | undefined;
+    location?: string | undefined;
+    required_participants?: number | undefined;
+    status_name?: "open" | "full" | "cancelled" | "completed" | undefined;
+    participants?: number[] | undefined;
 }, {
-    date?: string;
-    duration?: number;
-    location?: string;
-    required_participants?: number;
-    profile_id?: number;
-    status_name?: "open" | "full" | "cancelled" | "completed";
-    participants?: number[];
+    profile_id: number;
+    date?: string | undefined;
+    duration?: number | undefined;
+    location?: string | undefined;
+    required_participants?: number | undefined;
+    status_name?: "open" | "full" | "cancelled" | "completed" | undefined;
+    participants?: number[] | undefined;
 }>;
 export declare const updateOrganizerSchema: z.ZodObject<{
     event_id: z.ZodNumber;
     organizer_id: z.ZodNumber;
     new_organizer_id: z.ZodNumber;
 }, "strip", z.ZodTypeAny, {
-    event_id?: number;
-    organizer_id?: number;
-    new_organizer_id?: number;
+    organizer_id: number;
+    event_id: number;
+    new_organizer_id: number;
 }, {
-    event_id?: number;
-    organizer_id?: number;
-    new_organizer_id?: number;
+    organizer_id: number;
+    event_id: number;
+    new_organizer_id: number;
 }>;

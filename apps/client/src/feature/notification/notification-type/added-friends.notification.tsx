@@ -1,4 +1,4 @@
-import type { Notification } from 'skillcoop-types';
+import type { Notification } from '@skillcoop/types/src';
 import CoreNotification from '../core';
 
 function AddedFriendsNotification({

@@ -2,7 +2,7 @@ import { sql } from 'kysely';
 import DatabaseError from '../helpers/errors/database.error';
 import { Core } from './core';
 import UserInputError from '../helpers/errors/user-input.error';
-import { getFormattedUTCTimestamp } from 'date-handler';
+import { getFormattedUTCTimestamp } from '@skillcoop/date-handler';
 import { tableNames } from '../@types/database';
 import { db } from '../helpers/client.db';
 

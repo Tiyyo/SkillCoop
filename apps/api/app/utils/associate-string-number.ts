@@ -1,4 +1,4 @@
-import type { LevelScale } from 'skillcoop-types';
+import type { LevelScale } from '@skillcoop/types';
 
 const associateStringToNumber = (level: LevelScale): number => {
   switch (level) {

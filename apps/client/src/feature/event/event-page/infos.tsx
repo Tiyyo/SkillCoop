@@ -21,13 +21,13 @@ import Container from '../../../layout/container';
 import TitleH2 from '../../../component/title-h2';
 import { useUpdateSingleEvent } from '../../../hooks/useSingleEvent';
 import toast from '../../../utils/toast';
-import { updateEventSchema } from 'schema/ts-schema';
-import type { EventStatus } from 'skillcoop-types';
+import { updateEventSchema } from '@skillcoop/schema/src';
+import type { EventStatus } from '@skillcoop/types/src';
 import {
   isPastDate,
   getUTCString,
   getLocalStringCustom,
-} from 'date-handler/src';
+} from '@skillcoop/date-handler/src';
 
 type EventPageInfosProps = {
   eventDuration: number;

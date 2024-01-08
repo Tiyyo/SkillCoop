@@ -4,11 +4,11 @@ export declare const voteSchema: z.ZodObject<{
     profile_id: z.ZodNumber;
     rater_id: z.ZodNumber;
 }, "strip", z.ZodTypeAny, {
-    event_id?: number;
-    profile_id?: number;
-    rater_id?: number;
+    profile_id: number;
+    event_id: number;
+    rater_id: number;
 }, {
-    event_id?: number;
-    profile_id?: number;
-    rater_id?: number;
+    profile_id: number;
+    event_id: number;
+    rater_id: number;
 }>;

@@ -1,7 +1,7 @@
 import express, { Router } from 'express';
 import factory from '../../middleware/wrapper-controller';
 import notificationController from '../../controller/notification.controller';
-import { markAsReadNotificationSchema } from 'schema';
+import { markAsReadNotificationSchema } from '@skillcoop/schema';
 import { validateSchema } from '../../middleware/schema-validator';
 import { canals } from '../../@types/types';
 

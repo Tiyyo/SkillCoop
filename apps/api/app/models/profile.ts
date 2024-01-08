@@ -2,7 +2,7 @@ import DatabaseError from '../helpers/errors/database.error';
 import { sql } from 'kysely';
 import { Core } from './core';
 import NotFoundError from '../helpers/errors/not-found.error';
-import { getFormattedUTCTimestamp } from 'date-handler';
+import { getFormattedUTCTimestamp } from '@skillcoop/date-handler';
 import { DB, tableNames } from '../@types/database';
 import { db } from '../helpers/client.db';
 /*eslint-disable-next-line */

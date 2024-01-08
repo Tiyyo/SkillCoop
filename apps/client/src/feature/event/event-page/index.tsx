@@ -10,7 +10,7 @@ import { useEffect, useLayoutEffect } from 'react';
 import { useEvent } from '../../../store/event.store';
 import { useGetSingleEvent } from '../../../hooks/useSingleEvent';
 import ParticipantsList from './participants-list';
-import { getStringDate } from 'date-handler/src';
+import { getStringDate } from '@skillcoop/date-handler/src';
 
 function EventPage() {
   const location = useLocation();

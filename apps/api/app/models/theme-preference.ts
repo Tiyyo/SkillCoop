@@ -2,7 +2,7 @@ import { tableNames } from '../@types/database';
 import { Core } from './core';
 import { db } from '../helpers/client.db';
 import DatabaseError from '../helpers/errors/database.error';
-import { getFormattedUTCTimestamp } from 'date-handler';
+import { getFormattedUTCTimestamp } from '@skillcoop/date-handler';
 
 export class ThemePreference extends Core<typeof tableNames.theme_preference> {
   constructor(client: typeof db) {

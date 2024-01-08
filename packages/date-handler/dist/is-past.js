@@ -21,3 +21,4 @@ function isPastDate(dateToCompare) {
     return true;
 }
 exports.isPastDate = isPastDate;
+//# sourceMappingURL=is-past.js.map

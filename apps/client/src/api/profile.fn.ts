@@ -1,5 +1,5 @@
 import { api } from './api.fn';
-import type { Profile, SearchProfileQuery } from 'skillcoop-types';
+import type { Profile, SearchProfileQuery } from '@skillcoop/types/src';
 
 export const getMeFn = async (): Promise<
   { userProfile: Profile } | 'Unecessary call'

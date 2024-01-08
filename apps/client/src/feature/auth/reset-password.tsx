@@ -3,14 +3,14 @@ import Center from '../../layout/center';
 import FormField from '../../component/form-field';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { resetPasswordSchema } from 'schema/ts-schema';
+import { resetPasswordSchema } from '@skillcoop/schema/src';
 import { useMutation } from '@tanstack/react-query';
 import { resetPasswordFn } from '../../api/api.fn';
 import Button from '../../component/button';
 import { Eye, EyeOff } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ResetPassword } from 'skillcoop-types';
+import { ResetPassword } from '@skillcoop/types/src';
 
 function ResetPassword() {
   const [hasBeenReset, setHasBeenReset] = useState(false);

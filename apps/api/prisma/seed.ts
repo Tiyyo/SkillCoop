@@ -11,7 +11,10 @@ import { friendslist as Friendlist } from '../app/models/index';
 import { skillFoot as SkillFoot } from '../app/models/index';
 import { notificationType as NotificationType } from '../app/models/index';
 import authService from '../app/service/auth/auth';
-import { getFormattedUTCTimestamp, getUTCString } from 'date-handler';
+import {
+  getFormattedUTCTimestamp,
+  getUTCString,
+} from '@skillcoop/date-handler';
 
 function getRandomIntInclusive(min: number, max: number): number {
   min = Math.ceil(min);

@@ -10,7 +10,7 @@ import capitalize from '../../utils/capitalize';
 import FriendStatsDesktop from './stats-desktop';
 import AvatarRectangle from '../../component/avatar-rectangle';
 import FriendStatsMobile from './stats-mobile';
-import { getAge } from 'date-handler/src';
+import { getAge } from '@skillcoop/date-handler/src';
 
 function FriendProfile() {
   const params = useParams<{ id: string }>();

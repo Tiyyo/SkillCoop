@@ -5,6 +5,7 @@
     "module": "CommonJS",
     "outDir": "./dist",
     "noEmit": false,
+    "rootDir": "./",
     "lib": [
       "es2023"
     ],
@@ -15,15 +16,14 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "paths": {
-      "schema": [
-        "../../packages/schema/dist/index.d.ts"
-      ],
-      "skillcoop-types": [
-        "../../packages/types/index.ts"
-      ]
-    }
-    // "moduleResolution": "node16"
+    // "paths": {
+    //   "schema": [
+    //     "../../packages/schema/dist/index.d.ts"
+    //   ],
+    //   "skillcoop-types": [
+    //     "../../packages/types/index.ts"
+    //   ]
+    // }
   },
   "ts-node": {
     "esm": true

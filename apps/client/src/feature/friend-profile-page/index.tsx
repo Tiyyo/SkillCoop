@@ -10,13 +10,9 @@ import capitalize from '../../utils/capitalize';
 import FriendStatsDesktop from './stats-desktop';
 import AvatarRectangle from '../../component/avatar-rectangle';
 import FriendStatsMobile from './stats-mobile';
-<<<<<<< HEAD
 import { getAge } from '@skillcoop/date-handler/src';
-=======
-import { getAge } from 'date-handler/src';
 import { Suspense } from 'react';
 import { useTranslation } from 'react-i18next';
->>>>>>> aa5cf6df31348fffebf5a3aa2a2bdf2e309550e8
 
 function FriendProfile() {
   const { t } = useTranslation('title');

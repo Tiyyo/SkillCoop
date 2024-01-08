@@ -1,12 +1,7 @@
 import { useEffect, useState } from 'react';
 import { cn } from '../../lib/utils';
-<<<<<<< HEAD
-import capitalize from '../../utils/capitalize';
-import { NotificationFilters } from '@skillcoop/types';
-import { notificationFilters } from '@skillcoop/types';
-=======
-import { type NotificationFilters, notificationFilters } from 'skillcoop-types';
->>>>>>> aa5cf6df31348fffebf5a3aa2a2bdf2e309550e8
+import { NotificationFilters } from '@skillcoop/types/src';
+import { notificationFilters } from '@skillcoop/types/src';
 import { useNotifications } from '../../store/notification.store';
 import { useTranslation } from 'react-i18next';
 

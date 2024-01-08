@@ -1,5 +1,5 @@
 import { api } from './api.fn';
-import type { RegisterUser, User } from '@skillcoop/types';
+import type { RegisterUser, User } from '@skillcoop/types/src';
 
 export const signUpUserFn = async (
   user: RegisterUser,

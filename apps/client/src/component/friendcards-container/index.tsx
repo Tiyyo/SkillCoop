@@ -4,7 +4,7 @@ import {
   CreateEventStateStore,
   useCreateEvent,
 } from '../../store/create-event.store';
-import type { Friend } from '@skillcoop/types';
+import type { Friend } from '@skillcoop/types/src';
 import FriendCard from '../friend-card';
 import { useTranslation } from 'react-i18next';
 

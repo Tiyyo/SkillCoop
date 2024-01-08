@@ -1,17 +1,11 @@
-<<<<<<< HEAD
 import {
   getStartingTime,
   getEndingTime,
   getDate,
 } from '@skillcoop/date-handler/src';
 import type { EventStatus } from '@skillcoop/types';
-import { eventStatus as eventStatusAssertion } from '@skillcoop/types';
-=======
-import { getStartingTime, getEndingTime, getDate } from 'date-handler/src';
-import type { EventStatus } from 'skillcoop-types';
-import { eventStatus as eventStatusAssertion } from 'skillcoop-types';
+import { eventStatus as eventStatusAssertion } from '@skillcoop/types/src';
 import { useTranslation } from 'react-i18next';
->>>>>>> aa5cf6df31348fffebf5a3aa2a2bdf2e309550e8
 
 type ScoreProps = {
   date: string;

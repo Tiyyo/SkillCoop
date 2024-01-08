@@ -1,4 +1,4 @@
-import { InvitationStatus } from '@skillcoop/types';
+import { InvitationStatus } from '@skillcoop/types/src';
 import questionMark from '../../assets/svg/question-mark-13228.svg';
 /* eslint-disable max-len */
 import confirmedMark from '../../assets/svg/green-check-mark-correct-tick-16237.svg';

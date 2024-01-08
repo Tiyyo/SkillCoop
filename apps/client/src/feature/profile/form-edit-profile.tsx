@@ -5,16 +5,12 @@ import { UseFormRegister, useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { Infos } from './resume-profile';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { editProfileInfosSchema } from 'schema/ts-schema';
+import { editProfileInfosSchema } from '@skillcoop/schema/src';
 import Button from '../../component/button';
 import { useUpdateProfile } from '../../hooks/useProfile';
 import toast from '../../utils/toast';
-<<<<<<< HEAD
 import { getAge } from '@skillcoop/date-handler/src';
-=======
-import { getAge } from 'date-handler/src';
 import { useTranslation } from 'react-i18next';
->>>>>>> aa5cf6df31348fffebf5a3aa2a2bdf2e309550e8
 
 type FormEditProfileInfosProps = {
   shouldEditInfos: boolean;

@@ -1,4 +1,4 @@
-import { createInvitationSchema } from 'schema/ts-schema';
+import { createInvitationSchema } from '@skillcoop/schema/src';
 import { useFriends as useFriendStore } from '../../store/friend.store';
 import toast from '../../utils/toast';
 import associateNumberToString from '../../utils/associate-number-stringscale';

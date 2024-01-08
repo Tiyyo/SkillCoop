@@ -1,16 +1,11 @@
 import Avatars from '../../../component/avatars';
-<<<<<<< HEAD
-import type { EventParticipant, EventStatus } from '@skillcoop/types';
+import type { EventParticipant, EventStatus } from '@skillcoop/types/src';
 import {
   getDate,
   getEndingTime,
   getStartingTime,
 } from '@skillcoop/date-handler/src';
-=======
-import type { EventParticipant, EventStatus } from 'skillcoop-types';
-import { getDate, getEndingTime, getStartingTime } from 'date-handler/src';
 import { useTranslation } from 'react-i18next';
->>>>>>> aa5cf6df31348fffebf5a3aa2a2bdf2e309550e8
 
 interface EventCardProps {
   date: string;

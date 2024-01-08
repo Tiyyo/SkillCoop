@@ -29,7 +29,7 @@ exports.emailSchema = z.object({
     email: z.string().email(),
 });
 exports.updateEmailSchema = z.object({
-    email: z.string().email(),
+    email: z.string().email({ message: 'thisIsNotValidEmail' }),
     user_id: z.number().positive().int(),
 });
 exports.loginSchema = z.object({
@@ -41,79 +41,79 @@ exports.passwordUpdateSchema = z
     old_password: z.string(),
     new_password: z
         .string()
-        .min(8, { message: 'Must contain at least 8 characters' })
-        .max(64, { message: 'Must contain at most 64 characters' })
+        .min(8, { message: 'mustContains8Characters' })
+        .max(64, { message: 'mustContainsMost64Characters' })
         .trim()
         .refine((value) => /\w*[a-z]\w*/.test(value), {
-        message: 'Must contain one lowercase',
+        message: 'mustContainsAtLeastOneLowercase',
     })
         .refine((value) => /\w*[A-Z]\w*/.test(value), {
-        message: 'Must contain one uppercase',
+        message: 'mustContainsAtLeastOneUppercase',
     })
         .refine((value) => /\d/.test(value), {
-        message: 'Must contain one number',
+        message: 'mustContainsAtLeastOneNumber',
     })
         .refine((value) => /[ `!@#$%^&*()_+\-=\]{};':"\\|,.<>?~]/.test(value), {
-        message: 'Must contain one special character',
+        message: 'mustContainsAtLeastOneSpecialCharacter',
     }),
     confirm_new_password: z.string(),
 })
     .refine((data) => data.old_password !== data.new_password, {
-    message: 'Your new password has to be different than the new one',
+    message: 'newPasswordDifferentFromOldPassword',
     path: ['old_password'],
 })
     .refine((data) => data.new_password === data.confirm_new_password, {
-    message: 'Passwords do not match',
+    message: 'passwordDontMatch',
     path: ['confirm_new_password'],
 });
 exports.resetPasswordSchema = z.object({
     password: z
         .string()
-        .min(8, { message: 'Must contain at least 8 characters' })
-        .max(64, { message: 'Must contain at most 64 characters' })
+        .min(8, { message: 'mustContains8Characters' })
+        .max(64, { message: 'mustContainsMost64Characters' })
         .trim()
         .refine((value) => /\w*[a-z]\w*/.test(value), {
-        message: 'Must contain one lowercase',
+        message: 'mustContainsAtLeastOneLowercase',
     })
         .refine((value) => /\w*[A-Z]\w*/.test(value), {
-        message: 'Must contain one uppercase',
+        message: 'mustContainsAtLeastOneUppercase',
     })
         .refine((value) => /\d/.test(value), {
-        message: 'Must contain one number',
+        message: 'mustContainsAtLeastOneNumber',
     })
         .refine((value) => /[ `!@#$%^&*()_+\-=\]{};':"\\|,.<>?~]/.test(value), {
-        message: 'Must contain one special character',
+        message: 'mustContainsAtLeastOneSpecialCharacter',
     }),
     confirmPassword: z.string(),
 }).refine((data) => data.password === data.confirmPassword, {
-    message: 'Passwords do not match',
+    message: 'passwordDontMatch',
     path: ['confirmPassword'],
 });
 exports.registerSchema = z
     .object({
-    email: z.string().email({ message: 'This is not an valid email' }),
+    email: z.string().email({ message: 'thisIsNotValidEmail' }),
     password: z
         .string()
-        .min(8, { message: 'Must contain at least 8 characters' })
-        .max(64, { message: 'Must contain at most 64 characters' })
+        .min(8, { message: 'mustContains8Characters' })
+        .max(64, { message: 'mustContainsMost64Characters' })
         .trim()
         .refine((value) => /\w*[a-z]\w*/.test(value), {
-        message: 'Must contain one lowercase',
+        message: 'mustContainsAtLeastOneLowercase',
     })
         .refine((value) => /\w*[A-Z]\w*/.test(value), {
-        message: 'Must contain one uppercase',
+        message: 'mustContainsAtLeastOneUppercase',
     })
         .refine((value) => /\d/.test(value), {
-        message: 'Must contain one number',
+        message: 'mustContainsAtLeastOneNumber',
     })
         .refine((value) => /[ `!@#$%^&*()_+\-=\]{};':"\\|,.<>?~]/.test(value), {
-        message: 'Must contain one special character',
+        message: 'mustContainsAtLeastOneSpecialCharacter',
     }),
     confirmedPassword: z.string(),
     termAndService: z.string().transform((value) => value === 'on'),
 })
     .refine((data) => data.password === data.confirmedPassword, {
-    message: "Passwords don't match !",
+    message: "passwordDontMatch",
     path: ['confirm'],
 });
 //# sourceMappingURL=authentification.js.map

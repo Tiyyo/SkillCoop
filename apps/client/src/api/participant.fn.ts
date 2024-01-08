@@ -1,5 +1,5 @@
 import { api } from './api.fn';
-import type { EventInvitation, InvitationStatus } from '@skillcoop/types';
+import type { EventInvitation, InvitationStatus } from '@skillcoop/types/src';
 
 export const updateParticipantFn = async (data: {
   profile_id: number;

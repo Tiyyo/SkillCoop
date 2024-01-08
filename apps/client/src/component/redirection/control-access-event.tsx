@@ -3,7 +3,7 @@ import { useApp } from '../../store/app.store';
 import { useQuery } from '@tanstack/react-query';
 import { getEventFn } from '../../api/api.fn';
 import { useLayoutEffect, useState } from 'react';
-import type { EventParticipant, EventType } from '@skillcoop/types';
+import type { EventParticipant, EventType } from '@skillcoop/types/src';
 
 function ControlAccesEventPage({ children }: { children: React.ReactNode }) {
   const { userProfile } = useApp();

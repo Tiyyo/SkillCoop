@@ -1,5 +1,5 @@
 import { useEvent } from '../../../../store/event.store';
-import { Friend } from '@skillcoop/types';
+import { Friend } from '@skillcoop/types/src';
 import SearchProfileCard from './search-profile-card';
 import SkeletonsLoader from './skeletons-loader';
 import { useTranslation } from 'react-i18next';

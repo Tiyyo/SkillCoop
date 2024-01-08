@@ -1,6 +1,6 @@
 import { Dices } from 'lucide-react';
 import { DropdownMenuItem } from '../../../../lib/ui/dropdown';
-import { EventStatus } from '@skillcoop/types';
+import { EventStatus } from '@skillcoop/types/src';
 import { useGenerateTeams } from '../../../../hooks/useSingleEvent';
 import { useTranslation } from 'react-i18next';
 

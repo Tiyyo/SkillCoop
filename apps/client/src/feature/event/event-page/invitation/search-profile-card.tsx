@@ -1,6 +1,5 @@
 /*eslint-disable*/
 import associateNumberToString from '../../../../utils/associate-number-stringscale';
-import { useEffect, useState } from 'react';
 import { invitationStatus } from '@skillcoop/types/src';
 import { useEvent } from '../../../../store/event.store';
 import AvatarSmallWithBorder from '../../../../component/avatar/avatar-border-small';

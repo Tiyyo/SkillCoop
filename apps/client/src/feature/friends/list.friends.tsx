@@ -1,12 +1,8 @@
 import FriendCard from '../../component/friend-card';
-<<<<<<< HEAD
-import type { Friend } from '@skillcoop/types';
-=======
-import type { Friend } from 'skillcoop-types';
+import type { Friend } from '@skillcoop/types/src';
 import { useTranslation } from 'react-i18next';
 import ErrorFallback from '../../component/error-fallback';
 import SkeletonFallback from '../../component/skeleton-fallback';
->>>>>>> aa5cf6df31348fffebf5a3aa2a2bdf2e309550e8
 
 type FriendlistProps = {
   friends?: Friend[];

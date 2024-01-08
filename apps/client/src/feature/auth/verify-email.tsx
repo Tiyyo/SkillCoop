@@ -6,7 +6,7 @@ import { useMutation } from '@tanstack/react-query';
 import { Link, useLocation } from 'react-router-dom';
 import { sendEmailVerifyFn } from '../../api/api.fn';
 import toast from '../../utils/toast';
-import { emailSchema } from 'schema/ts-schema';
+import { emailSchema } from '@skillcoop/schema/src';
 import { useTranslation } from 'react-i18next';
 import capitalize from '../../utils/capitalize';
 

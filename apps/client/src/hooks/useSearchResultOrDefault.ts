@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import type { SearchFriendQuery } from '@skillcoop/types';
+import type { SearchFriendQuery } from '@skillcoop/types/src';
 import { useGetConfirmedFriends, useSearchInFriendlist } from './useFriends';
 
 type UseSearchResultOrDefault = {

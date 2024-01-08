@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import Avatars from '../../../component/avatars';
 import Badge from '../../../component/badge';
 import Score from '../../../component/score';
-import type { EventParticipant, EventStatus } from '@skillcoop/types';
+import type { EventParticipant, EventStatus } from '@skillcoop/types/src';
 import { ArrowRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 

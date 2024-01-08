@@ -1,7 +1,7 @@
 /* eslint-disable indent */
-import type { EventType } from '@skillcoop/types';
-import { invitationStatus } from '@skillcoop/types';
-import { updateOrganizerSchema } from 'schema/ts-schema';
+import type { EventType } from '@skillcoop/types/src';
+import { invitationStatus } from '@skillcoop/types/src';
+import { updateOrganizerSchema } from '@skillcoop/schema/src';
 import Avatar from '../../../component/avatar';
 import { useState } from 'react';
 import Button from '../../../component/button';

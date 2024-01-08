@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { InvitationStatus, Profile } from '@skillcoop/types';
+import type { InvitationStatus, Profile } from '@skillcoop/types/src';
 
 type Friend = {
   adder_id: number;

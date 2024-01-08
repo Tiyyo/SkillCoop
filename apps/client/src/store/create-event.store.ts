@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { create } from 'zustand';
 import { createEventFn } from '../api/api.fn';
-import type { CreateEventData } from '@skillcoop/types';
+import type { CreateEventData } from '@skillcoop/types/src';
 import toast from '../utils/toast';
 import { queryClient } from '../main';
 import { useTranslation } from 'react-i18next';

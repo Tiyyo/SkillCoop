@@ -14,8 +14,8 @@ import capitalize from '../../../utils/capitalize';
 /* eslint-disable-next-line */
 import associateNumberToString from '../../../utils/associate-number-stringscale';
 import { useNavigate, useParams } from 'react-router-dom';
-import { participantSkillSchema } from 'schema/ts-schema';
-import type { EvaluationParticipantSkill } from '@skillcoop/types';
+import { participantSkillSchema } from '@skillcoop/schema/src';
+import type { EvaluationParticipantSkill } from '@skillcoop/types/src';
 import { cn } from '../../../lib/utils';
 import { useTranslation } from 'react-i18next';
 

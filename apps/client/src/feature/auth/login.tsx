@@ -2,7 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import { loginUserFn } from '../../api/api.fn';
 // Workaround : Create a ts-schema folder
 //in the schema lib to avoid rollup plugin error
-import { loginSchema } from 'schema/ts-schema';
+import { loginSchema } from '@skillcoop/schema/src';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import getGoogleUrl from '../../utils/get-google-url';

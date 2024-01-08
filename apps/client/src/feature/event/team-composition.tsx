@@ -2,12 +2,8 @@
 import Team from '../../component/team-composition/index.team';
 import TitleH2 from '../../component/title-h2';
 import Container from '../../layout/container';
-<<<<<<< HEAD
-import type { EventParticipant, EventStatus } from '@skillcoop/types';
-=======
-import type { EventParticipant, EventStatus } from 'skillcoop-types';
+import type { EventParticipant, EventStatus } from '@skillcoop/types/src';
 import { useTranslation } from 'react-i18next';
->>>>>>> aa5cf6df31348fffebf5a3aa2a2bdf2e309550e8
 
 type TeamCompositionProps = {
   participants?: EventParticipant[] | string | null;

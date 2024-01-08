@@ -3,19 +3,15 @@ import Center from '../../layout/center';
 import FormField from '../../component/form-field';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { resetPasswordSchema } from 'schema/ts-schema';
+import { resetPasswordSchema } from '@skillcoop/schema/src';
 import { useMutation } from '@tanstack/react-query';
 import { resetPasswordFn } from '../../api/api.fn';
 import Button from '../../component/button';
 import { Eye, EyeOff } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-<<<<<<< HEAD
-import { ResetPassword } from '@skillcoop/types';
-=======
-import { ResetPassword } from 'skillcoop-types';
+import { ResetPassword } from '@skillcoop/types/src';
 import { useTranslation } from 'react-i18next';
->>>>>>> aa5cf6df31348fffebf5a3aa2a2bdf2e309550e8
 
 function ResetPassword() {
   const { t } = useTranslation();

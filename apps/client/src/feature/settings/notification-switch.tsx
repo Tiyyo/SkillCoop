@@ -2,8 +2,8 @@ import { Switch } from '../../lib/ui/switch';
 import { useApp } from '../../store/app.store';
 import capitalize from '../../utils/capitalize';
 import { useUpdateNotificationPreference } from '../../hooks/useUserPreference';
-import { updateNotificationPreferenceSchema } from 'schema/ts-schema';
-import { NotificationType } from '@skillcoop/types';
+import { updateNotificationPreferenceSchema } from '@skillcoop/schema/src';
+import { NotificationType } from '@skillcoop/types/src';
 
 type NotificationSwitchProps = {
   notificationType: NotificationType;

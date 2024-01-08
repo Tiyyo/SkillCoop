@@ -1,4 +1,4 @@
-import i18next from './i18/i18n.ts';
+import i18next from './i18/i18n';
 import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
@@ -9,44 +9,44 @@ import {
   redirect,
   RouterProvider,
 } from 'react-router-dom';
-import Login from './feature/auth/login.tsx';
-import Protected from './component/redirection/protected-routes.tsx';
-import RedirectToHome from './component/redirection/redirect-to-home.tsx';
+import Login from './feature/auth/login';
+import Protected from './component/redirection/protected-routes';
+import RedirectToHome from './component/redirection/redirect-to-home';
 import TermsAndService from './feature/terms-and-service/index';
-import Register from './feature/auth/register.tsx';
-import { api } from './api/api.fn.ts';
-import VerifyEmail from './feature/auth/verify-email.tsx';
-import HomePageEvent from './feature/event/index.tsx';
-import CreateEvent from './feature/event/create-event/index.tsx';
-import ResumeEvents from './feature/event/resume-events/index.tsx';
-import ConfirmedFriends from './feature/friends/confirmed.friends.tsx';
-import PendingFriends from './feature/friends/pending.friends.tsx';
-import AddFriends from './feature/friends/add.friends.tsx';
-import PastEvents from './feature/event/events/past.tsx';
-import IncomingEvents from './feature/event/events/upcoming.tsx';
-import MyEvents from './feature/event/events/admin-event.tsx';
-import EventPage from './feature/event/event-page/index.tsx';
-import ProfileInfos from './feature/profile/index.tsx';
-import UserResumeSkills from './feature/skills/index.tsx';
-import FriendProfile from './feature/friend-profile-page/index.tsx';
+import Register from './feature/auth/register';
+import { api } from './api/api.fn';
+import VerifyEmail from './feature/auth/verify-email';
+import HomePageEvent from './feature/event/index';
+import CreateEvent from './feature/event/create-event/index';
+import ResumeEvents from './feature/event/resume-events/index';
+import ConfirmedFriends from './feature/friends/confirmed.friends';
+import PendingFriends from './feature/friends/pending.friends';
+import AddFriends from './feature/friends/add.friends';
+import PastEvents from './feature/event/events/past';
+import IncomingEvents from './feature/event/events/upcoming';
+import MyEvents from './feature/event/events/admin-event';
+import EventPage from './feature/event/event-page/index';
+import ProfileInfos from './feature/profile/index';
+import UserResumeSkills from './feature/skills/index';
+import FriendProfile from './feature/friend-profile-page/index';
 /*eslint-disable*/
-import ModalRouteRatingEvent from './feature/event/event-page/modal-route-rating.tsx';
-import ControlAccesEventPage from './component/redirection/control-access-event.tsx';
-import Page404 from './component/404-page/index.tsx';
-import ControlAccessOwnership from './component/redirection/control-access-ownership.tsx';
+import ModalRouteRatingEvent from './feature/event/event-page/modal-route-rating';
+import ControlAccesEventPage from './component/redirection/control-access-event';
+import Page404 from './component/404-page/index';
+import ControlAccessOwnership from './component/redirection/control-access-ownership';
 import { Toaster } from 'sonner';
-import EndOfGameAwards from './feature/event/awards.tsx';
-import ForgotPassword from './feature/auth/forgot-password.tsx';
-import ResetPasswordMiddleware from './component/redirection/control-reset-password.tsx';
-import NotificationContainer from './feature/notification/index.tsx';
-import InvitationFromEventPage from './feature/event/event-page/invitation/index.tsx';
-import InvitationFromCreateEventPage from './feature/event/create-event/invitation.tsx';
-import Settings from './feature/settings/index.tsx';
-import MenuSettings from './feature/settings/menu.tsx';
-import NotificationsSettings from './feature/settings/notifications.tsx';
-import LanguageSettings from './feature/settings/language.tsx';
-import ApparenceSettings from './feature/settings/apparence.tsx';
-import LoadingPage from './component/loading-page/index.tsx';
+import EndOfGameAwards from './feature/event/awards';
+import ForgotPassword from './feature/auth/forgot-password';
+import ResetPasswordMiddleware from './component/redirection/control-reset-password';
+import NotificationContainer from './feature/notification/index';
+import InvitationFromEventPage from './feature/event/event-page/invitation/index';
+import InvitationFromCreateEventPage from './feature/event/create-event/invitation';
+import Settings from './feature/settings/index';
+import MenuSettings from './feature/settings/menu';
+import NotificationsSettings from './feature/settings/notifications';
+import LanguageSettings from './feature/settings/language';
+import ApparenceSettings from './feature/settings/apparence';
+import LoadingPage from './component/loading-page/index';
 /*eslint-enable*/
 
 export const queryClient = new QueryClient({

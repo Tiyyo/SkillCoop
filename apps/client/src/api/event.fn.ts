@@ -5,7 +5,7 @@ import type {
   EventQuery,
   UpdateEventData,
   TransfertOwnership,
-} from '@skillcoop/types';
+} from '@skillcoop/types/src';
 
 // TODO: find why and when this fn is used
 export const getAllEventsFn = async (): Promise<EventType[]> => {

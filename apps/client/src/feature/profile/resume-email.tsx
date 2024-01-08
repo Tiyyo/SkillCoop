@@ -3,14 +3,14 @@ import TriggerEditBtn from './trigger-edit-btn';
 import { useForm } from 'react-hook-form';
 import FormField from '../../component/form-field';
 import { SendIcon } from 'lucide-react';
-import { emailSchema } from 'schema/ts-schema';
+import { emailSchema } from '@skillcoop/schema/src';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useApp } from '../../store/app.store';
 import ErrorNotification from '../../component/error/notification';
 import Button from '../../component/button';
 import { useUpdateEmail } from '../../hooks/useProfile';
-import type { UpdateEmail } from '@skillcoop/types';
-import { updateEmailSchema } from 'schema/ts-schema';
+import type { UpdateEmail } from '@skillcoop/types/src';
+import { updateEmailSchema } from '@skillcoop/schema/src';
 import toast from '../../utils/toast';
 import { useTranslation } from 'react-i18next';
 

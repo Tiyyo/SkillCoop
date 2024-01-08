@@ -1,6 +1,6 @@
 import Button from '../../../component/button';
 import { useRef, useState } from 'react';
-import { createEventSchema } from 'schema/ts-schema';
+import { createEventSchema } from '@skillcoop/schema/src';
 import Input from '../../../component/input';
 import SelectInput from '../../../component/select';
 import InputDate from '../../../component/date-picker';
@@ -20,12 +20,8 @@ import {
 } from '../../../constant/select.options';
 import toast from '../../../utils/toast';
 import Container from '../../../layout/container';
-<<<<<<< HEAD
 import { getUTCString, isPastDate } from '@skillcoop/date-handler/src';
-=======
-import { getUTCString, isPastDate } from 'date-handler/src';
 import { useTranslation } from 'react-i18next';
->>>>>>> aa5cf6df31348fffebf5a3aa2a2bdf2e309550e8
 
 function CreateEvent() {
   const { t } = useTranslation('event');

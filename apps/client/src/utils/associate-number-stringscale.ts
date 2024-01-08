@@ -1,4 +1,4 @@
-import { LevelScale } from '@skillcoop/types';
+import { LevelScale } from '@skillcoop/types/src';
 
 const associateNumberToString = (gbrating: number): LevelScale | 'NC' => {
   if (gbrating < 20) return 'beginner';

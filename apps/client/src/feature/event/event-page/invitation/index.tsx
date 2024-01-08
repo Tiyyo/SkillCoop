@@ -7,7 +7,7 @@ import { useSearchResultOrDefault } from '../../../../hooks/useSearchResultOrDef
 import Container from '../../../../layout/container';
 import { useEvent } from '../../../../store/event.store';
 import { useApp } from '../../../../store/app.store';
-import { inviteParticipantSchema } from 'schema/ts-schema';
+import { inviteParticipantSchema } from '@skillcoop/schema/src';
 import toast from '../../../../utils/toast';
 import { useSendEventInvitation } from '../../../../hooks/useSingleEvent';
 import SearchResult from './search-result';

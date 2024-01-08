@@ -1,5 +1,5 @@
 import Container from '../../layout/container';
-import { EventParticipant, EventStatus } from '@skillcoop/types';
+import { EventParticipant, EventStatus } from '@skillcoop/types/src';
 import Participant from '../participant';
 import TitleH2 from '../title-h2';
 

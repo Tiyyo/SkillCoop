@@ -9,7 +9,7 @@ import {
 import type {
   CreateFriendsInvitation,
   UpdateFriendsInvitation,
-} from '@skillcoop/types';
+} from '@skillcoop/types/src';
 
 const keys = {
   getFriends: ['confirmed-friends'],

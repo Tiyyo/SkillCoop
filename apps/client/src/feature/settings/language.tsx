@@ -12,15 +12,10 @@ import {
   LanguageSymbol,
   UserPreference,
   languageSymbolToName,
-<<<<<<< HEAD
-} from '@skillcoop/types';
-import capitalize from '../../utils/capitalize';
-=======
-} from 'skillcoop-types';
->>>>>>> aa5cf6df31348fffebf5a3aa2a2bdf2e309550e8
+} from '@skillcoop/types/src';
 import { useUpdateLanguagePreference } from '../../hooks/useUserPreference';
 import { useApp } from '../../store/app.store';
-import { updateLanguagePreferenceSchema } from 'schema/ts-schema';
+import { updateLanguagePreferenceSchema } from '@skillcoop/schema/src';
 import toast from '../../utils/toast';
 import { useTranslation } from 'react-i18next';
 import { storeInLocalStorage } from '../../utils/store-in-local';

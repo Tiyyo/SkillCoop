@@ -1,15 +1,11 @@
 import { useState } from 'react';
 import Datepicker from 'tailwind-datepicker-react';
 import { ArrowLeft, ArrowRight, Calendar } from 'lucide-react';
-<<<<<<< HEAD
 import {
   getDefaultDatePicker,
   todayLocalInputFormat,
 } from '@skillcoop/date-handler/src';
-=======
-import { getDefaultDatePicker, todayLocalInputFormat } from 'date-handler/src';
 import { useTranslation } from 'react-i18next';
->>>>>>> aa5cf6df31348fffebf5a3aa2a2bdf2e309550e8
 
 type InputDateProps = {
   updateState?: (e: any) => void;

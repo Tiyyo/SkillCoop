@@ -4,7 +4,7 @@ import type {
   UpdateLanguagePreference,
   UpdateNotificationPreference,
   UpdateThemePreference,
-} from '@skillcoop/types';
+} from '@skillcoop/types/src';
 
 export const getUserPreferencesFn = async (
   userid: number,

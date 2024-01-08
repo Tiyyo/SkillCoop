@@ -1,12 +1,8 @@
 import { Link } from 'react-router-dom';
 import CoreNotification from '../core';
 import { ArrowRight } from 'lucide-react';
-<<<<<<< HEAD
-import type { Notification } from '@skillcoop/types';
-=======
-import type { Notification } from 'skillcoop-types';
+import type { Notification } from '@skillcoop/types/src';
 import { useTranslation } from 'react-i18next';
->>>>>>> aa5cf6df31348fffebf5a3aa2a2bdf2e309550e8
 
 function EventInfosUpdatedNotification({
   notification,

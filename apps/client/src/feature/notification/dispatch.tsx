@@ -1,5 +1,5 @@
-import { Notification } from '@skillcoop/types';
-import { notificationSubtype } from '@skillcoop/types';
+import { Notification } from '@skillcoop/types/src';
+import { notificationSubtype } from '@skillcoop/types/src';
 /*eslint-disable*/
 import AddedFriendsNotification from './notification-type/added-friends.notification';
 import EventInfosUpdatedNotification from './notification-type/event-infos-updated.notification';

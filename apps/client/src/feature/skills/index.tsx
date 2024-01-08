@@ -1,7 +1,7 @@
 import TitleH2 from '../../component/title-h2';
 import { useApp } from '../../store/app.store';
 import FieldsetRadioInput from './fieldset-radio.input';
-import { ownSkillSchema } from 'schema/ts-schema';
+import { ownSkillSchema } from '@skillcoop/schema/src';
 import Button from '../../component/button';
 import { useId } from 'react';
 import RadarChart from '../../component/radar-chart';

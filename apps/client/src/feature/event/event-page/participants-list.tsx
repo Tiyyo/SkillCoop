@@ -2,12 +2,8 @@ import Participant from '../../../component/participant';
 import TitleH2 from '../../../component/title-h2';
 import Container from '../../../layout/container';
 import { useEvent } from '../../../store/event.store';
-<<<<<<< HEAD
-import type { EventParticipant } from '@skillcoop/types';
-=======
-import type { EventParticipant } from 'skillcoop-types';
+import type { EventParticipant } from '@skillcoop/types/src';
 import { useTranslation } from 'react-i18next';
->>>>>>> aa5cf6df31348fffebf5a3aa2a2bdf2e309550e8
 
 type ParticipantsListProps = {
   confirmedParticipants?: number | null;

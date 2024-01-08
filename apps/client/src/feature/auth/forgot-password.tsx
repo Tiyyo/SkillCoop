@@ -4,7 +4,7 @@ import FormField from '../../component/form-field';
 import Center from '../../layout/center';
 import Page from '../../layout/page';
 import { forgotPasswordFn } from '../../api/api.fn';
-import { emailSchema } from 'schema/ts-schema';
+import { emailSchema } from '@skillcoop/schema/src';
 import { useState } from 'react';
 import envelope from '../../assets/svg/envelope.svg';
 import { Link } from 'react-router-dom';

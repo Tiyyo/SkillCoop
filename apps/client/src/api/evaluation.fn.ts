@@ -4,7 +4,7 @@ import type {
   EvaluationParticipantSkill,
   ProfileEval,
   Vote,
-} from '@skillcoop/types';
+} from '@skillcoop/types/src';
 
 export const getProfileEvalFn = async (
   profileId: number,

@@ -1,6 +1,9 @@
 import { useOutletContext } from 'react-router-dom';
 import Container from '../../layout/container';
-import { NotificationMethodSetting, UserPreference } from '@skillcoop/types';
+import {
+  NotificationMethodSetting,
+  UserPreference,
+} from '@skillcoop/types/src';
 import NotificationSetting from './notification-setting';
 import { useTranslation } from 'react-i18next';
 

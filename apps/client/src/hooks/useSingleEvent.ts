@@ -19,7 +19,7 @@ import type {
   UpdateEventData,
   UpdateParticipant,
   Vote,
-} from '@skillcoop/types';
+} from '@skillcoop/types/src';
 import { AxiosResponse } from 'axios';
 
 const keys = {

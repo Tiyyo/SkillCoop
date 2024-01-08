@@ -1,11 +1,13 @@
 import type { Notification } from '@skillcoop/types';
 import CoreNotification from '../core';
+import { useTranslation } from 'react-i18next';
 
 function AddedFriendsNotification({
   notification,
 }: {
   notification: Notification;
 }) {
+  const { t } = useTranslation('notification');
   const username = notification.message.split(' ').pop();
 
   return (
@@ -17,7 +19,7 @@ function AddedFriendsNotification({
       image={notification.img_url}
       message={
         <>
-          You are now friend with{' '}
+          {t('youAreNowFriendsWith')}{' '}
           <span className="font-medium text-dark">{username}</span>
         </>
       }

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Search from '../../assets/icon/Search';
+import { useTranslation } from 'react-i18next';
 
 type SearchInputProps = {
   getFocusState?: (state: boolean) => void;
@@ -7,6 +8,7 @@ type SearchInputProps = {
 };
 
 function SearchInput({ getFocusState, onChange }: SearchInputProps) {
+  const { t } = useTranslation('title');
   const [shouldShowIcon, setShouldShowIcon] = useState(false);
 
   const handleFocus = () => {
@@ -32,7 +34,7 @@ function SearchInput({ getFocusState, onChange }: SearchInputProps) {
     <div className="relative h-9 max-w-xs w-1/2">
       <input
         type="text"
-        placeholder="Search"
+        placeholder={t('search')}
         onFocus={handleFocus}
         onBlur={handleBlur}
         onChange={handleChangeValue}

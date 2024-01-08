@@ -2,7 +2,12 @@ import Participant from '../../../component/participant';
 import TitleH2 from '../../../component/title-h2';
 import Container from '../../../layout/container';
 import { useEvent } from '../../../store/event.store';
+<<<<<<< HEAD
 import type { EventParticipant } from '@skillcoop/types';
+=======
+import type { EventParticipant } from 'skillcoop-types';
+import { useTranslation } from 'react-i18next';
+>>>>>>> aa5cf6df31348fffebf5a3aa2a2bdf2e309550e8
 
 type ParticipantsListProps = {
   confirmedParticipants?: number | null;
@@ -15,14 +20,23 @@ function ParticipantsList({
   requiredparticipants,
   participants,
 }: ParticipantsListProps) {
+  const { t } = useTranslation('system');
   const eventParticipantsStatus = () => {
-    return `${confirmedParticipants} / ${requiredparticipants} are confirmed`;
+    return (
+      `${confirmedParticipants} / ${requiredparticipants}` +
+      ' ' +
+      t('areConfirmed')
+    );
   };
+
   const { data: eventStore } = useEvent();
 
   return (
     <Container className="w-full">
-      <TitleH2 title="Participants" legend={eventParticipantsStatus()} />
+      <TitleH2
+        title={t('event:participants')}
+        legend={eventParticipantsStatus()}
+      />
       <ul className="flex flex-wrap gap-2 justify-center">
         {/* particpants can be a string if backend failed to parsed data */}
         {participants &&

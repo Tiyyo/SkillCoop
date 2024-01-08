@@ -10,9 +10,15 @@ import Button from '../../component/button';
 import { Eye, EyeOff } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+<<<<<<< HEAD
 import { ResetPassword } from '@skillcoop/types';
+=======
+import { ResetPassword } from 'skillcoop-types';
+import { useTranslation } from 'react-i18next';
+>>>>>>> aa5cf6df31348fffebf5a3aa2a2bdf2e309550e8
 
 function ResetPassword() {
+  const { t } = useTranslation();
   const [hasBeenReset, setHasBeenReset] = useState(false);
   const [linkHasExpire, setLinkHasExpire] = useState(false);
   const { mutate: resetPassword, isLoading } = useMutation({
@@ -43,7 +49,7 @@ function ResetPassword() {
     <Page>
       <Center>
         <h1 className="text-lg my-4 font-semibold opacity-30 text-primary-1100">
-          Reset your password
+          {t('resetYourPassword')}
         </h1>
         <form
           className="flex flex-col items-center gap-y-5 p-6 bg-base-light 
@@ -53,7 +59,7 @@ function ResetPassword() {
           {linkHasExpire && (
             <div className="flex flex-col items-center">
               <p className="text-center text-primary-1100 text-sm">
-                Your link have expired. You have to generate a new link
+                {t('yourLinkHaveExpired')}
               </p>
               <Link
                 to="/forgot-password"
@@ -61,7 +67,7 @@ function ResetPassword() {
                   rounded-md text-primary-700 my-3 px-8 w-fit self-center 
                 hover:bg-base"
               >
-                Forgot password
+                {t('forgotPassword')} ?
               </Link>
             </div>
           )}
@@ -69,7 +75,7 @@ function ResetPassword() {
             <>
               <FormField
                 name="password"
-                label="Password"
+                label={t('password')}
                 type="password"
                 subicon={<EyeOff size={18} />}
                 register={register}
@@ -79,13 +85,13 @@ function ResetPassword() {
               </FormField>
               <FormField
                 name="confirmPassword"
-                label="Confirm password"
+                label={t('confirmPassword')}
                 type="password"
                 register={register}
                 error={errors?.confirmPassword?.message as string}
               />
               <Button
-                textContent="Reset my password"
+                textContent={t('resetMyPassword')}
                 type="submit"
                 className="text-sm"
                 isLoading={isLoading}
@@ -95,7 +101,7 @@ function ResetPassword() {
           {hasBeenReset && !linkHasExpire && (
             <div className="flex flex-col items-center">
               <p className="text-center text-primary-1100 text-sm">
-                You have successfully reset your password.
+                {t('successfulResetPassword')}
               </p>
               <Link
                 to="/login"
@@ -103,7 +109,7 @@ function ResetPassword() {
                   rounded-md text-primary-700 my-3 px-8 w-fit self-center 
                 hover:bg-base"
               >
-                Go to login page
+                {t('gotToLoginPage')}
               </Link>
             </div>
           )}

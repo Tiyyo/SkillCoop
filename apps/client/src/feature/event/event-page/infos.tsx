@@ -27,7 +27,12 @@ import {
   isPastDate,
   getUTCString,
   getLocalStringCustom,
+<<<<<<< HEAD
 } from '@skillcoop/date-handler/src';
+=======
+} from 'date-handler/src';
+import { useTranslation } from 'react-i18next';
+>>>>>>> aa5cf6df31348fffebf5a3aa2a2bdf2e309550e8
 
 type EventPageInfosProps = {
   eventDuration: number;
@@ -50,6 +55,7 @@ function EventPageInfos({
   profileId,
   confirmedParticipants,
 }: EventPageInfosProps) {
+  const { t } = useTranslation('event');
   const [isEditActive, setIsEditActive] = useState<boolean>(false);
   const { eventId } = useParams<{ eventId: string }>();
   const { mutate: updateEvent } = useUpdateSingleEvent({
@@ -57,7 +63,7 @@ function EventPageInfos({
     onSuccess: (response: any) => {
       setIsEditActive(false);
       if (response.message === 'Nothing to update') return;
-      toast.success('Event updated');
+      toast.success(t('eventUpdated'));
     },
   });
   const {
@@ -110,11 +116,11 @@ function EventPageInfos({
             }
             const isValid = updateEventSchema.safeParse(data);
             if (isPastDate(data.date)) {
-              toast.error("You can't set a date in the past ");
+              toast.error(t('youCannotSetEventPast'));
               return;
             }
             if (!isValid.success) {
-              toast.error('Something went wrong... try again later');
+              toast.error(t('system:somethingWentWrong'));
               return;
             }
             data.date = getUTCString(new Date(data.date));
@@ -140,8 +146,8 @@ function EventPageInfos({
     <Container className="flex-grow">
       <div className="flex justify-between items-center">
         <TitleH2
-          title={`Event# ${eventId}`}
-          legend="Event details informations"
+          title={t('title:event') + ' ' + `#${eventId}`}
+          legend={t('title:eventLegend')}
         />
         <div
           className="flex justify-between items-baseline my-1 
@@ -161,11 +167,11 @@ function EventPageInfos({
           defaultValue={getLocalStringCustom(new Date(eventDate)).split(' ')[0]}
           updateData={updateEventData}
           mutateKey="date"
-          label="Date"
+          label={t('date')}
           disabled={!isEditActive}
         />
         <InputTime
-          label="Schedule Time"
+          label={t('scheduleTime')}
           name="time"
           type="text"
           readOnly
@@ -179,7 +185,7 @@ function EventPageInfos({
         </InputTime>
         <SelectInput
           name="duration"
-          label="Duration"
+          label={t('duration')}
           updateState={updateDuration}
           mutateKey="duration"
           options={OPTION_DURATION}
@@ -190,7 +196,7 @@ function EventPageInfos({
         </SelectInput>
         <Input
           name="location"
-          label="Location"
+          label={t('location')}
           type="text"
           updateState={updateLocation}
           disabled={!isEditActive}
@@ -200,7 +206,7 @@ function EventPageInfos({
         </Input>
         <SelectInput
           name="requiredParticipants"
-          label="Participants"
+          label={t('participants')}
           updateState={updateRequiredParticipants}
           options={OPTION_FORMAT}
           defaultValue={event.required_participants ?? requiredParticipants}

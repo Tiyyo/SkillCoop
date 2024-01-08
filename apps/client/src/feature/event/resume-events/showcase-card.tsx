@@ -1,10 +1,16 @@
 import Avatars from '../../../component/avatars';
+<<<<<<< HEAD
 import type { EventParticipant, EventStatus } from '@skillcoop/types';
 import {
   getDate,
   getEndingTime,
   getStartingTime,
 } from '@skillcoop/date-handler/src';
+=======
+import type { EventParticipant, EventStatus } from 'skillcoop-types';
+import { getDate, getEndingTime, getStartingTime } from 'date-handler/src';
+import { useTranslation } from 'react-i18next';
+>>>>>>> aa5cf6df31348fffebf5a3aa2a2bdf2e309550e8
 
 interface EventCardProps {
   date: string;
@@ -27,13 +33,14 @@ function ShowcaseEventCard({
   participants,
   requiredParticipants,
 }: EventCardProps) {
+  const { t } = useTranslation('event');
   return (
     <div
       className="bg-stadium bg-cover flex items-center flex-col 
       bg-base-light shadow 
       lg:rounded-3xl w-full px-6 pb-6 pt-2 aspect-4/1 lg:my-2"
     >
-      <p className="font-semibold">Next Event</p>
+      <p className="font-semibold">{t('nextEvent')}</p>
       <p
         className="flex py-0.5 gap-x-1 items-center text-xxs lg:text-xs 
         font-medium text-dark"
@@ -62,7 +69,7 @@ function ShowcaseEventCard({
             className=" h-8 md:h-10 lg:h-18"
           />
           <div className="flex-shrink-0">
-            <div className="hidden md:block lg:font-semibold">Team</div>
+            <div className="hidden md:block lg:font-semibold">{t('team')}</div>
             <Avatars
               participants={participants}
               team={1}
@@ -80,7 +87,7 @@ function ShowcaseEventCard({
             className=" h-8 md:h-10 lg:h-18"
           />
           <div className="flex-shrink-0">
-            <div className="hidden md:block lg:font-semibold">Team</div>
+            <div className="hidden md:block lg:font-semibold">{t('team')}</div>
             <Avatars
               participants={participants}
               team={2}

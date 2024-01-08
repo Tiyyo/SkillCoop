@@ -1,0 +1,12 @@
+{
+  "mustContains8Characters": "Debe contener al menos 8 caracteres",
+  "mustContainsMost64Characters": "Debe contener como máximo 64 caracteres",
+  "mustContainsAtLeastOneNumber": "Debe contener al menos un número",
+  "mustContainsAtLeastOneLowercase": "Debe contener al menos una letra minúscula",
+  "mustContainsAtLeastOneUppercase": "Debe contener al menos una letra mayúscula",
+  "mustContainsAtLeastOneSpecialCharacter": "Debe contener al menos un carácter especial",
+  "newPasswordDifferentFromOldPassword": "Su nueva contraseña debe ser diferente de la antigua",
+  "passwordDontMatch": "Las contraseñas no coinciden",
+  "thisIsNotValidEmail": "Esto no es un correo electrónico válido",
+  "wrongFormatEvent": "Formato incorrecto, debe ser 6, 10, 14 o 22"
+}

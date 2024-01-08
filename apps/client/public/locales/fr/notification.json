@@ -1,0 +1,22 @@
+{
+  "youAreNowFriendsWith": "Vous êtes maintenant ami(e) avec",
+  "youHaveReceivedAFriend": "Vous avez reçu une demande d'amitié de",
+  "goToEventPage": "Aller à la page de l'événement",
+  "detailsScheduledOn": "Certains détails de l'événement prévu le",
+  "inWhichYouAreParticipating": "auquel vous participez, ont été mis à jour",
+  "youHaveBeenInvitedBy": "Vous avez été invité(e) par",
+  "toTheEvent": "à un événement le",
+  "friend": "Amis",
+  "event": "Événements",
+  "all": "Tout",
+  "eventScheduledOn": "L'événement prévu le",
+  "hasReachedItsMaximumNumberOfParticipants": "a atteint son nombre requis de participants et les équipes ont été générées",
+  "hastransferredToYou": "vous a transféré ses droits de propriétaire pour l'événement prévu le",
+  "yesterday": "hier",
+  "justNow": "à l'instant",
+  "minutesAgo": "il y a {{number}} min",
+  "hoursAgo": "il y a {{number}}h",
+  "daysAgo": "il y a {{number}}j",
+  "weeksAgo": "il y a {{number}} sem",
+  "monthsAgo": "il y a {{number}} mois"
+}

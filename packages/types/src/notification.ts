@@ -53,7 +53,7 @@ export type NotificationSubtype =
 export type Notification = {
   id: number;
   profile_id: number;
-  type: NotificationType;
+  type_name: NotificationType;
   subtype: NotificationSubtype;
   img_url?: string | null;
   is_read: 0 | 1;

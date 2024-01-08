@@ -1,10 +1,15 @@
 import { useState } from 'react';
 import Datepicker from 'tailwind-datepicker-react';
 import { ArrowLeft, ArrowRight, Calendar } from 'lucide-react';
+<<<<<<< HEAD
 import {
   getDefaultDatePicker,
   todayLocalInputFormat,
 } from '@skillcoop/date-handler/src';
+=======
+import { getDefaultDatePicker, todayLocalInputFormat } from 'date-handler/src';
+import { useTranslation } from 'react-i18next';
+>>>>>>> aa5cf6df31348fffebf5a3aa2a2bdf2e309550e8
 
 type InputDateProps = {
   updateState?: (e: any) => void;
@@ -26,10 +31,12 @@ function InputDate({
   disabled,
   high,
 }: InputDateProps) {
+  const { t } = useTranslation('event');
   const today = new Date();
   const [hasError, setHasError] = useState<boolean | undefined>(error);
+  // TODO : get current language from localStorage
   const options = {
-    title: 'Select a date',
+    title: t('selectDate'),
     autoHide: true,
     todayBtn: true,
     clearBtn: true,
@@ -59,7 +66,7 @@ function InputDate({
     },
     datepickerClassNames: 'top-12 left-1/2 -translate-x-1/2',
     defaultDate: new Date(defaultValue || today),
-    language: 'en',
+    language: 'en', // To be replaced by current language
   };
   const [show, setShow] = useState<boolean>(false);
 

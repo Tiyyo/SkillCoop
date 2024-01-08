@@ -4,6 +4,7 @@ import { useApp } from '../../store/app.store';
 import { getEventFn } from '../../api/api.fn';
 import Spinner from '../loading';
 import TransfertOwnership from '../../feature/event/event-page/ownership';
+import { Suspense } from 'react';
 
 function ControlAccessOwnership() {
   const { eventId } = useParams();
@@ -27,7 +28,9 @@ function ControlAccessOwnership() {
   return userProfile?.profile_id !== event?.organizer_id ? (
     <Navigate to={`/event/${eventId}`} />
   ) : (
-    <TransfertOwnership data={event} profileId={userProfile.profile_id} />
+    <Suspense fallback="coucou">
+      <TransfertOwnership data={event} profileId={userProfile.profile_id} />
+    </Suspense>
   );
 }
 

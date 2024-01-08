@@ -1,7 +1,9 @@
 import { LogOut } from 'lucide-react';
 import useLogout from '../../hooks/useLogout';
+import { useTranslation } from 'react-i18next';
 
 function Logout() {
+  const { t } = useTranslation('system');
   const { logout } = useLogout();
   return (
     <button
@@ -13,7 +15,7 @@ function Logout() {
       <span className="px-2.5">
         <LogOut size={18} />
       </span>
-      Logout
+      {t('logout')}
     </button>
   );
 }

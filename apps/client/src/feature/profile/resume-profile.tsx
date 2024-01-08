@@ -5,6 +5,7 @@ import FormEditProfileInfos from './form-edit-profile';
 import ResumeEmailInfos from './resume-email';
 import EditModalPassword from './modal-edit-password';
 import { Edit2, Lock } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export type Infos = {
   username: string | null;
@@ -18,6 +19,7 @@ export type Infos = {
 };
 
 function ResumeProfile({ infos }: { infos: Infos }) {
+  const { t } = useTranslation('system');
   const [isEditing, setIsEditing] = useState(false);
 
   const getEditState = (state: boolean) => {
@@ -56,11 +58,11 @@ function ResumeProfile({ infos }: { infos: Infos }) {
                     className="block h-4 ml-2 text-xs text-start font-medium
                      text-grey-sub-text"
                   >
-                    Password
+                    {t('password')}
                   </label>
                   <input
                     type="password"
-                    defaultValue={'nicetrynoturs'}
+                    defaultValue={'nicetrynotyours'}
                     readOnly
                     disabled
                     className="bg-transparent border-secondary-400 peer 
@@ -69,16 +71,10 @@ function ResumeProfile({ infos }: { infos: Infos }) {
                 </div>
               </div>
               <EditModalPassword>
-                <button type="button" className="">
-                  <Edit2 className="text-light" size={18} />
-                </button>
+                <Edit2 className="text-light" size={18} />
               </EditModalPassword>
             </div>
           </div>
-          {/* <span className="flex justify-start xl:w-1/2 relative pl-24 
-            md:pl-0">
-            <EditModalPassword />
-          </span> */}
         </div>
       </div>
     </div>

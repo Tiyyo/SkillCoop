@@ -4,6 +4,7 @@ import { createEventFn } from '../api/api.fn';
 import type { CreateEventData } from '@skillcoop/types';
 import toast from '../utils/toast';
 import { queryClient } from '../main';
+import { useTranslation } from 'react-i18next';
 
 export type CreateEventStateStore = {
   start_date: string | null;
@@ -131,6 +132,7 @@ export const useCreateEvent = () => {
   );
   const clearEventState = useCreateEventStore((state) => state.clearEventState);
   const data = useCreateEventStore((state) => state.event);
+  const { t } = useTranslation('toast');
   const { mutate: createEvent, isLoading } = useMutation({
     mutationFn: async (data: CreateEventData) => createEventFn(data),
     onSuccess: () => {
@@ -145,7 +147,7 @@ export const useCreateEvent = () => {
         month: 'short',
         day: 'numeric',
       }).format(date);
-      toast.eventSuccess('Event set', `At ${startTime} on ${startDate}`);
+      toast.eventSuccess(t('eventSet'), t('atOn', { startTime, startDate }));
       queryClient.invalidateQueries([
         'events',
         'past-event',

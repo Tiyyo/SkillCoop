@@ -20,9 +20,15 @@ import {
 } from '../../../constant/select.options';
 import toast from '../../../utils/toast';
 import Container from '../../../layout/container';
+<<<<<<< HEAD
 import { getUTCString, isPastDate } from '@skillcoop/date-handler/src';
+=======
+import { getUTCString, isPastDate } from 'date-handler/src';
+import { useTranslation } from 'react-i18next';
+>>>>>>> aa5cf6df31348fffebf5a3aa2a2bdf2e309550e8
 
 function CreateEvent() {
+  const { t } = useTranslation('event');
   const { userProfile } = useApp();
   const createEventFormRef = useRef<HTMLFormElement>(null);
   const [validationErrors, setValidationErrors] = useState(null);
@@ -61,7 +67,7 @@ function CreateEvent() {
     }
     const isPast = isPastDate(data.date);
     if (isPast) {
-      toast.error('You cannot create an event in the past');
+      toast.error(t('toast:cannotCreateEventInPast'));
       return;
     }
     data.date = getUTCString(new Date(data.date));
@@ -84,8 +90,8 @@ function CreateEvent() {
     <Container className=" flex-grow lg:mt-4 pb-10 h-full">
       <div className="flex justify-between items-center pr-4">
         <TitleH2
-          title="Create a new Event"
-          legend="Set the details and start something special"
+          title={t('title:createNewEvent')}
+          legend={t('title:createNewEventLegend')}
         />
         <Link
           to="invitation"
@@ -94,7 +100,7 @@ function CreateEvent() {
           rounded-full font-semibold cursor-pointer hover:text-dark
          hover:bg-primary-500 duration-300`}
         >
-          <p className="hidden sm:block">Invite your friends</p>
+          <p className="hidden sm:block">{t('inviteYourFriends')}</p>
           <Plus />
         </Link>
       </div>
@@ -110,13 +116,13 @@ function CreateEvent() {
           <InputDate
             updateState={updateStartDate}
             actionType="SET_DATE"
-            label="Select a date"
+            label={t('selectDate')}
             defaultValue={eventCreatedState.start_date ?? ''}
             error={inputHasError('start_date', validationErrors)}
             high
           />
           <InputTime
-            label="Select a Time - HH:mm"
+            label={t('selectTime') + ' HH:mm'}
             name="time"
             type="text"
             readOnly
@@ -129,8 +135,8 @@ function CreateEvent() {
           </InputTime>
           <SelectInput
             name="duration"
-            label="Select a Duration"
-            placeholder="duration in min"
+            label={t('selectDuration')}
+            placeholder={t('durationInMinutes')}
             updateState={updateDuration}
             options={OPTION_DURATION}
             defaultValue={eventCreatedState.duration ?? ''}
@@ -141,9 +147,9 @@ function CreateEvent() {
           </SelectInput>
           <Input
             name="location"
-            label="Select a Location"
+            label={t('selectLocation')}
             type="text"
-            placeholder="City"
+            placeholder={t('city')}
             updateState={updateLocation}
             defaultValue={eventCreatedState.location ?? ''}
             error={inputHasError('location', validationErrors)}
@@ -153,7 +159,7 @@ function CreateEvent() {
           </Input>
           <SelectInput
             name="requiredParticipants"
-            label="Select a Format"
+            label={t('selectFormat')}
             updateState={updateRequiredParticipants}
             options={OPTION_FORMAT}
             defaultValue={eventCreatedState.required_participants ?? ''}
@@ -164,7 +170,7 @@ function CreateEvent() {
           </SelectInput>
         </div>
         <Button
-          textContent="Create Event"
+          textContent={t('createEvent')}
           type="submit"
           isLoading={isLoading}
           className="mt-4"

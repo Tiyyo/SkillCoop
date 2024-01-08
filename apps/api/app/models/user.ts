@@ -2,7 +2,7 @@
 import { getFormattedUTCTimestamp } from '@skillcoop/date-handler';
 import DatabaseError from '../helpers/errors/database.error';
 import { Core } from './core';
-import { tableNames } from '../@types/database';
+import { tableNames } from '../@types/types';
 import { db } from '../helpers/client.db';
 import NotFoundError from '../helpers/errors/not-found.error';
 

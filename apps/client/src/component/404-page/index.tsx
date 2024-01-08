@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 function Page404() {
+  const { t } = useTranslation('toast');
   return (
     <section className="flex items-center p-16">
       <div
@@ -9,22 +11,20 @@ function Page404() {
       >
         <div className="max-w-md text-center">
           <h2 className="mb-8 font-extrabold text-9xl">
-            <span className="sr-only">Error</span>
+            <span className="sr-only">{t('error')}</span>
             <span className="text-primary-1000">4</span>
             <span className="text-primary-500">0</span>
             <span className="text-primary-1000">4</span>
           </h2>
           <p className="text-2xl font-semibold md:text-3xl text-primary-1100">
-            Sorry, we couldn't find this page.
+            {t('couldNotFindPage')}
           </p>
-          <p className="mt-4 mb-8 Animation">
-            But dont worry, you can find plenty of other things on our homepage.
-          </p>
+          <p className="mt-4 mb-8 Animation">{t('youCanFindPlentyOfThings')}</p>
           <Link
             className="px-8 py-3 font-semibold cursor-pointer text-primary-900"
             to="/"
           >
-            Back to homepage
+            {t('backToHomepage')}
           </Link>
         </div>
       </div>

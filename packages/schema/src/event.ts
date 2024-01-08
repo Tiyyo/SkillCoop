@@ -8,7 +8,7 @@ export const createEventSchema = z.object({
   duration: z.number().positive(),
   location: z.string(),
   required_participants: z.number().refine((data) => acceptableEventFormat.includes(data), {
-    message: "Wrong format, must be 6, 10, 14 or 22"
+    message: "wrongFormatEvent"
   }),
   organizer_id: z.number().int().positive(),
   status_name: z.enum(["open"]).optional(),
@@ -21,7 +21,7 @@ export const updateEventSchema = z.object({
   duration: z.number().optional(),
   location: z.string().optional(),
   required_participants: z.number().refine((data) => acceptableEventFormat.includes(data), {
-    message: "Wrong format, must be 6, 10, 14 or 22"
+    message: "wrongFormatEvent"
   }).optional(),
   profile_id: z.number().int().positive(),
   status_name: z.enum(["open", "full", "cancelled", "completed"]).optional(),

@@ -9,6 +9,7 @@ import {
   useVoteForMvp,
   useVoteForbestStriker,
 } from '../../hooks/useSingleEvent';
+import { useTranslation } from 'react-i18next';
 
 type LocationState = {
   eventId?: number;
@@ -17,6 +18,7 @@ type LocationState = {
 };
 
 function EndOfGameAwards() {
+  const { t } = useTranslation('event');
   const { state } = useLocation();
   const [locationStateInfos, setLocationStateInfos] = useState<LocationState>({
     eventId: undefined,
@@ -26,20 +28,20 @@ function EndOfGameAwards() {
   const { mutate: voteMvp } = useVoteForMvp({
     eventId: locationStateInfos.eventId,
     onSuccess: () => {
-      toast.success('Your vote has been recorded');
+      toast.success(t('yourVoteHasBeenRecorded'));
     },
     onError: () => {
-      toast.error('You already voted for this category');
+      toast.error(t('youAlreadyVoted'));
     },
   });
 
   const { mutate: voteBestStriker } = useVoteForbestStriker({
     eventId: locationStateInfos.eventId,
     onSuccess: () => {
-      toast.success('Your vote has been recorded');
+      toast.success(t('yourVoteHasBeenRecorded'));
     },
     onError: () => {
-      toast.error('You already voted for this category');
+      toast.error(t('youAlreadyVoted'));
     },
   });
 
@@ -64,14 +66,14 @@ function EndOfGameAwards() {
         className="w-full flex flex-col justify-center"
       >
         <h2 className="p-4 font-semibold text-primary-1100">
-          Vote now for the best :
+          {t('voteNowForTheBest')} :
         </h2>
         <TabsList className="flex">
           <TabsTrigger value="mvp" className="w-1/2 max-w-xl border">
-            Player
+            {t('player')}
           </TabsTrigger>
           <TabsTrigger value="striker" className="w-1/2 max-w-xl border">
-            Striker
+            {t('striker')}
           </TabsTrigger>
         </TabsList>
         <TabsContent value="mvp">

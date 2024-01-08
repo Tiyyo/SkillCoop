@@ -12,6 +12,7 @@ import {
 } from '../../lib/ui/alert-dialog';
 import { UseMutateFunction } from '@tanstack/react-query';
 import { cn } from '../../lib/utils';
+import { useTranslation } from 'react-i18next';
 
 type MenuItemDialogProps = {
   description?: string;
@@ -28,6 +29,7 @@ function MenuItemDialog({
   mutationData,
   hoverOn,
 }: MenuItemDialogProps) {
+  const { t } = useTranslation('system');
   const menuItemStyle = `flex gap-2 items-center
     transition-colors duration-300 rounded-lg px-2 text-md`;
 
@@ -48,7 +50,7 @@ function MenuItemDialog({
       </AlertDialogTrigger>
       <AlertDialogContent className="bg-base-light w-4/5 rounded-lg">
         <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+          <AlertDialogTitle>{t('areYouSure')}</AlertDialogTitle>
           <AlertDialogDescription>{description}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
@@ -56,13 +58,13 @@ function MenuItemDialog({
             className="bg-primary-800 hover:bg-primary-400 
             duration-300"
           >
-            Cancel
+            {t('cancel')}
           </AlertDialogCancel>
           <AlertDialogAction
             className="hover:text-primary-900 duration-200"
             onClick={handleClick}
           >
-            Continue
+            {t('continue')}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

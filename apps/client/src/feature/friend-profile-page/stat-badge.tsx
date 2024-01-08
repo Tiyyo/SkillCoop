@@ -13,7 +13,7 @@ function StatBadge({ label, value, icon }: StatBadgeProps) {
       <img src={icon} className="bg-primary-100 h-8 p-1 rounded-lg" />
       <div>
         <p className="text-xs font-medium text-grey-sub-text ">{label}</p>
-        <p className="text-sm font-semibold">{value}</p>
+        <p className="text-sm font-semibold">{value ?? 0}</p>
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import { useId, useState } from 'react';
-import capitalize from '../../utils/capitalize';
 import { cn } from '../../lib/utils';
+import { useTranslation } from 'react-i18next';
 
 type FieldsetRadioInputProps = {
   name: string;
@@ -8,6 +8,7 @@ type FieldsetRadioInputProps = {
 };
 
 function FieldsetRadioInput({ name, options }: FieldsetRadioInputProps) {
+  const { t } = useTranslation('skill');
   const idComponent = useId();
   const [currentIDActive, setCurrentIDActive] = useState<string>('');
 
@@ -25,7 +26,7 @@ function FieldsetRadioInput({ name, options }: FieldsetRadioInputProps) {
         className="mt-3 px-4 self-start text-xs font-medium
          text-primary-1100 py-3"
       >
-        {capitalize(name)}
+        {t(name)}
       </legend>
       <div className="flex text-xxs">
         {options.length > 0 &&
@@ -42,7 +43,7 @@ function FieldsetRadioInput({ name, options }: FieldsetRadioInputProps) {
                   'bg-primary-500 text-white hover:bg-primary-500',
               )}
             >
-              {capitalize(option)}
+              {t(option)}
               <input
                 type="radio"
                 name={name}

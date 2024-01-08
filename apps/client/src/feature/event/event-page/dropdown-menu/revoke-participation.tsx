@@ -1,6 +1,7 @@
 import { FolderInput } from 'lucide-react';
 import UpdateStatusModal from '../../../../component/update-status-modal';
-import type { EventStatus } from '@skillcoop/types';
+import type { EventStatus } from '@skillcoop/types/src';
+import { useTranslation } from 'react-i18next';
 
 type RevokeParticipationMenuItemProps = {
   eventStatus: EventStatus | null;
@@ -13,12 +14,13 @@ function RevokeParticipationMenuItem({
   eventId,
   profileId,
 }: RevokeParticipationMenuItemProps) {
+  const { t } = useTranslation('event');
   return (
     <>
       {eventStatus !== 'completed' && (
         <UpdateStatusModal eventId={eventId} profileId={profileId}>
           <FolderInput size="16" />
-          <span>Revoke participation</span>
+          <span>{t('revokeParticipation')}</span>
         </UpdateStatusModal>
       )}
     </>

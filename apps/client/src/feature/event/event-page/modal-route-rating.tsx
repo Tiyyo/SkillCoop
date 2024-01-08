@@ -8,7 +8,7 @@ import {
   getProfileFn,
 } from '../../../api/api.fn';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useApp } from '../../../store/app.store';
 import capitalize from '../../../utils/capitalize';
 /* eslint-disable-next-line */
@@ -17,9 +17,11 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { participantSkillSchema } from 'schema/ts-schema';
 import type { EvaluationParticipantSkill } from '@skillcoop/types';
 import { cn } from '../../../lib/utils';
+import { useTranslation } from 'react-i18next';
 
 // Shitty component, need to be refactored or rewrite
 function ModalRouteRatingEvent() {
+  const { t } = useTranslation('skill');
   const { userProfile } = useApp();
   const navigate = useNavigate();
   const [hasLoaded, setHasLoaded] = useState(false);
@@ -129,7 +131,7 @@ function ModalRouteRatingEvent() {
           <X
             size={24}
             className="cursor-pointer hover:opacity-75 hover:text-primary-1000 
-duration-300 transition-color"
+            duration-300 transition-color"
             onClick={() => navigate(-1)}
           />
         </div>
@@ -150,43 +152,44 @@ duration-300 transition-color"
               </div>
               {evaluation && (
                 <p className="text-xs text-light text-center">
-                  You have evaluated{' '}
+                  {t('youHaveEvaluated')}{' '}
                   <span className="font-semibold">
                     {capitalize(participantProfile?.username)}
                   </span>{' '}
-                  performance at an{' '}
+                  {t('performanceAt')}{' '}
                   <span className="text-primary-1000 font-semibold">
                     {associateNumberToString(evaluation)}
                   </span>{' '}
-                  level for this event.
+                  {t('levelForThisEvent')}
                 </p>
               )}
               {!hasBeenRated && (
                 <p className="text-xs text-light text-center">
-                  You can evaluate the skill of{' '}
-                  <span>{capitalize(participantProfile?.username)}</span> on
-                  this event. This can help to make the balanced of generated
-                  team more accurate
+                  {t('youCanEvaluateSkillOf')}{' '}
+                  <span>{capitalize(participantProfile?.username)}</span>
+                  {t('moreAccurateAlgo')}
                 </p>
               )}
               {!hasBeenRated && (
-                <form
-                  className="flex flex-col items-center"
-                  onSubmit={handleSubmitEvaluation}
-                >
-                  {skills.map((skill, index) => (
-                    <GroupedStars
-                      key={index}
-                      legend={capitalize(skill)}
-                      name={`${skill}-rating`}
+                <Suspense fallback={<div>Loading...</div>}>
+                  <form
+                    className="flex flex-col items-center"
+                    onSubmit={handleSubmitEvaluation}
+                  >
+                    {skills.map((skill, index) => (
+                      <GroupedStars
+                        key={index}
+                        legend={capitalize(skill)}
+                        name={`${skill}-rating`}
+                      />
+                    ))}
+                    <Button
+                      type="submit"
+                      variant="light"
+                      textContent={t('event:sendEvaluation')}
                     />
-                  ))}
-                  <Button
-                    type="submit"
-                    variant="light"
-                    textContent="Send evaluation"
-                  />
-                </form>
+                  </form>
+                </Suspense>
               )}
             </>
           ) : (

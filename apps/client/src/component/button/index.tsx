@@ -1,5 +1,6 @@
 import { cn } from '../../lib/utils';
 import { ComponentPropsWithRef } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface ButtonProps extends ComponentPropsWithRef<'button'> {
   textContent: string;
@@ -55,6 +56,7 @@ function Button({
   variant = 'solid',
   ...props
 }: ButtonProps) {
+  const { t } = useTranslation('system');
   const base = 'py-2 cursor-pointer duration-200 transition-all rounded-md';
   const solid = `bg-primary-800 hover:bg-primary-900 text-white  px-3 w-[70%] 
                  max-w-xs font-bold uppercase shadow-sm tracking-wide`;
@@ -75,7 +77,7 @@ function Button({
     >
       {isLoading ? <Spinner /> : null}
       {isLoading ? (
-        <span className="text-xs lowercase">...Loading</span>
+        <span className="text-xs lowercase">...{t('loading')}</span>
       ) : (
         <>
           {textContent}

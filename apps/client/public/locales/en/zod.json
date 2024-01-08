@@ -1,0 +1,12 @@
+{
+  "mustContains8Characters": "Must contain at least 8 characters",
+  "mustContainsMost64Characters": "Must contain at most 64 characters",
+  "mustContainsAtLeastOneNumber": "Must contain at least one number",
+  "mustContainsAtLeastOneLowercase": "Must contain at least one lowercase",
+  "mustContainsAtLeastOneUppercase": "Must contain at least one uppercase",
+  "mustContainsAtLeastOneSpecialCharacter": "Must contain at least one special character",
+  "newPasswordDifferentFromOldPassword": "Your new password has to be different than the old one",
+  "passwordDontMatch": "Passwords don't match",
+  "thisIsNotValidEmail": "This is not an valid email",
+  "wrongFormatEvent": "Wrong format, must be 6, 10, 14 or 22"
+}

@@ -2,6 +2,7 @@ import { useState, type ComponentPropsWithoutRef, useId } from 'react';
 import { cn } from '../../lib/utils';
 import { useEvent } from '../../store/event.store';
 import toast from '../../utils/toast';
+import { useTranslation } from 'react-i18next';
 
 type Option = {
   label: string;
@@ -33,6 +34,7 @@ function SelectInput({
   high,
   ...props
 }: SelectInputProps) {
+  const { t } = useTranslation('event');
   const idComponent = useId();
   const [hasError, setHasError] = useState<boolean | undefined>(error);
   const { data: event } = useEvent();
@@ -45,10 +47,7 @@ function SelectInput({
       event?.confirmed_participants &&
       Number(e.target.value) < event?.confirmed_participants
     ) {
-      toast.error(
-        `You cannot update the number of required participants because 
-        there are already more participants than the number you want to set`,
-      );
+      toast.error(t('youCannotUpdateMoreThanSet'));
       return;
     }
     if (updateState) {
@@ -98,7 +97,7 @@ function SelectInput({
             {...props}
           >
             <option className="text-xs font-light text-ligh">
-              Pick an option
+              {t('pickAnOption')}
             </option>
             {options.map((option: any, index) => (
               <option key={index + idComponent} value={option.value}>

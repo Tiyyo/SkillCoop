@@ -3,10 +3,11 @@ import { InsertObject, sql } from 'kysely';
 import type { EventType } from '@skillcoop/types';
 import DatabaseError from '../helpers/errors/database.error';
 import { getFormattedUTCTimestamp } from '@skillcoop/date-handler';
-import { DB, tableNames } from '../@types/database';
+import { DB } from '../@types/database';
 import { db } from '../helpers/client.db';
 /*eslint-disable */
 import { InsertObjectOrList } from 'kysely/dist/cjs/parser/insert-values-parser';
+import { tableNames } from '../@types/types';
 /*eslint-enable */
 type OptionalCreatedAt = Partial<{ created_at: string }>;
 type InsertValues<T extends keyof DB> = Omit<
@@ -151,8 +152,6 @@ AND EXISTS(
 GROUP BY event.id
 ORDER BY date DESC
       `.execute(this.client);
-
-      console.log(result.rows);
 
       const parsedResult = result.rows.map((event: EventType) => {
         return {
@@ -373,8 +372,6 @@ AND EXISTS(
 )
 AND event.date > datetime('now')
       `.execute(this.client);
-
-    console.log('result: ', result);
 
     const parsedResult = result.rows.map((event) => {
       return {

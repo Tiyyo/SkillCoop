@@ -12,23 +12,29 @@ import { useUpdateEmail } from '../../hooks/useProfile';
 import type { UpdateEmail } from '@skillcoop/types';
 import { updateEmailSchema } from 'schema/ts-schema';
 import toast from '../../utils/toast';
+import { useTranslation } from 'react-i18next';
 
 function ResumeEmailInfos({ email }: { email?: string | null }) {
+  const { t } = useTranslation('system');
   const { userProfile } = useApp();
   const [currentEmail, setCurrentEmail] = useState(email);
   const [errorText, setErrorText] = useState('');
   const [editActiveState, setEditActiveState] = useState(false);
   const [countRender, setCountRender] = useState(0);
-  const { register, handleSubmit } = useForm<UpdateEmail>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<UpdateEmail>({
     resolver: zodResolver(emailSchema),
   });
   const { mutate: updateEmail, isLoading } = useUpdateEmail({
     onSuccess: (res: any) => {
       setCurrentEmail(res.new_email);
-      toast.success('Email updated');
+      toast.success(t('emailUpdated'));
     },
     onError: () => {
-      setErrorText('Email already used');
+      setErrorText(t('emailAlreadyUsed'));
       setCountRender((prev) => prev + 1);
     },
   });
@@ -41,7 +47,8 @@ function ResumeEmailInfos({ email }: { email?: string | null }) {
     data.user_id = userProfile.user_id;
     const isValid = updateEmailSchema.safeParse(data);
     if (!isValid.success) {
-      setErrorText('Something went wrong. Please try again later');
+      setErrorText(t('somethingWentWrong'));
+      setCountRender((prev) => prev + 1);
       return;
     }
     updateEmail(data);
@@ -50,9 +57,9 @@ function ResumeEmailInfos({ email }: { email?: string | null }) {
   return (
     <>
       <ErrorNotification
-        message={errorText}
+        message={errorText || t(errors?.email?.message as string)}
         interval={5000}
-        key={countRender}
+        triggerRender={countRender}
       />
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -95,7 +102,7 @@ function ResumeEmailInfos({ email }: { email?: string | null }) {
             type="submit"
             isLoading={isLoading}
             variant="light"
-            textContent="Edit Email"
+            textContent={t('editEmail')}
           />
         )}
       </form>

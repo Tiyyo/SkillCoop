@@ -12,14 +12,21 @@ import {
   LanguageSymbol,
   UserPreference,
   languageSymbolToName,
+<<<<<<< HEAD
 } from '@skillcoop/types';
 import capitalize from '../../utils/capitalize';
+=======
+} from 'skillcoop-types';
+>>>>>>> aa5cf6df31348fffebf5a3aa2a2bdf2e309550e8
 import { useUpdateLanguagePreference } from '../../hooks/useUserPreference';
 import { useApp } from '../../store/app.store';
 import { updateLanguagePreferenceSchema } from 'schema/ts-schema';
 import toast from '../../utils/toast';
+import { useTranslation } from 'react-i18next';
+import { storeInLocalStorage } from '../../utils/store-in-local';
 
 function LanguageSettings() {
+  const { t, i18n } = useTranslation('system');
   const languageSymbols = Object.keys(languageSymbolToName);
   const languageNames = Object.values(languageSymbolToName);
   const { userProfile } = useApp();
@@ -31,7 +38,11 @@ function LanguageSettings() {
   const handleChange = (e: React.FormEvent<HTMLFormElement>) => {
     const languageSymbol = (e.target as HTMLSelectElement)
       .value as LanguageSymbol;
-
+    i18n.changeLanguage(languageSymbol);
+    //update language for language detection module
+    localStorage.setItem('i18nextLng', languageSymbol);
+    //update userPreferenes object in localStorage
+    storeInLocalStorage('_userPreferences', { language: languageSymbol });
     if (!userProfile?.user_id) return;
     const updatePreferenceData = {
       user_id: userProfile.user_id,
@@ -41,22 +52,22 @@ function LanguageSettings() {
     const isValid =
       updateLanguagePreferenceSchema.safeParse(updatePreferenceData);
     if (!isValid.success) {
-      toast.error('We could not update your language preference.');
+      toast.error(t('couldNotUpdateLanguage'));
     }
     updatePreference(updatePreferenceData);
   };
 
   return (
     <Container className="lg:mt-4 h-screen p-5">
-      <h3 className="font-medium font-sm py-2">Language</h3>
+      <h3 className="font-medium font-sm py-2">{t('language')}</h3>
       <form onChange={handleChange}>
         <Select>
           <SelectTrigger className="w-full max-w-xl">
             <SelectValue
               placeholder={
                 language
-                  ? capitalize(languageSymbolToName[`${language}`])
-                  : 'Select a Language'
+                  ? t(languageSymbolToName[`${language}`])
+                  : t('selectLanguage')
               }
               className="w-12"
             />
@@ -64,8 +75,8 @@ function LanguageSettings() {
           <SelectContent>
             <SelectGroup>
               {languageSymbols.map((symbol, index) => (
-                <SelectItem value={symbol}>
-                  {capitalize(languageNames[index])}
+                <SelectItem value={symbol} key={index}>
+                  {t(languageNames[index])}
                 </SelectItem>
               ))}
             </SelectGroup>

@@ -19,6 +19,7 @@ import ErrorContainer from '../../component/error';
 import checkIfString from '../../utils/check-string';
 import Button from '../../component/button';
 import dompurify from 'dompurify';
+import { useTranslation } from 'react-i18next';
 
 export type LoginUserData = {
   email: string;
@@ -26,6 +27,7 @@ export type LoginUserData = {
 };
 
 function Login() {
+  const { t } = useTranslation('auth');
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || '/';
@@ -62,13 +64,13 @@ function Login() {
     <Page>
       <Center>
         <h1 className="py-4 text-xl font-bold text-primary-1100 text-center">
-          Log in to SkillCoop
+          {t('loginSkillcoop')}
         </h1>
         <div
           className="flex flex-col w-[90%] 
               max-w-lg bg-base-light py-12 px-6 rounded-lg"
         >
-          <SocialButton value="Login with Google" href={getGoogleUrl(from)}>
+          <SocialButton value={t('loginWithGoogle')} href={getGoogleUrl(from)}>
             <Google />
           </SocialButton>
           <SeparatorLine />
@@ -79,7 +81,7 @@ function Login() {
             <FormField
               type="text"
               name="email"
-              label="Email"
+              label={t('email')}
               error={checkIfString(errors.email?.message)}
               register={register}
             >
@@ -88,7 +90,7 @@ function Login() {
             <FormField
               type="password"
               name="password"
-              label="Password"
+              label={t('password')}
               subicon={<EyeOff size={18} />}
               error={checkIfString(errors.password?.message)}
               register={register}
@@ -101,18 +103,22 @@ function Login() {
                  hover:text-primary-1100 hover:underline duration-600
                    transition-all"
             >
-              Forgot password ?
+              {t('forgotPassword')} ?
             </Link>
-            <Button textContent="Login" isLoading={loading} type="submit" />
+            <Button
+              textContent={t('login')}
+              isLoading={loading}
+              type="submit"
+            />
             <ErrorContainer
               errorValue={(error as any)?.response?.data.error} //eslint-disable-line
             />
           </form>
         </div>
         <p className="text-xs py-2">
-          Don't have an account ?{' '}
+          {t('dontHaveAccount')} ?{' '}
           <Link to="/register" className="text-primary-1000 font-bold">
-            Join us
+            {t('joinUs')}
           </Link>
         </p>
       </Center>

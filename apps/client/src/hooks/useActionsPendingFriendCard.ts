@@ -4,6 +4,7 @@ import toast from '../utils/toast';
 import { invitationStatus } from '@skillcoop/types';
 import type { InvitationStatus } from '@skillcoop/types';
 import { updateFriendshipSchema } from 'schema/ts-schema';
+import { useTranslation } from 'react-i18next';
 
 type useActionsPendingFriendCardProps = {
   friendId: number;
@@ -19,6 +20,7 @@ export function useActionsPendingFriendCard({
   adderId,
 }: useActionsPendingFriendCardProps) {
   //store
+  const { t } = useTranslation();
   const { removePendingFriend, addConfirmedFriend } = useFriends();
   const { mutate: respondToInvitation } = useFriendInvitationActions({
     onSuccess: (response: {
@@ -36,12 +38,12 @@ export function useActionsPendingFriendCard({
           adder_id: adderId,
         };
         addConfirmedFriend(friend);
-        toast.addFriend(username);
+        toast.addFriend(t('friendHasBeenAdded', { username }));
       }
       removePendingFriend(username);
     },
     onError: () => {
-      toast.error('Something went wrong');
+      toast.error(t('system:somethingWentWrong'));
     },
   });
   const handleActionOnInviation = (e: React.MouseEvent<HTMLButtonElement>) => {

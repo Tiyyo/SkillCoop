@@ -2,12 +2,14 @@ import { useUpdateParticipant } from '../../../hooks/useSingleEvent';
 import type { InvitationStatus, Notification } from '@skillcoop/types';
 import { invitationStatus } from '@skillcoop/types';
 import CoreNotification from '../core';
+import { useTranslation } from 'react-i18next';
 
 function EventInvitationNotification({
   notification,
 }: {
   notification: Notification;
 }) {
+  const { t } = useTranslation('notification');
   const { mutate: updateParticipantStatus } = useUpdateParticipant({
     eventId: notification.event_id,
     onSuccess: () => {
@@ -36,17 +38,15 @@ function EventInvitationNotification({
 
   const buildMessage = () => {
     if (username) {
-      const firstPart = originalMessage.split(username)[0];
       const restOfMessage = originalMessage.split(username)[1];
       const splitWordEvent = 'event on';
-      const secondPart = restOfMessage.split(splitWordEvent)[0];
       const date = restOfMessage.split(splitWordEvent)[1];
       return (
         <>
-          {firstPart}
-          <span className="font-medium text-dark">{username}</span>
-          {secondPart}
-          {splitWordEvent}
+          {/* {firstPart} */}
+          {t('youHaveBeenInvitedBy')}{' '}
+          <span className="font-medium text-dark">{username} </span>
+          {t('toTheEvent')}{' '}
           <span className="font-medium text-dark">{date}</span>
         </>
       );
@@ -69,14 +69,14 @@ function EventInvitationNotification({
           value={invitationStatus.confirmed}
           onClick={handleClickActionOnInvition}
         >
-          Accept
+          {t('system:accept')}
         </button>
         <button
           className="px-2 py-1 bg-primary-210"
           value={invitationStatus.declined}
           onClick={handleClickActionOnInvition}
         >
-          Decline
+          {t('system:decline')}
         </button>
       </div>
     </CoreNotification>

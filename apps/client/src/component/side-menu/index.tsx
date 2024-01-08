@@ -3,8 +3,10 @@ import NavButtonDesktop from '../nav-btn-desktop';
 import Profile from '../../assets/icon/Profile';
 import Friends from '../../assets/icon/Friends';
 import Calendar from '../../assets/icon/Calendar';
+import { useTranslation } from 'react-i18next';
 
 function SideMenuDesktop() {
+  const { t } = useTranslation('system');
   return (
     <aside
       className="h-full first-letter:hidden lg:flex w-[20%] 
@@ -21,22 +23,22 @@ function SideMenuDesktop() {
         </div>
       </div>
       <ul className="w-full">
-        <NavButtonDesktop path="/" content="Home">
+        <NavButtonDesktop path="/" content={t('home')}>
           <Home size={20} />
         </NavButtonDesktop>
-        <NavButtonDesktop path="/user/profile" content="Profile">
+        <NavButtonDesktop path="/user/profile" content={t('profile')}>
           <Profile />
         </NavButtonDesktop>
-        <NavButtonDesktop path="/contact" content="Friends">
+        <NavButtonDesktop path="/contact" content={t('friends')}>
           <Friends />
         </NavButtonDesktop>
-        <NavButtonDesktop path="/my-event" content="My Events">
+        <NavButtonDesktop path="/my-event" content={t('myEvents')}>
           <Calendar />
         </NavButtonDesktop>
-        <NavButtonDesktop path="/events/incoming" content="Upcoming Events">
+        <NavButtonDesktop path="/events/incoming" content={t('upcomingEvents')}>
           <CalendarClock size={20} />
         </NavButtonDesktop>
-        <NavButtonDesktop path="/events/past" content="Past Events">
+        <NavButtonDesktop path="/events/past" content={t('pastEvents')}>
           <History size={20} />
         </NavButtonDesktop>
         {/* <NavButtonDesktop path="/my-event" content="Chat">

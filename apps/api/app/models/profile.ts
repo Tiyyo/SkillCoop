@@ -2,11 +2,17 @@ import DatabaseError from '../helpers/errors/database.error';
 import { sql } from 'kysely';
 import { Core } from './core';
 import NotFoundError from '../helpers/errors/not-found.error';
+<<<<<<< HEAD
 import { getFormattedUTCTimestamp } from '@skillcoop/date-handler';
 import { DB, tableNames } from '../@types/database';
+=======
+import { getFormattedUTCTimestamp } from 'date-handler';
+import { DB } from '../@types/database';
+>>>>>>> aa5cf6df31348fffebf5a3aa2a2bdf2e309550e8
 import { db } from '../helpers/client.db';
 /*eslint-disable-next-line */
 import { InsertObjectOrList } from 'kysely/dist/cjs/parser/insert-values-parser';
+import { tableNames } from '../@types/types';
 
 // TODO define a type for Profile
 

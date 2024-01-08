@@ -9,7 +9,12 @@ import { editProfileInfosSchema } from 'schema/ts-schema';
 import Button from '../../component/button';
 import { useUpdateProfile } from '../../hooks/useProfile';
 import toast from '../../utils/toast';
+<<<<<<< HEAD
 import { getAge } from '@skillcoop/date-handler/src';
+=======
+import { getAge } from 'date-handler/src';
+import { useTranslation } from 'react-i18next';
+>>>>>>> aa5cf6df31348fffebf5a3aa2a2bdf2e309550e8
 
 type FormEditProfileInfosProps = {
   shouldEditInfos: boolean;
@@ -73,6 +78,7 @@ function FormEditProfileInfos({
   shouldEditInfos,
   infos,
 }: FormEditProfileInfosProps) {
+  const { t } = useTranslation('system');
   const [profileInfos, setProfileInfos] = useState(infos);
   const { register, handleSubmit } = useForm({
     resolver: zodResolver(editProfileInfosSchema),
@@ -80,7 +86,7 @@ function FormEditProfileInfos({
   const { mutate: updateProfileInfos, isLoading } = useUpdateProfile({
     profileId: infos.profileId,
     onSuccess: () => {
-      toast.success('Profile informations updated');
+      toast.success(t('profileInformationsUpdated'));
     },
   });
 
@@ -119,7 +125,7 @@ function FormEditProfileInfos({
         xl:flex-row pl-4"
       >
         <Field
-          label="Username"
+          label={t('username')}
           type="text"
           name="username"
           value={profileInfos.username}
@@ -128,7 +134,7 @@ function FormEditProfileInfos({
           register={register}
         />
         <Field
-          label="First Name"
+          label={t('firstName')}
           type="text"
           name="first_name"
           value={profileInfos.firstname}
@@ -137,7 +143,7 @@ function FormEditProfileInfos({
           register={register}
         />
         <Field
-          label="Last Name"
+          label={t('lastName')}
           type="text"
           name="last_name"
           value={profileInfos.lastname}
@@ -146,7 +152,7 @@ function FormEditProfileInfos({
           register={register}
         />
         <Field
-          label="Age"
+          label={t('age')}
           type="date"
           name="date_of_birth"
           value={getAgeString(profileInfos.age)}
@@ -156,7 +162,7 @@ function FormEditProfileInfos({
           register={register}
         />
         <Field
-          label="Location"
+          label={t('location')}
           type="text"
           name="location"
           value={profileInfos.location}
@@ -168,7 +174,7 @@ function FormEditProfileInfos({
       {shouldEditInfos && (
         <Button
           type="submit"
-          textContent="Edit informations"
+          textContent={t('editInformations')}
           className="rounded-lg"
           variant="light"
           isLoading={isLoading}

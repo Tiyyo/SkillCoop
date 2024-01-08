@@ -1,16 +1,18 @@
 import Xtwitter from '../../assets/icon/Xtwitter';
 import Facebook from '../../assets/icon/Facebook';
 import Insta from '../../assets/icon/Insta';
+import { useTranslation } from 'react-i18next';
 
 function Footer() {
+  const { t } = useTranslation();
   return (
     <footer className="bg-dark py-12 px-12 lg:px-24 text-base-light w-full ">
       <ul className="flex flex-col lg:flex-row gap-x-4">
-        <li>Home</li>
-        <li>Our Product</li>
-        <li>FAQ</li>
-        <li>Terms & Conditions</li>
-        <li>Privacy Policy</li>
+        <li>{t('home')}</li>
+        <li>{t('ourProduct')}</li>
+        <li>{t('faq')}</li>
+        <li>{t('termsAndConditions')}</li>
+        <li>{t('privacyPolicy')}</li>
       </ul>
       <div className="w-full py-3 flex ">
         <div className="flex flex-col w-full">
@@ -38,11 +40,11 @@ function Footer() {
       </div>
       <div className="flex flex-col md:flex-row gap-12">
         <div>
-          <p>Location</p>
+          <p>{t('location')}</p>
           <p className="text-grey-sub-text">Paris, FR</p>
         </div>
         <div>
-          <p>Contact</p>
+          <p>{t('contactUs')}</p>
           <p className="text-grey-sub-text">contact@skillcoop.fr</p>
         </div>
       </div>

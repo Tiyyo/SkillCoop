@@ -1,4 +1,4 @@
-import { tableNames } from '../@types/database';
+import { tableNames } from '../@types/types';
 import computeGbRating from '../utils/compute-gb-rating';
 import { Core } from './core';
 import { db } from '../helpers/client.db';

@@ -2,6 +2,7 @@ import { Trash2 } from 'lucide-react';
 import MenuItemDialog from '../../../../component/menu-item-dialog';
 import { useDeleteSingleEvent } from '../../../../hooks/useSingleEvent';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 type DeleteEventMenuItemProps = {
   isAdmin: boolean;
@@ -14,6 +15,7 @@ function DeleteEventMenuItem({
   eventId,
   profileId,
 }: DeleteEventMenuItemProps) {
+  const { t } = useTranslation('event');
   const navigate = useNavigate();
   const { mutate: deleteEvent } = useDeleteSingleEvent({
     eventId,
@@ -30,13 +32,14 @@ function DeleteEventMenuItem({
     <MenuItemDialog
       mutateFn={deleteEvent}
       mutationData={{ event_id: eventId, profile_id: profileId }}
-      description={`This action cannot be undone. 
-                his will permanently delete your event.`}
+      description={
+        t('system:thisActionCannotBeUndone') + ' ' + t('thisWillDeleteTheEvent')
+      }
       hoverOn
     >
       <div className="text-error flex items-center gap-2">
         <Trash2 size="16" />
-        <span>Delete</span>
+        <span>{t('delete')}</span>
       </div>
     </MenuItemDialog>
   );

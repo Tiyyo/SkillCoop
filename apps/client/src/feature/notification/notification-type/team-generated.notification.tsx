@@ -1,24 +1,28 @@
 import { Link } from 'react-router-dom';
 import CoreNotification from '../core';
 import { ArrowRight } from 'lucide-react';
+<<<<<<< HEAD
 import type { Notification } from '@skillcoop/types';
+=======
+import type { Notification } from 'skillcoop-types';
+import { useTranslation } from 'react-i18next';
+>>>>>>> aa5cf6df31348fffebf5a3aa2a2bdf2e309550e8
 
 function TeamGeneratedNotification({
   notification,
 }: {
   notification: Notification;
 }) {
+  const { t } = useTranslation('notification');
   const dateRegex = /scheduled on\s(.*?)\s+has/;
   const date = notification.message.match(dateRegex)?.[1];
   const buildMessage = () => {
     if (date) {
-      const firstPart = notification.message.split(date)[0];
-      const secondPart = notification.message.split(date)[1];
       return (
         <>
-          {firstPart}
-          <span className="font-medium text-dark">{date}</span>
-          {secondPart}
+          {t('eventScheduledOn')}{' '}
+          <span className="font-medium text-dark">{date}</span>{' '}
+          {t('hasReachedItsMaximumNumberOfParticipants')}
         </>
       );
     }
@@ -38,7 +42,7 @@ function TeamGeneratedNotification({
       text-primary-1000 
         underline underline-offset-4 pr-4"
       >
-        Go to event page
+        {t('goToEventPage')}
         <ArrowRight size={14} />
       </Link>
     </CoreNotification>

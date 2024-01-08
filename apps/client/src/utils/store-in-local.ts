@@ -7,11 +7,12 @@ export const storeInLocalStorage = (
   //  if yes, update the value
 
   const userPreferences = localStorage.getItem(objectKey);
+
   if (!userPreferences) {
     localStorage.setItem(objectKey, JSON.stringify(value));
   } else {
     const parsedUserPreferences = JSON.parse(userPreferences);
-    const updatedUserPreferences = { ...parsedUserPreferences, value };
+    const updatedUserPreferences = { ...parsedUserPreferences, ...value };
     localStorage.setItem(objectKey, JSON.stringify(updatedUserPreferences));
   }
 };

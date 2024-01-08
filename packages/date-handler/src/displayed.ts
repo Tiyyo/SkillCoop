@@ -1,10 +1,10 @@
 import { localTimezone } from "./guess-timezone";
 import { getStringDate } from "./utc";
 
-export function getDate(utcString: string) {
+export function getDate(utcString: string, lng: string = 'en') {
   const userTimezone = localTimezone()
   const dateUtc = new Date(utcString);
-  const formatedDate = dateUtc.toLocaleString('en-US', {
+  const formatedDate = dateUtc.toLocaleString(`${lng}-US`, {
     month: 'short',
     day: 'numeric',
     year: 'numeric',
@@ -44,10 +44,10 @@ export function getEndingTime(utcString: string, durationInMin: number) {
   return endingHoursAndMin;
 }
 
-export function getDefaultDatePicker(date?: string) {
+export function getDefaultDatePicker(date?: string, lng: string = 'en') {
   if (!date) return '';
   const usuableDate = new Date(getStringDate(new Date(date)));
-  const formatDate = new Intl.DateTimeFormat('en-US', {
+  const formatDate = new Intl.DateTimeFormat(`${lng}-US`, {
     month: 'long',
     day: 'numeric',
     year: 'numeric',

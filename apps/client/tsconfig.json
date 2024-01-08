@@ -24,7 +24,8 @@
     /* Linting */
     "noUnusedLocals": true,
     "noUnusedParameters": false,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "strictNullChecks": true
   },
   "paths": {
     "@skillcoop/*": [

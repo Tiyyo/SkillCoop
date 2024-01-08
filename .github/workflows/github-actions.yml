@@ -65,6 +65,25 @@ jobs:
       - name: Typecheck
         run: pnpm api typecheck
 
+  typecheck-client:
+    name: Typecheck Client
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Install deps
+        run: pnpm install
+
+      - name: Typecheck
+        run: pnpm client typecheck
+
   vitest:
     name: Unit test
     runs-on: ubuntu-latest

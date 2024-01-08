@@ -205,7 +205,9 @@ function EventPageInfos({
           label={t('participants')}
           updateState={updateRequiredParticipants}
           options={OPTION_FORMAT}
-          defaultValue={event.required_participants ?? requiredParticipants}
+          defaultValue={
+            event.required_participants ?? requiredParticipants ?? undefined
+          }
           disabled={!isEditActive}
           mutateKey="required_participants"
         >

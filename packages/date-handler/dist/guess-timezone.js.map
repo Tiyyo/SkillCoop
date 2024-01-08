@@ -1,0 +1,1 @@
+{"version":3,"file":"guess-timezone.js","sourceRoot":"","sources":["../src/guess-timezone.ts"],"names":[],"mappings":";;;AAAA;;;GAGG;AACH,SAAgB,aAAa;IAC3B,MAAM,QAAQ,GAAG,IAAI,IAAI,CAAC,cAAc,EAAE,CAAC,eAAe,EAAE,CAAC,QAAQ,CAAA;IACrE,OAAO,QAAQ,CAAA;AACjB,CAAC;AAHD,sCAGC"}

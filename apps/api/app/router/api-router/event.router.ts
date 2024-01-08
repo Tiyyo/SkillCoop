@@ -6,7 +6,7 @@ import {
   createEventSchema,
   updateEventSchema,
   updateOrganizerSchema,
-} from 'schema';
+} from '@skillcoop/schema';
 import { canals } from '../../@types/types';
 
 const {

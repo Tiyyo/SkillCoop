@@ -3,7 +3,7 @@ import factory from '../../middleware/wrapper-controller';
 import userController from '../../controller/user.controller';
 import { validateSchema } from '../../middleware/schema-validator';
 import { canals } from '../../@types/types';
-import { emailSchema, passwordUpdateSchema } from 'schema';
+import { emailSchema, passwordUpdateSchema } from '@skillcoop/schema';
 import tokenHandler from '../../helpers/token.handler';
 
 const { updateEmail, updatePassword, deleteUser } = userController;

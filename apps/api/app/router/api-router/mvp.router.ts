@@ -3,7 +3,7 @@ import factory from '../../middleware/wrapper-controller';
 import mvpController from '../../controller/mvp.controller';
 import { validateSchema } from '../../middleware/schema-validator';
 import { canals } from '../../@types/types';
-import { voteSchema } from 'schema';
+import { voteSchema } from '@skillcoop/schema';
 
 const { createOne } = mvpController;
 

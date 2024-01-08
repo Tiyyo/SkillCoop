@@ -1,6 +1,6 @@
 import { useOutletContext } from 'react-router-dom';
 import Container from '../../layout/container';
-import { NotificationMethodSetting, UserPreference } from 'skillcoop-types';
+import { NotificationMethodSetting, UserPreference } from '@skillcoop/types';
 import NotificationSetting from './notification-setting';
 
 type NotificationMethodSettings = Record<string, NotificationMethodSetting>;

@@ -1,6 +1,10 @@
-import { getStartingTime, getEndingTime, getDate } from 'date-handler/src';
-import type { EventStatus } from 'skillcoop-types';
-import { eventStatus as eventStatusAssertion } from 'skillcoop-types';
+import {
+  getStartingTime,
+  getEndingTime,
+  getDate,
+} from '@skillcoop/date-handler/src';
+import type { EventStatus } from '@skillcoop/types';
+import { eventStatus as eventStatusAssertion } from '@skillcoop/types';
 
 type ScoreProps = {
   date: string;

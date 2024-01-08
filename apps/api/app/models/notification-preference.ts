@@ -2,8 +2,8 @@ import { tableNames } from '../@types/database';
 import { Core } from './core';
 import { db } from '../helpers/client.db';
 import DatabaseError from '../helpers/errors/database.error';
-import { NotificationType } from 'skillcoop-types';
-import { getFormattedUTCTimestamp } from 'date-handler';
+import { NotificationType } from '@skillcoop/types';
+import { getFormattedUTCTimestamp } from '@skillcoop/date-handler';
 
 type UpdateNotificationPreferenceObject = {
   user_id: number;

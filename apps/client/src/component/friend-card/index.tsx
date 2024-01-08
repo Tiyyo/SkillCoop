@@ -1,6 +1,6 @@
 import OctogoneCross from '../../assets/icon/OctogoneCross';
 import Check from '../../assets/icon/Check';
-import { invitationStatus } from 'skillcoop-types';
+import { invitationStatus } from '@skillcoop/types';
 import { Link } from 'react-router-dom';
 import associateNumberToString from '../../utils/associate-number-stringscale';
 import capitalize from '../../utils/capitalize';

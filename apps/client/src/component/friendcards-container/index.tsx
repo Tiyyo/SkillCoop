@@ -4,7 +4,7 @@ import {
   CreateEventStateStore,
   useCreateEvent,
 } from '../../store/create-event.store';
-import type { Friend } from 'skillcoop-types';
+import type { Friend } from '@skillcoop/types';
 import FriendCard from '../friend-card';
 
 type FriendCardProps = {

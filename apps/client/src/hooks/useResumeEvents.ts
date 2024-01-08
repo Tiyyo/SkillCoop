@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useGetAllEvents } from './useMultipleEvents';
-import type { EventType } from 'skillcoop-types';
+import type { EventType } from '@skillcoop/types';
 
 export function useResumeEvents({ profileId }: { profileId?: number }) {
   const [events, setEvents] = useState<{

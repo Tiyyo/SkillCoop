@@ -12,7 +12,7 @@ import { CLIENT_URL } from '../utils/variables';
 import bcrypt from 'bcrypt';
 import APITypeError from '../helpers/errors/type.error';
 import ForbidenError from '../helpers/errors/forbiden';
-import { UserInfosToken } from 'skillcoop-types';
+import { UserInfosToken } from '@skillcoop/types';
 
 export default {
   async register(req: Request, res: Response) {

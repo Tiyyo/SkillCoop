@@ -4,7 +4,7 @@ import type {
   UserPreference as TUserPreference,
   RawUserPreference,
   NotificationPreference as TNotificationPreference,
-} from 'skillcoop-types';
+} from '@skillcoop/types';
 import { DefaultUserPreference } from './default-preference';
 
 export class UserPreferenceHandler {

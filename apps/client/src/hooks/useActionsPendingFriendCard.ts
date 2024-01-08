@@ -1,8 +1,8 @@
 import { useFriends } from '../store/friend.store';
 import { useFriendInvitationActions } from './useFriends';
 import toast from '../utils/toast';
-import { invitationStatus } from 'skillcoop-types';
-import type { InvitationStatus } from 'skillcoop-types';
+import { invitationStatus } from '@skillcoop/types';
+import type { InvitationStatus } from '@skillcoop/types';
 import { updateFriendshipSchema } from 'schema/ts-schema';
 
 type useActionsPendingFriendCardProps = {

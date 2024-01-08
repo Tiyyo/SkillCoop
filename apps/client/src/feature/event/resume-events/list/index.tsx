@@ -1,5 +1,5 @@
 import HeaderEventList from './header';
-import type { EventType } from 'skillcoop-types';
+import type { EventType } from '@skillcoop/types';
 import EventCard from '../card';
 import InfiniteScroll from '../../../../component/infinite-scroll';
 import { useCallback } from 'react';

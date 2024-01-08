@@ -6,15 +6,15 @@ export declare const editProfileInfosSchema: z.ZodObject<{
     date_of_birth: z.ZodOptional<z.ZodString>;
     location: z.ZodOptional<z.ZodString>;
 }, "strip", z.ZodTypeAny, {
-    username?: string;
-    first_name?: string;
-    last_name?: string;
-    date_of_birth?: string;
-    location?: string;
+    username?: string | undefined;
+    first_name?: string | undefined;
+    last_name?: string | undefined;
+    date_of_birth?: string | undefined;
+    location?: string | undefined;
 }, {
-    username?: string;
-    first_name?: string;
-    last_name?: string;
-    date_of_birth?: string;
-    location?: string;
+    username?: string | undefined;
+    first_name?: string | undefined;
+    last_name?: string | undefined;
+    date_of_birth?: string | undefined;
+    location?: string | undefined;
 }>;

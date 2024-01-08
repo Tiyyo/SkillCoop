@@ -9,7 +9,7 @@ import {
   UpdateLanguagePreference,
   UpdateNotificationPreference,
   UpdateThemePreference,
-} from 'skillcoop-types';
+} from '@skillcoop/types';
 
 const keys = {
   getUserPreference: ['userPreference'],

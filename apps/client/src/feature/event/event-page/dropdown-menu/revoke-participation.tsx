@@ -1,6 +1,6 @@
 import { FolderInput } from 'lucide-react';
 import UpdateStatusModal from '../../../../component/update-status-modal';
-import type { EventStatus } from 'skillcoop-types';
+import type { EventStatus } from '@skillcoop/types';
 
 type RevokeParticipationMenuItemProps = {
   eventStatus: EventStatus | null;

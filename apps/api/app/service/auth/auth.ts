@@ -12,7 +12,7 @@ import type {
   UserInfosToken,
   GoogleUserInfos,
   User as UserType,
-} from 'skillcoop-types';
+} from '@skillcoop/types';
 import { UserPreferenceHandler } from '../user-preference';
 
 export default {

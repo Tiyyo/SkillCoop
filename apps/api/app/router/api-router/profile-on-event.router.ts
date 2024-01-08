@@ -4,7 +4,10 @@ import factory from '../../middleware/wrapper-controller';
 import participantController from '../../controller/profile-on-event.controller';
 import { validateSchema } from '../../middleware/schema-validator';
 import { canals } from '../../@types/types';
-import { inviteParticipantSchema, updateParticipantSchema } from 'schema';
+import {
+  inviteParticipantSchema,
+  updateParticipantSchema,
+} from '@skillcoop/schema';
 
 const { sendInvitationToEvent, updateStatus } = participantController;
 

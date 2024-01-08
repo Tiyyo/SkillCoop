@@ -2,7 +2,7 @@ import Participant from '../../../component/participant';
 import TitleH2 from '../../../component/title-h2';
 import Container from '../../../layout/container';
 import { useEvent } from '../../../store/event.store';
-import type { EventParticipant } from 'skillcoop-types';
+import type { EventParticipant } from '@skillcoop/types';
 
 type ParticipantsListProps = {
   confirmedParticipants?: number | null;

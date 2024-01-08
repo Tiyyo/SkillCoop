@@ -1,5 +1,5 @@
 // import { DBClientType } from '../@types/types.database';
-import { getFormattedUTCTimestamp } from 'date-handler';
+import { getFormattedUTCTimestamp } from '@skillcoop/date-handler';
 import DatabaseError from '../helpers/errors/database.error';
 import { Core } from './core';
 import { tableNames } from '../@types/database';

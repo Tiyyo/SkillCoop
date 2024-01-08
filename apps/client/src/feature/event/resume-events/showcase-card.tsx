@@ -1,6 +1,10 @@
 import Avatars from '../../../component/avatars';
-import type { EventParticipant, EventStatus } from 'skillcoop-types';
-import { getDate, getEndingTime, getStartingTime } from 'date-handler/src';
+import type { EventParticipant, EventStatus } from '@skillcoop/types';
+import {
+  getDate,
+  getEndingTime,
+  getStartingTime,
+} from '@skillcoop/date-handler/src';
 
 interface EventCardProps {
   date: string;

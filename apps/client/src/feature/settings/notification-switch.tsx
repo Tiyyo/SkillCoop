@@ -3,7 +3,7 @@ import { useApp } from '../../store/app.store';
 import capitalize from '../../utils/capitalize';
 import { useUpdateNotificationPreference } from '../../hooks/useUserPreference';
 import { updateNotificationPreferenceSchema } from 'schema/ts-schema';
-import { NotificationType } from 'skillcoop-types';
+import { NotificationType } from '@skillcoop/types';
 
 type NotificationSwitchProps = {
   notificationType: NotificationType;

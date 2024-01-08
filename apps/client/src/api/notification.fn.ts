@@ -1,5 +1,5 @@
 import { api } from './api.fn';
-import type { Notification } from 'skillcoop-types';
+import type { Notification } from '@skillcoop/types';
 
 export const markNotficationAsReadFn = async (notificationId: number) => {
   const response = await api.patch(`api/notification`, { notificationId });

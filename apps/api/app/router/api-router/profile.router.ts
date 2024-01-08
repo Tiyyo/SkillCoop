@@ -3,7 +3,7 @@ import factory from '../../middleware/wrapper-controller';
 import profileController from '../../controller/profile.controller';
 import upload from '../../service/upload/upload';
 import { validateSchema } from '../../middleware/schema-validator';
-import { editProfileInfosSchema } from 'schema';
+import { editProfileInfosSchema } from '@skillcoop/schema';
 import { canals } from '../../@types/types';
 
 const { getOne, updateOne, updateImage, searchProfileByUsername } =

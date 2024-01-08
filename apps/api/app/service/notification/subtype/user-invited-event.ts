@@ -5,8 +5,8 @@ import type {
   BuilderUserInvitedToEventNotificationMessage,
   NotificationSubtype,
   NotificationType,
-} from 'skillcoop-types';
-import { notificationSubtype, notificationType } from 'skillcoop-types';
+} from '@skillcoop/types';
+import { notificationSubtype, notificationType } from '@skillcoop/types';
 import { hasActiveNotification } from '../../../utils/has-active-notification';
 
 type ConstructorProps = {

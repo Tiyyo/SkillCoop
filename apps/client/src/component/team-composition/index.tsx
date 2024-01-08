@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Team from './index.team';
 import Button from '../button';
-import { EventParticipant } from 'skillcoop-types';
+import { EventParticipant } from '@skillcoop/types';
 import { UseMutateFunction } from '@tanstack/react-query';
 import { voteSchema } from 'schema/ts-schema';
 import { useApp } from '../../store/app.store';

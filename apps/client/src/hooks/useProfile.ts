@@ -16,7 +16,7 @@ import type {
   Profile,
   SearchProfileQuery,
   UpdateEmail,
-} from 'skillcoop-types';
+} from '@skillcoop/types';
 import { AxiosResponse } from 'axios';
 
 const keys = {
@@ -175,6 +175,6 @@ export function useAutoEvaluateSkill(options: {
       }
       if (options?.onSuccess) options.onSuccess();
     },
-    onError: () => {},
+    onError: () => { },
   });
 }

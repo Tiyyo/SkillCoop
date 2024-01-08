@@ -1,7 +1,7 @@
 import { getPastEventFn } from '../../../api/api.fn';
 import { useApp } from '../../../store/app.store';
 import EventList from '../resume-events/list';
-import type { EventType } from 'skillcoop-types';
+import type { EventType } from '@skillcoop/types';
 import useInfinite from '../../../hooks/useInfinite';
 import ErrorFallback from '../../../component/error-fallback';
 

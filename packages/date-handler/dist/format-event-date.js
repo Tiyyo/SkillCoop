@@ -18,3 +18,4 @@ function formatEventDateAndTime(date) {
     return formatedEventDate;
 }
 exports.formatEventDateAndTime = formatEventDateAndTime;
+//# sourceMappingURL=format-event-date.js.map

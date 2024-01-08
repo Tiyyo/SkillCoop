@@ -12,7 +12,7 @@ import {
   LanguageSymbol,
   UserPreference,
   languageSymbolToName,
-} from 'skillcoop-types';
+} from '@skillcoop/types';
 import capitalize from '../../utils/capitalize';
 import { useUpdateLanguagePreference } from '../../hooks/useUserPreference';
 import { useApp } from '../../store/app.store';

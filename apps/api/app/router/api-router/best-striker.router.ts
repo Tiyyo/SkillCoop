@@ -2,7 +2,7 @@ import express, { Router } from 'express';
 import factory from '../../middleware/wrapper-controller';
 import bestStrikerController from '../../controller/best-striker.controller';
 import { canals } from '../../@types/types';
-import { voteSchema } from 'schema';
+import { voteSchema } from '@skillcoop/schema';
 import { validateSchema } from '../../middleware/schema-validator';
 
 const { createOne } = bestStrikerController;

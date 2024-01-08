@@ -5,8 +5,8 @@ import type {
   BuilderAddedToFriendlistNotificationMessage,
   NotificationSubtype,
   NotificationType,
-} from 'skillcoop-types';
-import { notificationSubtype, notificationType } from 'skillcoop-types';
+} from '@skillcoop/types';
+import { notificationSubtype, notificationType } from '@skillcoop/types';
 
 class UserHasBeenAddedToFriendlist extends NotificationObserver {
   declare instigatorId: number;

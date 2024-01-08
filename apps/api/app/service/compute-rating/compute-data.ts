@@ -1,4 +1,4 @@
-import { AvgSkill, Score, Skills } from 'skillcoop-types';
+import { AvgSkill, Score, Skills } from '@skillcoop/types';
 import { UserEvaluationsBonus } from './sql-methods';
 import computeGbRating from '../../utils/compute-gb-rating';
 

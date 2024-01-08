@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import type { SearchProfileQuery } from 'skillcoop-types';
+import type { SearchProfileQuery } from '@skillcoop/types';
 import { useGetSearchProfile } from './useProfile';
 import { useFriends } from '../store/friend.store';
 

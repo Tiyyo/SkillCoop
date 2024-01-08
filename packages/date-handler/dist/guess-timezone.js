@@ -10,3 +10,4 @@ function localTimezone() {
     return timeZone;
 }
 exports.localTimezone = localTimezone;
+//# sourceMappingURL=guess-timezone.js.map

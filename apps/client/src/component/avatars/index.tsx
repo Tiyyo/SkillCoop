@@ -1,4 +1,4 @@
-import type { EventParticipant } from 'skillcoop-types';
+import type { EventParticipant } from '@skillcoop/types';
 
 type AvatarsProps = {
   participants: EventParticipant[];

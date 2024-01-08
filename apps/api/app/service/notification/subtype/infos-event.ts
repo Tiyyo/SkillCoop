@@ -5,8 +5,8 @@ import type {
   BuilderEventInfosNotificationMessage,
   NotificationSubtype,
   NotificationType,
-} from 'skillcoop-types';
-import { notificationSubtype, notificationType } from 'skillcoop-types';
+} from '@skillcoop/types';
+import { notificationSubtype, notificationType } from '@skillcoop/types';
 import NotFoundError from '../../../helpers/errors/not-found.error';
 
 export class EventInfosHasBeenUpdated extends NotificationObserver {

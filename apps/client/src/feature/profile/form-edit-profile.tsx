@@ -9,7 +9,7 @@ import { editProfileInfosSchema } from 'schema/ts-schema';
 import Button from '../../component/button';
 import { useUpdateProfile } from '../../hooks/useProfile';
 import toast from '../../utils/toast';
-import { getAge } from 'date-handler/src';
+import { getAge } from '@skillcoop/date-handler/src';
 
 type FormEditProfileInfosProps = {
   shouldEditInfos: boolean;

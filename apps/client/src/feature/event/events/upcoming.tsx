@@ -1,6 +1,6 @@
 import { getUpcomingEventFn } from '../../../api/api.fn';
 import { useApp } from '../../../store/app.store';
-import type { EventType } from 'skillcoop-types';
+import type { EventType } from '@skillcoop/types';
 import EventList from '../resume-events/list';
 import ErrorFallback from '../../../component/error-fallback';
 import useInfinite from '../../../hooks/useInfinite';

@@ -1,6 +1,6 @@
 import DatabaseError from '../helpers/errors/database.error';
 import NotFoundError from '../helpers/errors/not-found.error';
-import { getFormattedUTCTimestamp } from 'date-handler';
+import { getFormattedUTCTimestamp } from '@skillcoop/date-handler';
 import { db } from '../helpers/client.db';
 import { ReferenceExpression, UpdateObject } from 'kysely';
 import { DB } from '../@types/database';

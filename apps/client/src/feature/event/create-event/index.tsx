@@ -20,7 +20,7 @@ import {
 } from '../../../constant/select.options';
 import toast from '../../../utils/toast';
 import Container from '../../../layout/container';
-import { getUTCString, isPastDate } from 'date-handler/src';
+import { getUTCString, isPastDate } from '@skillcoop/date-handler/src';
 
 function CreateEvent() {
   const { userProfile } = useApp();

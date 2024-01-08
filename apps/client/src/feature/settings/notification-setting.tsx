@@ -1,4 +1,4 @@
-import { NotificationMethodSetting, NotificationType } from 'skillcoop-types';
+import { NotificationMethodSetting, NotificationType } from '@skillcoop/types';
 import capitalize from '../../utils/capitalize';
 import NotificationSwitch from './notification-switch';
 

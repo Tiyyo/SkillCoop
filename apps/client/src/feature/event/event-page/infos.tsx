@@ -22,12 +22,12 @@ import TitleH2 from '../../../component/title-h2';
 import { useUpdateSingleEvent } from '../../../hooks/useSingleEvent';
 import toast from '../../../utils/toast';
 import { updateEventSchema } from 'schema/ts-schema';
-import type { EventStatus } from 'skillcoop-types';
+import type { EventStatus } from '@skillcoop/types';
 import {
   isPastDate,
   getUTCString,
   getLocalStringCustom,
-} from 'date-handler/src';
+} from '@skillcoop/date-handler/src';
 
 type EventPageInfosProps = {
   eventDuration: number;

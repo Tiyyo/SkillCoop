@@ -1,5 +1,5 @@
 import { EventEmitter } from 'events';
-import { SSENotificationData } from 'skillcoop-types';
+import { SSENotificationData } from '@skillcoop/types';
 
 class NotificationEventManager extends EventEmitter {
   constructor() {

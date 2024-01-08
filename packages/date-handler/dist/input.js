@@ -14,3 +14,4 @@ function todayLocalInputFormat() {
     return todayFormated;
 }
 exports.todayLocalInputFormat = todayLocalInputFormat;
+//# sourceMappingURL=input.js.map

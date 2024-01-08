@@ -15,7 +15,7 @@ import capitalize from '../../../utils/capitalize';
 import associateNumberToString from '../../../utils/associate-number-stringscale';
 import { useNavigate, useParams } from 'react-router-dom';
 import { participantSkillSchema } from 'schema/ts-schema';
-import type { EvaluationParticipantSkill } from 'skillcoop-types';
+import type { EvaluationParticipantSkill } from '@skillcoop/types';
 import { cn } from '../../../lib/utils';
 
 // Shitty component, need to be refactored or rewrite

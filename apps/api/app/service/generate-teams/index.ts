@@ -1,4 +1,4 @@
-import { Player, TeamGeneratorConfig } from 'skillcoop-types';
+import { Player, TeamGeneratorConfig } from '@skillcoop/types';
 import { profileOnEvent as ProfileOnEvent } from '../../models/index';
 import condition, { Conditions } from './condition';
 import { ConfigGenerateTeams } from '../../models/teams';

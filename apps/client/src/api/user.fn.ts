@@ -1,5 +1,5 @@
 import { api } from './api.fn';
-import type { UpdateEmail } from 'skillcoop-types';
+import type { UpdateEmail } from '@skillcoop/types';
 
 export const updatePasswordFn = async (data: {
   old_password: string;

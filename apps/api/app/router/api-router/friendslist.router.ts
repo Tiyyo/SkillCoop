@@ -7,7 +7,7 @@ import {
   searchFriendsSchema,
   createInvitationSchema,
   updateFriendshipSchema,
-} from 'schema';
+} from '@skillcoop/schema';
 
 const {
   getFriends,

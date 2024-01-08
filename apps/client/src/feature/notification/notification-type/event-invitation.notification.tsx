@@ -1,6 +1,6 @@
 import { useUpdateParticipant } from '../../../hooks/useSingleEvent';
-import type { InvitationStatus, Notification } from 'skillcoop-types';
-import { invitationStatus } from 'skillcoop-types';
+import type { InvitationStatus, Notification } from '@skillcoop/types';
+import { invitationStatus } from '@skillcoop/types';
 import CoreNotification from '../core';
 
 function EventInvitationNotification({

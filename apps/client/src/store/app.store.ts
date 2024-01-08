@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { Profile } from 'skillcoop-types';
+import type { Profile } from '@skillcoop/types';
 import { useEffect } from 'react';
 import { useGetMe } from '../hooks/useProfile';
 

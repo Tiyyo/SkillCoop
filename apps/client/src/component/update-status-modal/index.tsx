@@ -8,7 +8,7 @@ import {
   AlertDialogTrigger,
 } from '../../lib/ui/alert-dialog';
 import { useEvent } from '../../store/event.store';
-import { InvitationStatus, invitationStatus } from 'skillcoop-types';
+import { InvitationStatus, invitationStatus } from '@skillcoop/types';
 import { useRef, useState } from 'react';
 import { X } from 'lucide-react';
 import { useUpdateParticipant } from '../../hooks/useSingleEvent';

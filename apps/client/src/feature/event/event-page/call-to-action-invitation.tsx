@@ -1,5 +1,5 @@
-import type { EventStatus } from 'skillcoop-types';
-import { invitationStatus } from 'skillcoop-types';
+import type { EventStatus } from '@skillcoop/types';
+import { invitationStatus } from '@skillcoop/types';
 import { updateParticipantSchema } from 'schema/ts-schema';
 import toast from '../../../utils/toast';
 import { useEvent } from '../../../store/event.store';

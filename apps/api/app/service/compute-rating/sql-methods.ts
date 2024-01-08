@@ -1,6 +1,6 @@
 import { sql } from 'kysely';
 import { db } from '../../helpers/client.db';
-import { AvgSkill, Skills } from 'skillcoop-types';
+import { AvgSkill, Skills } from '@skillcoop/types';
 
 export type UserEvaluationsBonus = {
   nb_mvp: number;

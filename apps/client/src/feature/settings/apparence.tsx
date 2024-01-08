@@ -2,7 +2,7 @@ import { useOutletContext } from 'react-router-dom';
 import Container from '../../layout/container';
 import { Switch } from '../../lib/ui/switch';
 import { useApp } from '../../store/app.store';
-import { UserPreference, themeAssertion } from 'skillcoop-types';
+import { UserPreference, themeAssertion } from '@skillcoop/types';
 import { useUpdateThemePreference } from '../../hooks/useUserPreference';
 import { updateThemePreferenceSchema } from 'schema/ts-schema';
 

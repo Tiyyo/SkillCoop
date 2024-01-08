@@ -1,6 +1,6 @@
 import FriendCardSkeleton from '../../component/friend-card/skeleton';
 import FriendCard from '../../component/friend-card';
-import type { Friend } from 'skillcoop-types';
+import type { Friend } from '@skillcoop/types';
 
 type FriendlistProps = {
   friends?: Friend[];

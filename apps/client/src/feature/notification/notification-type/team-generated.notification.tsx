@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import CoreNotification from '../core';
 import { ArrowRight } from 'lucide-react';
-import type { Notification } from 'skillcoop-types';
+import type { Notification } from '@skillcoop/types';
 
 function TeamGeneratedNotification({
   notification,

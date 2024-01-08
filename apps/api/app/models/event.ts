@@ -1,8 +1,8 @@
 import { Core } from './core';
 import { InsertObject, sql } from 'kysely';
-import type { EventType } from 'skillcoop-types';
+import type { EventType } from '@skillcoop/types';
 import DatabaseError from '../helpers/errors/database.error';
-import { getFormattedUTCTimestamp } from 'date-handler';
+import { getFormattedUTCTimestamp } from '@skillcoop/date-handler';
 import { DB, tableNames } from '../@types/database';
 import { db } from '../helpers/client.db';
 /*eslint-disable */

@@ -1,9 +1,9 @@
 import type {
   BuildersNotificationMessage,
   NotificationSubtype,
-} from 'skillcoop-types';
-import { notificationSubtype } from 'skillcoop-types';
-import { formatEventDateAndTime } from 'date-handler';
+} from '@skillcoop/types';
+import { notificationSubtype } from '@skillcoop/types';
+import { formatEventDateAndTime } from '@skillcoop/date-handler';
 
 export class BuildNotificationMessage {
   subtype: NotificationSubtype;

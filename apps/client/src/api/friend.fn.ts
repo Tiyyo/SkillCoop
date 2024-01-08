@@ -3,7 +3,7 @@ import type {
   Friend,
   SearchFriendQuery,
   UpdateFriendsInvitation,
-} from 'skillcoop-types';
+} from '@skillcoop/types';
 
 export const getFriendsFn = async (profileId: number): Promise<Friend[]> => {
   const response = await api.get(`api/friends/${profileId}`);

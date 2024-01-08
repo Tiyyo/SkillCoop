@@ -12,7 +12,7 @@ import getGoogleUrl from '../../utils/get-google-url';
 import SeparatorLine from '../../component/seperator-line';
 import FormField from '../../component/form-field';
 import Button from '../../component/button';
-import type { RegisterUser } from 'skillcoop-types';
+import type { RegisterUser } from '@skillcoop/types';
 import { useState } from 'react';
 import checkIfString from '../../utils/check-string';
 import ErrorContainer from '../../component/error';

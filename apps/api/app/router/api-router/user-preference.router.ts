@@ -9,7 +9,7 @@ import {
   updateNotificationPreferenceSchema,
   updateLanguagePreferenceSchema,
   updateThemePreferenceSchema,
-} from 'schema';
+} from '@skillcoop/schema';
 
 const { get, updateNotification, updateLanguage, updateTheme } =
   userPreferenceController;

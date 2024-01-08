@@ -1,29 +1,13 @@
 {
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    /* Language and Environment */
-    "target": "es2020",
-    "module": "CommonJS",
-    "outDir": "./dist",
-    "noEmit": false,
     "lib": [
       "es2023"
     ],
     "types": [
       "vitest/globals"
     ],
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "paths": {
-      "schema": [
-        "../../packages/schema/dist/index.d.ts"
-      ],
-      "skillcoop-types": [
-        "../../packages/types/index.ts"
-      ]
-    }
-    // "moduleResolution": "node16"
   },
   "ts-node": {
     "esm": true

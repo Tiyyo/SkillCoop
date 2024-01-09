@@ -10,6 +10,7 @@ import logger from '../helpers/logger';
 /*eslint-disable */
 import { sseConnectionManager } from '../service/notification/sse-connection.manager';
 import { hasActiveNotification } from '../utils/has-active-notification';
+import { uploadLocalFile } from '../service/upload/upload-local-file';
 /*eslint-enable */
 
 const { getMe } = userController;
@@ -17,6 +18,7 @@ const router: Router = express.Router();
 
 router.route('/test').get(async (_req, res) => {
   const notification = await hasActiveNotification([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+  await uploadLocalFile();
   res.status(200).json({ message: notification });
 });
 

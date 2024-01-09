@@ -105,14 +105,13 @@ export default {
 
     const username = `${given_name} ${family_name[0]}.`;
     await User.updateOne({ id: userCreated.id }, { verified: 1 });
-    await Image.createOne({ url: picture, created_at: '' });
+    await Image.createOne({ url: picture });
     await Profile.createOne({
       username,
       avatar_url: picture,
       first_name: given_name,
       last_name: family_name,
       user_id: userCreated.id,
-      created_at: '',
     });
     return { user_id: userCreated.id, email: userCreated.email };
   },

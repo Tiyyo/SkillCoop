@@ -8,6 +8,7 @@ import UserInputError from '../helpers/errors/user-input.error';
 import DatabaseError from '../helpers/errors/database.error';
 import APITypeError from '../helpers/errors/type.error';
 import ForbidenError from '../helpers/errors/forbiden';
+import { handleCommonError } from '../helpers/errors/handle-common-error';
 
 export const errorHandler = (
   error: unknown,
@@ -15,108 +16,43 @@ export const errorHandler = (
   res: Response,
   next: NextFunction,// eslint-disable-line
 ) => {
-  const devEnv = res.app.get('env') === 'development';
-  logger.info(devEnv);
+  const isProduction = res.app.get('env') === 'production';
 
-  if (error instanceof ValidationError && devEnv) {
-    logger.error(error.name + ' ' + error.message);
-    return res.status(error.status).json({
-      error: error.fieldErrors,
+  if (error instanceof ValidationError) {
+    return handleCommonError({
+      error,
+      response: res,
+      isProduction,
+      userMessage: 'Invalid data',
+      fieldErrors: error.fieldErrors,
     });
   }
 
-  if (error instanceof ValidationError && !devEnv) {
-    logger.error(error.name + ' ' + error.message);
-    return res.status(error.status).json({
-      error: 'Invalid data',
+  if (
+    error instanceof APITypeError ||
+    error instanceof NotFoundError ||
+    error instanceof AuthorizationError ||
+    error instanceof ServerError ||
+    error instanceof UserInputError ||
+    error instanceof DatabaseError ||
+    error instanceof ForbidenError
+  ) {
+    return handleCommonError({
+      error,
+      response: res,
+      isProduction,
+      userMessage: error.userMessage,
     });
-  }
-
-  if (error instanceof APITypeError && devEnv) {
-    logger.error(error.message);
-    return res.status(error.status).json({
-      error: error.message,
-    });
-  }
-
-  if (error instanceof APITypeError && !devEnv) {
-    logger.error(error.message);
-    return res.status(error.status).json({
-      error: error.userMessage,
-    });
-  }
-
-  if (error instanceof NotFoundError && devEnv) {
-    logger.error(error.message);
-    return res.status(error.status).json({ error: error.message });
-  }
-
-  if (error instanceof NotFoundError && !devEnv) {
-    logger.error(error.name);
-    return res.status(error.status).json({ error: error.userMessage });
-  }
-
-  if (error instanceof AuthorizationError && devEnv) {
-    logger.error(error.message);
-    return res.status(error.status).json({ error: error.message });
-  }
-
-  if (error instanceof AuthorizationError && !devEnv) {
-    logger.error(error.name);
-    return res.status(error.status).json({ error: error.userMessage });
-  }
-
-  if (error instanceof ServerError && devEnv) {
-    logger.error(error.message);
-    return res.status(error.status).json({ error: error.message });
-  }
-
-  if (error instanceof ServerError && !devEnv) {
-    logger.error(error.name);
-    return res.status(error.status).json({ error: error.userMessage });
-  }
-
-  if (error instanceof UserInputError && devEnv) {
-    logger.error(error.message);
-    return res.status(error.status).json({ error: error.message });
-  }
-
-  if (error instanceof UserInputError && !devEnv) {
-    logger.error(error.name);
-    return res.status(error.status).json({ error: error.userMessage });
-  }
-
-  if (error instanceof DatabaseError && devEnv) {
-    logger.error(error.name + ' ' + error.message);
-    return res.status(error.status).json({ error: error.message });
-  }
-
-  if (error instanceof DatabaseError && !devEnv) {
-    logger.error(error.name + ' ' + error.message);
-    return res.status(error.status).json({ error: error.userMessage });
-  }
-
-  if (error instanceof ForbidenError && devEnv) {
-    logger.error(error.message);
-    return res.status(500).json({ error: error.message });
-  }
-
-  if (error instanceof ForbidenError && !devEnv) {
-    logger.error(error.name);
-    return res.status(500).json({ error: error.userMessage });
   }
 
   if (error instanceof Error) {
     logger.error(error.name + ' ' + error.message);
-    return res.status(500).json({ error: 'Somethign went wrong' });
+    const errorResponse = isProduction
+      ? 'Internal Server Error'
+      : error.message;
+    return res.status(500).json({ error: errorResponse });
   }
 
-  if (res.app.get('env') !== 'development') {
-    return res.status(500).send('Internal Server Error');
-  } else {
-    if (error instanceof Error) {
-      logger.error('Unknow error' + ' ' + error.message);
-      return res.status(500).send({ error: error.message });
-    }
-  }
+  logger.error('Unknown error');
+  return res.status(500).send('Internal Server Error');
 };

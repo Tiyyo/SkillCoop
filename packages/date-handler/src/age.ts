@@ -11,5 +11,5 @@ export function getAge(utcstring: string | null) {
   const isBirthdayPassed = birthdayDayAndMonth < todayDayAndMonth;
   const age = isBirthdayPassed ? differenceInYears : differenceInYears - 1;
   if (isNaN(age)) return null;
-  return `${age} yo`;
+  return age;
 }

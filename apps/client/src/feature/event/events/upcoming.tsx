@@ -23,7 +23,6 @@ function IncomingEvents() {
     .flat() as EventType[];
 
   if (isError) return <ErrorFallback />;
-
   return (
     <EventList
       events={upcomingEvent}

@@ -14,7 +14,7 @@ import { ResetPassword } from '@skillcoop/types/src';
 import { useTranslation } from 'react-i18next';
 
 function ResetPassword() {
-  const { t } = useTranslation();
+  const { t } = useTranslation('auth');
   const [hasBeenReset, setHasBeenReset] = useState(false);
   const [linkHasExpire, setLinkHasExpire] = useState(false);
   const { mutate: resetPassword, isLoading } = useMutation({
@@ -81,7 +81,7 @@ function ResetPassword() {
               </FormField>
               <FormField
                 name="confirmPassword"
-                label={t('confirmPassword')}
+                label={t('confirmYourPassword')}
                 type="password"
                 register={register}
                 error={errors?.confirmPassword?.message as string}
@@ -101,9 +101,9 @@ function ResetPassword() {
               </p>
               <Link
                 to="/login"
-                className="py-2 cursor-pointer duration-200 transition-all 
-                  rounded-md text-primary-700 my-3 px-8 w-fit self-center 
-                hover:bg-base"
+                className="text-center py-2 cursor-pointer duration-200 
+                transition-all rounded-md text-primary-700 my-3 px-8 w-fit 
+                self-centerhover:bg-base"
               >
                 {t('gotToLoginPage')}
               </Link>

@@ -3,7 +3,7 @@ import { useApp } from '../../../store/app.store';
 import EventList from '../resume-events/list';
 import type { EventType } from '@skillcoop/types/src';
 import useInfinite from '../../../hooks/useInfinite';
-import { useEffect, useId, useState } from 'react';
+import { useId } from 'react';
 import ErrorFallback from '../../../component/error-fallback';
 import { useTranslation } from 'react-i18next';
 

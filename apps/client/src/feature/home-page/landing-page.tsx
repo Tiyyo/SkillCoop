@@ -9,11 +9,10 @@ function LandingPage() {
   return (
     <main>
       <Suspense fallback={<LoadingPage />}>
-        <section className="h-screen bg-home-page-gradient">
+        <section className="min-h-screen bg-home-page-gradient">
           <HeaderLandingPage />
           <HeroSection />
         </section>
-        <div className="py-10 bg-primary-gradient sm:pt-[35%]"></div>
         <Benefits />
         <Footer />
       </Suspense>

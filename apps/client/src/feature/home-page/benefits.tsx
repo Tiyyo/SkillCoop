@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 function Benefits() {
   const { t } = useTranslation();
   return (
-    <section className="bg-primary-gradient mx-auto pt-14">
+    <section className="bg-primary-gradient mx-auto">
       <p
         className="flex justify-center items-center text-sm text-primary-100 
           font-semibold tracking-wider"

@@ -100,7 +100,7 @@ function FormField({
               items-center gap-x-2 px-2 py-1 text-center 
               text-xs font-semibold`}
         >
-          <XCircle size={16} />
+          <XCircle size={16} className="flex-shrink-0" />
           <p>{t(errorText)}</p>
         </div>
       )}

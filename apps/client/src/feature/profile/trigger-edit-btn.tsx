@@ -1,4 +1,4 @@
-import { Check, Edit2 } from 'lucide-react';
+import { X, Edit2 } from 'lucide-react';
 import { useState } from 'react';
 
 function TriggerEditBtn({
@@ -23,7 +23,7 @@ function TriggerEditBtn({
         </button>
       ) : (
         <button type="button" className={className} onClick={handleClickToggle}>
-          <Check className="text-light" size={18} />
+          <X className="text-light" size={18} />
         </button>
       )}
     </>

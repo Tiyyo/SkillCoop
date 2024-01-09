@@ -3,7 +3,7 @@ import type { Profile, SearchProfileQuery } from '@skillcoop/types/src';
 export const getMeFn = async (): Promise<
   { userProfile: Profile } | 'Unecessary call'
 > => {
-  const response = await api.get('api/user/me', { timeout: 300 });
+  const response = await api.get('api/user/me', { timeout: 1500 });
   return response.data;
 };
 

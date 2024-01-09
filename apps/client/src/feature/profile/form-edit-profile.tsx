@@ -93,7 +93,7 @@ function FormEditProfileInfos({
 
   const getAgeString = (date: string | null) => {
     if (!date) return '';
-    return getAge(date);
+    return getAge(date) + ' ' + t('yo');
   };
 
   //@ts-ignore

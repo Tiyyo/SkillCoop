@@ -39,21 +39,21 @@ function InputDate({
     clearBtn: true,
     minDate: new Date(todayLocalInputFormat()),
     theme: {
-      background: 'bg-base-light dark:bg-base-light aazeaze',
+      background: 'bg-base-light dark:bg-base-light',
       todayBtn: `bg-primary-100 hover:bg-primary-500 duration-300 
       hover:text-dark dark:bg-primary-100`,
       clearBtn: `bg-base dark:bg-base dark:text-primary-1100 border 
       dark:border-primary-500 border-primary-500`,
       icons: `bg-base-light dark:bg-base-light dark:text-primary-1100 
       border-primary-400 dark:border-primary-400`,
-      text: 'text-primary-1100 dark:text-primary-1100',
+      text: 'text-primary-1100  dark:text-primary-1000',
       input: `w-full font-semibold text-sm bg-base-light dark:bg-base-light 
       dark:text-primary-1100 text-primary-1100 
       ${high ? 'h-10' : 'h-7'} 
       ${hasError && 'ring-2 ring-error'}`,
       inputIcon: `${hasError ? 'text-error' : 'text-primary-600'}`,
       selected: 'bg-primary-800 dark:bg-primary-800 text-primary-100',
-      disabledText: 'text-gray-200 dark:text-gray-200',
+      disabledText: 'text-gray-200 dark:text-grey-regular',
     },
     icons: {
       prev: () => (

@@ -14,9 +14,15 @@ function InfiniteScroll({
   triggerNextPage,
   hasMore,
 }: InfiniteScrollProps) {
+  // We need to determine if the componenent render for the first time
+  // to not display loading spinner on first mount
+  const firstRender = useRef(true);
   const bottomDivRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false;
+    }
     const ref = bottomDivRef.current;
     const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting === true && !hasMore) {
@@ -35,7 +41,7 @@ function InfiniteScroll({
     <div className="flex flex-col w-full justify-center items-center">
       {children}
       <div ref={bottomDivRef} />
-      {loading && (
+      {loading && !firstRender.current && (
         <div className="py-5">
           <Spinner />
         </div>

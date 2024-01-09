@@ -6,6 +6,7 @@ import {
   getStartingTime,
 } from '@skillcoop/date-handler/src';
 import { useTranslation } from 'react-i18next';
+import { getCurrentLngInLocalStorage } from '../../../utils/get-current-lng';
 
 interface EventCardProps {
   date: string;
@@ -28,6 +29,7 @@ function ShowcaseEventCard({
   participants,
   requiredParticipants,
 }: EventCardProps) {
+  const currentLng = getCurrentLngInLocalStorage();
   const { t } = useTranslation('event');
   return (
     <div
@@ -53,7 +55,7 @@ function ShowcaseEventCard({
         </p>
         <span className="mx-0.5 py-1">|</span>
         <p className="basis-1/2">
-          <span>{getDate(date)}</span>
+          <span>{getDate(date, currentLng)}</span>
         </p>
       </div>
       <div className="flex flex-grow justify-between items-center w-full ">

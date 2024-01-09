@@ -6,6 +6,7 @@ import {
 import type { EventStatus } from '@skillcoop/types';
 import { eventStatus as eventStatusAssertion } from '@skillcoop/types/src';
 import { useTranslation } from 'react-i18next';
+import { getCurrentLngInLocalStorage } from '../../utils/get-current-lng';
 
 type ScoreProps = {
   date: string;
@@ -25,6 +26,8 @@ function Score({
   eventStatus,
 }: ScoreProps) {
   const { t } = useTranslation('event');
+  // TODO: Maybe localStorage is too expensive performance wise
+  const currentLng = getCurrentLngInLocalStorage();
   const isScoreValid = (score: number | null | undefined) => {
     return score !== null && score !== undefined;
   };
@@ -89,7 +92,7 @@ function Score({
           </span>
         </p>
         <span className="mx-0.5 py-1">|</span>
-        <p className="basis-1/2">{getDate(date)}</p>
+        <p className="basis-1/2">{getDate(date, currentLng)}</p>
       </div>
     </div>
   );

@@ -6,6 +6,7 @@ import {
   todayLocalInputFormat,
 } from '@skillcoop/date-handler/src';
 import { useTranslation } from 'react-i18next';
+import { getCurrentLngInLocalStorage } from '../../utils/get-current-lng';
 
 type InputDateProps = {
   updateState?: (e: any) => void;
@@ -29,8 +30,8 @@ function InputDate({
 }: InputDateProps) {
   const { t } = useTranslation('event');
   const today = new Date();
+  const currentLng = getCurrentLngInLocalStorage();
   const [hasError, setHasError] = useState<boolean | undefined>(error);
-  // TODO : get current language from localStorage
   const options = {
     title: t('selectDate'),
     autoHide: true,
@@ -62,7 +63,7 @@ function InputDate({
     },
     datepickerClassNames: 'top-12 left-1/2 -translate-x-1/2',
     defaultDate: new Date(defaultValue || today),
-    language: 'en', // To be replaced by current language
+    language: currentLng, // To be replaced by current language
   };
   const [show, setShow] = useState<boolean>(false);
 
@@ -99,7 +100,7 @@ function InputDate({
         {disabled ? (
           <input
             type="text"
-            defaultValue={getDefaultDatePicker(defaultValue)}
+            defaultValue={getDefaultDatePicker(defaultValue, currentLng)}
             disabled={disabled}
             className={`bg-base-light border border-gray-300 
             font-semibold text-primary-1100 text-xs rounded-lg block w-full 

@@ -38,6 +38,7 @@ function LanguageSettings() {
     localStorage.setItem('i18nextLng', languageSymbol);
     //update userPreferenes object in localStorage
     storeInLocalStorage('_userPreferences', { language: languageSymbol });
+
     if (!userProfile?.user_id) return;
     const updatePreferenceData = {
       user_id: userProfile.user_id,

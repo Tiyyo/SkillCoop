@@ -1,7 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { loginUserFn } from '../../api/api.fn';
-// Workaround : Create a ts-schema folder
-//in the schema lib to avoid rollup plugin error
+// Workaround : Import directly ts files instead
 import { loginSchema } from '@skillcoop/schema/src';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';

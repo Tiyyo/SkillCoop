@@ -27,11 +27,6 @@
     "noFallthroughCasesInSwitch": true,
     "strictNullChecks": true
   },
-  "paths": {
-    "@skillcoop/*": [
-      "packages/*/src"
-    ]
-  },
   "include": [
     "src"
   ],

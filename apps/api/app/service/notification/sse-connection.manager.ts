@@ -10,6 +10,11 @@ export function sseConnectionManager(req: Request, res: Response) {
     req.cookies.refreshToken,
     process.env.JWT_REFRESH_TOKEN_KEY as string,
   );
+
+  if (!tokenInfos) {
+    return res.sendStatus(401);
+  }
+
   logger.info('SSE connection : on');
 
   const headers = {
@@ -19,6 +24,7 @@ export function sseConnectionManager(req: Request, res: Response) {
     'Cache-Control': 'no-cache',
   };
   res.writeHead(200, headers);
+
   const clientId = tokenInfos?.user_id;
 
   notificationEventManager.on(

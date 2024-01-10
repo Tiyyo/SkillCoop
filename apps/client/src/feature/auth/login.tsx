@@ -20,8 +20,6 @@ import Button from '../../component/button';
 import dompurify from 'dompurify';
 import { useTranslation } from 'react-i18next';
 import LoginDemoMode from './login-demo';
-import PasswordStrengthMeter from '../../component/password-strenght-meter';
-import usePasswordMeter from '../../hooks/usePasswordMeter';
 
 export type LoginUserData = {
   email: string;
@@ -32,7 +30,6 @@ function Login() {
   const { t } = useTranslation('auth');
   const navigate = useNavigate();
   const location = useLocation();
-  const { currentPassword, trackPasswordChangeValue } = usePasswordMeter();
   const from = location.state?.from?.pathname || '/';
   const {
     mutate: loginUser,
@@ -81,7 +78,6 @@ function Login() {
           <SeparatorLine />
           <form
             onSubmit={handleSubmit(onSubmit)}
-            onChange={trackPasswordChangeValue}
             className="flex flex-col items-center gap-y-5"
           >
             <FormField
@@ -103,7 +99,6 @@ function Login() {
             >
               <Eye size={18} />
             </FormField>
-            <PasswordStrengthMeter password={currentPassword} />
             <Link
               to="/forgot-password"
               className="text-xs text-primary-1100  self-end cursor-pointer

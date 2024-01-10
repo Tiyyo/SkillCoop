@@ -5,5 +5,5 @@ import { Kysely, SqliteDialect } from 'kysely';
 const dialect = new SqliteDialect({
   database: new SQLite('./prisma/sqlite.db'),
 });
-// export type DbClientType = infer<typeof DatabaseType>
+
 export const db = new Kysely<DatabaseType>({ dialect });

@@ -20,9 +20,12 @@ import ErrorNotification from '../../component/error/notification';
 import { AtSign, Eye, EyeOff } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import LoginDemoMode from './login-demo';
+import usePasswordMeter from '../../hooks/usePasswordMeter';
+import PasswordStrengthMeter from '../../component/password-strenght-meter';
 
 function Register() {
   const { t } = useTranslation('auth');
+  const { currentPassword, trackPasswordChangeValue } = usePasswordMeter();
   const { mutate: signUpUser, isLoading } = useMutation({
     mutationFn: async (userData: RegisterUser) => signUpUserFn(userData),
     onSuccess: () => {
@@ -84,6 +87,7 @@ function Register() {
           <form
             className="flex flex-col items-center gap-y-5"
             onSubmit={handleSubmit(onSubmit)}
+            onChange={trackPasswordChangeValue}
           >
             <FormField
               type="email"
@@ -104,6 +108,7 @@ function Register() {
             >
               <Eye size={16} />
             </FormField>
+            <PasswordStrengthMeter password={currentPassword} />
             <FormField
               type="password"
               name="confirmedPassword"

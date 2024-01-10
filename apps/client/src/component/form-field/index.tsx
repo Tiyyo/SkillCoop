@@ -3,7 +3,6 @@ import { ComponentPropsWithoutRef } from 'react';
 import { cn } from '../../lib/utils';
 import { XCircle } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import PasswordStrengthMeter from '../password-strenght-meter';
 
 interface FormFieldProps extends ComponentPropsWithoutRef<'input'> {
   name: string;
@@ -35,12 +34,8 @@ function FormField({
   // TDOD: Move this logic into a custom hook
   const [errorText, setErrorText] = useState(error);
   const [icon, setIcon] = useState(false);
-  const [currentInputValue, setCurrentInputValue] = useState('');
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    console.log('check render');
-    console.log(e);
-    setCurrentInputValue(e.target.value);
     if (onChange) {
       onChange(e);
     }
@@ -62,8 +57,7 @@ function FormField({
           type={type === 'password' && icon ? 'text' : type}
           value={value}
           id={name}
-          // onChange={handleChange}
-          onChange={(e) => console.log(e)}
+          onChange={handleChange}
           placeholder={placeholder}
           autoComplete={type === 'password' ? 'off' : 'on'}
           className={cn(

@@ -68,7 +68,7 @@ export default {
       });
       res.status(200).json({ accessToken });
     } catch (error) {
-      logger.error(error)
+      logger.error(error);
       res.status(400).json({ error: 'Bad credentials' });
     }
   },

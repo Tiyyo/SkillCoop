@@ -21,8 +21,7 @@ function LoginDemoMode() {
           shadow-lg px-6 py-4 rounded-lg my-4 text-sm animate-fade-up opacity-0 
           hover:cursor-pointer"
     >
-      Cliquez ici pour vous connecter avec un compte vous permettant d'avoir un
-      aperçu du fonctionnement de l'application.
+      {t('loginDemoAccount')}
     </button>
   );
 }

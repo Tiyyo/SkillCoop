@@ -21,8 +21,6 @@ const secretAccessKey = process.env.ACCESS_SECRET_KEY_S3;
 const cloudFrontDomain = process.env.CLOUDFRONT_DOMAIN;
 const cloudFrontDistributionId = process.env.CLOUDFRONT_DISTRIBUTION_ID;
 
-
-
 if (!region) throw new ServerError('BUCKET_REGION env is not set');
 if (!bucketName) throw new ServerError('BUCKET_NAME env is not set');
 if (!accessKeyId) throw new ServerError('ACCESS_KEY_BUCKET env is not set');
@@ -50,10 +48,10 @@ const cloudFront = new CloudFrontClient({
 export async function handleOriginImage(file: unknown) {
   if (file instanceof LocalImage) {
     const { buffer, originalname, mimetype } = await file.image;
-    return { buffer, originalname, mimetype }
+    return { buffer, originalname, mimetype };
   }
   const { buffer, originalname, mimetype } = file as Express.Multer.File;
-  return { buffer, originalname, mimetype }
+  return { buffer, originalname, mimetype };
 }
 
 export async function uploadImageToBucket(

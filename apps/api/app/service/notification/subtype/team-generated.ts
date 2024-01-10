@@ -4,6 +4,7 @@ import {
   event as EventModel,
 } from '../../../models/index.js';
 import { NotificationObserver } from './core.js';
+/*eslint-disable-next-line */
 import { hasActiveNotification } from '../../../utils/has-active-notification.js';
 import { BuildNotificationMessage } from '../message.builder.js';
 import type {

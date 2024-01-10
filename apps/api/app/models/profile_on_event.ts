@@ -5,7 +5,7 @@ import { Core } from './core.js';
 import { DB } from '../@types/database.js';
 import { db } from '../helpers/client.db.js';
 import NotFoundError from '../helpers/errors/not-found.error.js';
-import { InsertObject, ReferenceExpression } from 'kysely';
+import { ReferenceExpression } from 'kysely';
 import { InsertObjectDB, tableNames } from '../@types/types.js';
 
 export class ProfileOnEvent extends Core<typeof tableNames.profile_on_event> {

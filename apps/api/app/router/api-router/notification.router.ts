@@ -1,5 +1,6 @@
 import express, { Router } from 'express';
 import factory from '../../middleware/wrapper-controller.js';
+/*eslint-disable-next-line */
 import notificationController from '../../controller/notification.controller.js';
 import { markAsReadNotificationSchema } from '@skillcoop/schema';
 import { validateSchema } from '../../middleware/schema-validator.js';

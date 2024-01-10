@@ -10,6 +10,7 @@ import type {
   NotificationType,
 } from '@skillcoop/types';
 import { notificationSubtype, notificationType } from '@skillcoop/types';
+/*eslint-disable-next-line */
 import { hasActiveNotification } from '../../../utils/has-active-notification.js';
 
 type ConstructorProps = {

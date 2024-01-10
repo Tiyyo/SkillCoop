@@ -10,7 +10,7 @@ import DatabaseError from '../../helpers/errors/database.error.js';
 const dirname = path.dirname(url.fileURLToPath(import.meta.url));
 
 export class LocalImage {
-  filename: string
+  filename: string;
 
   constructor(filename: string) {
     this.filename = filename;
@@ -20,20 +20,33 @@ export class LocalImage {
     const filePath = path.join(dirname, '../../../public/' + this.filename);
     try {
       const bufferImage = await fs.promises.readFile(filePath);
-      return { buffer: bufferImage, originalname: this.filename, mimetype: `image/${minmeType}` };
+      return {
+        buffer: bufferImage,
+        originalname: this.filename,
+        mimetype: `image/${minmeType}`,
+      };
     } catch (error) {
-      throw new NotFoundError('File could not be found localy, check that filename and its extension are correct');
+      throw new NotFoundError(
+        `File could not be found localy, 
+         check that filename and its extension are correct`,
+      );
     }
   }
   get image() {
     return this.getLocalImage();
   }
 }
-export async function saveImageIntoDb({ key, link }: { key: string, link: string }) {
+export async function saveImageIntoDb({
+  key,
+  link,
+}: {
+  key: string;
+  link: string;
+}) {
   await Image.createOne({
     url: link,
-    key
-  })
+    key,
+  });
 }
 
 /**
@@ -42,20 +55,25 @@ export async function saveImageIntoDb({ key, link }: { key: string, link: string
    @returns key to delete image from bucket and the link of cloudfront image
  */
 export async function uploadLocalFile(fileName: string) {
-  const localImage = new LocalImage(fileName)
+  const localImage = new LocalImage(fileName);
   try {
-    const { key, link } = await uploadImageToBucket(localImage, { height: 100, width: 100 })
+    const { key, link } = await uploadImageToBucket(localImage, {
+      height: 100,
+      width: 100,
+    });
     try {
-      saveImageIntoDb({ key, link })
+      saveImageIntoDb({ key, link });
     } catch (error) {
       if (error instanceof DatabaseError) {
-        logger.error('Error while saving image into db' + error.message)
+        logger.error('Error while saving image into db' + error.message);
       }
     }
-    return { key, link }
+    return { key, link };
   } catch (error) {
     if (error instanceof Error) {
-      logger.error('Error while uploading local image to bucket' + error.message)
+      logger.error(
+        'Error while uploading local image to bucket' + error.message,
+      );
     }
   }
 }

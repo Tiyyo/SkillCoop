@@ -1,3 +1,4 @@
+/*eslint-disable-next-line*/
 import { hasActiveNotification } from '../../../utils/has-active-notification.js';
 import { BuildNotificationMessage } from '../message.builder.js';
 import {

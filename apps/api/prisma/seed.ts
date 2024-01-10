@@ -1,9 +1,8 @@
-import '../app/helpers/env.load.js'
+import '../app/helpers/env.load.js';
 import logger from '../app/helpers/logger.js';
 import { faker } from '@faker-js/faker';
 import { user as User } from '../app/models/index.js';
 import { profile as Profile } from '../app/models/index.js';
-import { image as Image } from '../app/models/index.js';
 import { event as Event } from '../app/models/index.js';
 import { status as Status } from '../app/models/index.js';
 import { profileOnEvent as Participant } from '../app/models/index.js';
@@ -17,22 +16,6 @@ import {
   getUTCString,
 } from '@skillcoop/date-handler';
 import { uploadLocalFile } from '../app/service/upload/upload-local-file.js';
-
-function getRandomIntInclusive(min: number, max: number): number {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-function getIntUnused(intAlreadyUsed: number[]): number {
-  const nbToPush = getRandomIntInclusive(1, 24);
-  if (intAlreadyUsed.find((int) => int == nbToPush)) {
-    return getIntUnused(intAlreadyUsed);
-  } else {
-    return nbToPush;
-  }
-  // intAlreadyUsed.push(nbToPush);
-}
 
 async function seed() {
   logger.info('Start seeding');
@@ -63,10 +46,13 @@ async function seed() {
       name: item.name,
       created_at: todayUTCString,
     });
-  })
+  });
   /*await Promise.all(queriesStatusGenerated);*/
 
-  await Promise.all([...queriesNotificationTypeGenerated, ...queriesStatusGenerated]);
+  await Promise.all([
+    ...queriesNotificationTypeGenerated,
+    ...queriesStatusGenerated,
+  ]);
 
   /* Create user and profile */
 
@@ -170,10 +156,10 @@ async function seed() {
     if (!user) return logger.error('Error while creating user');
     await User.updateOne({ id: user.id }, { verified: 1 });
 
-    let avatarUrl = null
+    let avatarUrl = null;
     if (infos.image_filename) {
       const propImage = await uploadLocalFile(infos.image_filename);
-      if (!propImage) return logger.error('Error while uploading image')
+      if (!propImage) return logger.error('Error while uploading image');
       avatarUrl = propImage.link;
     }
 
@@ -213,7 +199,6 @@ async function seed() {
   });
   await Friendlist.createMany(queriesPendingFriendRequest);
 
-
   const confirmedFriend = [7, 8, 9];
 
   const dataConfirmedRequests = confirmedFriend.map((id) => {
@@ -238,26 +223,29 @@ async function seed() {
   });
   await Friendlist.createMany(dataConfirmedRequestsReceived);
 
-  const nbOfUser = userToCreateInfos.length
-  const arrToIterateOverUsers = new Array(nbOfUser).fill(1)
-  const dataconfirmedAdmin = arrToIterateOverUsers.reduce((acc: any, _curr, index) => {
-    if (index !== 1) {
-      acc.push({
-        adder_id: 1,
-        friend_id: index + 1,
-        status_name: 'confirmed',
-        created_at: todayUTCString,
-      })
-    }
-    return acc
-  }, []);
+  const nbOfUser = userToCreateInfos.length;
+  const arrToIterateOverUsers = new Array(nbOfUser).fill(1);
+  const dataconfirmedAdmin = arrToIterateOverUsers.reduce(
+    (acc, _curr, index) => {
+      if (index !== 1) {
+        acc.push({
+          adder_id: 1,
+          friend_id: index + 1,
+          status_name: 'confirmed',
+          created_at: todayUTCString,
+        });
+      }
+      return acc;
+    },
+    [],
+  );
   await Friendlist.createMany(dataconfirmedAdmin);
-
 
   // // create 5 past events organize by admin
   const NB_EVENTS_TO_CREATE = 5;
   const arrayToIterateOnEvents = new Array(NB_EVENTS_TO_CREATE).fill(1);
 
+  //eslint-disable-next-line
   for await (const _ of arrayToIterateOnEvents) {
     const randomDate = faker.date.past();
     const date = getUTCString(randomDate);
@@ -297,7 +285,7 @@ async function seed() {
       });
     });
   }
-
+  // eslint-disable-next-line
   for await (const _ of arrayToIterateOnEvents) {
     const randomDate = faker.date.past();
     const date = getUTCString(randomDate);
@@ -338,7 +326,7 @@ async function seed() {
     });
   }
 
-  // // create 3 future events organized by admin 
+  // // create 3 future events organized by admin
   const NB_EVENTS_FUTURE_TO_CREATE = 3;
   const arrayToIterateOnFutureEvents = new Array(
     NB_EVENTS_FUTURE_TO_CREATE,
@@ -377,6 +365,7 @@ async function seed() {
   }
 
   /* create 3 future full events organize by john doe */
+  //eslint-disable-next-line
   for await (const _ of arrayToIterateOnFutureEvents) {
     const randomDate = faker.date.future();
     const date = getUTCString(randomDate);
@@ -408,119 +397,6 @@ async function seed() {
     });
   }
 
-  // // create 50 past events
-  // const NB_EVENTS_PAST_TO_CREATE_2 = 1000;
-  // const arrayToIterateOnFutureEvents2 = new Array(
-  //   NB_EVENTS_PAST_TO_CREATE_2,
-  // ).fill(1);
-
-  // //eslint-disable-next-line
-  // for await (const _ of arrayToIterateOnFutureEvents2) {
-  //   const randomDate = faker.date.past();
-  //   const date = getUTCString(randomDate);
-  //   const organizerId = getRandomIntInclusive(1, 24);
-
-  //   const event = await Event.create({
-  //     date,
-  //     duration: 90,
-  //     location: faker.location.city(),
-  //     required_participants: 10,
-  //     organizer_id: organizerId,
-  //     status_name: 'completed',
-  //     created_at: todayUTCString,
-  //   });
-  //   if (!event) return logger.error('Failed to create event');
-
-  //   await Score.createOne({
-  //     event_id: event.id,
-  //     score_team_1: faker.number.int({ min: 0, max: 20 }),
-  //     score_team_2: faker.number.int({ min: 0, max: 20 }),
-  //     created_at: todayUTCString,
-  //   });
-
-  //   await Participant.createOne({
-  //     event_id: event.id,
-  //     profile_id: organizerId,
-  //     status_name: 'confirmed',
-  //     team: 1,
-  //     created_at: todayUTCString,
-  //   });
-  //   const intAlreadyUsed = [organizerId];
-
-  //   // add 10 participants to each event
-  //   const NB_PARTICIPANTS_TO_CREATE = 9;
-  //   const arrayToIterateOnParticipants = new Array(
-  //     NB_PARTICIPANTS_TO_CREATE,
-  //   ).fill(1);
-
-  //   arrayToIterateOnParticipants.forEach(async (_, index) => {
-  //     const unuserInt = getIntUnused(intAlreadyUsed);
-  //     if (!unuserInt) return logger.error('Failed to get an unused int');
-  //     intAlreadyUsed.push(unuserInt);
-  //     Participant.createOne({
-  //       event_id: event.id,
-  //       profile_id: unuserInt,
-  //       status_name: 'confirmed',
-  //       team: index < 4 ? 1 : 2,
-  //       created_at: todayUTCString,
-  //     });
-  //   });
-  // }
-
-  // const NB_EVENTS_PAST_TO_CREATE_3 = 50;
-  // const arrayToIterateOnFutureEvents3 = new Array(
-  //   NB_EVENTS_PAST_TO_CREATE_3,
-  // ).fill(1);
-
-  // //eslint-disable-next-line
-  // for await (const _ of arrayToIterateOnFutureEvents3) {
-  //   const randomDate = faker.date.past();
-  //   const date = getUTCString(randomDate);
-  //   const randomInt = getRandomIntInclusive(1, 24);
-
-  //   const event = await Event.create({
-  //     date,
-  //     duration: 90,
-  //     location: faker.location.city(),
-  //     required_participants: 10,
-  //     organizer_id: randomInt,
-  //     status_name: 'full',
-  //     created_at: todayUTCString,
-  //   });
-  //   if (!event) return logger.error('Failed to create event');
-
-  //   await Participant.createOne({
-  //     event_id: event.id,
-  //     profile_id: randomInt,
-  //     status_name: 'confirmed',
-  //     team: 1,
-  //     created_at: todayUTCString,
-  //   });
-  //   const intAlreadyUsed = [randomInt];
-
-  //   // add 10 participants to each event
-  //   const NB_PARTICIPANTS_TO_CREATE = 9;
-  //   const arrayToIterateOnParticipants = new Array(
-  //     NB_PARTICIPANTS_TO_CREATE,
-  //   ).fill(1);
-
-  //   getIntUnused(intAlreadyUsed);
-
-  //   arrayToIterateOnParticipants.forEach(async (_, index) => {
-  //     const unuserInt = getIntUnused(intAlreadyUsed);
-  //     if (!unuserInt) return logger.error('Failed to get an unused int');
-  //     intAlreadyUsed.push(unuserInt);
-
-  //     await Participant.createOne({
-  //       event_id: event.id,
-  //       profile_id: unuserInt,
-  //       status_name: 'confirmed',
-  //       team: index < 4 ? 1 : 2,
-  //       created_at: todayUTCString,
-  //     });
-  //   });
-  // }
-
   // create 2 open events
   const NB_EVENTS_OPEN_TO_CREATE = 2;
   const arrayToIterateOnOpenEvents = new Array(NB_EVENTS_OPEN_TO_CREATE).fill(
@@ -551,7 +427,7 @@ async function seed() {
       });
     });
   }
-
+  //eslint-disable-next-line
   for await (const _ of arrayToIterateOnOpenEvents) {
     const randomDate = faker.date.future();
     const date = getUTCString(randomDate);

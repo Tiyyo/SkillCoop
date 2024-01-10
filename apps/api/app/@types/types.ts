@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { NextFunction, Request, Response } from 'express';
 import { ColumnType } from 'kysely';
 import { DB } from './database.js';
@@ -56,15 +57,12 @@ export const tableNames = {
   user: 'user',
 } as const;
 
-
 type IsNullable<T> = {
   [P in keyof T]: null extends T[P] ? P : never;
 }[keyof T];
 
-
 type OptionalNullable<T> = Partial<Pick<T, IsNullable<T>>> &
   Omit<T, IsNullable<T>>;
-
 
 type IfGeneratedThenNumber<T> = T extends ColumnType<infer S, infer I, infer U>
   ? number
@@ -73,30 +71,6 @@ type IfGeneratedThenNumber<T> = T extends ColumnType<infer S, infer I, infer U>
 type ReplaceGeneratedByNumber<T> = {
   [K in keyof T]: IfGeneratedThenNumber<T[K]>;
 };
-
-// type ReplaceGeneratedByNumber<T> = {
-//   [K in keyof T]: T[K] extends ColumnType<infer S, infer I, infer U> ? number | undefined : T[K]
-// } & {
-//     [K in keyof T as T[K] extends ColumnType<infer S, infer I, infer U> ? K : never]?: T[K] extends ColumnType<infer S, infer I, infer U> ? number : never
-//   };
-
-// type ReplaceGeneratedByNumber<T> = {
-//   [K in keyof T as T[K] extends ColumnType<infer S, infer I, infer U> ? K : never]?: T[K] extends ColumnType<infer S, infer I, infer U> ? number : never
-// } & {
-//     [K in keyof T]: T[K] extends ColumnType<infer S, infer I, infer U> ? never : T[K]
-//   }
-
-
-
-type TableEvent = TableType<'event'>
-type UpdateProfile = ReplaceGeneratedByOptionalNumber<TableEvent>;
-
-
-// type ReplaceGeneratedByNumber<T> = {
-//   [K in keyof T]: T[K] extends ColumnType<infer S, infer I, infer U>
-//   ? { [P in keyof T[K]]?: number }
-//   : T[K]
-// }
 
 type OmitGeneratedProps<T> = {
   [K in keyof T as T[K] extends ColumnType<infer S, infer I, infer U>
@@ -113,10 +87,6 @@ export type TableTypeOmitId<T extends TableNames> = Omit<
   TableType<T>,
   'id' | 'created_at' | 'updated_at'
 >;
-
-
-
-
 
 export type Insert<T extends TableNames> = TableTypeOmitId<T>;
 
@@ -140,18 +110,23 @@ export type FindObjectDB<T extends TableNames> = ReplaceGeneratedByNumber<
 >;
 
 export type ReplaceGeneratedByOptionalNumber<T> = {
-  [K in keyof T as T[K] extends ColumnType<infer S, infer I, infer U> ? never : K]: T[K]
+  [K in keyof T as T[K] extends ColumnType<infer S, infer I, infer U>
+  ? never
+  : K]: T[K];
 } & {
-    [K in keyof T as T[K] extends ColumnType<infer S, infer I, infer U> ? K : never]?: number
+    [K in keyof T as T[K] extends ColumnType<infer S, infer I, infer U>
+    ? K
+    : never]?: number;
   };
 
-export type Update<T extends TableNames> = ReplaceGeneratedByOptionalNumber<TableTypeOmitCreatedAt<T>>;
+export type Update<T extends TableNames> = ReplaceGeneratedByOptionalNumber<
+  TableTypeOmitCreatedAt<T>
+>;
 
 export type UpdateObjectDB<T extends TableNames> = Partial<Update<T>> & {
   created_at?: string;
   updated_at?: string | null;
-}
-
+};
 
 export type ReturnTableType<T extends TableNames> = ReplaceGeneratedByNumber<
   TableType<T>

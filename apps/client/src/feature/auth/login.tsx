@@ -21,7 +21,6 @@ import dompurify from 'dompurify';
 import { useTranslation } from 'react-i18next';
 import LoginDemoMode from './login-demo';
 import PasswordStrengthMeter from '../../component/password-strenght-meter';
-import { useState } from 'react';
 import usePasswordMeter from '../../hooks/usePasswordMeter';
 
 export type LoginUserData = {

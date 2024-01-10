@@ -10,6 +10,7 @@ export default {
       animation: {
         'fade-in': '2s linear ',
         'opacity-in': 'opacity-in 0.3s linear forwards',
+        'fade-up': 'fade-up 0.6s ease-in-out 0.12s 1 forwards',
       },
       aspectRatio: {
         '1/4': '1/4',
@@ -95,6 +96,10 @@ export default {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' },
         },
+        'fade-up': {
+          '0%': { opacity: '0', transform: 'translateY(20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
         'opacity-in': {
           '0%': { opacity: '1' },
           '100%': { opacity: '0' },
@@ -102,6 +107,10 @@ export default {
       },
       minHeight: {
         'screen-mobile': '100svh',
+      },
+      screens: {
+        '3xl': '1920px',
+        '4xl': '2560px',
       },
       transitionTimingFunction: {
         cubic: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)',

@@ -19,6 +19,7 @@ import checkIfString from '../../utils/check-string';
 import Button from '../../component/button';
 import dompurify from 'dompurify';
 import { useTranslation } from 'react-i18next';
+import LoginDemoMode from './login-demo';
 
 export type LoginUserData = {
   email: string;
@@ -65,6 +66,7 @@ function Login() {
         <h1 className="py-4 text-xl font-bold text-primary-1100 text-center">
           {t('loginSkillcoop')}
         </h1>
+        <LoginDemoMode />
         <div
           className="flex flex-col w-[90%] 
               max-w-lg bg-base-light py-12 px-6 rounded-lg"

@@ -5,6 +5,7 @@ import { validateSchema as validate } from '../middleware/schema-validator.js';
 import { canals } from '../@types/types.js';
 import { registerSchema, loginSchema, emailSchema } from '@skillcoop/schema';
 import tokenHandler from '../helpers/token.handler.js';
+import { infosDemoAccountProvider } from '../middleware/demo-account.js';
 
 const {
   signin,
@@ -52,6 +53,8 @@ router
   .route('/reset-password')
   .get(verifyResetPasswordToken)
   .post(factory(resetPassword));
+
+router.route('/demo').post(infosDemoAccountProvider, factory(signin));
 
 router.route('/:userId/verify/:token').get(factory(verifyEmail));
 

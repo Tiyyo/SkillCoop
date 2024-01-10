@@ -16,6 +16,14 @@ export const loginUserFn = async (user: User) => {
   return response.data;
 };
 
+export const loginAsDemo = async () => {
+  const response = await api.post('auth/demo');
+  api.defaults.headers.common[
+    'Authorization'
+  ] = `Bearer ${response.data.accessToken}`;
+  return response.data;
+};
+
 export const logoutUserFn = async () => {
   const response = await api.post('auth/logout');
   api.defaults.headers.common['Authorization'] = '';

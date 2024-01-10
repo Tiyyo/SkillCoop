@@ -6,7 +6,10 @@ import { uploadImageToBucket } from './s3.js';
 import logger from '../../helpers/logger.js';
 import { image as Image } from '../../models/index.js';
 import DatabaseError from '../../helpers/errors/database.error.js';
-
+const isProduction = process.env.NODE_ENV === 'production';
+const pathToPublicFolder = isProduction
+  ? '../../../../public/'
+  : '../../../public/';
 const dirname = path.dirname(url.fileURLToPath(import.meta.url));
 
 export class LocalImage {
@@ -17,7 +20,8 @@ export class LocalImage {
   }
   private async getLocalImage() {
     const minmeType = this.filename.split('.').pop();
-    const filePath = path.join(dirname, '../../../public/' + this.filename);
+
+    const filePath = path.join(dirname, pathToPublicFolder + this.filename);
     try {
       const bufferImage = await fs.promises.readFile(filePath);
       return {
@@ -28,7 +32,7 @@ export class LocalImage {
     } catch (error) {
       throw new NotFoundError(
         `File could not be found localy, 
-         check that filename and its extension are correct`,
+         check that filename and its extension are correct` + dirname,
       );
     }
   }

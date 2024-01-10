@@ -1,8 +1,8 @@
-import bestStrikerController from '../best-striker.controller';
-import { mockResponse } from './mock-response';
+import bestStrikerController from '../best-striker.controller.js';
+import { mockResponse } from './mock-response.js';
 import { Request } from 'express';
-import { bestStriker as BestStriker } from '../../models/index';
-import { event as Event } from '../../models/index';
+import { bestStriker as BestStriker } from '../../models/index.js';
+import { event as Event } from '../../models/index.js';
 
 const { createOne } = bestStrikerController;
 

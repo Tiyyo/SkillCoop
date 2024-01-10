@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
-import tokenHandler from '../../helpers/token.handler';
-import { notificationEventManager } from './notification-event.manager';
-import logger from '../../helpers/logger';
+import tokenHandler from '../../helpers/token.handler.js';
+import { notificationEventManager } from './notification-event.manager.js';
+import logger from '../../helpers/logger.js';
 import { SSENotificationData } from '@skillcoop/types';
-import { CLIENT_URL } from '../../utils/variables';
+import { CLIENT_URL } from '../../utils/variables.js';
 
 export function sseConnectionManager(req: Request, res: Response) {
   const tokenInfos = tokenHandler.verifyTokenAndGetData(

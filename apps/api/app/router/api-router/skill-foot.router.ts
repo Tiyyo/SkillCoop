@@ -1,8 +1,8 @@
 import express, { Router } from 'express';
-import factory from '../../middleware/wrapper-controller';
-import skillFootController from '../../controller/skill-foot.controller';
-import { validateSchema } from '../../middleware/schema-validator';
-import { canals } from '../../@types/types';
+import factory from '../../middleware/wrapper-controller.js';
+import skillFootController from '../../controller/skill-foot.controller.js';
+import { validateSchema } from '../../middleware/schema-validator.js';
+import { canals } from '../../@types/types.js';
 import { ownSkillSchema, participantSkillSchema } from '@skillcoop/schema';
 
 const { getProfileEvalByEvent, getProfileEval, createOwnRating, createRating } =

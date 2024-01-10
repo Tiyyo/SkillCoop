@@ -1,8 +1,8 @@
 import express, { Router } from 'express';
-import factory from '../../middleware/wrapper-controller';
-import friendsList from '../../controller/friendslist.controller';
-import { validateSchema } from '../../middleware/schema-validator';
-import { canals } from '../../@types/types';
+import factory from '../../middleware/wrapper-controller.js';
+import friendsList from '../../controller/friendslist.controller.js';
+import { validateSchema } from '../../middleware/schema-validator.js';
+import { canals } from '../../@types/types.js';
 import {
   searchFriendsSchema,
   createInvitationSchema,

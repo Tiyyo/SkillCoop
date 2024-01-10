@@ -1,13 +1,17 @@
-import { NotificationObserver } from './core';
-import { event as EventModel, profile as Profile } from '../../../models/index';
-import { BuildNotificationMessage } from '../message.builder';
+import { NotificationObserver } from './core.js';
+import {
+  event as EventModel,
+  profile as Profile,
+} from '../../../models/index.js';
+import { BuildNotificationMessage } from '../message.builder.js';
 import type {
   BuilderUserInvitedToEventNotificationMessage,
   NotificationSubtype,
   NotificationType,
 } from '@skillcoop/types';
 import { notificationSubtype, notificationType } from '@skillcoop/types';
-import { hasActiveNotification } from '../../../utils/has-active-notification';
+/*eslint-disable-next-line */
+import { hasActiveNotification } from '../../../utils/has-active-notification.js';
 
 type ConstructorProps = {
   eventId: number;

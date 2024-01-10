@@ -1,14 +1,14 @@
 import { Request, Response } from 'express';
-import deleteDecodedKey from '../utils/delete-decoded';
-import checkParams from '../utils/check-params';
-import { UserPreferenceHandler } from '../service/user-preference';
-import ServerError from '../helpers/errors/server.error';
+import deleteDecodedKey from '../utils/delete-decoded.js';
+import checkParams from '../utils/check-params.js';
+import { UserPreferenceHandler } from '../service/user-preference/index.js';
+import ServerError from '../helpers/errors/server.error.js';
 /*eslint-disable*/
 import {
   notificationPreference as NotificationPreference,
   languagePreference as LanguagePreference,
   themePreference as ThemePreference,
-} from '../models/index';
+} from '../models/index.js';
 /*eslint-enable*/
 
 export default {

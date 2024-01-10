@@ -1,14 +1,14 @@
-import UserInputError from '../helpers/errors/user-input.error';
-import { profileOnEvent as ProfileOnEvent } from '../models/index';
-import { event as Event } from '../models/index';
+import UserInputError from '../helpers/errors/user-input.error.js';
+import { profileOnEvent as ProfileOnEvent } from '../models/index.js';
+import { event as Event } from '../models/index.js';
 import { Request, Response } from 'express';
 import { invitationStatus } from '@skillcoop/types';
-import { generateBalancedTeam } from '../service/generate-teams';
-import deleteDecodedKey from '../utils/delete-decoded';
+import { generateBalancedTeam } from '../service/generate-teams/index.js';
+import deleteDecodedKey from '../utils/delete-decoded.js';
 //eslint-disable-next-line
-import { notifyUserHasBeenInvitedToEvent } from '../service/notification/subtype/user-invited-event';
+import { notifyUserHasBeenInvitedToEvent } from '../service/notification/subtype/user-invited-event.js';
 //eslint-disable-next-line
-import { notifyTeamHasBeenGenerated } from '../service/notification/subtype/team-generated';
+import { notifyTeamHasBeenGenerated } from '../service/notification/subtype/team-generated.js';
 
 export default {
   async updateStatus(req: Request, res: Response) {

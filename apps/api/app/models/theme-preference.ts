@@ -1,10 +1,12 @@
-import { tableNames } from '../@types/types';
-import { Core } from './core';
-import { db } from '../helpers/client.db';
-import DatabaseError from '../helpers/errors/database.error';
+import { tableNames } from '../@types/types.js';
+import { Core } from './core.js';
+import { db } from '../helpers/client.db.js';
+import DatabaseError from '../helpers/errors/database.error.js';
 import { getFormattedUTCTimestamp } from '@skillcoop/date-handler';
 
 export class ThemePreference extends Core<typeof tableNames.theme_preference> {
+  declare tableName: typeof tableNames.theme_preference;
+
   constructor(client: typeof db) {
     super(client);
     this.tableName = tableNames.theme_preference;

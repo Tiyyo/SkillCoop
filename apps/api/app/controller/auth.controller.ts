@@ -1,18 +1,19 @@
 import { Request, Response } from 'express';
-import authService from '../service/auth/auth';
-import google from '../service/auth/google';
-import { user as User } from '../models/index';
-import ServerError from '../helpers/errors/server.error';
-import emailService from '../utils/send-email';
-import checkParams from '../utils/check-params';
-import NotFoundError from '../helpers/errors/not-found.error';
-import tokenHandler from '../helpers/token.handler';
-import AuthorizationError from '../helpers/errors/unauthorized.error';
-import { CLIENT_URL } from '../utils/variables';
+import authService from '../service/auth/auth.js';
+import google from '../service/auth/google.js';
+import { user as User } from '../models/index.js';
+import ServerError from '../helpers/errors/server.error.js';
+import emailService from '../utils/send-email.js';
+import checkParams from '../utils/check-params.js';
+import NotFoundError from '../helpers/errors/not-found.error.js';
+import tokenHandler from '../helpers/token.handler.js';
+import AuthorizationError from '../helpers/errors/unauthorized.error.js';
+import { CLIENT_URL } from '../utils/variables.js';
 import bcrypt from 'bcrypt';
-import APITypeError from '../helpers/errors/type.error';
-import ForbidenError from '../helpers/errors/forbiden';
+import APITypeError from '../helpers/errors/type.error.js';
+import ForbidenError from '../helpers/errors/forbiden.js';
 import { UserInfosToken } from '@skillcoop/types';
+import logger from '../helpers/logger.js';
 
 export default {
   async register(req: Request, res: Response) {
@@ -53,21 +54,27 @@ export default {
     const { email, password } = req.body;
     const MAX_AGE = 1000 * 60 * 60 * 24 * 7; // 7 days
 
-    const { accessToken, refreshToken } = await authService.login({
-      email,
-      password,
-    });
+    try {
+      const { accessToken, refreshToken } = await authService.login({
+        email,
+        password,
+      });
 
-    res.cookie('refreshToken', refreshToken, {
-      httpOnly: true,
-      sameSite: 'none',
-      secure: true,
-      maxAge: MAX_AGE,
-    });
-    res.status(200).json({ accessToken });
+      res.cookie('refreshToken', refreshToken, {
+        httpOnly: true,
+        sameSite: 'none',
+        secure: true,
+        maxAge: MAX_AGE,
+      });
+      res.status(200).json({ accessToken });
+    } catch (error) {
+      logger.error(error);
+      res.status(400).json({ error: 'Bad credentials' });
+    }
   },
   async refresh(req: Request, res: Response) {
     const { decoded } = req.body;
+    // const user = await User.findOne({ id: decoded.user_id });
     const user = await User.findOne({ id: decoded.user_id });
     if (!user) {
       res.clearCookie('refreshToken', { sameSite: 'none', secure: true });

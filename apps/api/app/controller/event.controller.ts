@@ -1,18 +1,18 @@
-import { event as Event } from '../models/index';
-import { profileOnEvent as ProfileOnEvent } from '../models/index';
+import { event as Event } from '../models/index.js';
+import { profileOnEvent as ProfileOnEvent } from '../models/index.js';
 import { Request, Response } from 'express';
-import AuthorizationError from '../helpers/errors/unauthorized.error';
-import checkParams from '../utils/check-params';
-import NotFoundError from '../helpers/errors/not-found.error';
-import deleteDecodedKey from '../utils/delete-decoded';
-import { generateBalancedTeam } from '../service/generate-teams';
+import AuthorizationError from '../helpers/errors/unauthorized.error.js';
+import checkParams from '../utils/check-params.js';
+import NotFoundError from '../helpers/errors/not-found.error.js';
+import deleteDecodedKey from '../utils/delete-decoded.js';
+import { generateBalancedTeam } from '../service/generate-teams/index.js';
 /*eslint-disable*/
-import { notifyEventInfosHasBeenUpdated } from '../service/notification/subtype/infos-event';
-import { notifyUserHasBeenInvitedToEvent } from '../service/notification/subtype/user-invited-event';
-import { notifyTransfertOwnership } from '../service/notification/subtype/transfert-ownership';
+import { notifyEventInfosHasBeenUpdated } from '../service/notification/subtype/infos-event.js';
+import { notifyUserHasBeenInvitedToEvent } from '../service/notification/subtype/user-invited-event.js';
+import { notifyTransfertOwnership } from '../service/notification/subtype/transfert-ownership.js';
 /*eslint-enable*/
-import ForbidenError from '../helpers/errors/forbiden';
-import ServerError from '../helpers/errors/server.error';
+import ForbidenError from '../helpers/errors/forbiden.js';
+import ServerError from '../helpers/errors/server.error.js';
 
 export default {
   async createOne(req: Request, res: Response) {

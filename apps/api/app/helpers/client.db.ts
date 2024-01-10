@@ -1,4 +1,4 @@
-import { DB as DatabaseType } from '../@types/database';
+import { DB as DatabaseType } from '../@types/database.js';
 import SQLite from 'better-sqlite3';
 import { Kysely, SqliteDialect } from 'kysely';
 

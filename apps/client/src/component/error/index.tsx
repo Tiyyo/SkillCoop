@@ -12,7 +12,8 @@ function displayErrorMessage(errorValue: string | undefined): string {
   }
   if (
     errorValue.includes('Password') ||
-    errorValue.includes("Can't find any user")
+    errorValue.includes("Can't find any user") ||
+    errorValue.includes('Bad credentials')
   ) {
     return t('badCredentials') + ' !';
   }

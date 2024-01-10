@@ -2,6 +2,7 @@
   "extends": "../../tsconfig.build.json",
   "compilerOptions": {
     "outDir": "./dist",
+    "module": "NodeNext",
     "types": [
       "vitest/globals"
     ],

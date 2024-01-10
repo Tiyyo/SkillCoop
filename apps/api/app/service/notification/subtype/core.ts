@@ -1,5 +1,5 @@
-import { notification as NotificationModel } from '../../../models';
-import { notificationEventManager } from '../notification-event.manager';
+import { notification as NotificationModel } from '../../../models/index.js';
+import { notificationEventManager } from '../notification-event.manager.js';
 import { NotificationParams, NotificationType } from '@skillcoop/types';
 
 export class NotificationObserver {

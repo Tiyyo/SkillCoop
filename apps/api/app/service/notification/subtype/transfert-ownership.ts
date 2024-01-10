@@ -1,13 +1,17 @@
-import { hasActiveNotification } from '../../../utils/has-active-notification';
-import { BuildNotificationMessage } from '../message.builder';
-import { event as EventModel, profile as Profile } from '../../../models/index';
+/*eslint-disable-next-line*/
+import { hasActiveNotification } from '../../../utils/has-active-notification.js';
+import { BuildNotificationMessage } from '../message.builder.js';
+import {
+  event as EventModel,
+  profile as Profile,
+} from '../../../models/index.js';
 import type {
   BuilderTransfertOwnershipMessage,
   NotificationSubtype,
   NotificationType,
 } from '@skillcoop/types';
 import { notificationSubtype, notificationType } from '@skillcoop/types';
-import { NotificationObserver } from './core';
+import { NotificationObserver } from './core.js';
 
 type ConstructorProps = {
   eventId: number;

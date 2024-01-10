@@ -1,5 +1,5 @@
-import ServerError from '../../helpers/errors/server.error';
-import logger from '../../helpers/logger';
+import ServerError from '../../helpers/errors/server.error.js';
+import logger from '../../helpers/logger.js';
 import {
   S3Client,
   PutObjectCommand,
@@ -11,7 +11,8 @@ import {
 } from '@aws-sdk/client-cloudfront';
 import crypto from 'crypto';
 
-import resizeImage from '../../helpers/resize-image';
+import resizeImage from '../../helpers/resize-image.js';
+import { LocalImage } from './upload-local-file.js';
 
 const region = process.env.BUCKET_REGION;
 const bucketName = process.env.BUCKET_NAME;
@@ -44,18 +45,28 @@ const cloudFront = new CloudFrontClient({
   region,
 });
 
+export async function handleOriginImage(file: unknown) {
+  if (file instanceof LocalImage) {
+    const { buffer, originalname, mimetype } = await file.image;
+    return { buffer, originalname, mimetype };
+  }
+  const { buffer, originalname, mimetype } = file as Express.Multer.File;
+  return { buffer, originalname, mimetype };
+}
+
 export async function uploadImageToBucket(
-  file: Express.Multer.File,
+  file: unknown,
   { height, width }: { height: number; width: number },
 ) {
-  const resizeFileBuffer = await resizeImage(file.buffer, height, width);
-  const imageKey = `${randomImageName()}_${file.originalname}_w${width}`;
+  const { buffer, originalname, mimetype } = await handleOriginImage(file);
+  const resizeFileBuffer = await resizeImage(buffer, height, width);
+  const imageKey = `${randomImageName()}_${originalname}_w${width}`;
 
   const params = {
     Bucket: bucketName,
     Key: imageKey,
     Body: resizeFileBuffer,
-    ContentType: file.mimetype,
+    ContentType: mimetype,
   };
 
   const command = new PutObjectCommand(params);

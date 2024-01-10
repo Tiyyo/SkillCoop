@@ -1,4 +1,4 @@
-import { ComputeRating } from '../../compute-rating/compute-data';
+import { ComputeRating } from '../../compute-rating/compute-data.js';
 
 describe('compute user rating', () => {
   it('should return an object with correct property', () => {

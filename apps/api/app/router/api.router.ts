@@ -1,15 +1,15 @@
 import express, { Router } from 'express';
-import profileRouter from './api-router/profile.router';
-import eventRouter from './api-router/event.router';
-import friendlistRouter from './api-router/friendslist.router';
-import profileOnEventRouter from './api-router/profile-on-event.router';
-import skilFootRouter from './api-router/skill-foot.router';
-import userRouter from './api-router/user.router';
-import scoreRouter from './api-router/score.router';
-import mvpRouter from './api-router/mvp.router';
-import bestStrikerRouter from './api-router/best-striker.router';
-import notificationRouter from './api-router/notification.router';
-import userPreferenceRouter from './api-router/user-preference.router';
+import profileRouter from './api-router/profile.router.js';
+import eventRouter from './api-router/event.router.js';
+import friendlistRouter from './api-router/friendslist.router.js';
+import profileOnEventRouter from './api-router/profile-on-event.router.js';
+import skilFootRouter from './api-router/skill-foot.router.js';
+import userRouter from './api-router/user.router.js';
+import scoreRouter from './api-router/score.router.js';
+import mvpRouter from './api-router/mvp.router.js';
+import bestStrikerRouter from './api-router/best-striker.router.js';
+import notificationRouter from './api-router/notification.router.js';
+import userPreferenceRouter from './api-router/user-preference.router.js';
 
 const router: Router = express.Router();
 

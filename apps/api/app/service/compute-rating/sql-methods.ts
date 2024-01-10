@@ -1,5 +1,5 @@
 import { sql } from 'kysely';
-import { db } from '../../helpers/client.db';
+import { db } from '../../helpers/client.db.js';
 import { AvgSkill, Skills } from '@skillcoop/types';
 
 export type UserEvaluationsBonus = {

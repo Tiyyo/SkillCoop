@@ -1,14 +1,14 @@
 import { NextFunction, Request, Response } from 'express';
-import ServerError from '../helpers/errors/server.error';
-import AuthorizationError from '../helpers/errors/unauthorized.error';
-import ValidationError from '../helpers/errors/validation.error';
-import logger from '../helpers/logger';
-import NotFoundError from '../helpers/errors/not-found.error';
-import UserInputError from '../helpers/errors/user-input.error';
-import DatabaseError from '../helpers/errors/database.error';
-import APITypeError from '../helpers/errors/type.error';
-import ForbidenError from '../helpers/errors/forbiden';
-import { handleCommonError } from '../helpers/errors/handle-common-error';
+import ServerError from '../helpers/errors/server.error.js';
+import AuthorizationError from '../helpers/errors/unauthorized.error.js';
+import ValidationError from '../helpers/errors/validation.error.js';
+import logger from '../helpers/logger.js';
+import NotFoundError from '../helpers/errors/not-found.error.js';
+import UserInputError from '../helpers/errors/user-input.error.js';
+import DatabaseError from '../helpers/errors/database.error.js';
+import APITypeError from '../helpers/errors/type.error.js';
+import ForbidenError from '../helpers/errors/forbiden.js';
+import { handleCommonError } from '../helpers/errors/handle-common-error.js';
 
 export const errorHandler = (
   error: unknown,

@@ -1,4 +1,4 @@
-import { getRandomArbitrary } from './index';
+import { getRandomArbitrary } from './index.js';
 
 export type Conditions = {
   random(): boolean;

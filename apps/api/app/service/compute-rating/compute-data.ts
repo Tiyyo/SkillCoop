@@ -1,6 +1,6 @@
 import { AvgSkill, Score, Skills } from '@skillcoop/types';
-import { UserEvaluationsBonus } from './sql-methods';
-import computeGbRating from '../../utils/compute-gb-rating';
+import { UserEvaluationsBonus } from './sql-methods.js';
+import computeGbRating from '../../utils/compute-gb-rating.js';
 
 type ArgsSkillCompute = {
   ownEval: number;

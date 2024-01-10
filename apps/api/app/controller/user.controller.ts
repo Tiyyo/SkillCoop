@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
-import { profile as Profile } from '../models/index';
-import { image as Image } from '../models/index';
-import { user as User } from '../models/index';
+import { profile as Profile } from '../models/index.js';
+import { image as Image } from '../models/index.js';
+import { user as User } from '../models/index.js';
 import bcrypt from 'bcrypt';
-import checkParams from '../utils/check-params';
-import AuthorizationError from '../helpers/errors/unauthorized.error';
-import NotFoundError from '../helpers/errors/not-found.error';
+import checkParams from '../utils/check-params.js';
+import AuthorizationError from '../helpers/errors/unauthorized.error.js';
+import NotFoundError from '../helpers/errors/not-found.error.js';
 
 export default {
   getMe: async (req: Request, res: Response) => {
@@ -30,7 +30,10 @@ export default {
   updatePassword: async (req: Request, res: Response) => {
     const { old_password, new_password, user_id } = req.body;
 
-    const user = await User.findOne({ id: user_id });
+    const email = 'email';
+
+    // const user = await User.findOne({ id: user_id });
+    const user = await User.findOne({ email });
     if (!user) throw new NotFoundError('User not found');
 
     // check if old password match

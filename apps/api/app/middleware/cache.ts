@@ -1,5 +1,5 @@
 // import { NextFunction, Request, Response } from 'express';
-// import logger from '../helpers/logger';
+// import logger from '../helpers/logger.js';
 // import Cache from '../utils/cache';
 
 // // paramsKey should be used with pamameters in the route

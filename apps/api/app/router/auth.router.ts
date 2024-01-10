@@ -1,10 +1,11 @@
 import express, { Router } from 'express';
-import factory from '../middleware/wrapper-controller';
-import authController from '../controller/auth.controller';
-import { validateSchema as validate } from '../middleware/schema-validator';
-import { canals } from '../@types/types';
+import factory from '../middleware/wrapper-controller.js';
+import authController from '../controller/auth.controller.js';
+import { validateSchema as validate } from '../middleware/schema-validator.js';
+import { canals } from '../@types/types.js';
 import { registerSchema, loginSchema, emailSchema } from '@skillcoop/schema';
-import tokenHandler from '../helpers/token.handler';
+import tokenHandler from '../helpers/token.handler.js';
+import { infosDemoAccountProvider } from '../middleware/demo-account.js';
 
 const {
   signin,
@@ -52,6 +53,8 @@ router
   .route('/reset-password')
   .get(verifyResetPasswordToken)
   .post(factory(resetPassword));
+
+router.route('/demo').post(infosDemoAccountProvider, factory(signin));
 
 router.route('/:userId/verify/:token').get(factory(verifyEmail));
 

@@ -19,6 +19,7 @@ import ErrorContainer from '../../component/error';
 import ErrorNotification from '../../component/error/notification';
 import { AtSign, Eye, EyeOff } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import LoginDemoMode from './login-demo';
 
 function Register() {
   const { t } = useTranslation('auth');
@@ -64,6 +65,7 @@ function Register() {
         <h1 className="py-4 text-xl font-bold text-primary-1100 text-center">
           {t('createSkillcoop')}
         </h1>
+        <LoginDemoMode />
         <div
           className="flex flex-col w-[90%] max-w-lg bg-base-light 
           py-7 px-6 rounded-lg"

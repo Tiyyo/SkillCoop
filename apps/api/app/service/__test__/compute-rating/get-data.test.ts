@@ -1,5 +1,5 @@
-import { getData } from '../../compute-rating/get-data';
-import { PlayerStatInsight } from '../../compute-rating/sql-methods';
+import { getData } from '../../compute-rating/get-data.js';
+import { PlayerStatInsight } from '../../compute-rating/sql-methods.js';
 
 describe('get data', () => {
   afterEach(() => {

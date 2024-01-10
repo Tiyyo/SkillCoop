@@ -1,4 +1,4 @@
-import computeGbRating from '../compute-gb-rating';
+import computeGbRating from '../compute-gb-rating.js';
 
 describe('computeGbRating', () => {
   test('should return a number', () => {

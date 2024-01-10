@@ -1,7 +1,7 @@
-import { tableNames } from '../@types/types';
-import { Core } from './core';
-import { db } from '../helpers/client.db';
-import DatabaseError from '../helpers/errors/database.error';
+import { tableNames } from '../@types/types.js';
+import { Core } from './core.js';
+import { db } from '../helpers/client.db.js';
+import DatabaseError from '../helpers/errors/database.error.js';
 import { NotificationType } from '@skillcoop/types';
 import { getFormattedUTCTimestamp } from '@skillcoop/date-handler';
 
@@ -26,6 +26,8 @@ type UpdateNotificationPayload = TransportMethods & {
 export class NotificationPreference extends Core<
   typeof tableNames.notification_preference
 > {
+  declare tableName: typeof tableNames.notification_preference;
+
   constructor(client: typeof db) {
     super(client);
     this.tableName = tableNames.notification_preference;

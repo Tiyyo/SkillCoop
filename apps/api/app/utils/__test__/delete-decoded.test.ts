@@ -1,4 +1,4 @@
-import deleteDecodedKey from '../delete-decoded';
+import deleteDecodedKey from '../delete-decoded.js';
 
 describe('deleteDecodedKey', () => {
   test('should delete the decoded key from the object', () => {

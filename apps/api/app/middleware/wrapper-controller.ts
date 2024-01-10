@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { Controller } from '../@types/types';
+import { Controller } from '../@types/types.js';
 
 export default (controller: Controller) =>
   async (req: Request, res: Response, next: NextFunction) => {

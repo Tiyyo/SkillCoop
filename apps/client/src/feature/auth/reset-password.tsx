@@ -12,11 +12,14 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ResetPassword } from '@skillcoop/types/src';
 import { useTranslation } from 'react-i18next';
+import PasswordStrengthMeter from '../../component/password-strenght-meter';
+import usePasswordMeter from '../../hooks/usePasswordMeter';
 
 function ResetPassword() {
   const { t } = useTranslation('auth');
   const [hasBeenReset, setHasBeenReset] = useState(false);
   const [linkHasExpire, setLinkHasExpire] = useState(false);
+  const { currentPassword, trackPasswordChangeValue } = usePasswordMeter();
   const { mutate: resetPassword, isLoading } = useMutation({
     mutationFn: async (data: ResetPassword) => {
       return resetPasswordFn(data);
@@ -51,6 +54,7 @@ function ResetPassword() {
           className="flex flex-col items-center gap-y-5 p-6 bg-base-light 
             max-w-lg rounded-sm w-3/4"
           onSubmit={handleSubmit(onSubmit)}
+          onChange={trackPasswordChangeValue}
         >
           {linkHasExpire && (
             <div className="flex flex-col items-center">
@@ -86,6 +90,7 @@ function ResetPassword() {
                 register={register}
                 error={errors?.confirmPassword?.message as string}
               />
+              <PasswordStrengthMeter password={currentPassword} />
               <Button
                 textContent={t('resetMyPassword')}
                 type="submit"

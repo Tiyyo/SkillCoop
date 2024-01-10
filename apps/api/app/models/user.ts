@@ -1,12 +1,14 @@
 // import { DBClientType } from '../@types/types.database';
 import { getFormattedUTCTimestamp } from '@skillcoop/date-handler';
-import DatabaseError from '../helpers/errors/database.error';
-import { Core } from './core';
-import { tableNames } from '../@types/types';
-import { db } from '../helpers/client.db';
-import NotFoundError from '../helpers/errors/not-found.error';
+import DatabaseError from '../helpers/errors/database.error.js';
+import { Core } from './core.js';
+import { tableNames } from '../@types/types.js';
+import { db } from '../helpers/client.db.js';
+import NotFoundError from '../helpers/errors/not-found.error.js';
 
 export class User extends Core<typeof tableNames.user> {
+  declare tableName: typeof tableNames.user;
+
   constructor(client: typeof db) {
     super(client);
     this.tableName = tableNames.user;

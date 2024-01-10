@@ -1,19 +1,19 @@
-import DatabaseError from '../../helpers/errors/database.error';
-import ServerError from '../../helpers/errors/server.error';
-import UserInputError from '../../helpers/errors/user-input.error';
-import { user as User } from '../../models/index';
-import { image as Image } from '../../models/index';
-import { profile as Profile } from '../../models/index';
+import DatabaseError from '../../helpers/errors/database.error.js';
+import ServerError from '../../helpers/errors/server.error.js';
+import UserInputError from '../../helpers/errors/user-input.error.js';
+import { user as User } from '../../models/index.js';
+import { image as Image } from '../../models/index.js';
+import { profile as Profile } from '../../models/index.js';
 import bcrypt from 'bcrypt';
-import emailService from '../../utils/send-email';
+import emailService from '../../utils/send-email.js';
 import randomBytes from 'randombytes';
-import tokenHandler from '../../helpers/token.handler';
+import tokenHandler from '../../helpers/token.handler.js';
 import type {
   UserInfosToken,
   GoogleUserInfos,
   User as UserType,
 } from '@skillcoop/types';
-import { UserPreferenceHandler } from '../user-preference';
+import { UserPreferenceHandler } from '../user-preference/index.js';
 
 export default {
   async createUser(data: {

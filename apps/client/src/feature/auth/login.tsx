@@ -19,6 +19,9 @@ import checkIfString from '../../utils/check-string';
 import Button from '../../component/button';
 import dompurify from 'dompurify';
 import { useTranslation } from 'react-i18next';
+import LoginDemoMode from './login-demo';
+import PasswordStrengthMeter from '../../component/password-strenght-meter';
+import usePasswordMeter from '../../hooks/usePasswordMeter';
 
 export type LoginUserData = {
   email: string;
@@ -29,6 +32,7 @@ function Login() {
   const { t } = useTranslation('auth');
   const navigate = useNavigate();
   const location = useLocation();
+  const { currentPassword, trackPasswordChangeValue } = usePasswordMeter();
   const from = location.state?.from?.pathname || '/';
   const {
     mutate: loginUser,
@@ -39,6 +43,7 @@ function Login() {
     onSuccess: () => {
       navigate('/', { replace: true });
     },
+    onError: () => {},
   });
 
   const {
@@ -65,6 +70,7 @@ function Login() {
         <h1 className="py-4 text-xl font-bold text-primary-1100 text-center">
           {t('loginSkillcoop')}
         </h1>
+        <LoginDemoMode />
         <div
           className="flex flex-col w-[90%] 
               max-w-lg bg-base-light py-12 px-6 rounded-lg"
@@ -75,6 +81,7 @@ function Login() {
           <SeparatorLine />
           <form
             onSubmit={handleSubmit(onSubmit)}
+            onChange={trackPasswordChangeValue}
             className="flex flex-col items-center gap-y-5"
           >
             <FormField
@@ -96,6 +103,7 @@ function Login() {
             >
               <Eye size={18} />
             </FormField>
+            <PasswordStrengthMeter password={currentPassword} />
             <Link
               to="/forgot-password"
               className="text-xs text-primary-1100  self-end cursor-pointer

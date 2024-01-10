@@ -59,7 +59,7 @@ function HeroSection() {
       <img
         src="/images/upcoming-page.png"
         alt="incoming page event demo"
-        className="mx-auto "
+        className="mx-auto animate-fade-up opacity-0"
       />
     </div>
   );

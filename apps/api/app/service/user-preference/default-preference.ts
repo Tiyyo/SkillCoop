@@ -1,12 +1,12 @@
 import type { NotificationType as TNotificationTypes } from '@skillcoop/types';
-import { themePreference as ThemePreference } from '../../models/index';
-import { languagePreference as LanguagePreference } from '../../models/index';
+import { themePreference as ThemePreference } from '../../models/index.js';
 /*eslint-disable max-len*/
-import { notificationPreference as NotificationPreference } from '../../models/index';
-import { notificationType as NotificationType } from '../../models/index';
-import ServerError from '../../helpers/errors/server.error';
-import DatabaseError from '../../helpers/errors/database.error';
-import logger from '../../helpers/logger';
+import { languagePreference as LanguagePreference } from '../../models/index.js';
+import { notificationPreference as NotificationPreference } from '../../models/index.js';
+import { notificationType as NotificationType } from '../../models/index.js';
+import ServerError from '../../helpers/errors/server.error.js';
+import DatabaseError from '../../helpers/errors/database.error.js';
+import logger from '../../helpers/logger.js';
 /*eslint-enable max-len*/
 
 export class DefaultUserPreference {

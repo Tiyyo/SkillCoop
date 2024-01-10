@@ -1,17 +1,20 @@
-import DatabaseError from '../helpers/errors/database.error';
+import DatabaseError from '../helpers/errors/database.error.js';
 import { sql } from 'kysely';
-import { Core } from './core';
-import NotFoundError from '../helpers/errors/not-found.error';
+import { Core } from './core.js';
+import NotFoundError from '../helpers/errors/not-found.error.js';
 import { getFormattedUTCTimestamp } from '@skillcoop/date-handler';
-import { DB } from '../@types/database';
-import { db } from '../helpers/client.db';
+import { DB } from '../@types/database.js';
+import { db } from '../helpers/client.db.js';
 /*eslint-disable-next-line */
-import { InsertObjectOrList } from 'kysely/dist/cjs/parser/insert-values-parser';
-import { tableNames } from '../@types/types';
+// import { InsertObjectOrList } from 'kysely/dist/cjs/parser/insert-values-parser';
+import { InsertObjectDB, tableNames } from '../@types/types.js';
+import { InsertObject } from 'kysely';
 
 // TODO define a type for Profile
 
 export class Profile extends Core<typeof tableNames.profile> {
+  declare tableName: typeof tableNames.profile;
+
   constructor(client: typeof db) {
     super(client);
     this.tableName = tableNames.profile;
@@ -38,7 +41,6 @@ export class Profile extends Core<typeof tableNames.profile> {
   //     throw new DatabaseError(error);
   //   }
   // }
-
   async find(id: number) {
     const [profile] = await this.client
       .selectFrom('profile')
@@ -98,15 +100,15 @@ export class Profile extends Core<typeof tableNames.profile> {
   }
   // TODO define a type for data
   // TODO change name of this method
-  async create(data: InsertObjectOrList<DB, typeof tableNames.profile>) {
+  // async create(data: InsertObjectOrList<DB, typeof tableNames.profile>) {
+  async create(data: InsertObjectDB<typeof tableNames.profile>) {
     const todayUTCString = getFormattedUTCTimestamp();
-    //@ts-ignore
     data.created_at = todayUTCString;
 
     try {
       const result = await this.client
         .insertInto('profile')
-        .values(data)
+        .values(data as unknown as InsertObject<DB, typeof tableNames.profile>)
         .returning('id')
         .executeTakeFirst();
 

@@ -1,4 +1,4 @@
-import { PlayerStatInsight, type UserEvaluationsBonus } from './sql-methods';
+import { PlayerStatInsight, type UserEvaluationsBonus } from './sql-methods.js';
 
 export async function getData(
   profileId: number,

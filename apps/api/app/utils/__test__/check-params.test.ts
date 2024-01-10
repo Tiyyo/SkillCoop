@@ -1,4 +1,4 @@
-import checkParams from '../check-params';
+import checkParams from '../check-params.js';
 
 describe('checkParams', () => {
   test('should return an array of numbers', () => {

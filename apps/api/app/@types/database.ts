@@ -11,7 +11,6 @@ export type best_striker_poll = {
   created_at: string;
   updated_at: string | null;
 };
-
 export type event = {
   id: Generated<number>;
   date: string;
@@ -26,7 +25,6 @@ export type event = {
   mvp_id: number | null;
   best_striker_id: number | null;
 };
-
 export type image = {
   id: Generated<number>;
   url: string;

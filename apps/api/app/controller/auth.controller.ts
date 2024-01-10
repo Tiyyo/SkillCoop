@@ -13,6 +13,7 @@ import bcrypt from 'bcrypt';
 import APITypeError from '../helpers/errors/type.error.js';
 import ForbidenError from '../helpers/errors/forbiden.js';
 import { UserInfosToken } from '@skillcoop/types';
+import logger from '../helpers/logger.js';
 
 export default {
   async register(req: Request, res: Response) {
@@ -53,18 +54,23 @@ export default {
     const { email, password } = req.body;
     const MAX_AGE = 1000 * 60 * 60 * 24 * 7; // 7 days
 
-    const { accessToken, refreshToken } = await authService.login({
-      email,
-      password,
-    });
+    try {
+      const { accessToken, refreshToken } = await authService.login({
+        email,
+        password,
+      });
 
-    res.cookie('refreshToken', refreshToken, {
-      httpOnly: true,
-      sameSite: 'none',
-      secure: true,
-      maxAge: MAX_AGE,
-    });
-    res.status(200).json({ accessToken });
+      res.cookie('refreshToken', refreshToken, {
+        httpOnly: true,
+        sameSite: 'none',
+        secure: true,
+        maxAge: MAX_AGE,
+      });
+      res.status(200).json({ accessToken });
+    } catch (error) {
+      logger.error(error)
+      res.status(400).json({ error: 'Bad credentials' });
+    }
   },
   async refresh(req: Request, res: Response) {
     const { decoded } = req.body;

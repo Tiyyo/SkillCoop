@@ -1,5 +1,7 @@
+import { Suspense } from 'react';
 import ReturnBtn from '../component/return';
 import SideMenuDesktop from '../component/side-menu';
+import Spinner from '../component/loading';
 
 function Page({ children }: { children: React.ReactNode }) {
   return (
@@ -8,13 +10,16 @@ function Page({ children }: { children: React.ReactNode }) {
       min-h-screen-mobile lg:min-h-screen"
     >
       <div className="hidden lg:flex h-screen relative">
-        <SideMenuDesktop />
+        <Suspense>
+          <SideMenuDesktop />
+        </Suspense>
         <ReturnBtn />
       </div>
       <main
-        className="relative  lg:h-screen flex-grow flex flex-col w-full  
+        className="relative opacity-0 lg:h-screen flex-grow flex flex-col 
+        w-full  
         overflow-x-hidden overflow-y-scroll bg-grey-off 
-        lg:px-6 2xl:px-40 lg:pb-10"
+        lg:px-6 2xl:px-40 lg:pb-10 animate-opacity-in"
       >
         {children}
       </main>

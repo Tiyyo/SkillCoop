@@ -9,7 +9,7 @@ function SideMenuDesktop() {
   const { t } = useTranslation('system');
   return (
     <aside
-      className="h-full first-letter:hidden lg:flex w-[20%] 
+      className="h-full hidden lg:flex w-[20%] 
          lg:flex-col min-w-[240px]
          bg-dark text-sm text-grey-regular font-medium"
     >

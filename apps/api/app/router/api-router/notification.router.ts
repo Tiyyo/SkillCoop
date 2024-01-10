@@ -1,9 +1,9 @@
 import express, { Router } from 'express';
-import factory from '../../middleware/wrapper-controller';
-import notificationController from '../../controller/notification.controller';
+import factory from '../../middleware/wrapper-controller.js';
+import notificationController from '../../controller/notification.controller.js';
 import { markAsReadNotificationSchema } from '@skillcoop/schema';
-import { validateSchema } from '../../middleware/schema-validator';
-import { canals } from '../../@types/types';
+import { validateSchema } from '../../middleware/schema-validator.js';
+import { canals } from '../../@types/types.js';
 
 const { getNotification, markAsRead } = notificationController;
 

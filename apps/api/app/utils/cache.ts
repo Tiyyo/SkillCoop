@@ -1,7 +1,7 @@
 // // import { Redis } from 'ioredis';
 // import redis from '../helpers/redis.client';
-// import { ObjectRecordGeneric } from '../@types/types';
-// import ServerError from '../helpers/errors/server.error';
+// import { ObjectRecordGeneric } from '../@types/types.js';
+// import ServerError from '../helpers/errors/server.error.js';
 
 // // const redis = new Redis();
 

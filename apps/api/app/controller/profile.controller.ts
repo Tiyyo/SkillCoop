@@ -1,13 +1,13 @@
 import { Request, Response } from 'express';
-import { profile as Profile } from '../models/index';
-import { image as Image } from '../models/index';
+import { profile as Profile } from '../models/index.js';
+import { image as Image } from '../models/index.js';
 import {
   deleteImageFromBucket,
   uploadImageToBucket,
-} from '../service/upload/s3';
-import checkParams from '../utils/check-params';
-import UserInputError from '../helpers/errors/user-input.error';
-import NotFoundError from '../helpers/errors/not-found.error';
+} from '../service/upload/s3.js';
+import checkParams from '../utils/check-params.js';
+import UserInputError from '../helpers/errors/user-input.error.js';
+import NotFoundError from '../helpers/errors/not-found.error.js';
 
 export default {
   async getOne(req: Request, res: Response) {

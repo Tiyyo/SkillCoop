@@ -1,9 +1,9 @@
 import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-import router from './router/main.router';
-import accesHttp from './middleware/acces-http';
-import logger from './helpers/logger';
+import router from './router/main.router.js';
+import accesHttp from './middleware/acces-http.js';
+import logger from './helpers/logger.js';
 
 const app: express.Application = express();
 

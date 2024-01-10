@@ -1,9 +1,9 @@
-import { mockResponse } from './mock-response';
-import authController from '../auth.controller';
+import { mockResponse } from './mock-response.js';
+import authController from '../auth.controller.js';
 import { Request } from 'express';
-import authService from '../../service/auth/auth';
-import emailService from '../../utils/send-email';
-import google from '../../service/auth/google';
+import authService from '../../service/auth/auth.js';
+import emailService from '../../utils/send-email.js';
+import google from '../../service/auth/google.js';
 
 const { register, signin } = authController;
 

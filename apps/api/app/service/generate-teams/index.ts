@@ -1,7 +1,7 @@
 import { Player, TeamGeneratorConfig } from '@skillcoop/types';
-import { profileOnEvent as ProfileOnEvent } from '../../models/index';
-import condition, { Conditions } from './condition';
-import { ConfigGenerateTeams } from '../../models/teams';
+import { profileOnEvent as ProfileOnEvent } from '../../models/index.js';
+import condition, { Conditions } from './condition.js';
+import { ConfigGenerateTeams } from '../../models/teams.js';
 
 export function assignTeam(
   position: number,

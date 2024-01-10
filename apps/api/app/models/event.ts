@@ -1,23 +1,17 @@
-import { Core } from './core';
+import { Core } from './core.js';
 import { InsertObject, sql } from 'kysely';
 import type { EventType } from '@skillcoop/types';
-import DatabaseError from '../helpers/errors/database.error';
+import DatabaseError from '../helpers/errors/database.error.js';
 import { getFormattedUTCTimestamp } from '@skillcoop/date-handler';
-import { DB } from '../@types/database';
-import { db } from '../helpers/client.db';
+import { DB } from '../@types/database.js';
+import { db } from '../helpers/client.db.js';
 /*eslint-disable */
-import { InsertObjectOrList } from 'kysely/dist/cjs/parser/insert-values-parser';
-import { tableNames } from '../@types/types';
+// import { InsertObjectOrList } from 'kysely/dist/cjs/parser/insert-values-parser';
+import { InsertObjectDB, tableNames } from '../@types/types.js';
 /*eslint-enable */
-type OptionalCreatedAt = Partial<{ created_at: string }>;
-type InsertValues<T extends keyof DB> = Omit<
-  InsertObject<DB, T>,
-  'created_at'
-> &
-  OptionalCreatedAt;
 
 export class EventModel extends Core<typeof tableNames.event> {
-  declare tableName;
+  declare tableName: typeof tableNames.event;
 
   constructor(client: typeof db) {
     super(client);
@@ -30,14 +24,14 @@ export class EventModel extends Core<typeof tableNames.event> {
      @description Same methods as createOne but returns 
                   the id of the created event
    */
-  async create(data: InsertValues<typeof this.tableName>) {
+  async create(data: InsertObjectDB<typeof tableNames.event>) {
     const todayUTCString = getFormattedUTCTimestamp();
     data.created_at = todayUTCString;
 
     try {
       const [result] = await this.client
         .insertInto(this.tableName)
-        .values(data as InsertObjectOrList<DB, typeof this.tableName>)
+        .values(data as unknown as InsertObject<DB, 'event'>)
         .returning('id')
         .execute();
 

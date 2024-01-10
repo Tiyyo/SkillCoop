@@ -1,9 +1,9 @@
-import { getMaxIndex, useRigthCondition } from '../../generate-teams';
-import { deleteFromArrayAfterPush } from '../../generate-teams';
-import { getTeamValue } from '../../generate-teams';
-import { getPlayerObject } from '../../generate-teams';
-import { divideInTeam } from '../../generate-teams';
-import { assignTeam } from '../../generate-teams';
+import { getMaxIndex, useRigthCondition } from '../../generate-teams/index.js';
+import { deleteFromArrayAfterPush } from '../../generate-teams/index.js';
+import { getTeamValue } from '../../generate-teams/index.js';
+import { getPlayerObject } from '../../generate-teams/index.js';
+import { divideInTeam } from '../../generate-teams/index.js';
+import { assignTeam } from '../../generate-teams/index.js';
 
 describe('assignTeam', () => {
   test('should return a number', () => {

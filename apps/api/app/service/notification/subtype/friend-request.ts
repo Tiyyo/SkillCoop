@@ -1,6 +1,6 @@
-import { NotificationObserver } from './core';
-import { profile as Profile } from '../../../models/index';
-import { BuildNotificationMessage } from '../message.builder';
+import { NotificationObserver } from './core.js';
+import { profile as Profile } from '../../../models/index.js';
+import { BuildNotificationMessage } from '../message.builder.js';
 import {
   BuilderFriendRequestNotificationMessage,
   NotificationSubtype,

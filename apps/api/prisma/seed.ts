@@ -1,16 +1,16 @@
-import logger from '../app/helpers/logger';
+import logger from '../app/helpers/logger.js';
 import { faker } from '@faker-js/faker';
-import { user as User } from '../app/models/index';
-import { profile as Profile } from '../app/models/index';
-import { image as Image } from '../app/models/index';
-import { event as Event } from '../app/models/index';
-import { status as Status } from '../app/models/index';
-import { profileOnEvent as Participant } from '../app/models/index';
-import { score as Score } from '../app/models/index';
-import { friendslist as Friendlist } from '../app/models/index';
-import { skillFoot as SkillFoot } from '../app/models/index';
-import { notificationType as NotificationType } from '../app/models/index';
-import authService from '../app/service/auth/auth';
+import { user as User } from '../app/models/index.js';
+import { profile as Profile } from '../app/models/index.js';
+import { image as Image } from '../app/models/index.js';
+import { event as Event } from '../app/models/index.js';
+import { status as Status } from '../app/models/index.js';
+import { profileOnEvent as Participant } from '../app/models/index.js';
+import { score as Score } from '../app/models/index.js';
+import { friendslist as Friendlist } from '../app/models/index.js';
+import { skillFoot as SkillFoot } from '../app/models/index.js';
+import { notificationType as NotificationType } from '../app/models/index.js';
+import authService from '../app/service/auth/auth.js';
 import {
   getFormattedUTCTimestamp,
   getUTCString,
@@ -151,7 +151,6 @@ async function seed() {
       username: infos.username,
       first_name: infos.first_name,
       last_name: infos.last_name,
-      active_notification: faker.number.int({ min: 0, max: 1 }),
       created_at: todayUTCString,
     });
 

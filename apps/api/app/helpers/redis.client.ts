@@ -1,6 +1,6 @@
 // import Redis from 'ioredis';
 // import type { RedisOptions, Redis as IRedis } from 'ioredis';
-// import logger from './logger';
+// import logger from './logger.js';
 
 // let redis: IRedis | null = null;
 // const redisConfig: RedisOptions = {

@@ -2,10 +2,10 @@ import { notificationSubtype, notificationType } from '@skillcoop/types';
 import {
   profileOnEvent as Participant,
   event as EventModel,
-} from '../../../models/index';
-import { NotificationObserver } from './core';
-import { hasActiveNotification } from '../../../utils/has-active-notification';
-import { BuildNotificationMessage } from '../message.builder';
+} from '../../../models/index.js';
+import { NotificationObserver } from './core.js';
+import { hasActiveNotification } from '../../../utils/has-active-notification.js';
+import { BuildNotificationMessage } from '../message.builder.js';
 import type {
   BuildTeamsHasBeenGeneratedMessage,
   NotificationSubtype,

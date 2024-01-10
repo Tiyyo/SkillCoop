@@ -1,13 +1,16 @@
-import { event as EventModel, profile as Profile } from '../../../models/index';
-import { NotificationObserver } from './core';
-import { BuildNotificationMessage } from '../message.builder';
+import {
+  event as EventModel,
+  profile as Profile,
+} from '../../../models/index.js';
+import { NotificationObserver } from './core.js';
+import { BuildNotificationMessage } from '../message.builder.js';
 import type {
   BuilderEventInfosNotificationMessage,
   NotificationSubtype,
   NotificationType,
 } from '@skillcoop/types';
 import { notificationSubtype, notificationType } from '@skillcoop/types';
-import NotFoundError from '../../../helpers/errors/not-found.error';
+import NotFoundError from '../../../helpers/errors/not-found.error.js';
 
 export class EventInfosHasBeenUpdated extends NotificationObserver {
   declare subtype: NotificationSubtype;

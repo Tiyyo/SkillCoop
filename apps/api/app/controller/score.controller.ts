@@ -1,7 +1,7 @@
-import { score as Score } from '../models/index';
-import { event as Event } from '../models/index';
+import { score as Score } from '../models/index.js';
+import { event as Event } from '../models/index.js';
 import { Request, Response } from 'express';
-import deleteDecodedKey from '../utils/delete-decoded';
+import deleteDecodedKey from '../utils/delete-decoded.js';
 import { eventStatus } from '@skillcoop/types';
 
 export default {

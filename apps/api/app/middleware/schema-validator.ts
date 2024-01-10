@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { ZodError } from '@skillcoop/schema';
-import ServerError from '../helpers/errors/server.error';
-import ValidationError from '../helpers/errors/validation.error';
+import ServerError from '../helpers/errors/server.error.js';
+import ValidationError from '../helpers/errors/validation.error.js';
 import type { ZodType, ZodTypeDef } from '@skillcoop/schema';
 
 export function validateSchema(

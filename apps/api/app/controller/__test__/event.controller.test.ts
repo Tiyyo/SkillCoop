@@ -1,8 +1,8 @@
-import eventController from '../event.controller';
-import { mockResponse } from './mock-response';
+import eventController from '../event.controller.js';
+import { mockResponse } from './mock-response.js';
 import { Request } from 'express';
-import { event as Event } from '../../models/index';
-import { profileOnEvent as ProfileOnEvent } from '../../models/index';
+import { event as Event } from '../../models/index.js';
+import { profileOnEvent as ProfileOnEvent } from '../../models/index.js';
 
 const {
   createOne,

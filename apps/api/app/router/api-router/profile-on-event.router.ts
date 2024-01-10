@@ -1,9 +1,9 @@
 import express, { Router } from 'express';
-import factory from '../../middleware/wrapper-controller';
+import factory from '../../middleware/wrapper-controller.js';
 /* eslint-disable-next-line */
-import participantController from '../../controller/profile-on-event.controller';
-import { validateSchema } from '../../middleware/schema-validator';
-import { canals } from '../../@types/types';
+import participantController from '../../controller/profile-on-event.controller.js';
+import { validateSchema } from '../../middleware/schema-validator.js';
+import { canals } from '../../@types/types.js';
 import {
   inviteParticipantSchema,
   updateParticipantSchema,

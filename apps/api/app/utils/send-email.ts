@@ -1,5 +1,5 @@
 import nodemailer from 'nodemailer';
-import ServerError from '../helpers/errors/server.error';
+import ServerError from '../helpers/errors/server.error.js';
 import type {
   SendConfirmationEmail,
   SendResetPasswordEmail,

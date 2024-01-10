@@ -1,10 +1,10 @@
 import express, { Router } from 'express';
-import factory from '../../middleware/wrapper-controller';
-import profileController from '../../controller/profile.controller';
-import upload from '../../service/upload/upload';
-import { validateSchema } from '../../middleware/schema-validator';
+import factory from '../../middleware/wrapper-controller.js';
+import profileController from '../../controller/profile.controller.js';
+import upload from '../../service/upload/upload.js';
+import { validateSchema } from '../../middleware/schema-validator.js';
 import { editProfileInfosSchema } from '@skillcoop/schema';
-import { canals } from '../../@types/types';
+import { canals } from '../../@types/types.js';
 
 const { getOne, updateOne, updateImage, searchProfileByUsername } =
   profileController;

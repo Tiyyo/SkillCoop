@@ -1,4 +1,4 @@
-import condition from '../../generate-teams/condition';
+import condition from '../../generate-teams/condition.js';
 const { random, regular, ifZero } = condition;
 
 describe('randomCondition', () => {

@@ -1,16 +1,16 @@
 import express, { Router } from 'express';
-import authRouter from './auth.router';
-import NotFoundError from '../helpers/errors/not-found.error';
-import { errorHandler } from '../middleware/errors.handler';
-import apiRouter from './api.router';
-import tokenHandler from '../helpers/token.handler';
-import factory from '../middleware/wrapper-controller';
-import userController from '../controller/user.controller';
-import logger from '../helpers/logger';
+import authRouter from './auth.router.js';
+import NotFoundError from '../helpers/errors/not-found.error.js';
+import { errorHandler } from '../middleware/errors.handler.js';
+import apiRouter from './api.router.js';
+import tokenHandler from '../helpers/token.handler.js';
+import factory from '../middleware/wrapper-controller.js';
+import userController from '../controller/user.controller.js';
+import logger from '../helpers/logger.js';
 /*eslint-disable */
-import { sseConnectionManager } from '../service/notification/sse-connection.manager';
-import { hasActiveNotification } from '../utils/has-active-notification';
-import { uploadLocalFile } from '../service/upload/upload-local-file';
+import { sseConnectionManager } from '../service/notification/sse-connection.manager.js';
+import { hasActiveNotification } from '../utils/has-active-notification.js';
+import { uploadLocalFile } from '../service/upload/upload-local-file.js';
 /*eslint-enable */
 
 const { getMe } = userController;
@@ -18,7 +18,7 @@ const router: Router = express.Router();
 
 router.route('/test').get(async (_req, res) => {
   const notification = await hasActiveNotification([1, 2, 3, 4, 5, 6, 7, 8, 9]);
-  await uploadLocalFile();
+  await uploadLocalFile('saka.jpg');
   res.status(200).json({ message: notification });
 });
 

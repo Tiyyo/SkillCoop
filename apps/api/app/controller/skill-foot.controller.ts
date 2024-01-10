@@ -1,10 +1,10 @@
-import { skillFoot as SkillFoot } from '../models/index';
+import { skillFoot as SkillFoot } from '../models/index.js';
 import { Request, Response } from 'express';
-import associateStringToNumber from '../utils/associate-string-number';
-import UserInputError from '../helpers/errors/user-input.error';
-import checkParams from '../utils/check-params';
-import computeGbRating from '../utils/compute-gb-rating';
-import computeRatingUser from '../service/compute-rating';
+import associateStringToNumber from '../utils/associate-string-number.js';
+import UserInputError from '../helpers/errors/user-input.error.js';
+import checkParams from '../utils/check-params.js';
+import computeGbRating from '../utils/compute-gb-rating.js';
+import computeRatingUser from '../service/compute-rating/index.js';
 
 export default {
   async createOwnRating(req: Request, res: Response) {

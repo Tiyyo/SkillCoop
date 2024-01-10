@@ -1,17 +1,17 @@
 import { Request, Response } from 'express';
-import authService from '../service/auth/auth';
-import google from '../service/auth/google';
-import { user as User } from '../models/index';
-import ServerError from '../helpers/errors/server.error';
-import emailService from '../utils/send-email';
-import checkParams from '../utils/check-params';
-import NotFoundError from '../helpers/errors/not-found.error';
-import tokenHandler from '../helpers/token.handler';
-import AuthorizationError from '../helpers/errors/unauthorized.error';
-import { CLIENT_URL } from '../utils/variables';
+import authService from '../service/auth/auth.js';
+import google from '../service/auth/google.js';
+import { user as User } from '../models/index.js';
+import ServerError from '../helpers/errors/server.error.js';
+import emailService from '../utils/send-email.js';
+import checkParams from '../utils/check-params.js';
+import NotFoundError from '../helpers/errors/not-found.error.js';
+import tokenHandler from '../helpers/token.handler.js';
+import AuthorizationError from '../helpers/errors/unauthorized.error.js';
+import { CLIENT_URL } from '../utils/variables.js';
 import bcrypt from 'bcrypt';
-import APITypeError from '../helpers/errors/type.error';
-import ForbidenError from '../helpers/errors/forbiden';
+import APITypeError from '../helpers/errors/type.error.js';
+import ForbidenError from '../helpers/errors/forbiden.js';
 import { UserInfosToken } from '@skillcoop/types';
 
 export default {
@@ -68,6 +68,7 @@ export default {
   },
   async refresh(req: Request, res: Response) {
     const { decoded } = req.body;
+    // const user = await User.findOne({ id: decoded.user_id });
     const user = await User.findOne({ id: decoded.user_id });
     if (!user) {
       res.clearCookie('refreshToken', { sameSite: 'none', secure: true });

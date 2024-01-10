@@ -1,15 +1,16 @@
 import { getFormattedUTCTimestamp } from '@skillcoop/date-handler';
-import DatabaseError from '../helpers/errors/database.error';
-import UserInputError from '../helpers/errors/user-input.error';
-import { Core } from './core';
-import { DB } from '../@types/database';
-import { db } from '../helpers/client.db';
-import NotFoundError from '../helpers/errors/not-found.error';
+import DatabaseError from '../helpers/errors/database.error.js';
+import UserInputError from '../helpers/errors/user-input.error.js';
+import { Core } from './core.js';
+import { DB } from '../@types/database.js';
+import { db } from '../helpers/client.db.js';
+import NotFoundError from '../helpers/errors/not-found.error.js';
 import { InsertObject, ReferenceExpression } from 'kysely';
-import { ExtractTableAlias } from 'kysely/dist/cjs/parser/table-parser';
-import { tableNames } from '../@types/types';
+import { InsertObjectDB, tableNames } from '../@types/types.js';
 
 export class ProfileOnEvent extends Core<typeof tableNames.profile_on_event> {
+  declare tableName: typeof tableNames.profile_on_event;
+
   constructor(client: typeof db) {
     super(client);
     this.tableName = tableNames.profile_on_event;
@@ -52,10 +53,10 @@ export class ProfileOnEvent extends Core<typeof tableNames.profile_on_event> {
       }
     }
   }
-  async find(findObject: Partial<InsertObject<DB, typeof this.tableName>>) {
+  async find(findObject: Partial<InsertObjectDB<typeof this.tableName>>) {
     const keys = Object.keys(findObject) as ReferenceExpression<
       DB,
-      ExtractTableAlias<DB, typeof this.tableName>
+      'profile_on_event'
     >[];
     const values = Object.values(findObject);
     try {

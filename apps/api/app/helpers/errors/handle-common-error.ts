@@ -1,4 +1,4 @@
-import logger from '../logger';
+import logger from '../logger.js';
 import { Response } from 'express';
 
 type CustomError = Error & {

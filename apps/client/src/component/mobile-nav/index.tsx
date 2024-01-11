@@ -17,10 +17,10 @@ function MobileNav({
     <div
       className={`absolute z-20 bg-base-light shadow-sm rounded-b-xl  ${
         menuIsOpen ? 'h-fit' : 'h-0'
-      } w-full transition-all duration-300`}
+      } w-full transition-all duration-300 `}
     >
       <ul
-        className={`pt-14 px-2 transition-opacity duration-500 ${
+        className={`pt-14 px-2  transition-opacity duration-500 ${
           menuIsOpen ? 'opacity-100' : 'opacity-0 -translate-y-96'
         }`}
       >

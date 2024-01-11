@@ -5,6 +5,7 @@ import { useResumeEvents } from '../../../hooks/useResumeEvents';
 import SubHeader from '../../../component/header/sub-header';
 import ErrorFallback from '../../../component/error-fallback';
 import { useTranslation } from 'react-i18next';
+import { Suspense } from 'react';
 
 function ResumeEvents() {
   const { t } = useTranslation('title');
@@ -17,7 +18,7 @@ function ResumeEvents() {
   if (isError) return <ErrorFallback />;
 
   return (
-    <>
+    <Suspense fallback={<div></div>}>
       <SubHeader
         title={t('events')}
         isPlusExist={true}
@@ -45,7 +46,7 @@ function ResumeEvents() {
           />
         </>
       )}
-    </>
+    </Suspense>
   );
 }
 

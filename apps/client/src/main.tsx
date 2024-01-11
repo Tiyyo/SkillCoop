@@ -47,18 +47,19 @@ import NotificationsSettings from './feature/settings/notifications';
 import LanguageSettings from './feature/settings/language';
 import ApparenceSettings from './feature/settings/apparence';
 import LoadingPage from './component/loading-page/index';
+import VerifyEmailSuccess from './feature/auth/verify-email-success';
 /*eslint-enable*/
 
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      // refetchOnWindowFocus: false,
-      // refetchOnMount: false,
-      // refetchOnReconnect: false,
-      // retry: 1,
-      // staleTime: 0,
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+      refetchOnReconnect: false,
+      retry: 1,
+      staleTime: 0,
       // turn off caching for dev mode
-      // cacheTime: 0,
+      cacheTime: 0,
     },
   },
 });
@@ -86,6 +87,7 @@ const router = createBrowserRouter([
   },
   { path: '/forgot-password', element: <ForgotPassword /> },
   { path: '/reset-password', element: <ResetPasswordMiddleware /> },
+  { path: '/verify-email/success', element: <VerifyEmailSuccess /> },
   {
     path: '/auth/google',
     loader: async ({ request }) => {

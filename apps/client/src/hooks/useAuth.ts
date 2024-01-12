@@ -57,7 +57,9 @@ function useAuth() {
 
   if (loading && isAuthenticated && isFristConnection) {
     if (responseGetProfile === 'Unecessary call') return;
-    navigate(`/onboarding/${responseGetProfile?.userProfile.profile_id}`);
+    return navigate(
+      `/onboarding/${responseGetProfile?.userProfile.profile_id}`,
+    );
   }
 
   if (loading && isAuthenticated && isFristConnection === false) {
@@ -75,7 +77,7 @@ function useAuth() {
         return oldData;
       }
     });
-    navigate('/');
+    return navigate('/');
   }
 
   useEffect(() => {

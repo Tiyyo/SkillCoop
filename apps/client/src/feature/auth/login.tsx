@@ -29,7 +29,7 @@ function Login() {
   const { t } = useTranslation('auth');
   const location = useLocation();
   const from = location.state?.from?.pathname || '/';
-  const { loginFn, error, loading } = useAuth();
+  const { loginFn, error, loading } = useAuth()!;
   const {
     register,
     handleSubmit,

@@ -5,13 +5,9 @@ import TitleH2 from '../../component/title-h2';
 import { Calendar, MapPin, User2 } from 'lucide-react';
 import { cn } from '../../lib/utils';
 import { useOnboarding } from '../../store/onboarding.store';
-import { useParams } from 'react-router-dom';
-import { useApp } from '../../store/app.store';
 import { queryClient } from '../../main';
 
 function OnBoardingCreateProfile() {
-  const { profileId } = useParams();
-  const { setProfile } = useApp();
   const {
     setInputValue,
     username,

@@ -22,7 +22,7 @@ function OnBoardingEvaluateSkill() {
   const { profileId } = useParams();
   const { t } = useTranslation('skill');
 
-  const { autoEvaluate, hasBeenEvaluated } = useUserProfileEval({
+  const { autoEvaluate } = useUserProfileEval({
     profileId: Number(profileId),
     onSuccess: () => {
       toast.success(t('event:evaluationSuccess'));

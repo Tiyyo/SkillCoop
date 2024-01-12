@@ -5,6 +5,7 @@ import upload from '../../service/upload/upload.js';
 import { validateSchema } from '../../middleware/schema-validator.js';
 import { editProfileInfosSchema } from '@skillcoop/schema';
 import { canals } from '../../@types/types.js';
+import { sanitizeParams } from '../../middleware/sanitizer.params.js';
 
 const { getOne, updateOne, updateImage, searchProfileByUsername } =
   profileController;
@@ -23,6 +24,6 @@ router.route('/avatar').patch(upload.single('avatar'), factory(updateImage));
 // query routes
 router.route('/search').get(factory(searchProfileByUsername));
 
-router.route('/:profileId').get(factory(getOne));
+router.route('/:profileId').get(sanitizeParams, factory(getOne));
 
 export default router;

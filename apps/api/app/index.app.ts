@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser';
 import router from './router/main.router.js';
 import accesHttp from './middleware/acces-http.js';
 import logger from './helpers/logger.js';
+import { sanitizer } from './middleware/sanitizer.js';
 
 const app: express.Application = express();
 
@@ -11,7 +12,7 @@ app.use(accesHttp);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-
+app.use(sanitizer);
 app.use(
   cors({
     credentials: true,

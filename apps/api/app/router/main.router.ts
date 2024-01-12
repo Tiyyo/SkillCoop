@@ -16,10 +16,8 @@ import { uploadLocalFile } from '../service/upload/upload-local-file.js';
 const { getMe } = userController;
 const router: Router = express.Router();
 
-router.route('/test').get(async (_req, res) => {
-  const notification = await hasActiveNotification([1, 2, 3, 4, 5, 6, 7, 8, 9]);
-  await uploadLocalFile('saka.jpg');
-  res.status(200).json({ message: notification });
+router.route('/test/:id/:profile/:ghy/:inae').post(async (req, res) => {
+  res.status(200).json({ test: req.body });
 });
 
 // this route need to be outsite of the apiRouter

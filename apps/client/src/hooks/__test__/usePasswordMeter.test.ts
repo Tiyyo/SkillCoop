@@ -7,6 +7,5 @@ describe('usePasswordMeter', () => {
     const { result } = renderHook(() => usePasswordMeter());
     expect(result.current).toHaveProperty('currentPassword');
     expect(result.current).toHaveProperty('trackPasswordChangeValue');
-    console.log(result.current);
   });
 });

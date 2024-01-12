@@ -37,7 +37,7 @@ function AvatarEdit({
     profileId: profileId,
     onSuccess: (response: any) => {
       setProfileAvatar(response.link);
-      console.log(response.link);
+
       if (updateState) {
         updateState(response.link);
       }

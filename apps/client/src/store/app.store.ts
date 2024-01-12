@@ -41,7 +41,6 @@ export const useApp = () => {
 
   useEffect(() => {
     if (data === 'Unecessary call') return;
-    console.log('data', data, detectFirstAccess(data));
     setIsFirstConnection(detectFirstAccess(data));
     if (isSuccess && data) {
       setProfile(data.userProfile);

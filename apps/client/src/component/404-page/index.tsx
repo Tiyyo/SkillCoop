@@ -22,7 +22,7 @@ function Page404() {
           <p className="mt-4 mb-8 Animation">{t('youCanFindPlentyOfThings')}</p>
           <Link
             className="px-8 py-3 font-semibold cursor-pointer text-primary-900"
-            to="/"
+            to="/home"
           >
             {t('backToHomepage')}
           </Link>

@@ -47,23 +47,33 @@ import NotificationsSettings from './feature/settings/notifications';
 import LanguageSettings from './feature/settings/language';
 import ApparenceSettings from './feature/settings/apparence';
 import LoadingPage from './component/loading-page/index';
+import VerifyEmailSuccess from './feature/auth/verify-email-success';
+import OnBoarding from './feature/onboarding';
+import AccessControlGateway from './component/redirection/acces-gateway';
+import OnBoardingCreateProfile from './feature/onboarding/create-profile';
+import OnBoardinAddImageProfile from './feature/onboarding/add-image-profile';
+import OnBoardingEvaluateSkill from './feature/onboarding/evaluate-skill';
+import GoToHome from './component/redirection/go-to-home';
 /*eslint-enable*/
 
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      // refetchOnWindowFocus: false,
-      // refetchOnMount: false,
-      // refetchOnReconnect: false,
-      // retry: 1,
-      // staleTime: 0,
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+      refetchOnReconnect: false,
+      retry: 1,
+      staleTime: 0,
       // turn off caching for dev mode
-      // cacheTime: 0,
+      cacheTime: 0,
     },
   },
 });
 
 const router = createBrowserRouter([
+  // provisional redirect to home, should be remove when all navigate('/')
+  // will be replace by navigate('/home')
+  { path: '/', element: <GoToHome /> },
   {
     path: '/login',
     element: (
@@ -86,6 +96,7 @@ const router = createBrowserRouter([
   },
   { path: '/forgot-password', element: <ForgotPassword /> },
   { path: '/reset-password', element: <ResetPasswordMiddleware /> },
+  { path: '/verify-email/success', element: <VerifyEmailSuccess /> },
   {
     path: '/auth/google',
     loader: async ({ request }) => {
@@ -99,23 +110,38 @@ const router = createBrowserRouter([
     element: <TermsAndService />,
   },
   {
-    path: '/',
+    path: '/onboarding/:profileId',
+    element: <OnBoarding />,
+    children: [
+      { index: true, element: <OnBoardingCreateProfile /> },
+      { path: 'add-image', element: <OnBoardinAddImageProfile /> },
+      { path: 'evaluation', element: <OnBoardingEvaluateSkill /> },
+    ],
+  },
+  {
+    path: '/home',
     element: (
-      <Protected>
-        <HomePageEvent />
-      </Protected>
+      <AccessControlGateway>
+        <Protected>
+          <HomePageEvent />
+        </Protected>
+      </AccessControlGateway>
     ),
     children: [
       {
         index: true,
-        element: <ResumeEvents />,
+        element: (
+          <Suspense fallback={<></>}>
+            <ResumeEvents />
+          </Suspense>
+        ),
       },
       {
-        path: '/new-event',
+        path: '/home/new-event',
         element: <CreateEvent />,
       },
       {
-        path: '/new-event/invitation',
+        path: '/home/new-event/invitation',
         element: (
           <Suspense fallback="coucou">
             <InvitationFromCreateEventPage />
@@ -123,27 +149,27 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: '/event/:eventId/invitation',
+        path: '/home/event/:eventId/invitation',
         element: <InvitationFromEventPage />,
       },
       {
-        path: '/events/incoming',
+        path: '/home/events/incoming',
         element: <IncomingEvents />,
       },
       {
-        path: '/events/past',
+        path: '/home/events/past',
         element: <PastEvents />,
       },
       {
-        path: '/my-event',
+        path: '/home/my-event',
         element: <MyEvents />,
       },
       {
-        path: '/event/:eventId/ownership',
+        path: '/home/event/:eventId/ownership',
         element: <ControlAccessOwnership />,
       },
       {
-        path: '/event/:eventId',
+        path: '/home/event/:eventId',
         element: (
           <ControlAccesEventPage>
             <EventPage />
@@ -161,12 +187,12 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: '/event/:eventId/votes',
+        path: '/home/event/:eventId/votes',
         element: <EndOfGameAwards />,
       },
       { path: '*', element: <Page404 /> },
       {
-        path: '/contact',
+        path: '/home/contact',
         children: [
           { index: true, element: <ConfirmedFriends /> },
           {
@@ -185,11 +211,15 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: '/user',
+        path: '/home/user',
         children: [
           {
             path: 'profile',
-            element: <ProfileInfos />,
+            element: (
+              <Suspense>
+                <ProfileInfos />
+              </Suspense>
+            ),
           },
           {
             path: 'skills',
@@ -213,7 +243,7 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: '/notification',
+        path: '/home/notification',
         element: (
           <Suspense fallback="coucou">
             <NotificationContainer />,

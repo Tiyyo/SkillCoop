@@ -5,6 +5,7 @@ import { useResumeEvents } from '../../../hooks/useResumeEvents';
 import SubHeader from '../../../component/header/sub-header';
 import ErrorFallback from '../../../component/error-fallback';
 import { useTranslation } from 'react-i18next';
+import { Suspense } from 'react';
 
 function ResumeEvents() {
   const { t } = useTranslation('title');
@@ -17,11 +18,11 @@ function ResumeEvents() {
   if (isError) return <ErrorFallback />;
 
   return (
-    <>
+    <Suspense fallback={<div></div>}>
       <SubHeader
         title={t('events')}
         isPlusExist={true}
-        linkFromPlus="/new-event"
+        linkFromPlus="/home/new-event"
         textButton={t('addNewEvent')}
         legend={t('eventsLegend')}
       />
@@ -32,7 +33,7 @@ function ResumeEvents() {
           <EventList
             events={events.incoming}
             title={t('upcoming')}
-            linkTo="/events/incoming"
+            linkTo="/home/events/incoming"
             nbEventToDisplay={2}
             noHeader
           />
@@ -40,12 +41,12 @@ function ResumeEvents() {
             events={events.past}
             title={t('past')}
             legendHeader={t('pastLegend')}
-            linkTo="/events/past"
+            linkTo="/home/events/past"
             nbEventToDisplay={2}
           />
         </>
       )}
-    </>
+    </Suspense>
   );
 }
 

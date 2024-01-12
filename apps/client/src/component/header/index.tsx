@@ -7,11 +7,14 @@ import Avatar from '../avatar';
 import { useApp } from '../../store/app.store';
 import NotificationTrigger from './notification-trigger';
 import WelcomeMessage from './welcome-message';
+import { startTransition } from 'react';
 
 function Header() {
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
   const getOpenStateMobileMenu = (state: boolean) => {
-    setMenuIsOpen(state);
+    startTransition(() => {
+      setMenuIsOpen(state);
+    });
   };
   const { userProfile } = useApp();
 
@@ -27,7 +30,7 @@ function Header() {
       <MobileNav menuIsOpen={menuIsOpen} setClose={setMenuIsOpen} />
       <WelcomeMessage
         username={userProfile?.username}
-        className="hidden md:flex flex-col justify-center"
+        className="hidden md:flex flex-grow pl-10 flex-col justify-center"
       />
       <div className="flex items-center gap-x-4">
         <NotificationTrigger profileId={userProfile?.profile_id} />

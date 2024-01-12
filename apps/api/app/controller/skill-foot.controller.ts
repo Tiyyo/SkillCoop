@@ -25,7 +25,6 @@ export default {
       rater_id: profile_id,
       reviewee_id: profile_id,
     });
-
     if (userEval) throw new UserInputError("User can't rate himself twice");
 
     const skill = await SkillFoot.createOne(data);

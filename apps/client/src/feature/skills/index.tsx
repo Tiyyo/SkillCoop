@@ -14,19 +14,13 @@ import reward from '../../assets/svg/reward.svg';
 import { sumValues } from '../../utils/sum-values';
 import associateNumberToString from '../../utils/associate-number-stringscale';
 import { useTranslation } from 'react-i18next';
+import { ALL_SKILLS } from '../../constant/skill-constant';
+import { LEVEL_SCALE } from '../../constant/skill-constant';
 
 function UserResumeSkills() {
   const { t } = useTranslation('skill');
   const idComp = useId();
   const { userProfile } = useApp();
-  const ALL_SKILLS = ['defending', 'dribbling', 'passing', 'shooting', 'pace'];
-  const LEVEL_SCALE = [
-    'beginner',
-    'novice',
-    'intermediate',
-    'advanced',
-    'expert',
-  ];
 
   const {
     hasBeenEvaluated,

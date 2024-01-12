@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useGetAllEvents } from './useMultipleEvents';
 import type { EventType } from '@skillcoop/types/src';
+import { startTransition } from 'react';
 
+// TODO : Much more simple and maintainable to do 2 separate queries
+// and cache them to reuse them in other components
 export function useResumeEvents({ profileId }: { profileId?: number }) {
   const [events, setEvents] = useState<{
     incoming: EventType[] | null;
@@ -23,18 +26,20 @@ export function useResumeEvents({ profileId }: { profileId?: number }) {
 
   useEffect(() => {
     if (!allEvents) return;
-    setEvents((prev) => {
-      return {
-        ...prev,
-        incoming: allEvents
-          ?.filter((event) => today < new Date(event.date))
-          .sort(
-            (eventA, eventB) =>
-              Number(new Date(eventA.date).getTime()) -
-              Number(new Date(eventB.date).getTime()),
-          ),
-        past: allEvents?.filter((event) => today > new Date(event.date)),
-      };
+    startTransition(() => {
+      setEvents((prev) => {
+        return {
+          ...prev,
+          incoming: allEvents
+            ?.filter((event) => today < new Date(event.date))
+            .sort(
+              (eventA, eventB) =>
+                Number(new Date(eventA.date).getTime()) -
+                Number(new Date(eventB.date).getTime()),
+            ),
+          past: allEvents?.filter((event) => today > new Date(event.date)),
+        };
+      });
     });
   }, [allEvents, loading]);
   return { events, loading, isError };

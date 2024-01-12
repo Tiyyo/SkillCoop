@@ -165,7 +165,7 @@ export default {
     if (!verifiedUser)
       throw new ServerError("Couldn't verify user", 'verifyEmail', ' 144');
 
-    res.status(300).redirect(`${CLIENT_URL}/login`);
+    res.status(300).redirect(`${CLIENT_URL}/verify-email/success`);
   },
   async resendEmail(req: Request, res: Response) {
     const { email } = req.body;

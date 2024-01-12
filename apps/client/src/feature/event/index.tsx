@@ -1,12 +1,15 @@
 import Page from '../../layout/page';
 import { Outlet } from 'react-router-dom';
 import Header from '../../component/header';
+import { Suspense } from 'react';
 
 function HomePageEvent() {
   return (
     <Page>
-      <Header />
-      <Outlet />
+      <Suspense fallback={<></>}>
+        <Header />
+        <Outlet />
+      </Suspense>
     </Page>
   );
 }

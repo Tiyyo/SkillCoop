@@ -17,38 +17,46 @@ function MobileNav({
     <div
       className={`absolute z-20 bg-base-light shadow-sm rounded-b-xl  ${
         menuIsOpen ? 'h-fit' : 'h-0'
-      } w-full transition-all duration-300`}
+      } w-full transition-all duration-300 `}
     >
       <ul
-        className={`pt-14 px-2 transition-opacity duration-500 ${
+        className={`pt-14 px-2  transition-opacity duration-500 ${
           menuIsOpen ? 'opacity-100' : 'opacity-0 -translate-y-96'
         }`}
       >
-        <NavMobileLink to="/" value={t('home')} setClose={setClose}>
+        <NavMobileLink to="/home" value={t('home')} setClose={setClose}>
           <Home size={20} />
         </NavMobileLink>
         <NavMobileLink
-          to="/user/profile"
+          to="/home/user/profile"
           value={t('profile')}
           setClose={setClose}
         >
           <Profile />
         </NavMobileLink>
-        <NavMobileLink to="/contact" value={t('friends')} setClose={setClose}>
+        <NavMobileLink
+          to="/home/contact"
+          value={t('friends')}
+          setClose={setClose}
+        >
           <Friends />
         </NavMobileLink>
-        <NavMobileLink to="/my-event" value={t('myEvents')} setClose={setClose}>
+        <NavMobileLink
+          to="/home/my-event"
+          value={t('myEvents')}
+          setClose={setClose}
+        >
           <Calendar />
         </NavMobileLink>
         <NavMobileLink
-          to="/events/incoming"
+          to="/home/events/incoming"
           value={t('upcomingEvents')}
           setClose={setClose}
         >
           <CalendarClock size={20} />
         </NavMobileLink>
         <NavMobileLink
-          to="/events/past"
+          to="/home/events/past"
           value={t('pastEvents')}
           setClose={setClose}
         >

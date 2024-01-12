@@ -5,11 +5,10 @@ function HeaderLandingPage() {
   const { t } = useTranslation();
   return (
     <header className="h-20 py-5 px-4 flex justify-between items-center">
-      <div>
-        <p className="font-semibold text-sm md:text-md lg:text-2xl text-dark">
-          Skill<span className="text-primary-100">coop</span>
-        </p>
-      </div>
+      <p className="font-semibold text-sm md:text-md lg:text-2xl text-dark">
+        Skill<span className="text-primary-100">coop</span>
+      </p>
+
       <div className="text-sm flex items-center gap-x-2">
         <Link to="/login" className="text-grey-sub-text">
           {t('login')}

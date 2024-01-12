@@ -7,7 +7,7 @@ function ErrorFallback() {
     <div className="flex flex-grow flex-col justify-center items-center gap-4">
       <p className="text-md text-primary-1100">{t('unexpectedError')}</p>
       <Link
-        to="/"
+        to="/home"
         className="text-xs cursor-pointer text-primary-1000 
       hover:text-primary-700 duration-200"
       >

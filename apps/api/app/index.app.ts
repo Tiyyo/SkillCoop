@@ -23,6 +23,7 @@ app.use(
   }),
 );
 logger.info(`environment: ${process.env.NODE_ENV}`);
+
 app.use(router);
 
 export default app;

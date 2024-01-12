@@ -1,12 +1,18 @@
 import { useRef, useState } from 'react';
-import { useApp } from '../../store/app.store';
 import toast from '../../utils/toast';
 import { useUpdateAvatar } from '../../hooks/useProfile';
 import { useTranslation } from 'react-i18next';
 
-function AvatarEdit({ avatar }: { avatar: string | null }) {
+function AvatarEdit({
+  avatar,
+  profileId,
+  updateState,
+}: {
+  avatar: string | null;
+  profileId?: number;
+  updateState?: (...args: any) => void;
+}) {
   const { t } = useTranslation('system');
-  const { userProfile } = useApp();
   const [profileAvatar, setProfileAvatar] = useState<string | null>(avatar);
   const imageInputRef = useRef<HTMLInputElement>(null);
 
@@ -27,9 +33,13 @@ function AvatarEdit({ avatar }: { avatar: string | null }) {
   };
 
   const { mutate: uploadImage } = useUpdateAvatar({
-    profileId: userProfile?.profile_id,
+    profileId: profileId,
     onSuccess: (response: any) => {
       setProfileAvatar(response.link);
+      console.log(response.link);
+      if (updateState) {
+        updateState(response.link);
+      }
     },
     onError: () => {
       toast.error(t('toast:errorUpdateAvatar'));
@@ -39,7 +49,7 @@ function AvatarEdit({ avatar }: { avatar: string | null }) {
   const handleChangeImageFile = async (
     e: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    if (!userProfile?.profile_id || !e.target.files) return;
+    if (!profileId || !e.target.files) return;
     if (
       !VALID_FILES_TYPES.find((type) => {
         if (!e.target.files) return;
@@ -53,7 +63,7 @@ function AvatarEdit({ avatar }: { avatar: string | null }) {
       return;
     } else {
       const formData = new FormData();
-      formData.append('profile_id', userProfile?.profile_id.toString());
+      formData.append('profile_id', profileId.toString());
       formData.append('avatar', e.target.files[0]);
       uploadImage(formData);
     }

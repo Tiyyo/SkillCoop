@@ -2,31 +2,32 @@ import { useState, type ComponentPropsWithoutRef } from 'react';
 import { cn } from '../../lib/utils';
 
 interface InputProps extends ComponentPropsWithoutRef<'input'> {
-  type: string;
+  type?: string;
   label?: string;
-  updateState?: (args: any) => void;
+  updateState?: (...args: any) => void;
   children?: React.ReactNode;
   error?: boolean;
   disabled?: boolean;
   className?: string;
   high?: boolean;
+  activeStep?: boolean;
 }
 
 function Input({
   name,
   label,
   placeholder,
-  type,
+  type = 'text',
   updateState,
   children,
   error,
   disabled,
   className,
+  activeStep,
   high,
   ...props
 }: InputProps) {
   const [hasError, setHasError] = useState<boolean | undefined>(error);
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setHasError(false);
     if (updateState) {
@@ -56,7 +57,7 @@ function Input({
             id={name}
             onChange={handleChange}
             onFocus={(e) => (e.target.type = type)}
-            step={3600}
+            step={activeStep ? 3600 : 1}
             disabled={disabled}
             {...props}
             className={cn(

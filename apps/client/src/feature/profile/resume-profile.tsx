@@ -6,6 +6,7 @@ import ResumeEmailInfos from './resume-email';
 import EditModalPassword from './modal-edit-password';
 import { Edit2, Lock } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useApp } from '../../store/app.store';
 
 export type Infos = {
   username: string | null;
@@ -21,6 +22,7 @@ export type Infos = {
 function ResumeProfile({ infos }: { infos: Infos }) {
   const { t } = useTranslation('system');
   const [isEditing, setIsEditing] = useState(false);
+  const { userProfile } = useApp();
 
   const getEditState = (state: boolean) => {
     setIsEditing(!state);
@@ -35,7 +37,10 @@ function ResumeProfile({ infos }: { infos: Infos }) {
              pl-6 -top-12 bg-base"
       >
         <div className="relative py-4 flex items-center gap-x-5 ">
-          <AvatarEdit avatar={infos.avatar} />
+          <AvatarEdit
+            avatar={infos.avatar}
+            profileId={userProfile?.profile_id}
+          />
           <TriggerEditBtn
             className="absolute top-3 right-3"
             getCurrentState={getEditState}

@@ -27,9 +27,7 @@ function Input({
   high,
   ...props
 }: InputProps) {
-  const [hasError, setHasError] = useState<boolean | undefined>(error);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setHasError(false);
     if (updateState) {
       updateState(e.target.value);
       return;
@@ -39,9 +37,7 @@ function Input({
   return (
     <>
       <div className="w-full flex gap-x-2.5 items-center py-4">
-        <div
-          className={`basis-7 ${hasError ? 'text-error' : 'text-primary-100'}`}
-        >
+        <div className={`basis-7 ${error ? 'text-error' : 'text-primary-100'}`}>
           {children}
         </div>
         <div className="flex flex-col gap-y-1 flex-grow">
@@ -66,7 +62,7 @@ function Input({
               h-7 pl-2 placeholder:font-medium 
             placeholder:text-dark`,
               disabled && 'border-none',
-              hasError && 'ring-2 ring-error',
+              error && 'ring-2 ring-error',
               high ? 'h-10' : 'h-7',
               className,
             )}

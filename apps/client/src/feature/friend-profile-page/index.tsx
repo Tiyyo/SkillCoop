@@ -42,7 +42,7 @@ function FriendProfile() {
              pl-6 -top-12 z-10"
           >
             <div className="flex items-center gap-x-5">
-              <AvatarRectangle avatar={profile?.avatar_url} />
+              <AvatarRectangle avatar={profile?.avatar_url ?? null} />
 
               <FriendStatsDesktop
                 nbAttendedEvent={profile?.nb_attended_events}

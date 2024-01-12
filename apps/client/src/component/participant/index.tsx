@@ -121,7 +121,9 @@ function Participant({
               <span>
                 {isBestStriker && <img src={soccerBall} className="h-4" />}
               </span>
-              <span>{isMvp && <img src={star} className="h-4" />}</span>
+              <span className="flex items-center relative -top-[2px]">
+                {isMvp && <img src={star} className="h-4" />}{' '}
+              </span>
             </p>
           </legend>
         </div>

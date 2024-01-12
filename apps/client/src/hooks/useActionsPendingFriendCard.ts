@@ -20,7 +20,7 @@ export function useActionsPendingFriendCard({
   adderId,
 }: useActionsPendingFriendCardProps) {
   //store
-  const { t } = useTranslation();
+  const { t } = useTranslation('toast');
   const { removePendingFriend, addConfirmedFriend } = useFriends();
   const { mutate: respondToInvitation } = useFriendInvitationActions({
     onSuccess: (response: {

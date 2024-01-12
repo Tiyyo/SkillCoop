@@ -1,5 +1,4 @@
 import { cn } from '../../lib/utils';
-import defaultAvatar from '../../../public/images/default-avatar.png';
 import ImageWithFallback from '../image';
 
 type AvatarWithBorderProps = {

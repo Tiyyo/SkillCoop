@@ -3,7 +3,7 @@ import type { InvitationStatus, Notification } from '@skillcoop/types/src';
 import { invitationStatus } from '@skillcoop/types/src';
 import CoreNotification from '../core';
 import { useTranslation } from 'react-i18next';
-/*eslint-disable-next-line*/
+
 import { getCurrentLngInLocalStorage } from '../../../utils/get-current-lng';
 
 function EventInvitationNotification({

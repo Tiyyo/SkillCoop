@@ -33,7 +33,7 @@ function TeamGeneratedNotification({
       message={buildMessage()}
     >
       <Link
-        to={`/home/event/${notification.event_id}`}
+        to={`/event/${notification.event_id}`}
         className="self-end flex items-center gap-x-0.5 text-xxs font-semibold 
       text-primary-1000 
         underline underline-offset-4 pr-4"

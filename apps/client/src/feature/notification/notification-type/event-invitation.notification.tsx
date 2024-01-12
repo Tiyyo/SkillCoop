@@ -4,12 +4,15 @@ import { invitationStatus } from '@skillcoop/types/src';
 import CoreNotification from '../core';
 import { useTranslation } from 'react-i18next';
 
+import { getCurrentLngInLocalStorage } from '../../../utils/get-current-lng';
+
 function EventInvitationNotification({
   notification,
 }: {
   notification: Notification;
 }) {
   const { t } = useTranslation('notification');
+  const currentLng = getCurrentLngInLocalStorage();
   const { mutate: updateParticipantStatus } = useUpdateParticipant({
     eventId: notification.event_id,
     onSuccess: () => {
@@ -36,6 +39,19 @@ function EventInvitationNotification({
   const usernameRegex = /by\s(.*?)\s+to/;
   const username = originalMessage.match(usernameRegex)?.[1];
 
+  const translateDate = (englishDate: string) => {
+    const splitWord = 'at';
+    const date = englishDate.split(splitWord)[0];
+    const time = englishDate.split(splitWord);
+    const eventDate = new Date(date);
+    const localDate = eventDate.toLocaleString(`${currentLng}-US`, {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+    return `${localDate} ${t('event:at')} ${time}`;
+  };
+
   const buildMessage = () => {
     if (username) {
       const restOfMessage = originalMessage.split(username)[1];
@@ -47,7 +63,7 @@ function EventInvitationNotification({
           {t('youHaveBeenInvitedBy')}{' '}
           <span className="font-medium text-dark">{username} </span>
           {t('toTheEvent')}{' '}
-          <span className="font-medium text-dark">{date}</span>
+          <span className="font-medium text-dark">{translateDate(date)}</span>
         </>
       );
     }

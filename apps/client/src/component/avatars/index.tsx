@@ -1,4 +1,5 @@
 import type { EventParticipant } from '@skillcoop/types/src';
+import ImageWithFallback from '../image';
 
 type AvatarsProps = {
   participants: EventParticipant[];
@@ -27,17 +28,13 @@ function Avatars({
           })
           .slice(0, nbAvatarToDisplay)
           .map((participant) => (
-            <img
+            <ImageWithFallback
               key={participant.profile_id}
+              url={participant.avatar}
+              alt="Participant avatar"
               className="w-7 md:w-9 lg:w-10
-              aspect-square border-2 lg:border-3 border-base-light 
-              overflow-hidden rounded-full"
-              src={
-                participant.avatar
-                  ? participant.avatar
-                  : '/images/default-avatar.png'
-              }
-              alt="avatar participant"
+               aspect-square border-2 lg:border-3 border-base-light
+               overflow-hidden rounded-full"
             />
           ))}
         {plus && plus > 0 ? (

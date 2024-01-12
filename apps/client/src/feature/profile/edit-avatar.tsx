@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import toast from '../../utils/toast';
 import { useUpdateAvatar } from '../../hooks/useProfile';
 import { useTranslation } from 'react-i18next';
+import ImageWithFallback from '../../component/image';
 
 function AvatarEdit({
   avatar,
@@ -76,9 +77,9 @@ function AvatarEdit({
         h-24 w-24  border-primary-200 border-4 shadow rounded-lg cursor-pointer"
     >
       <label htmlFor="image" onClick={handleClickImage}>
-        <img
-          src={profileAvatar ?? '/images/default-avatar.png'}
-          alt="avatar"
+        <ImageWithFallback
+          url={profileAvatar}
+          alt="profile avatar"
           className="object-cover h-full w-full"
         />
       </label>

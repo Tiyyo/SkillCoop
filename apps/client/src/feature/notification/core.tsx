@@ -2,6 +2,7 @@ import capitalize from '../../utils/capitalize';
 import { useMarkNotificationAsRead } from '../../hooks/useNotification';
 import { useNotifications } from '../../store/notification.store';
 import { useTranslation } from 'react-i18next';
+import ImageWithFallback from '../../component/image';
 
 type CoreNotificationProps = {
   id: number;
@@ -21,8 +22,8 @@ type ImageNotificationProps = {
 function ImageNotification({ image, username }: ImageNotificationProps) {
   if (image) {
     return (
-      <img
-        src={image}
+      <ImageWithFallback
+        url={image}
         alt="avatar"
         className="h-8 aspect-square rounded-full border-2 border-primary-300"
       />

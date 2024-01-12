@@ -1,5 +1,5 @@
 import { cn } from '../../lib/utils';
-import defaultAvatar from '../../../public/images/default-avatar.png';
+import ImageWithFallback from '../image';
 
 type AvatarWithBorderProps = {
   avatar?: string | null;
@@ -16,9 +16,9 @@ function AvatarWithBorder({
 }: AvatarWithBorderProps) {
   return (
     <div className="relative bg-primary-900 rounded-full z-10 w-20 h-20">
-      <img
-        src={avatar ?? defaultAvatar}
-        alt="avatar"
+      <ImageWithFallback
+        url={avatar ?? null}
+        alt="profile avatar"
         className={cn(
           `w-18.5 aspect-square rounded-full border-base-light border-4 absolute
                top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`,

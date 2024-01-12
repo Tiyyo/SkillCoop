@@ -29,7 +29,10 @@ function Login() {
   const { t } = useTranslation('auth');
   const location = useLocation();
   const from = location.state?.from?.pathname || '/';
-  const { loginFn, error, loading } = useAuth()!;
+  const authProp = useAuth();
+  const loading = authProp?.loading;
+  const loginFn = authProp?.loginFn;
+  const error = authProp?.error;
   const {
     register,
     handleSubmit,
@@ -41,6 +44,7 @@ function Login() {
   // TODO : build a function who sanitize and
   // infer the type of the data
   const onSubmit = (data: LoginUserData) => {
+    if (!loginFn) return;
     const sanitizeData = {
       email: dompurify.sanitize(data.email) as string,
       password: dompurify.sanitize(data.password) as string,

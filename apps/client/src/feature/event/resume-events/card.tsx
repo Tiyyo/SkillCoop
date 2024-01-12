@@ -124,7 +124,7 @@ function EventCard({
           )}
         </div>
         <Link
-          to={`/home/event/${eventId}`}
+          to={`/event/${eventId}`}
           state={{ eventId }}
           className="flex items-end flex-row-reverse flex-grow 
           text-xxs text-dark lg:text-sm hover:text-primary-100 

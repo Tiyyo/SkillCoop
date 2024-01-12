@@ -18,6 +18,7 @@ import { participantSkillSchema } from '@skillcoop/schema/src';
 import type { EvaluationParticipantSkill } from '@skillcoop/types/src';
 import { cn } from '../../../lib/utils';
 import { useTranslation } from 'react-i18next';
+import ImageWithFallback from '../../../component/image/index';
 
 // Shitty component, need to be refactored or rewrite
 function ModalRouteRatingEvent() {
@@ -139,13 +140,9 @@ function ModalRouteRatingEvent() {
           {!hasLoaded ? (
             <>
               <div className="flex gap-6 items-center">
-                <img
-                  src={
-                    participantProfile?.avatar_url
-                      ? participantProfile?.avatar_url
-                      : '/images/default-avatar.png'
-                  }
-                  alt="avatar"
+                <ImageWithFallback
+                  url={participantProfile?.avatar_url ?? null}
+                  alt="profile avatar"
                   className={cn('w-16 h-16 rounded-full')}
                 />
                 <p>{capitalize(participantProfile?.username)}</p>

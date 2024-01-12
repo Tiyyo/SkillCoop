@@ -37,7 +37,7 @@ function VerifyEmail() {
           className="text-sm flex items-center gap-6 w-full justify-end 
           font-semibold text-primary-1100 py-3 px-4"
         >
-          <Link to="/">
+          <Link to="/home">
             <p className="hover:text-primary-600 cursor-pointer">
               {capitalize(t('home'))}
             </p>

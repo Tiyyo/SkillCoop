@@ -63,7 +63,7 @@ function FriendCard({
   if (status === 'declined') return null;
   return (
     <Link
-      to={activeLinkProfile ? `/contact/profile/${friendId}` : ''}
+      to={activeLinkProfile ? `/home/contact/profile/${friendId}` : ''}
       className="basis-52"
     >
       <div

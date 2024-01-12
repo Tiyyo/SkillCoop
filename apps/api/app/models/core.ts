@@ -58,7 +58,7 @@ export class Core<Table extends keyof DB> {
       return result;
     } catch (error) {
       if (error instanceof NotFoundError) {
-        throw error;
+        return undefined;
       }
       if (error instanceof Error) {
         throw new DatabaseError(error);

@@ -22,7 +22,7 @@ function ResumeEvents() {
       <SubHeader
         title={t('events')}
         isPlusExist={true}
-        linkFromPlus="/new-event"
+        linkFromPlus="/home/new-event"
         textButton={t('addNewEvent')}
         legend={t('eventsLegend')}
       />
@@ -33,7 +33,7 @@ function ResumeEvents() {
           <EventList
             events={events.incoming}
             title={t('upcoming')}
-            linkTo="/events/incoming"
+            linkTo="/home/events/incoming"
             nbEventToDisplay={2}
             noHeader
           />
@@ -41,7 +41,7 @@ function ResumeEvents() {
             events={events.past}
             title={t('past')}
             legendHeader={t('pastLegend')}
-            linkTo="/events/past"
+            linkTo="/home/events/past"
             nbEventToDisplay={2}
           />
         </>

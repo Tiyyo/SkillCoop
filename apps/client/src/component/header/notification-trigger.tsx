@@ -46,7 +46,7 @@ function NotificationTrigger({ profileId }: { profileId?: number }) {
         aspect-square rounded-full bg-primary-210 text-primary-100"
     >
       <Link
-        to="/notification"
+        to="/home/notification"
         className="relative flex justify-center items-center"
       >
         <img

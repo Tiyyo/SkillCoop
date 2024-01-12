@@ -2,7 +2,15 @@ import { useEffect, useState } from 'react';
 import { useAutoEvaluateSkill, useGetProfileEval } from './useProfile';
 import type { Skills } from '@skillcoop/types/src';
 
-export function useUserProfileEval({ profileId }: { profileId?: number }) {
+export function useUserProfileEval({
+  profileId,
+  onSuccess,
+  onError,
+}: {
+  profileId?: number;
+  onSuccess?: () => void;
+  onError?: () => void;
+}) {
   const [hasBeenEvaluated, setHasBeenEvaluated] = useState<boolean>(false);
   const [skills, setSkills] = useState<Skills | null>(null);
   const {
@@ -13,7 +21,7 @@ export function useUserProfileEval({ profileId }: { profileId?: number }) {
     profileId,
   });
   const { mutate: autoEvaluate, isLoading: isMutationLoad } =
-    useAutoEvaluateSkill({ profileId });
+    useAutoEvaluateSkill({ profileId, onSuccess, onError });
   const loading = isLoading || isFetching || isMutationLoad;
 
   useEffect(() => {

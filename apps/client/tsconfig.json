@@ -9,7 +9,7 @@
       "DOM.Iterable"
     ],
     "types": [
-      "vitest/global"
+      "vitest/globals"
     ],
     "skipLibCheck": true,
     "esModuleInterop": true,

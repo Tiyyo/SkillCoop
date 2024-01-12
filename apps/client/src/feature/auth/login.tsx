@@ -1,11 +1,9 @@
-import { useMutation } from '@tanstack/react-query';
-import { loginUserFn } from '../../api/api.fn';
 // Workaround : Import directly ts files instead
 import { loginSchema } from '@skillcoop/schema/src';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import getGoogleUrl from '../../utils/get-google-url';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import SocialButton from '../../component/social-link';
 import Google from '../../assets/icon/Google';
 import Page from '../../layout/page';
@@ -20,6 +18,7 @@ import Button from '../../component/button';
 import dompurify from 'dompurify';
 import { useTranslation } from 'react-i18next';
 import LoginDemoMode from './login-demo';
+import useAuth from '../../hooks/useAuth';
 
 export type LoginUserData = {
   email: string;
@@ -28,21 +27,9 @@ export type LoginUserData = {
 
 function Login() {
   const { t } = useTranslation('auth');
-  const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || '/';
-  const {
-    mutate: loginUser,
-    isLoading: loading,
-    error,
-  } = useMutation({
-    mutationFn: async (userData: LoginUserData) => loginUserFn(userData),
-    onSuccess: () => {
-      navigate('/', { replace: true });
-    },
-    onError: () => {},
-  });
-
+  const { loginFn, error, loading } = useAuth();
   const {
     register,
     handleSubmit,
@@ -58,7 +45,7 @@ function Login() {
       email: dompurify.sanitize(data.email) as string,
       password: dompurify.sanitize(data.password) as string,
     };
-    loginUser(sanitizeData);
+    loginFn(sanitizeData);
   };
 
   return (
@@ -112,9 +99,7 @@ function Login() {
               isLoading={loading}
               type="submit"
             />
-            <ErrorContainer
-              errorValue={(error as any)?.response?.data.error} //eslint-disable-line
-            />
+            <ErrorContainer errorValue={error} />
           </form>
         </div>
         <p className="text-xs py-2">

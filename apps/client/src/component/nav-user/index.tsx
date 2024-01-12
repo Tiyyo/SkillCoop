@@ -23,19 +23,19 @@ function NavUser({ children }: { children: JSX.Element }) {
       <DropdownMenu>
         <DropdownMenuTrigger>{children}</DropdownMenuTrigger>
         <DropdownMenuContent className="bg-base-light mx-2">
-          <NavLink to="/user/profile">
+          <NavLink to="/home/user/profile">
             <DropdownMenuItem className={menuItemStyle}>
               <User size={16} />
               <span>{t('profile')}</span>
             </DropdownMenuItem>
           </NavLink>
-          <NavLink to="/user/skills">
+          <NavLink to="/home/user/skills">
             <DropdownMenuItem className={menuItemStyle}>
               <Trophy size={16} />
               <span>{t('skills')}</span>
             </DropdownMenuItem>
           </NavLink>
-          <NavLink to="/user/settings">
+          <NavLink to="/home/user/settings">
             <DropdownMenuItem className={menuItemStyle}>
               <Settings size={16} />
               <span>{t('settings')}</span>

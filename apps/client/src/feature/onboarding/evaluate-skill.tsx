@@ -44,7 +44,7 @@ function OnBoardingEvaluateSkill() {
         date_of_birth,
         location,
       });
-      navigate('/home');
+      navigate('/');
     },
   });
 

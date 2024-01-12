@@ -24,39 +24,31 @@ function MobileNav({
           menuIsOpen ? 'opacity-100' : 'opacity-0 -translate-y-96'
         }`}
       >
-        <NavMobileLink to="/home" value={t('home')} setClose={setClose}>
+        <NavMobileLink to="" value={t('home')} setClose={setClose}>
           <Home size={20} />
         </NavMobileLink>
         <NavMobileLink
-          to="/home/user/profile"
+          to="/user/profile"
           value={t('profile')}
           setClose={setClose}
         >
           <Profile />
         </NavMobileLink>
-        <NavMobileLink
-          to="/home/contact"
-          value={t('friends')}
-          setClose={setClose}
-        >
+        <NavMobileLink to="/contact" value={t('friends')} setClose={setClose}>
           <Friends />
         </NavMobileLink>
-        <NavMobileLink
-          to="/home/my-event"
-          value={t('myEvents')}
-          setClose={setClose}
-        >
+        <NavMobileLink to="/my-event" value={t('myEvents')} setClose={setClose}>
           <Calendar />
         </NavMobileLink>
         <NavMobileLink
-          to="/home/events/incoming"
+          to="/events/incoming"
           value={t('upcomingEvents')}
           setClose={setClose}
         >
           <CalendarClock size={20} />
         </NavMobileLink>
         <NavMobileLink
-          to="/home/events/past"
+          to="/events/past"
           value={t('pastEvents')}
           setClose={setClose}
         >

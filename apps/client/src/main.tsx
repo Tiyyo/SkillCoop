@@ -53,7 +53,6 @@ import AccessControlGateway from './component/redirection/acces-gateway';
 import OnBoardingCreateProfile from './feature/onboarding/create-profile';
 import OnBoardinAddImageProfile from './feature/onboarding/add-image-profile';
 import OnBoardingEvaluateSkill from './feature/onboarding/evaluate-skill';
-import GoToHome from './component/redirection/go-to-home';
 /*eslint-enable*/
 
 export const queryClient = new QueryClient({
@@ -71,9 +70,6 @@ export const queryClient = new QueryClient({
 });
 
 const router = createBrowserRouter([
-  // provisional redirect to home, should be remove when all navigate('/')
-  // will be replace by navigate('/home')
-  { path: '/', element: <GoToHome /> },
   {
     path: '/login',
     element: (
@@ -119,7 +115,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: '/home',
+    path: '',
     element: (
       <AccessControlGateway>
         <Protected>
@@ -137,11 +133,11 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: '/home/new-event',
+        path: '/new-event',
         element: <CreateEvent />,
       },
       {
-        path: '/home/new-event/invitation',
+        path: '/new-event/invitation',
         element: (
           <Suspense fallback="coucou">
             <InvitationFromCreateEventPage />
@@ -149,27 +145,27 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: '/home/event/:eventId/invitation',
+        path: '/event/:eventId/invitation',
         element: <InvitationFromEventPage />,
       },
       {
-        path: '/home/events/incoming',
+        path: '/events/incoming',
         element: <IncomingEvents />,
       },
       {
-        path: '/home/events/past',
+        path: '/events/past',
         element: <PastEvents />,
       },
       {
-        path: '/home/my-event',
+        path: '/my-event',
         element: <MyEvents />,
       },
       {
-        path: '/home/event/:eventId/ownership',
+        path: '/event/:eventId/ownership',
         element: <ControlAccessOwnership />,
       },
       {
-        path: '/home/event/:eventId',
+        path: '/event/:eventId',
         element: (
           <ControlAccesEventPage>
             <EventPage />
@@ -187,12 +183,12 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: '/home/event/:eventId/votes',
+        path: '/event/:eventId/votes',
         element: <EndOfGameAwards />,
       },
       { path: '*', element: <Page404 /> },
       {
-        path: '/home/contact',
+        path: '/contact',
         children: [
           { index: true, element: <ConfirmedFriends /> },
           {
@@ -211,7 +207,7 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: '/home/user',
+        path: '/user',
         children: [
           {
             path: 'profile',
@@ -243,7 +239,7 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: '/home/notification',
+        path: '/notification',
         element: (
           <Suspense fallback="coucou">
             <NotificationContainer />,

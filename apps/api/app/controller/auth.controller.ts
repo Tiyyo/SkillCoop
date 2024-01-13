@@ -55,18 +55,30 @@ export default {
     const MAX_AGE = 1000 * 60 * 60 * 24 * 7; // 7 days
 
     try {
-      const { accessToken, refreshToken } = await authService.login({
+      const loginTrack = await authService.login({
         email,
         password,
       });
-
-      res.cookie('refreshToken', refreshToken, {
-        httpOnly: true,
-        sameSite: 'none',
-        secure: true,
-        maxAge: MAX_AGE,
-      });
-      res.status(200).json({ accessToken });
+      if (!loginTrack.success) {
+        return res.status(loginTrack.status).json({
+          error: loginTrack.error,
+          blocked: loginTrack.blocked,
+          failedAttemps: loginTrack.failedAttempts,
+        });
+      }
+      if (
+        loginTrack.success &&
+        loginTrack.accessToken &&
+        loginTrack.refreshToken
+      ) {
+        res.cookie('refreshToken', loginTrack.refreshToken, {
+          httpOnly: true,
+          sameSite: 'none',
+          secure: true,
+          maxAge: MAX_AGE,
+        });
+        res.status(200).json({ accessToken: loginTrack.accessToken });
+      }
     } catch (error) {
       logger.error(error);
       res.status(400).json({ error: 'Bad credentials' });
@@ -290,14 +302,16 @@ export default {
         token,
         process.env.JWT_EMAIL_TOKEN_KEY as string,
       );
+
       if (!infos || !infos.user_id)
         return res.status(200).json({ message: 'expire' });
 
       if (infos && infos.user_id) {
         await User.updateOne(
           { id: +infos.user_id },
-          { password: hashedPassword },
+          { password: hashedPassword, blocked: 0, failed_attempts: 0 },
         );
+
         res.status(200).json({ message: 'success' });
       }
     } catch (error) {

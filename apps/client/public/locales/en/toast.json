@@ -20,5 +20,8 @@
   "invitationSent": "Invitation(s) sent",
   "invitationSentTo": "Invitation sent to {{username}}",
   "thisEmailIsNotAssociated": "This email is not associated with an account",
-  "thisIsNotAValidEmail": "This is not a valid email"
+  "thisIsNotAValidEmail": "This is not a valid email",
+  "yourAccountHasBeenBlocked": "Your account has been blocked. However, you can still reset your password to regain access to your account.",
+  "yourAccountHasNotBeenVerified": "Your account has not been verified yet. We have sent a new link to your email for account validation.",
+  "youHaveOnlyXLeft": "You have only {{count}} left before you account is blocked."
 }

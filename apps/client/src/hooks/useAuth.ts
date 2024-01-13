@@ -13,12 +13,12 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { loginUserFn } from "../api/auth.fn";
-import { LoginUserData } from "../feature/auth/login";
 import { getMeFn } from "../api/profile.fn";
 import { useApp } from "../store/app.store";
 import { useNavigate } from "react-router-dom";
 import { queryClient } from "../main";
 import { detectFirstAccess } from "../utils/is-first-connection";
+import { Credentials } from "packages/types/src";
 
 /*eslint-enable*/
 function useAuth() {
@@ -26,7 +26,8 @@ function useAuth() {
   const [loading, setLoading] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const { isFristConnection, setIsFirstConnection } = useApp();
-
+  const [loginError, setLoginError] = useState('');
+  const [loginAttemps, setLoginAttemps] = useState(undefined);
   // This query cant have the same key as the other getMe query
   // since is that this query trigger the authentication of user automatically
   // and we dont want this behavior for this one
@@ -39,8 +40,13 @@ function useAuth() {
   );
 
   const { mutate: mutateLoginFn, error: errorLogin } = useMutation({
-    mutationFn: async (credentials: LoginUserData) => loginUserFn(credentials),
-    onSuccess: () => {
+    mutationFn: async (credentials: Credentials) => loginUserFn(credentials),
+    onSuccess: (response) => {
+      if (response.error) {
+        setLoginError(response.error);
+        setLoginAttemps(response.failedAttemps);
+        setLoading(false);
+      }
       // trigger the query to get the user profile data
       setIsAuthenticated(true);
     },
@@ -50,7 +56,7 @@ function useAuth() {
   });
 
   // Login function to be called from the login page
-  const loginFn = (credentials: LoginUserData) => {
+  const loginFn = (credentials: Credentials) => {
     setLoading(true);
     mutateLoginFn(credentials);
   };
@@ -84,7 +90,13 @@ function useAuth() {
     setIsFirstConnection(detectFirstAccess(responseGetProfile));
   }, [responseGetProfile]);
 
-  return { loginFn, loading, error: (errorLogin as any)?.response.data.error };
+  return {
+    loginFn,
+    loading,
+    error: (errorLogin as any)?.response.data.error,
+    loginError,
+    loginAttemps,
+  };
 }
 
 export default useAuth;

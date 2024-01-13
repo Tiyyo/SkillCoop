@@ -29,10 +29,15 @@ function Login() {
   const { t } = useTranslation('auth');
   const location = useLocation();
   const from = location.state?.from?.pathname || '/';
+
+  /* This is awful"*/
   const authProp = useAuth();
   const loading = authProp?.loading;
   const loginFn = authProp?.loginFn;
   const error = authProp?.error;
+  const loginError = authProp?.loginError;
+  const loginAttempts = authProp?.loginAttemps;
+
   const {
     register,
     handleSubmit,
@@ -103,7 +108,10 @@ function Login() {
               isLoading={loading}
               type="submit"
             />
-            <ErrorContainer errorValue={error} />
+            <ErrorContainer
+              errorValue={error || loginError}
+              attempsCount={loginAttempts}
+            />
           </form>
         </div>
         <p className="text-xs py-2">

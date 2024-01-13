@@ -146,6 +146,8 @@ export type user = {
   email: string;
   password: string;
   verified: Generated<number>;
+  blocked: Generated<number>;
+  failed_attempts: Generated<number>;
   created_at: string;
   updated_at: string | null;
 };

@@ -2,6 +2,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { ColumnType } from 'kysely';
 import { DB } from './database.js';
+import { User } from "@skillcoop/types"
 // Need to add the name of each table added to the database in TablesNames
 
 export type Controller = (req: Request, res: Response, next?: NextFunction) => any | Promise<any>; // eslint-disable-line
@@ -133,3 +134,15 @@ export type ReturnTableType<T extends TableNames> = ReplaceGeneratedByNumber<
 >;
 
 export type DeleteObjectDB<T extends TableNames> = Partial<TableType<T>>;
+
+
+export type LoginAttemptReturn = {
+  blocked?: boolean;
+  verified?: boolean;
+  failedAttempts?: number;
+  error?: string;
+  status: number;
+  success: boolean;
+  accessToken?: string;
+  refreshToken?: string;
+};

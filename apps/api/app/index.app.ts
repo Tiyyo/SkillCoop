@@ -16,15 +16,9 @@ app.use(sanitizer);
 app.use(
   cors({
     credentials: true,
-    origin: [
-      'http://localhost:5004',
-      ' http://13.36.166.35:5004',
-      process.env.CLIENT_PROD_URL as string,
-    ],
+    origin: ['http://localhost:5004', process.env.CLIENT_PROD_URL as string],
   }),
 );
 logger.info(`environment: ${process.env.NODE_ENV}`);
-
 app.use(router);
-
 export default app;

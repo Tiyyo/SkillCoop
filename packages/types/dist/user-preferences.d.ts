@@ -3,12 +3,12 @@ export type Theme = 'light' | 'dark';
 export type LanguageSymbol = 'en' | 'es' | 'fr';
 export declare const languageNameToSymbol: {
     readonly english: "en";
-    readonly spannish: "es";
+    readonly spanish: "es";
     readonly french: "fr";
 };
 export declare const languageSymbolToName: {
     readonly en: "english";
-    readonly es: "spannish";
+    readonly es: "spanish";
     readonly fr: "french";
 };
 export declare const themeAssertion: {

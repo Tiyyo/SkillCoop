@@ -1,6 +1,5 @@
-import { User as TUser } from 'packages/types/dist/user.js';
+import { Credentials, User as TUser } from '@skillcoop/types';
 import bcrypt from 'bcrypt';
-import { Credentials } from '../../@types/types.js';
 import { FailedAttempsHandler } from './failed-attemps-handler.js';
 
 export class LoginAttemptTracker {

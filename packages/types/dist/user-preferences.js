@@ -3,12 +3,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.themeAssertion = exports.languageSymbolToName = exports.languageNameToSymbol = void 0;
 exports.languageNameToSymbol = {
     english: 'en',
-    spannish: 'es',
+    spanish: 'es',
     french: 'fr',
 };
 exports.languageSymbolToName = {
     en: 'english',
-    es: 'spannish',
+    es: 'spanish',
     fr: 'french',
 };
 exports.themeAssertion = {

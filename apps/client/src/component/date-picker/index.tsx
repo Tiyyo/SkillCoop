@@ -1,12 +1,7 @@
-import { useState } from 'react';
-import Datepicker from 'tailwind-datepicker-react';
-import { ArrowLeft, ArrowRight, Calendar } from 'lucide-react';
-import {
-  getDefaultDatePicker,
-  todayLocalInputFormat,
-} from '@skillcoop/date-handler/src';
-import { useTranslation } from 'react-i18next';
+import { Calendar } from 'lucide-react';
+import { getDefaultDatePicker } from '@skillcoop/date-handler/src';
 import { getCurrentLngInLocalStorage } from '../../utils/get-current-lng';
+import DatePicker from './date-picker';
 
 type InputDateProps = {
   updateState?: (e: any) => void;
@@ -26,50 +21,8 @@ function InputDate({
   defaultValue,
   error,
   disabled,
-  high,
 }: InputDateProps) {
-  const { t } = useTranslation('event');
-  const today = new Date();
   const currentLng = getCurrentLngInLocalStorage();
-  const options = {
-    title: t('selectDate'),
-    autoHide: true,
-    todayBtn: true,
-    clearBtn: true,
-    minDate: new Date(todayLocalInputFormat()),
-    theme: {
-      background: 'bg-base-light dark:bg-base-light',
-      todayBtn: `bg-primary-100 hover:bg-primary-500 duration-300 
-      hover:text-dark dark:bg-primary-100`,
-      clearBtn: `bg-base dark:bg-base dark:text-primary-1100 border 
-      dark:border-primary-500 border-primary-500`,
-      icons: `bg-base-light dark:bg-base-light dark:text-primary-1100 
-      border-primary-400 dark:border-primary-400`,
-      text: `text-primary-1100 dark:text-primary-1000 
-      hover:bg-primary-500 dark:hover:bg-primary-500`,
-      input: `w-full font-semibold text-sm bg-base-light dark:bg-base-light 
-      dark:text-primary-1100 text-primary-1100 
-      ${high ? 'h-10' : 'h-7'} 
-      ${error && 'ring-2 ring-error'}`,
-      inputIcon: `${
-        error ? 'text-error' : 'text-primary-600'
-      } dark:text-primary-600`,
-      selected: `bg-primary-800 dark:bg-primary-800 text-primary-100 
-        hover:bg-primary-100 dark:hover:bg-primary-100`,
-      disabledText: `text-gray-300 dark:text-gray-300 
-      hover:bg-primary-200 dark:hover:bg-primary-200`,
-    },
-    icons: {
-      prev: () => (
-        <ArrowLeft size={14} className="bg-base-light dark:bg-base-light" />
-      ),
-      next: () => <ArrowRight size={14} />,
-    },
-    datepickerClassNames: 'top-12 left-1/2 -translate-x-1/2',
-    defaultDate: new Date(defaultValue || today),
-    language: currentLng,
-  };
-  const [show, setShow] = useState<boolean>(false);
   const getDateFormatedLikeInputDate = (date: Date) => {
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
@@ -83,10 +36,8 @@ function InputDate({
       updateState(formatDate);
     }
   };
-
-  const handleClose = (state: boolean) => {
-    setShow(state);
-  };
+  const defaultDate =
+    typeof defaultValue === 'string' ? new Date(defaultValue) : undefined;
 
   return (
     <div className="relative w-full flex gap-x-2.5 items-center py-4">
@@ -100,20 +51,16 @@ function InputDate({
         {disabled ? (
           <input
             type="text"
-            defaultValue={getDefaultDatePicker(defaultValue, currentLng)}
+            defaultValue={getDefaultDatePicker(defaultDate, currentLng)}
             disabled={disabled}
             className={`bg-base-light border border-gray-300 
             font-semibold text-primary-1100 text-xs rounded-lg block w-full 
             h-7 pl-2 border-none`}
           />
         ) : (
-          <Datepicker
-            options={options}
-            onChange={handleChange}
-            show={show}
-            setShow={handleClose}
-            classNames="w-full"
-          />
+          <>
+            <DatePicker onChange={handleChange} currentLng={currentLng} />
+          </>
         )}
       </div>
     </div>

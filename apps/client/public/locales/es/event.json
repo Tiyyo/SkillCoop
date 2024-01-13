@@ -66,5 +66,6 @@
   "doYouWantToStayInvited": "¿Quieres seguir invitado?",
   "ifNoYouWillNoLonger": "Si no, ya no tendrás acceso a este evento.",
   "yesIdo": "Sí, quiero",
-  "noIdont": "No, no quiero"
+  "noIdont": "No, no quiero",
+  "pickADateForYourEvent": "Elige una fecha para tu evento"
 }

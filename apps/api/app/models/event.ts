@@ -345,7 +345,7 @@ AND EXISTS(
 )
 AND event.date > date('now')
 GROUP BY event.id
-ORDER BY date DESC
+ORDER BY date ASC
 LIMIT 10 OFFSET ${(page - 1) * 10}
       `.execute(this.client);
 

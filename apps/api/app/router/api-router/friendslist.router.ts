@@ -8,6 +8,7 @@ import {
   createInvitationSchema,
   updateFriendshipSchema,
 } from '@skillcoop/schema';
+import { sanitizeParams } from '../../middleware/sanitizer.params.js';
 
 const {
   getFriends,
@@ -31,9 +32,11 @@ router
     factory(acceptOrDeclined),
   );
 
-router.route('/:profileId').get(factory(getFriends));
+router.route('/:profileId').get(sanitizeParams, factory(getFriends));
 
-router.route('/suggest/:profileId').get(factory(getSuggestProfile));
+router
+  .route('/suggest/:profileId')
+  .get(sanitizeParams, factory(getSuggestProfile));
 
 //query routes
 router
@@ -43,6 +46,8 @@ router
     factory(searchFriends),
   );
 
-router.route('/pending/:profileId').get(factory(getRequestToAccept));
+router
+  .route('/pending/:profileId')
+  .get(sanitizeParams, factory(getRequestToAccept));
 
 export default router;

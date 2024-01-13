@@ -79,6 +79,7 @@ function CreateEvent() {
     errors: Record<string, string>[] | null,
   ): boolean => {
     if (!validationErrors) return false;
+    console.log(validationErrors);
     return errors?.find((error) => error.path[0] === nameInput) ? true : false;
   };
 

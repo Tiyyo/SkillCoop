@@ -6,6 +6,7 @@ import { canals } from '../@types/types.js';
 import { registerSchema, loginSchema, emailSchema } from '@skillcoop/schema';
 import tokenHandler from '../helpers/token.handler.js';
 import { infosDemoAccountProvider } from '../middleware/demo-account.js';
+import { sanitizeParams } from '../middleware/sanitizer.params.js';
 
 const {
   signin,
@@ -47,7 +48,7 @@ router
 
 router
   .route('/:userId/reset-password/:token')
-  .get(factory(redirectToResetPassword));
+  .get(sanitizeParams, factory(redirectToResetPassword));
 
 router
   .route('/reset-password')
@@ -56,7 +57,9 @@ router
 
 router.route('/demo').post(infosDemoAccountProvider, factory(signin));
 
-router.route('/:userId/verify/:token').get(factory(verifyEmail));
+router
+  .route('/:userId/verify/:token')
+  .get(sanitizeParams, factory(verifyEmail));
 
 router.route('/logout').post(factory(logout));
 

@@ -5,6 +5,7 @@ import { validateSchema } from '../../middleware/schema-validator.js';
 import { canals } from '../../@types/types.js';
 import { emailSchema, passwordUpdateSchema } from '@skillcoop/schema';
 import tokenHandler from '../../helpers/token.handler.js';
+import { sanitizeParams } from '../../middleware/sanitizer.params.js';
 
 const { updateEmail, updatePassword, deleteUser } = userController;
 
@@ -21,6 +22,8 @@ router
     factory(updatePassword),
   );
 
-router.route('/:userId').delete(tokenHandler.validate('access'), deleteUser);
+router
+  .route('/:userId')
+  .delete(sanitizeParams, tokenHandler.validate('access'), deleteUser);
 
 export default router;

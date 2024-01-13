@@ -1,4 +1,4 @@
-import { useState, type ComponentPropsWithoutRef, useId } from 'react';
+import { type ComponentPropsWithoutRef, useId } from 'react';
 import { cn } from '../../lib/utils';
 import { useEvent } from '../../store/event.store';
 import toast from '../../utils/toast';
@@ -36,12 +36,9 @@ function SelectInput({
 }: SelectInputProps) {
   const { t } = useTranslation('event');
   const idComponent = useId();
-  const [hasError, setHasError] = useState<boolean | undefined>(error);
   const { data: event } = useEvent();
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setHasError(false);
-
     if (
       mutateKey === 'required_participants' &&
       event?.confirmed_participants &&
@@ -57,9 +54,7 @@ function SelectInput({
 
   return (
     <div className="w-full flex gap-x-2.5 items-center py-4">
-      <div
-        className={`basis-7 ${hasError ? 'text-error' : 'text-primary-100'}`}
-      >
+      <div className={`basis-7 ${error ? 'text-error' : 'text-primary-100'}`}>
         {children}
       </div>
       <div className="flex flex-col gap-y-1 flex-grow">
@@ -91,7 +86,7 @@ function SelectInput({
               focus:ring-primary-800focus:border-primary-800
               block w-full h-7 pl-2`,
               high ? 'h-10' : 'h-7',
-              hasError && 'ring-2 ring-error',
+              error && 'ring-2 ring-error',
             )}
             onChange={handleChange}
             {...props}

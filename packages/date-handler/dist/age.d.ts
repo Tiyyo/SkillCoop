@@ -1,1 +1,1 @@
-export declare function getAge(utcstring: string | null): string | null;
+export declare function getAge(utcstring: string | null): number | null;

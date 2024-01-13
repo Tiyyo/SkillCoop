@@ -1,5 +1,5 @@
 import { api } from './api.fn';
-import type { RegisterUser, User } from '@skillcoop/types/src';
+import type { Credentials, RegisterUser } from '@skillcoop/types/src';
 
 export const signUpUserFn = async (
   user: RegisterUser,
@@ -8,7 +8,7 @@ export const signUpUserFn = async (
   return response.data;
 };
 
-export const loginUserFn = async (user: User) => {
+export const loginUserFn = async (user: Credentials) => {
   const response = await api.post('auth/login', user);
   api.defaults.headers.common[
     'Authorization'

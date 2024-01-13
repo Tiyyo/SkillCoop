@@ -13,16 +13,18 @@ datasource db {
 }
 
 model user {
-  id          Int       @id @default(autoincrement())
-  email       String    @unique
-  password    String
-  verified    Int       @default(0)
-  created_at  String
-  updated_at  String? 
-  Profile     profile? // Why Profile have a caps ?
-  notification_preference notification_preference[]
-  theme_preference        theme_preference[]
-  language_preference     language_preference[]
+  id                        Int       @id @default(autoincrement())
+  email                     String    @unique
+  password                  String
+  verified                  Int       @default(0)
+  blocked                   Int       @default(0)
+  failed_attempts           Int       @default(0)
+  created_at                String
+  updated_at                String? 
+  Profile                   profile? // Why Profile have a caps ?
+  notification_preference   notification_preference[]
+  theme_preference          theme_preference[]
+  language_preference       language_preference[]
 }
 
 model profile {

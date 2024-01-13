@@ -8,6 +8,7 @@ import {
   updateOrganizerSchema,
 } from '@skillcoop/schema';
 import { canals } from '../../@types/types.js';
+import { sanitizeParams } from '../../middleware/sanitizer.params.js';
 
 const {
   getOrganizerEvents,
@@ -29,7 +30,7 @@ router
   .post(validateSchema(createEventSchema, canals.body), factory(createOne))
   .patch(validateSchema(updateEventSchema, canals.body), factory(updateOne));
 
-router.route('/user/:profileId').get(factory(getAllByUser));
+router.route('/user/:profileId').get(sanitizeParams, factory(getAllByUser));
 
 // query routes
 router
@@ -42,8 +43,10 @@ router
 router.route('/past').get(factory(getPasts));
 router.route('/upcoming').get(factory(getUpcoming));
 
-router.route('/details/:eventId/:profileId').get(factory(getOne));
+router
+  .route('/details/:eventId/:profileId')
+  .get(sanitizeParams, factory(getOne));
 router.route('/teams').post(factory(generateTeams));
-router.route('/:id/:profileId').delete(factory(deleteOne));
+router.route('/:id/:profileId').delete(sanitizeParams, factory(deleteOne));
 
 export default router;

@@ -1,6 +1,11 @@
 export type User = {
     email: string;
     password: string;
+    verified: number;
+    blocked: number;
+    failed_attempts: number;
+    created_at?: string;
+    updated_at?: string | null;
 };
 export type UserInfosToken = {
     user_id: number;
@@ -36,3 +41,4 @@ export type ResetPassword = {
     password: string;
     confirmPassword: string;
 };
+export type Credentials = Omit<User, 'failed_attempts' | 'blocked' | 'verified'>;

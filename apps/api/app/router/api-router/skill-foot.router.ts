@@ -4,6 +4,7 @@ import skillFootController from '../../controller/skill-foot.controller.js';
 import { validateSchema } from '../../middleware/schema-validator.js';
 import { canals } from '../../@types/types.js';
 import { ownSkillSchema, participantSkillSchema } from '@skillcoop/schema';
+import { sanitizeParams } from '../../middleware/sanitizer.params.js';
 
 const { getProfileEvalByEvent, getProfileEval, createOwnRating, createRating } =
   skillFootController;
@@ -23,6 +24,6 @@ router
   // query routes
   .get(factory(getProfileEvalByEvent));
 
-router.route('/:profileId').get(factory(getProfileEval));
+router.route('/:profileId').get(sanitizeParams, factory(getProfileEval));
 
 export default router;

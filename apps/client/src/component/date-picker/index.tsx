@@ -31,7 +31,6 @@ function InputDate({
   const { t } = useTranslation('event');
   const today = new Date();
   const currentLng = getCurrentLngInLocalStorage();
-  const [hasError, setHasError] = useState<boolean | undefined>(error);
   const options = {
     title: t('selectDate'),
     autoHide: true,
@@ -50,8 +49,8 @@ function InputDate({
       input: `w-full font-semibold text-sm bg-base-light dark:bg-base-light 
       dark:text-primary-1100 text-primary-1100 
       ${high ? 'h-10' : 'h-7'} 
-      ${hasError && 'ring-2 ring-error'}`,
-      inputIcon: `${hasError ? 'text-error' : 'text-primary-600'}`,
+      ${error && 'ring-2 ring-error'}`,
+      inputIcon: `${error ? 'text-error' : 'text-primary-600'}`,
       selected: 'bg-primary-800 dark:bg-primary-800 text-primary-100',
       disabledText: 'text-gray-200 dark:text-gray-200',
     },
@@ -66,7 +65,6 @@ function InputDate({
     language: currentLng, // To be replaced by current language
   };
   const [show, setShow] = useState<boolean>(false);
-
   const getDateFormatedLikeInputDate = (date: Date) => {
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
@@ -75,7 +73,6 @@ function InputDate({
   };
 
   const handleChange = (selectedDate: Date) => {
-    setHasError(false);
     const formatDate = getDateFormatedLikeInputDate(selectedDate);
     if (updateState) {
       updateState(formatDate);
@@ -88,9 +85,7 @@ function InputDate({
 
   return (
     <div className="relative w-full flex gap-x-2.5 items-center py-4">
-      <div
-        className={`basis-7 ${hasError ? 'text-error' : 'text-primary-100'}`}
-      >
+      <div className={`basis-7 ${error ? 'text-error' : 'text-primary-100'}`}>
         <Calendar />
       </div>
       <div className="flex flex-col gap-y-1 flex-grow">

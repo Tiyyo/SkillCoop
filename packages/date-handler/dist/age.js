@@ -17,7 +17,7 @@ function getAge(utcstring) {
     const age = isBirthdayPassed ? differenceInYears : differenceInYears - 1;
     if (isNaN(age))
         return null;
-    return `${age} yo`;
+    return age;
 }
 exports.getAge = getAge;
 //# sourceMappingURL=age.js.map

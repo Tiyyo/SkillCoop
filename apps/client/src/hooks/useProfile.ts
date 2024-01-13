@@ -2,6 +2,8 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   deleteUserFn,
   evaluateOwnSkillsFn,
+  evaluateParticipantSkillsFn,
+  getAverageSkillFn,
   getMeFn,
   getProfileEvalFn,
   getProfileFn,
@@ -13,11 +15,13 @@ import {
 } from '../api/api.fn';
 import type {
   EvaluationOwnSkill,
+  EvaluationParticipantSkill,
   Profile,
   SearchProfileQuery,
   UpdateEmail,
 } from '@skillcoop/types/src';
 import { AxiosResponse } from 'axios';
+import { queryClient } from '../main';
 
 const keys = {
   getProfile: ['profile'],
@@ -28,6 +32,9 @@ const keys = {
   getMe: ['auth-user'],
   getProfileEvalId: (profileId: number | string) => [
     `${keys.getProfile}/${profileId}}`,
+    `${keys.getProfile}/${profileId}/eval`,
+  ],
+  getEvaluation: (profileId: number | string) => [
     `${keys.getProfile}/${profileId}/eval`,
   ],
 };
@@ -51,11 +58,21 @@ export function useGetMe(options: { userProfile: any }) {
   );
 }
 
-export function useGetProfile(options: { profileId?: number }) {
-  return useQuery([`profile${options.profileId}`], async () => {
-    if (!options.profileId) return;
-    return getProfileFn(options.profileId);
-  });
+export function useGetProfile({
+  profileId,
+  enabled = true,
+}: {
+  profileId?: number;
+  enabled?: boolean;
+}) {
+  return useQuery(
+    [`profile${profileId}`],
+    async () => {
+      if (!profileId) return;
+      return getProfileFn(profileId);
+    },
+    { enabled },
+  );
 }
 
 export function useGetProfileEval(options: { profileId?: number }) {
@@ -179,4 +196,48 @@ export function useAutoEvaluateSkill(options: {
       if (options?.onError) options.onError();
     },
   });
+}
+
+export function useEvaluationSkill(options: {
+  onSuccess?: () => void;
+  onError?: () => void;
+  profileId?: number;
+}) {
+  return useMutation({
+    mutationFn: (data: EvaluationParticipantSkill) => {
+      return evaluateParticipantSkillsFn(data);
+    },
+    onSuccess: () => {
+      if (options.profileId) {
+        queryClient.invalidateQueries(keys.getEvaluation(options.profileId));
+      }
+      if (options?.onSuccess) options.onSuccess();
+    },
+    onError: () => {
+      if (options?.onError) options.onError();
+    },
+  });
+}
+
+export function useGetAverageEval({
+  eventId,
+  userProfileId,
+  participantProfileId,
+}: {
+  eventId: number;
+  userProfileId?: number;
+  participantProfileId: number;
+}) {
+  return useQuery(
+    [`eval${eventId}/${participantProfileId}`],
+    () => {
+      if (!userProfileId) return;
+      return getAverageSkillFn({
+        event_id: eventId,
+        rater_id: userProfileId,
+        reviewee_id: participantProfileId,
+      });
+    },
+    { enabled: !!userProfileId },
+  );
 }

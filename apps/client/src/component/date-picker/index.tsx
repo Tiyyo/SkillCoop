@@ -45,14 +45,19 @@ function InputDate({
       dark:border-primary-500 border-primary-500`,
       icons: `bg-base-light dark:bg-base-light dark:text-primary-1100 
       border-primary-400 dark:border-primary-400`,
-      text: 'dark:text-dark text-primary-1100   ',
+      text: `text-primary-1100 dark:text-primary-1000 
+      hover:bg-primary-500 dark:hover:bg-primary-500`,
       input: `w-full font-semibold text-sm bg-base-light dark:bg-base-light 
       dark:text-primary-1100 text-primary-1100 
       ${high ? 'h-10' : 'h-7'} 
       ${error && 'ring-2 ring-error'}`,
-      inputIcon: `${error ? 'text-error' : 'text-primary-600'}`,
-      selected: 'bg-primary-800 dark:bg-primary-800 text-primary-100',
-      disabledText: 'text-gray-200 dark:text-gray-200',
+      inputIcon: `${
+        error ? 'text-error' : 'text-primary-600'
+      } dark:text-primary-600`,
+      selected: `bg-primary-800 dark:bg-primary-800 text-primary-100 
+        hover:bg-primary-100 dark:hover:bg-primary-100`,
+      disabledText: `text-gray-300 dark:text-gray-300 
+      hover:bg-primary-200 dark:hover:bg-primary-200`,
     },
     icons: {
       prev: () => (
@@ -62,7 +67,7 @@ function InputDate({
     },
     datepickerClassNames: 'top-12 left-1/2 -translate-x-1/2',
     defaultDate: new Date(defaultValue || today),
-    language: currentLng, // To be replaced by current language
+    language: currentLng,
   };
   const [show, setShow] = useState<boolean>(false);
   const getDateFormatedLikeInputDate = (date: Date) => {

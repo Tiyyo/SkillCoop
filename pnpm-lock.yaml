@@ -365,6 +365,9 @@ importers:
       rimraf:
         specifier: ^5.0.5
         version: 5.0.5
+      vitest:
+        specifier: ^0.34.6
+        version: 0.34.6
 
   packages/eslint-config:
     devDependencies:

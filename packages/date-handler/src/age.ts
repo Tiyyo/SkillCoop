@@ -6,10 +6,15 @@ export function getAge(utcstring: string | null) {
   const birthdayYearUTC = birthdayUTC.getFullYear();
   const todayYear = today.getUTCFullYear();
   const differenceInYears = todayYear - birthdayYearUTC;
-  const birthdayDayAndMonth = birthdayUTC.toLocaleDateString()
-  const todayDayAndMonth = today.toLocaleDateString()
-  const isBirthdayPassed = birthdayDayAndMonth < todayDayAndMonth;
-  const age = isBirthdayPassed ? differenceInYears : differenceInYears - 1;
+  const birthdayMonth = birthdayUTC.getMonth();
+  const todayMonth = today.getMonth();
+  const birthdayDay = birthdayUTC.getDate();
+  const todayDay = today.getDate();
+
+  let age = differenceInYears;
+  if (todayMonth < birthdayMonth || (todayMonth === birthdayMonth && todayDay < birthdayDay)) {
+    age--;
+  }
   if (isNaN(age)) return null;
   return age;
 }

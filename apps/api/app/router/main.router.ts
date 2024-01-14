@@ -11,6 +11,8 @@ import logger from '../helpers/logger.js';
 import { sseConnectionManager } from '../service/notification/sse-connection.manager.js';
 import { hasActiveNotification } from '../utils/has-active-notification.js';
 import { uploadLocalFile } from '../service/upload/upload-local-file.js';
+import * as Sentry from '@sentry/node';
+import app from '../index.app.js';
 /*eslint-enable */
 
 const { getMe } = userController;
@@ -45,7 +47,7 @@ router.use((_req, _res, next) => {
   logger.info('404');
   next(new NotFoundError("Request couldn't match any routes"));
 });
-
+router.use(Sentry.Handlers.errorHandler());
 router.use(errorHandler);
 
 export default router;

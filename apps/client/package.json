@@ -50,7 +50,6 @@
     "react-i18next": "^14.0.0",
     "react-router-dom": "^6.18.0",
     "sonner": "^1.2.0",
-    "tailwind-datepicker-react": "^1.4.3",
     "tailwind-merge": "^2.0.0",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.22.4",

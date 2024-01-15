@@ -35,7 +35,7 @@ export class EventInfosHasBeenUpdated extends NotificationObserver {
     if (!eventInfos || !eventInfos.organizer_id)
       throw new NotFoundError('Event not found');
     const profile = await Profile.findOne({
-      id: eventInfos.organizer_id,
+      profile_id: eventInfos.organizer_id,
     });
     if (!profile) throw new NotFoundError('Profile not found');
     return { eventDate: eventInfos.date, avatar_url: profile.avatar_url };

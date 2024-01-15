@@ -7,9 +7,9 @@ import { useTranslation } from 'react-i18next';
 
 function Settings() {
   const { t } = useTranslation('title');
-  const { userProfile } = useApp();
+  const { userId } = useApp();
   const { data: userPreference } = useGetUserPreferences({
-    userId: userProfile?.user_id,
+    userId,
   });
 
   return (

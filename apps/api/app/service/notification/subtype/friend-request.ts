@@ -30,7 +30,7 @@ class UserReceivedFriendRequest extends NotificationObserver {
   }
   async getSubscribers(): Promise<number[] | null> {
     const profile = await Profile.findOne({
-      id: this.subscriberId,
+      profile_id: this.subscriberId,
     });
     if (!profile || profile.active_notification === 0) return null;
     return profile.active_notification === 0 ? null : [this.subscriberId];
@@ -40,7 +40,7 @@ class UserReceivedFriendRequest extends NotificationObserver {
     avatar_url: string | null;
   }> {
     const profile = await Profile.findOne({
-      id: this.instigatorId,
+      profile_id: this.instigatorId,
     });
     if (!profile || !profile.username) throw new Error('Instigator not found');
     const { username, avatar_url } = profile;

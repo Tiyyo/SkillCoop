@@ -4,9 +4,8 @@ import { profile as Profile } from '../models/index.js';
 
 export const hasActiveNotification = async (profileIds: number[]) => {
   const profileInfosInvitedUserQuery = profileIds.map((id) =>
-    Profile.findOne({ id }),
+    Profile.findOne({ profile_id: id }),
   );
-
   const profileInfos = await Promise.allSettled(profileInfosInvitedUserQuery);
   // filterMap with reduce
   const profileIdsWithNotificationOn = profileInfos.reduce(
@@ -16,7 +15,7 @@ export const hasActiveNotification = async (profileIds: number[]) => {
         curr.value &&
         curr.value.active_notification === 1
       ) {
-        acc.push(curr.value.id);
+        acc.push(curr.value.profile_id);
       }
       return acc;
     },

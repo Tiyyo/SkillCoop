@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getDefaultDatePicker = exports.getEndingTime = exports.getStartingTime = exports.getDate = void 0;
 const guess_timezone_1 = require("./guess-timezone");
-const utc_1 = require("./utc");
 function getDate(utcString, lng = 'en') {
     const userTimezone = (0, guess_timezone_1.localTimezone)();
     const dateUtc = new Date(utcString);
@@ -46,13 +45,17 @@ exports.getEndingTime = getEndingTime;
 function getDefaultDatePicker(date, lng = 'en') {
     if (!date)
         return '';
-    const usuableDate = new Date((0, utc_1.getStringDate)(new Date(date)));
-    const formatDate = new Intl.DateTimeFormat(`${lng}-US`, {
-        month: 'long',
-        day: 'numeric',
-        year: 'numeric',
-    }).format(usuableDate);
-    return formatDate;
+    try {
+        const formatDate = new Intl.DateTimeFormat(`${lng}-US`, {
+            month: 'long',
+            day: 'numeric',
+            year: 'numeric',
+        }).format(date);
+        return formatDate;
+    }
+    catch (error) {
+        console.log('error', error);
+    }
 }
 exports.getDefaultDatePicker = getDefaultDatePicker;
 //# sourceMappingURL=displayed.js.map

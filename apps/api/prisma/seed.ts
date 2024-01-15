@@ -164,7 +164,7 @@ async function seed() {
     }
 
     const profile = await Profile.create({
-      user_id: user.id,
+      profile_id: user.id,
       username: infos.username,
       first_name: infos.first_name,
       last_name: infos.last_name,
@@ -180,8 +180,8 @@ async function seed() {
       passing: faker.number.int({ min: 50, max: 100 }),
       dribbling: faker.number.int({ min: 50, max: 100 }),
       defending: faker.number.int({ min: 50, max: 100 }),
-      rater_id: profile.id,
-      reviewee_id: profile.id,
+      rater_id: profile.profile_id,
+      reviewee_id: profile.profile_id,
       created_at: todayUTCString,
     });
   }

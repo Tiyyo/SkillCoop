@@ -53,6 +53,7 @@ import AccessControlGateway from './component/redirection/acces-gateway';
 import OnBoardingCreateProfile from './feature/onboarding/create-profile';
 import OnBoardinAddImageProfile from './feature/onboarding/add-image-profile';
 import OnBoardingEvaluateSkill from './feature/onboarding/evaluate-skill';
+import TestChat from './feature/chat';
 /*eslint-enable*/
 
 export const queryClient = new QueryClient({
@@ -237,6 +238,10 @@ const router = createBrowserRouter([
           },
           { path: '*', element: <Page404 /> },
         ],
+      },
+      {
+        path: '/chat',
+        element: <TestChat />,
       },
       {
         path: '/notification',

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Input from '../../component/input';
 import Container from '../../layout/container';
 import TitleH2 from '../../component/title-h2';
@@ -6,8 +6,10 @@ import { Calendar, MapPin, User2 } from 'lucide-react';
 import { cn } from '../../lib/utils';
 import { useOnboarding } from '../../store/onboarding.store';
 import { queryClient } from '../../main';
+import { userCreateProfile } from '../../hooks/useProfile';
 
 function OnBoardingCreateProfile() {
+  const { profileId } = useParams();
   const {
     setInputValue,
     username,
@@ -16,12 +18,17 @@ function OnBoardingCreateProfile() {
     date_of_birth,
     location,
   } = useOnboarding();
+  const { mutate: createProfile } = userCreateProfile({});
 
   const getValueInput = (value: string, inputName: string) => {
     setInputValue(inputName, value);
   };
 
   const updateQueryData = () => {
+    // create a profile with username
+    if (!username || !profileId) return;
+    createProfile({ profile_id: Number(profileId), username });
+
     queryClient.setQueryData(['auth-user'], (oldData: any) => {
       if (oldData) {
         return {
@@ -103,6 +110,8 @@ function OnBoardingCreateProfile() {
           <Link
             to="add-image"
             // update the query to force isfirstconnection to false
+            // create a profile with minimum information( username)
+            // to be able to update avatar in second phase
             onClick={updateQueryData}
             className={cn(
               `w-1/2 bg-primary-700 text-white text-lg

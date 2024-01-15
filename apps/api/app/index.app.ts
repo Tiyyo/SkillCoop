@@ -38,10 +38,6 @@ app.use(
 );
 app.use(sanitizer);
 
-app.get('/debug-sentry', function mainHandler(_req: Request, _res: Response) {
-  throw new Error('Check sentry error');
-});
-
 logger.info(`environment: ${process.env.NODE_ENV}`);
 app.use(router);
 export default app;

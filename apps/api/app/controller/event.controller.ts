@@ -92,6 +92,10 @@ export default {
       return res.status(201).json({
         message: 'Nothing to update',
       });
+    // delete start date and start time if present
+    delete data.start_date;
+    delete data.start_time;
+
     const isUpdated = await Event.updateOne({ id: event_id }, data);
 
     notifyEventInfosHasBeenUpdated(event_id);
@@ -105,6 +109,7 @@ export default {
     const { event_id, organizer_id, new_organizer_id } = req.body;
 
     const event = await Event.findOne({ id: event_id });
+
     if (!event || event.organizer_id !== organizer_id)
       throw new ForbidenError(
         'Operation not allowed : you are not the organizer',
@@ -124,7 +129,7 @@ export default {
       await notifyTransfertOwnership(event_id, organizer_id, new_organizer_id);
     }
 
-    res.status(204).json({
+    res.status(200).json({
       success: isUpdated,
     });
   },
@@ -175,6 +180,10 @@ export default {
   async generateTeams(req: Request, res: Response) {
     deleteDecodedKey(req.body);
     const { eventId } = req.body;
+    if (!eventId)
+      throw new NotFoundError('No event id found', 'generateTeams controller');
+    if (typeof eventId !== 'number')
+      throw new TypeError('eventId is not a number');
 
     await generateBalancedTeam(eventId);
     res.status(200).json({

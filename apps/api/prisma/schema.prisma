@@ -21,17 +21,16 @@ model user {
   failed_attempts           Int       @default(0)
   created_at                String
   updated_at                String? 
-  Profile                   profile? // Why Profile have a caps ?
+  profile                   profile? // Why Profile have a caps ?
   notification_preference   notification_preference[]
   theme_preference          theme_preference[]
   language_preference       language_preference[]
 }
 
 model profile {
-  id                        Int                   @id @default(autoincrement())
-  user_id                   Int                   @unique
-  user                      user                  @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  username                  String?             
+  profile_id                Int                   @id @unique
+  user                      user                  @relation(fields: [profile_id], references: [id], onDelete: Cascade)
+  username                  String             
   first_name                String? 
   last_name                 String?
   location                  String?           
@@ -59,11 +58,10 @@ model profile {
 }
 
 model profile_on_profile {
-  // id          Int       @id @default(autoincrement())
   adder_id     Int
-  adder        profile   @relation("adder", fields: [adder_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  adder        profile   @relation("adder", fields: [adder_id], references: [profile_id], onDelete: Cascade, onUpdate: Cascade)
   friend_id    Int
-  friend       profile   @relation("added", fields: [friend_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  friend       profile   @relation("added", fields: [friend_id], references: [profile_id], onDelete: Cascade, onUpdate: Cascade)
   status       status?   @relation(fields: [status_name], references: [name], onDelete: SetNull, onUpdate: Cascade)
   status_name  String?
   created_at   String
@@ -80,7 +78,7 @@ model event {
   required_participants Int
   nb_teams              Int                 @default(2)
   organizer_id          Int?
-  organizer             profile?            @relation("organizer", fields: [organizer_id], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  organizer             profile?            @relation("organizer", fields: [organizer_id], references: [profile_id], onDelete: SetNull, onUpdate: Cascade)
   status_name           String
   status                status              @relation(fields: [status_name], references: [name], onDelete: NoAction, onUpdate: Cascade)
   created_at            String           
@@ -88,9 +86,9 @@ model event {
   profile_on_event      profile_on_event[]
   score                 score[]
   mvp_id                Int? 
-  mvp                   profile?             @relation("mvp" , fields: [mvp_id], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  mvp                   profile?             @relation("mvp" , fields: [mvp_id], references: [profile_id], onDelete: SetNull, onUpdate: Cascade)
   best_striker_id       Int?
-  best_striker          profile?             @relation("best_striker" ,fields : [best_striker_id], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  best_striker          profile?             @relation("best_striker" ,fields : [best_striker_id], references: [profile_id], onDelete: SetNull, onUpdate: Cascade)
   mvp_poll              mvp_poll[]
   best_striker_poll     best_striker_poll[]
   skills                skill_foot[]
@@ -109,7 +107,7 @@ model score {
 
 model profile_on_event {
   profile_id    Int
-  profile       profile     @relation(fields: [profile_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  profile       profile     @relation(fields: [profile_id], references: [profile_id], onDelete: Cascade, onUpdate: Cascade)
   event_id      Int
   event         event       @relation(fields: [event_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   team          Int?
@@ -130,9 +128,9 @@ model skill_foot {
   created_at  String
   updated_at  String?
   rater_id    Int
-  rater       profile   @relation("rater_foot", fields: [rater_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  rater       profile   @relation("rater_foot", fields: [rater_id], references: [profile_id], onDelete: Cascade, onUpdate: Cascade)
   reviewee_id Int
-  reviewee    profile   @relation("reviewee_foot", fields: [reviewee_id], references: [id] , onDelete: Cascade, onUpdate: Cascade)
+  reviewee    profile   @relation("reviewee_foot", fields: [reviewee_id], references: [profile_id] , onDelete: Cascade, onUpdate: Cascade)
   event_id    Int?      
   event       event?     @relation(fields: [event_id], references: [id])
 
@@ -169,9 +167,9 @@ model mvp_poll {
   event_id    Int
   event       event     @relation(fields: [event_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   profile_id  Int
-  profile     profile   @relation("ratee_mvp",fields: [profile_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  profile     profile   @relation("ratee_mvp",fields: [profile_id], references: [profile_id], onDelete: Cascade, onUpdate: Cascade)
   rater_id    Int
-  rater       profile   @relation("rater_mvp",fields: [rater_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  rater       profile   @relation("rater_mvp",fields: [rater_id], references: [profile_id], onDelete: Cascade, onUpdate: Cascade)
   created_at  String
   updated_at  String?
   @@id([event_id, rater_id])
@@ -182,9 +180,9 @@ model best_striker_poll {
   event_id    Int
   event       event     @relation(fields: [event_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   profile_id  Int
-  profile     profile   @relation("ratee_best_striker",fields: [profile_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  profile     profile   @relation("ratee_best_striker",fields: [profile_id], references: [profile_id], onDelete: Cascade, onUpdate: Cascade)
   rater_id    Int
-  rater       profile   @relation("rater_best_striker",fields: [rater_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  rater       profile   @relation("rater_best_striker",fields: [rater_id], references: [profile_id], onDelete: Cascade, onUpdate: Cascade)
   created_at  String
   updated_at  String?
 
@@ -194,9 +192,9 @@ model best_striker_poll {
 model notification {
   id              Int       @id @default(autoincrement())
   profile_id      Int
-  profile         profile   @relation("subscriber",fields: [profile_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  profile         profile   @relation("subscriber",fields: [profile_id], references: [profile_id], onDelete: Cascade, onUpdate: Cascade)
   instigator_id   Int?
-  instigator      profile?  @relation("instigator", fields: [instigator_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  instigator      profile?  @relation("instigator", fields: [instigator_id], references: [profile_id], onDelete: Cascade, onUpdate: Cascade)
   event_id        Int?
   event           event?    @relation(fields: [event_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   img_url         String?
@@ -239,7 +237,7 @@ model theme_preference {
 }
 
 model language_preference {
-  user_id     Int       @id
+  user_id     Int    @id
   user        user      @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   name        String    @default("en")
   created_at  String

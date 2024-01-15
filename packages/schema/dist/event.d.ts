@@ -28,6 +28,7 @@ export declare const createEventSchema: z.ZodObject<{
     participants?: number[] | undefined;
 }>;
 export declare const updateEventSchema: z.ZodObject<{
+    event_id: z.ZodNumber;
     date: z.ZodOptional<z.ZodString>;
     duration: z.ZodOptional<z.ZodNumber>;
     location: z.ZodOptional<z.ZodString>;
@@ -36,6 +37,7 @@ export declare const updateEventSchema: z.ZodObject<{
     status_name: z.ZodOptional<z.ZodEnum<["open", "full", "cancelled", "completed"]>>;
     participants: z.ZodOptional<z.ZodArray<z.ZodNumber, "many">>;
 }, "strip", z.ZodTypeAny, {
+    event_id: number;
     profile_id: number;
     date?: string | undefined;
     duration?: number | undefined;
@@ -44,6 +46,7 @@ export declare const updateEventSchema: z.ZodObject<{
     status_name?: "open" | "full" | "cancelled" | "completed" | undefined;
     participants?: number[] | undefined;
 }, {
+    event_id: number;
     profile_id: number;
     date?: string | undefined;
     duration?: number | undefined;

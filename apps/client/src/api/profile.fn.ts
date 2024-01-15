@@ -1,7 +1,7 @@
 import { api } from './api.fn';
 import type { Profile, SearchProfileQuery } from '@skillcoop/types/src';
 export const getMeFn = async (): Promise<
-  { userProfile: Profile } | 'Unecessary call'
+  { userProfile?: Profile; userId: number } | 'Unecessary call'
 > => {
   const response = await api.get('api/user/me', { timeout: 1500 });
   return response.data;
@@ -41,5 +41,12 @@ export const updateAvatarFn = async (formData: FormData) => {
 
 export const updateProfileInfoFn = async (data: Partial<Profile>) => {
   const response = await api.patch(`api/profile`, { data });
+  return response.data;
+};
+
+export const createProfileFn = async (
+  data: Partial<Omit<Profile, 'username'>> & { username: string },
+) => {
+  const response = await api.post('api/profile', data);
   return response.data;
 };

@@ -1,5 +1,5 @@
 import { mockResponse } from './mock-response.js';
-import authController from '../auth.controller.js';
+import * as authController from '../auth.controller.js';
 import { Request } from 'express';
 import authService from '../../service/auth/auth.js';
 import emailService from '../../utils/send-email.js';

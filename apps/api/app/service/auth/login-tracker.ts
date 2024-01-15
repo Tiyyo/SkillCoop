@@ -15,6 +15,7 @@ export class LoginAttemptTracker {
       this.submittedCredentials.password,
       this.user.password,
     );
+
     if (match) return 'success';
     const handler = new FailedAttempsHandler(this.user);
     return await handler.getTrack();

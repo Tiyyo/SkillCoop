@@ -40,6 +40,7 @@ exports.createEventSchema = z.object({
 });
 exports.updateEventSchema = z.object({
     // TODO make a custom regex for the date in string format
+    event_id: z.number().positive().int(),
     date: z.string().optional(),
     duration: z.number().optional(),
     location: z.string().optional(),

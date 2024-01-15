@@ -64,7 +64,7 @@ class UserHasBeenInvited extends NotificationObserver {
     avatar_url: string | null;
   }> {
     const profile = await Profile.findOne({
-      id: this.instigatorId,
+      profile_id: this.instigatorId,
     });
     if (!profile) throw new Error('Instigator not found');
     const { username, avatar_url } = profile;

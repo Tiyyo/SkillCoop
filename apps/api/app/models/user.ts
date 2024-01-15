@@ -6,6 +6,7 @@ import { db } from '../helpers/client.db.js';
 import NotFoundError from '../helpers/errors/not-found.error.js';
 import ServerError from '../helpers/errors/server.error.js';
 import { User as TUser } from '@skillcoop/types';
+import { userQueuePublisher } from '../publisher/user.publisher.js';
 
 export class User extends Core<typeof tableNames.user> {
   declare tableName: typeof tableNames.user;
@@ -26,7 +27,13 @@ export class User extends Core<typeof tableNames.user> {
         .values(insertValues)
         .returning(['id', 'email'])
         .execute();
-      if (!result) throw new NotFoundError('Could not create user');
+      if (!result) throw new Error('Could not create user');
+      await userQueuePublisher({
+        profile_id: result.id,
+        username: '',
+        avatar: null,
+        action: 'create',
+      });
       return result;
     } catch (error) {
       if (error instanceof Error) {

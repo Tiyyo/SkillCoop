@@ -25,13 +25,10 @@ export default {
   },
   async updateOne(req: Request, res: Response) {
     const { profile_id, ...data } = req.body.data;
-    const isUpdate = await Profile.updateOne({ profile_id: profile_id }, data);
-    await userQueuePublisher({
-      profile_id,
-      username: data.username,
-      avatar: data.avatar_url,
-      action: 'update',
-    });
+    const isUpdate = await Profile.updateSyncChat(
+      { profile_id: profile_id },
+      data,
+    );
 
     return res.status(204).send({ success: isUpdate });
   },
@@ -82,7 +79,10 @@ export default {
       }
     }
 
-    await Profile.updateOne({ profile_id: profile_id }, { avatar_url: link });
+    await Profile.updateSyncChat(
+      { profile_id: profile_id },
+      { avatar_url: link },
+    );
 
     return res.status(200).json({ link });
   },

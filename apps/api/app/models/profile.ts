@@ -7,8 +7,9 @@ import { DB } from '../@types/database.js';
 import { db } from '../helpers/client.db.js';
 /*eslint-disable-next-line */
 // import { InsertObjectOrList } from 'kysely/dist/cjs/parser/insert-values-parser';
-import { InsertObjectDB, tableNames } from '../@types/types.js';
+import { InsertObjectDB, UpdateObjectDB, tableNames } from '../@types/types.js';
 import { InsertObject } from 'kysely';
+import { userQueuePublisher } from '../publisher/user.publisher.js';
 
 // TODO define a type for Profile
 
@@ -126,6 +127,13 @@ export class Profile extends Core<typeof tableNames.profile> {
         .returning('profile_id')
         .executeTakeFirst();
 
+      await userQueuePublisher({
+        profile_id: data.profile_id,
+        username: data.username,
+        avatar: data.avatar_url,
+        action: 'update',
+      });
+
       return result;
     } catch (error) {
       if (error instanceof Error) {
@@ -240,5 +248,22 @@ export class Profile extends Core<typeof tableNames.profile> {
         throw new DatabaseError(error);
       }
     }
+  }
+  async updateSyncChat(
+    condition: UpdateObjectDB<typeof tableNames.profile>,
+    updateObject: UpdateObjectDB<typeof tableNames.profile>,
+  ) {
+    const result = await this.updateOne(condition, updateObject);
+
+    const mergeArgs = { ...condition, ...updateObject };
+    if (mergeArgs.profile_id) {
+      await userQueuePublisher({
+        profile_id: mergeArgs.profile_id,
+        username: mergeArgs.username,
+        avatar: mergeArgs.avatar_url,
+        action: 'update',
+      });
+    }
+    return result;
   }
 }

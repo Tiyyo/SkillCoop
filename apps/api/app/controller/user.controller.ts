@@ -7,6 +7,7 @@ import checkParams from '../utils/check-params.js';
 import AuthorizationError from '../helpers/errors/unauthorized.error.js';
 import NotFoundError from '../helpers/errors/not-found.error.js';
 import { UserInfosToken } from '@skillcoop/types';
+import { userQueuePublisher } from '../publisher/user.publisher.js';
 
 export default {
   getMe: async (req: Request, res: Response) => {
@@ -67,6 +68,8 @@ export default {
     if (!isDeleted) {
       res.status(400).json({ error: 'Could not delete this account' });
     }
+
+    await userQueuePublisher({ profile_id: userId, action: 'delete' });
 
     res.status(204).end();
   },

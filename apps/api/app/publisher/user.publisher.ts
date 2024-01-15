@@ -4,7 +4,7 @@ type Action = 'create' | 'update' | 'delete';
 
 type UserQueuePublisher = {
   profile_id: number;
-  username: string;
+  username?: string;
   avatar?: string | null;
   action: Action;
 };

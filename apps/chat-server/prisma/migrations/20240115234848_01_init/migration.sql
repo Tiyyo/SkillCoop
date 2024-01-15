@@ -9,7 +9,9 @@ CREATE TABLE "convertion_type" (
 CREATE TABLE "user" (
     "user_id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "username" TEXT NOT NULL,
-    "avatar" TEXT
+    "avatar" TEXT,
+    "created_at" TEXT NOT NULL,
+    "updated_at" TEXT
 );
 
 -- CreateTable
@@ -49,6 +51,7 @@ CREATE TABLE "message_on_conversation" (
 CREATE TABLE "user_on_conversation" (
     "user_id" INTEGER NOT NULL,
     "conversation_id" INTEGER NOT NULL,
+    "is_admin" INTEGER NOT NULL DEFAULT 1,
     "created_at" TEXT NOT NULL,
     "updated_at" TEXT,
 

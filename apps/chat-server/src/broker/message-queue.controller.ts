@@ -1,19 +1,35 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
-import { UserQueueDto } from './user-queue.dto';
 import { UserQueueDispatcher } from './user.queue.dispatcher';
+import { EventQueueDispatcher } from './event.queue.dispatcher';
+import { ParticipantQueueDispatcher } from './participant.queue.dispatcher';
+import {
+  EventQueuePublisher,
+  UserQueuePublisher,
+  ParticipantQueuePublisher,
+} from '@skillcoop/types';
 
 @Controller()
 export class MessageQueueController {
-  constructor(private userQueueDispatcher: UserQueueDispatcher) { }
+  constructor(
+    private userQueueDispatcher: UserQueueDispatcher,
+    private eventQueueDispatcher: EventQueueDispatcher,
+    private participantQueueMessage: ParticipantQueueDispatcher,
+  ) { }
   @MessagePattern('user-queue')
-  async handleUserQueue(userQueueMessage: UserQueueDto) {
+  async handleUserQueue(userQueueMessage: UserQueuePublisher) {
     return this.userQueueDispatcher.dispatch(userQueueMessage);
   }
   @MessagePattern('event-queue')
-  async handleEventQueue(data) {
-    // here a EventQueueDispatcher service in charge to read data
-    // and redirect to the right datasync service according data.action
-    console.log(data);
+  async handleEventQueue(eventQueueMessage: EventQueuePublisher) {
+    console.log('Event queue is called');
+    return this.eventQueueDispatcher.dispatch(eventQueueMessage);
+  }
+  @MessagePattern('participant-queue')
+  async handleParticipantQueue(
+    participantQueuemessage: ParticipantQueuePublisher,
+  ) {
+    console.log('Participation queue is called');
+    return this.participantQueueMessage.dispatch(participantQueuemessage);
   }
 }

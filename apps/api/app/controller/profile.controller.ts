@@ -8,7 +8,6 @@ import {
 import checkParams from '../utils/check-params.js';
 import UserInputError from '../helpers/errors/user-input.error.js';
 import NotFoundError from '../helpers/errors/not-found.error.js';
-import { userQueuePublisher } from '../publisher/user.publisher.js';
 
 export default {
   async getOne(req: Request, res: Response) {

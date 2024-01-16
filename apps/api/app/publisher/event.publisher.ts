@@ -1,20 +1,6 @@
 import amqp from 'amqplib';
-import { queues } from './queue.constants.js';
 import logger from '../helpers/logger.js';
-
-type Action =
-  | 'create_event'
-  | 'delete_event'
-  | 'add_participant'
-  | 'remove_participant';
-
-type EventQueuePublisher = {
-  event_id: number;
-  organizer_id: number;
-  participants_id?: Array<number>;
-  title?: string;
-  action: Action;
-};
+import { EventQueuePublisher, queues } from '@skillcoop/types';
 
 export const eventQueuePublisher = async (
   eventMessageQueue: EventQueuePublisher,

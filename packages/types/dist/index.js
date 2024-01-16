@@ -23,4 +23,5 @@ __exportStar(require("./invitation"), exports);
 __exportStar(require("./skill"), exports);
 __exportStar(require("./participant"), exports);
 __exportStar(require("./user-preferences"), exports);
+__exportStar(require("./message-queue"), exports);
 //# sourceMappingURL=index.js.map

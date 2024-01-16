@@ -7,6 +7,7 @@ import { ProfileOnEvent } from '../models/profile_on_event.js';
 import { EventStatusEvaluator } from './event-state.service.js';
 import { event } from '../models/index.js';
 import { generateBalancedTeam } from './generate-teams/index.js';
+/*eslint-disable-next-line*/
 import { participantQueuePublisher } from '../publisher/participant.publisher.js';
 
 type EventCurrentState = 'open' | 'oneSpotLeft' | 'full' | 'notFound';

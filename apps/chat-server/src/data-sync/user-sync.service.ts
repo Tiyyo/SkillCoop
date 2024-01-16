@@ -2,14 +2,15 @@ import { Inject, Injectable } from '@nestjs/common';
 import { getFormattedUTCTimestamp } from '@skillcoop/date-handler';
 import { Kysely } from 'kysely';
 import { DB } from '../database/database';
-import { UserQueueDto } from 'src/broker/user-queue.dto';
+import { UserQueuePublisher } from '@skillcoop/types';
 
 @Injectable()
 export class UserSyncService {
   private tableName = 'user' as const;
   constructor(@Inject('dbClient') protected dbClient: Kysely<DB>) { }
 
-  async create(data: UserQueueDto) {
+  async create(data: UserQueuePublisher) {
+    console.log('Create a new user');
     const todayUTCString = getFormattedUTCTimestamp();
 
     const [result] = await this.dbClient
@@ -24,7 +25,8 @@ export class UserSyncService {
 
     return result;
   }
-  async update(data: UserQueueDto) {
+  async update(data: UserQueuePublisher) {
+    console.log('Update a user');
     const todayUTCString = getFormattedUTCTimestamp();
     const result = await this.dbClient
       .updateTable(this.tableName)
@@ -38,7 +40,8 @@ export class UserSyncService {
 
     return !!Number(result.numUpdatedRows);
   }
-  async delete(data: UserQueueDto) {
+  async delete(data: UserQueuePublisher) {
+    console.log('delete a user');
     const result = await this.dbClient
       .deleteFrom(this.tableName)
       .where('user_id', '=', data.profile_id)

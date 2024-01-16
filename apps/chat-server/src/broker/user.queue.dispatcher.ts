@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { UserQueueDto } from './user-queue.dto';
 import { UserSyncService } from 'src/data-sync/user-sync.service';
+import { UserQueuePublisher } from '@skillcoop/types';
 
 @Injectable()
 export class UserQueueDispatcher {
   constructor(private userSyncService: UserSyncService) { }
 
-  async dispatch(data: UserQueueDto) {
+  async dispatch(data: UserQueuePublisher) {
     switch (data.action) {
       case 'create':
         return this.userSyncService.create(data);

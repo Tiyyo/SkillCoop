@@ -51,15 +51,15 @@ export default {
 
       // send notification to invited users here
       notifyUserHasBeenInvitedToEvent(event.id, data.organizer_id, ids);
-
-      // sync chat service database
-      await eventQueuePublisher({
-        organizer_id: data.organizer_id,
-        event_id: event.id,
-        participants_id: ids,
-        action: 'create_event',
-      });
     }
+    console.log('Before publish to queue');
+    // sync chat service database
+    await eventQueuePublisher({
+      organizer_id: data.organizer_id,
+      event_id: event.id,
+      participants_id: ids,
+      action: 'create_event',
+    });
     res.status(201).json({
       success: true,
     });

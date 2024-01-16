@@ -225,6 +225,9 @@ importers:
       '@skillcoop/date-handler':
         specifier: workspace:^
         version: link:../../packages/date-handler
+      '@skillcoop/types':
+        specifier: workspace:^
+        version: link:../../packages/types
       amqp-connection-manager:
         specifier: ^4.1.14
         version: 4.1.14(amqplib@0.10.3)

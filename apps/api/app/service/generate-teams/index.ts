@@ -2,7 +2,9 @@ import { Player, TeamGeneratorConfig } from '@skillcoop/types';
 import { profileOnEvent as ProfileOnEvent } from '../../models/index.js';
 import condition, { Conditions } from './condition.js';
 import { ConfigGenerateTeams } from '../../models/teams.js';
+/*eslint-disable*/
 import { notifyTeamHasBeenGenerated } from '../notification/subtype/team-generated.js';
+/*eslint-enable*/
 
 export function assignTeam(
   position: number,

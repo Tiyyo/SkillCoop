@@ -2,6 +2,7 @@ import { Player, TeamGeneratorConfig } from '@skillcoop/types';
 import { profileOnEvent as ProfileOnEvent } from '../../models/index.js';
 import condition, { Conditions } from './condition.js';
 import { ConfigGenerateTeams } from '../../models/teams.js';
+import { notifyTeamHasBeenGenerated } from '../notification/subtype/team-generated.js';
 
 export function assignTeam(
   position: number,
@@ -34,6 +35,7 @@ export async function generateBalancedTeam(eventId: number) {
   );
 
   await Promise.allSettled(updateParticipantQueries);
+  await notifyTeamHasBeenGenerated(eventId);
   console.timeEnd('Algo time start');
 }
 

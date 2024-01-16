@@ -8,6 +8,7 @@ import { db } from '../helpers/client.db.js';
 /*eslint-disable */
 // import { InsertObjectOrList } from 'kysely/dist/cjs/parser/insert-values-parser';
 import { InsertObjectDB, tableNames } from '../@types/types.js';
+import { eventQueuePublisher } from '../publisher/event.publisher.js';
 /*eslint-enable */
 
 export class EventModel extends Core<typeof tableNames.event> {
@@ -466,6 +467,16 @@ GROUP BY participant.event_id`.execute(this.client);
       if (error instanceof Error) {
         throw new DatabaseError(error);
       }
+    }
+  }
+  async deleteSyncChat(eventId: number, organizerId?: number) {
+    const result = await this.deleteOne({ id: eventId });
+    if (result && organizerId) {
+      await eventQueuePublisher({
+        event_id: eventId,
+        organizer_id: organizerId,
+        action: 'delete_event',
+      });
     }
   }
 }

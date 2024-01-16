@@ -44,7 +44,7 @@ export const useApp = () => {
   const signout = useAppStore((state) => state.signout);
 
   const { data, isLoading, isFetching, isSuccess } = useGetMe({ userProfile });
-  console.log(userProfile);
+
   useEffect(() => {
     if (data === 'Unecessary call') return;
     setIsFirstConnection(detectFirstAccess(data));

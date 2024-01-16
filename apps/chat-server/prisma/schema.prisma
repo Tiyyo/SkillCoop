@@ -47,8 +47,6 @@ model conversation  {
   event_id          Int?      
   created_at        String
   updated_at        String?
-
-
   messages          message_on_conversation[]
   users             user_on_conversation[]
 }

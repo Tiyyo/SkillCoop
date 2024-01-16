@@ -46,6 +46,7 @@ router.route('/upcoming').get(factory(getUpcoming));
 router
   .route('/details/:eventId/:profileId')
   .get(sanitizeParams, factory(getOne));
+
 router.route('/teams').post(factory(generateTeams));
 router.route('/:id/:profileId').delete(sanitizeParams, factory(deleteOne));
 

@@ -13,6 +13,7 @@ import { notifyTransfertOwnership } from '../service/notification/subtype/transf
 /*eslint-enable*/
 import ForbidenError from '../helpers/errors/forbiden.js';
 import ServerError from '../helpers/errors/server.error.js';
+import { eventQueuePublisher } from '../publisher/event.publisher.js';
 
 export default {
   async createOne(req: Request, res: Response) {
@@ -47,8 +48,17 @@ export default {
         };
       });
       await ProfileOnEvent.createMany(participantsToInvite);
-      notifyUserHasBeenInvitedToEvent(event.id, data.organizer_id, ids);
+
       // send notification to invited users here
+      notifyUserHasBeenInvitedToEvent(event.id, data.organizer_id, ids);
+
+      // sync chat service database
+      await eventQueuePublisher({
+        organizer_id: data.organizer_id,
+        event_id: event.id,
+        participants_id: ids,
+        action: 'create_event',
+      });
     }
     res.status(201).json({
       success: true,
@@ -147,7 +157,7 @@ export default {
     if (event.organizer_id !== profileId)
       throw new AuthorizationError('Operation not allowed');
 
-    const isDeleted = await Event.deleteOne({ id: eventId });
+    const isDeleted = await Event.deleteSyncChat(eventId, profileId);
 
     res.status(204).json({
       success: isDeleted,

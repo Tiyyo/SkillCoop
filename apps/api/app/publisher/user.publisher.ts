@@ -1,4 +1,6 @@
 import amqp from 'amqplib';
+import logger from '../helpers/logger.js';
+import { queues } from './queue.constants.js';
 
 type Action = 'create' | 'update' | 'delete';
 
@@ -14,17 +16,17 @@ export const userQueuePublisher = async (
 ) => {
   const connection = await amqp.connect('amqp://localhost');
   const channel = await connection.createChannel();
-  const queue = 'user-queue';
 
-  await channel.assertQueue(queue, {
+  await channel.assertQueue(queues.user, {
     durable: false,
   });
   const messgae = Buffer.from(
-    JSON.stringify({ data: userMessageQueue, pattern: 'user-queue' }),
+    JSON.stringify({ data: userMessageQueue, pattern: queues.user }),
   );
-  channel.sendToQueue(queue, messgae);
-
-  console.log(`[x] Sent ${userMessageQueue}`);
+  channel.sendToQueue(queues.user, messgae);
+  logger.debug(
+    `New message push to ${queues.user} ${JSON.stringify(userMessageQueue)}`,
+  );
   setTimeout(() => {
     channel.close();
     connection.close();

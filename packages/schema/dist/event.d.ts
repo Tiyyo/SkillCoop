@@ -2,6 +2,7 @@ import * as z from "zod";
 export declare const createEventSchema: z.ZodObject<{
     start_date: z.ZodString;
     start_time: z.ZodString;
+    date: z.ZodString;
     duration: z.ZodNumber;
     location: z.ZodString;
     required_participants: z.ZodEffects<z.ZodNumber, number, number>;
@@ -9,6 +10,7 @@ export declare const createEventSchema: z.ZodObject<{
     status_name: z.ZodOptional<z.ZodEnum<["open"]>>;
     participants: z.ZodOptional<z.ZodArray<z.ZodNumber, "many">>;
 }, "strip", z.ZodTypeAny, {
+    date: string;
     start_date: string;
     start_time: string;
     duration: number;
@@ -18,6 +20,7 @@ export declare const createEventSchema: z.ZodObject<{
     status_name?: "open" | undefined;
     participants?: number[] | undefined;
 }, {
+    date: string;
     start_date: string;
     start_time: string;
     duration: number;

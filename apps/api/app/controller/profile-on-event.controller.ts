@@ -5,12 +5,14 @@ import { Request, Response } from 'express';
 import { invitationStatus } from '@skillcoop/types';
 import { generateBalancedTeam } from '../service/generate-teams/index.js';
 import deleteDecodedKey from '../utils/delete-decoded.js';
-//eslint-disable-next-line
+/*eslint-disable*/
 import { notifyUserHasBeenInvitedToEvent } from '../service/notification/subtype/user-invited-event.js';
-//eslint-disable-next-line
 import { notifyTeamHasBeenGenerated } from '../service/notification/subtype/team-generated.js';
+import { participantQueuePublisher } from '../publisher/participant.publisher.js';
+/*eslint-enable*/
 
 export default {
+  // Need a refactor
   async updateStatus(req: Request, res: Response) {
     deleteDecodedKey(req.body);
 
@@ -28,12 +30,15 @@ export default {
           .status(200)
           .json({ message: 'Organizer cannot change his status' });
       }
+
       if (event.status_name === 'completed') {
         return res.status(200).json({ message: 'Event is already completed' });
       }
+
       if (event.status_name === 'full') {
         await Event.updateOne({ id: event.id }, { status_name: 'open' });
       }
+
       await ProfileOnEvent.updateStatus(data);
       return res.status(200).send(userMessage);
     }
@@ -71,7 +76,14 @@ export default {
       status_name: 'pending',
     }));
     const isCreated = await ProfileOnEvent.createMany(data);
+    // send notification for each participant invited
     notifyUserHasBeenInvitedToEvent(event_id, profile_id, ids);
+    // sync database with chat service to add them in group event
+    await participantQueuePublisher({
+      event_id,
+      action: 'add_participant',
+      participants_id: ids,
+    });
     res.status(201).send({ success: isCreated });
   },
 };

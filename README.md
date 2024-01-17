@@ -20,8 +20,8 @@
 - `client`: a React.js app
 - `chat-server` : a Nestjs Websocket server
 - `schema`: Shared schema to validate data
-- 'type' : Shared types
-- 'date-handler' : Shared collection of utils functions to manage date
+- `type`: Shared types
+- `date-handler` : Shared collection of utils functions to manage date
 - `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
 
 ### Stack

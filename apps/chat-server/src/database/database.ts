@@ -19,7 +19,7 @@ export type convertion_type = {
 };
 export type message = {
   message_id: Generated<number>;
-  user_id: number;
+  user_id: number | null;
   message: string;
   created_at: string;
   updated_at: string | null;

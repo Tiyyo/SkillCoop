@@ -22,14 +22,12 @@ export class MessageQueueController {
   }
   @MessagePattern('event-queue')
   async handleEventQueue(eventQueueMessage: EventQueuePublisher) {
-    console.log('Event queue is called');
     return this.eventQueueDispatcher.dispatch(eventQueueMessage);
   }
   @MessagePattern('participant-queue')
   async handleParticipantQueue(
     participantQueuemessage: ParticipantQueuePublisher,
   ) {
-    console.log('Participation queue is called');
     return this.participantQueueMessage.dispatch(participantQueuemessage);
   }
 }

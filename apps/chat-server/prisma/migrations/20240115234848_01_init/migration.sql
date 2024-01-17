@@ -65,3 +65,8 @@ CREATE UNIQUE INDEX "convertion_type_name_key" ON "convertion_type"("name");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "user_username_key" ON "user"("username");
+
+INSERT INTO "convertion_type" (name, created_at) VALUES ('event', date('now'));
+INSERT INTO "convertion_type" (name, created_at) VALUES ('oneToOne', date('now'));
+INSERT INTO "convertion_type" (name, created_at) VALUES ('group', date('now'));
+

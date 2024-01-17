@@ -31,8 +31,8 @@ model user {
 
 model message {
   message_id        Int       @id @default(autoincrement())
-  user_id           Int
-  user              user      @relation(fields: [user_id], references: [user_id])
+  user_id           Int?
+  user              user?      @relation(fields: [user_id], references: [user_id], onDelete: SetNull, onUpdate: Cascade)
   message           String
   created_at        String
   updated_at        String? 
@@ -55,7 +55,7 @@ model message_on_conversation {
   message_id        Int
   conversation_id   Int
   message           message       @relation(fields: [message_id], references: [message_id])
-  conversation      conversation  @relation(fields: [conversation_id], references: [conversation_id])
+  conversation      conversation  @relation(fields: [conversation_id], references: [conversation_id], onDelete : Cascade, onUpdate : Cascade)
   created_at        String
   updated_at        String?
   @@id([message_id, conversation_id])
@@ -64,8 +64,8 @@ model message_on_conversation {
 model user_on_conversation {
   user_id           Int
   conversation_id   Int
-  user              user          @relation(fields: [user_id], references: [user_id])
-  conversation      conversation  @relation(fields: [conversation_id], references: [conversation_id])
+  user              user          @relation(fields: [user_id], references: [user_id], onDelete: Cascade, onUpdate : Cascade)
+  conversation      conversation  @relation(fields: [conversation_id], references: [conversation_id], onDelete: Cascade, onUpdate: Cascade)
   is_admin          Int           @default(1)
   created_at        String
   updated_at        String?

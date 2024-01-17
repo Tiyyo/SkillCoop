@@ -52,12 +52,21 @@ export default {
       // send notification to invited users here
       notifyUserHasBeenInvitedToEvent(event.id, data.organizer_id, ids);
     }
-    console.log('Before publish to queue');
+
     // sync chat service database
+    let allParticipantsIds;
+    if (ids && ids.length > 0) {
+      ids.push(data.organizer_id);
+      allParticipantsIds = ids;
+    } else {
+      data.organizer_id;
+      allParticipantsIds = [data.organizer_id];
+    }
+
     await eventQueuePublisher({
       organizer_id: data.organizer_id,
       event_id: event.id,
-      participants_id: ids,
+      participants_id: allParticipantsIds,
       action: 'create_event',
     });
     res.status(201).json({

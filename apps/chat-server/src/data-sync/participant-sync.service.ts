@@ -10,9 +10,48 @@ export class ParticipantSyncService {
   constructor(@Inject('dbClient') protected dbClient: Kysely<DB>) { }
 
   async addParticipant(data: ParticipantQueuePublisher) {
-    console.log('Should sync by add a participant');
+    const todayUTCString = getFormattedUTCTimestamp();
+    try {
+      await this.dbClient.transaction().execute(async (trx) => {
+        const conv = await trx
+          .selectFrom('conversation')
+          .select(['conversation_id'])
+          .where('event_id', '=', data.event_id)
+          .executeTakeFirst();
+
+        return await trx
+          .insertInto(this.tableName)
+          .values(
+            data.participants_id.map((id) => ({
+              created_at: todayUTCString,
+              conversation_id: conv.conversation_id,
+              is_admin: 0,
+              user_id: id,
+            })),
+          )
+          .executeTakeFirst();
+      });
+    } catch (error) {
+      console.error(error);
+    }
   }
   async removeParticipant(data: ParticipantQueuePublisher) {
-    console.log('Should sync by removing a participant');
+    try {
+      await this.dbClient.transaction().execute(async (trx) => {
+        const conv = await trx
+          .selectFrom('conversation')
+          .select(['conversation_id'])
+          .where('event_id', '=', data.event_id)
+          .executeTakeFirst();
+
+        return await trx
+          .deleteFrom(this.tableName)
+          .where('conversation_id', '=', conv.conversation_id)
+          .where('user_id', '=', data.participants_id[0])
+          .executeTakeFirst();
+      });
+    } catch (error) {
+      console.error(error);
+    }
   }
 }

@@ -18,18 +18,19 @@
 
 - `api`: a Node.js app
 - `client`: a React.js app
+- `chat-server` : a Nestjs Websocket server
 - `schema`: Shared schema to validate data
 - 'type' : Shared types
 - 'date-handler' : Shared collection of utils functions to manage date
 - `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `tsconfig`: `tsconfig.json`s used throughout the monorepo
 
 ### Stack
 
-- Express.js
+- Express.js / Nestjs
 - SQlite / Redis
 - Prisma / Kysely
-  
+- RabbitMQ
+
 - React.js
 - ReactQuery / Zustand
 - TailwindCSS / Shadcn/ui

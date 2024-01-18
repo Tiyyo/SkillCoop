@@ -1,0 +1,207 @@
+import { Inject, Injectable } from '@nestjs/common';
+import { getFormattedUTCTimestamp } from '@skillcoop/date-handler';
+import { Kysely, sql } from 'kysely';
+import { DB } from 'src/database/database';
+
+type ChatParticipant = {
+  user_id: number;
+  avatar: string | null;
+  username: string;
+  is_admin?: number;
+};
+
+type ChatMessage = {
+  message_id: number;
+  user_id: number;
+  avatar: string | null;
+  username: string;
+  content: string;
+  created_at: string;
+  updated_at?: string | null;
+};
+
+type Conversation = {
+  conversation_id: number;
+  title: string | null;
+  type_name: string;
+  participant_list: ChatParticipant[];
+  messages: ChatMessage[];
+  last_message: ChatMessage;
+};
+
+@Injectable()
+export class ConversationService {
+  constructor(@Inject('dbClient') protected dbClient: Kysely<DB>) { }
+  async getList(id: number) {
+    try {
+      const result = await sql`SELECT conversation.conversation_id,
+       conversation.title,
+       conversation.type_name,
+       json_group_array(
+          json_object(
+            'user_id', participants.user_id,
+            'avatar', user.avatar,
+            'username', user.username
+          )
+        ) AS participants_list,
+       ( SELECT
+            json_object(
+                'avatar', user.avatar,
+                'username' , user.username,
+                'content' , message.message,
+                'created_at', message.created_at
+            )
+         FROM message 
+         INNER JOIN user ON message.user_id = user.user_id
+         WHERE message.conversation_id = conversation.conversation_id
+         ORDER BY message.created_at DESC
+         LIMIT 1
+        ) AS last_message
+FROM conversation
+INNER JOIN user_on_conversation as participants ON conversation.conversation_id = participants.conversation_id
+INNER JOIN user ON participants.user_id = user.user_id
+WHERE EXISTS (
+  SELECT 1
+  FROM user_on_conversation
+  WHERE user_on_conversation.conversation_id = conversation.conversation_id
+  AND user_on_conversation.user_id = ${id}
+  )
+ORDER BY conversation.last_update DESC
+GROUP BY conversation.conversation_id`.execute(this.dbClient);
+
+      const conversations = result.rows.map((conversation: any) => ({
+        ...conversation,
+        participants_list: conversation.participants_list
+          ? JSON.parse(conversation.participants_list)
+          : [],
+        last_message: conversation.last_message
+          ? JSON.parse(conversation.last_message)
+          : null,
+      }));
+      return conversations as Conversation[];
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  async createOneToOne(data: { userIdOne: number; userIdTwo: number }) {
+    const todayUTCString = getFormattedUTCTimestamp();
+    try {
+      await this.dbClient.transaction().execute(async (trx) => {
+        const newConversation = await trx
+          .insertInto('conversation')
+          .values({ type_name: 'oneToOne', created_at: todayUTCString })
+          .returning('conversation_id')
+          .executeTakeFirst();
+
+        return await trx
+          .insertInto('user_on_conversation')
+          .values([
+            {
+              conversation_id: newConversation.conversation_id,
+              user_id: data.userIdOne,
+              is_admin: 1,
+              created_at: todayUTCString,
+            },
+            {
+              conversation_id: newConversation.conversation_id,
+              user_id: data.userIdTwo,
+              is_admin: 1,
+              created_at: todayUTCString,
+            },
+          ])
+          .executeTakeFirst();
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  async createGroup(data: { creatorId: number; ids?: number[] }) {
+    const todayUTCString = getFormattedUTCTimestamp();
+    try {
+      await this.dbClient.transaction().execute(async (trx) => {
+        const newConversation = await trx
+          .insertInto('conversation')
+          .values({ type_name: 'group', created_at: todayUTCString })
+          .returning('conversation_id')
+          .executeTakeFirst();
+
+        return await trx
+          .insertInto('user_on_conversation')
+          .values(
+            data.ids.map((id) => ({
+              conversation_id: newConversation.conversation_id,
+              user_id: id,
+              is_admin: data.creatorId === id ? 1 : 0,
+              created_at: todayUTCString,
+            })),
+          )
+          .executeTakeFirst();
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  async deleteGroup(data: { conversationId: number; userId: number }) {
+    try {
+      // find organizer first
+      const creator = await this.dbClient
+        .selectFrom('user_on_conversation')
+        .select('user_id')
+        .where('conversation_id', '=', data.conversationId)
+        .where('is_admin', '=', 1)
+        .executeTakeFirst();
+
+      if (creator.user_id !== data.userId) return;
+
+      const result = await this.dbClient
+        .deleteFrom('conversation')
+        .where('conversation_id', '=', data.conversationId)
+        .executeTakeFirst();
+
+      return !!Number(result.numDeletedRows);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  async addToGroup(data: { conversationId: number; ids: number[] }) {
+    const todayUTCString = getFormattedUTCTimestamp();
+
+    try {
+      await this.dbClient
+        .insertInto('user_on_conversation')
+        .values(
+          data.ids.map((id) => ({
+            created_at: todayUTCString,
+            is_admin: 0,
+            user_id: id,
+            conversation_id: data.conversationId,
+          })),
+        )
+        .execute();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  async removeFromGroup(data: { userId: number; conversationId: number }) {
+    try {
+      const creator = await this.dbClient
+        .selectFrom('user_on_conversation')
+        .select('user_id')
+        .where('conversation_id', '=', data.conversationId)
+        .where('is_admin', '=', 1)
+        .executeTakeFirst();
+
+      if (creator.user_id !== data.userId) return;
+
+      const result = await this.dbClient
+        .deleteFrom('user_on_conversation')
+        .where('conversation_id', '=', data.conversationId)
+        .where('user_id', '=', data.userId)
+        .executeTakeFirst();
+
+      return !!Number(result.numDeletedRows);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+}

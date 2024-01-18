@@ -30,13 +30,14 @@ model user {
 }
 
 model message {
-  message_id        Int       @id @default(autoincrement())
+  message_id        Int         @id @default(autoincrement())
   user_id           Int?
-  user              user?      @relation(fields: [user_id], references: [user_id], onDelete: SetNull, onUpdate: Cascade)
+  sender            user?       @relation(fields: [user_id], references: [user_id], onDelete: SetNull, onUpdate: Cascade)
+  conversation_id   Int
+  conversation      conversation @relation(fields: [conversation_id], references: [conversation_id], onDelete: Cascade, onUpdate: Cascade)
   message           String
   created_at        String
   updated_at        String? 
-  conversation      message_on_conversation[]
 }
 
 model conversation  {
@@ -44,24 +45,16 @@ model conversation  {
   title             String?
   type_name         String
   type              convertion_type @relation(fields: [type_name], references: [name])
-  event_id          Int?      
+  event_id          Int?
+  last_update       String?      
   created_at        String
   updated_at        String?
-  messages          message_on_conversation[]
+  message           message[]
   users             user_on_conversation[]
 }
 
-model message_on_conversation {
-  message_id        Int
-  conversation_id   Int
-  message           message       @relation(fields: [message_id], references: [message_id])
-  conversation      conversation  @relation(fields: [conversation_id], references: [conversation_id], onDelete : Cascade, onUpdate : Cascade)
-  created_at        String
-  updated_at        String?
-  @@id([message_id, conversation_id])
-}
-
 model user_on_conversation {
+  id                Int           @id @default(autoincrement())
   user_id           Int
   conversation_id   Int
   user              user          @relation(fields: [user_id], references: [user_id], onDelete: Cascade, onUpdate : Cascade)
@@ -69,7 +62,7 @@ model user_on_conversation {
   is_admin          Int           @default(1)
   created_at        String
   updated_at        String?
-  @@id([user_id, conversation_id])
+
 }
 
 

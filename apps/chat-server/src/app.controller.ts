@@ -1,15 +1,5 @@
-import {
-  Controller,
-  Get,
-  HttpCode,
-  Req,
-  Res,
-  Post,
-  Body,
-} from '@nestjs/common';
-import { Request, Response } from 'express';
-// import { AppService } from './app.service';
-import { MessagePattern } from '@nestjs/microservices';
+import { Controller, Get, Post, Body, Param, Patch } from '@nestjs/common';
+import { ConversationService } from './message-storage/conversation.service';
 
 export class Message {
   content: string;
@@ -17,27 +7,34 @@ export class Message {
   receiverId: string;
 }
 
-@Controller('api')
+@Controller('chat-serivce')
 export class AppController {
-  //  Dependency Injection
-  // constructor(private readonly appService: AppService) { }
-
-  // Decorator to define a route type
-  @Get('/:id')
-  // methods to handle requests
-  @HttpCode(200)
-  getHello(@Req() request: Request) {
-    // return this.appService.getHello();
-    const { id } = request.params;
-    return { message: 'Hello World!', params: id };
+  constructor(private readonly conversationService: ConversationService) { }
+  @Post('conversation/oneToOne')
+  async createConvOne(@Body() body: { userIdOne: number; userIdTwo: number }) {
+    await this.conversationService.createOneToOne(body);
   }
-  @Post('message')
-  create(@Body() createMessage: Message): string {
-    console.log(createMessage);
-    return 'This action adds a new cat';
+  @Post('conversation/group')
+  async createConvGroup(@Body() body: { creatorId: number; ids?: number[] }) {
+    await this.conversationService.createGroup(body);
   }
-  @MessagePattern('user-queue')
-  async handleMessage(data) {
-    console.log(data);
+  @Patch('conversation/group')
+  async addUserToGroup(
+    @Body() body: { conversationId: number; ids: number[] },
+  ) {
+    await this.conversationService.addToGroup(body);
+  }
+  @Patch('conversation/group/remove')
+  async removeUserFromGroup(
+    @Body() body: { userId: number; conversationId: number },
+  ) {
+    await this.conversationService.removeFromGroup(body);
+  }
+  @Get('conversations/:userId')
+  async getConversationsList(@Param() params: { userId: string }) {
+    const conversations = await this.conversationService.getList(
+      Number(params.userId),
+    );
+    return conversations;
   }
 }

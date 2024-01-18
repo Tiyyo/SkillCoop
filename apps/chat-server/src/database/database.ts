@@ -9,6 +9,7 @@ export type conversation = {
   title: string | null;
   type_name: string;
   event_id: number | null;
+  last_update: string | null;
   created_at: string;
   updated_at: string | null;
 };
@@ -20,13 +21,8 @@ export type convertion_type = {
 export type message = {
   message_id: Generated<number>;
   user_id: number | null;
-  message: string;
-  created_at: string;
-  updated_at: string | null;
-};
-export type message_on_conversation = {
-  message_id: number;
   conversation_id: number;
+  message: string;
   created_at: string;
   updated_at: string | null;
 };
@@ -38,6 +34,7 @@ export type user = {
   updated_at: string | null;
 };
 export type user_on_conversation = {
+  id: Generated<number>;
   user_id: number;
   conversation_id: number;
   is_admin: Generated<number>;
@@ -48,7 +45,6 @@ export type DB = {
   conversation: conversation;
   convertion_type: convertion_type;
   message: message;
-  message_on_conversation: message_on_conversation;
   user: user;
   user_on_conversation: user_on_conversation;
 };

@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { getFormattedUTCTimestamp } from '@skillcoop/date-handler';
 import { Kysely } from 'kysely';
 import { DB } from '../database/database';
@@ -7,7 +7,7 @@ import { ParticipantQueuePublisher } from '@skillcoop/types';
 @Injectable()
 export class ParticipantSyncService {
   private tableName = 'user_on_conversation' as const;
-  constructor(@Inject('dbClient') protected dbClient: Kysely<DB>) { }
+  constructor(@Inject('dbClient') protected dbClient: Kysely<DB>, private readonly logger: Logger) { }
 
   async addParticipant(data: ParticipantQueuePublisher) {
     const todayUTCString = getFormattedUTCTimestamp();
@@ -32,7 +32,7 @@ export class ParticipantSyncService {
           .executeTakeFirst();
       });
     } catch (error) {
-      console.error(error);
+      this.logger.error('Could not sync database and add a participant into a conversation' + error.message)
     }
   }
   async removeParticipant(data: ParticipantQueuePublisher) {
@@ -51,7 +51,7 @@ export class ParticipantSyncService {
           .executeTakeFirst();
       });
     } catch (error) {
-      console.error(error);
+      this.logger.error('Could not sync database and delete a participant into a conversation' + error.message)
     }
   }
 }

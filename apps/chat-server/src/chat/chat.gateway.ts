@@ -1,3 +1,4 @@
+import { Logger } from '@nestjs/common';
 import {
   ConnectedSocket,
   MessageBody,
@@ -22,20 +23,18 @@ export class ChatGateway
   constructor(
     private readonly historicService: HistoricService,
     private readonly messageService: MessageService,
+    private readonly logger: Logger,
   ) { }
   @WebSocketServer() io: Server;
 
   afterInit() {
-    console.log('Init');
+    this.logger.log('Init');
   }
   handleConnection(client: any, ...args: any[]) {
-    // console.log('Args', args);
-    // console.log('Client', client);
-    console.log('Connected');
+    this.logger.debug('Client connected: ' + client.id);
   }
   handleDisconnect(client: any) {
-    // console.log('Client', client);
-    console.log('Disconnected');
+    this.logger.debug('Client disconnected: ' + client.id);
   }
 
   @SubscribeMessage('message')
@@ -50,23 +49,16 @@ export class ChatGateway
       avatar: string | null;
     },
   ) {
-    console.log('Message', payload);
-    // handle the logic to store a message in db
-    // we need for that conversationId, user_id ,
-    // message content
-    // then we emit this message to all user in the room
-    // matching the conversation id
-    // console.log('Client', client)
-
-    console.log(payload);
     const { content, conversationId, userId, username, avatar } = payload;
-    console.log(client);
+
     await this.messageService.store({
       conversationId,
       content,
       sender: userId,
     });
+
     const roomName = `conversation#${conversationId}`;
+
     this.io.to(roomName).emit('new-message', {
       message: content,
       created_at: client.handshake.time,
@@ -85,8 +77,7 @@ export class ChatGateway
     const historic = await this.historicService.get({
       conversationId: payload.conversationId,
     });
+
     client.emit('historic', historic);
-    // handle the logic to emit historic message for user
-    // we need that the conversationId
   }
 }

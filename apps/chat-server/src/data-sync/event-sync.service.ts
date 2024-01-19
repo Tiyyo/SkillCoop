@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { getFormattedUTCTimestamp } from '@skillcoop/date-handler';
 import { Kysely } from 'kysely';
 import { DB } from '../database/database';
@@ -7,7 +7,7 @@ import { EventQueuePublisher } from '@skillcoop/types';
 @Injectable()
 export class EventSyncService {
   private tableName = 'conversation' as const;
-  constructor(@Inject('dbClient') protected dbClient: Kysely<DB>) { }
+  constructor(@Inject('dbClient') protected dbClient: Kysely<DB>, private readonly logger: Logger) { }
 
   async create(data: EventQueuePublisher) {
     const todayUTCString = getFormattedUTCTimestamp();
@@ -37,7 +37,7 @@ export class EventSyncService {
           .executeTakeFirst();
       });
     } catch (error) {
-      console.log(error);
+      this.logger.error('Could not sync database and create event conversation' + error.message)
     }
   }
   async delete(data: EventQueuePublisher) {
@@ -49,7 +49,7 @@ export class EventSyncService {
 
       return !!Number(result.numDeletedRows);
     } catch (error) {
-      console.log(error);
+      this.logger.error('Could not sync database and delete event conversation' + error.message)
     }
   }
 }

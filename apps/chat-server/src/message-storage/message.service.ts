@@ -1,11 +1,11 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { getFormattedUTCTimestamp } from '@skillcoop/date-handler';
 import { Kysely } from 'kysely';
 import { DB } from 'src/database/database';
 
 @Injectable()
 export class MessageService {
-  constructor(@Inject('dbClient') protected dbClient: Kysely<DB>) { }
+  constructor(@Inject('dbClient') protected dbClient: Kysely<DB>, private readonly logger: Logger) { }
   async store(data: {
     content: string;
     sender: number;
@@ -25,7 +25,7 @@ export class MessageService {
 
       return result;
     } catch (error) {
-      console.log(error);
+      this.logger.error('Could not store message ' + data.content + ' ' + error.message)
     }
   }
   async update(data: { messageId: number; content: string }) {
@@ -42,7 +42,7 @@ export class MessageService {
 
       return !!Number(result.numUpdatedRows);
     } catch (error) {
-      console.log(error);
+      this.logger.error('Could not update message ' + data.messageId + ' ' + error.message)
     }
   }
   async delete(data: { messageId: number }) {
@@ -54,7 +54,7 @@ export class MessageService {
 
       return !!Number(result.numDeletedRows);
     } catch (error) {
-      console.log(error);
+      this.logger.error('Could not delete message ' + data.messageId + ' ' + error.message)
     }
   }
 }

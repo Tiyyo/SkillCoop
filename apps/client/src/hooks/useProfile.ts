@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
+  createProfileFn,
   deleteUserFn,
   evaluateOwnSkillsFn,
   evaluateParticipantSkillsFn,
@@ -153,6 +154,22 @@ export function useUpdateProfile(options: {
         queryClient.invalidateQueries(keys.getProfileId(options.profileId));
       }
       if (options?.onSuccess) options.onSuccess();
+    },
+  });
+}
+
+export function userCreateProfile(options: { onSuccess?: () => void }) {
+  return useMutation({
+    mutationFn: (
+      data: Partial<Omit<Profile, 'username'>> & {
+        username: string;
+        profile_id: number;
+      },
+    ) => {
+      return createProfileFn(data);
+    },
+    onSuccess: () => {
+      if (options?.onSuccess) options.onSuccess;
     },
   });
 }

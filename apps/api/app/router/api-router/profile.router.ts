@@ -7,7 +7,7 @@ import { editProfileInfosSchema } from '@skillcoop/schema';
 import { canals } from '../../@types/types.js';
 import { sanitizeParams } from '../../middleware/sanitizer.params.js';
 
-const { getOne, updateOne, updateImage, searchProfileByUsername } =
+const { getOne, updateOne, updateImage, searchProfileByUsername, createOne } =
   profileController;
 
 const router: Router = express.Router();
@@ -17,7 +17,9 @@ router
   .patch(
     validateSchema(editProfileInfosSchema, canals.body),
     factory(updateOne),
-  );
+  )
+  // Need some validation pipe
+  .post(factory(createOne));
 
 router.route('/avatar').patch(upload.single('avatar'), factory(updateImage));
 

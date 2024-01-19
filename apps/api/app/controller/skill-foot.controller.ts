@@ -28,7 +28,6 @@ export default {
     if (userEval) throw new UserInputError("User can't rate himself twice");
 
     const skill = await SkillFoot.createOne(data);
-
     res.status(201).send({ success: !!skill });
   },
   async getProfileEvalByEvent(req: Request, res: Response) {

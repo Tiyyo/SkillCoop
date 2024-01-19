@@ -1,7 +1,8 @@
-import { Calendar } from 'lucide-react';
+import { CalendarSearch } from 'lucide-react';
 import { getDefaultDatePicker } from '@skillcoop/date-handler/src';
 import { getCurrentLngInLocalStorage } from '../../utils/get-current-lng';
 import DatePicker from './date-picker';
+import useResetError from '../../hooks/useResetError';
 
 type InputDateProps = {
   updateState?: (e: any) => void;
@@ -23,6 +24,7 @@ function InputDate({
   disabled,
 }: InputDateProps) {
   const currentLng = getCurrentLngInLocalStorage();
+  const { hasError, setHasError } = useResetError(error);
   const getDateFormatedLikeInputDate = (date: Date) => {
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
@@ -31,6 +33,7 @@ function InputDate({
   };
 
   const handleChange = (selectedDate: Date) => {
+    setHasError(false);
     const formatDate = getDateFormatedLikeInputDate(selectedDate);
     if (updateState) {
       updateState(formatDate);
@@ -41,9 +44,12 @@ function InputDate({
 
   return (
     <div className="relative w-full flex gap-x-2.5 items-center py-4">
-      <div className={`basis-7 ${error ? 'text-error' : 'text-primary-100'}`}>
-        <Calendar />
-      </div>
+      <CalendarSearch
+        className={`${
+          hasError ? 'text-error' : 'text-primary-100'
+        } flex-shrink-0 basis-7`}
+        size={24}
+      />
       <div className="flex flex-col gap-y-1 flex-grow">
         <div className="block h-4 ml-2 text-xs font-medium text-grey-sub-text">
           {label}
@@ -59,7 +65,11 @@ function InputDate({
           />
         ) : (
           <>
-            <DatePicker onChange={handleChange} currentLng={currentLng} />
+            <DatePicker
+              onChange={handleChange}
+              currentLng={currentLng}
+              hasError={hasError}
+            />
           </>
         )}
       </div>

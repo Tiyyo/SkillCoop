@@ -19,7 +19,11 @@ export class Friendlist extends Core<typeof tableNames.profile_on_profile> {
         .selectFrom(this.tableName)
         .select(['friend_id', 'adder_id', 'status_name'])
         .limit(20)
-        .innerJoin('profile', 'profile.id', 'profile_on_profile.friend_id')
+        .innerJoin(
+          'profile',
+          'profile.profile_id',
+          'profile_on_profile.friend_id',
+        )
         .select([
           'profile.avatar_url',
           'profile.username',
@@ -41,7 +45,11 @@ export class Friendlist extends Core<typeof tableNames.profile_on_profile> {
       let query = this.client
         .selectFrom(this.tableName)
         .select(['friend_id', 'adder_id', 'status_name'])
-        .innerJoin('profile', 'profile.id', 'profile_on_profile.friend_id')
+        .innerJoin(
+          'profile',
+          'profile.profile_id',
+          'profile_on_profile.friend_id',
+        )
         .select([
           'profile.avatar_url',
           'profile.username',
@@ -73,7 +81,11 @@ export class Friendlist extends Core<typeof tableNames.profile_on_profile> {
         .select(['friend_id', 'adder_id', 'status_name'])
         .offset(offset)
         .limit(20)
-        .innerJoin('profile', 'profile.id', 'profile_on_profile.friend_id')
+        .innerJoin(
+          'profile',
+          'profile.profile_id',
+          'profile_on_profile.friend_id',
+        )
         .select([
           'profile.avatar_url',
           'profile.username',
@@ -169,7 +181,11 @@ export class Friendlist extends Core<typeof tableNames.profile_on_profile> {
       const pendingRequests = await this.client
         .selectFrom(this.tableName)
         .select(['friend_id', 'adder_id', 'status_name'])
-        .innerJoin('profile', 'profile.id', 'profile_on_profile.adder_id')
+        .innerJoin(
+          'profile',
+          'profile.profile_id',
+          'profile_on_profile.adder_id',
+        )
         .select([
           'profile.avatar_url',
           'profile.username',
@@ -231,7 +247,7 @@ FROM
           LIMIT 3
         ) 
     )
-  JOIN profile ON friend_id = profile.id
+  JOIN profile ON friend_id = profile.profile_id
   WHERE friend_id  NOT IN ( 
         SELECT friend_id
         FROM profile_on_profile

@@ -6,34 +6,30 @@ import bcrypt from 'bcrypt';
 import checkParams from '../utils/check-params.js';
 import AuthorizationError from '../helpers/errors/unauthorized.error.js';
 import NotFoundError from '../helpers/errors/not-found.error.js';
+import { UserInfosToken } from '@skillcoop/types';
+import { userQueuePublisher } from '../publisher/user.publisher.js';
 
 export default {
   getMe: async (req: Request, res: Response) => {
     const { decoded } = req.body;
-    const userId = decoded.user_id;
-    const userProfile = await Profile.findByUserId(userId);
-
-    if (!userProfile) {
-      await Profile.create({ user_id: userId, created_at: '' });
-      const createdUserProfile = await Profile.findByUserId(userId);
-      return res.status(200).json({ userProfile: createdUserProfile });
-    }
-    res.status(200).json({ userProfile: userProfile });
+    const { user_id } = decoded as UserInfosToken;
+    const userProfile = await Profile.find(user_id);
+    res
+      .status(200)
+      .json({ userProfile, success: !!userProfile, userId: user_id });
   },
   updateEmail: async (req: Request, res: Response) => {
     const { email, user_id } = req.body;
 
-    const userProfile = await User.updateOne({ id: user_id }, { email });
-
-    res.status(200).json({ success: userProfile, new_email: email });
+    const isUpdated = await User.updateOne({ id: user_id }, { email });
+    res
+      .status(200)
+      .json({ success: isUpdated, new_email: isUpdated ? email : null });
   },
   updatePassword: async (req: Request, res: Response) => {
     const { old_password, new_password, user_id } = req.body;
+    const user = await User.findOne({ id: user_id });
 
-    const email = 'email';
-
-    // const user = await User.findOne({ id: user_id });
-    const user = await User.findOne({ email });
     if (!user) throw new NotFoundError('User not found');
 
     // check if old password match
@@ -62,13 +58,19 @@ export default {
       res.clearCookie('refreshToken');
       throw new AuthorizationError('Operation not allowed');
     }
-    const profile = await Profile.findByUserId(userId);
+    const profile = await Profile.find(userId);
 
     if (profile?.avatar_url) {
       await Image.deleteOne({ url: profile.avatar_url });
     }
 
     const isDeleted = await User.deleteOne({ id: userId });
-    res.status(204).json({ success: isDeleted });
+    if (!isDeleted) {
+      res.status(400).json({ error: 'Could not delete this account' });
+    }
+
+    await userQueuePublisher({ profile_id: userId, action: 'delete' });
+
+    res.status(204).end();
   },
 };

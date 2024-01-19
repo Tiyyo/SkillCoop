@@ -13,6 +13,8 @@ import { notifyTransfertOwnership } from '../service/notification/subtype/transf
 /*eslint-enable*/
 import ForbidenError from '../helpers/errors/forbiden.js';
 import ServerError from '../helpers/errors/server.error.js';
+import { eventQueuePublisher } from '../publisher/event.publisher.js';
+import { invitationStatus } from '@skillcoop/types';
 
 export default {
   async createOne(req: Request, res: Response) {
@@ -47,9 +49,27 @@ export default {
         };
       });
       await ProfileOnEvent.createMany(participantsToInvite);
-      notifyUserHasBeenInvitedToEvent(event.id, data.organizer_id, ids);
+
       // send notification to invited users here
+      notifyUserHasBeenInvitedToEvent(event.id, data.organizer_id, ids);
     }
+
+    // sync chat service database
+    let allParticipantsIds;
+    if (ids && ids.length > 0) {
+      ids.push(data.organizer_id);
+      allParticipantsIds = ids;
+    } else {
+      data.organizer_id;
+      allParticipantsIds = [data.organizer_id];
+    }
+
+    await eventQueuePublisher({
+      organizer_id: data.organizer_id,
+      event_id: event.id,
+      participants_id: allParticipantsIds,
+      action: 'create_event',
+    });
     res.status(201).json({
       success: true,
     });
@@ -68,6 +88,11 @@ export default {
     deleteDecodedKey(req.body);
     const { event_id, profile_id, ...data } = req.body;
     const event = await Event.findOne({ id: event_id });
+    const confirmedParticipants = await ProfileOnEvent.find({
+      event_id,
+      status_name: invitationStatus.confirmed,
+    });
+
     const possibleFieldsUpdated = [
       'date',
       'duration',
@@ -92,6 +117,19 @@ export default {
       return res.status(201).json({
         message: 'Nothing to update',
       });
+    if (data.required_participants > event.required_participants) {
+      data.status_name = 'open';
+    }
+    if (
+      confirmedParticipants &&
+      data.required_participants === confirmedParticipants.length
+    ) {
+      data.status_name = 'full';
+    }
+    // delete start date and start time if present
+    delete data.start_date;
+    delete data.start_time;
+
     const isUpdated = await Event.updateOne({ id: event_id }, data);
 
     notifyEventInfosHasBeenUpdated(event_id);
@@ -105,6 +143,7 @@ export default {
     const { event_id, organizer_id, new_organizer_id } = req.body;
 
     const event = await Event.findOne({ id: event_id });
+
     if (!event || event.organizer_id !== organizer_id)
       throw new ForbidenError(
         'Operation not allowed : you are not the organizer',
@@ -124,7 +163,7 @@ export default {
       await notifyTransfertOwnership(event_id, organizer_id, new_organizer_id);
     }
 
-    res.status(204).json({
+    res.status(200).json({
       success: isUpdated,
     });
   },
@@ -142,7 +181,7 @@ export default {
     if (event.organizer_id !== profileId)
       throw new AuthorizationError('Operation not allowed');
 
-    const isDeleted = await Event.deleteOne({ id: eventId });
+    const isDeleted = await Event.deleteSyncChat(eventId, profileId);
 
     res.status(204).json({
       success: isDeleted,
@@ -175,6 +214,10 @@ export default {
   async generateTeams(req: Request, res: Response) {
     deleteDecodedKey(req.body);
     const { eventId } = req.body;
+    if (!eventId)
+      throw new NotFoundError('No event id found', 'generateTeams controller');
+    if (typeof eventId !== 'number')
+      throw new TypeError('eventId is not a number');
 
     await generateBalancedTeam(eventId);
     res.status(200).json({

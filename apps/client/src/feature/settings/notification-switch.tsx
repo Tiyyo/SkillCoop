@@ -16,16 +16,16 @@ function NotificationSwitch({
   method,
   value,
 }: NotificationSwitchProps) {
-  const { userProfile } = useApp();
+  const { userId } = useApp();
   const { mutate: updatePreference } = useUpdateNotificationPreference({});
 
   const handleChangeSwitch = (e: React.FormEvent<HTMLFormElement>) => {
-    if (!userProfile?.user_id) return null;
+    if (!userId) return null;
     const { checked } = e.target as HTMLInputElement;
     // true = 1
     // false = 0
     const updatePreferenceData = {
-      user_id: userProfile.user_id,
+      user_id: userId,
       type_name: notificationType,
       [method]: checked,
     };

@@ -1,4 +1,16 @@
 import { EventParticipant, InvitationStatus } from ".";
+export type EventWithoutAggr = {
+    id: number;
+    date: string;
+    duration: number;
+    location: string;
+    required_participants: number;
+    nb_teams: number;
+    organizer_id: number | null;
+    mvp_id?: number | null;
+    best_striker_id?: number | null;
+    status_name: string;
+};
 export type EventType = {
     event_id: number;
     date: string;

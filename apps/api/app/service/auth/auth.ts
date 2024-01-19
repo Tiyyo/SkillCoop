@@ -24,27 +24,35 @@ export default {
       const hashedPassword = await bcrypt
         .hash(password, saltRouds)
         .catch((err) => {
-          if (err) throw new ServerError("Couldn't hash user password");
+          if (err)
+            throw new ServerError(
+              "Couldn't hash user password",
+              'AuthService.createUser',
+            );
         });
 
-      if (!hashedPassword) throw new ServerError('hash password is missing');
+      if (!hashedPassword)
+        throw new ServerError(
+          'hash password is missing',
+          'AuthService.createUser',
+        );
 
       const newUser = await User.create({
         email,
         password: hashedPassword,
       });
       if (!newUser)
-        throw new ServerError(
-          'Error creating user',
-          'AuthService.createUser',
-          'line 39',
-        );
+        throw new ServerError('Error creating user', 'AuthService.createUser');
+
+      /* generate user preference by default */
       await new UserPreferenceHandler(newUser.id).generateDefault();
+
       return newUser;
     } catch (error) {
       if (error instanceof Error) {
         throw new DatabaseError(error);
       }
+      throw error;
     }
   },
   async login(data: { email: string; password: string }) {
@@ -102,7 +110,7 @@ export default {
       return loginTrack;
     }
 
-    const userInfos: UserInfosToken = { user_id: user.id, email: user.email };
+    const userInfos: UserInfosToken = { user_id: user.id };
     const { accessToken, refreshToken } =
       tokenHandler.createPairAuthToken(userInfos);
     loginTrack.accessToken = accessToken;
@@ -133,8 +141,8 @@ export default {
       avatar_url: picture,
       first_name: given_name,
       last_name: family_name,
-      user_id: userCreated.id,
+      profile_id: userCreated.id,
     });
-    return { user_id: userCreated.id, email: userCreated.email };
+    return { user_id: userCreated.id };
   },
 };

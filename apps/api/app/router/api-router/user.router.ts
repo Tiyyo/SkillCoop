@@ -24,6 +24,6 @@ router
 
 router
   .route('/:userId')
-  .delete(sanitizeParams, tokenHandler.validate('access'), deleteUser);
+  .delete(sanitizeParams, tokenHandler.validate('access'), factory(deleteUser));
 
 export default router;

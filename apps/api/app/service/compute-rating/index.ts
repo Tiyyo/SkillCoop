@@ -15,7 +15,7 @@ async function computeRatingUser(profileId: number) {
   ).compute();
 
   await Profile.updateOne(
-    { id: profileId },
+    { profile_id: profileId },
     { last_evaluation: profileSkills.gb_rating },
   );
   return profileSkills;

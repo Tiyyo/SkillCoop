@@ -62,10 +62,10 @@ function useAuth() {
   };
 
   if (loading && isAuthenticated && isFristConnection) {
-    if (responseGetProfile === 'Unecessary call') return;
-    return navigate(
-      `/onboarding/${responseGetProfile?.userProfile.profile_id}`,
-    );
+    if (responseGetProfile === 'Unecessary call' || !responseGetProfile) {
+      return;
+    }
+    return navigate(`/onboarding/${responseGetProfile.userId}`);
   }
 
   if (loading && isAuthenticated && isFristConnection === false) {

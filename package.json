@@ -10,6 +10,7 @@
   "scripts": {
     "clean": "pnpm -r clean:build",
     "api": "pnpm --filter @skillcoop/api",
+    "chat": "pnpm --filter @skillcoop/chat-server",
     "client": "pnpm --filter @skillcoop/client",
     "date": "pnpm --filter @skillcoop/date-handler",
     "type": "pnpm --filter @skillcoop/types",

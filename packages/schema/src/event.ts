@@ -5,6 +5,7 @@ const acceptableEventFormat = [6, 10, 14, 22]
 export const createEventSchema = z.object({
   start_date: z.string(),
   start_time: z.string(),
+  date: z.string(),
   duration: z.number().positive(),
   location: z.string(),
   required_participants: z.number().refine((data) => acceptableEventFormat.includes(data), {
@@ -17,6 +18,7 @@ export const createEventSchema = z.object({
 
 export const updateEventSchema = z.object({
   // TODO make a custom regex for the date in string format
+  event_id: z.number().positive().int(),
   date: z.string().optional(),
   duration: z.number().optional(),
   location: z.string().optional(),

@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 
 function ApparenceSettings() {
   const { t } = useTranslation('system');
-  const { userProfile } = useApp();
+  const { userId } = useApp();
   const { mutate: updatePreference } = useUpdateThemePreference({});
   const ctx = useOutletContext<UserPreference>();
   if (!ctx) return null;
@@ -18,12 +18,12 @@ function ApparenceSettings() {
   const { prefered_theme: theme } = ctx;
 
   const handleChangeSwitch = (e: React.FormEvent<HTMLFormElement>) => {
-    if (!userProfile?.user_id) return null;
+    if (!userId) return null;
 
     const { checked } = e.target as HTMLInputElement;
     const updateThemeData = {
       name: checked ? themeAssertion.light : themeAssertion.dark,
-      user_id: userProfile?.user_id,
+      user_id: userId,
     };
 
     const isValid = updateThemePreferenceSchema.safeParse(updateThemeData);

@@ -74,9 +74,8 @@ export type notification_type = {
   updated_at: string | null;
 };
 export type profile = {
-  id: Generated<number>;
-  user_id: number;
-  username: string | null;
+  profile_id: number;
+  username: string;
   first_name: string | null;
   last_name: string | null;
   location: string | null;

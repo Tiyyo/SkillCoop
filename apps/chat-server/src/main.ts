@@ -4,7 +4,9 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors({
-    origin: '*',
+    origin: 'http://localhost:5004',
+    allowedHeaders: ['content-type'],
+    credentials: true,
   });
   app.connectMicroservice({
     transport: 5,

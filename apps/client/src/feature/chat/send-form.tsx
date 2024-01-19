@@ -1,19 +1,24 @@
 import { useRef, useState } from 'react';
 import { socket } from './socket';
 
-export function MyForm() {
+export function MyForm({ conversationId, userId, username, avatar }) {
   const [value, setValue] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const formRef = useRef<HTMLFormElement>(null);
-  const avatar = '';
 
   function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setIsLoading(true);
 
-    socket.timeout(5000).emit('message', value, avatar, () => {
-      setIsLoading(false);
-    });
+    socket
+      .timeout(5000)
+      .emit(
+        'message',
+        { conversationId, userId, content: value, username, avatar },
+        () => {
+          setIsLoading(false);
+        },
+      );
     formRef.current?.reset();
   }
 

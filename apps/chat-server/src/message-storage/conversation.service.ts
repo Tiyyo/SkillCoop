@@ -32,6 +32,41 @@ type Conversation = {
 @Injectable()
 export class ConversationService {
   constructor(@Inject('dbClient') protected dbClient: Kysely<DB>) { }
+  async getConversation(conversationId) {
+    try {
+      const result = await sql`
+SELECT c.conversation_id,
+       c.event_id,
+       c.created_at,
+       c.type_name,
+       c.title,
+       json_group_array(
+          json_object(
+            'user_id', participants.user_id,
+            'avatar', user.avatar,
+            'username', user.username
+          )
+        ) AS participants_list
+FROM conversation as c
+INNER JOIN user_on_conversation as participants ON c.conversation_id = participants.conversation_id
+INNER JOIN user ON participants.user_id = user.user_id
+WHERE c.conversation_id = ${conversationId}
+GROUP BY c.conversation_id, c.created_at, c.last_update, c.event_id, c.type_name, c.title
+`.execute(this.dbClient);
+
+      const extractedConv = result.rows[0] as object;
+      const conversation = {
+        ...extractedConv,
+        participants_list: (extractedConv as any).participants_list
+          ? JSON.parse((extractedConv as any).participants_list)
+          : [],
+      };
+
+      return conversation;
+    } catch (error) {
+      console.error(error);
+    }
+  }
   async getList(id: number) {
     try {
       const result = await sql`SELECT conversation.conversation_id,
@@ -66,8 +101,9 @@ WHERE EXISTS (
   WHERE user_on_conversation.conversation_id = conversation.conversation_id
   AND user_on_conversation.user_id = ${id}
   )
+GROUP BY conversation.conversation_id
 ORDER BY conversation.last_update DESC
-GROUP BY conversation.conversation_id`.execute(this.dbClient);
+`.execute(this.dbClient);
 
       const conversations = result.rows.map((conversation: any) => ({
         ...conversation,

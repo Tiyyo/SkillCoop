@@ -6,9 +6,9 @@ import { DB } from 'src/database/database';
 @Injectable()
 export class HistoricService {
   constructor(@Inject('dbClient') protected dbClient: Kysely<DB>) { }
-  async historic(data: { conversationId: number }) {
+  async get(data: { conversationId: number }) {
     try {
-      const historic = await this.dbClient
+      const result = await this.dbClient
         .selectFrom('conversation')
         .select((eb) => [
           'conversation.conversation_id',
@@ -30,13 +30,18 @@ export class HistoricService {
                 '=',
                 'conversation.conversation_id',
               )
-              .orderBy('message.created_at', 'desc'),
+              .orderBy('message.created_at', 'asc'),
           ).as('messages'),
         ])
         .where('conversation.conversation_id', '=', data.conversationId)
         .groupBy('conversation.conversation_id')
 
         .execute();
+
+      const historic = {
+        ...result[0],
+        messages: JSON.parse((result[0] as any).messages),
+      };
 
       return historic;
     } catch (error) {

@@ -54,6 +54,9 @@ import OnBoardingCreateProfile from './feature/onboarding/create-profile';
 import OnBoardinAddImageProfile from './feature/onboarding/add-image-profile';
 import OnBoardingEvaluateSkill from './feature/onboarding/evaluate-skill';
 import TestChat from './feature/chat';
+import ChatHomePage from './feature/chat/chat-home';
+import Conversations from './feature/chat/conversations';
+import Conversation from './feature/chat/conversation';
 /*eslint-enable*/
 
 export const queryClient = new QueryClient({
@@ -241,7 +244,11 @@ const router = createBrowserRouter([
       },
       {
         path: '/chat',
-        element: <TestChat />,
+        element: <ChatHomePage />,
+        children: [
+          { index: true, element: <Conversations /> },
+          { path: `conversation/:id`, element: <Conversation /> },
+        ],
       },
       {
         path: '/notification',

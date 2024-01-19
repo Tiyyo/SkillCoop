@@ -37,4 +37,12 @@ export class AppController {
     );
     return conversations;
   }
+  @Get('conversation/:conversationId')
+  async getConversation(@Param() params: { conversationId: number }) {
+    console.log(params);
+    const conversation = await this.conversationService.getConversation(
+      params.conversationId,
+    );
+    return conversation;
+  }
 }

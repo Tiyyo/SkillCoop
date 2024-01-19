@@ -10,6 +10,8 @@ import { MessageQueueModule } from './broker/message-queue.module';
 import { AppController } from './app.controller';
 import { MessageStorageModule } from './message-storage/message-storage.module';
 import { ConversationService } from './message-storage/conversation.service';
+import { HistoricService } from './message-storage/historic.service';
+import { MessageService } from './message-storage/message.service';
 
 @Module({
   imports: [
@@ -24,6 +26,8 @@ import { ConversationService } from './message-storage/conversation.service';
     // MessageService,
     ChatGateway,
     ConversationService,
+    HistoricService,
+    MessageService,
     // UserModel,
     // UserQueueService,
   ],

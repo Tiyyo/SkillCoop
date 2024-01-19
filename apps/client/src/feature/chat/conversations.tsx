@@ -61,14 +61,14 @@ function Conversations() {
             conversations.length > 0 &&
             conversations
               .filter(
-                (conversation) =>
+                (conversation: any) =>
                   conversation.last_message &&
                   filterConversationByType(
                     conversation.type_name,
                     currentConversationFilter,
                   ),
               )
-              .map((conversation) => (
+              .map((conversation: any) => (
                 <ConversationCard
                   conversation={conversation}
                   currentUserId={userId}

@@ -1,8 +1,8 @@
 type ConversationCardTitleProps = {
   title: string | null;
-  currentUserId: string;
+  currentUserId: number;
   participantsList: {
-    user_id: string;
+    user_id: number;
     username: string;
   }[];
 };

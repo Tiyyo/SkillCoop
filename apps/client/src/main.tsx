@@ -53,7 +53,6 @@ import AccessControlGateway from './component/redirection/acces-gateway';
 import OnBoardingCreateProfile from './feature/onboarding/create-profile';
 import OnBoardinAddImageProfile from './feature/onboarding/add-image-profile';
 import OnBoardingEvaluateSkill from './feature/onboarding/evaluate-skill';
-import TestChat from './feature/chat';
 import ChatHomePage from './feature/chat/chat-home';
 import Conversations from './feature/chat/conversations';
 import Conversation from './feature/chat/conversation';

@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { useParams } from 'react-router-dom';
 import { useGetConversation } from '../../hooks/useConversations';
 import { socket } from './socket';

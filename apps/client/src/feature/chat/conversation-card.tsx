@@ -5,7 +5,7 @@ import ConversationCardTimeAgo from './conversation-card-time-age';
 import ConversationCardLastMessage from './last-message-conversation';
 
 type ConversationParticipant = {
-  user_id: string;
+  user_id: number;
   username: string;
   avatar: string | null;
 };

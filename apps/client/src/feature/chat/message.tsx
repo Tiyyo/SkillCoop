@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { useApp } from '../../store/app.store';
 
 type MessageProps = {
@@ -10,20 +9,14 @@ type MessageProps = {
   username: string;
 };
 
-function Message({
-  messageId,
-  content,
-  avatar,
-  date,
-  senderId,
-  username,
-}: MessageProps) {
+function Message({ content, date, senderId, username }: MessageProps) {
   const { userId } = useApp();
-  const ownMessageVariant = `message owned bg-accent-100 self-end pr-14 relative`;
+  const ownMessageVariant = `message owned bg-accent-100 
+  self-end pr-14 relative`;
   const receivedMessageVariant =
     'message received bg-primary-300 self-start relative ';
 
-  const [messageDate, setMessageDate] = useState();
+  // const [messageDate, setMessageDate] = useState();
 
   const messageTimeFormatted = new Intl.DateTimeFormat('fr-FR', {
     hour: 'numeric',

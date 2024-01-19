@@ -1,7 +1,19 @@
 import { useRef, useState } from 'react';
 import { socket } from './socket';
 
-export function MyForm({ conversationId, userId, username, avatar }) {
+type MyFormProps = {
+  conversationId: number;
+  userId: number;
+  username: string;
+  avatar: string | null;
+};
+
+export function MyForm({
+  conversationId,
+  userId,
+  username,
+  avatar,
+}: MyFormProps) {
   const [value, setValue] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const formRef = useRef<HTMLFormElement>(null);

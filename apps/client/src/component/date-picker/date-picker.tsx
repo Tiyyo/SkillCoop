@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Popover, PopoverContent, PopoverTrigger } from '../../lib/ui/popover';
 import { Button } from '../../lib/ui/button';
-import { CalendarSearch } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Calendar } from '../../lib/ui/calendar';
 import { getDefaultDatePicker } from '@skillcoop/date-handler/src';
@@ -9,12 +8,16 @@ import { getDefaultDatePicker } from '@skillcoop/date-handler/src';
 function DatePicker({
   onChange,
   currentLng,
+  hasError,
 }: {
   onChange: (date: Date) => void;
   currentLng?: string;
+  hasError?: boolean;
 }) {
   const { t } = useTranslation('event');
   const [date, setDate] = useState<Date>();
+
+  console.log('hasError', hasError);
 
   useEffect(() => {
     if (date) {
@@ -25,13 +28,9 @@ function DatePicker({
     <Popover>
       <PopoverTrigger asChild>
         <Button
-          className="flex gap-x-3 items-center justify-start 
-          border rouned-lg"
+          className={`flex gap-x-3 items-center justify-start 
+          border rouned-lg ${hasError && 'ring-2 ring-error'}`}
         >
-          <CalendarSearch
-            className="text-primary-700 flex-shrink-0"
-            size={24}
-          />
           {date ? (
             getDefaultDatePicker(date, currentLng)
           ) : (

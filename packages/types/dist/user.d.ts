@@ -9,7 +9,6 @@ export type User = {
 };
 export type UserInfosToken = {
     user_id: number;
-    email: string;
 };
 export type GoogleUserInfos = {
     email: string;

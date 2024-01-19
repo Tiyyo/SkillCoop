@@ -18,10 +18,10 @@ export declare const updateParticipantSchema: z.ZodObject<{
     status_name: z.ZodEnum<["confirmed", "declined", "pending"]>;
 }, "strip", z.ZodTypeAny, {
     status_name: "pending" | "confirmed" | "declined";
-    profile_id: number;
     event_id: number;
+    profile_id: number;
 }, {
     status_name: "pending" | "confirmed" | "declined";
-    profile_id: number;
     event_id: number;
+    profile_id: number;
 }>;

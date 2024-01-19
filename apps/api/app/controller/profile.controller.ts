@@ -12,7 +12,7 @@ import NotFoundError from '../helpers/errors/not-found.error.js';
 export default {
   async getOne(req: Request, res: Response) {
     const [profileId] = checkParams(req.params.profileId);
-    const profile = await Profile.findOne({ id: profileId });
+    const profile = await Profile.findOne({ profile_id: profileId });
 
     return res.status(200).json(profile);
   },
@@ -20,11 +20,14 @@ export default {
     const data = req.body;
     const result = await Profile.createOne(data);
 
-    return res.status(201).json({ success: result });
+    return res.status(201).json({ success: !!result });
   },
   async updateOne(req: Request, res: Response) {
     const { profile_id, ...data } = req.body.data;
-    const isUpdate = await Profile.updateOne({ id: profile_id }, data);
+    const isUpdate = await Profile.updateSyncChat(
+      { profile_id: profile_id },
+      data,
+    );
 
     return res.status(204).send({ success: isUpdate });
   },
@@ -46,7 +49,7 @@ export default {
     // return new image url
 
     if (!avatarImage) throw new UserInputError('No image provided');
-    const profile = await Profile.findOne({ id: Number(profile_id) });
+    const profile = await Profile.findOne({ profile_id: Number(profile_id) });
 
     if (!profile) {
       throw new UserInputError('Profile not found');
@@ -75,7 +78,10 @@ export default {
       }
     }
 
-    await Profile.updateOne({ id: profile_id }, { avatar_url: link });
+    await Profile.updateSyncChat(
+      { profile_id: profile_id },
+      { avatar_url: link },
+    );
 
     return res.status(200).json({ link });
   },
@@ -89,7 +95,7 @@ export default {
     if (typeof username !== 'string')
       throw new UserInputError('Username must be a string');
 
-    const profiles = await Profile.findManyByUsername(
+    const profiles = await Profile.searchByUsername(
       username,
       userProfileId,
       page,

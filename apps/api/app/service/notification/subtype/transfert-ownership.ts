@@ -61,7 +61,7 @@ class TransfertOwnership extends NotificationObserver {
   }
   async getInstigatorInfos() {
     const profile = await Profile.findOne({
-      id: this.instigatorId,
+      profile_id: this.instigatorId,
     });
     if (!profile || !profile.username || !profile.avatar_url)
       throw new Error('Instigator not found');

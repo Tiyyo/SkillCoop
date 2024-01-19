@@ -1,0 +1,68 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-kysely"
+  output   = "../src/database/"
+  fileName = "database.ts"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./sqlite.db"
+}
+
+model convertion_type {
+  name               String    @id @unique
+  created_at         String
+  updated_at         String?
+  conversation       conversation[]
+}
+
+model user {
+  user_id           Int       @id 
+  username          String    @unique
+  avatar            String?   
+  created_at        String
+  updated_at        String? 
+  messages          message[]
+  conversations     user_on_conversation[]
+}
+
+model message {
+  message_id        Int         @id @default(autoincrement())
+  user_id           Int?
+  sender            user?       @relation(fields: [user_id], references: [user_id], onDelete: SetNull, onUpdate: Cascade)
+  conversation_id   Int
+  conversation      conversation @relation(fields: [conversation_id], references: [conversation_id], onDelete: Cascade, onUpdate: Cascade)
+  message           String
+  created_at        String
+  updated_at        String? 
+}
+
+model conversation  {
+  conversation_id   Int       @id @default(autoincrement())
+  title             String?
+  type_name         String
+  type              convertion_type @relation(fields: [type_name], references: [name])
+  event_id          Int?
+  last_update       String?      
+  created_at        String
+  updated_at        String?
+  message           message[]
+  users             user_on_conversation[]
+}
+
+model user_on_conversation {
+  id                Int           @id @default(autoincrement())
+  user_id           Int
+  conversation_id   Int
+  user              user          @relation(fields: [user_id], references: [user_id], onDelete: Cascade, onUpdate : Cascade)
+  conversation      conversation  @relation(fields: [conversation_id], references: [conversation_id], onDelete: Cascade, onUpdate: Cascade)
+  is_admin          Int           @default(1)
+  created_at        String
+  updated_at        String?
+
+}
+
+

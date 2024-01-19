@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 function DeleteUserAccount() {
   const { t } = useTranslation('system');
-  const { userProfile, setIsAuth } = useApp();
+  const { userId, setIsAuth } = useApp();
   const { mutate: deleteUserAccount } = useDeleteUser({
     onSuccess: () => {
       setIsAuth(false);
@@ -17,7 +17,7 @@ function DeleteUserAccount() {
       mutateFn={deleteUserAccount}
       description="This action cannot be undone. 
         This will permanently delete your account."
-      mutationData={userProfile?.user_id}
+      mutationData={userId}
     >
       <div
         className="flex items-center justify-center py-3.5

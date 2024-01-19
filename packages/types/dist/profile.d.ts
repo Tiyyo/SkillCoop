@@ -1,5 +1,4 @@
 export type Profile = {
-    user_id: number;
     avatar_url: string | null;
     username: string;
     date_of_birth: string | null;

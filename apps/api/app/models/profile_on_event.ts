@@ -19,7 +19,7 @@ export class ProfileOnEvent extends Core<typeof tableNames.profile_on_event> {
   async updateStatus(data: {
     event_id: number;
     profile_id: number;
-    status_name: 'confirmed' | 'declined';
+    status_name: 'confirmed' | 'declined' | 'pending';
     updated_at: undefined | string;
   }) {
     const todayUTCString = getFormattedUTCTimestamp();

@@ -6,7 +6,6 @@ import { notificationPreference as NotificationPreference } from '../../models/i
 import { notificationType as NotificationType } from '../../models/index.js';
 import ServerError from '../../helpers/errors/server.error.js';
 import DatabaseError from '../../helpers/errors/database.error.js';
-import logger from '../../helpers/logger.js';
 /*eslint-enable max-len*/
 
 export class DefaultUserPreference {
@@ -47,8 +46,7 @@ export class DefaultUserPreference {
     });
   }
   async generateDefaultNotificationPreference() {
-    const notificationTypes = await NotificationType.findAll().catch((err) => {
-      logger.error(err.message);
+    const notificationTypes = await NotificationType.findAll().catch(() => {
       throw new ServerError(
         'Error extracting notification type from database',
         'DefaultUserPreference',

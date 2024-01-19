@@ -24,7 +24,7 @@ function LanguageSettings() {
   const { t, i18n } = useTranslation('system');
   const languageSymbols = Object.keys(languageSymbolToName);
   const languageNames = Object.values(languageSymbolToName);
-  const { userProfile } = useApp();
+  const { userId } = useApp();
   const { mutate: updatePreference } = useUpdateLanguagePreference({});
   const ctx = useOutletContext<UserPreference>();
   if (!ctx) return null;
@@ -39,9 +39,9 @@ function LanguageSettings() {
     //update userPreferenes object in localStorage
     storeInLocalStorage('_userPreferences', { language: languageSymbol });
 
-    if (!userProfile?.user_id) return;
+    if (!userId) return;
     const updatePreferenceData = {
-      user_id: userProfile.user_id,
+      user_id: userId,
       name: languageSymbol,
     };
 

@@ -16,6 +16,8 @@ import {
   getUTCString,
 } from '@skillcoop/date-handler';
 import { uploadLocalFile } from '../app/service/upload/upload-local-file.js';
+import { userQueuePublisher } from '../app/publisher/user.publisher.js';
+import { eventQueuePublisher } from '../app/publisher/event.publisher.js';
 
 async function seed() {
   logger.info('Start seeding');
@@ -164,12 +166,18 @@ async function seed() {
     }
 
     const profile = await Profile.create({
-      user_id: user.id,
+      profile_id: user.id,
       username: infos.username,
       first_name: infos.first_name,
       last_name: infos.last_name,
       avatar_url: avatarUrl,
       created_at: todayUTCString,
+    });
+    await userQueuePublisher({
+      profile_id: user.id,
+      username: infos.username,
+      avatar: avatarUrl,
+      action: 'update',
     });
 
     if (!profile) return;
@@ -180,8 +188,8 @@ async function seed() {
       passing: faker.number.int({ min: 50, max: 100 }),
       dribbling: faker.number.int({ min: 50, max: 100 }),
       defending: faker.number.int({ min: 50, max: 100 }),
-      rater_id: profile.id,
-      reviewee_id: profile.id,
+      rater_id: profile.profile_id,
+      reviewee_id: profile.profile_id,
       created_at: todayUTCString,
     });
   }
@@ -284,6 +292,12 @@ async function seed() {
         created_at: todayUTCString,
       });
     });
+    await eventQueuePublisher({
+      event_id: event.id,
+      organizer_id: 1,
+      action: 'create_event',
+      participants_id: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    });
   }
   // eslint-disable-next-line
   for await (const _ of arrayToIterateOnEvents) {
@@ -324,6 +338,12 @@ async function seed() {
         created_at: todayUTCString,
       });
     });
+    await eventQueuePublisher({
+      event_id: event.id,
+      organizer_id: 2,
+      action: 'create_event',
+      participants_id: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    });
   }
 
   // // create 3 future events organized by admin
@@ -362,6 +382,12 @@ async function seed() {
         created_at: todayUTCString,
       });
     });
+    await eventQueuePublisher({
+      event_id: event.id,
+      organizer_id: 2,
+      action: 'create_event',
+      participants_id: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    });
   }
 
   /* create 3 future full events organize by john doe */
@@ -395,6 +421,12 @@ async function seed() {
         created_at: todayUTCString,
       });
     });
+    await eventQueuePublisher({
+      event_id: event.id,
+      organizer_id: 2,
+      action: 'create_event',
+      participants_id: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    });
   }
 
   // create 2 open events
@@ -426,6 +458,12 @@ async function seed() {
         created_at: todayUTCString,
       });
     });
+    await eventQueuePublisher({
+      event_id: event.id,
+      organizer_id: 1,
+      action: 'create_event',
+      participants_id: [1, 2, 3, 4, 5, 6],
+    });
   }
   //eslint-disable-next-line
   for await (const _ of arrayToIterateOnOpenEvents) {
@@ -448,6 +486,12 @@ async function seed() {
         status_name: index < 3 ? 'confirmed' : 'pending',
         created_at: todayUTCString,
       });
+    });
+    await eventQueuePublisher({
+      event_id: event.id,
+      organizer_id: 2,
+      action: 'create_event',
+      participants_id: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     });
   }
 

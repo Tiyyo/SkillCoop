@@ -25,8 +25,12 @@ export default {
         text: text,
       });
     } catch (error: unknown) {
+      console.log('Error send verify');
       if (error instanceof Error) {
-        throw new ServerError(error.message);
+        throw new ServerError(
+          'Could not succed to send email ' + error.message,
+          'sendVerify',
+        );
       }
     }
   },
@@ -36,9 +40,7 @@ export default {
     userId,
   }: SendConfirmationEmail) {
     const url = `${process.env.API_URL}/auth/${userId}/verify/${emailToken}`;
-
     const text = `Click on the link to verify your email: ${url}`;
-
     await this.sendVerify(email, 'validate your email', text);
   },
   async sendLinkRestPassword({

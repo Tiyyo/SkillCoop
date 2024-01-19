@@ -19,7 +19,7 @@ type UpdatePasswordField = {
 
 function EditModalPassword({ children }: { children: React.ReactNode }) {
   const { t } = useTranslation('system');
-  const { userProfile } = useApp();
+  const { userId } = useApp();
   //should be in a hook
   const { mutate: updatePassword } = useMutation({
     mutationFn: async (data: UpdatePasswordField) => {
@@ -42,8 +42,8 @@ function EditModalPassword({ children }: { children: React.ReactNode }) {
   });
 
   const onSubmit = async (data: UpdatePasswordField) => {
-    if (!userProfile?.user_id) return;
-    data.user_id = userProfile.user_id;
+    if (!userId) return;
+    data.user_id = userId;
     const isValid = passwordUpdateSchema.safeParse(data);
 
     if (!isValid.success) {

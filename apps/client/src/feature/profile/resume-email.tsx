@@ -16,7 +16,7 @@ import { useTranslation } from 'react-i18next';
 
 function ResumeEmailInfos({ email }: { email?: string | null }) {
   const { t } = useTranslation('system');
-  const { userProfile } = useApp();
+  const { userProfile, userId } = useApp();
   const [currentEmail, setCurrentEmail] = useState(email);
   const [errorText, setErrorText] = useState('');
   const [editActiveState, setEditActiveState] = useState(false);
@@ -43,8 +43,8 @@ function ResumeEmailInfos({ email }: { email?: string | null }) {
   };
 
   const onSubmit = async (data: UpdateEmail) => {
-    if (!userProfile) return;
-    data.user_id = userProfile.user_id;
+    if (!userProfile || !userId) return;
+    data.user_id = userId;
     const isValid = updateEmailSchema.safeParse(data);
     if (!isValid.success) {
       setErrorText(t('somethingWentWrong'));
@@ -87,11 +87,7 @@ function ResumeEmailInfos({ email }: { email?: string | null }) {
               />
             </div>
           </div>
-          <input
-            type="hidden"
-            value={userProfile?.user_id}
-            {...register('user_id')}
-          />
+          <input type="hidden" value={userId ?? 0} {...register('user_id')} />
           <TriggerEditBtn
             getCurrentState={getEditState}
             className="self-start py-3"

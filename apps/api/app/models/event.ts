@@ -8,6 +8,7 @@ import { db } from '../helpers/client.db.js';
 /*eslint-disable */
 // import { InsertObjectOrList } from 'kysely/dist/cjs/parser/insert-values-parser';
 import { InsertObjectDB, tableNames } from '../@types/types.js';
+import { eventQueuePublisher } from '../publisher/event.publisher.js';
 /*eslint-enable */
 
 export class EventModel extends Core<typeof tableNames.event> {
@@ -80,7 +81,7 @@ SELECT
 FROM event
 LEFT JOIN score ON event.id = score.event_id
 JOIN profile_on_event AS participant ON event.id = participant.event_id
-JOIN profile ON participant.profile_id = profile.id
+JOIN profile ON participant.profile_id = profile.profile_id
 WHERE event.id = ${eventId}
       `.execute(this.client);
 
@@ -135,7 +136,7 @@ SELECT
 FROM event
 LEFT JOIN score ON event.id = score.event_id
 JOIN profile_on_event AS participant ON event.id = participant.event_id
-JOIN profile ON participant.profile_id = profile.id
+JOIN profile ON participant.profile_id = profile.profile_id
 WHERE user_status <> 'declined'
 AND EXISTS(
   SELECT 1
@@ -195,7 +196,7 @@ SELECT
 FROM event
 LEFT JOIN score ON event.id = score.event_id
 JOIN profile_on_event AS participant ON event.id = participant.event_id
-JOIN profile ON participant.profile_id = profile.id
+JOIN profile ON participant.profile_id = profile.profile_id
 WHERE event.organizer_id = ${profileId}
 GROUP BY event.id
 ORDER BY date DESC
@@ -259,7 +260,7 @@ SELECT
 FROM event
 LEFT JOIN score ON event.id = score.event_id
 JOIN profile_on_event AS participant ON event.id = participant.event_id
-JOIN profile ON participant.profile_id = profile.id
+JOIN profile ON participant.profile_id = profile.profile_id
 WHERE user_status <> 'declined'
 AND EXISTS(
   SELECT 1
@@ -335,7 +336,7 @@ SELECT
 FROM event
 LEFT JOIN score ON event.id = score.event_id
 JOIN profile_on_event AS participant ON event.id = participant.event_id
-JOIN profile ON participant.profile_id = profile.id
+JOIN profile ON participant.profile_id = profile.profile_id
 WHERE user_status <> 'declined'
 AND EXISTS(
   SELECT 1
@@ -451,9 +452,9 @@ SELECT
   (json_group_array(participant.profile_id)) AS profile_ids
 FROM event
 INNER JOIN profile_on_event AS participant ON event.id = participant.event_id
-INNER JOIN profile ON participant.profile_id = profile.id
+INNER JOIN profile ON participant.profile_id = profile.profile_id
 WHERE participant.event_id = ${eventId}
-AND profile.id <> event.organizer_id
+AND profile.profile_id <> event.organizer_id
 AND (participant.status_name = 'confirmed' 
 OR (profile.active_notification = 1 AND participant.status_name = 'pending'))
 GROUP BY participant.event_id`.execute(this.client);
@@ -466,6 +467,16 @@ GROUP BY participant.event_id`.execute(this.client);
       if (error instanceof Error) {
         throw new DatabaseError(error);
       }
+    }
+  }
+  async deleteSyncChat(eventId: number, organizerId?: number) {
+    const result = await this.deleteOne({ id: eventId });
+    if (result && organizerId) {
+      await eventQueuePublisher({
+        event_id: eventId,
+        organizer_id: organizerId,
+        action: 'delete_event',
+      });
     }
   }
 }

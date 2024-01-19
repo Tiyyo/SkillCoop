@@ -1,6 +1,6 @@
 import express, { Router } from 'express';
 import factory from '../middleware/wrapper-controller.js';
-import authController from '../controller/auth.controller.js';
+import * as authController from '../controller/auth.controller.js';
 import { validateSchema as validate } from '../middleware/schema-validator.js';
 import { canals } from '../@types/types.js';
 import { registerSchema, loginSchema, emailSchema } from '@skillcoop/schema';

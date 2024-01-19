@@ -14,6 +14,7 @@ import { notifyTransfertOwnership } from '../service/notification/subtype/transf
 import ForbidenError from '../helpers/errors/forbiden.js';
 import ServerError from '../helpers/errors/server.error.js';
 import { eventQueuePublisher } from '../publisher/event.publisher.js';
+import { invitationStatus } from '@skillcoop/types';
 
 export default {
   async createOne(req: Request, res: Response) {
@@ -87,6 +88,11 @@ export default {
     deleteDecodedKey(req.body);
     const { event_id, profile_id, ...data } = req.body;
     const event = await Event.findOne({ id: event_id });
+    const confirmedParticipants = await ProfileOnEvent.find({
+      event_id,
+      status_name: invitationStatus.confirmed,
+    });
+
     const possibleFieldsUpdated = [
       'date',
       'duration',
@@ -111,6 +117,15 @@ export default {
       return res.status(201).json({
         message: 'Nothing to update',
       });
+    if (data.required_participants > event.required_participants) {
+      data.status_name = 'open';
+    }
+    if (
+      confirmedParticipants &&
+      data.required_participants === confirmedParticipants.length
+    ) {
+      data.status_name = 'full';
+    }
     // delete start date and start time if present
     delete data.start_date;
     delete data.start_time;

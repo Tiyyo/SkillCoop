@@ -23,6 +23,12 @@ export class MessageService {
         })
         .executeTakeFirst();
 
+      await this.dbClient.updateTable('conversation')
+        .set({
+          last_update: todayUTCString,
+        }).where('conversation_id', '=', data.conversationId)
+        .executeTakeFirst();
+
       return result;
     } catch (error) {
       this.logger.error('Could not store message ' + data.content + ' ' + error.message)

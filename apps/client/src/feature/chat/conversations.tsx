@@ -6,20 +6,39 @@ import Tabs from './tabs';
 import { useState } from 'react';
 import TitleH1 from '../../component/title-h1';
 import { Plus } from 'lucide-react';
+import ConversationCard from './conversation-card';
+import { useTranslation } from 'react-i18next';
 
 function Conversations() {
   const { userId } = useApp();
+  const { t } = useTranslation('chat');
   const [currentConversationFilter, setCurrentConversationFilter] = useState<
     'all' | 'event' | 'group' | 'personal'
   >('all');
   const { data: conversations } = useGetConversationsList({ userId: userId });
+  const convertFilterIntoMatchingTypeName = {
+    all: 'all',
+    event: 'event',
+    group: 'group',
+    personal: 'oneToOne',
+  };
+
+  const filterConversationByType = (type: string, filter: string) => {
+    if (filter === 'all') return true;
+    return (
+      type ===
+      convertFilterIntoMatchingTypeName[
+        filter as keyof typeof convertFilterIntoMatchingTypeName
+      ]
+    );
+  };
 
   return (
     <>
       <Container className="lg:mt-4 flex items-center justify-between">
         <TitleH1
-          title="Conversations"
-          legend="retrieve all your conversations"
+          title={t('conversations')}
+          legend={t('retrieveAllConversations')}
         />
         <Link
           to="invitation"
@@ -37,37 +56,24 @@ function Conversations() {
           currentFilter={currentConversationFilter}
         />
         <div className="flex flex-col">
-          {conversations &&
+          {userId &&
+            conversations &&
             conversations.length > 0 &&
             conversations
-              .filter((conversation) => conversation.last_message)
+              .filter(
+                (conversation) =>
+                  conversation.last_message &&
+                  filterConversationByType(
+                    conversation.type_name,
+                    currentConversationFilter,
+                  ),
+              )
               .map((conversation) => (
-                <Link
-                  className="flex py-4"
-                  to={`conversation/${conversation.conversation_id}`}
-                >
-                  <div
-                    className="flex rounded-full aspect-square w-14 
-                    flex-shrink-0 border-2 border-primary-800 text-center 
-                    text-xs bg-slate-200"
-                  ></div>
-                  <div
-                    className="flex flex-grow flex-col-reverse 
-                    justify-between py-2 px-3"
-                  >
-                    <p className="text-xs text-light text-ellipsis">
-                      {conversation.last_message.content} &#x2022;{' '}
-                      <span>
-                        {new Date(
-                          conversation.last_message.created_at,
-                        ).toLocaleString('us-US', { weekday: 'short' })}
-                      </span>
-                    </p>
-                    <h3 className="text-sm font-medium">
-                      {conversation.title}
-                    </h3>
-                  </div>
-                </Link>
+                <ConversationCard
+                  conversation={conversation}
+                  currentUserId={userId}
+                  key={conversation.conversation_id}
+                />
               ))}
         </div>
       </Container>

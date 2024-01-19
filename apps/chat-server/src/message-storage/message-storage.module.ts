@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Logger, Module } from '@nestjs/common';
 import databaseProvider from 'src/database/database.client';
 import { ConversationService } from './conversation.service';
 import { MessageService } from './message.service';
@@ -10,6 +10,7 @@ import { HistoricService } from './historic.service';
     ConversationService,
     MessageService,
     HistoricService,
+    Logger
   ],
   exports: [],
 })

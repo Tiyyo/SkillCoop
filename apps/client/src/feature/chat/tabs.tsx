@@ -11,7 +11,7 @@ type FilterBtnProps = {
 };
 
 function Tab({ onClick, activeFilter, tabName }: FilterBtnProps) {
-  const { t } = useTranslation('notification');
+  const { t } = useTranslation('chat');
   const [isActive, setIsActive] = useState<boolean>(false);
 
   useEffect(() => {
@@ -53,7 +53,7 @@ function Tabs({
     getClickValue(value as ConversationFilter);
   };
   return (
-    <div className="flex">
+    <div className="flex mb-2">
       {conversationTypes.length > 0 &&
         conversationTypes.map((type, index) => (
           <Tab

@@ -80,6 +80,7 @@ export class ConfigGenerateTeams {
       .where('profile_on_event.status_name', '=', 'confirmed')
       .groupBy(['profile_on_event.event_id', 'event.required_participants'])
       .execute();
+    console.log(result);
     return result;
   }
   private parsedEventDataIntoIds(eventData: EventData) {

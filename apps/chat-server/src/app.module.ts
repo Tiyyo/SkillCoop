@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, Logger } from '@nestjs/common';
 // import { AppService } from './app.service';
 // import { MessageService } from './message-test/message.service';
 import { ChatModule } from './chat/chat.module';
@@ -13,6 +13,7 @@ import { ConversationService } from './message-storage/conversation.service';
 import { HistoricService } from './message-storage/historic.service';
 import { MessageService } from './message-storage/message.service';
 
+
 @Module({
   imports: [
     ChatModule,
@@ -22,14 +23,11 @@ import { MessageService } from './message-storage/message.service';
   ],
   controllers: [AppController],
   providers: [
-    // AppService,
-    // MessageService,
     ChatGateway,
     ConversationService,
     HistoricService,
     MessageService,
-    // UserModel,
-    // UserQueueService,
+    Logger,
   ],
 })
 export class AppModule { }

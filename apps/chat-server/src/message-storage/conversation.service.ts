@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { getFormattedUTCTimestamp } from '@skillcoop/date-handler';
 import { Kysely, sql } from 'kysely';
 import { DB } from 'src/database/database';
@@ -31,8 +31,8 @@ type Conversation = {
 
 @Injectable()
 export class ConversationService {
-  constructor(@Inject('dbClient') protected dbClient: Kysely<DB>) { }
-  async getConversation(conversationId) {
+  constructor(@Inject('dbClient') protected dbClient: Kysely<DB>, private readonly logger: Logger) { }
+  async getConversation(conversationId: number) {
     try {
       const result = await sql`
 SELECT c.conversation_id,
@@ -64,7 +64,7 @@ GROUP BY c.conversation_id, c.created_at, c.last_update, c.event_id, c.type_name
 
       return conversation;
     } catch (error) {
-      console.error(error);
+      this.logger.error('Could not get conversation ' + conversationId + ' ' + error.message)
     }
   }
   async getList(id: number) {
@@ -116,7 +116,7 @@ ORDER BY conversation.last_update DESC
       }));
       return conversations as Conversation[];
     } catch (error) {
-      console.log(error);
+      this.logger.error('Could not get conversation list for user :' + id + ' ' + error.message)
     }
   }
   async createOneToOne(data: { userIdOne: number; userIdTwo: number }) {
@@ -148,7 +148,7 @@ ORDER BY conversation.last_update DESC
           .executeTakeFirst();
       });
     } catch (error) {
-      console.log(error);
+      this.logger.error('Could not create conversation between ' + data.userIdOne + ' and ' + data.userIdTwo + ' ' + error.message)
     }
   }
   async createGroup(data: { creatorId: number; ids?: number[] }) {
@@ -174,7 +174,7 @@ ORDER BY conversation.last_update DESC
           .executeTakeFirst();
       });
     } catch (error) {
-      console.log(error);
+      this.logger.error('Could not create group conversation ' + error.message)
     }
   }
   async deleteGroup(data: { conversationId: number; userId: number }) {
@@ -196,7 +196,7 @@ ORDER BY conversation.last_update DESC
 
       return !!Number(result.numDeletedRows);
     } catch (error) {
-      console.error(error);
+      this.logger.error('Could not delete group conversation ' + data.conversationId + ' ' + error.message)
     }
   }
   async addToGroup(data: { conversationId: number; ids: number[] }) {
@@ -215,7 +215,7 @@ ORDER BY conversation.last_update DESC
         )
         .execute();
     } catch (error) {
-      console.error(error);
+      this.logger.error('Could not add users to group conversation ' + data.conversationId + ' ' + error.message)
     }
   }
   async removeFromGroup(data: { userId: number; conversationId: number }) {
@@ -237,7 +237,7 @@ ORDER BY conversation.last_update DESC
 
       return !!Number(result.numDeletedRows);
     } catch (error) {
-      console.error(error);
+      this.logger.error('Could not remove user from group conversation ' + data.conversationId + ' ' + error.message)
     }
   }
 }

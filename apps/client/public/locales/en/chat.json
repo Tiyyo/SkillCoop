@@ -1,0 +1,8 @@
+{
+  "all": "All",
+  "personal": "Personal",
+  "group": "Group",
+  "event": "Event",
+  "conversations": "Discussions",
+  "retrieveAllConversations": "View all Discussions"
+}

@@ -83,7 +83,6 @@ export class ParticipantStatusManager {
     if (this.eventState === 'full') {
       return 'Event is already full';
     }
-    console.log(this.eventState);
     return 'Could not find event';
   }
   async shouldDeclined() {

@@ -1,8 +1,17 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { WinstonModule } from 'nest-winston';
+import { winstonLogger } from './helpers/winston.logger';
+import { HttpLogger } from './middleware/access-http.middleware';
+import { Logger } from '@nestjs/common';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    logger: WinstonModule.createLogger({
+      instance: winstonLogger
+    })
+  });
+  app.use(new HttpLogger().use)
   app.enableCors({
     origin: 'http://localhost:5004',
     allowedHeaders: ['content-type'],

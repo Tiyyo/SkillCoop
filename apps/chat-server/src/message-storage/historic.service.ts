@@ -1,11 +1,11 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { Kysely } from 'kysely';
 import { jsonArrayFrom } from 'kysely/helpers/sqlite';
 import { DB } from 'src/database/database';
 
 @Injectable()
 export class HistoricService {
-  constructor(@Inject('dbClient') protected dbClient: Kysely<DB>) { }
+  constructor(@Inject('dbClient') protected dbClient: Kysely<DB>, private readonly logger: Logger) { }
   async get(data: { conversationId: number }) {
     try {
       const result = await this.dbClient
@@ -45,7 +45,7 @@ export class HistoricService {
 
       return historic;
     } catch (error) {
-      console.log(error);
+      this.logger.error('Could not get historic of conversation ' + data.conversationId + ' ' + error.message)
     }
   }
 }

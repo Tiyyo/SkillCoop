@@ -294,5 +294,6 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <Toaster />
       <RouterProvider router={router} fallbackElement={<LoadingPage />} />
     </QueryClientProvider>
+    ,
   </React.StrictMode>,
 );

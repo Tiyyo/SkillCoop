@@ -2,10 +2,11 @@ import { Inject, Injectable, Logger } from '@nestjs/common';
 import { Kysely } from 'kysely';
 import { jsonArrayFrom } from 'kysely/helpers/sqlite';
 import { DB } from 'src/database/database';
+import { GroupMessageByService } from 'src/utils/message-groupby.service';
 
 @Injectable()
 export class HistoricService {
-  constructor(@Inject('dbClient') protected dbClient: Kysely<DB>, private readonly logger: Logger) { }
+  constructor(@Inject('dbClient') protected dbClient: Kysely<DB>, private readonly logger: Logger, private readonly groupMessageBy: GroupMessageByService) { }
   async get(data: { conversationId: number }) {
     try {
       const result = await this.dbClient
@@ -43,7 +44,7 @@ export class HistoricService {
         messages: JSON.parse((result[0] as any).messages),
       };
 
-      return historic;
+      return { ...historic, messages: this.groupMessageBy.groupByDateAndAuthor(historic.messages) };
     } catch (error) {
       this.logger.error('Could not get historic of conversation ' + data.conversationId + ' ' + error.message)
     }

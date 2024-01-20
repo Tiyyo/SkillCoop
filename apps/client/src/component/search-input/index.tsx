@@ -31,7 +31,7 @@ function SearchInput({ getFocusState, onChange }: SearchInputProps) {
   };
 
   return (
-    <div className="relative h-9 max-w-xs w-1/2">
+    <div className="relative h-9 max-w-xs w-2/3">
       <input
         type="text"
         placeholder={t('search')}
@@ -39,7 +39,7 @@ function SearchInput({ getFocusState, onChange }: SearchInputProps) {
         onBlur={handleBlur}
         onChange={handleChangeValue}
         className="focus:rounded-3xl hover:rounded-3xl border-b-2
-       border-b-slate-800 border-opacity-10 bg-transparent 
+       border-b-slate-800 border-opacity-10 focus:bg-primary-20 bg-opacity-10 
         outline-none leading-7 transition-all ease-cubic duration-300 py-1 
         focus:outline-none focus:py-1 focus:px-8 focus:border 
       focus:border-primary-600 focus:placeholder:opacity-0 

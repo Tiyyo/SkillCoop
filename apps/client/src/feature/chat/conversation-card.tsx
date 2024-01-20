@@ -31,7 +31,7 @@ function ConversationCard({
 }: ConversationCardProps) {
   return (
     <Link
-      className="flex py-4"
+      className="flex py-4 max-w-md"
       to={`conversation/${conversation.conversation_id}`}
     >
       <div

@@ -1,5 +1,17 @@
+const plugin = require('tailwindcss/plugin.js');
+
 /** @type {import('tailwindcss').Config} */
+
 export default {
+  plugins: [
+    plugin(function ({ addVariant, e }) {
+      addVariant('nth-child-2', ({ modifySelectors, separator }) => {
+        modifySelectors(({ className }) => {
+          return `.${e(`nth-child-2${separator}${className}`)}:nth-child(2)`;
+        });
+      });
+    }),
+  ],
   content: [
     './index.html',
     './src/**/*.{js,jsx,ts,tsx}',

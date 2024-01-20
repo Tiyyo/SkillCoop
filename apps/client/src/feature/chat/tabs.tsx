@@ -53,7 +53,7 @@ function Tabs({
     getClickValue(value as ConversationFilter);
   };
   return (
-    <div className="flex mb-2">
+    <div className="flex my-2.5">
       {conversationTypes.length > 0 &&
         conversationTypes.map((type, index) => (
           <Tab

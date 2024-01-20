@@ -8,6 +8,7 @@ import TitleH1 from '../../component/title-h1';
 import { Plus } from 'lucide-react';
 import ConversationCard from './conversation-card';
 import { useTranslation } from 'react-i18next';
+import SearchInput from '../../component/search-input';
 
 function Conversations() {
   const { userId } = useApp();
@@ -51,6 +52,7 @@ function Conversations() {
         </Link>
       </Container>
       <Container className="lg:mt-4 flex-grow">
+        <SearchInput />
         <Tabs
           getClickValue={setCurrentConversationFilter}
           currentFilter={currentConversationFilter}

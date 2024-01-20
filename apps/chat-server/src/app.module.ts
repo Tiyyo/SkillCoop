@@ -12,6 +12,7 @@ import { MessageStorageModule } from './message-storage/message-storage.module';
 import { ConversationService } from './message-storage/conversation.service';
 import { HistoricService } from './message-storage/historic.service';
 import { MessageService } from './message-storage/message.service';
+import { GroupMessageByService } from './utils/message-groupby.service';
 
 
 @Module({
@@ -27,6 +28,7 @@ import { MessageService } from './message-storage/message.service';
     ConversationService,
     HistoricService,
     MessageService,
+    GroupMessageByService,
     Logger,
   ],
 })

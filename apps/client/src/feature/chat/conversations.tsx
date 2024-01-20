@@ -1,5 +1,8 @@
 import { Link } from 'react-router-dom';
-import { useGetConversationsList } from '../../hooks/useConversations';
+import {
+  useGetConversationsList,
+  useUpdateUserOnConversation,
+} from '../../hooks/useConversations';
 import Container from '../../layout/container';
 import { useApp } from '../../store/app.store';
 import Tabs from './tabs';
@@ -13,10 +16,12 @@ import SearchInput from '../../component/search-input';
 function Conversations() {
   const { userId } = useApp();
   const { t } = useTranslation('chat');
+  const { mutate: updateLastSeenIndicator } = useUpdateUserOnConversation({});
   const [currentConversationFilter, setCurrentConversationFilter] = useState<
     'all' | 'event' | 'group' | 'personal'
   >('all');
   const { data: conversations } = useGetConversationsList({ userId: userId });
+  console.log(conversations);
   const convertFilterIntoMatchingTypeName = {
     all: 'all',
     event: 'event',
@@ -74,6 +79,7 @@ function Conversations() {
                 <ConversationCard
                   conversation={conversation}
                   currentUserId={userId}
+                  updateLastSeen={updateLastSeenIndicator}
                   key={conversation.conversation_id}
                 />
               ))}

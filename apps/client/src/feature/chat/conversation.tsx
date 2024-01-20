@@ -17,14 +17,9 @@ function Conversation() {
   const navigate = useNavigate();
   const params = useParams();
   const { userId, userProfile } = useApp();
-  const {
-    data: conversation,
-    isLoading,
-    isFetching,
-  } = useGetConversation({
+  const { data: conversation } = useGetConversation({
     conversationId: Number(params.id),
   });
-  const loading = isLoading || isFetching;
   const {
     messages: groupByDate,
     displayNewMessage,

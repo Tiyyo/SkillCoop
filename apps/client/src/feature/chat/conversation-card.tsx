@@ -3,6 +3,8 @@ import ConversationCardImage from './image-converasation';
 import ConversationCardTitle from './title-conversation';
 import ConversationCardTimeAgo from './conversation-card-time-age';
 import ConversationCardLastMessage from './last-message-conversation';
+import { getFormattedUTCTimestamp } from '@skillcoop/date-handler/src';
+import NewMessageIndicator from './new-message-indicator';
 
 type ConversationParticipant = {
   user_id: number;
@@ -14,6 +16,8 @@ type Conversation = {
   conversation_id: number;
   title: string | null;
   type_name: 'oneToOne' | 'group' | 'event';
+  last_seen: string | null;
+  last_update: string | null;
   participants_list: Array<ConversationParticipant>;
   last_message: {
     content: string;
@@ -24,15 +28,25 @@ type Conversation = {
 type ConversationCardProps = {
   currentUserId: number;
   conversation: Conversation;
+  updateLastSeen: (data: any) => void;
 };
 function ConversationCard({
   conversation,
   currentUserId,
+  updateLastSeen,
 }: ConversationCardProps) {
+  const todayUTCString = getFormattedUTCTimestamp();
   return (
     <Link
       className="flex py-4 max-w-md"
       to={`conversation/${conversation.conversation_id}`}
+      onClick={() =>
+        updateLastSeen({
+          conversationId: conversation.conversation_id,
+          userId: currentUserId,
+          last_seen: todayUTCString,
+        })
+      }
     >
       <div
         className="relative flex  w-14 
@@ -60,11 +74,17 @@ function ConversationCard({
             lastMessageDate={conversation.last_message.created_at}
           />
         </div>
-        <ConversationCardTitle
-          title={conversation.title}
-          participantsList={conversation.participants_list}
-          currentUserId={currentUserId}
-        />
+        <div className="flex justify-between">
+          <ConversationCardTitle
+            title={conversation.title}
+            participantsList={conversation.participants_list}
+            currentUserId={currentUserId}
+          />
+          <NewMessageIndicator
+            lastSeen={conversation.last_seen}
+            lastUpdate={conversation.last_update}
+          />
+        </div>
       </div>
     </Link>
   );

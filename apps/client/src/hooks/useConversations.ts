@@ -1,5 +1,10 @@
-import { useQuery } from '@tanstack/react-query';
-import { getConversationFn, getConversationsFn } from '../chat-api/chat.fn';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import {
+  getConversationFn,
+  getConversationsFn,
+  updateUserOnConversationFn,
+} from '../chat-api/chat.fn';
+import { UpdateUserOnConversation } from '../provisional-types';
 
 const keys = {
   getConversations: ['conversations'],
@@ -27,4 +32,18 @@ export function useGetConversation(options: {
     },
     { enabled: !!options.conversationId },
   );
+}
+export function useUpdateUserOnConversation(options: {
+  onSuccess?: () => void;
+}) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (data: UpdateUserOnConversation) => {
+      return updateUserOnConversationFn(data);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(keys.getConversations);
+      if (options.onSuccess) options.onSuccess;
+    },
+  });
 }

@@ -44,4 +44,12 @@ export class AppController {
     );
     return conversation;
   }
+  @Patch('/user-conversation')
+  async updateUserOneConversation(
+    @Body() body: { conversationId: number; userId: number },
+  ) {
+
+    const { conversationId, userId, ...updateData } = body;
+    await this.conversationService.updateUserOnConversation({ conversationId, userId }, updateData);
+  }
 }

@@ -22,6 +22,8 @@ type ChatMessage = {
 
 type Conversation = {
   conversation_id: number;
+  last_update: string | null;
+  last_seen: string | null;
   title: string | null;
   type_name: string;
   participant_list: ChatParticipant[];
@@ -72,6 +74,12 @@ GROUP BY c.conversation_id, c.created_at, c.last_update, c.event_id, c.type_name
       const result = await sql`SELECT conversation.conversation_id,
        conversation.title,
        conversation.type_name,
+       conversation.last_update,
+       (SELECT user_on_conversation.last_seen
+        FROM user_on_conversation
+        WHERE user_on_conversation.conversation_id = conversation.conversation_id
+        AND user_on_conversation.user_id = ${id}
+       ) AS last_seen,
        json_group_array(
           json_object(
             'user_id', participants.user_id,
@@ -238,6 +246,20 @@ ORDER BY conversation.last_update DESC
       return !!Number(result.numDeletedRows);
     } catch (error) {
       this.logger.error('Could not remove user from group conversation ' + data.conversationId + ' ' + error.message)
+    }
+  }
+  async updateUserOnConversation(clauses: { conversationId: number, userId: number }, updateDate: any) {
+    try {
+      const isUpdated = await this.dbClient
+        .updateTable('user_on_conversation')
+        .set(updateDate)
+        .where('conversation_id', '=', clauses.conversationId)
+        .where('user_id', '=', clauses.userId)
+        .executeTakeFirst();
+
+      return !!Number(isUpdated.numUpdatedRows);
+    } catch (error) {
+      this.logger.error('Could not update user on conversation ' + clauses.conversationId + ' ' + error.message)
     }
   }
 }

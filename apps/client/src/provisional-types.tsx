@@ -27,3 +27,10 @@ export type DateGroup = {
 };
 
 export type Messages = DateGroup[];
+
+export type UpdateUserOnConversation = {
+  userId: number;
+  conversationId: number;
+  last_seen?: string;
+  is_admin?: 0 | 1;
+};

@@ -16,3 +16,8 @@ export const getConversationFn = async (conversationId: number | undefined) => {
   );
   return response.data;
 };
+
+export const updateUserOnConversationFn = async (data) => {
+  const response = await api.patch('/chat-serivce/user-conversation', data);
+  return response.data;
+};

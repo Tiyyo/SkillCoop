@@ -1,15 +1,17 @@
 import { useId } from 'react';
-import ImageWithUsernamefallback from '../../component/image-fallback-username';
-import { cn } from '../../lib/utils';
-import { Message } from '../../provisional-types';
-import ChatBubble from './home-page/bubble';
+/*eslint-disable*/
+import ImageWithUsernamefallback from '../../../component/image-fallback-username';
+/*eslint-enable*/
+import { cn } from '../../../lib/utils';
+import ChatBubble from './bubble';
+import { Message } from 'packages/types/src';
 
 type GroupAuthorMessageProps = {
   messages: Message[];
   userId: number;
   username: string;
   avatar: string | null;
-  currentUserId: number;
+  currentUserId: number | null;
 };
 
 function GroupAuthorMessage({
@@ -25,18 +27,18 @@ function GroupAuthorMessage({
   return (
     <div className={cn('flex gap-x-1')}>
       {!hasBeenSentByCurrentUser && (
-        <div className="w-7 flex-shrink-0 relative top-2">
+        <div className="relative top-2 w-7 flex-shrink-0">
           <ImageWithUsernamefallback avatar={avatar} username={username} />
         </div>
       )}
       <div
         className={cn(
-          `flex flex-col w-full`,
+          `flex w-full flex-col`,
           hasBeenSentByCurrentUser && 'items-end',
         )}
       >
         {!hasBeenSentByCurrentUser && (
-          <p className="text-light text-xxs my-0.5">{username}</p>
+          <p className="my-0.5 text-xxs text-light">{username}</p>
         )}
         {messages &&
           messages.map((m, index) => (
@@ -52,8 +54,8 @@ function GroupAuthorMessage({
                 hasBeenSentByCurrentUser={hasBeenSentByCurrentUser}
               />
               <span
-                className="text-light font-extralight text-xxs 
-                py-0.5 px-1.5 text-opacity-20"
+                className="px-1.5 py-0.5 text-xxs 
+                font-extralight text-light text-opacity-20"
               >
                 {new Date(m.created_at).toLocaleTimeString('fr-FR', {
                   hour: 'numeric',

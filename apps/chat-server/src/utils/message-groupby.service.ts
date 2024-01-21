@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
+import { MessageStore, AuthorGroupMessages, HistoricMessages, } from '@skillcoop/types';
 
 
 @Injectable()
 export class GroupMessageByService {
   groupByDateAndAuthor(messages) {
-    return messages.reduce((acc, curr) => {
+    return messages.reduce((acc: HistoricMessages, curr) => {
       const currentDate = new Date(curr.created_at).toLocaleString('en-US', {
         day: 'numeric',
         month: 'short',
@@ -15,26 +16,30 @@ export class GroupMessageByService {
       const lastDateGroup = acc.find((group) => group.date === currentDate);
 
       if (!lastDateGroup) {
+
         acc.push(GroupMessageByService.createDateGroup(currentDate, GroupMessageByService.createAuthorGroup(curr)));
       } else {
+
         const lastAuthorGroup =
-          lastDateGroup.groupAuthor[lastDateGroup.groupAuthor.length - 1];
+          lastDateGroup.author_groups[lastDateGroup.author_groups.length - 1];
         if (lastAuthorGroup.user_id === curr.user_id) {
+
           GroupMessageByService.addMessageToAuthorGroup(lastAuthorGroup, curr);
         } else {
-          lastDateGroup.groupAuthor.push(GroupMessageByService.createAuthorGroup(curr));
+
+          lastDateGroup.author_groups.push(GroupMessageByService.createAuthorGroup(curr));
         }
       }
       return acc;
     }, []);
   }
-  static createDateGroup(date, authorGroup) {
+  static createDateGroup(date: string, authorGroup: AuthorGroupMessages) {
     return {
       date,
-      groupAuthor: [authorGroup],
+      author_groups: [authorGroup],
     };
   }
-  static createAuthorGroup(message) {
+  static createAuthorGroup(message: MessageStore) {
     return {
       user_id: message.user_id,
       username: message.username,
@@ -42,7 +47,7 @@ export class GroupMessageByService {
       messages: [GroupMessageByService.createMessage(message)],
     };
   }
-  static createMessage(message) {
+  static createMessage(message: MessageStore) {
     return {
       message_id: message.message_id,
       message: message.message,
@@ -50,7 +55,7 @@ export class GroupMessageByService {
       updated_at: message.updated_at,
     };
   }
-  static addMessageToAuthorGroup(authorGroup, message) {
+  static addMessageToAuthorGroup(authorGroup: AuthorGroupMessages, message: MessageStore) {
     authorGroup.messages.push(GroupMessageByService.createMessage(message));
   }
 }

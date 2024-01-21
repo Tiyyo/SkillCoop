@@ -9,7 +9,7 @@ type ConversationCardImageProps = {
     username: string;
     avatar: string | null;
   }[];
-  currentUserId: number;
+  currentUserId: number | null;
 };
 function ConversationCardImage({
   participantsList,

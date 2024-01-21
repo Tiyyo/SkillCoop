@@ -31,6 +31,7 @@ export class Friendlist extends Core<typeof tableNames.profile_on_profile> {
         ])
         .where('adder_id', '=', id)
         .where('status_name', '=', 'confirmed')
+        .where('friend_id', '<>', id)
         .execute();
 
       return friendships;

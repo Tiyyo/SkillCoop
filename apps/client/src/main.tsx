@@ -53,9 +53,10 @@ import AccessControlGateway from './component/redirection/acces-gateway';
 import OnBoardingCreateProfile from './feature/onboarding/create-profile';
 import OnBoardinAddImageProfile from './feature/onboarding/add-image-profile';
 import OnBoardingEvaluateSkill from './feature/onboarding/evaluate-skill';
-import ChatHomePage from './feature/chat/chat-home';
-import Conversations from './feature/chat/conversations';
+import ChatHomePage from './feature/chat';
+import Conversations from './feature/chat/home-page/conversations';
 import Conversation from './feature/chat/conversation';
+import NewConversation from './feature/chat/add-conversation';
 /*eslint-enable*/
 
 export const queryClient = new QueryClient({
@@ -247,6 +248,7 @@ const router = createBrowserRouter([
         children: [
           { index: true, element: <Conversations /> },
           { path: `conversation/:id`, element: <Conversation /> },
+          { path: 'new-conversation/:userId', element: <NewConversation /> },
         ],
       },
       {
@@ -294,6 +296,5 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <Toaster />
       <RouterProvider router={router} fallbackElement={<LoadingPage />} />
     </QueryClientProvider>
-    ,
   </React.StrictMode>,
 );

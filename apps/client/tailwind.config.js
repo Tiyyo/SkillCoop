@@ -1,3 +1,4 @@
+/* eslint-disable*/
 const plugin = require('tailwindcss/plugin.js');
 
 /** @type {import('tailwindcss').Config} */
@@ -23,6 +24,7 @@ export default {
         'fade-in': '2s linear ',
         'opacity-in': 'opacity-in 0.3s linear forwards',
         'fade-up': 'fade-up 0.6s ease-in-out 0.12s 1 forwards',
+        'circle-fade-in': 'circle-fade-in 0.3s ease-in-out 0.12s 1 forwards',
       },
       aspectRatio: {
         '1/4': '1/4',
@@ -115,6 +117,10 @@ export default {
         'opacity-in': {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' },
+        },
+        'circle-fade-in': {
+          '0%': { opacity: '0', transform: 'scale(0)' },
+          '100%': { opacity: '1', transform: 'scale(1)' },
         },
       },
       minHeight: {

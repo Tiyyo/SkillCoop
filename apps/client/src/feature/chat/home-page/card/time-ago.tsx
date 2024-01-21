@@ -1,4 +1,4 @@
-import { getCurrentLngInLocalStorage } from '../../utils/get-current-lng';
+import { getCurrentLngInLocalStorage } from '../../../../utils/get-current-lng';
 
 type ConversationCardTimeAgoProps = {
   lastMessageDate: string; // UTC ISO string

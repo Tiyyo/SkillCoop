@@ -31,24 +31,26 @@ function SearchInput({ getFocusState, onChange }: SearchInputProps) {
   };
 
   return (
-    <div className="relative h-9 max-w-xs w-2/3">
+    <div className="relative h-9 w-2/3 max-w-xs">
       <input
         type="text"
         placeholder={t('search')}
         onFocus={handleFocus}
         onBlur={handleBlur}
         onChange={handleChangeValue}
-        className="focus:rounded-3xl hover:rounded-3xl border-b-2
-       border-b-slate-800 border-opacity-10 focus:bg-primary-20 bg-opacity-10 
-        outline-none leading-7 transition-all ease-cubic duration-300 py-1 
-        focus:outline-none focus:py-1 focus:px-8 focus:border 
-      focus:border-primary-600 focus:placeholder:opacity-0 
-        focus:placeholder:transition-opacity focus:placeholder:duration-300 
-        hover:outline-none hover:py-1 hover:px-8 hover:border 
-      hover:border-primary-600 text-sm w-full"
+        className="w-full border-b-2 border-b-slate-800 border-opacity-10
+        bg-transparent bg-opacity-10 py-1 text-sm 
+        leading-7 outline-none transition-all duration-300 ease-cubic 
+        hover:rounded-3xl 
+        hover:border hover:border-primary-600 hover:px-8 hover:py-1 
+        hover:outline-none focus:rounded-3xl focus:border 
+        focus:border-primary-600 
+        focus:bg-primary-20 focus:px-8 focus:py-1 focus:outline-none 
+        focus:placeholder:opacity-0 focus:placeholder:transition-opacity 
+        focus:placeholder:duration-300"
       />
       <div
-        className={`absolute top-1/2 right-2 -translate-y-1/2 text-primary-600 
+        className={`absolute right-2 top-1/2 -translate-y-1/2 text-primary-600 
         transition-opacity duration-300 
         ${shouldShowIcon ? 'opacity-95' : 'opacity-0'}`}
       >

@@ -7,7 +7,7 @@ import { GroupMessageByService } from 'src/utils/message-groupby.service';
 @Injectable()
 export class HistoricService {
   constructor(@Inject('dbClient') protected dbClient: Kysely<DB>, private readonly logger: Logger, private readonly groupMessageBy: GroupMessageByService) { }
-  async get(data: { conversationId: number }) {
+  async get(data: { conversation_id: number }) {
     try {
       const result = await this.dbClient
         .selectFrom('conversation')
@@ -34,9 +34,8 @@ export class HistoricService {
               .orderBy('message.created_at', 'asc'),
           ).as('messages'),
         ])
-        .where('conversation.conversation_id', '=', data.conversationId)
+        .where('conversation.conversation_id', '=', data.conversation_id)
         .groupBy('conversation.conversation_id')
-
         .execute();
 
       const historic = {
@@ -46,7 +45,7 @@ export class HistoricService {
 
       return { ...historic, messages: this.groupMessageBy.groupByDateAndAuthor(historic.messages) };
     } catch (error) {
-      this.logger.error('Could not get historic of conversation ' + data.conversationId + ' ' + error.message)
+      this.logger.error('Could not get historic of conversation ' + data.conversation_id + ' ' + error.message)
     }
   }
 }

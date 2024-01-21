@@ -1,17 +1,16 @@
-//@ts-nocheck
 import { useNavigate, useParams } from 'react-router-dom';
-import { useGetConversation } from '../../hooks/useConversations';
-import { socket } from './socket';
-import { Suspense, useEffect } from 'react';
-import { useApp } from '../../store/app.store';
-import { MyForm } from './send-form';
-import Container from '../../layout/container';
-import ConversationCardImage from './image-converasation';
-import ConversationCardTitle from './title-conversation';
+import { useGetConversation } from '../../../hooks/useConversations';
+import { socket } from '../socket';
+import { Suspense, useEffect, useState } from 'react';
+import { useApp } from '../../../store/app.store';
+import Container from '../../../layout/container';
+import ConversationCardImage from '../image-conversation';
+import ConversationCardTitle from '../title-conversation';
 import { ArrowLeft, Info } from 'lucide-react';
-import LoadingPage from '../../component/loading-page';
-import useMessages from '../../hooks/useMessages';
-import GroupDateMessages from './group-date-messages';
+import LoadingPage from '../../../component/loading-page';
+import useMessages from '../../../hooks/useMessages';
+import ConversationMessages from './messages.container';
+import ConversationInfos from '../conversation-infos';
 
 function Conversation() {
   const navigate = useNavigate();
@@ -21,10 +20,11 @@ function Conversation() {
     conversationId: Number(params.id),
   });
   const {
-    messages: groupByDate,
+    messages: historicMessages,
     displayNewMessage,
     getHistoric,
   } = useMessages();
+  const [showConvInfos, setShowConvInfos] = useState(false);
 
   function connect() {
     socket.connect();
@@ -39,8 +39,9 @@ function Conversation() {
     }
 
     if (conversation) {
+      console.log('historic', conversation?.conversation_id);
       socket.emit('join_conversation', {
-        conversationId: conversation.conversation_id,
+        conversation_id: conversation.conversation_id,
       });
 
       socket.on('connect', connect);
@@ -53,7 +54,7 @@ function Conversation() {
       socket.on('error', (error) => {
         console.log('Socket error:', error);
       });
-      // socket.on('historic', getHistoric);
+      socket.on('historic', getHistoric);
       socket.on('new-message', displayNewMessage);
     }
     return () => {
@@ -71,19 +72,23 @@ function Conversation() {
   return (
     <Suspense fallback={<LoadingPage />}>
       <Container
-        className="lg:mt-4 flex-grow flex flex-col justify-between 
-        p-0 h-[calc(100vh-5rem)]"
+        className="flex h-[calc(100vh-5rem)] flex-grow flex-col justify-between 
+        p-0 lg:mt-4"
       >
         {conversation && (
           <header
-            className="flex py-2 px-4 items-center gap-x-4 border-b
-             border-b-grey-light justify-between"
+            className="flex items-center justify-between gap-x-4 border-b
+           border-b-grey-light px-4 py-2"
           >
             <div
-              className="p-1.5 aspect-square border flex items-center 
-              justify-center rounded-full shadow border-opacity-10 
-            text-primary-700 cursor-pointer"
-              onClick={() => navigate(-1)}
+              className="flex aspect-square cursor-pointer items-center 
+              justify-center rounded-full border border-opacity-10 p-1.5 
+            text-primary-700 shadow"
+              onClick={() =>
+                showConvInfos
+                  ? setShowConvInfos(!showConvInfos)
+                  : navigate('/chat')
+              }
             >
               <ArrowLeft size={18} />
             </div>
@@ -101,39 +106,23 @@ function Conversation() {
                 participantsList={conversation.participants_list}
               />
             </div>
-            <Info className="text-primary-100 cursor-pointer" size={20} />
+            <Info
+              className="cursor-pointer text-primary-100"
+              size={20}
+              onClick={() => setShowConvInfos(!showConvInfos)}
+            />
           </header>
         )}
-        <main
-          className="flex flex-grow flex-col justify-end overflow-hidden 
-        bg-[url('/images/chat_bg_2.svg')] py-2 no-scrollbar  overflow-y-auto"
-        >
-          <div
-            className="flex flex-col gap-y-1 
-          overflow-y-scroll px-2.5"
-          >
-            {groupByDate &&
-              groupByDate.map((group) => (
-                <GroupDateMessages
-                  key={group.date}
-                  date={group.date}
-                  groupAuthor={group.groupAuthor}
-                  currentUserId={userId}
-                />
-              ))}
-          </div>
-        </main>
-        <footer
-          className="py-4 border-t 
-        border-b-grey-light"
-        >
-          <MyForm
-            conversationId={conversation?.conversation_id}
+        {showConvInfos ? (
+          <ConversationInfos />
+        ) : (
+          <ConversationMessages
+            historicMessages={historicMessages}
             userId={userId}
-            username={userProfile?.username}
-            avatar={userProfile?.avatar_url}
+            userProfile={userProfile}
+            conversation={conversation}
           />
-        </footer>
+        )}
       </Container>
     </Suspense>
   );

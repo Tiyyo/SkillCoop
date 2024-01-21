@@ -1,12 +1,12 @@
 import { useRef, useState } from 'react';
-import { socket } from './socket';
+import { socket } from '../socket';
 import { Send } from 'lucide-react';
 
 type MyFormProps = {
   conversationId: number;
-  userId: number;
-  username: string;
-  avatar: string | null;
+  userId: number | null;
+  username: string | undefined;
+  avatar: string | null | undefined;
 };
 
 export function MyForm({
@@ -39,12 +39,12 @@ export function MyForm({
     <form
       onSubmit={onSubmit}
       ref={formRef}
-      className="flex h-full w-full items-center gap-x-4 px-3 justify-center"
+      className="flex h-full w-full items-center justify-center gap-x-4 px-3"
     >
       <input
         onChange={(e) => setValue(e.target.value)}
-        className="bg-grey-off py-2 px-4 w-[80%] rounded-lg pl-1 
-        placeholder:pl-2 placeholder:text-xs text-xs"
+        className="w-[80%] rounded-lg bg-grey-off px-4 py-2 pl-1 
+        text-xs placeholder:pl-2 placeholder:text-xs"
         placeholder="Type your message..."
       />
       <button

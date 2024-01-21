@@ -1,34 +1,16 @@
 import { Link } from 'react-router-dom';
-import ConversationCardImage from './image-converasation';
-import ConversationCardTitle from './title-conversation';
-import ConversationCardTimeAgo from './conversation-card-time-age';
-import ConversationCardLastMessage from './last-message-conversation';
+import ConversationCardImage from '../../image-conversation';
+import ConversationCardTitle from '../../title-conversation';
+import ConversationCardTimeAgo from './time-ago';
+import ConversationCardLastMessage from './last-message';
 import { getFormattedUTCTimestamp } from '@skillcoop/date-handler/src';
 import NewMessageIndicator from './new-message-indicator';
-
-type ConversationParticipant = {
-  user_id: number;
-  username: string;
-  avatar: string | null;
-};
-
-type Conversation = {
-  conversation_id: number;
-  title: string | null;
-  type_name: 'oneToOne' | 'group' | 'event';
-  last_seen: string | null;
-  last_update: string | null;
-  participants_list: Array<ConversationParticipant>;
-  last_message: {
-    content: string;
-    created_at: string;
-  };
-};
+import { Conversation, UpdateUserOnConversation } from '@skillcoop/types/src';
 
 type ConversationCardProps = {
   currentUserId: number;
   conversation: Conversation;
-  updateLastSeen: (data: any) => void;
+  updateLastSeen: (data: UpdateUserOnConversation) => void;
 };
 function ConversationCard({
   conversation,
@@ -38,20 +20,20 @@ function ConversationCard({
   const todayUTCString = getFormattedUTCTimestamp();
   return (
     <Link
-      className="flex py-4 max-w-md"
+      className="flex max-w-md py-4"
       to={`conversation/${conversation.conversation_id}`}
       onClick={() =>
         updateLastSeen({
-          conversationId: conversation.conversation_id,
-          userId: currentUserId,
+          conversation_id: conversation.conversation_id,
+          user_id: currentUserId,
           last_seen: todayUTCString,
         })
       }
     >
       <div
         className="relative flex  w-14 
-                    flex-shrink-0  text-center 
-                    text-xs  items-center justify-center"
+                    flex-shrink-0  items-center 
+                    justify-center  text-center text-xs"
       >
         <ConversationCardImage
           participantsList={conversation.participants_list}
@@ -61,19 +43,21 @@ function ConversationCard({
       </div>
       <div
         className="flex flex-grow flex-col-reverse 
-                    justify-between py-2 px-3"
+                    justify-between px-3 py-2"
       >
-        <div
-          className="flex items-center text-sm gap-1 
-          justify-between text-light"
-        >
-          <ConversationCardLastMessage
-            content={conversation.last_message.content}
-          />
-          <ConversationCardTimeAgo
-            lastMessageDate={conversation.last_message.created_at}
-          />
-        </div>
+        {conversation.last_message && (
+          <div
+            className="flex items-center justify-between gap-1 
+          text-sm text-light"
+          >
+            <ConversationCardLastMessage
+              content={conversation.last_message?.content}
+            />
+            <ConversationCardTimeAgo
+              lastMessageDate={conversation.last_message?.created_at}
+            />
+          </div>
+        )}
         <div className="flex justify-between">
           <ConversationCardTitle
             title={conversation.title}
@@ -83,6 +67,9 @@ function ConversationCard({
           <NewMessageIndicator
             lastSeen={conversation.last_seen}
             lastUpdate={conversation.last_update}
+            isWriteByCurrentUser={
+              currentUserId === conversation.last_message?.user_id
+            }
           />
         </div>
       </div>

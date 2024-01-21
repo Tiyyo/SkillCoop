@@ -10,12 +10,12 @@ function ChatBubble({
   return (
     <p
       className={cn(
-        `text-xs font-normal text-gray-900  
-          max-w-[80%] leading-1.5 py-1.5 px-3 
-         my-0.5 rounded-xl `,
+        `leading-1.5 my-0.5 max-w-[80%]  
+          rounded-xl px-3 py-1.5 text-xs 
+         font-normal text-gray-900 `,
         hasBeenSentByCurrentUser
-          ? 'text-end first:rounded-tr-none bg-primary-300 '
-          : 'text-start nth-child-2:rounded-tl-none bg-gray-100',
+          ? 'bg-primary-300 text-end first:rounded-tr-none '
+          : 'bg-gray-100 text-start nth-child-2:rounded-tl-none',
       )}
     >
       {content}

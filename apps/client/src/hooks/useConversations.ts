@@ -1,10 +1,16 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
+  createGroupConversationFn,
+  findOrCreateOneToOneConversationFn,
   getConversationFn,
   getConversationsFn,
   updateUserOnConversationFn,
 } from '../chat-api/chat.fn';
-import { UpdateUserOnConversation } from '../provisional-types';
+import {
+  CreateGroupConversation,
+  CreateOneToOneConversation,
+  UpdateUserOnConversation,
+} from 'packages/types/src';
 
 const keys = {
   getConversations: ['conversations'],
@@ -44,6 +50,36 @@ export function useUpdateUserOnConversation(options: {
     onSuccess: () => {
       queryClient.invalidateQueries(keys.getConversations);
       if (options.onSuccess) options.onSuccess;
+    },
+  });
+}
+
+export function useFindOrCreateOneToOneConversation(options: {
+  onSuccess?: (args: any) => void;
+}) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (data: CreateOneToOneConversation) => {
+      return findOrCreateOneToOneConversationFn(data);
+    },
+    onSuccess: (response) => {
+      queryClient.invalidateQueries(keys.getConversations);
+      if (options.onSuccess) options.onSuccess(response);
+    },
+  });
+}
+
+export function useCreateGroupConversation(options: {
+  onSuccess?: (args: any) => void;
+}) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (data: CreateGroupConversation) => {
+      return createGroupConversationFn(data);
+    },
+    onSuccess: (response: any) => {
+      queryClient.invalidateQueries(keys.getConversations);
+      if (options.onSuccess) options.onSuccess(response);
     },
   });
 }

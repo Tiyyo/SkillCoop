@@ -1,6 +1,6 @@
 type ConversationCardTitleProps = {
   title: string | null;
-  currentUserId: number;
+  currentUserId: number | null;
   participantsList: {
     user_id: number;
     username: string;
@@ -18,7 +18,7 @@ function ConversationCardTitle({
     .join(', ');
 
   return (
-    <h3 className="text-sm font-medium text-ellipsis line-clamp-1 my-0.5">
+    <h3 className="my-0.5 line-clamp-1 text-ellipsis text-sm font-medium">
       {title ? title : participantsName}
     </h3>
   );

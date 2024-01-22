@@ -1,10 +1,10 @@
 import { sql } from 'kysely';
-import DatabaseError from '../helpers/errors/database.error.js';
+import DatabaseError from '#errors/database.error';
 import { Core } from './core.js';
-import UserInputError from '../helpers/errors/user-input.error.js';
+import UserInputError from '#errors/user-input.error';
 import { getFormattedUTCTimestamp } from '@skillcoop/date-handler';
 import { tableNames } from '../@types/types.js';
-import { db } from '../helpers/client.db.js';
+import { db } from '#helpers/client.db';
 
 export class Friendlist extends Core<typeof tableNames.profile_on_profile> {
   declare tableName: typeof tableNames.profile_on_profile;

@@ -9,6 +9,35 @@
     "types": [
       "vitest/globals"
     ],
+    "paths": {
+      "#errors/*": [
+        "./app/helpers/errors/*.js"
+      ],
+      "#models": [
+        "./app/models/index.js"
+      ],
+      "#middlewares/*": [
+        "./app/middlewares/*.js"
+      ],
+      "#helpers/*": [
+        "./app/helpers/*.js"
+      ],
+      "#services/*": [
+        "./app/services/*.js"
+      ],
+      "#controllers/*": [
+        "./app/controllers/*.js"
+      ],
+      "types/*": [
+        "./app/@types/*.js"
+      ],
+      "publishers/*": [
+        "./app/publishers/*.js"
+      ],
+      "#logger": [
+        "./app/helpers/logger.js"
+      ]
+    },
     "forceConsistentCasingInFileNames": true,
   },
   "ts-node": {

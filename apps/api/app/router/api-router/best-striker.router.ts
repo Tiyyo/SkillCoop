@@ -1,9 +1,9 @@
 import express, { Router } from 'express';
-import factory from '../../middleware/wrapper-controller.js';
-import bestStrikerController from '../../controller/best-striker.controller.js';
-import { canals } from '../../@types/types.js';
+import factory from '#middlewares/wrapper-controller';
+import bestStrikerController from '#controllers/best-striker.controller';
+import { canals } from '#types/types';
 import { voteSchema } from '@skillcoop/schema';
-import { validateSchema } from '../../middleware/schema-validator.js';
+import { validateSchema } from '#middlewares/schema-validator';
 
 const { createOne } = bestStrikerController;
 

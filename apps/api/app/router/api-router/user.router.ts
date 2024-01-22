@@ -1,11 +1,11 @@
 import express, { Router } from 'express';
-import factory from '../../middleware/wrapper-controller.js';
-import userController from '../../controller/user.controller.js';
-import { validateSchema } from '../../middleware/schema-validator.js';
-import { canals } from '../../@types/types.js';
+import factory from '#middlewares/wrapper-controller';
+import userController from '#controllers/user.controller';
+import { validateSchema } from '#middlewares/schema-validator';
+import { canals } from '#types/types';
 import { emailSchema, passwordUpdateSchema } from '@skillcoop/schema';
-import tokenHandler from '../../helpers/token.handler.js';
-import { sanitizeParams } from '../../middleware/sanitizer.params.js';
+import tokenHandler from '#helpers/token.handler';
+import { sanitizeParams } from '#middlewares/sanitizer.params';
 
 const { updateEmail, updatePassword, deleteUser } = userController;
 

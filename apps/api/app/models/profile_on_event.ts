@@ -1,10 +1,10 @@
 import { getFormattedUTCTimestamp } from '@skillcoop/date-handler';
-import DatabaseError from '../helpers/errors/database.error.js';
-import UserInputError from '../helpers/errors/user-input.error.js';
+import DatabaseError from '#errors/database.error';
+import UserInputError from '#errors/user-input.error';
 import { Core } from './core.js';
 import { DB } from '../@types/database.js';
-import { db } from '../helpers/client.db.js';
-import NotFoundError from '../helpers/errors/not-found.error.js';
+import { db } from '#helpers/client.db';
+import NotFoundError from '#errors/not-found.error';
 import { ReferenceExpression } from 'kysely';
 import { InsertObjectDB, tableNames } from '../@types/types.js';
 

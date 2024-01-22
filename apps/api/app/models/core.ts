@@ -1,7 +1,7 @@
-import DatabaseError from '../helpers/errors/database.error.js';
-import NotFoundError from '../helpers/errors/not-found.error.js';
+import DatabaseError from '#errors/database.error';
+import NotFoundError from '#errors/not-found.error';
 import { getFormattedUTCTimestamp } from '@skillcoop/date-handler';
-import { db } from '../helpers/client.db.js';
+import { db } from '#helpers/client.db';
 import { ReferenceExpression } from 'kysely';
 import { DB } from '../@types/database.js';
 import { InsertObject } from 'kysely';

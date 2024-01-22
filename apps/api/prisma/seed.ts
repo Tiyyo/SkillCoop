@@ -16,8 +16,8 @@ import {
   getUTCString,
 } from '@skillcoop/date-handler';
 import { uploadLocalFile } from '../app/service/upload/upload-local-file.js';
-import { userQueuePublisher } from '../app/publisher/user.publisher.js';
-import { eventQueuePublisher } from '../app/publisher/event.publisher.js';
+import { userQueuePublisher } from '../app/publishers/user.publisher.js';
+import { eventQueuePublisher } from '../app/publishers/event.publisher.js';
 
 async function seed() {
   logger.info('Start seeding');

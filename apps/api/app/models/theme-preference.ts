@@ -1,7 +1,7 @@
 import { tableNames } from '../@types/types.js';
 import { Core } from './core.js';
-import { db } from '../helpers/client.db.js';
-import DatabaseError from '../helpers/errors/database.error.js';
+import { db } from '#helpers/client.db';
+import DatabaseError from '#errors/database.error';
 import { getFormattedUTCTimestamp } from '@skillcoop/date-handler';
 
 export class ThemePreference extends Core<typeof tableNames.theme_preference> {

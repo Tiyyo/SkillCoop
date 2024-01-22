@@ -1,10 +1,10 @@
 import express, { Router } from 'express';
-import factory from '../../middleware/wrapper-controller.js';
+import factory from '#middlewares/wrapper-controller';
 /*eslint-disable-next-line */
-import notificationController from '../../controller/notification.controller.js';
+import notificationController from '#controllers/notification.controller';
 import { markAsReadNotificationSchema } from '@skillcoop/schema';
-import { validateSchema } from '../../middleware/schema-validator.js';
-import { canals } from '../../@types/types.js';
+import { validateSchema } from '#middlewares/schema-validator';
+import { canals } from '#types/types';
 
 const { getNotification, markAsRead } = notificationController;
 

@@ -45,18 +45,17 @@ export class ChatGateway
     @MessageBody() payload: PayloadMessageDto
 
   ) {
-    const { content, conversation_id, user_id, username, avatar } = payload;
-
+    const { message, conversation_id, user_id, username, avatar } = payload;
     await this.messageService.store({
       conversation_id,
-      content,
+      content: message,
       sender: user_id,
     });
 
     const roomName = `conversation#${conversation_id}`;
 
     this.io.to(roomName).emit('new-message', {
-      message: content,
+      message,
       created_at: client.handshake.time,
       username,
       avatar,

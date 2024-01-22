@@ -22,6 +22,18 @@
     "db:reset": "prisma migrate reset",
     "db:studio": "prisma studio"
   },
+  "imports": {
+    "#errors/*": "./app/helpers/errors/*.js",
+    "#helpers/*": "./app/helpers/*.js",
+    "#utils/*": "./app/utils/*.js",
+    "#types/*": "./app/@types/*.js",
+    "#models": "./app/models/index.js",
+    "#controllers/*": "./app/controllers/*.js",
+    "#services/*": "./app/services/*.js",
+    "#publishers/*": "./app/publishers/*.js",
+    "#middlewares/*": "./app/middlewares/*.js",
+    "#logger": "./app/helpers/logger.js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

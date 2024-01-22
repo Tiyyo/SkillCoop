@@ -1,4 +1,4 @@
-import { db } from '../helpers/client.db.js';
+import { db } from '#helpers/client.db';
 import { User } from './user.js';
 import { EventModel } from './event.js';
 import { Friendlist } from './friendslist.js';

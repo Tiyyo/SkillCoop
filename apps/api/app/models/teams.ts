@@ -1,6 +1,6 @@
-import { db } from '../helpers/client.db.js';
-import ServerError from '../helpers/errors/server.error.js';
-import computeRatingUser from '../service/compute-rating/index.js';
+import { db } from '#helpers/client.db';
+import ServerError from '#errors/server.error';
+import computeRatingUser from '#services/compute-rating/index';
 import { Player } from '@skillcoop/types';
 
 // TODO refactor and make smaller function

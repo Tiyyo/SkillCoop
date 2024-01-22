@@ -1,12 +1,12 @@
 import express, { Router } from 'express';
-import factory from '../middleware/wrapper-controller.js';
-import * as authController from '../controller/auth.controller.js';
-import { validateSchema as validate } from '../middleware/schema-validator.js';
+import factory from '#middlewares/wrapper-controller';
+import * as authController from '#controllers/auth.controller';
+import { validateSchema as validate } from '#middlewares/schema-validator';
 import { canals } from '../@types/types.js';
 import { registerSchema, loginSchema, emailSchema } from '@skillcoop/schema';
-import tokenHandler from '../helpers/token.handler.js';
-import { infosDemoAccountProvider } from '../middleware/demo-account.js';
-import { sanitizeParams } from '../middleware/sanitizer.params.js';
+import tokenHandler from '#helpers/token.handler';
+import { infosDemoAccountProvider } from '#middlewares/demo-account';
+import { sanitizeParams } from '#middlewares/sanitizer.params';
 
 const {
   signin,

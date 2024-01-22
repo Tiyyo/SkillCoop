@@ -2,9 +2,9 @@ import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import router from './router/main.router.js';
-import accesHttp from './middleware/acces-http.js';
+import accesHttp from './middlewares/acces-http.js';
 import logger from './helpers/logger.js';
-import { sanitizer } from './middleware/sanitizer.js';
+import { sanitizer } from './middlewares/sanitizer.js';
 import * as Sentry from '@sentry/node';
 import { ProfilingIntegration } from '@sentry/profiling-node';
 

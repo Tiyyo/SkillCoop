@@ -23,15 +23,19 @@ export function MyForm({
     event.preventDefault();
     setIsLoading(true);
 
-    socket
-      .timeout(5000)
-      .emit(
-        'message',
-        { conversationId, userId, content: value, username, avatar },
-        () => {
-          setIsLoading(false);
-        },
-      );
+    socket.timeout(5000).emit(
+      'message',
+      {
+        conversation_id: conversationId,
+        user_id: userId,
+        message: value,
+        username,
+        avatar,
+      },
+      () => {
+        setIsLoading(false);
+      },
+    );
     formRef.current?.reset();
   }
 

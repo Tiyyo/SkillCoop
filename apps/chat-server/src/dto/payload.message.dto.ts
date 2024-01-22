@@ -11,7 +11,7 @@ export class PayloadMessageDto {
   user_id: number;
   @IsString()
   @IsNotEmpty()
-  content: string
+  message: string
   @IsString()
   @IsNotEmpty()
   username: string;

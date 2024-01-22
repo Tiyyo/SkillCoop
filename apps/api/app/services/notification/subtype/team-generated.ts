@@ -1,0 +1,75 @@
+import { notificationSubtype, notificationType } from '@skillcoop/types';
+import { profileOnEvent as Participant, event as EventModel } from '#models';
+import { NotificationObserver } from './core.js';
+/*eslint-disable-next-line */
+import { hasActiveNotification } from '#utils/has-active-notification';
+import { BuildNotificationMessage } from '../message.builder.js';
+import type {
+  BuildTeamsHasBeenGeneratedMessage,
+  NotificationSubtype,
+  NotificationType,
+} from '@skillcoop/types';
+
+class TeamHasBeenGenerated extends NotificationObserver {
+  declare subtype: NotificationSubtype;
+
+  declare eventId: number;
+
+  declare builder: BuildTeamsHasBeenGeneratedMessage;
+
+  constructor(type: NotificationType, eventId: number) {
+    super(type);
+    this.subtype = notificationSubtype.teamHasBeenGenerated;
+    this.eventId = eventId;
+    // Kinda obscur , consider to refactor and clean
+    const builder = new BuildNotificationMessage(this.subtype);
+    this.builder = builder.getBuilder(
+      this.subtype,
+    ) as BuildTeamsHasBeenGeneratedMessage;
+  }
+  async getSubscribers() {
+    const confirmedParticipants = await Participant.find({
+      event_id: this.eventId,
+      status_name: 'confirmed',
+    });
+    if (!confirmedParticipants) return null;
+    const participantsIds = confirmedParticipants.map(
+      (participant) => participant.profile_id,
+    );
+    const subscribersIds = await hasActiveNotification(participantsIds);
+    return subscribersIds;
+  }
+  async getInfos() {
+    const eventInfos = await EventModel.findOne({ id: this.eventId });
+    if (!eventInfos) throw new Error('Event not found');
+    return { eventDate: eventInfos.date };
+  }
+  async sendNotification(subscribers: number[], eventDate: string) {
+    if (!subscribers || !eventDate || !this.builder) return;
+    const message = this.builder(eventDate);
+    subscribers.forEach((id) => {
+      this.addNotificationToDatabase({
+        profileId: id,
+        message,
+        type_name: this.type,
+        subtype: this.subtype,
+        eventId: this.eventId,
+      });
+      this.triggerEvent(id);
+    });
+  }
+  async notify() {
+    const subscribersIds = await this.getSubscribers();
+    if (!subscribersIds) return;
+    const { eventDate } = await this.getInfos();
+    await this.sendNotification(subscribersIds, eventDate);
+  }
+}
+
+export const notifyTeamHasBeenGenerated = async (eventId: number) => {
+  const teamHasBeenGenerated = new TeamHasBeenGenerated(
+    notificationType.event,
+    eventId,
+  );
+  await teamHasBeenGenerated.notify();
+};

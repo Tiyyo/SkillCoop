@@ -1,6 +1,6 @@
 // determine in a array of ids which profile id has active_notification set ot 1
 // and return an array of those ids
-import { profile as Profile } from '../models/index.js';
+import { profile as Profile } from '#models';
 
 export const hasActiveNotification = async (profileIds: number[]) => {
   const profileInfosInvitedUserQuery = profileIds.map((id) =>

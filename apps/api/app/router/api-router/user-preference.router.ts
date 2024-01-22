@@ -1,10 +1,8 @@
 import express, { Router } from 'express';
-import factory from '../../middleware/wrapper-controller.js';
-/*eslint-disable*/
-import userPreferenceController from '../../controller/user-preference.controller.js';
-/*eslint-enable*/
-import { validateSchema } from '../../middleware/schema-validator.js';
-import { canals } from '../../@types/types.js';
+import factory from '#middlewares/wrapper-controller';
+import userPreferenceController from '#controllers/user-preference.controller';
+import { validateSchema } from '#middlewares/schema-validator';
+import { canals } from '#types/types';
 import {
   updateNotificationPreferenceSchema,
   updateLanguagePreferenceSchema,

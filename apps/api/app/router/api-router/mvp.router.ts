@@ -1,8 +1,8 @@
 import express, { Router } from 'express';
-import factory from '../../middleware/wrapper-controller.js';
-import mvpController from '../../controller/mvp.controller.js';
-import { validateSchema } from '../../middleware/schema-validator.js';
-import { canals } from '../../@types/types.js';
+import factory from '#middlewares/wrapper-controller';
+import mvpController from '#controllers/mvp.controller';
+import { validateSchema } from '#middlewares/schema-validator';
+import { canals } from '#types/types';
 import { voteSchema } from '@skillcoop/schema';
 
 const { createOne } = mvpController;

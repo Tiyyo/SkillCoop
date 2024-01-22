@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useApp } from '../store/app.store';
+import { useApp } from '../stores/app.store';
 import {
   useEvaluationSkill,
   useGetAverageEval,
   useGetProfile,
 } from './useProfile';
-import { ALL_SKILLS } from '../constant/skill-constant';
+import { ALL_SKILLS } from '../constants/skill-constant';
 import { participantSkillSchema } from '@skillcoop/schema/src';
 import toast from '../utils/toast';
 import { EvaluationParticipantSkill } from '@skillcoop/types/src';
@@ -73,10 +73,10 @@ function usePostMatchEvaluation({
     setEvaluation(
       Math.floor(
         submitedEvaluation.defending +
-          submitedEvaluation.dribbling +
-          submitedEvaluation.pace +
-          submitedEvaluation.passing +
-          submitedEvaluation.shooting,
+        submitedEvaluation.dribbling +
+        submitedEvaluation.pace +
+        submitedEvaluation.passing +
+        submitedEvaluation.shooting,
       ) / 5,
     );
     setTimeout(() => {

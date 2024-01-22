@@ -5,7 +5,7 @@ import {
   getConversationFn,
   getConversationsFn,
   updateUserOnConversationFn,
-} from '../chat-api/chat.fn';
+} from '../api/chat.fn';
 import {
   CreateGroupConversation,
   CreateOneToOneConversation,

@@ -9,6 +9,7 @@ export type Conversation = {
   conversation_id: number;
   title: string | null;
   type_name: TypeConversation;
+  event_id: number | null;
   last_seen: string | null;
   last_update: string | null;
   participants_list: Array<ConversationParticipant>;
@@ -19,6 +20,7 @@ export type ConversationParticipant = {
   user_id: number;
   username: string;
   avatar: string | null;
+  is_admin?: 0 | 1;
 };
 
 export type CreateOneToOneConversation = {

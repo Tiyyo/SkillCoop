@@ -1,5 +1,7 @@
 import ImageWithFallback from '../../components/image';
+/*eslint-disable*/
 import ImageWithUsernamefallback from '../../components/image-fallback-username';
+/*eslint-enable*/
 import GroupChatImageWithUsernameFallback from './group-chat-image';
 
 type ConversationCardImageProps = {
@@ -10,11 +12,13 @@ type ConversationCardImageProps = {
     avatar: string | null;
   }[];
   currentUserId: number | null;
+  size?: number;
 };
 function ConversationCardImage({
   participantsList,
   typeConversation,
   currentUserId,
+  size,
 }: ConversationCardImageProps) {
   const participants = participantsList.filter(
     (p) => p.user_id !== Number(currentUserId),
@@ -62,6 +66,7 @@ function ConversationCardImage({
             avatarUserTwo={participantsWithAvatar[1].avatar}
             usernameOne={participantsWithAvatar[0].username}
             usernameTwo={participantsWithAvatar[1].username}
+            size={size}
           />
         );
       }

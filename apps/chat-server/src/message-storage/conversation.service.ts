@@ -32,7 +32,8 @@ SELECT c.conversation_id,
           json_object(
             'user_id', participants.user_id,
             'avatar', user.avatar,
-            'username', user.username
+            'username', user.username,
+            'is_admin', participants.is_admin
           )
         ) AS participants_list
 FROM conversation as c
@@ -116,7 +117,6 @@ ORDER BY conversation.last_update DESC
     }
   }
   async createOneToOne(data: CreateOneToOneConversation) {
-    console.log(data)
     const todayUTCString = getFormattedUTCTimestamp();
     try {
       const conversationId = await this.dbClient.transaction().execute(async (trx) => {
@@ -179,21 +179,27 @@ ORDER BY conversation.last_update DESC
     }
   }
   async deleteGroup(data: DeleteConversation) {
+
     try {
-      // find organizer first
-      const creator = await this.dbClient
+      const creators = await this.dbClient
         .selectFrom('user_on_conversation')
         .select('user_id')
         .where('conversation_id', '=', data.conversation_id)
         .where('is_admin', '=', 1)
-        .executeTakeFirst();
+        .execute();
 
-      if (creator.user_id !== data.user_id) return;
+      const adminIds = creators.map((creator) => {
+        return creator.user_id;
+      });
+
+      // TODO : return an unauthorized error message
+      if (!adminIds.includes(data.user_id)) return;
 
       const result = await this.dbClient
         .deleteFrom('conversation')
         .where('conversation_id', '=', data.conversation_id)
         .executeTakeFirst();
+
 
       return !!Number(result.numDeletedRows);
     } catch (error) {
@@ -221,14 +227,41 @@ ORDER BY conversation.last_update DESC
   }
   async removeFromGroup(data: RemoveParticipantGroupConversation) {
     try {
-      const creator = await this.dbClient
+      const creators = await this.dbClient
         .selectFrom('user_on_conversation')
         .select('user_id')
         .where('conversation_id', '=', data.conversation_id)
         .where('is_admin', '=', 1)
-        .executeTakeFirst();
+        .execute();
 
-      if (creator.user_id !== data.participant_id) return;
+      const adminIds = creators.map((creator) => {
+        return creator.user_id;
+      });
+
+      // TODO : return an unauthorized error message
+      if (!adminIds.includes(data.participant_id)) return;
+
+      if (adminIds.length === 1 && adminIds[0] === data.participant_id) {
+        const participants = await this.dbClient
+          .selectFrom('user_on_conversation')
+          .select('user_id')
+          .where('conversation_id', '=', data.conversation_id)
+          .where('is_admin', '=', 0)
+          .execute();
+
+        if (participants.length > 1) {
+          const participantsIds = participants.map((participant) => {
+            return participant.user_id;
+          });
+
+          await this.dbClient
+            .updateTable('user_on_conversation')
+            .set({ is_admin: 1 })
+            .where('conversation_id', '=', data.conversation_id)
+            .where('user_id', '=', participantsIds[0])
+            .executeTakeFirst();
+        }
+      }
 
       const result = await this.dbClient
         .deleteFrom('user_on_conversation')
@@ -267,8 +300,8 @@ ORDER BY conversation.last_update DESC
         .where('uc2.user_id', '=', data.user_id_two)
         .groupBy('conversation.conversation_id')
         .executeTakeFirst();
-
-      return result ? result : null;
+      // TODO : replace null by custom expection RessourceNotFound
+      return result ? result : null
     } catch (error) {
       this.logger.error('Could not search for one to one conversation ' + error.message)
     }

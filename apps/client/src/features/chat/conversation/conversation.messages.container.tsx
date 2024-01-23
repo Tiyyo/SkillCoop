@@ -1,5 +1,5 @@
-import GroupDateMessages from './messages.by-date';
-import { MyForm } from './send-form';
+import GroupDateMessages from './conversation.messages.by-date';
+import { MyForm } from './conversation.send-form';
 import { Conversation, Profile, HistoricMessages } from '@skillcoop/types/src';
 
 type ConversationMessagesProps = {
@@ -19,10 +19,7 @@ function ConversationMessages({
     <>
       {conversation && (
         <>
-          <main
-            className="no-scrollbar flex flex-grow flex-col justify-end 
-        overflow-hidden overflow-y-auto bg-[url('/images/chat_bg_2.svg')]  py-2"
-          >
+          <main className="overflow-hidden overflow-y-auto py-2">
             <div
               className="flex flex-col gap-y-1 
           overflow-y-scroll px-2.5"

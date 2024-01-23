@@ -55,7 +55,7 @@ import OnBoardinAddImageProfile from './features/onboarding/add-image-profile';
 import OnBoardingEvaluateSkill from './features/onboarding/evaluate-skill';
 import ChatHomePage from './features/chat';
 import Conversations from './features/chat/home-page/conversations';
-import Conversation from './features/chat/conversation';
+import Conversation from './features/chat/conversation/conversation';
 import NewConversation from './features/chat/add-conversation';
 /*eslint-enable*/
 

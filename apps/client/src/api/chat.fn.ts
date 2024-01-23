@@ -1,8 +1,11 @@
 import axios from 'axios';
 import {
+  AddParticipantGroupConversation,
   Conversation,
   CreateGroupConversation,
   CreateOneToOneConversation,
+  DeleteConversation,
+  RemoveParticipantGroupConversation,
   UpdateUserOnConversation,
 } from '@skillcoop/types/src';
 
@@ -36,7 +39,7 @@ export const updateUserOnConversationFn = async (
 
 export const findOrCreateOneToOneConversationFn = async (
   data: CreateOneToOneConversation,
-): Promise<{ conversationId: number }> => {
+): Promise<{ conversation_id: number }> => {
   const response = await api.post(
     '/chat-serivce/conversation/find-or-create',
     data,
@@ -46,7 +49,35 @@ export const findOrCreateOneToOneConversationFn = async (
 
 export const createGroupConversationFn = async (
   data: CreateGroupConversation,
-): Promise<{ conversationId: number }> => {
+): Promise<{ conversation_id: number }> => {
   const response = await api.post('/chat-serivce/conversation/group', data);
+  return response.data;
+};
+
+export const removeFromConversationGroupFn = async (
+  data: RemoveParticipantGroupConversation,
+): Promise<boolean> => {
+  const response = await api.delete(
+    `/chat-serivce/user-conversation/group/${data.conversation_id}/${data.participant_id}`,
+  );
+  return response.data;
+};
+
+export const addParticipantsToConversationGroupFn = async (
+  data: AddParticipantGroupConversation,
+): Promise<boolean> => {
+  const response = await api.patch(
+    `/chat-serivce/user-conversation/group`,
+    data,
+  );
+  return response.data;
+};
+
+export const deleteConversationFn = async (
+  data: DeleteConversation,
+): Promise<boolean> => {
+  const response = await api.delete(
+    `/chat-serivce/conversation/${data.conversation_id}/${data.user_id}`,
+  );
   return response.data;
 };

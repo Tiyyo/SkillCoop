@@ -8,6 +8,7 @@ export type Conversation = {
   conversation_id: number;
   title: string | null;
   type_name: TypeConversation;
+  event_id: number | null;
   last_seen: string | null;
   last_update: string | null;
   participants_list: Array<ConversationParticipant>;
@@ -17,6 +18,7 @@ export type ConversationParticipant = {
   user_id: number;
   username: string;
   avatar: string | null;
+  is_admin?: 0 | 1;
 };
 export type CreateOneToOneConversation = {
   user_id_one: number;
@@ -57,6 +59,10 @@ export type DateGroupMessages = {
   author_groups: AuthorGroupMessages[];
 };
 export type HistoricMessages = DateGroupMessages[];
+export type Historic = {
+  messages: HistoricMessages;
+  conversation_id: number;
+};
 export type LastMessage = {
   user_id: number;
   content: string;
@@ -83,12 +89,6 @@ export declare const typeConversationAssert: {
   readonly group: "group";
   readonly event: "event";
 };
-export type UpdateUserOnConversation = {
-  user_id: number;
-  conversation_id: number;
-  last_seen?: string;
-  is_admin?: 0 | 1;
-};
 export type UpdateblePropsUserOnConversation = {
   last_seen?: string;
   is_admin?: 0 | 1;
@@ -104,4 +104,10 @@ export type UpdateMessage = {
 };
 export type DeleteMessage = {
   message_id: number;
+};
+export type UpdateUserOnConversation = UpdateUserOnConversationConditions & UpdateblePropsUserOnConversation;
+export type FriendStoreChat = {
+  userId: number;
+  username: string;
+  avatar: string | null;
 };

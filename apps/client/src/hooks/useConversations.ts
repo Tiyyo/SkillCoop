@@ -1,16 +1,22 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
+  addParticipantsToConversationGroupFn,
   createGroupConversationFn,
+  deleteConversationFn,
   findOrCreateOneToOneConversationFn,
   getConversationFn,
   getConversationsFn,
+  removeFromConversationGroupFn,
   updateUserOnConversationFn,
 } from '../api/chat.fn';
 import {
+  AddParticipantGroupConversation,
   CreateGroupConversation,
   CreateOneToOneConversation,
+  DeleteConversation,
+  RemoveParticipantGroupConversation,
   UpdateUserOnConversation,
-} from 'packages/types/src';
+} from '@skillcoop/types';
 
 const keys = {
   getConversations: ['conversations'],
@@ -39,7 +45,9 @@ export function useGetConversation(options: {
     { enabled: !!options.conversationId },
   );
 }
+
 export function useUpdateUserOnConversation(options: {
+  conversationId: number;
   onSuccess?: () => void;
 }) {
   const queryClient = useQueryClient();
@@ -48,7 +56,9 @@ export function useUpdateUserOnConversation(options: {
       return updateUserOnConversationFn(data);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(keys.getConversations);
+      queryClient.invalidateQueries(
+        keys.getConversation(options.conversationId),
+      );
       if (options.onSuccess) options.onSuccess;
     },
   });
@@ -80,6 +90,58 @@ export function useCreateGroupConversation(options: {
     onSuccess: (response: any) => {
       queryClient.invalidateQueries(keys.getConversations);
       if (options.onSuccess) options.onSuccess(response);
+    },
+  });
+}
+
+export function useRemoveFromConversationGroup(options: {
+  conversationId: number;
+  onSuccess?: (args: any) => void;
+}) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (data: RemoveParticipantGroupConversation) => {
+      return removeFromConversationGroupFn(data);
+    },
+    onSuccess: (response: any) => {
+      queryClient.invalidateQueries(
+        keys.getConversation(options.conversationId),
+      );
+      if (options.onSuccess) options.onSuccess(response);
+    },
+  });
+}
+
+export function useAddParticipantsToConversationGroup(options: {
+  conversationId: number;
+}) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (data: AddParticipantGroupConversation) => {
+      return addParticipantsToConversationGroupFn(data);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(
+        keys.getConversation(options.conversationId),
+      );
+    },
+  });
+}
+
+export function useDeleteConversation(options: {
+  conversationId: number;
+  onSuccess?: () => void;
+}) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (data: DeleteConversation) => {
+      return deleteConversationFn(data);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(
+        keys.getConversation(options.conversationId),
+      );
+      if (options.onSuccess) options.onSuccess();
     },
   });
 }

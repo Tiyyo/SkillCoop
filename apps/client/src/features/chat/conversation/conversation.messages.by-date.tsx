@@ -1,6 +1,6 @@
 import { AuthorGroupMessages } from 'packages/types/src';
 import { getCurrentLngInLocalStorage } from '../../../utils/get-current-lng';
-import GroupAuthorMessage from './messages.by-author';
+import GroupAuthorMessage from './conversation.messages.by-author';
 
 type GroupDateMessagesProps = {
   date: string;

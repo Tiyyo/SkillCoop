@@ -5,11 +5,13 @@ type NewConversationGroupStoreProps = {
   friends: FriendStoreChat[];
   addFriends: (friend: FriendStoreChat) => void;
   removeFriends: (id: number) => void;
+  cleanFriends: () => void;
 };
 
 export const useNewConversationGroupStore =
   create<NewConversationGroupStoreProps>((set) => ({
     friends: [],
+    cleanFriends: () => set((state) => ({ ...state, friends: [] })),
     addFriends: (friend) =>
       set((state) => ({
         ...state,
@@ -23,8 +25,7 @@ export const useNewConversationGroupStore =
   }));
 
 export const useNewConversationGroup = () => {
-  const { friends, addFriends, removeFriends } = useNewConversationGroupStore(
-    (state) => state,
-  );
-  return { friends, addFriends, removeFriends };
+  const { friends, addFriends, removeFriends, cleanFriends } =
+    useNewConversationGroupStore((state) => state);
+  return { friends, addFriends, removeFriends, cleanFriends };
 };

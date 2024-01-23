@@ -3,10 +3,10 @@ import { useMemo, useState } from 'react';
 import { useNewConversationGroup } from '../../../stores/new-group.store';
 import { useCreateGroupConversation } from '../../../hooks/useConversations';
 import { useNavigate } from 'react-router-dom';
+import { Friend, FriendStoreChat } from '@skillcoop/types';
+import InputCheckbox from './input-checkbox';
 /*eslint-disable*/
 import ImageWithUsernamefallback from '../../../components/image-fallback-username';
-import InputCheckbox from './input-checkbox';
-import { Friend } from '@skillcoop/types';
 /*eslint-enable*/
 
 type NewConversationGroupProps = {
@@ -16,11 +16,16 @@ type NewConversationGroupProps = {
 
 function NewConversationGroup({ friends, userId }: NewConversationGroupProps) {
   const navigate = useNavigate();
-  const { friends: friendsToAdd, removeFriends } = useNewConversationGroup();
+  const {
+    friends: friendsToAdd,
+    removeFriends,
+    cleanFriends,
+  } = useNewConversationGroup();
   const [title, setTitle] = useState('');
   const { mutate: createConversation } = useCreateGroupConversation({
     onSuccess: (response) => {
       if (response.conversationId) {
+        cleanFriends();
         navigate(`/chat/conversation/${response.conversationId}`);
       }
     },

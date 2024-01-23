@@ -9,8 +9,8 @@ import ConversationCardTitle from '../title-conversation';
 import { ArrowLeft, Info } from 'lucide-react';
 import LoadingPage from '../../../components/loading-page';
 import useMessages from '../../../hooks/useMessages';
-import ConversationMessages from './messages.container';
-import ConversationInfos from '../conversation-infos';
+import ConversationMessages from './conversation.messages.container';
+import ConversationInfos from './conversation.infos';
 
 function Conversation() {
   const navigate = useNavigate();
@@ -92,13 +92,13 @@ function Conversation() {
             >
               <ArrowLeft size={18} />
             </div>
-            <div className="h-10 w-10">
-              <ConversationCardImage
-                participantsList={conversation.participants_list}
-                typeConversation={conversation.type_name}
-                currentUserId={userId}
-              />
-            </div>
+
+            <ConversationCardImage
+              participantsList={conversation.participants_list}
+              typeConversation={conversation.type_name}
+              currentUserId={userId}
+              size={30}
+            />
             <div className="flex-grow">
               <ConversationCardTitle
                 currentUserId={userId}
@@ -113,16 +113,23 @@ function Conversation() {
             />
           </header>
         )}
-        {showConvInfos ? (
-          <ConversationInfos />
-        ) : (
+        <div
+          className="no-scrollbar relative flex flex-grow flex-col 
+          justify-end overflow-hidden"
+        >
+          {showConvInfos && conversation && (
+            <ConversationInfos
+              conversation={conversation}
+              currentUserId={userId}
+            />
+          )}
           <ConversationMessages
             historicMessages={historicMessages}
             userId={userId}
             userProfile={userProfile}
             conversation={conversation}
           />
-        )}
+        </div>
       </Container>
     </Suspense>
   );

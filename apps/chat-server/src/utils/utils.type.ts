@@ -33,7 +33,7 @@ export function assertIsConversation(conversation: any): asserts conversation is
   conversation.participants_list.forEach(participant => {
     if (typeof participant.user_id !== 'number' ||
       typeof participant.username !== 'string' ||
-      typeof participant.avatar !== 'string' && participant.avatar !== null) {
+      typeof participant.avatar !== 'string' && participant.avatar !== null || typeof participant.is_admin !== 'number') {
       throw new Error('Invalid Participant in Conversation object');
     }
   });

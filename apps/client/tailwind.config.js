@@ -25,6 +25,8 @@ export default {
         'opacity-in': 'opacity-in 0.3s linear forwards',
         'fade-up': 'fade-up 0.6s ease-in-out 0.12s 1 forwards',
         'circle-fade-in': 'circle-fade-in 0.3s ease-in-out 0.12s 1 forwards',
+        'expand-page-in': 'expand-page-in 0.4s ease-in-out 0.12s 1 forwards',
+        'open-vertical': 'open-vertical 0.3s ease-in-out 0.12s 1 forwards',
       },
       aspectRatio: {
         '1/4': '1/4',
@@ -121,6 +123,33 @@ export default {
         'circle-fade-in': {
           '0%': { opacity: '0', transform: 'scale(0)' },
           '100%': { opacity: '1', transform: 'scale(1)' },
+        },
+        'expand-page-in': {
+          '0%': {
+            opacity: '0',
+            flexGrow: '0',
+            transformOrigin: 'top',
+            height: '0',
+            top: '0',
+          },
+          '100%': {
+            opacity: '1',
+            flexGrow: '1',
+            transformOrigin: 'top',
+            height: '100%',
+          },
+        },
+        'open-vertical': {
+          '0%': {
+            opacity: '0',
+            transformOrigin: 'top',
+            height: '0',
+          },
+          '100%': {
+            opacity: '1',
+            transformOrigin: 'top',
+            height: '26rem',
+          },
         },
       },
       minHeight: {

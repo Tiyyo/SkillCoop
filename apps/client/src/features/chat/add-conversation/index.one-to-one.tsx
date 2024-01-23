@@ -1,11 +1,11 @@
 /*eslint-disable*/
+import { useFindOrCreateOneToOneConversation } from '../../../hooks/useConversations';
+/*eslint-enable*/
 import { UserPlus2Icon } from 'lucide-react';
 import React from 'react';
-import { useFindOrCreateOneToOneConversation } from '../../../hooks/useConversations';
 import { useNavigate } from 'react-router-dom';
 import ImageWithFallback from '../../../components/image';
-import { Friend } from 'packages/types/src';
-/*eslint-enable*/
+import { Friend } from '@skillcoop/types';
 
 type NewConversationOneToOneProps = {
   friends: Friend[];
@@ -24,8 +24,8 @@ function NewConversationOneToOne({
   const { mutate: findOrCreateConversation } =
     useFindOrCreateOneToOneConversation({
       onSuccess: (response) => {
-        if (response.conversationId) {
-          navigate(`/chat/conversation/${response.conversationId}`);
+        if (response.conversation_id) {
+          navigate(`/chat/conversation/${response.conversation_id}`);
         }
       },
     });

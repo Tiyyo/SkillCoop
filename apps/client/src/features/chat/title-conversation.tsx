@@ -1,16 +1,18 @@
+import { ConversationParticipant } from '@skillcoop/types';
+import { cn } from '../../lib/utils';
+
 type ConversationCardTitleProps = {
   title: string | null;
   currentUserId: number | null;
-  participantsList: {
-    user_id: number;
-    username: string;
-  }[];
+  classname?: string;
+  participantsList: ConversationParticipant[];
 };
 
 function ConversationCardTitle({
   title,
   currentUserId,
   participantsList,
+  classname,
 }: ConversationCardTitleProps) {
   const participantsName = participantsList
     .filter((p) => p.user_id !== currentUserId)
@@ -18,7 +20,12 @@ function ConversationCardTitle({
     .join(', ');
 
   return (
-    <h3 className="my-0.5 line-clamp-1 text-ellipsis text-sm font-medium">
+    <h3
+      className={cn(
+        `my-0.5 line-clamp-1 text-ellipsis text-sm font-medium`,
+        classname,
+      )}
+    >
       {title ? title : participantsName}
     </h3>
   );

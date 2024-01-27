@@ -1,6 +1,6 @@
 import { getUTCString, getInterval } from '@skillcoop/date-handler';
-import { user as UserModel } from '#models';
 import { User as TUser } from '@skillcoop/types';
+import { user as UserModel } from '../../models/index.js';
 
 export class FailedAttempsHandler {
   user: TUser;

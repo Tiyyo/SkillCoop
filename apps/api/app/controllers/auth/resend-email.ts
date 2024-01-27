@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
-import tokenHandler from '#helpers/token.handler';
-import emailService from '#utils/send-email';
-import NotFoundError from '#errors/not-found.error';
-import { user as User } from '#models';
+import emailService from '../../utils/send-email.js';
+import NotFoundError from '../../helpers/errors/not-found.error.js';
+import tokenHandler from '../../helpers/token.handler.js';
+import { user as User } from '../../models/index.js';
 
 export async function resendEmail(req: Request, res: Response) {
   const { email } = req.body;

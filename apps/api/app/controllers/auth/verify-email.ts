@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
-import tokenHandler from '#helpers/token.handler';
-import checkParams from '#utils/check-params';
 import { UserInfosToken } from '@skillcoop/types';
-import ServerError from '#errors/server.error';
-import { CLIENT_URL } from '#utils/variables';
-import { user as User } from '#models';
+import checkParams from '../../utils/check-params.js';
+import tokenHandler from '../../helpers/token.handler.js';
+import ServerError from '../../helpers/errors/server.error.js';
+import { user as User } from '../../models/index.js';
+import { CLIENT_URL } from '../../utils/variables.js';
 
 export async function verifyEmail(req: Request, res: Response) {
   const { token } = req.params;

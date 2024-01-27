@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { Sanitize } from '#utils/clean-objects';
+import { Sanitize } from '../utils/clean-objects.js';
 
 export function sanitizer(req: Request, _res: Response, next: NextFunction) {
   req.body = Sanitize.deepObject(req.body);

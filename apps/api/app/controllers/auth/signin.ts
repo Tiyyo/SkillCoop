@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import authService from '#services/auth/auth';
-import logger from '#helpers/logger';
+import authService from '../../services/auth/auth.js';
+import logger from '../../helpers/logger.js';
 
 export async function signin(req: Request, res: Response) {
   const { email, password } = req.body;

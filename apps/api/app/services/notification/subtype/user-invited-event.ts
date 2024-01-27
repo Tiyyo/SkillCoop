@@ -1,5 +1,4 @@
 import { NotificationObserver } from './core.js';
-import { event as EventModel, profile as Profile } from '#models';
 import { BuildNotificationMessage } from '../message.builder.js';
 import type {
   BuilderUserInvitedToEventNotificationMessage,
@@ -7,8 +6,12 @@ import type {
   NotificationType,
 } from '@skillcoop/types';
 import { notificationSubtype, notificationType } from '@skillcoop/types';
+import {
+  event as EventModel,
+  profile as Profile,
+} from '../../../models/index.js';
 /*eslint-disable-next-line */
-import { hasActiveNotification } from '#utils/has-active-notification';
+import { hasActiveNotification } from '../../../utils/has-active-notification.js';
 
 type ConstructorProps = {
   eventId: number;

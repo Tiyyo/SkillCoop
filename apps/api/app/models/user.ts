@@ -1,12 +1,12 @@
 import { getFormattedUTCTimestamp } from '@skillcoop/date-handler';
-import DatabaseError from '#errors/database.error';
 import { Core } from './core.js';
 import { tableNames } from '../@types/types.js';
-import { db } from '#helpers/client.db';
-import NotFoundError from '#errors/not-found.error';
-import ServerError from '#errors/server.error';
 import { User as TUser } from '@skillcoop/types';
-import { userQueuePublisher } from '#publishers/user.publisher';
+import { db } from '../helpers/client.db.js';
+import { userQueuePublisher } from '../publishers/user.publisher.js';
+import DatabaseError from '../helpers/errors/database.error.js';
+import ServerError from '../helpers/errors/server.error.js';
+import NotFoundError from '../helpers/errors/not-found.error.js';
 
 export class User extends Core<typeof tableNames.user> {
   declare tableName: typeof tableNames.user;

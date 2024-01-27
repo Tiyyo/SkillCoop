@@ -5,9 +5,10 @@ import {
 } from '@skillcoop/types';
 import { ProfileOnEvent } from '../models/profile_on_event.js';
 import { EventStatusEvaluator } from './event-state.service.js';
-import { event } from '#models';
 import { generateBalancedTeam } from './generate-teams/index.js';
-import { participantQueuePublisher } from '#publishers/participant.publisher';
+import { event } from '../models/index.js';
+/*eslint-disable-next-line */
+import { participantQueuePublisher } from '../publishers/participant.publisher.js';
 
 type EventCurrentState = 'open' | 'oneSpotLeft' | 'full' | 'notFound';
 

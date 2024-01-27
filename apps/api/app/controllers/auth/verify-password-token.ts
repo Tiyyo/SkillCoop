@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import tokenHandler from '#helpers/token.handler';
+import tokenHandler from '../../helpers/token.handler.js';
 
 export async function verifyResetPasswordToken(req: Request, res: Response) {
   const token = req.cookies._rset;

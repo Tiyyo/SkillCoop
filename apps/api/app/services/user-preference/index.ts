@@ -1,11 +1,11 @@
 import { sql } from 'kysely';
-import { db } from '#helpers/client.db';
 import type {
   UserPreference as TUserPreference,
   RawUserPreference,
   NotificationPreference as TNotificationPreference,
 } from '@skillcoop/types';
 import { DefaultUserPreference } from './default-preference.js';
+import { db } from '../../helpers/client.db.js';
 
 export class UserPreferenceHandler {
   userId: number;

@@ -39,8 +39,8 @@ function ModalRouteRatingEvent() {
       <div
         className="bg-background  animate-in animate-in fixed left-[50%] 
           top-[50%] z-50 grid w-full max-w-lg 
-          translate-x-[-50%] translate-y-[-50%] animate-opacity-in gap-4 border bg-base-light 
-          p-6 opacity-0 shadow-lg duration-200 
+          translate-x-[-50%] translate-y-[-50%] animate-opacity-in gap-4 
+          border bg-base-light p-6 opacity-0 shadow-lg duration-200 
           sm:rounded-lg md:w-full"
       >
         <div className="flex justify-end">
@@ -56,7 +56,8 @@ function ModalRouteRatingEvent() {
             <ImageWithFallback
               url={participantProfile?.avatar_url ?? null}
               alt="profile avatar"
-              className={cn('h-16 w-16 rounded-full')}
+              className={cn('rounded-full')}
+              size={64}
             />
             <p>{capitalize(participantProfile?.username)}</p>
           </div>

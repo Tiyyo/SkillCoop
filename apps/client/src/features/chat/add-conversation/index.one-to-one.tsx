@@ -65,7 +65,8 @@ function NewConversationOneToOne({
               <ImageWithFallback
                 url={friend.avatar_url}
                 alt={`${friend.username} friend profile avatar`}
-                className="border-primary-dark h-10 w-10 rounded-full border"
+                className="border-primary-dark rounded-full border"
+                size={40}
               />
               <p className="text-xs font-medium">{friend.username}</p>
             </button>

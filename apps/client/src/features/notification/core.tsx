@@ -25,7 +25,8 @@ function ImageNotification({ image, username }: ImageNotificationProps) {
       <ImageWithFallback
         url={image}
         alt="avatar"
-        className="aspect-square h-8 rounded-full border-2 border-primary-300"
+        className="rounded-full border-2 border-primary-300"
+        size={32}
       />
     );
   }

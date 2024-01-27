@@ -1,13 +1,15 @@
 import { Request, Response } from 'express';
-import { profile as Profile } from '#models';
-import { image as Image } from '#models';
-import { user as User } from '#models';
 import bcrypt from 'bcrypt';
-import checkParams from '#utils/check-params';
-import AuthorizationError from '#errors/unauthorized.error';
-import NotFoundError from '#errors/not-found.error';
 import { UserInfosToken } from '@skillcoop/types';
-import { userQueuePublisher } from '#publishers/user.publisher';
+import {
+  profile as Profile,
+  user as User,
+  image as Image,
+} from '../models/index.js';
+import NotFoundError from '../helpers/errors/not-found.error.js';
+import checkParams from '../utils/check-params.js';
+import AuthorizationError from '../helpers/errors/unauthorized.error.js';
+import { userQueuePublisher } from '../publishers/user.publisher.js';
 
 export default {
   getMe: async (req: Request, res: Response) => {

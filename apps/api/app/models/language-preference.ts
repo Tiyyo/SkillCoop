@@ -1,8 +1,8 @@
 import { tableNames } from '../@types/types.js';
 import { Core } from './core.js';
-import { db } from '#helpers/client.db';
 import { getFormattedUTCTimestamp } from '@skillcoop/date-handler';
-import DatabaseError from '#errors/database.error';
+import { db } from '../helpers/client.db.js';
+import DatabaseError from '../helpers/errors/database.error.js';
 
 export class LanguagePreference extends Core<
   typeof tableNames.language_preference

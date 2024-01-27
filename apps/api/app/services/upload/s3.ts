@@ -1,5 +1,3 @@
-import ServerError from '#errors/server.error';
-import logger from '#logger';
 import {
   S3Client,
   PutObjectCommand,
@@ -11,8 +9,10 @@ import {
 } from '@aws-sdk/client-cloudfront';
 import crypto from 'crypto';
 
-import resizeImage from '#helpers/resize-image';
 import { LocalImage } from './upload-local-file.js';
+import ServerError from '../../helpers/errors/server.error.js';
+import resizeImage from '../../helpers/resize-image.js';
+import logger from '../../helpers/logger.js';
 
 const region = process.env.BUCKET_REGION;
 const bucketName = process.env.BUCKET_NAME;

@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { notification as Notification } from '#models';
-import checkParams from '#utils/check-params';
+import checkParams from '../utils/check-params.js';
+import { notification as Notification } from '../models/index.js';
 
 export default {
   async getNotification(req: Request, res: Response) {

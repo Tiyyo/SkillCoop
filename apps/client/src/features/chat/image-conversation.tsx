@@ -29,6 +29,7 @@ function ConversationCardImage({
       <ImageWithUsernamefallback
         avatar={participants[0].avatar}
         username={participants[0].username}
+        size={size}
       />
     );
   }
@@ -36,26 +37,28 @@ function ConversationCardImage({
   /*group: TODO: refactor */
   if (typeConversation === 'group' || typeConversation === 'event') {
     if (participants.length === 0) {
-      return <ImageWithFallback url={null} alt="default image" />;
+      return <ImageWithFallback url={null} alt="default image" size={size} />;
     }
     if (participants.length === 1) {
       return (
         <ImageWithUsernamefallback
           avatar={participants[0].avatar}
           username={participants[0].username}
+          size={size}
         />
       );
     }
     if (participants.length > 1) {
       const participantsWithAvatar = participants.filter((p) => p.avatar);
       if (participantsWithAvatar.length === 0) {
-        return <ImageWithFallback url={null} alt="default image" />;
+        return <ImageWithFallback url={null} alt="default image" size={size} />;
       }
       if (participantsWithAvatar.length === 1) {
         return (
           <ImageWithUsernamefallback
             avatar={participantsWithAvatar[0].avatar}
             username={participantsWithAvatar[0].username}
+            size={size}
           />
         );
       }
@@ -66,7 +69,6 @@ function ConversationCardImage({
             avatarUserTwo={participantsWithAvatar[1].avatar}
             usernameOne={participantsWithAvatar[0].username}
             usernameTwo={participantsWithAvatar[1].username}
-            size={size}
           />
         );
       }

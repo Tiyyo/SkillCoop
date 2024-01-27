@@ -1,5 +1,6 @@
 import { Player, TeamGeneratorConfig } from '@skillcoop/types';
-import { profileOnEvent as ProfileOnEvent } from '#models';
+import { profileOnEvent as ProfileOnEvent } from '../../models/index.js';
+
 import condition, { Conditions } from './condition.js';
 import { ConfigGenerateTeams } from '../../models/teams.js';
 /*eslint-disable*/

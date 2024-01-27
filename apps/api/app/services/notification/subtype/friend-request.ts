@@ -1,5 +1,5 @@
 import { NotificationObserver } from './core.js';
-import { profile as Profile } from '#models';
+
 import { BuildNotificationMessage } from '../message.builder.js';
 import {
   BuilderFriendRequestNotificationMessage,
@@ -7,6 +7,7 @@ import {
   NotificationType,
 } from '@skillcoop/types';
 import { notificationSubtype, notificationType } from '@skillcoop/types';
+import { profile as Profile } from '../../../models/index.js';
 
 class UserReceivedFriendRequest extends NotificationObserver {
   declare instigatorId: number;

@@ -1,11 +1,15 @@
 import { Request, Response } from 'express';
-import authService from '#services/auth/auth';
-import tokenHandler from '#helpers/token.handler';
-import APITypeError from '#errors/type.error';
-import ServerError from '#errors/server.error';
-import { user as User, profile as Profile, image as Image } from '#models';
-import { CLIENT_URL } from '#utils/variables';
-import google from '#services/auth/google';
+import APITypeError from '../../helpers/errors/type.error.js';
+import ServerError from '../../helpers/errors/server.error.js';
+import {
+  user as User,
+  profile as Profile,
+  image as Image,
+} from '../../models/index.js';
+import google from '../../services/auth/google.js';
+import authService from '../../services/auth/auth.js';
+import tokenHandler from '../../helpers/token.handler.js';
+import { CLIENT_URL } from '../../utils/variables.js';
 
 export async function googleAuth(req: Request, res: Response) {
   const { code } = req.query;

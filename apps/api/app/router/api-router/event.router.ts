@@ -1,14 +1,14 @@
 import express, { Router } from 'express';
-import factory from '#middlewares/wrapper-controller';
-import eventController from '#controllers/event.controller';
-import { validateSchema } from '#middlewares/schema-validator';
 import {
   createEventSchema,
   updateEventSchema,
   updateOrganizerSchema,
 } from '@skillcoop/schema';
-import { canals } from '#types/types';
-import { sanitizeParams } from '#middlewares/sanitizer.params';
+import factory from '../../middlewares/wrapper-controller.js';
+import eventController from '../../controllers/event.controller.js';
+import { validateSchema } from '../../middlewares/schema-validator.js';
+import { canals } from '../../@types/types.js';
+import { sanitizeParams } from '../../middlewares/sanitizer.params.js';
 
 const {
   getOrganizerEvents,

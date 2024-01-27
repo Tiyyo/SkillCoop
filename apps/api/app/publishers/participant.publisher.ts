@@ -1,6 +1,6 @@
 import amqp from 'amqplib';
-import logger from '#logger';
 import { ParticipantQueuePublisher, queues } from '@skillcoop/types';
+import logger from '../helpers/logger.js';
 
 export const participantQueuePublisher = async (
   participantMessageQueue: ParticipantQueuePublisher,

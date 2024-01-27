@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
-import tokenHandler from '#helpers/token.handler';
-import { CLIENT_URL } from '#utils/variables';
-import ServerError from '#errors/server.error';
-import checkParams from '#utils/check-params';
+import checkParams from '../../utils/check-params.js';
+import tokenHandler from '../../helpers/token.handler.js';
+import ServerError from '../../helpers/errors/server.error.js';
+import { CLIENT_URL } from '../../utils/variables.js';
 
 export async function redirectToResetPassword(req: Request, res: Response) {
   const { token } = req.params;

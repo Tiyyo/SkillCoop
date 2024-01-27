@@ -1,5 +1,5 @@
 import { hasActiveNotification } from '../has-active-notification.js';
-import { profile as Profile } from '#models';
+import { profile as Profile } from '../../models/index.js';
 
 describe('hasActiveNotification', () => {
   afterEach(() => {

@@ -74,13 +74,14 @@ function AvatarEdit({
     <form
       encType="multipart/form-data"
       className="h-24 w-24 
-        flex-shrink-0 cursor-pointer  overflow-hidden rounded-lg border-4 border-primary-200 shadow"
+        flex-shrink-0 cursor-pointer  overflow-hidden rounded-lg border-4 
+      border-primary-200 shadow"
     >
       <label htmlFor="image" onClick={handleClickImage}>
         <ImageWithFallback
           url={profileAvatar}
           alt="profile avatar"
-          className="h-full w-full object-cover"
+          className="object-cover"
         />
       </label>
       <p>{t('editAvatar')}</p>

@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
-import authService from '#services/auth/auth';
-import tokenHandler from '#helpers/token.handler';
-import ServerError from '#errors/server.error';
-import emailService from '#utils/send-email';
-import DatabaseError from '#errors/database.error';
-import logger from '#helpers/logger';
+import authService from '../../services/auth/auth.js';
+import ServerError from '../../helpers/errors/server.error.js';
+import DatabaseError from '../../helpers/errors/database.error.js';
+import logger from '../../helpers/logger.js';
+import tokenHandler from '../../helpers/token.handler.js';
+import emailService from '../../utils/send-email.js';
 
 export async function register(req: Request, res: Response) {
   const { email, password } = req.body;

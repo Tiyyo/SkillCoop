@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
-import tokenHandler from '#helpers/token.handler';
-import ServerError from '#errors/server.error';
-import { user as User } from '#models';
 import bcrypt from 'bcrypt';
+import ServerError from '../../helpers/errors/server.error.js';
+import { user as User } from '../../models/index.js';
+import tokenHandler from '../../helpers/token.handler.js';
 
 export async function resetPassword(req: Request, res: Response) {
   const { password } = req.body;

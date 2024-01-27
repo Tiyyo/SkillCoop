@@ -1,13 +1,13 @@
 import { Request, Response } from 'express';
-import deleteDecodedKey from '#utils/delete-decoded';
-import checkParams from '#utils/check-params';
-import { UserPreferenceHandler } from '#services/user-preference/index';
-import ServerError from '#errors/server.error';
+import deleteDecodedKey from '../utils/delete-decoded.js';
+import checkParams from '../utils/check-params.js';
+import { UserPreferenceHandler } from '../services/user-preference/index.js';
+import ServerError from '../helpers/errors/server.error.js';
 import {
   notificationPreference as NotificationPreference,
   languagePreference as LanguagePreference,
   themePreference as ThemePreference,
-} from '#models';
+} from '../models/index.js';
 
 export default {
   async get(req: Request, res: Response) {

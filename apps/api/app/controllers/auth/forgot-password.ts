@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
-import tokenHandler from '#helpers/token.handler';
-import { user as User } from '#models';
-import ForbidenError from '#errors/forbiden';
-import emailService from '#utils/send-email';
+import ForbidenError from '../../helpers/errors/forbiden.js';
+import tokenHandler from '../../helpers/token.handler.js';
+import { user as User } from '../../models/index.js';
+import emailService from '../../utils/send-email.js';
 
 export async function forgotPassword(req: Request, res: Response) {
   const { email } = req.body;

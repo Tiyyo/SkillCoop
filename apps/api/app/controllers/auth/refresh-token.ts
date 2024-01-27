@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
-import { user as User } from '#models';
-import tokenHandler from '#helpers/token.handler';
-import AuthorizationError from '#errors/unauthorized.error';
+import { user as User } from '../../models/index.js';
+import AuthorizationError from '../../helpers/errors/unauthorized.error.js';
+import tokenHandler from '../../helpers/token.handler.js';
 
 export async function refresh(req: Request, res: Response) {
   const { decoded } = req.body;
-  // const user = await User.findOne({ id: decoded.user_id });
+
   const user = await User.findOne({ id: decoded.user_id });
   if (!user) {
     res.clearCookie('refreshToken', { sameSite: 'none', secure: true });

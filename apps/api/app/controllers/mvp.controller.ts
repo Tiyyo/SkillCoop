@@ -1,6 +1,6 @@
-import { mvp as Mvp, event as Event } from '#models';
 import { Request, Response } from 'express';
-import deleteDecodedKey from '#utils/delete-decoded';
+import { event as Event, mvp as Mvp } from '../models/index.js';
+import deleteDecodedKey from '../utils/delete-decoded.js';
 
 export default {
   createOne: async (req: Request, res: Response) => {

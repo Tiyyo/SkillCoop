@@ -4,9 +4,15 @@ type ImageWithFallbackProps = {
   url: string | null;
   alt: string;
   className?: string;
+  size?: number;
 };
 
-function ImageWithFallback({ url, alt, className }: ImageWithFallbackProps) {
+function ImageWithFallback({
+  url,
+  alt,
+  className,
+  size,
+}: ImageWithFallbackProps) {
   const fallbackRandomUrl = 'https://api.dicebear.com/7.x/personas/svg/';
   const defaultPLayer = '/images/default-player.png';
 
@@ -22,6 +28,11 @@ function ImageWithFallback({ url, alt, className }: ImageWithFallbackProps) {
     <img
       src={url ?? fallbackRandomUrl}
       alt={alt}
+      style={
+        size
+          ? { height: `${size}px`, width: `${size}px` }
+          : { height: '100%', width: '100%' }
+      }
       className={className}
       onError={onError}
     />

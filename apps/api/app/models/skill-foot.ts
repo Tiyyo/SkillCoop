@@ -1,7 +1,7 @@
 import { tableNames } from '../@types/types.js';
-import computeGbRating from '#utils/compute-gb-rating';
 import { Core } from './core.js';
-import { db } from '#helpers/client.db';
+import { db } from '../helpers/client.db.js';
+import computeGbRating from '../utils/compute-gb-rating.js';
 
 export class SkillFoot extends Core<typeof tableNames.skill_foot> {
   declare tableName: typeof tableNames.skill_foot;

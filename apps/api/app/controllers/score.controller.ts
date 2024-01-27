@@ -1,7 +1,7 @@
-import { score as Score, event as Event } from '#models';
 import { Request, Response } from 'express';
-import deleteDecodedKey from '#utils/delete-decoded';
 import { eventStatus } from '@skillcoop/types';
+import deleteDecodedKey from '../utils/delete-decoded.js';
+import { score as Score, event as Event } from '../models/index.js';
 
 export default {
   async createOne(req: Request, res: Response) {

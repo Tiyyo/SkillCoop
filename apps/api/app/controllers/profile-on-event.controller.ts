@@ -1,12 +1,14 @@
-import UserInputError from '#errors/user-input.error';
-import { profileOnEvent as ProfileOnEvent } from '#models';
-import { event as Event } from '#models';
 import { Request, Response } from 'express';
-import deleteDecodedKey from '#utils/delete-decoded';
-/*eslint-disable*/
-import { notifyUserHasBeenInvitedToEvent } from '#services/notification/subtype/user-invited-event';
-import { participantQueuePublisher } from '#publishers/participant.publisher';
-import { ParticipantStatusManager } from '#services/participant.service';
+import deleteDecodedKey from '../utils/delete-decoded.js';
+import UserInputError from '../helpers/errors/user-input.error.js';
+import { ParticipantStatusManager } from '../services/participant.service.js';
+import {
+  event as Event,
+  profileOnEvent as ProfileOnEvent,
+} from '../models/index.js';
+import { participantQueuePublisher } from '../publishers/participant.publisher.js';
+import { notifyUserHasBeenInvitedToEvent } from '../services/notification/subtype/user-invited-event.js';
+
 /*eslint-enable*/
 
 export default {

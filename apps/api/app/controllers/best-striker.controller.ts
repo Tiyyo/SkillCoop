@@ -1,7 +1,7 @@
-import { bestStriker as BestStriker, event as Event } from '#models';
 import { Request, Response } from 'express';
-import deleteDecodedKey from '#utils/delete-decoded';
-import NotFoundError from '#errors/not-found.error';
+import deleteDecodedKey from '../utils/delete-decoded.js';
+import NotFoundError from '../helpers/errors/not-found.error.js';
+import { event as Event, bestStriker as BestStriker } from '../models/index.js';
 
 export default {
   createOne: async (req: Request, res: Response) => {

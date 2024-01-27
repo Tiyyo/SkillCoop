@@ -1,13 +1,14 @@
-import { friendslist as Friendlist } from '#models';
 import { Request, Response } from 'express';
-import checkParams from '#utils/check-params';
-import ServerError from '#errors/server.error';
-import deleteDecodedKey from '#utils/delete-decoded';
-import UserInputError from '#errors/user-input.error';
+import checkParams from '../utils/check-params.js';
+import { friendslist as Friendlist } from '../models/index.js';
+import deleteDecodedKey from '../utils/delete-decoded.js';
+import { notifyUserReceivedFriendRequest } from '../services/notification/subtype/friend-request.js';
+import ServerError from '../helpers/errors/server.error.js';
+import { notifyUserHasBeenAddedToFriendlist } from '../services/notification/subtype/added-friendlist.js';
+import UserInputError from '../helpers/errors/user-input.error.js';
 //eslint-disable-next-line
-import { notifyUserReceivedFriendRequest } from '#services/notification/subtype/friend-request';
+
 //eslint-disable-next-line
-import { notifyUserHasBeenAddedToFriendlist } from '#services/notification/subtype/added-friendlist';
 
 export default {
   async getFriends(req: Request, res: Response) {

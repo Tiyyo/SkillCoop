@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { Sanitize } from '#utils/clean-objects';
+import { Sanitize } from '../utils/clean-objects.js';
 
 export function sanitizeParams(
   req: Request,

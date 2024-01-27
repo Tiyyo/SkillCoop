@@ -1,6 +1,6 @@
 import { EventWithoutAggr, invitationStatus } from '@skillcoop/types';
-import { profileOnEvent as ProfileOnEvent } from '#models';
-import logger from '#logger';
+import { profileOnEvent as ProfileOnEvent } from '../models/index.js';
+import logger from '../helpers/logger.js';
 
 type EventCurrentState = 'open' | 'oneSpotLeft' | 'full' | 'notFound';
 

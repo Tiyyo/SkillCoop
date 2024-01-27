@@ -12,7 +12,7 @@
     "typecheck": "tsc --noEmit",
     "ts-coverage": "typescript-coverage-report",
     "lint": "eslint . index.ts --fix",
-    "dev": "nodemon --exec ts-node-transpile-only ./index.ts",
+    "dev": "nodemon --exec tsx ./index.ts",
     "start": "nodemon dist/index.js",
     "db:migrate:deploy": "prisma migrate deploy",
     "db:migrate:dev": "prisma migrate dev",
@@ -21,18 +21,6 @@
     "db:seed:dev": "ts-node-transpile-only prisma/seed.ts",
     "db:reset": "prisma migrate reset",
     "db:studio": "prisma studio"
-  },
-  "imports": {
-    "#errors/*": "./app/helpers/errors/*.js",
-    "#helpers/*": "./app/helpers/*.js",
-    "#utils/*": "./app/utils/*.js",
-    "#types/*": "./app/@types/*.js",
-    "#models": "./app/models/index.js",
-    "#controllers/*": "./app/controllers/*.js",
-    "#services/*": "./app/services/*.js",
-    "#publishers/*": "./app/publishers/*.js",
-    "#middlewares/*": "./app/middlewares/*.js",
-    "#logger": "./app/helpers/logger.js"
   },
   "keywords": [],
   "author": "",

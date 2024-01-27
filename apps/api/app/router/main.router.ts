@@ -1,17 +1,18 @@
 import express, { Router } from 'express';
 import authRouter from './auth.router.js';
-import NotFoundError from '#errors/not-found.error';
-import { errorHandler } from '#middlewares/errors.handler';
 import apiRouter from './api.router.js';
-import tokenHandler from '#helpers/token.handler';
-import factory from '#middlewares/wrapper-controller';
-import userController from '#controllers/user.controller';
-import logger from '#logger';
+import factory from '../middlewares/wrapper-controller.js';
 /*eslint-disable */
-import { sseConnectionManager } from '#services/notification/sse-connection.manager';
+
 import * as Sentry from '@sentry/node';
 import qs from 'qs'
 import axios from 'axios'
+import tokenHandler from '../helpers/token.handler.js';
+import { sseConnectionManager } from '../services/notification/sse-connection.manager.js';
+import NotFoundError from '../helpers/errors/not-found.error.js';
+import logger from '../helpers/logger.js';
+import { errorHandler } from '../middlewares/errors.handler.js';
+import userController from '../controllers/user.controller.js';
 /*eslint-enable */
 
 const { getMe } = userController;

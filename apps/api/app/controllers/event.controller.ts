@@ -1,20 +1,24 @@
-import { event as Event } from '#models';
-import { profileOnEvent as ProfileOnEvent } from '#models';
 import { Request, Response } from 'express';
-import AuthorizationError from '#errors/unauthorized.error';
-import checkParams from '#utils/check-params';
-import NotFoundError from '#errors/not-found.error';
-import deleteDecodedKey from '#utils/delete-decoded';
-import { generateBalancedTeam } from '#services/generate-teams/index';
+import {
+  event as Event,
+  profileOnEvent as ProfileOnEvent,
+} from '../models/index.js';
+
 /*eslint-disable*/
-import { notifyEventInfosHasBeenUpdated } from '#services/notification/subtype/infos-event';
-import { notifyUserHasBeenInvitedToEvent } from '#services/notification/subtype/user-invited-event';
-import { notifyTransfertOwnership } from '#services/notification/subtype/transfert-ownership';
+import { notifyUserHasBeenInvitedToEvent } from '../services/notification/subtype/user-invited-event.js';
+import { notifyEventInfosHasBeenUpdated } from '../services/notification/subtype/infos-event.js';
+import { notifyTransfertOwnership } from '../services/notification/subtype/transfert-ownership.js';
 /*eslint-enable*/
-import ForbidenError from '#errors/forbiden';
-import ServerError from '#errors/server.error';
-import { eventQueuePublisher } from '#publishers/event.publisher';
+
 import { invitationStatus } from '@skillcoop/types';
+import deleteDecodedKey from '../utils/delete-decoded.js';
+import ServerError from '../helpers/errors/server.error.js';
+import { eventQueuePublisher } from '../publishers/event.publisher.js';
+import checkParams from '../utils/check-params.js';
+import ForbidenError from '../helpers/errors/forbiden.js';
+import NotFoundError from '../helpers/errors/not-found.error.js';
+import AuthorizationError from '../helpers/errors/unauthorized.error.js';
+import { generateBalancedTeam } from '../services/generate-teams/index.js';
 
 export default {
   async createOne(req: Request, res: Response) {

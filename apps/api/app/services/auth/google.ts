@@ -1,6 +1,7 @@
 import qs from 'qs';
 import axios from 'axios';
-import ServerError from '#errors/server.error';
+import ServerError from '../../helpers/errors/server.error.js';
+
 // TODO replace axios by fetch when avaiable in LTS
 
 type GoogleOAuthToken = {

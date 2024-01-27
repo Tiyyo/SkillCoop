@@ -12,8 +12,9 @@ function Avatar({ avatar, isRatingActive, className }: AvatarProps) {
     <ImageWithFallback
       url={avatar ?? null}
       alt="profile avatar"
+      size={40}
       className={cn(
-        'w-9 h-9 lg:w-11 lg:h-11 aspect-square rounded-full',
+        'aspect-square h-9 w-9 rounded-full lg:h-11 lg:w-11',
         isRatingActive && 'cursor-pointer',
         className,
       )}

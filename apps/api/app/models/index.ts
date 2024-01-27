@@ -1,4 +1,3 @@
-import { db } from '#helpers/client.db';
 import { User } from './user.js';
 import { EventModel } from './event.js';
 import { Friendlist } from './friendslist.js';
@@ -16,6 +15,7 @@ import { NotificationPreference } from './notification-preference.js';
 import { NotificationType } from './notification-type.js';
 import { ThemePreference } from './theme-preference.js';
 import { LanguagePreference } from './language-preference.js';
+import { db } from '../helpers/client.db.js';
 
 export const bestStriker = new BestStriker(db);
 export const event = new EventModel(db);

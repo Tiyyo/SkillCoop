@@ -1,16 +1,18 @@
-import DatabaseError from '#errors/database.error';
-import ServerError from '#errors/server.error';
-import { user as User } from '#models';
-import { image as Image } from '#models';
-import { profile as Profile } from '#models';
 import bcrypt from 'bcrypt';
-import emailService from '#utils/send-email';
 import randomBytes from 'randombytes';
-import tokenHandler from '#helpers/token.handler';
 import type { UserInfosToken, GoogleUserInfos } from '@skillcoop/types';
 import { UserPreferenceHandler } from '../user-preference/index.js';
-import { LoginAttemptReturn } from '#types/types';
 import { CredentialsValidator } from './credentials-validator.js';
+import ServerError from '../../helpers/errors/server.error.js';
+import {
+  user as User,
+  profile as Profile,
+  image as Image,
+} from '../../models/index.js';
+import DatabaseError from '../../helpers/errors/database.error.js';
+import { LoginAttemptReturn } from '../../@types/types.js';
+import tokenHandler from '../../helpers/token.handler.js';
+import emailService from '../../utils/send-email.js';
 
 export default {
   async createUser(data: {

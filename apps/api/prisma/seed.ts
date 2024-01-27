@@ -10,14 +10,14 @@ import { score as Score } from '../app/models/index.js';
 import { friendslist as Friendlist } from '../app/models/index.js';
 import { skillFoot as SkillFoot } from '../app/models/index.js';
 import { notificationType as NotificationType } from '../app/models/index.js';
-import authService from '../app/service/auth/auth.js';
 import {
   getFormattedUTCTimestamp,
   getUTCString,
 } from '@skillcoop/date-handler';
-import { uploadLocalFile } from '../app/service/upload/upload-local-file.js';
 import { userQueuePublisher } from '../app/publishers/user.publisher.js';
 import { eventQueuePublisher } from '../app/publishers/event.publisher.js';
+import { uploadLocalFile } from '../app/services/upload/upload-local-file.js';
+import authService from '../app/services/auth/auth.js';
 
 async function seed() {
   logger.info('Start seeding');

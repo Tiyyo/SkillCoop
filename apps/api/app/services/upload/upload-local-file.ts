@@ -1,11 +1,12 @@
 import fs from 'fs';
 import path from 'path';
 import url from 'url';
-import NotFoundError from '#errors/not-found.error';
 import { uploadImageToBucket } from './s3.js';
-import logger from '#logger';
-import { image as Image } from '#models';
-import DatabaseError from '#errors/database.error';
+import NotFoundError from '../../helpers/errors/not-found.error.js';
+import { image as Image } from '../../models/index.js';
+import logger from '../../helpers/logger.js';
+import DatabaseError from '../../helpers/errors/database.error.js';
+
 const isProduction = process.env.NODE_ENV === 'production';
 const pathToPublicFolder = isProduction
   ? '../../../../public/'

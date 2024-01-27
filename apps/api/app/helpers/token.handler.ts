@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
-import AuthorizationError from '#errors/unauthorized.error';
 import { ObjectRecordGeneric } from '../@types/types.js';
-import logger from '#logger';
+import AuthorizationError from './errors/unauthorized.error.js';
+import logger from './logger.js';
 const { sign, verify } = jwt;
 
 const tokenHandler = {

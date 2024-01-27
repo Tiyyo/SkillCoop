@@ -1,4 +1,4 @@
-import UserInputError from '#errors/user-input.error';
+import UserInputError from '../../helpers/errors/user-input.error.js';
 import { LoginAttemptTracker } from './login-tracker.js';
 import { User as TUser } from '@skillcoop/types';
 

@@ -26,7 +26,7 @@ function SearchInput({ getFocusState, onChange }: SearchInputProps) {
 
   const handleChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    if (!onChange || !value) return;
+    if (!onChange) return;
     onChange(value);
   };
 

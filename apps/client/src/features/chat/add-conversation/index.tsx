@@ -12,12 +12,17 @@ import NewConversationGroup from './index.group';
 function NewConversation() {
   const { userId } = useParams();
   const navigate = useNavigate();
+  const [searchInputValue, setSearchInputValue] = useState('');
   const [typeConversation, setTypeConversation] = useState<
     'group' | 'oneToOne'
   >('oneToOne');
   const { data: friends } = useGetConfirmedFriends({
     profileId: Number(userId),
   });
+
+  const getSearchInputValue = (value: string) => {
+    setSearchInputValue(value);
+  };
 
   return (
     <Container className="flex-grow p-0">
@@ -41,17 +46,22 @@ function NewConversation() {
         </h2>
       </div>
       <div className="my-2 px-4">
-        <SearchInput />
+        <SearchInput onChange={getSearchInputValue} />
       </div>
       {typeConversation === 'oneToOne' && friends && (
         <NewConversationOneToOne
           friends={friends}
           userId={Number(userId)}
           setTypeConversation={setTypeConversation}
+          searchInputValue={searchInputValue}
         />
       )}
       {typeConversation === 'group' && friends && (
-        <NewConversationGroup friends={friends} userId={Number(userId)} />
+        <NewConversationGroup
+          friends={friends}
+          userId={Number(userId)}
+          searchInputValue={searchInputValue}
+        />
       )}
     </Container>
   );

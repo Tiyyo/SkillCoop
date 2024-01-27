@@ -12,9 +12,14 @@ import ImageWithUsernamefallback from '../../../components/image-fallback-userna
 type NewConversationGroupProps = {
   friends: Friend[];
   userId: number | null;
+  searchInputValue?: string;
 };
 
-function NewConversationGroup({ friends, userId }: NewConversationGroupProps) {
+function NewConversationGroup({
+  friends,
+  userId,
+  searchInputValue,
+}: NewConversationGroupProps) {
   const navigate = useNavigate();
   const {
     friends: friendsToAdd,
@@ -94,9 +99,14 @@ function NewConversationGroup({ friends, userId }: NewConversationGroupProps) {
           onChange={handleChangeTitile}
         />
         {friends &&
-          friends.map((friend, index: number) => (
-            <InputCheckbox friend={friend} key={index} />
-          ))}
+          friends
+            .filter((friend) => {
+              if (!searchInputValue) return true;
+              return friend.username.includes(searchInputValue);
+            })
+            .map((friend, index: number) => (
+              <InputCheckbox friend={friend} key={index} />
+            ))}
         <div
           className="fixed bottom-4 right-4 z-10 flex h-10
         w-10 cursor-pointer items-center justify-center rounded-full 

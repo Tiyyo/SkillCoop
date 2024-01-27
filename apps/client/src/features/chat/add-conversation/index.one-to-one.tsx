@@ -10,6 +10,7 @@ import { Friend } from '@skillcoop/types';
 type NewConversationOneToOneProps = {
   friends: Friend[];
   userId: number | undefined;
+  searchInputValue?: string;
   setTypeConversation: React.Dispatch<
     React.SetStateAction<'group' | 'oneToOne'>
   >;
@@ -19,6 +20,7 @@ function NewConversationOneToOne({
   friends,
   userId,
   setTypeConversation,
+  searchInputValue,
 }: NewConversationOneToOneProps) {
   const navigate = useNavigate();
   const { mutate: findOrCreateConversation } =
@@ -35,6 +37,8 @@ function NewConversationOneToOne({
       user_id_two: friendId,
     });
   };
+  console.log(friends);
+  console.log(searchInputValue);
   return (
     <>
       <div
@@ -52,25 +56,30 @@ function NewConversationOneToOne({
       </div>
       <div className="flex flex-col py-6">
         {friends &&
-          friends.map((friend) => (
-            <button
-              className="flex cursor-pointer items-center gap-x-4 
+          friends
+            .filter((friend) => {
+              if (!searchInputValue) return true;
+              return friend.username.includes(searchInputValue);
+            })
+            .map((friend) => (
+              <button
+                className="flex cursor-pointer items-center gap-x-4 
               border-b border-b-grey-regular border-opacity-10 px-4  
               py-2 shadow-sm first:border-t first:border-t-grey-regular 
               first:border-opacity-10"
-              onClick={() => navigateToConversation(friend.friend_id)}
-              aria-roledescription="Link to conversation"
-              key={friend.friend_id}
-            >
-              <ImageWithFallback
-                url={friend.avatar_url}
-                alt={`${friend.username} friend profile avatar`}
-                className="border-primary-dark rounded-full border"
-                size={40}
-              />
-              <p className="text-xs font-medium">{friend.username}</p>
-            </button>
-          ))}
+                onClick={() => navigateToConversation(friend.friend_id)}
+                aria-roledescription="Link to conversation"
+                key={friend.friend_id}
+              >
+                <ImageWithFallback
+                  url={friend.avatar_url}
+                  alt={`${friend.username} friend profile avatar`}
+                  className="border-primary-dark rounded-full border"
+                  size={40}
+                />
+                <p className="text-xs font-medium">{friend.username}</p>
+              </button>
+            ))}
       </div>
     </>
   );

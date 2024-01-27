@@ -12,6 +12,7 @@ import { Plus } from 'lucide-react';
 import ConversationCard from './card';
 import { useTranslation } from 'react-i18next';
 import SearchInput from '../../../components/search-input';
+import { Conversation } from '@skillcoop/types/src';
 
 const convertFilterIntoMatchingTypeName = {
   all: 'all',
@@ -27,6 +28,7 @@ function Conversations() {
   const [currentConversationFilter, setCurrentConversationFilter] = useState<
     'all' | 'event' | 'group' | 'personal'
   >('all');
+  const [searchInputValue, setSearchInputValue] = useState('');
   const { data: conversations } = useGetConversationsList({ userId: userId });
 
   const filterConversationByType = (type: string, filter: string) => {
@@ -37,6 +39,17 @@ function Conversations() {
         filter as keyof typeof convertFilterIntoMatchingTypeName
       ]
     );
+  };
+
+  const participantsUsernameByConversation = (
+    conversation: Conversation,
+  ): string[] => {
+    if (!conversations) return [];
+    return conversation.participants_list.map((p) => p.username.toLowerCase());
+  };
+
+  const getSearchInputValue = (value: string) => {
+    setSearchInputValue(value);
   };
 
   return (
@@ -57,7 +70,7 @@ function Conversations() {
         </Link>
       </Container>
       <Container className="flex-grow lg:mt-4">
-        <SearchInput />
+        <SearchInput onChange={getSearchInputValue} />
         <Tabs
           getClickValue={setCurrentConversationFilter}
           currentFilter={currentConversationFilter}
@@ -78,6 +91,17 @@ function Conversations() {
                     currentConversationFilter,
                   ),
               )
+              .filter((conversation) => {
+                if (!searchInputValue || !conversation.title) return true;
+                return (
+                  conversation.title
+                    .toLowerCase()
+                    .includes(searchInputValue.toLowerCase()) ||
+                  participantsUsernameByConversation(conversation).includes(
+                    searchInputValue.toLocaleLowerCase(),
+                  )
+                );
+              })
               .map((conversation: any) => (
                 <ConversationCard
                   conversation={conversation}

@@ -47,7 +47,7 @@ export function useGetConversation(options: {
 }
 
 export function useUpdateUserOnConversation(options: {
-  conversationId: number;
+  conversationId?: number;
   onSuccess?: () => void;
 }) {
   const queryClient = useQueryClient();

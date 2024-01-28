@@ -106,6 +106,9 @@ export default {
         10.5: '42px',
         18: '72px',
         18.5: '76px',
+        '75vh': '75vh',
+        '50vh': '50vh',
+        '60vh': '60vh',
       },
       keyframes: {
         'fade-in': {

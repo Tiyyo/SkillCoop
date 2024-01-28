@@ -1,7 +1,6 @@
 import { Conversation } from '@skillcoop/types';
 import ConversationCardImage from '../image-conversation';
 import ConversationCardTitle from '../title-conversation';
-import { Link } from 'react-router-dom';
 import ConversationInfosLink from './conversation.infos.link';
 import ConversationInfosMembers from './conversation.infos.members';
 import ConversationInfosActions from './conversation.infos.actions';
@@ -11,15 +10,22 @@ type ConversationInfosProps = {
   currentUserId: number | null;
 };
 
+const mobileViewStyle = `absolute top-0 z-10  h-7 w-full    
+    justify-start  `;
+
+const desktopViewStyle = `lg:w-4/12 lg:max-w-[260px] 
+lg:flex-grow-0 lg:basis-4/12 lg:justify-between lg:static `;
+
 function ConversationInfos({
   conversation,
   currentUserId,
 }: ConversationInfosProps) {
   return (
     <div
-      className="animate-expand-page-in absolute top-0 z-10 
-      flex h-7 w-full flex-col items-center 
-    justify-start bg-base-light px-4 py-8 opacity-0"
+      className={`flex animate-expand-page-in flex-col 
+      items-center bg-base-light 
+      px-4 py-8 opacity-0 lg:h-[25px]
+      ${mobileViewStyle} ${desktopViewStyle}`}
     >
       <div
         className="flex w-full flex-grow flex-col 

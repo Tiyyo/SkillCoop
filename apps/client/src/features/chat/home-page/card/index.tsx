@@ -20,7 +20,7 @@ function ConversationCard({
   const todayUTCString = getFormattedUTCTimestamp();
   return (
     <Link
-      className="flex max-w-md py-4"
+      className="flex py-4"
       to={`conversation/${conversation.conversation_id}`}
       onClick={() =>
         updateLastSeen({

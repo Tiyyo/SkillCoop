@@ -37,8 +37,7 @@ function NewConversationOneToOne({
       user_id_two: friendId,
     });
   };
-  console.log(friends);
-  console.log(searchInputValue);
+
   return (
     <>
       <div

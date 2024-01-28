@@ -21,7 +21,9 @@ function NewMessageIndicator({
   return (
     <>
       {(islLastSeenDate() || isNew) && (
-        <div className="h-2 w-2 rounded-full bg-primary-100"> </div>
+        <div className="h-2 w-2 flex-shrink-0 rounded-full bg-primary-100">
+          {' '}
+        </div>
       )}
     </>
   );

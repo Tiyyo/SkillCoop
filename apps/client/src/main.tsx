@@ -57,6 +57,9 @@ import ChatHomePage from './features/chat';
 import Conversations from './features/chat/home-page/conversations';
 import Conversation from './features/chat/conversation/conversation';
 import NewConversation from './features/chat/add-conversation';
+import HomePageTestChat from './test-chat-desktop/homepage';
+import ChatPageTest from './test-chat-desktop/chat';
+import InfosTest from './test-chat-desktop/infos';
 /*eslint-enable*/
 
 export const queryClient = new QueryClient({
@@ -249,6 +252,17 @@ const router = createBrowserRouter([
           { index: true, element: <Conversations /> },
           { path: `conversation/:id`, element: <Conversation /> },
           { path: 'new-conversation/:userId', element: <NewConversation /> },
+        ],
+      },
+      {
+        path: '/desktop/chat',
+        element: <HomePageTestChat />,
+        children: [
+          {
+            element: <ChatPageTest />,
+            path: 'conversation/:id',
+            children: [{ index: true, element: <InfosTest /> }],
+          },
         ],
       },
       {

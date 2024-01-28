@@ -51,8 +51,8 @@ function ConversationInfosMembers({
   return (
     <>
       <div
-        className="w-full border-b border-b-grey-sub-text 
-      border-opacity-20 py-4"
+        className="w-full overflow-x-auto border-b 
+      border-b-grey-sub-text border-opacity-20 py-4"
       >
         <div className="flex justify-between">
           <p className="text-xs font-medium text-primary-1100">Members</p>
@@ -64,7 +64,7 @@ function ConversationInfosMembers({
           </button>
         </div>
         <ul
-          className="no-scrollbar grid w-full grid-flow-col justify-start 
+          className="grid w-full grid-flow-col justify-start 
           gap-x-10 overflow-x-auto px-6 py-3"
         >
           {participantsList &&
@@ -106,7 +106,7 @@ function ConversationInfosMembers({
         </ul>
       </div>
       {shouldDispplayFriends && (
-        <div className="animate-open-vertical h-0 w-full overflow-y-hidden">
+        <div className="h-0 w-full animate-open-vertical overflow-y-hidden">
           <input
             type="text"
             placeholder="Search friends"
@@ -116,8 +116,8 @@ function ConversationInfosMembers({
             onChange={(e) => setSearchFriendsValue(e.target.value)}
           />
           <ul
-            className="flex h-64 w-full flex-col
-          gap-y-2 overflow-y-scroll px-1.5 pb-20 pt-3"
+            className="no-scrollbar flex h-64 w-full
+          flex-col gap-y-2 overflow-y-scroll px-1.5 pb-20 pt-3"
           >
             {friendsNotInGroup &&
               friendsNotInGroup.length > 0 &&

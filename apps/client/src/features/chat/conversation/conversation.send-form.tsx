@@ -45,10 +45,10 @@ export function MyForm({
       ref={formRef}
       className="flex h-full w-full items-center justify-center gap-x-4 px-3"
     >
-      <input
+      <textarea
         onChange={(e) => setValue(e.target.value)}
-        className="w-[80%] rounded-lg bg-grey-off px-4 py-2 pl-1 
-        text-xs placeholder:pl-2 placeholder:text-xs"
+        className="h-fit w-[80%] max-w-[240px] rounded-lg bg-grey-off px-4 py-2 
+        pl-1 text-xs placeholder:pl-2 placeholder:text-xs lg:max-w-[400px]"
         placeholder="Type your message..."
       />
       <button

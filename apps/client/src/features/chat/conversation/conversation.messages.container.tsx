@@ -18,12 +18,12 @@ function ConversationMessages({
   return (
     <>
       {conversation && (
-        <>
-          <main className="overflow-hidden overflow-y-auto py-2">
-            <div
-              className="flex flex-col gap-y-1 
-          overflow-y-scroll px-2.5"
-            >
+        <div className="flex flex-col lg:h-[77vh]">
+          <main
+            className="no-scrollbar h-[calc(100vh-140px)] 
+             overflow-y-auto px-2.5 py-2 lg:h-[calc(77vh-190px)]"
+          >
+            <div className="flex flex-col justify-end">
               {historicMessages &&
                 historicMessages.map((group) => (
                   <GroupDateMessages
@@ -35,10 +35,7 @@ function ConversationMessages({
                 ))}
             </div>
           </main>
-          <footer
-            className="border-t border-b-grey-light 
-        py-4"
-          >
+          <footer className="border-t border-b-grey-light py-4 lg:h-[120px]">
             <MyForm
               conversationId={conversation?.conversation_id}
               userId={userId}
@@ -46,7 +43,7 @@ function ConversationMessages({
               avatar={userProfile?.avatar_url}
             />
           </footer>
-        </>
+        </div>
       )}
     </>
   );

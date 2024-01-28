@@ -28,7 +28,7 @@ function Tab({ onClick, activeFilter, tabName }: FilterBtnProps) {
         type="button"
         value={tabName}
         className={cn(
-          'text-xs px-3 py-2.5 h-full border-l-4 border-l-transparent ',
+          'h-full border-l-4 border-l-transparent px-3 py-2.5 text-xs ',
           isActive && ' border-l-primary-800',
         )}
         onClick={onClick}
@@ -53,7 +53,7 @@ function Tabs({
     getClickValue(value as ConversationFilter);
   };
   return (
-    <div className="flex my-2.5">
+    <div className="my-2.5 flex">
       {conversationTypes.length > 0 &&
         conversationTypes.map((type, index) => (
           <Tab

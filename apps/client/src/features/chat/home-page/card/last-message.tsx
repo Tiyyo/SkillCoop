@@ -1,8 +1,8 @@
 function ConversationCardLastMessage({ content }: { content: string }) {
   return (
     <span
-      className="text-xs overflow-hidden
-           max-h-9 text-ellipsis line-clamp-2"
+      className="line-clamp-2 max-h-9
+           overflow-hidden text-ellipsis break-words text-xs"
     >
       {content}
     </span>

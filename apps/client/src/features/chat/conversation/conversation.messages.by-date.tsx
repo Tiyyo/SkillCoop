@@ -34,7 +34,7 @@ function GroupDateMessages({
         </span>
         <span
           className="h-0.5 w-full flex-grow border border-slate-300
-          border-opacity-10"
+          border-opacity-10 "
         ></span>
       </div>
       {authorGroups &&

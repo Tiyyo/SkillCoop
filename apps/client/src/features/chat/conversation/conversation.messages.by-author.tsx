@@ -28,7 +28,11 @@ function GroupAuthorMessage({
     <div className={cn('flex gap-x-1')}>
       {!hasBeenSentByCurrentUser && (
         <div className="relative top-2 w-7 flex-shrink-0">
-          <ImageWithUsernamefallback avatar={avatar} username={username} />
+          <ImageWithUsernamefallback
+            avatar={avatar}
+            username={username}
+            size={30}
+          />
         </div>
       )}
       <div

@@ -3,7 +3,7 @@ import { AppModule } from './app.module';
 import { WinstonModule } from 'nest-winston';
 import { winstonLogger } from './helpers/winston.logger';
 import { HttpLogger } from './middleware/access-http.middleware';
-import { Logger } from '@nestjs/common';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -11,6 +11,11 @@ async function bootstrap() {
       instance: winstonLogger
     })
   });
+  app.useGlobalPipes(new ValidationPipe({
+    whitelist: true,
+    transform: true,
+    forbidNonWhitelisted: true,
+  }));
   app.use(new HttpLogger().use)
   app.enableCors({
     origin: 'http://localhost:5004',

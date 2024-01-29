@@ -1,10 +1,10 @@
 import express, { Router } from 'express';
-import factory from '../../middleware/wrapper-controller.js';
-import skillFootController from '../../controller/skill-foot.controller.js';
-import { validateSchema } from '../../middleware/schema-validator.js';
-import { canals } from '../../@types/types.js';
 import { ownSkillSchema, participantSkillSchema } from '@skillcoop/schema';
-import { sanitizeParams } from '../../middleware/sanitizer.params.js';
+import factory from '../../middlewares/wrapper-controller.js';
+import skillFootController from '../../controllers/skill-foot.controller.js';
+import { validateSchema } from '../../middlewares/schema-validator.js';
+import { canals } from '../../@types/types.js';
+import { sanitizeParams } from '../../middlewares/sanitizer.params.js';
 
 const { getProfileEvalByEvent, getProfileEval, createOwnRating, createRating } =
   skillFootController;

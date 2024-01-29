@@ -14,7 +14,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { loginUserFn } from "../api/auth.fn";
 import { getMeFn } from "../api/profile.fn";
-import { useApp } from "../store/app.store";
+import { useApp } from "../stores/app.store";
 import { useNavigate } from "react-router-dom";
 import { queryClient } from "../main";
 import { detectFirstAccess } from "../utils/is-first-connection";

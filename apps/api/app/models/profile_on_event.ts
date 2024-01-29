@@ -1,12 +1,12 @@
 import { getFormattedUTCTimestamp } from '@skillcoop/date-handler';
-import DatabaseError from '../helpers/errors/database.error.js';
-import UserInputError from '../helpers/errors/user-input.error.js';
 import { Core } from './core.js';
 import { DB } from '../@types/database.js';
-import { db } from '../helpers/client.db.js';
-import NotFoundError from '../helpers/errors/not-found.error.js';
 import { ReferenceExpression } from 'kysely';
 import { InsertObjectDB, tableNames } from '../@types/types.js';
+import { db } from '../helpers/client.db.js';
+import DatabaseError from '../helpers/errors/database.error.js';
+import UserInputError from '../helpers/errors/user-input.error.js';
+import NotFoundError from '../helpers/errors/not-found.error.js';
 
 export class ProfileOnEvent extends Core<typeof tableNames.profile_on_event> {
   declare tableName: typeof tableNames.profile_on_event;

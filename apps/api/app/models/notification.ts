@@ -1,7 +1,7 @@
 import { tableNames } from '../@types/types.js';
-import DatabaseError from '../helpers/errors/database.error.js';
 import { Core } from './core.js';
 import { db } from '../helpers/client.db.js';
+import DatabaseError from '../helpers/errors/database.error.js';
 
 export class Notification extends Core<typeof tableNames.notification> {
   tableName: typeof tableNames.notification;

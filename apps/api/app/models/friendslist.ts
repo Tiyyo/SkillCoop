@@ -1,10 +1,10 @@
 import { sql } from 'kysely';
-import DatabaseError from '../helpers/errors/database.error.js';
 import { Core } from './core.js';
-import UserInputError from '../helpers/errors/user-input.error.js';
 import { getFormattedUTCTimestamp } from '@skillcoop/date-handler';
 import { tableNames } from '../@types/types.js';
 import { db } from '../helpers/client.db.js';
+import DatabaseError from '../helpers/errors/database.error.js';
+import UserInputError from '../helpers/errors/user-input.error.js';
 
 export class Friendlist extends Core<typeof tableNames.profile_on_profile> {
   declare tableName: typeof tableNames.profile_on_profile;
@@ -31,6 +31,7 @@ export class Friendlist extends Core<typeof tableNames.profile_on_profile> {
         ])
         .where('adder_id', '=', id)
         .where('status_name', '=', 'confirmed')
+        .where('friend_id', '<>', id)
         .execute();
 
       return friendships;

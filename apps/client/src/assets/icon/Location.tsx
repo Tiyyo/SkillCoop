@@ -10,7 +10,7 @@ function Location() {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="w-6 h-6"
+      className="h-6 w-6"
     >
       <polygon points="3 11 22 2 13 21 11 13 3 11" />
     </svg>

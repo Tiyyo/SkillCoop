@@ -1,15 +1,14 @@
 import express, { Router } from 'express';
-import factory from '../../middleware/wrapper-controller.js';
-/*eslint-disable*/
-import userPreferenceController from '../../controller/user-preference.controller.js';
-/*eslint-enable*/
-import { validateSchema } from '../../middleware/schema-validator.js';
-import { canals } from '../../@types/types.js';
 import {
   updateNotificationPreferenceSchema,
   updateLanguagePreferenceSchema,
   updateThemePreferenceSchema,
 } from '@skillcoop/schema';
+import factory from '../../middlewares/wrapper-controller.js';
+import { validateSchema } from '../../middlewares/schema-validator.js';
+import { canals } from '../../@types/types.js';
+/* eslint-disable-next-line */
+import userPreferenceController from '../../controllers/user-preference.controller.js';
 
 const { get, updateNotification, updateLanguage, updateTheme } =
   userPreferenceController;

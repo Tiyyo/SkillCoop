@@ -38,6 +38,7 @@ export type user_on_conversation = {
   user_id: number;
   conversation_id: number;
   is_admin: Generated<number>;
+  last_seen: string | null;
   created_at: string;
   updated_at: string | null;
 };

@@ -1,13 +1,14 @@
 import express, { Router } from 'express';
-import factory from '../../middleware/wrapper-controller.js';
+import factory from '../../middlewares/wrapper-controller.js';
 /* eslint-disable-next-line */
-import participantController from '../../controller/profile-on-event.controller.js';
-import { validateSchema } from '../../middleware/schema-validator.js';
-import { canals } from '../../@types/types.js';
 import {
   inviteParticipantSchema,
   updateParticipantSchema,
 } from '@skillcoop/schema';
+import { validateSchema } from '../../middlewares/schema-validator.js';
+import { canals } from '../../@types/types.js';
+/* eslint-disable-next-line */
+import participantController from '../../controllers/profile-on-event.controller.js';
 
 const { sendInvitationToEvent, updateStatus } = participantController;
 

@@ -1,5 +1,18 @@
+/* eslint-disable*/
+const plugin = require('tailwindcss/plugin.js');
+
 /** @type {import('tailwindcss').Config} */
+
 export default {
+  plugins: [
+    plugin(function ({ addVariant, e }) {
+      addVariant('nth-child-2', ({ modifySelectors, separator }) => {
+        modifySelectors(({ className }) => {
+          return `.${e(`nth-child-2${separator}${className}`)}:nth-child(2)`;
+        });
+      });
+    }),
+  ],
   content: [
     './index.html',
     './src/**/*.{js,jsx,ts,tsx}',
@@ -11,6 +24,9 @@ export default {
         'fade-in': '2s linear ',
         'opacity-in': 'opacity-in 0.3s linear forwards',
         'fade-up': 'fade-up 0.6s ease-in-out 0.12s 1 forwards',
+        'circle-fade-in': 'circle-fade-in 0.3s ease-in-out 0.12s 1 forwards',
+        'expand-page-in': 'expand-page-in 0.4s ease-in-out 0.12s 1 forwards',
+        'open-vertical': 'open-vertical 0.3s ease-in-out 0.12s 1 forwards',
       },
       aspectRatio: {
         '1/4': '1/4',
@@ -90,6 +106,9 @@ export default {
         10.5: '42px',
         18: '72px',
         18.5: '76px',
+        '75vh': '75vh',
+        '50vh': '50vh',
+        '60vh': '60vh',
       },
       keyframes: {
         'fade-in': {
@@ -103,6 +122,37 @@ export default {
         'opacity-in': {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' },
+        },
+        'circle-fade-in': {
+          '0%': { opacity: '0', transform: 'scale(0)' },
+          '100%': { opacity: '1', transform: 'scale(1)' },
+        },
+        'expand-page-in': {
+          '0%': {
+            opacity: '0',
+            flexGrow: '0',
+            transformOrigin: 'top',
+            height: '0',
+            top: '0',
+          },
+          '100%': {
+            opacity: '1',
+            flexGrow: '1',
+            transformOrigin: 'top',
+            height: '100%',
+          },
+        },
+        'open-vertical': {
+          '0%': {
+            opacity: '0',
+            transformOrigin: 'top',
+            height: '0',
+          },
+          '100%': {
+            opacity: '1',
+            transformOrigin: 'top',
+            height: '26rem',
+          },
         },
       },
       minHeight: {

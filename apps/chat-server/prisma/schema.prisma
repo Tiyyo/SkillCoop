@@ -60,6 +60,7 @@ model user_on_conversation {
   user              user          @relation(fields: [user_id], references: [user_id], onDelete: Cascade, onUpdate : Cascade)
   conversation      conversation  @relation(fields: [conversation_id], references: [conversation_id], onDelete: Cascade, onUpdate: Cascade)
   is_admin          Int           @default(1)
+  last_seen         String?
   created_at        String
   updated_at        String?
 

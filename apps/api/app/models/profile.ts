@@ -1,15 +1,13 @@
-import DatabaseError from '../helpers/errors/database.error.js';
 import { sql } from 'kysely';
 import { Core } from './core.js';
-import NotFoundError from '../helpers/errors/not-found.error.js';
 import { getFormattedUTCTimestamp } from '@skillcoop/date-handler';
 import { DB } from '../@types/database.js';
-import { db } from '../helpers/client.db.js';
-/*eslint-disable-next-line */
-// import { InsertObjectOrList } from 'kysely/dist/cjs/parser/insert-values-parser';
 import { InsertObjectDB, UpdateObjectDB, tableNames } from '../@types/types.js';
 import { InsertObject } from 'kysely';
-import { userQueuePublisher } from '../publisher/user.publisher.js';
+import { db } from '../helpers/client.db.js';
+import DatabaseError from '../helpers/errors/database.error.js';
+import NotFoundError from '../helpers/errors/not-found.error.js';
+import { userQueuePublisher } from '../publishers/user.publisher.js';
 
 // TODO define a type for Profile
 

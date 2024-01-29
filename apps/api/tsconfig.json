@@ -1,15 +1,52 @@
 {
-  "extends": "../../tsconfig.json",
+  // "extends": "../../tsconfig.json",
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Node 20",
+  "_version": "20.1.0",
   "compilerOptions": {
     "lib": [
       "es2023"
     ],
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "module": "Node16",
+    // "moduleResolution": "NodeNext",
     "types": [
       "vitest/globals"
     ],
+    // "paths": {
+    //   "#errors/*": [
+    //     "./app/helpers/errors/*.js"
+    //   ],
+    //   "#models": [
+    //     "./app/models/index.js"
+    //   ],
+    //   "#middlewares/*": [
+    //     "./app/middlewares/*.js"
+    //   ],
+    //   "#helpers/*": [
+    //     "./app/helpers/*.js"
+    //   ],
+    //   "#services/*": [
+    //     "./app/services/*.js"
+    //   ],
+    //   "#controllers/*": [
+    //     "./app/controllers/*.js"
+    //   ],
+    //   "types/*": [
+    //     "./app/@types/*.js"
+    //   ],
+    //   "publishers/*": [
+    //     "./app/publishers/*.js"
+    //   ],
+    //   "#logger": [
+    //     "./app/helpers/logger.js"
+    //   ]
+    // },
+    "target": "es2022",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node16",
   },
   "ts-node": {
     "esm": true

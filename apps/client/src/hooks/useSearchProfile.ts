@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import type { SearchProfileQuery } from '@skillcoop/types/src';
 import { useGetSearchProfile } from './useProfile';
-import { useFriends } from '../store/friend.store';
+import { useFriends } from '../stores/friend.store';
 
 export function useSearchProfile({ profileId }: { profileId?: number }) {
   const { addSearchProfile } = useFriends();

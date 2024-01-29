@@ -1,15 +1,12 @@
 import { Core } from './core.js';
 import { InsertObject, sql } from 'kysely';
 import type { EventType } from '@skillcoop/types';
-import DatabaseError from '../helpers/errors/database.error.js';
 import { getFormattedUTCTimestamp } from '@skillcoop/date-handler';
 import { DB } from '../@types/database.js';
-import { db } from '../helpers/client.db.js';
-/*eslint-disable */
-// import { InsertObjectOrList } from 'kysely/dist/cjs/parser/insert-values-parser';
 import { InsertObjectDB, tableNames } from '../@types/types.js';
-import { eventQueuePublisher } from '../publisher/event.publisher.js';
-/*eslint-enable */
+import { db } from '../helpers/client.db.js';
+import DatabaseError from '../helpers/errors/database.error.js';
+import { eventQueuePublisher } from '../publishers/event.publisher.js';
 
 export class EventModel extends Core<typeof tableNames.event> {
   declare tableName: typeof tableNames.event;

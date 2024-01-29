@@ -1,7 +1,7 @@
+import { Player } from '@skillcoop/types';
 import { db } from '../helpers/client.db.js';
 import ServerError from '../helpers/errors/server.error.js';
-import computeRatingUser from '../service/compute-rating/index.js';
-import { Player } from '@skillcoop/types';
+import computeRatingUser from '../services/compute-rating/index.js';
 
 // TODO refactor and make smaller function
 

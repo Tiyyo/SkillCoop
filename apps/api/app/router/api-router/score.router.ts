@@ -1,9 +1,9 @@
 import express, { Router } from 'express';
-import factory from '../../middleware/wrapper-controller.js';
-import scoreController from '../../controller/score.controller.js';
-import { validateSchema } from '../../middleware/schema-validator.js';
-import { canals } from '../../@types/types.js';
 import { saveScoreSchema } from '@skillcoop/schema';
+import factory from '../../middlewares/wrapper-controller.js';
+import { validateSchema } from '../../middlewares/schema-validator.js';
+import { canals } from '../../@types/types.js';
+import scoreController from '../../controllers/score.controller.js';
 
 const { createOne } = scoreController;
 

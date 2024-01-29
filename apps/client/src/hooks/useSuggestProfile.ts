@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useGetSuggestProfile } from './useProfile';
-import { useFriends } from '../store/friend.store';
+import { useFriends } from '../stores/friend.store';
 
 export function useSuggestProfile({ profileId }: { profileId?: number }) {
   const { addSearchProfile } = useFriends();

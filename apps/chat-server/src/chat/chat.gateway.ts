@@ -10,6 +10,8 @@ import {
   WebSocketServer,
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
+import { JoinRoomDto } from 'src/dto/join-room.dto';
+import { PayloadMessageDto } from 'src/dto/payload.message.dto';
 import { HistoricService } from 'src/message-storage/historic.service';
 import { MessageService } from 'src/message-storage/message.service';
 
@@ -40,42 +42,35 @@ export class ChatGateway
   @SubscribeMessage('message')
   async handleMessage(
     @ConnectedSocket() client: Socket,
-    @MessageBody()
-    payload: {
-      conversationId: number;
-      content: string;
-      userId: number;
-      username: string;
-      avatar: string | null;
-    },
-  ) {
-    const { content, conversationId, userId, username, avatar } = payload;
+    @MessageBody() payload: PayloadMessageDto
 
+  ) {
+    const { message, conversation_id, user_id, username, avatar } = payload;
     await this.messageService.store({
-      conversationId,
-      content,
-      sender: userId,
+      conversation_id,
+      content: message,
+      sender: user_id,
     });
 
-    const roomName = `conversation#${conversationId}`;
+    const roomName = `conversation#${conversation_id}`;
 
     this.io.to(roomName).emit('new-message', {
-      message: content,
+      message,
       created_at: client.handshake.time,
       username,
       avatar,
-      user_id: userId,
+      user_id
     });
   }
   @SubscribeMessage('join_conversation')
   async handleUsername(
     @ConnectedSocket() client: Socket,
-    @MessageBody() payload: { conversationId: number },
+    @MessageBody() payload: JoinRoomDto,
   ) {
-    client.join(`conversation#${payload.conversationId}`);
+    client.join(`conversation#${payload.conversation_id}`)
 
     const historic = await this.historicService.get({
-      conversationId: payload.conversationId,
+      conversation_id: payload.conversation_id,
     });
 
     client.emit('historic', historic);

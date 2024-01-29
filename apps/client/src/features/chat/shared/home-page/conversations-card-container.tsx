@@ -30,6 +30,8 @@ function ConversationCardsContainer({
   updateLastSeenIndicator,
   userId,
 }: ConversationCardsContainerProps) {
+  const isConversationsExits = conversations && conversations.length > 0;
+  console.log('isConversationsExits', isConversationsExits);
   return (
     <Container className="flex-grow overflow-hidden lg:pb-24">
       <SearchInput onChange={getSearchInputValue} />
@@ -38,6 +40,11 @@ function ConversationCardsContainer({
         currentFilter={currentConversationFilter}
       />
       <div className="no-scrollbar flex flex-col overflow-y-auto lg:h-60vh">
+        {!isConversationsExits && (
+          <p className="w-full py-4 text-center text-xs italic text-light">
+            You don't have any discussions yet.
+          </p>
+        )}
         {userId &&
           conversations &&
           conversations.length > 0 &&

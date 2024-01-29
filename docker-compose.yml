@@ -23,10 +23,33 @@ services:
       - ./apps/client/.env
     ports:
       - 5004:5004
+  chat:
+    container_name: chat
+    build:
+      context: .
+      dockerfile: ./apps/chat-server/Dockerfile
+    restart: always
+    env_file:
+      - ./apps/chat-server/.env
+    volumes:
+      - ./apps/chat-server/prisma:/app/prisma/
+    ports:
+      - 8083:8083
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq
+    restart: always
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
   gateway:
     depends_on:
       - api
       - web
+      - chat
     image: nginx:latest
     container_name: skillcoop_gateway
     ports:
@@ -35,3 +58,9 @@ services:
     volumes:
       - ./certs:/etc/nginx/certs
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - rabbitmq_nodejs
+
+networks:
+  rabbitmq_nodejs:
+    driver: bridge

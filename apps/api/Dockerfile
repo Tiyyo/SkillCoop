@@ -19,6 +19,7 @@ RUN pnpm -r build
 FROM build AS pruned
 RUN pnpm --filter api deploy pruned
 COPY --from=build /app/apps/api/dist ./pruned
+RUN ls
 
 FROM base AS development
 WORKDIR /app
@@ -27,11 +28,13 @@ COPY --from=pruned /app/pruned .
 FROM base AS production
 WORKDIR /app
 ENV NODE_ENV=production
-COPY --from=pruned /app/pruned/dist .
+# Debug: List the contents before the COPY command
+COPY --from=pruned /app .
+# COPY --from=pruned /app/pruned/dist .
 COPY --from=pruned /app/pruned/package.json ./package.json
 COPY --from=dependencies /app/apps/api/prisma/ ./prisma
 # COPY --from=dependencies /app/pnpm-lock.yaml ./pnpm-lock.yaml
 COPY --from=pruned /app/pruned/node_modules ./node_modules
 RUN pnpm exec prisma generate
 
-ENTRYPOINT [ "node", "index.js" ]
+# ENTRYPOINT [ "node", "index.js" ]

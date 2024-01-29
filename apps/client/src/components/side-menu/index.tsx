@@ -1,4 +1,4 @@
-import { CalendarClock, History, Home } from 'lucide-react';
+import { CalendarClock, History, Home, MessagesSquare } from 'lucide-react';
 import NavButtonDesktop from '../nav-btn-desktop';
 import Profile from '../../assets/icon/Profile';
 import Friends from '../../assets/icon/Friends';
@@ -41,9 +41,9 @@ function SideMenuDesktop() {
         <NavButtonDesktop path="/events/past" content={t('pastEvents')}>
           <History size={20} />
         </NavButtonDesktop>
-        {/* <NavButtonDesktop path="/my-event" content="Chat">
-          <Calendar size={14} />
-        </NavButtonDesktop> */}
+        <NavButtonDesktop path="/desktop/chat" content="Chat">
+          <MessagesSquare size={20} />
+        </NavButtonDesktop>
       </ul>
     </aside>
   );

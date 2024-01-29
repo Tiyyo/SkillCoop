@@ -1,4 +1,4 @@
-import { CalendarClock, History, Home } from 'lucide-react';
+import { CalendarClock, History, Home, MessagesSquare } from 'lucide-react';
 import Calendar from '../../assets/icon/Calendar';
 import NavMobileLink from '../nav-link';
 import Profile from '../../assets/icon/Profile';
@@ -54,9 +54,9 @@ function MobileNav({
         >
           <History size={20} />
         </NavMobileLink>
-        {/* <NavMobileLink to="/chat" value="Chat">
-          <Chat size="8" />
-        </NavMobileLink> */}
+        <NavMobileLink to="/chat" value="Chat" setClose={setClose}>
+          <MessagesSquare size={20} />
+        </NavMobileLink>
       </ul>
     </div>
   );

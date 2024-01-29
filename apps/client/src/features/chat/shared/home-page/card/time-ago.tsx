@@ -1,5 +1,5 @@
 /*eslint-disable-next-line */
-import { getCurrentLngInLocalStorage } from 'apps/client/src/utils/get-current-lng';
+import { getCurrentLngInLocalStorage } from '../../../../../utils/get-current-lng';
 
 type ConversationCardTimeAgoProps = {
   lastMessageDate: string; // UTC ISO string

@@ -5,53 +5,53 @@ import { useTranslation } from 'react-i18next';
 function HeroSection() {
   const { t } = useTranslation();
   return (
-    <div className="py-24 sm:py-32 mx-auto max-w-7xl px-6 text-center">
+    <div className="mx-auto max-w-7xl px-6 py-24 text-center sm:py-32">
       <h1>
         <p
-          className="bg-clip-text bg-title my-1.5 
-              text-5xl/[1.07] text-transparent font-bold tracking-tight"
+          className="my-1.5 bg-title bg-clip-text 
+              text-5xl/[1.07] font-bold tracking-tight text-transparent"
         >
           {t('play')}.
         </p>
         <p className="pl-4 text-5xl/[1.07] font-bold tracking-tight">
           <span className="text-primary-1100">{t('not')}</span>
-          <span className="bg-clip-text bg-title text-transparent">
+          <span className="bg-title bg-clip-text text-transparent">
             {' '}
             {t('plan')}.
           </span>
         </p>
       </h1>
       <h2
-        className="bg-clip-text bg-subtitle text-transparent text-2xl 
-              font-semibold  py-1.5 tracking-tighter"
+        className="bg-subtitle bg-clip-text py-1.5 text-2xl 
+              font-semibold  tracking-tighter text-transparent"
       >
         {t('subtitleLandingPage')}
       </h2>
       <p
-        className="mx-auto max-w-3xl text-center font-medium  mt-6 
+        className="mx-auto mt-6 max-w-3xl text-center  font-medium 
         text-grey-sub-text"
       >
         {t('descriptionHeroSection')}
       </p>
       <div
-        className="w-fit mx-auto py-1.5 bg-primary-20 bg-opacity-20
-              rounded-full flex justify-between items-center px-2 
-              my-6 border border-opacity-10 border-primary-400"
+        className="border-opacity-10bg-primary-20 mx-auto my-6 flex w-fit
+        items-center justify-between rounded-full border
+        border-primary-400 bg-opacity-20 px-2 py-1.5"
       >
         <Link
           to="/register"
-          className="bg-primary-700 px-2 py-1 
-                rounded-full text-base-light text-sm hover:animate-pulse"
+          className="rounded-full bg-primary-700 px-2 
+                py-1 text-sm text-base-light hover:animate-pulse"
         >
           {t('start')}
         </Link>
-        <p className="text-sm px-2.5 text-grey-sub-text">
+        <p className="px-2.5 text-sm text-grey-sub-text">
           {t('organizeFristEvent')}
         </p>
       </div>
       <div
-        className="flex flex-col justify-center items-center 
-            text-grey-sub-text text-sm gap-y-1 mb-8"
+        className="mb-8 flex flex-col items-center 
+            justify-center gap-y-1 text-sm text-grey-sub-text"
       >
         <p>{t('learnMore')}</p>
         <ArrowDown size={16} />

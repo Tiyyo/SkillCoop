@@ -31,9 +31,9 @@ function DropdownEventMenu({
   return (
     <>
       <DropdownMenu>
-        <DropdownMenuTrigger className="py-2 basis-[34px]">
+        <DropdownMenuTrigger className="basis-[34px] py-2">
           <svg
-            className="w-5 h-5"
+            className="h-5 w-5"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="currentColor"
@@ -47,8 +47,8 @@ function DropdownEventMenu({
           </svg>
         </DropdownMenuTrigger>
         <DropdownMenuContent
-          className={`bg-base-light mx-2 border 
-          z-10 flex flex-col`}
+          className={`z-10 mx-2 flex 
+          flex-col border bg-base-light`}
         >
           <InviteFriendsMeuItems eventStatus={eventStatus} eventId={eventId} />
           <RevokeParticipationMenuItem

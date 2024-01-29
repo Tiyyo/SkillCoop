@@ -15,13 +15,13 @@ function MobileNav({
   const { t } = useTranslation('system');
   return (
     <div
-      className={`absolute z-20 bg-base-light shadow-sm rounded-b-xl  ${
+      className={`absolute z-20 rounded-b-xl bg-base-light shadow-sm  ${
         menuIsOpen ? 'h-fit' : 'h-0'
       } w-full transition-all duration-300 `}
     >
       <ul
-        className={`pt-14 px-2  transition-opacity duration-500 ${
-          menuIsOpen ? 'opacity-100' : 'opacity-0 -translate-y-96'
+        className={`px-2 pt-14  transition-opacity duration-500 ${
+          menuIsOpen ? 'opacity-100' : '-translate-y-96 opacity-0'
         }`}
       >
         <NavMobileLink to="" value={t('home')} setClose={setClose}>

@@ -6,16 +6,16 @@ import { useTranslation } from 'react-i18next';
 function Footer() {
   const { t } = useTranslation();
   return (
-    <footer className="bg-dark py-12 px-12 lg:px-24 text-base-light w-full ">
-      <ul className="flex flex-col lg:flex-row gap-x-4">
+    <footer className="w-full bg-dark px-12 py-12 text-base-light lg:px-24 ">
+      <ul className="flex flex-col gap-x-4 lg:flex-row">
         <li>{t('home')}</li>
         <li>{t('ourProduct')}</li>
         <li>{t('faq')}</li>
         <li>{t('termsAndConditions')}</li>
         <li>{t('privacyPolicy')}</li>
       </ul>
-      <div className="w-full py-3 flex ">
-        <div className="flex flex-col w-full">
+      <div className="flex w-full py-3 ">
+        <div className="flex w-full flex-col">
           <div
             className=" w-full basis-1/2 border-b 
           border-b-grey-sub-text"
@@ -23,9 +23,9 @@ function Footer() {
           <div></div>
         </div>
         <ul
-          className="bg-base-light basis-3/12 
-          rounded-full min-w-fit max-w-[174px]
-          flex items-center justify-center gap-x-5 px-5 py-2"
+          className="flex min-w-fit 
+          max-w-[174px] basis-3/12 items-center
+          justify-center gap-x-5 rounded-full bg-base-light px-5 py-2"
         >
           <li>
             <Xtwitter />
@@ -38,7 +38,7 @@ function Footer() {
           </li>
         </ul>
       </div>
-      <div className="flex flex-col md:flex-row gap-12">
+      <div className="flex flex-col gap-12 md:flex-row">
         <div>
           <p>{t('location')}</p>
           <p className="text-grey-sub-text">Paris, FR</p>

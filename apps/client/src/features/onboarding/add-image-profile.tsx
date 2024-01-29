@@ -25,8 +25,8 @@ function OnBoardinAddImageProfile() {
         />
       </Container>
       <Container
-        className="flex  flex-grow flex-col items-center justify-between gap-y-24 
-        p-5 pt-16 lg:mt-4"
+        className="flex  flex-grow flex-col items-center justify-between 
+        gap-y-24 p-5 pt-16 lg:mt-4"
       >
         <div className="flex-grow">
           <AvatarEdit
@@ -39,8 +39,8 @@ function OnBoardinAddImageProfile() {
           <button
             onClick={() => navigate(-1)}
             className="my-auto w-1/2 rounded-md 
-            border border-primary-700 bg-base-light bg-opacity-75 py-2 text-center text-lg 
-          text-dark shadow-md"
+            border border-primary-700 bg-base-light bg-opacity-75 py-2 
+            text-center text-lg text-dark shadow-md"
           >
             Back
           </button>

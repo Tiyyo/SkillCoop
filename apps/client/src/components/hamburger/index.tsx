@@ -20,30 +20,30 @@ function Hamburger({
 
   return (
     <button
-      className="lg:hidden relative z-30 flex flex-col 
-      self-center gap-y-1 w-8 ml-2"
+      className="relative z-30 ml-2 flex w-8 
+      flex-col gap-y-1 self-center lg:hidden"
       onClick={handleClickMenu}
     >
       <span
         className={cn(
-          'rounded-lg h-0.5 ease-cubic duration-300 w-1/2',
+          'h-0.5 w-1/2 rounded-lg duration-300 ease-cubic',
           openMenu &&
-            `origin-bottom rotate-45 translate-x-[3px] 
-             translate-y-[0px] bg-primary-100`,
+            `origin-bottom translate-x-[3px] translate-y-[0px] 
+             rotate-45 bg-primary-100`,
           !openMenu && 'bg-slate-400',
         )}
       ></span>
       <span
-        className={`rounded-lg h-0.5  ease-cubic duration-300 w-full ${
+        className={`h-0.5 w-full  rounded-lg duration-300 ease-cubic ${
           openMenu ? 'origin-top -rotate-45 bg-primary-100' : 'bg-slate-400'
         }`}
       ></span>
       <span
         className={cn(
-          'rounded-lg h-0.5 ease-cubic duration-300',
+          'h-0.5 rounded-lg duration-300 ease-cubic',
           openMenu &&
-            `origin-bottom w-1/2 bg-primary-100 translate-x-3.5 
-            -translate-y-[1px] rotate-45`,
+            `w-1/2 origin-bottom -translate-y-[1px] translate-x-3.5 
+            rotate-45 bg-primary-100`,
           !openMenu && 'w-3/4 bg-slate-400',
         )}
       ></span>

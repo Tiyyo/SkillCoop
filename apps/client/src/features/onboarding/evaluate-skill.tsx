@@ -104,8 +104,8 @@ function OnBoardingEvaluateSkill() {
             />
           ))}
           <button
-            className="my-auto flex cursor-pointer rounded-lg bg-primary-400 px-4 
-            py-2 font-medium text-dark text-opacity-70 
+            className="my-auto flex cursor-pointer rounded-lg bg-primary-400 
+            px-4 py-2 font-medium text-dark text-opacity-70 
             shadow-sm duration-300 ease-in-out hover:bg-primary-700"
           >
             {t('event:sendEvaluation')}
@@ -115,8 +115,8 @@ function OnBoardingEvaluateSkill() {
           <button
             onClick={() => navigate(-1)}
             className="my-auto w-1/2 rounded-md 
-            border border-primary-700 bg-base-light bg-opacity-75 py-2 text-center text-lg 
-          text-dark shadow-md"
+            border border-primary-700 bg-base-light bg-opacity-75 py-2 
+            text-center text-lg text-dark shadow-md"
           >
             Back
           </button>

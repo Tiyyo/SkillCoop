@@ -38,9 +38,9 @@ function TransfertOwnershipNotification({
     >
       <Link
         to={`/event/${notification.event_id}`}
-        className="self-end flex items-center gap-x-0.5 text-xxs 
-        font-semibold text-primary-1000 
-        underline underline-offset-4 pr-4"
+        className="flex items-center gap-x-0.5 self-end pr-4 
+        text-xxs font-semibold 
+        text-primary-1000 underline underline-offset-4"
       >
         {t('goToEventPage')}
         <ArrowRight size={14} />

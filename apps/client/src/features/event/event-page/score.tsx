@@ -80,7 +80,8 @@ function EventPageScore({
       justify-between w-full" */}
       <form
         className={`mx-2 flex w-full 
-       flex-col items-center justify-between rounded-md bg-base-light px-3 py-4`}
+        flex-col items-center justify-between rounded-md bg-base-light 
+        px-3 py-4`}
         onSubmit={handleSubmitScore}
       >
         <div>

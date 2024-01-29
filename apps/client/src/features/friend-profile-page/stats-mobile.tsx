@@ -19,8 +19,8 @@ function FriendStatsMobile({
 }: FriendStatsMobileProps) {
   return (
     <div
-      className="md:hidden flex-grow flex flex-col 
-      gap-y-0.5 text-xs text-light px-6"
+      className="flex flex-grow flex-col gap-y-0.5 
+      px-6 text-xs text-light md:hidden"
     >
       <p>
         Attented to{' '}

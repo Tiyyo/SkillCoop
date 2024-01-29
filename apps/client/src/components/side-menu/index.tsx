@@ -9,12 +9,12 @@ function SideMenuDesktop() {
   const { t } = useTranslation('system');
   return (
     <aside
-      className="h-full hidden lg:flex w-[20%] 
-         lg:flex-col min-w-[240px]
-         bg-dark text-sm text-grey-regular font-medium"
+      className="hidden h-full w-[20%] min-w-[240px] 
+         bg-dark text-sm
+         font-medium text-grey-regular lg:flex lg:flex-col"
     >
-      <div className="flex justify-center h-fit w-full pt-6 pb-12">
-        <div className="rounded-full h-10 aspect-square ">
+      <div className="flex h-fit w-full justify-center pb-12 pt-6">
+        <div className="aspect-square h-10 rounded-full ">
           <img
             src="/images/small-logo.png"
             alt="logo"

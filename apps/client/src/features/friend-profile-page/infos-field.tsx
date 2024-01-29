@@ -8,12 +8,12 @@ function InfosFieldFriendProfile({
   content?: string | null;
 }) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-3 sm:gap-4 p-2 border-none">
-      <dt className=" text-primary-1100 font-semibold">{name}</dt>
+    <div className="grid grid-cols-1 border-none p-2 sm:grid-cols-3 sm:gap-4">
+      <dt className=" font-semibold text-primary-1100">{name}</dt>
       <dd
-        className="flex items-center text-light 
-                      sm:col-span-2 border-t-primary-300 border-t h-12 
-                      my-auto ml-1 p-1"
+        className="my-auto ml-1 flex 
+                      h-12 items-center border-t border-t-primary-300 
+                      p-1 text-light sm:col-span-2"
       >
         {capitalize(content ?? '')}
       </dd>

@@ -74,9 +74,9 @@ function FormField({
         />
         <label
           htmlFor={name}
-          className={`peer-focus:text-secondary-400 bg-base-light 
-          absolute left-1 top-2 z-10 origin-[0] -translate-y-4 scale-75 
-          transform px-2 text-sm text-gray-500 duration-300 
+          className={`peer-focus:text-secondary-400 absolute 
+          left-1 top-2 z-10 origin-[0] -translate-y-4 scale-75 transform 
+          bg-base-light px-2 text-sm text-gray-500 duration-300 
           peer-placeholder-shown:top-1/2 
           peer-placeholder-shown:-translate-y-1/2
           peer-placeholder-shown:scale-100 
@@ -86,8 +86,8 @@ function FormField({
           {label}
         </label>
         <div
-          className={`absolute right-2 top-1/2 -translate-y-1/2 
-          transform text-black-light peer-focus:text-secondary-300
+          className={`text-black-light peer-focus:text-secondary-300 
+          absolute right-2 top-1/2 -translate-y-1/2 transform
           text-primary-700`}
           onClick={() => toggleIcon()}
         >
@@ -96,9 +96,9 @@ function FormField({
       </div>
       {errorText && (
         <div
-          className={`text-error flex w-full 
-              items-center gap-x-2 px-2 py-1 text-center 
-              text-xs font-semibold`}
+          className={`flex w-full items-center 
+              gap-x-2 px-2 py-1 text-center text-xs 
+              font-semibold text-error`}
         >
           <XCircle size={16} className="flex-shrink-0" />
           <p>{t(errorText)}</p>

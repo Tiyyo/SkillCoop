@@ -2,22 +2,22 @@ function FriendCardSkeleton() {
   return (
     <div className="relative">
       <div
-        className="animate-opacity-in z-10 bg-base-light 
-        w-full h-full absolute"
+        className="absolute z-10 h-full 
+        w-full animate-opacity-in bg-base-light"
       ></div>
       <div
-        className="relative z-0 flex animate-pulse py-2 
-        px-3 gap-3 items-center"
+        className="relative z-0 flex animate-pulse items-center 
+        gap-3 px-3 py-2"
       >
         <div className="flex-shrink-0">
-          <span className="w-10 h-10 block bg-gray-200 rounded-full"></span>
+          <span className="block h-10 w-10 rounded-full bg-gray-200"></span>
         </div>
 
-        <div className="flex flex-col w-full gap-2 justify-between">
+        <div className="flex w-full flex-col justify-between gap-2">
           <ul className="mt-5 space-y-3">
-            <li className="w-full h-4 bg-gray-200 rounded-md "></li>
+            <li className="h-4 w-full rounded-md bg-gray-200 "></li>
           </ul>
-          <h3 className="h-4 bg-gray-200 rounded-md w-2/5"></h3>
+          <h3 className="h-4 w-2/5 rounded-md bg-gray-200"></h3>
         </div>
       </div>
     </div>

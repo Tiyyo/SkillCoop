@@ -24,8 +24,8 @@ function NavButtonDesktop({ children, path, content }: NavButtonDesktopProps) {
         <>
           {isActive && (
             <div
-              className={`absolute bg-primary-100 w-3 h-full 
-              rounded-3xl -left-1.5`}
+              className={`absolute -left-1.5 h-full w-3 
+              rounded-3xl bg-primary-100`}
             ></div>
           )}
 

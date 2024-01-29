@@ -6,10 +6,10 @@ import {
   event as Event,
   profileOnEvent as ProfileOnEvent,
 } from '../models/index.js';
+/*eslint-disable max-len*/
 import { participantQueuePublisher } from '../publishers/participant.publisher.js';
 import { notifyUserHasBeenInvitedToEvent } from '../services/notification/subtype/user-invited-event.js';
-
-/*eslint-enable*/
+/*eslint-enable max-len*/
 
 export default {
   // Need a refactor

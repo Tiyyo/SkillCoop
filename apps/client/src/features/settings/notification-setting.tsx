@@ -18,8 +18,8 @@ function NotificationSetting({
 }: NotificationSettingProps) {
   return (
     <>
-      <h3 className="font-semibold text-sm py-1">{capitalize(type)}</h3>
-      <p className="font-light text-xs">{legend}</p>
+      <h3 className="py-1 text-sm font-semibold">{capitalize(type)}</h3>
+      <p className="text-xs font-light">{legend}</p>
       <NotificationSwitch
         notificationType={type}
         method="email"

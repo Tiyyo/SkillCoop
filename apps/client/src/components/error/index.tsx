@@ -29,7 +29,7 @@ function ErrorContainer({
   attempsCount?: number;
 }) {
   return (
-    <p className="text-error text-center text-xs font-semibold">
+    <p className="text-center text-xs font-semibold text-error">
       {displayErrorMessage(errorValue, attempsCount)}
     </p>
   );

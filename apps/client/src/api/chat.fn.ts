@@ -58,6 +58,7 @@ export const removeFromConversationGroupFn = async (
   data: RemoveParticipantGroupConversation,
 ): Promise<boolean> => {
   const response = await api.delete(
+    /*eslint-disable-next-line*/
     `/chat-serivce/user-conversation/group/${data.conversation_id}/${data.participant_id}`,
   );
   return response.data;

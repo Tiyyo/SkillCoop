@@ -18,13 +18,13 @@ function FieldsetRadioInput({ name, options }: FieldsetRadioInputProps) {
 
   return (
     <fieldset
-      className="flex flex-col items-center justify-center max-w-md"
+      className="flex max-w-md flex-col items-center justify-center"
       name={name}
       onChange={handleChangeFieldset}
     >
       <legend
-        className="mt-3 px-4 self-start text-xs font-medium
-         text-primary-1100 py-3"
+        className="mt-3 self-start px-4 py-3 text-xs
+         font-medium text-primary-1100"
       >
         {t(name)}
       </legend>
@@ -35,10 +35,10 @@ function FieldsetRadioInput({ name, options }: FieldsetRadioInputProps) {
               key={index + idComponent}
               htmlFor={`${name}_${option}`}
               className={cn(
-                ` px-1.5 py-1.5 lg:px-3 border border-primary-500
-                 bg-base-light first-of-type:rounded-l-lg 
-                  last-of-type:rounded-r-lg cursor-pointer
-                hover:bg-primary-200 duration-200`,
+                ` cursor-pointer border border-primary-500 bg-base-light px-1.5
+                 py-1.5 duration-200 
+                  first-of-type:rounded-l-lg last-of-type:rounded-r-lg
+                hover:bg-primary-200 lg:px-3`,
                 `${name}_${option}` === currentIDActive &&
                   'bg-primary-500 text-white hover:bg-primary-500',
               )}

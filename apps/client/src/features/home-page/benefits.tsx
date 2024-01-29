@@ -4,26 +4,26 @@ import { useTranslation } from 'react-i18next';
 function Benefits() {
   const { t } = useTranslation();
   return (
-    <section className="bg-primary-gradient mx-auto">
+    <section className="mx-auto bg-primary-gradient">
       <p
-        className="flex justify-center items-center text-sm text-primary-100 
-          font-semibold tracking-wider"
+        className="flex items-center justify-center text-sm font-semibold 
+          tracking-wider text-primary-100"
       >
         <img src="/images/before-title.svg" alt="prefix icon title" />
         <span>{t('headTitleBenefits')}</span>
       </p>
       <h2
-        className="text-primary-1100 font-bold 
-        text-center text-3xl py-3 tracking-tighter"
+        className="py-3 text-center 
+        text-3xl font-bold tracking-tighter text-primary-1100"
       >
         {t('ourFeatures')}
       </h2>
-      <p className="text-center px-6 text-primary-1100">
+      <p className="px-6 text-center text-primary-1100">
         {t('subtitleBenefits')}
       </p>
       <div
-        className="flex flex-col sm:flex-row flex-wrap gap-x-24
-          items-center justify-center mx-auto max-w-7xl px-12 py-14
+        className="mx-auto flex max-w-7xl flex-col flex-wrap
+          items-center justify-center gap-x-24 px-12 py-14 sm:flex-row
          "
       >
         <BenefitCard

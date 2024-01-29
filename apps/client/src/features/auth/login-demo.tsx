@@ -17,9 +17,9 @@ function LoginDemoMode() {
     <button
       type="button"
       onClick={() => loginUser()}
-      className="w-[90%] max-w-lg text-center bg-home-page-gradient
-          shadow-lg px-6 py-4 rounded-lg my-4 text-sm animate-fade-up opacity-0 
-          hover:cursor-pointer"
+      className="my-4 w-[90%] max-w-lg animate-fade-up rounded-lg 
+      bg-home-page-gradient px-6 py-4 text-center text-sm opacity-0 
+      shadow-lg hover:cursor-pointer"
     >
       {t('loginDemoAccount')}
     </button>

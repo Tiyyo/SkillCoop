@@ -7,19 +7,19 @@ type BenefitCardProps = {
 function BenefitCard({ children, title, description }: BenefitCardProps) {
   return (
     <article
-      className="px-4 py-6 basis-1/3 flex flex-col justify-center items-center 
-      max-w-xs max-h-72 h-72"
+      className="flex h-72 max-h-72 max-w-xs basis-1/3 flex-col items-center 
+      justify-center px-4 py-6"
     >
-      <div className="basis-2/5 mx-auto">{children}</div>
+      <div className="mx-auto basis-2/5">{children}</div>
       <h3
-        className="basis-1/5 font-semibold tracking-tight 
-        text-3xl text-center py-2.5"
+        className="basis-1/5 py-2.5 text-center 
+        text-3xl font-semibold tracking-tight"
       >
         {title}
       </h3>
       <p
-        className="flex justify-center items-center  basis-2/5 text-sm
-     text-grey-sub-text text-center"
+        className="flex basis-2/5 items-center  justify-center text-center
+     text-sm text-grey-sub-text"
       >
         {description}
       </p>

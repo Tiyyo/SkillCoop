@@ -73,10 +73,10 @@ function usePostMatchEvaluation({
     setEvaluation(
       Math.floor(
         submitedEvaluation.defending +
-        submitedEvaluation.dribbling +
-        submitedEvaluation.pace +
-        submitedEvaluation.passing +
-        submitedEvaluation.shooting,
+          submitedEvaluation.dribbling +
+          submitedEvaluation.pace +
+          submitedEvaluation.passing +
+          submitedEvaluation.shooting,
       ) / 5,
     );
     setTimeout(() => {

@@ -64,8 +64,8 @@ function ResetPassword() {
               <Link
                 to="/forgot-password"
                 className="my-3 w-fit cursor-pointer self-center 
-                  rounded-md px-8 py-2 text-primary-700 transition-all duration-200 
-                hover:bg-base"
+                rounded-md px-8 py-2 text-primary-700 transition-all 
+                duration-200 hover:bg-base"
               >
                 {t('forgotPassword')} ?
               </Link>
@@ -107,8 +107,8 @@ function ResetPassword() {
               <Link
                 to="/login"
                 className="self-centerhover:bg-base my-3 w-fit cursor-pointer 
-                rounded-md px-8 py-2 text-center text-primary-700 transition-all 
-                duration-200"
+                rounded-md px-8 py-2 text-center text-primary-700 
+                transition-all duration-200"
               >
                 {t('gotToLoginPage')}
               </Link>

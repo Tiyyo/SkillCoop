@@ -32,7 +32,7 @@ export default function useFiltersConversations(userId?: number | null) {
     return (
       type ===
       convertFilterIntoMatchingTypeName[
-      filter as keyof typeof convertFilterIntoMatchingTypeName
+        filter as keyof typeof convertFilterIntoMatchingTypeName
       ]
     );
   };

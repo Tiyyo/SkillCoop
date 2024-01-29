@@ -95,8 +95,8 @@ function EditModalPassword({ children }: { children: React.ReactNode }) {
           </FormField>
           <button
             type="submit"
-            className="cursor-pointerhover:bg-base my-1 w-fit self-center rounded-lg px-8 
-            py-2.5 text-primary-700 transition-all 
+            className="cursor-pointerhover:bg-base my-1 w-fit self-center 
+            rounded-lg px-8 py-2.5 text-primary-700 transition-all 
             duration-200"
           >
             {t('editPassword')}

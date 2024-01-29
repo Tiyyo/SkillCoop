@@ -97,16 +97,16 @@ function InputTime({
   }, [error]);
 
   return (
-    <div className="w-full flex gap-x-2.5 items-center py-4">
+    <div className="flex w-full items-center gap-x-2.5 py-4">
       <div
         className={`basis-7 ${hasError ? 'text-error' : 'text-primary-100'}`}
       >
         {children}
       </div>
-      <div className="flex flex-col gap-y-1 flex-grow">
+      <div className="flex flex-grow flex-col gap-y-1">
         <label
           htmlFor={name}
-          className="block h-4 ml-2 text-xs font-medium text-grey-sub-text"
+          className="ml-2 block h-4 text-xs font-medium text-grey-sub-text"
         >
           {label}
         </label>
@@ -123,8 +123,9 @@ function InputTime({
               id={name}
               {...props}
               className={cn(
-                `bg-base-light border text-primary-1100 text-xs rounded-lg
-           focus:ring-primary-800 focus:border-primary-800 block w-full pl-10
+                `block w-full rounded-lg border bg-base-light
+                 pl-10 text-xs text-primary-1100 focus:border-primary-800 
+              focus:ring-primary-800
            `,
                 high ? 'h-10' : 'h-7',
                 hasError && 'ring-2 ring-error',
@@ -133,8 +134,8 @@ function InputTime({
             <select
               id="hours"
               className={cn(
-                `absolute top-0 left-0 w-1/2 max-h-28 overflow-y-auto h-7 
-                flex text-end pr-10 bg-transparent`,
+                `absolute left-0 top-0 flex h-7 max-h-28 w-1/2 
+                overflow-y-auto bg-transparent pr-10 text-end`,
                 high ? 'h-10' : 'h-7',
               )}
               onChange={(e) =>
@@ -160,8 +161,8 @@ function InputTime({
             <select
               id="minutes"
               className={cn(
-                `absolute top-0 right-0 w-1/2 max-h-28 h-7 
-                 pl-10 bg-transparent`,
+                `absolute right-0 top-0 h-7 max-h-28 w-1/2 
+                 bg-transparent pl-10`,
                 high ? 'h-10' : 'h-7',
               )}
               onChange={(e) =>

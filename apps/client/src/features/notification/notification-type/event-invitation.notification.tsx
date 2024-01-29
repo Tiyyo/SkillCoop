@@ -81,14 +81,14 @@ function EventInvitationNotification({
     >
       <div className="flex gap-x-2.5">
         <button
-          className="px-2 py-1 bg-primary-400 rounded-md"
+          className="rounded-md bg-primary-400 px-2 py-1"
           value={invitationStatus.confirmed}
           onClick={handleClickActionOnInvition}
         >
           {t('system:accept')}
         </button>
         <button
-          className="px-2 py-1 bg-primary-210"
+          className="bg-primary-210 px-2 py-1"
           value={invitationStatus.declined}
           onClick={handleClickActionOnInvition}
         >

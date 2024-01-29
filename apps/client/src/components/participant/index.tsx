@@ -61,8 +61,8 @@ function Participant({
       {status !== 'declined' && (
         <div
           className={cn(
-            `flex min-h-[130px] min-w-[160px] flex-shrink-0 flex-col items-center
-            justify-center gap-1 py-4`,
+            `flex min-h-[130px] min-w-[160px] flex-shrink-0 flex-col 
+            items-center justify-center gap-1 py-4`,
             isChecked && 'bg-primary-500',
           )}
         >
@@ -82,8 +82,9 @@ function Participant({
                   avatar={avatar}
                   isRatingActive
                   className="absolute left-1/2 top-1/2 h-18 w-18 
-                -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-base-light 
-                  lg:h-18 lg:w-18"
+                -translate-x-1/2 -translate-y-1/2 rounded-full border-2 
+                border-base-light lg:h-18 lg:w-18"
+                  size={72}
                 />
               </div>
             </Link>
@@ -103,6 +104,7 @@ function Participant({
                 className="absolute left-1/2 top-1/2 h-18 w-18 -translate-x-1/2 
                 -translate-y-1/2 rounded-full border-2 border-base-light 
                 lg:h-18 lg:w-18"
+                size={72}
               />
             </div>
           )}

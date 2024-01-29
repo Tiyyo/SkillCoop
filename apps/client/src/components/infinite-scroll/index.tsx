@@ -38,7 +38,7 @@ function InfiniteScroll({
   }, []);
 
   return (
-    <div className="flex flex-col w-full justify-center items-center">
+    <div className="flex w-full flex-col items-center justify-center">
       {children}
       <div ref={bottomDivRef} />
       {loading && !firstRender.current && (

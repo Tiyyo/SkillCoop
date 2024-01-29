@@ -28,13 +28,13 @@ function DatePicker({
     <Popover>
       <PopoverTrigger asChild>
         <Button
-          className={`flex gap-x-3 items-center justify-start 
-          border rouned-lg ${hasError && 'ring-2 ring-error'}`}
+          className={`rouned-lg flex items-center justify-start 
+          gap-x-3 border ${hasError && 'ring-2 ring-error'}`}
         >
           {date ? (
             getDefaultDatePicker(date, currentLng)
           ) : (
-            <span className="text-xs font-meidum text-grey-sub-text">
+            <span className="font-meidum text-xs text-grey-sub-text">
               {t('pickADateForYourEvent')}
             </span>
           )}

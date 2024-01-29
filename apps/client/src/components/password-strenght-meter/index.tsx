@@ -72,14 +72,14 @@ function PasswordStrengthMeter({ password }: PasswordStrengthMeterProps) {
   return (
     <>
       {password !== '' && (
-        <div className="flex flex-col w-full">
-          <ul className="flex gap-1 h-1 w-full">
+        <div className="flex w-full flex-col">
+          <ul className="flex h-1 w-full gap-1">
             <li className={displayStrengthColor(strenght, 1)}></li>
             <li className={displayStrengthColor(strenght, 2)}></li>
             <li className={displayStrengthColor(strenght, 3)}></li>
             <li className={displayStrengthColor(strenght, 4)}></li>
           </ul>
-          <div className="self-end text-xs text-light my-1.5">{strenght}</div>
+          <div className="my-1.5 self-end text-xs text-light">{strenght}</div>
         </div>
       )}
     </>

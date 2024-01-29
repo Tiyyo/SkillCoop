@@ -32,7 +32,8 @@ function SearchResult({
   return (
     <div
       className="mx-auto my-2 grid h-[55vh]
-     max-w-7xl grid-cols-2 content-start gap-2 py-8 sm:grid-cols-3 lg:grid-cols-4"
+      max-w-7xl grid-cols-2 content-start gap-2 py-8 sm:grid-cols-3 
+      lg:grid-cols-4"
     >
       <Suspense fallback="coucou">
         {profileSearchResult

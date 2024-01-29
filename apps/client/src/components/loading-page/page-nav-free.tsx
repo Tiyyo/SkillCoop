@@ -3,8 +3,8 @@ import Spinner from '../loading';
 function LoadingPageNavFree() {
   return (
     <div
-      className="relative flex flex-col lg:flex-row overflow-hidden 
-      min-h-screen-mobile lg:min-h-screen"
+      className="relative flex min-h-screen-mobile flex-col overflow-hidden 
+      lg:min-h-screen lg:flex-row"
     >
       <Spinner />
     </div>

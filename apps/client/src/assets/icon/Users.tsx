@@ -10,7 +10,7 @@ function Users({ size }: { size?: string }) {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className={`${size ? `h-${size} w-${size}` : 'w-6 h-6'}`}
+      className={`${size ? `h-${size} w-${size}` : 'h-6 w-6'}`}
     >
       <path d="M14 19a6 6 0 0 0-12 0" />
       <circle cx="8" cy="9" r="4" />

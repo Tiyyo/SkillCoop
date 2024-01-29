@@ -101,9 +101,9 @@ function OnBoardingCreateProfile() {
         <div className="mx-auto flex w-2/3 max-w-xs gap-3">
           <Link
             to=""
-            className="my-auto w-1/2 rounded-md 
-            border border-primary-700 bg-base-light bg-opacity-75 py-2 text-center text-lg 
-          text-dark opacity-0 shadow-md"
+            className="my-auto w-1/2 rounded-md border border-primary-700 
+          bg-base-light bg-opacity-75 py-2 text-center text-lg text-dark 
+            opacity-0 shadow-md"
           >
             Back
           </Link>

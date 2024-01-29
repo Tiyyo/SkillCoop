@@ -91,8 +91,8 @@ function CreateEvent() {
         />
         <Link
           to="invitation"
-          className={`lg:text-smtext-base-light flex cursor-pointer items-center gap-2 rounded-full 
-          bg-primary-800 px-2.5 py-2.5 text-xs 
+          className={`lg:text-smtext-base-light flex cursor-pointer 
+          items-center gap-2 rounded-full bg-primary-800 px-2.5 py-2.5 text-xs 
           font-semibold shadow-md duration-300 hover:bg-primary-500
          hover:text-dark sm:px-6`}
         >

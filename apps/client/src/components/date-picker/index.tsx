@@ -43,15 +43,15 @@ function InputDate({
     typeof defaultValue === 'string' ? new Date(defaultValue) : undefined;
 
   return (
-    <div className="relative w-full flex gap-x-2.5 items-center py-4">
+    <div className="relative flex w-full items-center gap-x-2.5 py-4">
       <CalendarSearch
         className={`${
           hasError ? 'text-error' : 'text-primary-100'
         } flex-shrink-0 basis-7`}
         size={24}
       />
-      <div className="flex flex-col gap-y-1 flex-grow">
-        <div className="block h-4 ml-2 text-xs font-medium text-grey-sub-text">
+      <div className="flex flex-grow flex-col gap-y-1">
+        <div className="ml-2 block h-4 text-xs font-medium text-grey-sub-text">
           {label}
         </div>
         {disabled ? (
@@ -59,9 +59,9 @@ function InputDate({
             type="text"
             defaultValue={getDefaultDatePicker(defaultDate, currentLng)}
             disabled={disabled}
-            className={`bg-base-light border border-gray-300 
-            font-semibold text-primary-1100 text-xs rounded-lg block w-full 
-            h-7 pl-2 border-none`}
+            className={`block h-7 w-full 
+            rounded-lg border border-none border-gray-300 bg-base-light pl-2 
+            text-xs font-semibold text-primary-1100`}
           />
         ) : (
           <>

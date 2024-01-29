@@ -58,8 +58,8 @@ function ProfileCard({
   return (
     <div>
       <div
-        className={`flex w-full min-w-[150px] cursor-pointer flex-col items-center
-        rounded-md  border-primary-20 px-3 py-2`}
+        className={`flex w-full min-w-[150px] cursor-pointer 
+        flex-col items-center rounded-md  border-primary-20 px-3 py-2`}
       >
         <AvatarWithBorder avatar={avatar} />
         <p className="py-1 text-relative-sm font-medium">
@@ -71,10 +71,9 @@ function ProfileCard({
             <button
               type="button"
               onClick={handleActionInviation}
-              className="mx-1 cursor-pointer rounded-md bg-primary-400 px-2 py-1 
-                    text-center text-xs shadow-md 
-                  transition-all 
-                    duration-300 ease-in-out hover:bg-primary-700"
+              className="mx-1 cursor-pointer rounded-md bg-primary-400
+              px-2 py-1 text-center text-xs shadow-md transition-all 
+              duration-300 ease-in-out hover:bg-primary-700"
             >
               {t('system:invite')}
             </button>

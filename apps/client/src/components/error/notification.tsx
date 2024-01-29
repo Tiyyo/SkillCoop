@@ -33,17 +33,17 @@ function ErrorNotification({
   return (
     <div
       className={cn(
-        'relative py-5 px-8 my-4 bg-error-light rounded-md w-full',
+        'relative my-4 w-full rounded-md bg-error-light px-8 py-5',
         !isOpen && 'hidden',
       )}
     >
       <X
         size={10}
-        className="absolute top-1 right-1 text-error cursor-pointer 
-          h-6 w-6 py-0.5 hover:bg-opacity-5 hover:bg-gray-600 rounded"
+        className="absolute right-1 top-1 h-6 w-6 cursor-pointer 
+        rounded py-0.5 text-error hover:bg-gray-600 hover:bg-opacity-5"
         onClick={() => setIsOpen(false)}
       />
-      <p className="text-xs text-center">{message}</p>
+      <p className="text-center text-xs">{message}</p>
     </div>
   );
 }

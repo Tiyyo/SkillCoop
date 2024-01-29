@@ -22,9 +22,9 @@ function DisabledInputTimePicker({
       id={name}
       value={unZonedTime ?? 'NC'}
       disabled={disabled}
-      className={`bg-base-light border border-gray-300 
-      font-semibold text-primary-1100
-      text-xs rounded-lg block w-full h-7 pl-2 border-none`}
+      className={`block h-7 w-full 
+      rounded-lg border border-none border-gray-300 bg-base-light 
+      pl-2 text-xs font-semibold text-primary-1100`}
     />
   );
 }

@@ -12,11 +12,12 @@ function NavMobileLink({ children, to, value, setClose }: NavMobileLinkProps) {
     <li onClick={() => setClose(false)}>
       <NavLink
         to={to}
-        className="flex items-center gap-4 text-primary-600 cursor-pointer py-2 
-        hover:bg-primary-200 transition-colors duration-300 rounded-lg px-2"
+        className="flex cursor-pointer items-center gap-4 rounded-lg px-2 
+        py-2 text-primary-600 transition-colors duration-300 
+      hover:bg-primary-200"
       >
         {children}
-        <p className="text-primary-1100 text-lg">{value}</p>
+        <p className="text-lg text-primary-1100">{value}</p>
       </NavLink>
     </li>
   );

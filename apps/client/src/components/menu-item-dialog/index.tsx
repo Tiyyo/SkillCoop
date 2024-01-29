@@ -43,25 +43,25 @@ function MenuItemDialog({
         className={cn(
           hoverOn && 'hover:bg-primary-200',
           menuItemStyle,
-          `w-full h-10 `,
+          `h-10 w-full `,
         )}
       >
         {children}
       </AlertDialogTrigger>
-      <AlertDialogContent className="bg-base-light w-4/5 rounded-lg">
+      <AlertDialogContent className="w-4/5 rounded-lg bg-base-light">
         <AlertDialogHeader>
           <AlertDialogTitle>{t('areYouSure')}</AlertDialogTitle>
           <AlertDialogDescription>{description}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel
-            className="bg-primary-800 hover:bg-primary-400 
-            duration-300"
+            className="bg-primary-800 duration-300 
+            hover:bg-primary-400"
           >
             {t('cancel')}
           </AlertDialogCancel>
           <AlertDialogAction
-            className="hover:text-primary-900 duration-200"
+            className="duration-200 hover:text-primary-900"
             onClick={handleClick}
           >
             {t('continue')}

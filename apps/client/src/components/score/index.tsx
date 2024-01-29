@@ -52,24 +52,24 @@ function Score({
   };
   return (
     <div
-      className="flex flex-grow flex-col justify-center items-center
-     basis-8/12 text-xxs lg:text-xs"
+      className="flex flex-grow basis-8/12 flex-col items-center
+     justify-center text-xxs lg:text-xs"
     >
-      <p className="px-1 bg-base w-fit rounded-2xl font-medium text-xs py-1.5">
+      <p className="w-fit rounded-2xl bg-base px-1 py-1.5 text-xs font-medium">
         {displayLegendScore()}
       </p>
       {eventStatus !== 'open' && (
-        <p className="text-lg font-semibold py-4 lg:py-1.5">
+        <p className="py-4 text-lg font-semibold lg:py-1.5">
           {displayScore(eventStatus, scoreTeamA)}
-          <span className="text-md mx-2">
+          <span className="mx-2 text-md">
             {eventStatus === eventStatusAssertion.completed ? '-' : 'VS'}
           </span>
           {displayScore(eventStatus, scoreTeamB)}
         </p>
       )}
       <p
-        className="flex py-0.5 gap-x-1 justify-center 
-        items-center text-xxs lg:text-xs"
+        className="flex items-center justify-center gap-x-1 
+        py-0.5 text-xxs lg:text-xs"
       >
         <span className="relative">
           <img
@@ -81,10 +81,10 @@ function Score({
         </span>
       </p>
       <div
-        className="flex w-full gap-x-1.5 justify-center items-center
+        className="flex w-full items-center justify-center gap-x-1.5
          font-normal text-grey-sub-text"
       >
-        <p className="basis-1/2 flex justify-end items-center gap-x-1 text-xxs">
+        <p className="flex basis-1/2 items-center justify-end gap-x-1 text-xxs">
           <img src="/images/timer.png" alt="clock icon" />
           <span>{getStartingTime(date)}</span>
           <span className="hidden sm:block">

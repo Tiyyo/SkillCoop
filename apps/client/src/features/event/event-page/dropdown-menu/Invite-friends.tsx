@@ -16,8 +16,8 @@ function InviteFriendsMeuItems({
     <>
       {eventStatus !== 'completed' && eventId && (
         <DropdownMenuItem
-          className="w-full hover:bg-primary-200 
-    transition-colors duration-300 rounded-lg px-2 text-md h-10"
+          className="h-10 w-full 
+    rounded-lg px-2 text-md transition-colors duration-300 hover:bg-primary-200"
         >
           <Link
             to="invitation"

@@ -4,12 +4,12 @@ import { useTranslation } from 'react-i18next';
 function ErrorFallback() {
   const { t } = useTranslation('toast');
   return (
-    <div className="flex flex-grow flex-col justify-center items-center gap-4">
+    <div className="flex flex-grow flex-col items-center justify-center gap-4">
       <p className="text-md text-primary-1100">{t('unexpectedError')}</p>
       <Link
         to="/"
-        className="text-xs cursor-pointer text-primary-1000 
-      hover:text-primary-700 duration-200"
+        className="cursor-pointer text-xs text-primary-1000 
+      duration-200 hover:text-primary-700"
       >
         {t('backToHomepage')}
       </Link>

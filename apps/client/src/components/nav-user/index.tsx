@@ -22,7 +22,7 @@ function NavUser({ children }: { children: JSX.Element }) {
     <div className="relative  flex justify-center">
       <DropdownMenu>
         <DropdownMenuTrigger>{children}</DropdownMenuTrigger>
-        <DropdownMenuContent className="bg-base-light mx-2">
+        <DropdownMenuContent className="mx-2 bg-base-light">
           <NavLink to="/user/profile">
             <DropdownMenuItem className={menuItemStyle}>
               <User size={16} />

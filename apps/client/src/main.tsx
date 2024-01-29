@@ -53,13 +53,12 @@ import AccessControlGateway from './components/redirection/acces-gateway';
 import OnBoardingCreateProfile from './features/onboarding/create-profile';
 import OnBoardinAddImageProfile from './features/onboarding/add-image-profile';
 import OnBoardingEvaluateSkill from './features/onboarding/evaluate-skill';
-import ChatHomePage from './features/chat';
-import Conversations from './features/chat/home-page/conversations';
-import Conversation from './features/chat/conversation/conversation';
-import NewConversation from './features/chat/add-conversation';
-import HomePageTestChat from './test-chat-desktop/homepage';
-import ChatPageTest from './test-chat-desktop/chat';
-import InfosTest from './test-chat-desktop/infos';
+import Conversation from './features/chat/mobile/conversation-mobile';
+import NewConversation from './features/chat/shared/add-conversation';
+import DesktopChatHomePage from './features/chat/desktop/home-page-chat-desktop';
+import DesktopConversationPage from './features/chat/desktop/conversation-desktop';
+import MobileChatHomePage from './features/chat/mobile/home-page-chat-mobile';
+import MobileConversationPage from './features/chat/mobile/conversation-mobile';
 /*eslint-enable*/
 
 export const queryClient = new QueryClient({
@@ -247,22 +246,26 @@ const router = createBrowserRouter([
       },
       {
         path: '/chat',
-        element: <ChatHomePage />,
+        element: <MobileChatHomePage />,
         children: [
-          { index: true, element: <Conversations /> },
+          { index: true, element: <MobileConversationPage /> },
           { path: `conversation/:id`, element: <Conversation /> },
           { path: 'new-conversation/:userId', element: <NewConversation /> },
         ],
       },
       {
         path: '/desktop/chat',
-        element: <HomePageTestChat />,
+        element: <DesktopChatHomePage />,
         children: [
           {
-            element: <ChatPageTest />,
+            element: <DesktopConversationPage />,
             path: 'conversation/:id',
-            children: [{ index: true, element: <InfosTest /> }],
           },
+          {
+            path: 'new-conversation/:userId',
+            element: <NewConversation />,
+          },
+          { path: '*', element: <Page404 /> },
         ],
       },
       {

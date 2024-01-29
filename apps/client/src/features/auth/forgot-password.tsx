@@ -1,5 +1,4 @@
 import { useMutation } from '@tanstack/react-query';
-import Button from '#components/button';
 import FormField from '../../components/form-field';
 import Center from '../../layouts/center';
 import Page from '../../layouts/page';
@@ -10,6 +9,7 @@ import envelope from '../../assets/svg/envelope.svg';
 import { Link } from 'react-router-dom';
 import ErrorNotification from '../../components/error/notification';
 import { useTranslation } from 'react-i18next';
+import Button from '../../components/button';
 
 function ForgotPassword() {
   const { t } = useTranslation('auth');
@@ -87,10 +87,10 @@ function ForgotPassword() {
 
             <Link
               to="/login"
-              className="w-[70%] max-w-xs cursor-pointer 
-              rounded-md bg-primary-800 px-3 py-2
-             font-bold  uppercase tracking-wide 
-                 text-white shadow-sm transition-all duration-200 hover:bg-primary-900"
+              className="w-[70%] max-w-xs cursor-pointer rounded-md 
+            bg-primary-800 px-3 py-2 font-bold  uppercase tracking-wide 
+            text-white shadow-sm transition-all duration-200 
+              hover:bg-primary-900"
             >
               {t('understood')}
             </Link>

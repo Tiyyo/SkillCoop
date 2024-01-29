@@ -40,7 +40,7 @@ function GroupedStars({ name, legend }: { name: string; legend: string }) {
   const id = useId();
 
   return (
-    <fieldset name={name} className="flex flex-row-reverse gap-1 rating w-fit">
+    <fieldset name={name} className="rating flex w-fit flex-row-reverse gap-1">
       <legend className="text-sm font-semibold">{translatedLegend}</legend>
       {stars.map((_, index) => (
         <Star

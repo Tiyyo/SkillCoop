@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useApp } from '../../../stores/app.store';
 import useFiltersConversations from '../../../hooks/useFiltersConversations';
 import HeaderHomePageChat from '../shared/home-page/header';
@@ -9,6 +9,7 @@ import Container from '../../../layouts/container';
 
 function DesktopChatHomePage() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { userId } = useApp();
   const {
     getSearchInputValue,
@@ -18,7 +19,9 @@ function DesktopChatHomePage() {
     updateLastSeenIndicator,
   } = useFiltersConversations(userId);
 
-  const isConversationsExits = conversations && conversations.length > 0;
+  const isConversationsExits =
+    (!!conversations && !!(conversations.length > 0)) ||
+    location.pathname.split('/').includes('new-conversation');
 
   useEffect(() => {
     if (!conversations) return;

@@ -4,6 +4,7 @@ import { WinstonModule } from 'nest-winston';
 import { winstonLogger } from './helpers/winston.logger';
 import { HttpLogger } from './middleware/access-http.middleware';
 import { ValidationPipe } from '@nestjs/common';
+const clientUrl = process.env.NODE_ENV === "production" ? process.env.CLIENT_URL : 'http://localhost:5004';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -18,7 +19,7 @@ async function bootstrap() {
   }));
   app.use(new HttpLogger().use)
   app.enableCors({
-    origin: 'http://localhost:5004',
+    origin: clientUrl,
     allowedHeaders: ['content-type'],
     credentials: true,
   });

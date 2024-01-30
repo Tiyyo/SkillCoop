@@ -1,5 +1,5 @@
-import { createServer } from 'http';
 import './app/helpers/env.load.js';
+import { createServer } from 'http';
 import app from './app/index.app.js';
 import logger from './app/helpers/logger.js';
 

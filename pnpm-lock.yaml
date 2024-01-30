@@ -20,6 +20,9 @@ importers:
       prettier:
         specifier: ^3.0.3
         version: 3.0.3
+      shx:
+        specifier: ^0.3.4
+        version: 0.3.4
       typescript:
         specifier: ^5.3.3
         version: 5.3.3
@@ -10840,6 +10843,15 @@ packages:
       glob: 7.2.3
       interpret: 1.4.0
       rechoir: 0.6.2
+    dev: true
+
+  /shx@0.3.4:
+    resolution: {integrity: sha512-N6A9MLVqjxZYcVn8hLmtneQWIJtp8IKzMP4eMnx+nqkvXoqinUPCbUFLp2UcWTEIUONhlk0ewxr/jaVGlc+J+g==}
+    engines: {node: '>=6'}
+    hasBin: true
+    dependencies:
+      minimist: 1.2.8
+      shelljs: 0.8.5
     dev: true
 
   /side-channel@1.0.4:

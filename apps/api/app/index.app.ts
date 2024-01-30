@@ -30,6 +30,7 @@ app.use(accesHttp);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+logger.info('Client URL :', process.env.CLIENT_PROD_URL);
 app.use(
   cors({
     credentials: true,

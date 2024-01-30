@@ -9,10 +9,8 @@ export * from './user.fn';
 export * from './notification.fn';
 export * from './friend.fn';
 
-const BASE_URL = SERVER_URL;
-
 export const api = axios.create({
-  baseURL: BASE_URL,
+  baseURL: SERVER_URL,
   withCredentials: true,
 });
 

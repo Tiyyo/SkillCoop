@@ -15,9 +15,12 @@ import { PayloadMessageDto } from 'src/dto/payload.message.dto';
 import { HistoricService } from 'src/message-storage/historic.service';
 import { MessageService } from 'src/message-storage/message.service';
 
+const clientUrl = process.env.NODE_ENV === "production" ? process.env.CLIENT_URL : 'http://localhost:5004';
+
+
 @WebSocketGateway({
   cors: {
-    origin: '*',
+    origin: clientUrl,
   },
 })
 export class ChatGateway
@@ -32,7 +35,7 @@ export class ChatGateway
   afterInit() {
     this.logger.log('Init');
   }
-  handleConnection(client: any, ...args: any[]) {
+  handleConnection(client: any) {
     this.logger.debug('Client connected: ' + client.id);
   }
   handleDisconnect(client: any) {

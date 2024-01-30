@@ -1,13 +1,15 @@
 import { useEffect } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useApp } from '../../../stores/app.store';
 import useFiltersConversations from '../../../hooks/useFiltersConversations';
 import HeaderHomePageChat from '../shared/home-page/header';
 /*eslint-disable-next-line*/
 import ConversationCardsContainer from '../shared/home-page/conversations-card-container';
+import Container from '../../../layouts/container';
 
 function DesktopChatHomePage() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { userId } = useApp();
   const {
     getSearchInputValue,
@@ -16,6 +18,10 @@ function DesktopChatHomePage() {
     conversations,
     updateLastSeenIndicator,
   } = useFiltersConversations(userId);
+
+  const isConversationsExits =
+    (!!conversations && !!(conversations.length > 0)) ||
+    location.pathname.split('/').includes('new-conversation');
 
   useEffect(() => {
     if (!conversations) return;
@@ -40,7 +46,18 @@ function DesktopChatHomePage() {
             userId={userId}
           />
         </div>
-        <Outlet />
+        {isConversationsExits ? (
+          <Outlet />
+        ) : (
+          <Container className="flex flex-grow items-center justify-center ">
+            {' '}
+            {!isConversationsExits && (
+              <p className="w-full py-4 text-center text-xs italic text-light">
+                You don't have any discussions yet.
+              </p>
+            )}
+          </Container>
+        )}
       </div>
     </div>
   );

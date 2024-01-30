@@ -1,0 +1,643 @@
+failed to get console mode for stdout: The handle is invalid.
+#0 building with "default" instance using docker driver
+
+#1 [api internal] load .dockerignore
+#1 transferring context: 151B done
+#1 DONE 0.0s
+
+#2 [web internal] load .dockerignore
+#2 transferring context: 151B done
+#2 DONE 0.1s
+
+#3 [api internal] load build definition from Dockerfile
+#3 transferring dockerfile: 990B done
+#3 DONE 0.1s
+
+#4 [chat internal] load .dockerignore
+#4 transferring context: 151B 0.0s done
+#4 DONE 0.1s
+
+#5 [web internal] load build definition from Dockerfile
+#5 transferring dockerfile: 879B done
+#5 DONE 0.1s
+
+#6 [chat internal] load build definition from Dockerfile
+#6 transferring dockerfile: 849B done
+#6 DONE 0.1s
+
+#7 [chat internal] load metadata for docker.io/library/node:18-alpine
+#7 DONE 1.3s
+
+#8 [web base 5/5] RUN npm install serve -g
+#8 CACHED
+
+#9 [web production 1/4] WORKDIR /app
+#9 CACHED
+
+#10 [web base 1/4] FROM docker.io/library/node:18-alpine@sha256:0085670310d2879621f96a4216c893f92e2ded827e9e6ef8437672e1bd72f437
+#10 DONE 0.0s
+
+#11 [web base 2/4] RUN apk add --no-cache libc6-compat
+#11 CACHED
+
+#12 [web base 3/4] RUN apk update
+#12 CACHED
+
+#13 [web base 4/4] RUN npm install -g pnpm
+#13 CACHED
+
+#14 [api production 1/6] WORKDIR /app
+#14 CACHED
+
+#15 [chat internal] load build context
+#15 transferring context: 79.25kB 0.2s done
+#15 DONE 0.2s
+
+#16 [web internal] load build context
+#16 transferring context: 79.34kB 0.2s done
+#16 DONE 0.3s
+
+#17 [api internal] load build context
+#17 transferring context: 79.34kB 0.2s done
+#17 DONE 0.3s
+
+#18 [web dependencies 2/3] COPY . .
+#18 ...
+
+#19 [chat dependencies 2/3] COPY . .
+#19 DONE 1.6s
+
+#18 [web dependencies 2/3] COPY . .
+#18 DONE 1.7s
+
+#20 [api dependencies 2/3] COPY . .
+#20 DONE 1.8s
+
+#21 [api dependencies 3/3] RUN pnpm install
+#21 1.506 Scope: all 8 workspace projects
+#21 1.764 Lockfile is up to date, resolution step is skipped
+#21 2.054 Progress: resolved 1, reused 0, downloaded 0, added 0
+#21 3.052 Packages: +1366
+#21 3.052 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#21 3.096 Progress: resolved 1366, reused 0, downloaded 0, added 0
+#21 4.497 Progress: resolved 1366, reused 0, downloaded 1, added 0
+#21 5.503 Progress: resolved 1366, reused 0, downloaded 61, added 55
+#21 6.509 Progress: resolved 1366, reused 0, downloaded 146, added 146
+#21 ...
+
+#22 [web dependencies 3/3] RUN pnpm install
+#22 1.504 Scope: all 8 workspace projects
+#22 1.732 Lockfile is up to date, resolution step is skipped
+#22 1.983 Progress: resolved 1, reused 0, downloaded 0, added 0
+#22 2.921 Packages: +1366
+#22 2.921 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#22 3.046 Progress: resolved 1366, reused 0, downloaded 0, added 0
+#22 4.194 Progress: resolved 1366, reused 0, downloaded 1, added 0
+#22 5.203 Progress: resolved 1366, reused 0, downloaded 61, added 56
+#22 6.216 Progress: resolved 1366, reused 0, downloaded 148, added 147
+#22 7.217 Progress: resolved 1366, reused 0, downloaded 182, added 182
+#22 ...
+
+#21 [api dependencies 3/3] RUN pnpm install
+#21 7.513 Progress: resolved 1366, reused 0, downloaded 180, added 179
+#21 8.515 Progress: resolved 1366, reused 0, downloaded 217, added 217
+#21 9.515 Progress: resolved 1366, reused 0, downloaded 265, added 265
+#21 ...
+
+#23 [chat dependencies 3/3] RUN pnpm install
+#23 1.685 Scope: all 8 workspace projects
+#23 1.927 Lockfile is up to date, resolution step is skipped
+#23 2.202 Progress: resolved 1, reused 0, downloaded 0, added 0
+#23 3.105 Packages: +1366
+#23 3.105 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#23 3.247 Progress: resolved 1366, reused 0, downloaded 0, added 0
+#23 4.320 Progress: resolved 1366, reused 0, downloaded 7, added 0
+#23 5.333 Progress: resolved 1366, reused 0, downloaded 98, added 88
+#23 6.339 Progress: resolved 1366, reused 0, downloaded 161, added 158
+#23 7.341 Progress: resolved 1366, reused 0, downloaded 183, added 183
+#23 8.341 Progress: resolved 1366, reused 0, downloaded 236, added 236
+#23 9.344 Progress: resolved 1366, reused 0, downloaded 273, added 273
+#23 10.34 Progress: resolved 1366, reused 0, downloaded 309, added 309
+#23 ...
+
+#22 [web dependencies 3/3] RUN pnpm install
+#22 8.218 Progress: resolved 1366, reused 0, downloaded 225, added 224
+#22 9.220 Progress: resolved 1366, reused 0, downloaded 262, added 262
+#22 10.22 Progress: resolved 1366, reused 0, downloaded 305, added 305
+#22 11.24 Progress: resolved 1366, reused 0, downloaded 348, added 340
+#22 12.25 Progress: resolved 1366, reused 0, downloaded 452, added 452
+#22 13.25 Progress: resolved 1366, reused 0, downloaded 512, added 512
+#22 14.28 Progress: resolved 1366, reused 0, downloaded 584, added 579
+#22 15.29 Progress: resolved 1366, reused 0, downloaded 667, added 664
+#22 ...
+
+#21 [api dependencies 3/3] RUN pnpm install
+#21 10.52 Progress: resolved 1366, reused 0, downloaded 290, added 290
+#21 11.52 Progress: resolved 1366, reused 0, downloaded 353, added 353
+#21 12.55 Progress: resolved 1366, reused 0, downloaded 445, added 442
+#21 13.55 Progress: resolved 1366, reused 0, downloaded 494, added 494
+#21 14.55 Progress: resolved 1366, reused 0, downloaded 564, added 562
+#21 15.56 Progress: resolved 1366, reused 0, downloaded 670, added 670
+#21 ...
+
+#22 [web dependencies 3/3] RUN pnpm install
+#22 16.29 Progress: resolved 1366, reused 0, downloaded 679, added 676
+#22 17.29 Progress: resolved 1366, reused 0, downloaded 721, added 719
+#22 18.31 Progress: resolved 1366, reused 0, downloaded 735, added 723
+#22 19.31 Progress: resolved 1366, reused 0, downloaded 747, added 738
+#22 20.31 Progress: resolved 1366, reused 0, downloaded 758, added 751
+#22 ...
+
+#23 [chat dependencies 3/3] RUN pnpm install
+#23 11.36 Progress: resolved 1366, reused 0, downloaded 352, added 347
+#23 12.36 Progress: resolved 1366, reused 0, downloaded 444, added 444
+#23 13.36 Progress: resolved 1366, reused 0, downloaded 496, added 493
+#23 14.36 Progress: resolved 1366, reused 0, downloaded 567, added 561
+#23 15.38 Progress: resolved 1366, reused 0, downloaded 656, added 651
+#23 16.39 Progress: resolved 1366, reused 0, downloaded 681, added 681
+#23 17.39 Progress: resolved 1366, reused 0, downloaded 721, added 713
+#23 18.39 Progress: resolved 1366, reused 0, downloaded 728, added 722
+#23 19.41 Progress: resolved 1366, reused 0, downloaded 747, added 741
+#23 20.41 Progress: resolved 1366, reused 0, downloaded 758, added 753
+#23 21.41 Progress: resolved 1366, reused 0, downloaded 763, added 757
+#23 ...
+
+#22 [web dependencies 3/3] RUN pnpm install
+#22 21.31 Progress: resolved 1366, reused 0, downloaded 760, added 756
+#22 23.42 Progress: resolved 1366, reused 0, downloaded 760, added 757
+#22 24.42 Progress: resolved 1366, reused 0, downloaded 769, added 760
+#22 25.42 Progress: resolved 1366, reused 0, downloaded 771, added 760
+#22 26.42 Progress: resolved 1366, reused 0, downloaded 774, added 770
+#22 ...
+
+#21 [api dependencies 3/3] RUN pnpm install
+#21 16.58 Progress: resolved 1366, reused 0, downloaded 696, added 695
+#21 17.58 Progress: resolved 1366, reused 0, downloaded 717, added 714
+#21 18.58 Progress: resolved 1366, reused 0, downloaded 727, added 718
+#21 19.58 Progress: resolved 1366, reused 0, downloaded 732, added 728
+#21 20.58 Progress: resolved 1366, reused 0, downloaded 748, added 745
+#21 21.58 Progress: resolved 1366, reused 0, downloaded 752, added 748
+#21 24.06 Progress: resolved 1366, reused 0, downloaded 752, added 749
+#21 25.06 Progress: resolved 1366, reused 0, downloaded 768, added 761
+#21 26.06 Progress: resolved 1366, reused 0, downloaded 771, added 764
+#21 ...
+
+#23 [chat dependencies 3/3] RUN pnpm install
+#23 23.61 Progress: resolved 1366, reused 0, downloaded 763, added 758
+#23 24.61 Progress: resolved 1366, reused 0, downloaded 771, added 763
+#23 25.62 Progress: resolved 1366, reused 0, downloaded 773, added 763
+#23 26.61 Progress: resolved 1366, reused 0, downloaded 775, added 767
+#23 28.21 Progress: resolved 1366, reused 0, downloaded 776, added 767
+#23 29.21 Progress: resolved 1366, reused 0, downloaded 776, added 772
+#23 30.21 Progress: resolved 1366, reused 0, downloaded 778, added 773
+#23 ...
+
+#22 [web dependencies 3/3] RUN pnpm install
+#22 27.42 Progress: resolved 1366, reused 0, downloaded 775, added 770
+#22 28.42 Progress: resolved 1366, reused 0, downloaded 776, added 770
+#22 29.42 Progress: resolved 1366, reused 0, downloaded 780, added 772
+#22 30.42 Progress: resolved 1366, reused 0, downloaded 784, added 776
+#22 31.42 Progress: resolved 1366, reused 0, downloaded 787, added 779
+#22 33.13 Progress: resolved 1366, reused 0, downloaded 787, added 780
+#22 34.13 Progress: resolved 1366, reused 0, downloaded 800, added 791
+#22 ...
+
+#21 [api dependencies 3/3] RUN pnpm install
+#21 27.06 Progress: resolved 1366, reused 0, downloaded 771, added 765
+#21 28.06 Progress: resolved 1366, reused 0, downloaded 771, added 766
+#21 29.06 Progress: resolved 1366, reused 0, downloaded 774, added 767
+#21 30.06 Progress: resolved 1366, reused 0, downloaded 777, added 770
+#21 31.06 Progress: resolved 1366, reused 0, downloaded 777, added 771
+#21 32.06 Progress: resolved 1366, reused 0, downloaded 778, added 771
+#21 33.47 Progress: resolved 1366, reused 0, downloaded 779, added 771
+#21 34.51 Progress: resolved 1366, reused 0, downloaded 793, added 780
+#21 ...
+
+#22 [web dependencies 3/3] RUN pnpm install
+#22 35.13 Progress: resolved 1366, reused 0, downloaded 813, added 805
+#22 36.13 Progress: resolved 1366, reused 0, downloaded 813, added 808
+#22 37.13 Progress: resolved 1366, reused 0, downloaded 824, added 816
+#22 38.20 Progress: resolved 1366, reused 0, downloaded 828, added 822
+#22 39.22 Progress: resolved 1366, reused 0, downloaded 891, added 889
+#22 40.23 Progress: resolved 1366, reused 0, downloaded 914, added 904
+#22 41.23 Progress: resolved 1366, reused 0, downloaded 918, added 906
+#22 ...
+
+#23 [chat dependencies 3/3] RUN pnpm install
+#23 31.86 Progress: resolved 1366, reused 0, downloaded 779, added 773
+#23 33.30 Progress: resolved 1366, reused 0, downloaded 779, added 774
+#23 34.30 Progress: resolved 1366, reused 0, downloaded 796, added 793
+#23 35.30 Progress: resolved 1366, reused 0, downloaded 810, added 799
+#23 36.30 Progress: resolved 1366, reused 0, downloaded 827, added 820
+#23 37.30 Progress: resolved 1366, reused 0, downloaded 828, added 820
+#23 38.30 Progress: resolved 1366, reused 0, downloaded 829, added 821
+#23 39.30 Progress: resolved 1366, reused 0, downloaded 873, added 871
+#23 40.31 Progress: resolved 1366, reused 0, downloaded 906, added 898
+#23 41.31 Progress: resolved 1366, reused 0, downloaded 911, added 903
+#23 ...
+
+#21 [api dependencies 3/3] RUN pnpm install
+#21 35.52 Progress: resolved 1366, reused 0, downloaded 799, added 787
+#21 36.52 Progress: resolved 1366, reused 0, downloaded 801, added 789
+#21 37.52 Progress: resolved 1366, reused 0, downloaded 808, added 798
+#21 38.58 Progress: resolved 1366, reused 0, downloaded 838, added 829
+#21 39.59 Progress: resolved 1366, reused 0, downloaded 895, added 894
+#21 40.59 Progress: resolved 1366, reused 0, downloaded 902, added 897
+#21 41.59 Progress: resolved 1366, reused 0, downloaded 911, added 904
+#21 ...
+
+#23 [chat dependencies 3/3] RUN pnpm install
+#23 42.31 Progress: resolved 1366, reused 0, downloaded 915, added 906
+#23 45.44 Progress: resolved 1366, reused 0, downloaded 916, added 906
+#23 ...
+
+#21 [api dependencies 3/3] RUN pnpm install
+#21 42.59 Progress: resolved 1366, reused 0, downloaded 916, added 913
+#21 45.24 Progress: resolved 1366, reused 0, downloaded 917, added 913
+#21 46.24 Progress: resolved 1366, reused 0, downloaded 918, added 913
+#21 ...
+
+#23 [chat dependencies 3/3] RUN pnpm install
+#23 52.10 Progress: resolved 1366, reused 0, downloaded 917, added 906
+#23 ...
+
+#22 [web dependencies 3/3] RUN pnpm install
+#22 42.23 Progress: resolved 1366, reused 0, downloaded 920, added 913
+#22 45.26 Progress: resolved 1366, reused 0, downloaded 920, added 914
+#22 46.26 Progress: resolved 1366, reused 0, downloaded 923, added 914
+#22 52.17 Progress: resolved 1366, reused 0, downloaded 924, added 914
+#22 ...
+
+#21 [api dependencies 3/3] RUN pnpm install
+#21 52.15 Progress: resolved 1366, reused 0, downloaded 919, added 913
+#21 53.15 Progress: resolved 1366, reused 0, downloaded 921, added 913
+#21 54.15 Progress: resolved 1366, reused 0, downloaded 921, added 914
+#21 55.15 Progress: resolved 1366, reused 0, downloaded 937, added 926
+#21 56.18 Progress: resolved 1366, reused 0, downloaded 954, added 953
+#21 57.21 Progress: resolved 1366, reused 0, downloaded 995, added 997
+#21 58.22 Progress: resolved 1366, reused 0, downloaded 1115, added 1122
+#21 59.23 Progress: resolved 1366, reused 0, downloaded 1185, added 1192
+#21 ...
+
+#23 [chat dependencies 3/3] RUN pnpm install
+#23 53.10 Progress: resolved 1366, reused 0, downloaded 918, added 906
+#23 54.10 Progress: resolved 1366, reused 0, downloaded 920, added 906
+#23 55.10 Progress: resolved 1366, reused 0, downloaded 930, added 917
+#23 56.10 Progress: resolved 1366, reused 0, downloaded 938, added 924
+#23 57.10 Progress: resolved 1366, reused 0, downloaded 974, added 972
+#23 58.11 Progress: resolved 1366, reused 0, downloaded 1065, added 1070
+#23 59.15 Progress: resolved 1366, reused 0, downloaded 1153, added 1159
+#23 60.16 Progress: resolved 1366, reused 0, downloaded 1202, added 1208
+#23 ...
+
+#21 [api dependencies 3/3] RUN pnpm install
+#21 60.24 Progress: resolved 1366, reused 0, downloaded 1210, added 1217
+#21 61.24 Progress: resolved 1366, reused 0, downloaded 1230, added 1236
+#21 62.24 Progress: resolved 1366, reused 0, downloaded 1261, added 1268
+#21 63.24 Progress: resolved 1366, reused 0, downloaded 1293, added 1298
+#21 ...
+
+#22 [web dependencies 3/3] RUN pnpm install
+#22 54.04 Progress: resolved 1366, reused 0, downloaded 925, added 914
+#22 55.04 Progress: resolved 1366, reused 0, downloaded 940, added 931
+#22 56.06 Progress: resolved 1366, reused 0, downloaded 955, added 946
+#22 57.06 Progress: resolved 1366, reused 0, downloaded 995, added 993
+#22 58.06 Progress: resolved 1366, reused 0, downloaded 1113, added 1120
+#22 59.07 Progress: resolved 1366, reused 0, downloaded 1197, added 1205
+#22 60.07 Progress: resolved 1366, reused 0, downloaded 1220, added 1228
+#22 61.07 Progress: resolved 1366, reused 0, downloaded 1244, added 1252
+#22 62.09 Progress: resolved 1366, reused 0, downloaded 1281, added 1287
+#22 63.10 Progress: resolved 1366, reused 0, downloaded 1318, added 1325
+#22 ...
+
+#23 [chat dependencies 3/3] RUN pnpm install
+#23 61.16 Progress: resolved 1366, reused 0, downloaded 1218, added 1221
+#23 62.19 Progress: resolved 1366, reused 0, downloaded 1260, added 1264
+#23 63.19 Progress: resolved 1366, reused 0, downloaded 1294, added 1299
+#23 ...
+
+#21 [api dependencies 3/3] RUN pnpm install
+#21 64.24 Progress: resolved 1366, reused 0, downloaded 1294, added 1300
+#21 73.88  WARN  GET https://registry.npmjs.org/@smithy/url-parser/-/url-parser-2.0.12.tgz error (ETIMEDOUT). Will retry in 10 seconds. 2 retries left.
+#21 73.96  WARN  GET https://registry.npmjs.org/@aws-sdk/middleware-host-header/-/middleware-host-header-3.433.0.tgz error (ETIMEDOUT). Will retry in 10 seconds. 2 retries left.
+#21 74.28  WARN  GET https://registry.npmjs.org/@smithy/hash-blob-browser/-/hash-blob-browser-2.0.12.tgz error (ETIMEDOUT). Will retry in 10 seconds. 2 retries left.
+#21 74.36  WARN  GET https://registry.npmjs.org/@swc/core-linux-x64-musl/-/core-linux-x64-musl-1.3.96.tgz error (ECONNRESET). Will retry in 10 seconds. 2 retries left.
+#21 74.37  WARN  GET https://registry.npmjs.org/has-symbols/-/has-symbols-1.0.3.tgz error (ETIMEDOUT). Will retry in 10 seconds. 2 retries left.
+#21 74.44  WARN  GET https://registry.npmjs.org/mime-types/-/mime-types-2.1.35.tgz error (ETIMEDOUT). Will retry in 10 seconds. 2 retries left.
+#21 74.44  WARN  GET https://registry.npmjs.org/@swc/core-linux-x64-gnu/-/core-linux-x64-gnu-1.3.96.tgz error (ECONNRESET). Will retry in 10 seconds. 2 retries left.
+#21 74.52  WARN  GET https://registry.npmjs.org/get-intrinsic/-/get-intrinsic-1.2.2.tgz error (ETIMEDOUT). Will retry in 10 seconds. 2 retries left.
+#21 74.52  WARN  GET https://registry.npmjs.org/@sentry/utils/-/utils-7.93.0.tgz error (ECONNRESET). Will retry in 10 seconds. 2 retries left.
+#21 74.60  WARN  GET https://registry.npmjs.org/kysely/-/kysely-0.26.3.tgz error (ETIMEDOUT). Will retry in 10 seconds. 2 retries left.
+#21 74.60  WARN  GET https://registry.npmjs.org/@prisma/get-platform/-/get-platform-5.3.1.tgz error (ETIMEDOUT). Will retry in 10 seconds. 2 retries left.
+#21 74.60  WARN  GET https://registry.npmjs.org/@chevrotain/utils/-/utils-10.5.0.tgz error (ETIMEDOUT). Will retry in 10 seconds. 2 retries left.
+#21 74.60  WARN  GET https://registry.npmjs.org/debug/-/debug-3.2.7.tgz error (ECONNRESET). Will retry in 10 seconds. 2 retries left.
+#21 74.69  WARN  GET https://registry.npmjs.org/tailwindcss/-/tailwindcss-3.3.5.tgz error (ECONNRESET). Will retry in 10 seconds. 2 retries left.
+#21 77.80 Progress: resolved 1366, reused 0, downloaded 1294, added 1301
+#21 78.80 Progress: resolved 1366, reused 0, downloaded 1303, added 1310
+#21 79.80 Progress: resolved 1366, reused 0, downloaded 1321, added 1328
+#21 80.80 Progress: resolved 1366, reused 0, downloaded 1336, added 1344
+#21 81.80 Progress: resolved 1366, reused 0, downloaded 1343, added 1351
+#21 82.80 Progress: resolved 1366, reused 0, downloaded 1344, added 1352
+#21 84.66 Progress: resolved 1366, reused 0, downloaded 1345, added 1352
+#21 85.66 Progress: resolved 1366, reused 0, downloaded 1351, added 1358
+#21 86.66 Progress: resolved 1366, reused 0, downloaded 1352, added 1360
+#21 87.66 Progress: resolved 1366, reused 0, downloaded 1356, added 1364
+#21 ...
+
+#23 [chat dependencies 3/3] RUN pnpm install
+#23 64.20 Progress: resolved 1366, reused 0, downloaded 1301, added 1307
+#23 73.92  WARN  GET https://registry.npmjs.org/@aws-sdk/client-sts/-/client-sts-3.441.0.tgz error (ETIMEDOUT). Will retry in 10 seconds. 2 retries left.
+#23 74.40  WARN  GET https://registry.npmjs.org/http-errors/-/http-errors-2.0.0.tgz error (ETIMEDOUT). Will retry in 10 seconds. 2 retries left.
+#23 74.40  WARN  GET https://registry.npmjs.org/@chevrotain/utils/-/utils-10.5.0.tgz error (ETIMEDOUT). Will retry in 10 seconds. 2 retries left.
+#23 74.48  WARN  GET https://registry.npmjs.org/@prisma/get-platform/-/get-platform-5.3.1.tgz error (ETIMEDOUT). Will retry in 10 seconds. 2 retries left.
+#23 74.56  WARN  GET https://registry.npmjs.org/debug/-/debug-3.2.7.tgz error (ECONNRESET). Will retry in 10 seconds. 2 retries left.
+#23 74.64  WARN  GET https://registry.npmjs.org/@prisma/prisma-schema-wasm/-/prisma-schema-wasm-5.3.1-2.61e140623197a131c2a6189271ffee05a7aa9a59.tgz error (ETIMEDOUT). Will retry in 10 seconds. 2 retries left.
+#23 74.72  WARN  GET https://registry.npmjs.org/error-ex/-/error-ex-1.3.2.tgz error (ETIMEDOUT). Will retry in 10 seconds. 2 retries left.
+#23 74.72  WARN  GET https://registry.npmjs.org/make-dir/-/make-dir-4.0.0.tgz error (ETIMEDOUT). Will retry in 10 seconds. 2 retries left.
+#23 74.73  WARN  GET https://registry.npmjs.org/@smithy/node-http-handler/-/node-http-handler-2.1.9.tgz error (ETIMEDOUT). Will retry in 10 seconds. 2 retries left.
+#23 74.73  WARN  GET https://registry.npmjs.org/lucide-react/-/lucide-react-0.291.0.tgz error (ECONNRESET). Will retry in 10 seconds. 2 retries left.
+#23 74.73  WARN  GET https://registry.npmjs.org/@swc/core-linux-x64-gnu/-/core-linux-x64-gnu-1.3.96.tgz error (ECONNRESET). Will retry in 10 seconds. 2 retries left.
+#23 74.80  WARN  GET https://registry.npmjs.org/htmlparser2/-/htmlparser2-8.0.2.tgz error (ETIMEDOUT). Will retry in 10 seconds. 2 retries left.
+#23 74.80  WARN  GET https://registry.npmjs.org/@tanstack/query-devtools/-/query-devtools-5.4.2.tgz error (ECONNRESET). Will retry in 10 seconds. 2 retries left.
+#23 74.81  WARN  GET https://registry.npmjs.org/@swc/core-linux-x64-musl/-/core-linux-x64-musl-1.3.96.tgz error (ECONNRESET). Will retry in 10 seconds. 2 retries left.
+#23 78.27 Progress: resolved 1366, reused 0, downloaded 1302, added 1307
+#23 79.27 Progress: resolved 1366, reused 0, downloaded 1318, added 1324
+#23 80.27 Progress: resolved 1366, reused 0, downloaded 1330, added 1338
+#23 81.27 Progress: resolved 1366, reused 0, downloaded 1342, added 1350
+#23 82.27 Progress: resolved 1366, reused 0, downloaded 1344, added 1352
+#23 85.44 Progress: resolved 1366, reused 0, downloaded 1345, added 1352
+#23 86.44 Progress: resolved 1366, reused 0, downloaded 1352, added 1360
+#23 87.44 Progress: resolved 1366, reused 0, downloaded 1355, added 1363
+#23 ...
+
+#22 [web dependencies 3/3] RUN pnpm install
+#22 64.11 Progress: resolved 1366, reused 0, downloaded 1326, added 1334
+#22 74.47  WARN  GET https://registry.npmjs.org/acorn-import-assertions/-/acorn-import-assertions-1.9.0.tgz error (ETIMEDOUT). Will retry in 10 seconds. 2 retries left.
+#22 74.47  WARN  GET https://registry.npmjs.org/minimatch/-/minimatch-9.0.3.tgz error (ECONNRESET). Will retry in 10 seconds. 2 retries left.
+#22 74.54  WARN  GET https://registry.npmjs.org/run-async/-/run-async-2.4.1.tgz error (ETIMEDOUT). Will retry in 10 seconds. 2 retries left.
+#22 74.54  WARN  GET https://registry.npmjs.org/@nestjs/testing/-/testing-10.3.0.tgz error (ETIMEDOUT). Will retry in 10 seconds. 2 retries left.
+#22 74.54  WARN  GET https://registry.npmjs.org/@jridgewell/trace-mapping/-/trace-mapping-0.3.21.tgz error (ETIMEDOUT). Will retry in 10 seconds. 2 retries left.
+#22 74.55  WARN  GET https://registry.npmjs.org/serialize-javascript/-/serialize-javascript-6.0.2.tgz error (ETIMEDOUT). Will retry in 10 seconds. 2 retries left.
+#22 74.55  WARN  GET https://registry.npmjs.org/@types/istanbul-reports/-/istanbul-reports-3.0.4.tgz error (ETIMEDOUT). Will retry in 10 seconds. 2 retries left.
+#22 74.62  WARN  GET https://registry.npmjs.org/@babel/parser/-/parser-7.23.6.tgz error (ETIMEDOUT). Will retry in 10 seconds. 2 retries left.
+#22 74.62  WARN  GET https://registry.npmjs.org/js-yaml/-/js-yaml-3.14.1.tgz error (ETIMEDOUT). Will retry in 10 seconds. 2 retries left.
+#22 74.62  WARN  GET https://registry.npmjs.org/@vitest/snapshot/-/snapshot-0.34.6.tgz error (ECONNRESET). Will retry in 10 seconds. 2 retries left.
+#22 74.63  WARN  GET https://registry.npmjs.org/fork-ts-checker-webpack-plugin/-/fork-ts-checker-webpack-plugin-9.0.2.tgz error (ECONNRESET). Will retry in 10 seconds. 2 retries left.
+#22 74.70  WARN  GET https://registry.npmjs.org/@prisma/engines/-/engines-5.5.2.tgz error (ECONNRESET). Will retry in 10 seconds. 2 retries left.
+#22 74.70  WARN  GET https://registry.npmjs.org/@swc/core-linux-x64-gnu/-/core-linux-x64-gnu-1.3.96.tgz error (ECONNRESET). Will retry in 10 seconds. 2 retries left.
+#22 74.71  WARN  GET https://registry.npmjs.org/@swc/core-linux-x64-musl/-/core-linux-x64-musl-1.3.96.tgz error (ECONNRESET). Will retry in 10 seconds. 2 retries left.
+#22 78.14 Progress: resolved 1366, reused 0, downloaded 1327, added 1334
+#22 79.14 Progress: resolved 1366, reused 0, downloaded 1343, added 1351
+#22 80.14 Progress: resolved 1366, reused 0, downloaded 1344, added 1352
+#22 84.65 Progress: resolved 1366, reused 0, downloaded 1345, added 1352
+#22 85.65 Progress: resolved 1366, reused 0, downloaded 1350, added 1358
+#22 86.65 Progress: resolved 1366, reused 0, downloaded 1354, added 1362
+#22 87.65 Progress: resolved 1366, reused 0, downloaded 1356, added 1364
+#22 ...
+
+#23 [chat dependencies 3/3] RUN pnpm install
+#23 88.45 Progress: resolved 1366, reused 0, downloaded 1356, added 1363
+#23 89.44 Progress: resolved 1366, reused 0, downloaded 1356, added 1364
+#23 91.19 Progress: resolved 1366, reused 0, downloaded 1357, added 1364
+#23 92.19 Progress: resolved 1366, reused 0, downloaded 1357, added 1365
+#23 ...
+
+#22 [web dependencies 3/3] RUN pnpm install
+#22 93.76 Progress: resolved 1366, reused 0, downloaded 1357, added 1364
+#22 94.76 Progress: resolved 1366, reused 0, downloaded 1357, added 1365
+#22 94.96 Progress: resolved 1366, reused 0, downloaded 1358, added 1366, done
+#22 96.69 .../node_modules/@prisma/engines postinstall$ node scripts/postinstall.js
+#22 96.71 .../node_modules/@prisma/engines postinstall$ node scripts/postinstall.js
+#22 96.72 .../bcrypt@5.1.1/node_modules/bcrypt install$ node-pre-gyp install --fallback-to-build
+#22 96.73 .../node_modules/@sentry/profiling-node install$ node scripts/check-build.mjs
+#22 96.81 .../node_modules/better-sqlite3 install$ prebuild-install || node-gyp rebuild --release
+#22 96.96 .../bcrypt@5.1.1/node_modules/bcrypt install: node-pre-gyp info it worked if it ends with ok
+#22 96.97 .../bcrypt@5.1.1/node_modules/bcrypt install: node-pre-gyp info using node-pre-gyp@1.0.11
+#22 96.97 .../bcrypt@5.1.1/node_modules/bcrypt install: node-pre-gyp info using node@18.19.0 | linux | x64
+#22 97.16 .../bcrypt@5.1.1/node_modules/bcrypt install: node-pre-gyp info check checked for "/app/node_modules/.pnpm/bcrypt@5.1.1/node_modules/bcrypt/lib/binding/napi-v3/bcrypt_lib.node" (not found)
+#22 97.17 .../bcrypt@5.1.1/node_modules/bcrypt install: node-pre-gyp http GET https://github.com/kelektiv/node.bcrypt.js/releases/download/v5.1.1/bcrypt_lib-v5.1.1-napi-v3-linux-x64-musl.tar.gz
+#22 97.60 .../node_modules/@sentry/profiling-node install: @sentry/profiling-node: Precompiled binary found, attempting to load /app/node_modules/.pnpm/@sentry+profiling-node@1.3.5_@sentry+node@7.93.0/node_modules/@sentry/profiling-node/lib/sentry_cpu_profiler-linux-x64-musl-108.node
+#22 97.67 .../node_modules/@sentry/profiling-node install: @sentry/profiling-node: Precompiled binary found, skipping build from source.
+#22 97.70 .../node_modules/@sentry/profiling-node install: Done
+#22 97.78 .../sharp@0.32.6/node_modules/sharp install$ (node install/libvips && node install/dll-copy && prebuild-install) || (node install/can-compile && node-gyp rebuild && node install/dll-copy)
+#22 97.96 .../sharp@0.32.6/node_modules/sharp install: sharp: Downloading https://github.com/lovell/sharp-libvips/releases/download/v8.14.5/libvips-8.14.5-linuxmusl-x64.tar.br
+#22 98.08 .../bcrypt@5.1.1/node_modules/bcrypt install: node-pre-gyp info install unpacking napi-v3/bcrypt_lib.node
+#22 98.13 .../bcrypt@5.1.1/node_modules/bcrypt install: node-pre-gyp info extracted file count: 1 
+#22 98.13 .../bcrypt@5.1.1/node_modules/bcrypt install: [bcrypt] Success: "/app/node_modules/.pnpm/bcrypt@5.1.1/node_modules/bcrypt/lib/binding/napi-v3/bcrypt_lib.node" is installed via remote
+#22 98.13 .../bcrypt@5.1.1/node_modules/bcrypt install: node-pre-gyp info ok 
+#22 98.16 .../bcrypt@5.1.1/node_modules/bcrypt install: Done
+#22 98.21 .../node_modules/@nestjs/core postinstall$ opencollective || exit 0
+#22 99.88 .../node_modules/@nestjs/core postinstall:                            Thanks for installing nest 
+#22 99.88 .../node_modules/@nestjs/core postinstall:                  Please consider donating to our open collective
+#22 99.88 .../node_modules/@nestjs/core postinstall:                         to help us maintain this package.
+#22 99.88 .../node_modules/@nestjs/core postinstall:                                          
+#22 99.88 .../node_modules/@nestjs/core postinstall:                             Number of contributors: 0
+#22 99.88 .../node_modules/@nestjs/core postinstall:                               Number of backers: 982
+#22 99.97 .../node_modules/@nestjs/core postinstall:                              Annual budget: $131,639
+#22 99.97 .../node_modules/@nestjs/core postinstall:                              Current balance: $10,553
+#22 99.97 .../node_modules/@nestjs/core postinstall:                                          
+#22 99.97 .../node_modules/@nestjs/core postinstall:              Become a partner: https://opencollective.com/nest/donate
+#22 99.97 .../node_modules/@nestjs/core postinstall:                                          
+#22 100.0 .../node_modules/@nestjs/core postinstall: Done
+#22 ...
+
+#23 [chat dependencies 3/3] RUN pnpm install
+#23 95.20 Progress: resolved 1366, reused 0, downloaded 1358, added 1365
+#23 95.21 Progress: resolved 1366, reused 0, downloaded 1358, added 1366, done
+#23 96.88 .../node_modules/@prisma/engines postinstall$ node scripts/postinstall.js
+#23 96.89 .../node_modules/@prisma/engines postinstall$ node scripts/postinstall.js
+#23 96.92 .../bcrypt@5.1.1/node_modules/bcrypt install$ node-pre-gyp install --fallback-to-build
+#23 96.94 .../node_modules/@sentry/profiling-node install$ node scripts/check-build.mjs
+#23 96.99 .../node_modules/better-sqlite3 install$ prebuild-install || node-gyp rebuild --release
+#23 97.13 .../bcrypt@5.1.1/node_modules/bcrypt install: node-pre-gyp info it worked if it ends with ok
+#23 97.15 .../bcrypt@5.1.1/node_modules/bcrypt install: node-pre-gyp info using node-pre-gyp@1.0.11
+#23 97.15 .../bcrypt@5.1.1/node_modules/bcrypt install: node-pre-gyp info using node@18.19.0 | linux | x64
+#23 97.33 .../bcrypt@5.1.1/node_modules/bcrypt install: node-pre-gyp info check checked for "/app/node_modules/.pnpm/bcrypt@5.1.1/node_modules/bcrypt/lib/binding/napi-v3/bcrypt_lib.node" (not found)
+#23 97.33 .../bcrypt@5.1.1/node_modules/bcrypt install: node-pre-gyp http GET https://github.com/kelektiv/node.bcrypt.js/releases/download/v5.1.1/bcrypt_lib-v5.1.1-napi-v3-linux-x64-musl.tar.gz
+#23 97.83 .../node_modules/@sentry/profiling-node install: @sentry/profiling-node: Precompiled binary found, attempting to load /app/node_modules/.pnpm/@sentry+profiling-node@1.3.5_@sentry+node@7.93.0/node_modules/@sentry/profiling-node/lib/sentry_cpu_profiler-linux-x64-musl-108.node
+#23 97.86 .../node_modules/@sentry/profiling-node install: @sentry/profiling-node: Precompiled binary found, skipping build from source.
+#23 97.89 .../node_modules/@sentry/profiling-node install: Done
+#23 97.96 .../sharp@0.32.6/node_modules/sharp install$ (node install/libvips && node install/dll-copy && prebuild-install) || (node install/can-compile && node-gyp rebuild && node install/dll-copy)
+#23 98.14 .../sharp@0.32.6/node_modules/sharp install: sharp: Downloading https://github.com/lovell/sharp-libvips/releases/download/v8.14.5/libvips-8.14.5-linuxmusl-x64.tar.br
+#23 98.28 .../bcrypt@5.1.1/node_modules/bcrypt install: node-pre-gyp info install unpacking napi-v3/bcrypt_lib.node
+#23 98.36 .../bcrypt@5.1.1/node_modules/bcrypt install: node-pre-gyp info extracted file count: 1 
+#23 98.36 .../bcrypt@5.1.1/node_modules/bcrypt install: node-pre-gyp info ok 
+#23 98.36 .../bcrypt@5.1.1/node_modules/bcrypt install: [bcrypt] Success: "/app/node_modules/.pnpm/bcrypt@5.1.1/node_modules/bcrypt/lib/binding/napi-v3/bcrypt_lib.node" is installed via remote
+#23 98.38 .../bcrypt@5.1.1/node_modules/bcrypt install: Done
+#23 98.41 .../node_modules/@nestjs/core postinstall$ opencollective || exit 0
+#23 100.7 .../node_modules/@nestjs/core postinstall:                            Thanks for installing nest 
+#23 100.7 .../node_modules/@nestjs/core postinstall:                  Please consider donating to our open collective
+#23 100.7 .../node_modules/@nestjs/core postinstall:                         to help us maintain this package.
+#23 100.7 .../node_modules/@nestjs/core postinstall:                                          
+#23 100.7 .../node_modules/@nestjs/core postinstall:                             Number of contributors: 0
+#23 100.7 .../node_modules/@nestjs/core postinstall:                               Number of backers: 982
+#23 100.7 .../node_modules/@nestjs/core postinstall:                              Annual budget: $131,639
+#23 100.7 .../node_modules/@nestjs/core postinstall:                              Current balance: $10,553
+#23 100.7 .../node_modules/@nestjs/core postinstall:                                          
+#23 100.7 .../node_modules/@nestjs/core postinstall:              Become a partner: https://opencollective.com/nest/donate
+#23 100.7 .../node_modules/@nestjs/core postinstall:                                          
+#23 100.8 .../node_modules/@nestjs/core postinstall: Done
+#23 ...
+
+#21 [api dependencies 3/3] RUN pnpm install
+#21 93.16 Progress: resolved 1366, reused 0, downloaded 1357, added 1364
+#21 94.16 Progress: resolved 1366, reused 0, downloaded 1357, added 1365
+#21 95.96 Progress: resolved 1366, reused 0, downloaded 1358, added 1365
+#21 95.97 Progress: resolved 1366, reused 0, downloaded 1358, added 1366, done
+#21 97.44 .../node_modules/@prisma/engines postinstall$ node scripts/postinstall.js
+#21 97.45 .../node_modules/@prisma/engines postinstall$ node scripts/postinstall.js
+#21 97.46 .../bcrypt@5.1.1/node_modules/bcrypt install$ node-pre-gyp install --fallback-to-build
+#21 97.46 .../node_modules/@sentry/profiling-node install$ node scripts/check-build.mjs
+#21 97.47 .../node_modules/better-sqlite3 install$ prebuild-install || node-gyp rebuild --release
+#21 97.68 .../node_modules/@sentry/profiling-node install: @sentry/profiling-node: Precompiled binary found, attempting to load /app/node_modules/.pnpm/@sentry+profiling-node@1.3.5_@sentry+node@7.93.0/node_modules/@sentry/profiling-node/lib/sentry_cpu_profiler-linux-x64-musl-108.node
+#21 97.70 .../node_modules/@sentry/profiling-node install: @sentry/profiling-node: Precompiled binary found, skipping build from source.
+#21 97.71 .../node_modules/@sentry/profiling-node install: Done
+#21 97.75 .../bcrypt@5.1.1/node_modules/bcrypt install: node-pre-gyp info it worked if it ends with ok
+#21 97.75 .../bcrypt@5.1.1/node_modules/bcrypt install: node-pre-gyp info using node-pre-gyp@1.0.11
+#21 97.75 .../bcrypt@5.1.1/node_modules/bcrypt install: node-pre-gyp info using node@18.19.0 | linux | x64
+#21 97.77 .../sharp@0.32.6/node_modules/sharp install$ (node install/libvips && node install/dll-copy && prebuild-install) || (node install/can-compile && node-gyp rebuild && node install/dll-copy)
+#21 97.93 .../bcrypt@5.1.1/node_modules/bcrypt install: node-pre-gyp info check checked for "/app/node_modules/.pnpm/bcrypt@5.1.1/node_modules/bcrypt/lib/binding/napi-v3/bcrypt_lib.node" (not found)
+#21 97.93 .../bcrypt@5.1.1/node_modules/bcrypt install: node-pre-gyp http GET https://github.com/kelektiv/node.bcrypt.js/releases/download/v5.1.1/bcrypt_lib-v5.1.1-napi-v3-linux-x64-musl.tar.gz
+#21 97.96 .../sharp@0.32.6/node_modules/sharp install: sharp: Downloading https://github.com/lovell/sharp-libvips/releases/download/v8.14.5/libvips-8.14.5-linuxmusl-x64.tar.br
+#21 98.42 .../bcrypt@5.1.1/node_modules/bcrypt install: node-pre-gyp info install unpacking napi-v3/bcrypt_lib.node
+#21 98.88 .../bcrypt@5.1.1/node_modules/bcrypt install: node-pre-gyp info extracted file count: 1 
+#21 98.88 .../bcrypt@5.1.1/node_modules/bcrypt install: [bcrypt] Success: "/app/node_modules/.pnpm/bcrypt@5.1.1/node_modules/bcrypt/lib/binding/napi-v3/bcrypt_lib.node" is installed via remote
+#21 98.88 .../bcrypt@5.1.1/node_modules/bcrypt install: node-pre-gyp info ok 
+#21 98.90 .../bcrypt@5.1.1/node_modules/bcrypt install: Done
+#21 98.97 .../node_modules/@nestjs/core postinstall$ opencollective || exit 0
+#21 99.87 .../node_modules/@nestjs/core postinstall:                            Thanks for installing nest 
+#21 99.87 .../node_modules/@nestjs/core postinstall:                  Please consider donating to our open collective
+#21 99.87 .../node_modules/@nestjs/core postinstall:                         to help us maintain this package.
+#21 99.87 .../node_modules/@nestjs/core postinstall:                                          
+#21 99.87 .../node_modules/@nestjs/core postinstall:                             Number of contributors: 0
+#21 99.87 .../node_modules/@nestjs/core postinstall:                               Number of backers: 982
+#21 99.94 .../node_modules/@nestjs/core postinstall:                              Annual budget: $131,639
+#21 99.95 .../node_modules/@nestjs/core postinstall:                              Current balance: $10,553
+#21 99.95 .../node_modules/@nestjs/core postinstall:                                          
+#21 99.95 .../node_modules/@nestjs/core postinstall:              Become a partner: https://opencollective.com/nest/donate
+#21 99.95 .../node_modules/@nestjs/core postinstall:                                          
+#21 99.97 .../node_modules/@nestjs/core postinstall: Done
+#21 102.7 .../sharp@0.32.6/node_modules/sharp install: sharp: Integrity check passed for linuxmusl-x64
+#21 104.1 .../node_modules/better-sqlite3 install: Done
+#21 ...
+
+#23 [chat dependencies 3/3] RUN pnpm install
+#23 104.3 .../node_modules/better-sqlite3 install: Done
+#23 ...
+
+#21 [api dependencies 3/3] RUN pnpm install
+#21 104.3 .../sharp@0.32.6/node_modules/sharp install: Done
+#21 ...
+
+#23 [chat dependencies 3/3] RUN pnpm install
+#23 113.1 .../node_modules/@prisma/engines postinstall: Done
+#23 113.3 .../node_modules/@prisma/engines postinstall: Done
+#23 113.6 .../sharp@0.32.6/node_modules/sharp install: sharp: Integrity check passed for linuxmusl-x64
+#23 ...
+
+#22 [web dependencies 3/3] RUN pnpm install
+#22 104.1 .../node_modules/better-sqlite3 install: Done
+#22 112.9 .../node_modules/@prisma/engines postinstall: Done
+#22 113.1 .../node_modules/@prisma/engines postinstall: Done
+#22 113.4 .../sharp@0.32.6/node_modules/sharp install: sharp: Integrity check passed for linuxmusl-x64
+#22 ...
+
+#21 [api dependencies 3/3] RUN pnpm install
+#21 113.4 .../node_modules/@prisma/engines postinstall: Done
+#21 ...
+
+#22 [web dependencies 3/3] RUN pnpm install
+#22 115.2 .../sharp@0.32.6/node_modules/sharp install: Done
+#22 117.1 .../node_modules/@swc/core postinstall$ node postinstall.js
+#22 117.7 .../esbuild@0.18.20/node_modules/esbuild postinstall$ node install.js
+#22 117.8 .../prisma@5.5.2/node_modules/prisma preinstall$ node scripts/preinstall-entry.js
+#22 122.2 .../prisma@5.5.2/node_modules/prisma preinstall: Done
+#22 122.2 .../esbuild@0.18.20/node_modules/esbuild postinstall: Done
+#22 122.2 .../node_modules/@swc/core postinstall: Done
+#22 123.7 .../node_modules/@prisma/client postinstall$ node scripts/postinstall.js
+#22 124.6 .../node_modules/@prisma/client postinstall: prisma:warn We could not find your Prisma schema at `prisma/schema.prisma`.
+#22 124.6 .../node_modules/@prisma/client postinstall: If you have a Prisma schema file in a custom path, you will need to run
+#22 124.6 .../node_modules/@prisma/client postinstall: `prisma generate --schema=./path/to/your/schema.prisma` to generate Prisma Client.
+#22 124.6 .../node_modules/@prisma/client postinstall: If you do not have a Prisma schema file yet, you can ignore this message.
+#22 124.7 .../node_modules/@prisma/client postinstall: Done
+#22 ...
+
+#23 [chat dependencies 3/3] RUN pnpm install
+#23 115.4 .../sharp@0.32.6/node_modules/sharp install: Done
+#23 125.4 .../node_modules/@swc/core postinstall$ node postinstall.js
+#23 125.4 .../esbuild@0.18.20/node_modules/esbuild postinstall$ node install.js
+#23 125.4 .../prisma@5.5.2/node_modules/prisma preinstall$ node scripts/preinstall-entry.js
+#23 125.4 .../node_modules/@swc/core postinstall: Done
+#23 125.4 .../esbuild@0.18.20/node_modules/esbuild postinstall: Done
+#23 125.5 .../prisma@5.5.2/node_modules/prisma preinstall: Done
+#23 125.6 .../node_modules/@prisma/client postinstall$ node scripts/postinstall.js
+#23 126.5 .../node_modules/@prisma/client postinstall: prisma:warn We could not find your Prisma schema at `prisma/schema.prisma`.
+#23 126.5 .../node_modules/@prisma/client postinstall: If you have a Prisma schema file in a custom path, you will need to run
+#23 126.5 .../node_modules/@prisma/client postinstall: `prisma generate --schema=./path/to/your/schema.prisma` to generate Prisma Client.
+#23 126.5 .../node_modules/@prisma/client postinstall: If you do not have a Prisma schema file yet, you can ignore this message.
+#23 126.5 .../node_modules/@prisma/client postinstall: Done
+#23 ...
+
+#21 [api dependencies 3/3] RUN pnpm install
+#21 135.8 .../node_modules/@prisma/engines postinstall: Done
+#21 146.3 .../node_modules/@swc/core postinstall$ node postinstall.js
+#21 146.3 .../esbuild@0.18.20/node_modules/esbuild postinstall$ node install.js
+#21 146.4 .../prisma@5.5.2/node_modules/prisma preinstall$ node scripts/preinstall-entry.js
+#21 146.4 .../node_modules/@swc/core postinstall: Done
+#21 146.4 .../prisma@5.5.2/node_modules/prisma preinstall: Done
+#21 146.4 .../esbuild@0.18.20/node_modules/esbuild postinstall: Done
+#21 146.6 .../node_modules/@prisma/client postinstall$ node scripts/postinstall.js
+#21 147.5 .../node_modules/@prisma/client postinstall: prisma:warn We could not find your Prisma schema at `prisma/schema.prisma`.
+#21 147.5 .../node_modules/@prisma/client postinstall: If you have a Prisma schema file in a custom path, you will need to run
+#21 147.5 .../node_modules/@prisma/client postinstall: `prisma generate --schema=./path/to/your/schema.prisma` to generate Prisma Client.
+#21 147.5 .../node_modules/@prisma/client postinstall: If you do not have a Prisma schema file yet, you can ignore this message.
+#21 147.6 .../node_modules/@prisma/client postinstall: Done
+#21 195.1 
+#21 195.1 devDependencies:
+#21 195.1 + eslint 8.53.0
+#21 195.1 + eslint-config-prettier 9.0.0
+#21 195.1 + eslint-plugin-prettier 5.0.1
+#21 195.1 + prettier 3.0.3
+#21 195.1 + typescript 5.3.3
+#21 195.1 
+#21 195.4 Done in 3m 14.6s
+#21 DONE 201.4s
+
+#24 [api build 1/1] RUN pnpm -r build
+#24 ...
+
+#23 [chat dependencies 3/3] RUN pnpm install
+#23 201.6 
+#23 201.6 devDependencies:
+#23 201.6 + eslint 8.53.0
+#23 201.6 + eslint-config-prettier 9.0.0
+#23 201.6 + eslint-plugin-prettier 5.0.1
+#23 201.6 + prettier 3.0.3
+#23 201.6 + typescript 5.3.3
+#23 201.6 
+#23 202.0 Done in 3m 21.2s
+#23 DONE 202.4s
+
+#22 [web dependencies 3/3] RUN pnpm install
+#22 201.5 
+#22 201.5 devDependencies:
+#22 201.5 + eslint 8.53.0
+#22 201.5 + eslint-config-prettier 9.0.0
+#22 201.5 + eslint-plugin-prettier 5.0.1
+#22 201.5 + prettier 3.0.3
+#22 201.5 + typescript 5.3.3
+#22 201.5 
+#22 201.9 Done in 3m 21.1s
+#22 DONE 202.2s
+
+#25 [web build 1/1] RUN pnpm -r build
+#25 2.449 Scope: 7 of 8 workspace projects
+#25 2.453 packages/date-handler build$ pnpm run clean:build && pnpm run compile
+#25 2.462 packages/schema build$ pnpm run clean:build && pnpm run compile
+#25 2.462 packages/types build$ pnpm run clean:build && pnpm run compile
+#25 3.527 packages/date-handler build: > @skillcoop/date-handler@1.0.0 clean:build /app/packages/date-handler
+#25 3.530 packages/date-handler build: > rimraf ./dist
+#25 3.674 packages/types build: > @skillcoop/types@1.0.0 clean:build /app/packages/types
+#25 3.675 packages/types build: > rimraf ./dist
+#25 3.684 packages/schema build: > @skillcoop/schema@1.0.0 clean:build /app/packages/schema
+#25 3.687 packages/schema build: > rimraf ./dist

@@ -12,7 +12,10 @@ import { DeleteConversationParamsDto } from './dto/delete-conversation.dto';
 @Controller('chat-serivce')
 export class AppController {
   constructor(private readonly conversationService: ConversationService) { }
-
+  @Get()
+  async healthCheck() {
+    return { message: 'Chat server is ok' };
+  }
   @Post('conversation/oneToOne')
   async createConvOne(@Body() body: CreateOneToOneConversationDto) {
     const conversationId = await this.conversationService.createOneToOne(body);
@@ -77,7 +80,6 @@ export class AppController {
   @Delete('conversation/:conversation_id/:user_id')
   @HttpCode(204)
   async deleteConversation(@Param() params: DeleteConversationParamsDto) {
-    console.log(params, 'delete conversation');
     await this.conversationService.deleteGroup(params);
   }
 }

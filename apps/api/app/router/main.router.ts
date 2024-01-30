@@ -64,11 +64,10 @@ router.use('/auth', authRouter);
 
 // Health check
 router.route('/').get((_req, res) => {
-  res.status(200).json({ message: 'Server is ok' });
+  res.status(200).json({ message: 'API server is ok' });
 });
 
 router.use((_req, _res, next) => {
-  logger.info('404');
   next(new NotFoundError("Request couldn't match any routes"));
 });
 router.use(Sentry.Handlers.errorHandler());

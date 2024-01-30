@@ -10,11 +10,11 @@ const levels = {
   debug: 4,
 };
 
-const level = () => {
-  const env = process.env.NODE_ENV || 'development';
-  const isDevelopment = env === 'development';
-  return isDevelopment ? 'debug' : 'warn';
-};
+// const level = () => {
+//   const env = process.env.NODE_ENV || 'development';
+//   const isDevelopment = env === 'development';
+//   return isDevelopment ? 'info' : 'debug';
+// };
 
 const colors = {
   error: 'red',
@@ -64,16 +64,24 @@ const transports = [
 ];
 
 const logger = createLogger({
-  level: level(),
+  level: 'http',
   levels,
   format,
   transports,
 });
+console.log(process.env.NODE_ENV);
 
 if (process.env.NODE_ENV !== 'production') {
   logger.add(
     new winston.transports.Console({
       level: 'debug',
+      format,
+    }),
+  );
+} else {
+  logger.add(
+    new winston.transports.Console({
+      level: 'http',
       format,
     }),
   );

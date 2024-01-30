@@ -4,6 +4,7 @@ import ConversationCardsContainer from '../shared/home-page/conversations-card-c
 import useFiltersConversations from '../../../hooks/useFiltersConversations';
 import { useApp } from '../../../stores/app.store';
 import HeaderHomePageChat from '../shared/home-page/header';
+import { Outlet } from 'react-router-dom';
 
 function MobileChatHomePage() {
   const { userId } = useApp();
@@ -26,6 +27,7 @@ function MobileChatHomePage() {
         updateLastSeenIndicator={updateLastSeenIndicator}
         userId={userId}
       />
+      <Outlet />
     </>
   );
 }

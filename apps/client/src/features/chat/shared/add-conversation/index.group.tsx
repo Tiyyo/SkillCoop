@@ -2,7 +2,7 @@ import { ArrowRight, X } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { useNewConversationGroup } from '../../../../stores/new-group.store';
 import { useCreateGroupConversation } from '../../../../hooks/useConversations';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Friend, FriendStoreChat } from '@skillcoop/types';
 import InputCheckbox from './input-checkbox';
 /*eslint-disable*/
@@ -21,6 +21,11 @@ function NewConversationGroup({
   searchInputValue,
 }: NewConversationGroupProps) {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const isDesktopChat = pathname.split('/').includes('desktop');
+  const conversationLink = isDesktopChat
+    ? '/desktop/chat/conversation/'
+    : '/chat/';
   const {
     friends: friendsToAdd,
     removeFriends,
@@ -31,7 +36,7 @@ function NewConversationGroup({
     onSuccess: (response) => {
       if (response.conversationId) {
         cleanFriends();
-        navigate(`/chat/conversation/${response.conversationId}`);
+        navigate(`${conversationLink}${response.conversationId}`);
       }
     },
   });

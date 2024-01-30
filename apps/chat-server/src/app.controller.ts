@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Patch, HttpCode, HttpException, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Patch, HttpCode, Delete } from '@nestjs/common';
 import { ConversationService } from './message-storage/conversation.service';
 import { CreateOneToOneConversationDto } from './dto/create-one-conversation.dto';
 import { CreateGroupConversationDto } from './dto/create-group-conversation.dto';
@@ -9,7 +9,7 @@ import { ConversationIdParamsDto } from './dto/conversationId.params.dto';
 import { UpdateUserOnConversationDto } from './dto/update-user-conversation.dto';
 import { DeleteConversationParamsDto } from './dto/delete-conversation.dto';
 
-@Controller('chat-serivce')
+@Controller('chat-service')
 export class AppController {
   constructor(private readonly conversationService: ConversationService) { }
   @Get()

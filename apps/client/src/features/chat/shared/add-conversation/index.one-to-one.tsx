@@ -3,7 +3,7 @@ import { useFindOrCreateOneToOneConversation } from '../../../../hooks/useConver
 /*eslint-enable*/
 import { UserPlus2Icon } from 'lucide-react';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import ImageWithFallback from '../../../../components/image';
 import { Friend } from '@skillcoop/types';
 
@@ -23,11 +23,16 @@ function NewConversationOneToOne({
   searchInputValue,
 }: NewConversationOneToOneProps) {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const isDesktopChat = pathname.split('/').includes('desktop');
+  const conversationLink = isDesktopChat
+    ? '/desktop/chat/conversation/'
+    : '/chat/';
   const { mutate: findOrCreateConversation } =
     useFindOrCreateOneToOneConversation({
       onSuccess: (response) => {
         if (response.conversation_id) {
-          navigate(`/chat/conversation/${response.conversation_id}`);
+          navigate(`${conversationLink}${response.conversation_id}`);
         }
       },
     });

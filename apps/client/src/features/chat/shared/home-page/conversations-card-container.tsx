@@ -31,7 +31,7 @@ function ConversationCardsContainer({
   userId,
 }: ConversationCardsContainerProps) {
   const isConversationsExits = conversations && conversations.length > 0;
-  console.log('isConversationsExits', isConversationsExits);
+
   return (
     <Container className="flex-grow overflow-hidden lg:pb-24">
       <SearchInput onChange={getSearchInputValue} />

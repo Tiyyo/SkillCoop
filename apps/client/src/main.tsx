@@ -244,15 +244,9 @@ const router = createBrowserRouter([
           { path: '*', element: <Page404 /> },
         ],
       },
-      {
-        path: '/chat',
-        element: <MobileChatHomePage />,
-        children: [
-          { index: true, element: <MobileConversationPage /> },
-          { path: `conversation/:id`, element: <Conversation /> },
-          { path: 'new-conversation/:userId', element: <NewConversation /> },
-        ],
-      },
+      { path: '/chat', element: <MobileChatHomePage /> },
+      { path: `/chat/conversation/:id`, element: <MobileConversationPage /> },
+      { path: 'chat/new-conversation/:userId', element: <NewConversation /> },
       {
         path: '/desktop/chat',
         element: <DesktopChatHomePage />,

@@ -8,9 +8,10 @@ import {
   RemoveParticipantGroupConversation,
   UpdateUserOnConversation,
 } from '@skillcoop/types/src';
+import { CHAT_SERVER_URL } from '../utils/server';
 
 export const api = axios.create({
-  baseURL: 'http://localhost:8083',
+  baseURL: CHAT_SERVER_URL,
   withCredentials: true,
 });
 

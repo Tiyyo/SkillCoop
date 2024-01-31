@@ -46,7 +46,7 @@ jobs:
       - name: Lint
         run: pnpm client lint
 
-  typecheck:
+  typecheck-api:
     name: Typecheck API
     runs-on: ubuntu-latest
     steps:
@@ -102,3 +102,37 @@ jobs:
 
       - name: vitest
         run: pnpm -r test
+
+  build:
+    runs-on: ubuntu-latest
+    if: ${{ github.ref == 'refs/heads/main' }}
+    needs:
+      [lint-api, vitest, typecheck-client, typecheck-api, lint-client, lint-api]
+    steps:
+      - name: SSH Remote Commands
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd /Skillcoop
+            git fetch
+            git reset --hard origin/main
+            git pull origin main
+
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+      - name: Install Dependencies
+        run: |
+          pnpm install
+          pnpm api build --if-present
+          pnpm chat build --if-present
+          pnpm api db:migrate:deploy
+          pm2 restart api
+          pm2 restart chat

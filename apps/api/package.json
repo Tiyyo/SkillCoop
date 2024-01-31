@@ -8,7 +8,7 @@
     "test": "vitest",
     "clean:build": "rimraf ./dist",
     "build": "pnpm run clean:build && pnpm run compile",
-    "compile": "tsc -p tsconfig.build.json && shx cp .env dist/",
+    "compile": "tsc -p tsconfig.build.json",
     "typecheck": "tsc --noEmit",
     "ts-coverage": "typescript-coverage-report",
     "lint": "eslint . index.ts --fix",

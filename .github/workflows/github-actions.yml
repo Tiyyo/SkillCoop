@@ -146,8 +146,5 @@ jobs:
       - name: Install pm2
         run: npm install pm2 -g
 
-      - name: Restart API with PM2
-        run: pm2 restart api
-
-      - name: Restart Chat with PM2
-        run: pm2 restart chat
+      - name: Start apps
+        run: pm2 start skillcoop-pm2.json

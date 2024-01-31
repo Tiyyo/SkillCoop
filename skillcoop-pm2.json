@@ -1,0 +1,11 @@
+{
+  "apps": [
+    { "name": "api", "cwd": "./apps", "script": "pnpm", "args": "api start" },
+    {
+      "name": "chat-server",
+      "cwd": "./apps",
+      "script": "pnpm",
+      "args": "chat start"
+    }
+  ]
+}

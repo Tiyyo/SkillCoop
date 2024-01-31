@@ -1,7 +1,6 @@
 import { io, Socket } from 'socket.io-client';
+import { CHAT_SERVER_URL } from '../../utils/server';
 
-const URL =
-  process.env.NODE_ENV === 'production' ? undefined : 'http://localhost:8083';
 const options = {
   reconnection: true,
   reconnectionAttempts: Infinity,
@@ -10,4 +9,4 @@ const options = {
   randomizationFactor: 0.5,
 };
 
-export const socket: Socket = io(URL as string, options);
+export const socket: Socket = io(CHAT_SERVER_URL, options);

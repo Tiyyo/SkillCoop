@@ -117,6 +117,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.PORT }}
           script: |
+            ls -la
             cd /Skillcoop
             git fetch
             git reset --hard origin/main

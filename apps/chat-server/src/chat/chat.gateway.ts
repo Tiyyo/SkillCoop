@@ -20,7 +20,9 @@ const clientUrl = process.env.NODE_ENV === "production" ? process.env.CLIENT_URL
 
 @WebSocketGateway({
   cors: {
-    origin: clientUrl,
+    origin: [clientUrl, 'https://skillcoop.fr'],
+    allowedHeaders: ['content-type', "Authorization"],
+    credentials: true,
   },
 })
 export class ChatGateway

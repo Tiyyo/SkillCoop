@@ -25,7 +25,7 @@ async function bootstrap() {
   app.use(new HttpLogger().use)
   app.enableCors({
     origin: [clientUrl, 'https://skillcoop.fr'],
-    allowedHeaders: ['content-type'],
+    allowedHeaders: ['content-type', "Authorization"],
     credentials: true,
   });
   app.connectMicroservice({

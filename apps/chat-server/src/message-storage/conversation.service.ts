@@ -110,7 +110,7 @@ ORDER BY conversation.last_update DESC
           ? JSON.parse(conversation.last_message)
           : null,
       }));
-      console.log('get Conversationlist ', conversations)
+
       return conversations as Conversation[];
     } catch (error) {
       this.logger.error('Could not get conversation list for user :' + user_id + ' ' + error.message)

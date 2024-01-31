@@ -7,6 +7,9 @@ import { HttpLogger } from './middleware/access-http.middleware';
 import { ValidationPipe } from '@nestjs/common';
 const clientUrl = process.env.NODE_ENV === "production" ? process.env.CLIENT_URL : 'http://localhost:5004';
 Logger.log(`Client url: ${clientUrl}`, 'Main');
+console.log(`Client url: ${clientUrl}`);
+console.log(process.env.NODE_ENV);
+console.log(process.env.CLIENT_URL);
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {

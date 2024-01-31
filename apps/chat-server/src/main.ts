@@ -2,9 +2,11 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { WinstonModule } from 'nest-winston';
 import { winstonLogger } from './helpers/winston.logger';
+import { Logger } from '@nestjs/common';
 import { HttpLogger } from './middleware/access-http.middleware';
 import { ValidationPipe } from '@nestjs/common';
 const clientUrl = process.env.NODE_ENV === "production" ? process.env.CLIENT_URL : 'http://localhost:5004';
+Logger.log(`Client url: ${clientUrl}`, 'Main');
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {

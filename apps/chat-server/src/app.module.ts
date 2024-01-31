@@ -9,7 +9,6 @@ import { ConversationService } from './message-storage/conversation.service';
 import { HistoricService } from './message-storage/historic.service';
 import { MessageService } from './message-storage/message.service';
 import { GroupMessageByService } from './utils/message-groupby.service';
-import { ConfigModule } from '@nestjs/config';
 
 
 @Module({
@@ -18,8 +17,6 @@ import { ConfigModule } from '@nestjs/config';
     DatabaseModule,
     MessageQueueModule,
     MessageStorageModule,
-    ConfigModule.forRoot({
-    
   ],
   controllers: [AppController],
   providers: [

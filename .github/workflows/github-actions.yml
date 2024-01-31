@@ -135,10 +135,10 @@ jobs:
         run: pnpm install
 
       - name: Build API
-        run: pnpm api build --if-present
+        run: pnpm api build
 
       - name: Build Chat
-        run: pnpm chat build --if-present
+        run: pnpm chat build
 
       - name: Database Migration
         run: pnpm api db:migrate:deploy

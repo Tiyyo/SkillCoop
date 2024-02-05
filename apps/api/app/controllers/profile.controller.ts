@@ -91,6 +91,7 @@ export default {
       req.query.userProfileId,
       req.query.page,
     );
+
     if (typeof username !== 'string')
       throw new UserInputError('Username must be a string');
 
@@ -99,9 +100,10 @@ export default {
       userProfileId,
       page,
     );
-    if (!profiles || profiles.length === 0)
-      throw new NotFoundError('No profile found');
 
+    if (!profiles || profiles.length === 0) {
+      return res.status(200).json(null);
+    }
     return res.status(200).json(profiles);
   },
 };

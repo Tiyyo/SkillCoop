@@ -205,11 +205,12 @@ async function seed() {
       created_at: todayUTCString,
     };
   });
+
   await Friendlist.createMany(queriesPendingFriendRequest);
 
   const confirmedFriend = [7, 8, 9];
 
-  const dataConfirmedRequests = confirmedFriend.map((id) => {
+  const dataConfirmedRequestsAdder = confirmedFriend.map((id) => {
     return {
       adder_id: 2,
       friend_id: id,
@@ -217,7 +218,16 @@ async function seed() {
       created_at: todayUTCString,
     };
   });
-  await Friendlist.createMany(dataConfirmedRequests);
+  const dataConfirmedRequestsAdded = confirmedFriend.map((id) => {
+    return {
+      adder_id: id,
+      friend_id: 2,
+      status_name: 'confirmed',
+      created_at: todayUTCString,
+    };
+  });
+  await Friendlist.createMany(dataConfirmedRequestsAdder);
+  await Friendlist.createMany(dataConfirmedRequestsAdded);
 
   const pendingRequestReceived = [10, 11];
 
@@ -231,14 +241,15 @@ async function seed() {
   });
   await Friendlist.createMany(dataConfirmedRequestsReceived);
 
-  const nbOfUser = userToCreateInfos.length;
+  const nbOfUser = 7;
   const arrToIterateOverUsers = new Array(nbOfUser).fill(1);
-  const dataconfirmedAdmin = arrToIterateOverUsers.reduce(
+
+  const dataConfirmedAdminAdder = arrToIterateOverUsers.reduce(
     (acc, _curr, index) => {
       if (index !== 1) {
         acc.push({
           adder_id: 1,
-          friend_id: index + 1,
+          friend_id: index + 3,
           status_name: 'confirmed',
           created_at: todayUTCString,
         });
@@ -247,7 +258,23 @@ async function seed() {
     },
     [],
   );
-  await Friendlist.createMany(dataconfirmedAdmin);
+  const dataConfirmedAdminAdded = arrToIterateOverUsers.reduce(
+    (acc, _curr, index) => {
+      if (index !== 1) {
+        acc.push({
+          adder_id: index + 3,
+          friend_id: 1,
+          status_name: 'confirmed',
+          created_at: todayUTCString,
+        });
+      }
+      return acc;
+    },
+    [],
+  );
+
+  await Friendlist.createMany(dataConfirmedAdminAdder);
+  await Friendlist.createMany(dataConfirmedAdminAdded);
 
   // // create 5 past events organize by admin
   const NB_EVENTS_TO_CREATE = 5;

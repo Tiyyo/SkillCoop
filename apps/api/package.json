@@ -18,7 +18,7 @@
     "db:migrate:dev": "prisma migrate dev",
     "db:push": "prisma db push",
     "db:seed:prod": "node dist/prisma/seed.js",
-    "db:seed:dev": "ts-node-transpile-only prisma/seed.ts",
+    "db:seed:dev": "tsx prisma/seed.ts",
     "db:reset": "prisma migrate reset",
     "db:studio": "prisma studio"
   },

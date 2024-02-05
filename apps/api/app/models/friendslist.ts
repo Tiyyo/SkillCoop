@@ -146,7 +146,7 @@ export class Friendlist extends Core<typeof tableNames.profile_on_profile> {
     status_name: string;
   }) {
     const todayUTCString = getFormattedUTCTimestamp();
-
+    //TODO: make a transaction
     try {
       await this.client
         .insertInto(this.tableName)

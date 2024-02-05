@@ -28,8 +28,8 @@ function ConversationContainer({
   const navigate = useNavigate();
   return (
     <Container
-      className="flex h-[calc(100vh-5rem)] flex-grow flex-col 
-       justify-between p-0 lg:h-[77vh]"
+      className="flex h-[calc(100dvh-80px)] flex-grow flex-col justify-between 
+        p-0 lg:h-[77vh]"
     >
       {conversation && (
         <header

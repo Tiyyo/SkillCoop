@@ -28,7 +28,7 @@ function InvitationFromCreateEventPage() {
   } = useCreateEvent();
 
   return (
-    <Container className="flex h-full flex-grow flex-col lg:mt-4">
+    <Container className="flex h-full flex-grow flex-col lg:mt-4 lg:rounded-lg">
       <TitleH2
         title={t('inviteYourFriends')}
         legend={t('inviteYourFriendsLegend')}

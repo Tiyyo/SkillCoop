@@ -41,8 +41,8 @@ function FriendCards({
   }
   return (
     <div
-      className="mx-auto my-2 grid max-w-7xl
-     grid-cols-2 content-start gap-2 py-8 sm:grid-cols-3 lg:grid-cols-4"
+      className="my-2 grid max-w-7xl
+     grid-cols-2 content-start  gap-2 py-8 sm:grid-cols-3 lg:grid-cols-4"
     >
       {profileSearchResult
         ?.filter((searchProfile) => {

@@ -12,8 +12,13 @@ function WelcomeMessage({
   return (
     <div className={cn(className)}>
       <p className="font-light">{t('welcomeBack')} !</p>
-      <p className="font-semibold">
+      <p className="flex items-center font-semibold">
         <span>{username}</span>
+        <img
+          src="/images/hi-icon.png"
+          alt="Welcome hand"
+          className="ml-2 inline-block h-5 w-5"
+        />
       </p>
     </div>
   );

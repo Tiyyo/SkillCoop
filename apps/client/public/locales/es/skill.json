@@ -21,5 +21,6 @@
   "moreAccurateAlgo": " en este evento. Esto puede ayudar a hacer el equilibrio de los equipos generados más preciso",
   "attendance": "Asistencia",
   "averageRating": "Calificación promedio",
-  "awards": "Premios"
+  "awards": "Premios",
+  "youCantEvaluateTwice": "No puedes evaluar tu habilidad dos veces"
 }

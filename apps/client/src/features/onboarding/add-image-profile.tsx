@@ -4,8 +4,10 @@ import Container from '../../layouts/container';
 import { cn } from '../../lib/utils';
 import AvatarEdit from '../profile/edit-avatar';
 import { useOnboarding } from '../../stores/onboarding.store';
+import { useTranslation } from 'react-i18next';
 
 function OnBoardinAddImageProfile() {
+  const { t } = useTranslation('system');
   const { profileId } = useParams();
   const { setInputValue, avatar } = useOnboarding();
   const id = Number(profileId);
@@ -42,7 +44,7 @@ function OnBoardinAddImageProfile() {
             border border-primary-700 bg-base-light bg-opacity-75 py-2 
             text-center text-lg text-dark shadow-md"
           >
-            Back
+            {t('back')}
           </button>
           <Link
             to={`/onboarding/${id}/evaluation`}
@@ -51,7 +53,7 @@ function OnBoardinAddImageProfile() {
             py-2 text-center text-lg text-white shadow-md`,
             )}
           >
-            Next
+            {t('next')}
           </Link>
         </div>
       </Container>

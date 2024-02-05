@@ -26,5 +26,6 @@
   "eventPlurial": "événement(s)",
   "attendance": "Présence",
   "averageRating": "Note moyenne",
-  "awards": "Récompenses"
+  "awards": "Récompenses",
+  "youCantEvaluateTwice": "Vous ne pouvez pas évaluer votre compétence deux fois"
 }

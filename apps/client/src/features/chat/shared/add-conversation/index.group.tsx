@@ -7,6 +7,7 @@ import { Friend, FriendStoreChat } from '@skillcoop/types';
 import InputCheckbox from './input-checkbox';
 /*eslint-disable*/
 import ImageWithUsernamefallback from '../../../../components/image-fallback-username';
+import { useTranslation } from 'react-i18next';
 /*eslint-enable*/
 
 type NewConversationGroupProps = {
@@ -20,6 +21,7 @@ function NewConversationGroup({
   userId,
   searchInputValue,
 }: NewConversationGroupProps) {
+  const { t } = useTranslation('chat');
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const isDesktopChat = pathname.split('/').includes('desktop');
@@ -97,7 +99,7 @@ function NewConversationGroup({
       <div className="flex flex-col pb-20 pt-6">
         <input
           type="text"
-          placeholder="facultative group name"
+          placeholder={t('optionalGroupName')}
           name="title"
           className="mx-auto w-2/3 max-w-lg rounded-xl bg-grey-off px-3 
         py-1.5 text-sm placeholder:px-3 placeholder:text-xs"

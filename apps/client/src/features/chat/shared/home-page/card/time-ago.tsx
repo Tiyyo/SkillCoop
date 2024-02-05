@@ -20,12 +20,12 @@ function ConversationCardTimeAgo({
     minute: 'numeric',
     hour12: false,
   });
-  const dateAgo = new Date(lastMessageDate).toLocaleString('us-US', {
+  const dateAgo = new Date(lastMessageDate).toLocaleString(`${currentLng}-US`, {
     month: 'short',
     day: 'numeric',
     year: 'numeric',
   });
-  const dayAgo = new Date(lastMessageDate).toLocaleString('us-US', {
+  const dayAgo = new Date(lastMessageDate).toLocaleString(`${currentLng}-US`, {
     weekday: 'short',
   });
 

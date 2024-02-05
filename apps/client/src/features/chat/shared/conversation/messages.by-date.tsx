@@ -14,7 +14,7 @@ function GroupDateMessages({
   currentUserId,
 }: GroupDateMessagesProps) {
   const currentLng = getCurrentLngInLocalStorage();
-  const messagesDate = new Date(date).toLocaleString(`us-${currentLng}`, {
+  const messagesDate = new Date(date).toLocaleString(`${currentLng}-US`, {
     day: 'numeric',
     month: 'long',
     year: 'numeric',

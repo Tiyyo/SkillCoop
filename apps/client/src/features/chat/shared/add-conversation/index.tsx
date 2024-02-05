@@ -7,8 +7,10 @@ import SearchInput from '../../../../components/search-input';
 import { useState } from 'react';
 import NewConversationOneToOne from './index.one-to-one';
 import NewConversationGroup from './index.group';
+import { useTranslation } from 'react-i18next';
 
 function NewConversation() {
+  const { t } = useTranslation('chat');
   const { userId } = useParams();
   const navigate = useNavigate();
   const [searchInputValue, setSearchInputValue] = useState('');
@@ -39,9 +41,11 @@ function NewConversation() {
           <ArrowLeft size={18} />
         </div>
         <h2 className="text-md font-semibold">
-          {typeConversation === 'oneToOne'
-            ? 'New discussion'
-            : 'New group discussion'}
+          {typeConversation === 'oneToOne' ? (
+            <>{t('newDiscussion')}</>
+          ) : (
+            <>{t('newGroupDiscussion')}</>
+          )}
         </h2>
       </div>
       <div className="my-2 px-4">

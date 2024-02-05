@@ -28,7 +28,7 @@ function OnBoardingEvaluateSkill() {
       toast.success(t('event:evaluationSuccess'));
     },
     onError: () => {
-      toast.error('You cant evaluate your skill twice');
+      toast.error('youCantEvaluateTwice');
     },
   });
   const idComp = useId();

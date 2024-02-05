@@ -7,9 +7,11 @@ import { cn } from '../../lib/utils';
 import { useOnboarding } from '../../stores/onboarding.store';
 import { queryClient } from '../../main';
 import { userCreateProfile } from '../../hooks/useProfile';
+import { useTranslation } from 'react-i18next';
 
 function OnBoardingCreateProfile() {
   const { profileId } = useParams();
+  const { t } = useTranslation('system');
   const {
     setInputValue,
     username,
@@ -105,7 +107,7 @@ function OnBoardingCreateProfile() {
           bg-base-light bg-opacity-75 py-2 text-center text-lg text-dark 
             opacity-0 shadow-md"
           >
-            Back
+            {t('back')}
           </Link>
           <Link
             to="add-image"
@@ -120,7 +122,7 @@ function OnBoardingCreateProfile() {
                 'pointer-events-none cursor-not-allowed opacity-50',
             )}
           >
-            Next
+            {t('next')}
           </Link>
         </div>
       </Container>

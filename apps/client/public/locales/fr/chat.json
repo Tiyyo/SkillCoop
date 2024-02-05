@@ -4,5 +4,18 @@
   "group": "Groupe",
   "event": "Événement",
   "conversations": "Discussions",
-  "retrieveAllConversations": "Voir toutes les discussions"
+  "retrieveAllConversations": "Voir toutes les Discussions",
+  "noDiscussions": "Vous n'avez encore aucune discussion.",
+  "newGroupDiscussion": "Nouvelle discussion de groupe",
+  "leaveGroup": "Quitter le groupe",
+  "areYouSureToLeaveGroup": "Vous êtes sur le point de quitter cette conversation et cette action est définitive.",
+  "areYouSureToDeleteGroup": "Vous êtes sur le point de supprimer cette conversation et cette action est définitive.",
+  "deleteGroup": "Supprimer le groupe",
+  "eventLink": "Lien de l'événement",
+  "profile": "Profil",
+  "add": "Ajouter",
+  "typeYourMessage": "Tapez votre message",
+  "members": "Membres",
+  "optionalGroupName": "Nom du groupe (optionnel)",
+  "newDiscussion": "Nouvelle discussion"
 }

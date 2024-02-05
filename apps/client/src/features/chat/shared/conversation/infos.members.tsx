@@ -8,6 +8,7 @@ import {
 } from '../../../../hooks/useConversations';
 import { useGetConfirmedFriends } from '../../../../hooks/useFriends';
 import { useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 type ConversationInfosMembersProps = {
   typeConversation: TypeConversation;
@@ -22,6 +23,7 @@ function ConversationInfosMembers({
   participantsList,
   conversationId,
 }: ConversationInfosMembersProps) {
+  const { t } = useTranslation('chat');
   if (typeConversation === 'oneToOne' || !currentUserId) return null;
   const containerRef = useRef<HTMLUListElement>(null);
   const [shouldDispplayFriends, setShouldDisplayFriends] = useState(false);
@@ -65,12 +67,14 @@ function ConversationInfosMembers({
        border-b border-b-grey-sub-text border-opacity-20 py-4"
       >
         <div className="flex justify-between">
-          <p className="text-xs font-medium text-primary-1100">Members</p>
+          <p className="text-xs font-medium text-primary-1100">
+            {t('members')}
+          </p>
           <button
             className="text-xs font-medium text-primary-1100"
             onClick={() => setShouldDisplayFriends(!shouldDispplayFriends)}
           >
-            Add <span>{shouldDispplayFriends ? '-' : '+'}</span>
+            {t('add')} <span>{shouldDispplayFriends ? '-' : '+'}</span>
           </button>
         </div>
         <ul
@@ -170,7 +174,7 @@ function ConversationInfosMembers({
                       })
                     }
                   >
-                    Add +
+                    {t('add')} +
                   </button>
                 </li>
               ))}

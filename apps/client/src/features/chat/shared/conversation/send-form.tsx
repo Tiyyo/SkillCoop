@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { socket } from '../../socket';
 import { Send } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 type MyFormProps = {
   conversationId: number;
@@ -15,6 +16,7 @@ export function MyForm({
   username,
   avatar,
 }: MyFormProps) {
+  const { t } = useTranslation('chat');
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const [value, setValue] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -48,12 +50,6 @@ export function MyForm({
   }
 
   return (
-    // <form
-    //   onSubmit={onSubmit}
-    //   ref={formRef}
-    //   className="flex h-full w-full items-center justify-center gap-x-4
-    //    px-3"
-    // >
     <form
       onSubmit={onSubmit}
       ref={formRef}
@@ -69,7 +65,7 @@ export function MyForm({
           ref={textAreaRef}
           onChange={handleChange}
           name=""
-          placeholder="Type your message..."
+          placeholder={`${t('typeYourMessage')} ...`}
           className="palceholder:text-dark relative m-0 flex w-full 
             flex-grow resize-none flex-col overflow-hidden 
             rounded-lg border-0 bg-grey-off px-2.5 py-2 focus:ring-0 

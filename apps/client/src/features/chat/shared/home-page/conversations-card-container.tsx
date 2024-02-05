@@ -5,6 +5,7 @@ import { UseMutateFunction } from '@tanstack/react-query';
 import Container from '../../../../layouts/container';
 import SearchInput from '../../../../components/search-input';
 import Tabs from '../tabs';
+import { useTranslation } from 'react-i18next';
 
 type ConversationCardsContainerProps = {
   getSearchInputValue: (value: string) => void;
@@ -30,6 +31,7 @@ function ConversationCardsContainer({
   updateLastSeenIndicator,
   userId,
 }: ConversationCardsContainerProps) {
+  const { t } = useTranslation('chat');
   const isConversationsExits = conversations && conversations.length > 0;
 
   return (
@@ -42,7 +44,7 @@ function ConversationCardsContainer({
       <div className="no-scrollbar flex flex-col overflow-y-auto lg:h-60vh">
         {!isConversationsExits && (
           <p className="w-full py-4 text-center text-xs italic text-light">
-            You don't have any discussions yet.
+            {t('noDiscussions')}
           </p>
         )}
         {userId &&

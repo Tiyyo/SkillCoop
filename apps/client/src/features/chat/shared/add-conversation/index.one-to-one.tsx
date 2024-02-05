@@ -6,6 +6,7 @@ import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ImageWithFallback from '../../../../components/image';
 import { Friend } from '@skillcoop/types';
+import { useTranslation } from 'react-i18next';
 
 type NewConversationOneToOneProps = {
   friends: Friend[];
@@ -22,6 +23,7 @@ function NewConversationOneToOne({
   setTypeConversation,
   searchInputValue,
 }: NewConversationOneToOneProps) {
+  const { t } = useTranslation('chat');
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const isDesktopChat = pathname.split('/').includes('desktop');
@@ -55,7 +57,7 @@ function NewConversationOneToOne({
           className="px-4"
           onClick={() => setTypeConversation('group')}
         >
-          New group discussion
+          {t('newGroupDiscussion')}
         </button>
       </div>
       <div

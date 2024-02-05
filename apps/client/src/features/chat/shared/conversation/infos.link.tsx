@@ -1,4 +1,5 @@
 import { Conversation } from '@skillcoop/types';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 type ConversationInfosLinkProps = {
@@ -10,6 +11,7 @@ function ConversationInfosLink({
   conversation,
   currentUserId,
 }: ConversationInfosLinkProps) {
+  const { t } = useTranslation('chat');
   //TODO wrap in a useMemo if causes performance issues
   const participantsIds = conversation?.participants_list
     .filter((p) => p.user_id !== currentUserId)
@@ -21,7 +23,7 @@ function ConversationInfosLink({
         to={`/event/${conversation.event_id}`}
         className="text-sm text-light"
       >
-        Event Link
+        {t('eventLink')}
       </Link>
     );
   }
@@ -32,7 +34,7 @@ function ConversationInfosLink({
         to={`/contact/profile/${participantsIds[0]}`}
         className="text-sm text-light"
       >
-        Profile
+        {t('profile')}
       </Link>
     );
   }

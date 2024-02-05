@@ -72,5 +72,8 @@
   "events": "Events",
   "accept": "Accept",
   "decline": "Decline",
-  "yo": "yo"
+  "yo": "yo",
+  "areYouSureToContinue": "Are you sure you want to continue",
+  "back": "Back",
+  "next": "Next"
 }

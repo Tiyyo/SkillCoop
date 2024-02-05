@@ -4,5 +4,18 @@
   "group": "Group",
   "event": "Event",
   "conversations": "Discussions",
-  "retrieveAllConversations": "View all Discussions"
+  "retrieveAllConversations": "View all Discussions",
+  "noDiscussions": "You don't have any discussions yet.",
+  "newGroupDiscussion": "New group discussion",
+  "leaveGroup": "Leave group",
+  "areYouSureToLeaveGroup": "You are about to leave this conversation and this action is final.",
+  "areYouSureToDeleteGroup": "You are about to delete this conversation and this action is final.",
+  "deleteGroup": "Delete group",
+  "eventLink": "Event link",
+  "profile": "Profile",
+  "add": "Add",
+  "typeYourMessage": "Type your message",
+  "members": "Members",
+  "optionalGroupName": "Group name (optional)",
+  "newDiscussion": "New discussion"
 }

@@ -3,6 +3,19 @@
   "personal": "Personal",
   "group": "Grupo",
   "event": "Evento",
-  "conversations": "Discusiones",
-  "retrieveAllConversations": "Ver todas las discusiones"
+  "conversations": "Conversaciones",
+  "retrieveAllConversations": "Ver todas las Conversaciones",
+  "noDiscussions": "Todavía no tienes ninguna conversación.",
+  "newGroupDiscussion": "Nueva discusión de grupo",
+  "leaveGroup": "Dejar el grupo",
+  "areYouSureToLeaveGroup": "Estás a punto de dejar esta conversación y esta acción es definitiva.",
+  "areYouSureToDeleteGroup": "Estás a punto de eliminar esta conversación y esta acción es definitiva.",
+  "deleteGroup": "Eliminar grupo",
+  "eventLink": "Enlace del evento",
+  "profile": "Perfil",
+  "add": "Añadir",
+  "typeYourMessage": "Escribe tu mensaje",
+  "members": "Miembros",
+  "optionalGroupName": "Nombre del grupo (opcional)",
+  "newDiscussion": "Nueva conversación"
 }

@@ -6,8 +6,10 @@ import HeaderHomePageChat from '../shared/home-page/header';
 /*eslint-disable-next-line*/
 import ConversationCardsContainer from '../shared/home-page/conversations-card-container';
 import Container from '../../../layouts/container';
+import { useTranslation } from 'react-i18next';
 
 function DesktopChatHomePage() {
+  const { t } = useTranslation('chat');
   const navigate = useNavigate();
   const location = useLocation();
   const { userId } = useApp();
@@ -53,7 +55,7 @@ function DesktopChatHomePage() {
             {' '}
             {!isConversationsExits && (
               <p className="w-full py-4 text-center text-xs italic text-light">
-                You don't have any discussions yet.
+                {t('noDiscussions')}
               </p>
             )}
           </Container>

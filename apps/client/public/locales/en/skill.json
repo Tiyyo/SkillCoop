@@ -26,5 +26,6 @@
   "eventPlurial": "event(s)",
   "attendance": "Attendance",
   "averageRating": "Average Rating",
-  "awards": "Awards"
+  "awards": "Awards",
+  "youCantEvaluateTwice": "You cant evaluate your skill twice"
 }

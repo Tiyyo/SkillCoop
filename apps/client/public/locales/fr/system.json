@@ -72,5 +72,7 @@
   "events": "Événements",
   "accept": "Accepter",
   "decline": "Refuser",
-  "yo": "ans"
+  "yo": "ans",
+  "back": "Retour",
+  "next": "Suivant"
 }

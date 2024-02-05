@@ -5,6 +5,7 @@ import ImageWithUsernamefallback from '../../../../components/image-fallback-use
 import { cn } from '../../../../lib/utils';
 import ChatBubble from './bubble';
 import { Message } from 'packages/types/src';
+import { getCurrentLngInLocalStorage } from '../../../../utils/get-current-lng';
 
 type GroupAuthorMessageProps = {
   messages: Message[];
@@ -21,6 +22,7 @@ function GroupAuthorMessage({
   avatar,
   currentUserId,
 }: GroupAuthorMessageProps) {
+  const currentLng = getCurrentLngInLocalStorage();
   const hasBeenSentByCurrentUser = userId === currentUserId;
   const id = useId();
 
@@ -61,7 +63,7 @@ function GroupAuthorMessage({
                 className="px-1.5 py-0.5 text-xxs 
                 font-extralight text-light text-opacity-20"
               >
-                {new Date(m.created_at).toLocaleTimeString('fr-FR', {
+                {new Date(m.created_at).toLocaleTimeString(`${currentLng}-US`, {
                   hour: 'numeric',
                   minute: 'numeric',
                   hour12: false,

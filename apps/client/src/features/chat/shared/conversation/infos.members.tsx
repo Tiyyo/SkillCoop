@@ -88,6 +88,7 @@ function ConversationInfosMembers({
               .filter((p) => p.user_id !== currentUserId)
               .map((participant) => (
                 <li
+                  key={participant.user_id}
                   className="w-10 flex-shrink-0 animate-circle-fade-in
                  py-4 opacity-0"
                 >
@@ -96,12 +97,12 @@ function ConversationInfosMembers({
                       avatar={participant.avatar}
                       username={participant.username}
                     />
-                    {isAdmin && (
+                    {isAdmin && typeConversation === 'group' && (
                       <button>
                         <X
                           className="absolute -bottom-1 -right-1 cursor-pointer 
-                    rounded-full bg-grey-constrast bg-opacity-80 p-0.5 
-                  text-dark"
+                          rounded-full bg-grey-constrast bg-opacity-80 p-0.5 
+                        text-dark"
                           size={16}
                           onClick={() =>
                             removeUserFromGroup({

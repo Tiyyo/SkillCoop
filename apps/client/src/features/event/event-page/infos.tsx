@@ -31,9 +31,9 @@ import {
 import { useTranslation } from 'react-i18next';
 
 type EventPageInfosProps = {
-  eventDuration: number;
-  eventlocation: string;
-  eventDate: string;
+  eventDuration: number | null;
+  eventlocation: string | null;
+  eventDate: string | null;
   requiredParticipants: number | null;
   isAdmin: boolean;
   profileId: number;

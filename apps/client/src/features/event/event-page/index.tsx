@@ -44,6 +44,10 @@ function EventPage() {
     });
   }, [location.pathname, event, initEventState]);
 
+  const eventStoreDate = new Date(
+    `${eventStore?.start_date} ${eventStore.start_time}Z`,
+  ).toISOString();
+
   useLayoutEffect(() => {
     if (eventStore && eventStore.user_status === 'declined') {
       navigate('/', { replace: true });
@@ -72,19 +76,19 @@ function EventPage() {
           {event && (
             <div className="block w-full lg:flex lg:gap-6">
               <EventPageInfos
-                eventDuration={event.duration}
-                eventlocation={event?.location}
-                eventDate={event?.date}
+                eventDuration={eventStore.duration}
+                eventlocation={eventStore.location}
+                eventDate={eventStoreDate}
                 requiredParticipants={eventStore.required_participants}
                 profileId={profileId ?? 0}
                 eventStatus={eventStore.status_name}
                 isAdmin={eventStore?.organizer_id === profileId}
-                confirmedParticipants={event.confirmed_participants}
+                confirmedParticipants={eventStore.confirmed_participants}
               />
               <EventPageScore
                 eventId={Number(eventId)}
                 isAdmin={eventStore.organizer_id === profileId}
-                eventDate={event.date}
+                eventDate={eventStoreDate}
                 scoreTeam1={event.score_team_1}
                 scoreTeam2={event.score_team_2}
                 eventStatus={eventStore.status_name}

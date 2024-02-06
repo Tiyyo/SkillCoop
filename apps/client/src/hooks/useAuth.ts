@@ -22,6 +22,7 @@ import { Credentials } from "packages/types/src";
 
 /*eslint-enable*/
 function useAuth() {
+  console.log('Where this thing STOP WORKING');
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -29,7 +30,7 @@ function useAuth() {
   const [loginError, setLoginError] = useState('');
   const [loginAttemps, setLoginAttemps] = useState(undefined);
   // This query cant have the same key as the other getMe query
-  // since is that this query trigger the authentication of user automatically
+  // since this query trigger the authentication of user automatically
   // and we dont want this behavior for this one
   const { data: responseGetProfile } = useQuery(
     [''],
@@ -42,6 +43,7 @@ function useAuth() {
   const { mutate: mutateLoginFn, error: errorLogin } = useMutation({
     mutationFn: async (credentials: Credentials) => loginUserFn(credentials),
     onSuccess: (response) => {
+      console.log('Response Server after login', response);
       if (response.error) {
         setLoginError(response.error);
         setLoginAttemps(response.failedAttemps);
@@ -56,19 +58,25 @@ function useAuth() {
   });
 
   // Login function to be called from the login page
-  const loginFn = (credentials: Credentials) => {
+  function loginFn(credentials: Credentials) {
     setLoading(true);
     mutateLoginFn(credentials);
-  };
+  }
+
+  useEffect(() => {
+    setIsFirstConnection(detectFirstAccess(responseGetProfile));
+  }, [responseGetProfile]);
 
   if (loading && isAuthenticated && isFristConnection) {
     if (responseGetProfile === 'Unecessary call' || !responseGetProfile) {
       return;
     }
+    console.log('navigate to onboarding');
     return navigate(`/onboarding/${responseGetProfile.userId}`);
   }
 
   if (loading && isAuthenticated && isFristConnection === false) {
+    console.log('navigate to home');
     queryClient.setQueryData(['auth-user'], (oldData: any) => {
       if (
         responseGetProfile !== 'Unecessary call' &&
@@ -85,10 +93,6 @@ function useAuth() {
     });
     return navigate('/');
   }
-
-  useEffect(() => {
-    setIsFirstConnection(detectFirstAccess(responseGetProfile));
-  }, [responseGetProfile]);
 
   return {
     loginFn,

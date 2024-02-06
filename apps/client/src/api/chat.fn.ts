@@ -15,6 +15,8 @@ export const api = axios.create({
   withCredentials: true,
 });
 
+api.defaults.headers.common['Content-Type'] = 'application/json';
+
 export const getConversationsFn = async (
   userId: number,
 ): Promise<Conversation[]> => {

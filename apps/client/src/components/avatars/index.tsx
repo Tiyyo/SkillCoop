@@ -28,15 +28,35 @@ function Avatars({
           })
           .slice(0, nbAvatarToDisplay)
           .map((participant) => (
-            <ImageWithFallback
-              key={participant.profile_id}
-              url={participant.avatar}
-              alt="Participant avatar"
-              size={30}
-              className="aspect-square w-7 overflow-hidden
-               rounded-full border-2 border-base-light md:w-9
-               lg:w-10 lg:border-3"
-            />
+            <>
+              <ImageWithFallback
+                key={participant.profile_id}
+                url={participant.avatar}
+                alt="Participant avatar"
+                size={28}
+                className="aspect-square overflow-hidden
+                rounded-full border-2 border-base-light bg-primary-800 
+                md:hidden lg:border-3"
+              />
+              <ImageWithFallback
+                key={participant.profile_id}
+                url={participant.avatar}
+                alt="Participant avatar"
+                size={36}
+                className="hidden aspect-square overflow-hidden
+                rounded-full border-2 border-base-light bg-primary-800 md:block
+                lg:hidden lg:border-3"
+              />
+              <ImageWithFallback
+                key={participant.profile_id}
+                url={participant.avatar}
+                alt="Participant avatar"
+                size={38}
+                className="hidden aspect-square overflow-hidden
+                rounded-full border-2 border-base-light bg-primary-800
+                lg:block lg:border-3"
+              />
+            </>
           ))}
         {plus && plus > 0 ? (
           <div

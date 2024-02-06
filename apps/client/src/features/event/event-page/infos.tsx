@@ -185,7 +185,7 @@ function EventPageInfos({
           updateState={updateDuration}
           mutateKey="duration"
           options={OPTION_DURATION}
-          defaultValue={event.duration ?? eventDuration}
+          defaultValue={event.duration ?? eventDuration ?? undefined}
           disabled={!isEditActive}
         >
           <Clock />
@@ -196,7 +196,7 @@ function EventPageInfos({
           type="text"
           updateState={updateLocation}
           disabled={!isEditActive}
-          defaultValue={event.location ?? eventlocation}
+          defaultValue={event.location ?? eventlocation ?? undefined}
         >
           <Globe />
         </Input>

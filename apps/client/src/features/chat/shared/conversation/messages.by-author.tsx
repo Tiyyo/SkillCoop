@@ -51,7 +51,7 @@ function GroupAuthorMessage({
             <div
               key={id + index.toString()}
               className={cn(
-                'flex items-end',
+                'flex w-full items-end',
                 hasBeenSentByCurrentUser && 'flex-row-reverse',
               )}
             >

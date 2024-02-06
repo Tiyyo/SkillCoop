@@ -16,7 +16,7 @@ function DesktopConversationPage() {
   } = useConnectChatServer(Number(params.id));
 
   return (
-    <div className="h-[calc(70vh + 96px)] flex w-3/4 flex-grow">
+    <div className="flex w-3/4 flex-grow">
       <div className="w-8/12 flex-grow basis-8/12">
         <ConversationContainer
           conversation={conversation}

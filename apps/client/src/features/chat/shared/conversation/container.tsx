@@ -29,7 +29,7 @@ function ConversationContainer({
   return (
     <Container
       className="flex h-[calc(100dvh-80px)] flex-grow flex-col justify-between 
-        p-0 lg:h-[77vh]"
+        p-0 lg:h-[calc(100vh-214px)]"
     >
       {conversation && (
         <header
@@ -70,7 +70,7 @@ function ConversationContainer({
         </header>
       )}
       <div
-        className="relative flex h-[calc(100vh-5rem)] flex-grow 
+        className="relative flex flex-grow 
           flex-col justify-end overflow-y-auto"
       >
         {showConvInfos && conversation && (

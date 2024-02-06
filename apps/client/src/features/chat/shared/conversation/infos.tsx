@@ -39,7 +39,7 @@ function ConversationInfos({
             participantsList={conversation.participants_list}
             typeConversation={conversation.type_name}
             currentUserId={currentUserId}
-            size={96}
+            size={72}
           />
         </div>
         <ConversationCardTitle

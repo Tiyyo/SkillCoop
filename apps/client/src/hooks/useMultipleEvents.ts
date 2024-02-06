@@ -8,6 +8,6 @@ export function useGetAllEvents(options: { profileId?: number }) {
       if (!options.profileId) return null;
       return getEventsFn(options.profileId);
     },
-    { enabled: true, staleTime: 10 },
+    { enabled: true, staleTime: 10, refetchOnMount: true },
   );
 }

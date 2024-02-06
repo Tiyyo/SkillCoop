@@ -74,5 +74,6 @@
   "decline": "Refuser",
   "yo": "ans",
   "back": "Retour",
-  "next": "Suivant"
+  "next": "Suivant",
+  "onlyUsernameIsRequired": "Seul le nom d'utilisateur est requis"
 }

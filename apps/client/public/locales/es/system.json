@@ -74,5 +74,6 @@
   "decline": "Rechazar",
   "yo": "años",
   "back": "Atrás",
-  "next": "Siguiente"
+  "next": "Siguiente",
+  "onlyUsernameIsRequired": "Solo se requiere el nombre de usuario"
 }

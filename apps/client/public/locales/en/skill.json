@@ -27,5 +27,6 @@
   "attendance": "Attendance",
   "averageRating": "Average Rating",
   "awards": "Awards",
-  "youCantEvaluateTwice": "You cant evaluate your skill twice"
+  "youCantEvaluateTwice": "You cant evaluate your skill twice",
+  "evaluationSuccess": "Evaluation success"
 }

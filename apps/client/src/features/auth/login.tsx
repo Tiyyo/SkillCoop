@@ -19,6 +19,7 @@ import dompurify from 'dompurify';
 import LoginDemoMode from './login-demo';
 import useAuth from '../../hooks/useAuth';
 import { useTranslation } from 'react-i18next';
+import useAuthRedirection from '../../hooks/useAuthRedirection';
 
 export type LoginUserData = {
   email: string;
@@ -26,31 +27,35 @@ export type LoginUserData = {
 };
 
 function Login() {
-  // const { t } = useTranslation('auth');
-  // const location = useLocation();
-  // const from = location.state?.from?.pathname || '/';
+  const { t } = useTranslation('auth');
+  const location = useLocation();
+  const from = location.state?.from?.pathname || '/';
 
   /* This is awful"*/
-  const { loginFn } = useAuth();
-  // const loading = authProp?.loading;
-  const loginFn = authProp?.loginFn;
-  // const error = authProp?.error;
-  // const loginError = authProp?.loginError;
-  // const loginAttempts = authProp?.loginAttemps;
-
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   formState: { errors },
-  // } = useForm<LoginUserData>({
-  //   resolver: zodResolver(loginSchema),
-  // });
+  const {
+    loginFn,
+    loading,
+    isAuthenticated,
+    isFristConnection,
+    responseGetProfile,
+    error,
+    loginError,
+    loginAttempts,
+  } = useAuth();
+  useAuthRedirection({
+    isAuthenticated,
+    isFristConnection,
+    responseGetProfile,
+    loading,
+  });
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({});
+  } = useForm<LoginUserData>({
+    resolver: zodResolver(loginSchema),
+  });
 
   // TODO : build a function who sanitize and
   // infer the type of the data
@@ -67,20 +72,17 @@ function Login() {
     <Page>
       <Center>
         <h1 className="py-4 text-center text-xl font-bold text-primary-1100">
-          {"t('loginSkillcoop')"}
+          {t('loginSkillcoop')}
         </h1>
         <LoginDemoMode />
         <div
           className="flex w-[90%] max-w-lg 
               flex-col rounded-lg bg-base-light px-6 py-12"
         >
-          {/* <SocialButton
-            value={"t('loginWithGoogle')"}
-            href={getGoogleUrl(from)}
-          >
+          <SocialButton value={t('loginWithGoogle')} href={getGoogleUrl(from)}>
             <Google />
           </SocialButton>
-          <SeparatorLine /> */}
+          <SeparatorLine />
           <form
             onSubmit={handleSubmit(onSubmit)}
             className="flex flex-col items-center gap-y-5"
@@ -88,7 +90,7 @@ function Login() {
             <FormField
               type="text"
               name="email"
-              label={"t('email')"}
+              label={t('email')}
               error={checkIfString(errors.email?.message)}
               register={register}
             >
@@ -97,38 +99,38 @@ function Login() {
             <FormField
               type="password"
               name="password"
-              label={"t('password')"}
+              label={t('password')}
               subicon={<EyeOff size={18} />}
               error={checkIfString(errors.password?.message)}
               register={register}
             >
               <Eye size={18} />
             </FormField>
-            {/* <Link
+            <Link
               to="/forgot-password"
               className="duration-600 cursor-pointer  self-end text-xs
                  text-primary-1100 transition-all hover:text-primary-1100
                    hover:underline"
             >
-              {"t('forgotPassword')"} ?
-            </Link> */}
+              {t('forgotPassword')} ?
+            </Link>
             <Button
-              textContent="{t('login')}"
+              textContent={t('login')}
               // isLoading={loading}
               type="submit"
             />
-            {/* <ErrorContainer
+            <ErrorContainer
               errorValue={error || loginError}
               attempsCount={loginAttempts}
-            /> */}
+            />
           </form>
         </div>
-        {/* <p className="py-2 text-xs">
-          {"t('dontHaveAccount')"} ?{' '}
+        <p className="py-2 text-xs">
+          {t('dontHaveAccount')} ?{' '}
           <Link to="/register" className="font-bold text-primary-1000">
-            {"t('joinUs')"}
+            {t('joinUs')}
           </Link>
-        </p> */}
+        </p>
       </Center>
     </Page>
   );

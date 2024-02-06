@@ -50,9 +50,8 @@ function OnBoardingCreateProfile() {
     <>
       <Container className="lg:mt-4">
         <TitleH2
-          title="Create your profile"
-          legend="This is your first connection, and we need some 
-        additional information.Let's get started by creating your profile."
+          title={t('title:createProfile')}
+          legend={t('title:createProfileLegend')}
         />
       </Container>
       <Container
@@ -64,7 +63,8 @@ function OnBoardingCreateProfile() {
           sm:grid sm:grid-cols-2"
         >
           <Input
-            label="Username"
+            label="Username *"
+            high
             updateState={(e) => getValueInput(e, 'username')}
             value={username ?? ''}
           >
@@ -72,6 +72,7 @@ function OnBoardingCreateProfile() {
           </Input>
           <Input
             label="First Name"
+            high
             updateState={(e) => getValueInput(e, 'firstname')}
             value={firstname ?? ''}
           >
@@ -79,6 +80,7 @@ function OnBoardingCreateProfile() {
           </Input>
           <Input
             label="Last Name"
+            high
             updateState={(e) => getValueInput(e, 'lastname')}
             value={lastname ?? ''}
           >
@@ -87,6 +89,7 @@ function OnBoardingCreateProfile() {
           <Input
             label="Date of birth"
             type="date"
+            high
             updateState={(e) => getValueInput(e, 'date_of_birth')}
             value={date_of_birth ?? ''}
           >
@@ -94,12 +97,17 @@ function OnBoardingCreateProfile() {
           </Input>
           <Input
             label="Location"
+            high
             updateState={(e) => getValueInput(e, 'location')}
             value={location ?? ''}
           >
             <MapPin size={18} />
           </Input>
         </form>
+        <p className="self-start text-xs lowercase text-light">
+          <span className="mx-2">*</span>
+          {t('onlyUsernameIsRequired')}
+        </p>
         <div className="mx-auto flex w-2/3 max-w-xs gap-3">
           <Link
             to=""
@@ -109,6 +117,7 @@ function OnBoardingCreateProfile() {
           >
             {t('back')}
           </Link>
+
           <Link
             to="add-image"
             // update the query to force isfirstconnection to false

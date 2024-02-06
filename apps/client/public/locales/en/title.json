@@ -37,5 +37,11 @@
   "transfertRights": "Transfer Rights",
   "transfertRightsLegend": "To which participants do you want to transfer your organizer rights for this event ?.",
   "sharedEvents": "Shared Events",
-  "sharedEventsLegend": "Last events you shared with {{username}}"
+  "sharedEventsLegend": "Last events you shared with {{username}}",
+  "addAProfilePicture": "Add a profile picture",
+  "addAProfilePictureLegend": "Do you want to add a profile picture ? It's not mandatory",
+  "createProfile": "Create your profile",
+  "createProfileLegend": "This is your first connection, and we need some additional information.Let's get started by creating your profile.",
+  "evaluateYourSkills": "Evaluate your skills",
+  "evalutateYourSkillsLegend": "To make the team generation algorithm more accurate and help you find matches suited to your level, you can assess your skills in each area"
 }

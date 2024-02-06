@@ -6,29 +6,29 @@ import FieldsetRadioInput from '../skills/fieldset-radio.input';
 import { ALL_SKILLS } from '../../constants/skill-constant';
 import { LEVEL_SCALE } from '../../constants/skill-constant';
 import { useId } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useUserProfileEval } from '../../hooks/useUserProfileEval';
 import { ownSkillSchema, editProfileInfosSchema } from '@skillcoop/schema/src';
 import { useOnboarding } from '../../stores/onboarding.store';
 import { useUpdateProfile } from '../../hooks/useProfile';
 import toast from '../../utils/toast';
 import { useApp } from '../../stores/app.store';
+import { useTranslation } from 'react-i18next';
 
 function OnBoardingEvaluateSkill() {
+  const { t } = useTranslation('skill');
   const navigate = useNavigate();
   const { username, firstname, lastname, date_of_birth, location } =
     useOnboarding();
   const { setIsFirstConnection, setProfile } = useApp();
   const { profileId } = useParams();
-  const { t } = useTranslation('skill');
 
   const { autoEvaluate } = useUserProfileEval({
     profileId: Number(profileId),
     onSuccess: () => {
-      toast.success(t('event:evaluationSuccess'));
+      toast.success(t('evaluationSuccess'));
     },
     onError: () => {
-      toast.error('youCantEvaluateTwice');
+      toast.error(t('youCantEvaluateTwice'));
     },
   });
   const idComp = useId();
@@ -44,7 +44,7 @@ function OnBoardingEvaluateSkill() {
         date_of_birth,
         location,
       });
-      navigate('/');
+      window.location.href = '/';
     },
   });
 
@@ -84,10 +84,8 @@ function OnBoardingEvaluateSkill() {
     <>
       <Container className="lg:mt-4 ">
         <TitleH2
-          title="Evalute your skill"
-          legend="To make the team generation algorithm more accurate and help 
-          you find matches suited to your level, you can assess your skills 
-          in each area."
+          title={t('title:evaluateYourSkills')}
+          legend={t('title:evalutateYourSkillsLegend')}
         />
       </Container>
       <Container className="flex flex-grow flex-col items-center p-5 lg:mt-4">
@@ -118,7 +116,7 @@ function OnBoardingEvaluateSkill() {
             border border-primary-700 bg-base-light bg-opacity-75 py-2 
             text-center text-lg text-dark shadow-md"
           >
-            Back
+            {t('system:back')}
           </button>
           <button
             onClick={() => validateOnBoarding()}
@@ -129,7 +127,7 @@ function OnBoardingEvaluateSkill() {
                 'pointer-events-none cursor-not-allowed opacity-50',
             )}
           >
-            Next
+            {t('system:next')}
           </button>
         </div>
       </Container>

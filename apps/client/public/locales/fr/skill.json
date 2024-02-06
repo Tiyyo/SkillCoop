@@ -27,5 +27,6 @@
   "attendance": "Présence",
   "averageRating": "Note moyenne",
   "awards": "Récompenses",
-  "youCantEvaluateTwice": "Vous ne pouvez pas évaluer votre compétence deux fois"
+  "youCantEvaluateTwice": "Vous ne pouvez pas évaluer votre compétence deux fois",
+  "evaluationSuccess": "Évaluation réussie"
 }

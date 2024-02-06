@@ -106,8 +106,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     if: ${{ github.ref == 'refs/heads/main' }}
-    needs:
-      [lint-api, vitest, typecheck-client, typecheck-api, lint-client, lint-api]
+    needs: [lint-api, vitest, typecheck-client, typecheck-api, lint-client]
     steps:
       - name: SSH Remote Commands
         uses: appleboy/ssh-action@master

@@ -22,8 +22,8 @@ function OnBoardinAddImageProfile() {
     <>
       <Container className="lg:mt-4 ">
         <TitleH2
-          title="Add a profile picture"
-          legend="Do you want to add a profile picture ? It's not mandatory"
+          title={t('title:addAProfilePicture')}
+          legend={t('title:addAProfilePictureLegend')}
         />
       </Container>
       <Container

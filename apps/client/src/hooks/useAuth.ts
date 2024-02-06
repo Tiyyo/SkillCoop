@@ -22,13 +22,12 @@ import { Credentials } from "packages/types/src";
 
 /*eslint-enable*/
 function useAuth() {
-  console.log('Where this thing STOP WORKING');
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const { isFristConnection, setIsFirstConnection } = useApp();
   const [loginError, setLoginError] = useState('');
-  const [loginAttemps, setLoginAttemps] = useState(undefined);
+  const [loginAttempts, setLoginAttempts] = useState(undefined);
   // This query cant have the same key as the other getMe query
   // since this query trigger the authentication of user automatically
   // and we dont want this behavior for this one
@@ -43,10 +42,9 @@ function useAuth() {
   const { mutate: mutateLoginFn, error: errorLogin } = useMutation({
     mutationFn: async (credentials: Credentials) => loginUserFn(credentials),
     onSuccess: (response) => {
-      console.log('Response Server after login', response);
       if (response.error) {
         setLoginError(response.error);
-        setLoginAttemps(response.failedAttemps);
+        setLoginAttempts(response.failedAttemps);
         setLoading(false);
       }
       // trigger the query to get the user profile data
@@ -67,39 +65,15 @@ function useAuth() {
     setIsFirstConnection(detectFirstAccess(responseGetProfile));
   }, [responseGetProfile]);
 
-  if (loading && isAuthenticated && isFristConnection) {
-    if (responseGetProfile === 'Unecessary call' || !responseGetProfile) {
-      return;
-    }
-    console.log('navigate to onboarding');
-    return navigate(`/onboarding/${responseGetProfile.userId}`);
-  }
-
-  if (loading && isAuthenticated && isFristConnection === false) {
-    console.log('navigate to home');
-    queryClient.setQueryData(['auth-user'], (oldData: any) => {
-      if (
-        responseGetProfile !== 'Unecessary call' &&
-        responseGetProfile?.userProfile &&
-        oldData
-      ) {
-        return {
-          ...oldData,
-          ...responseGetProfile.userProfile,
-        };
-      } else {
-        return oldData;
-      }
-    });
-    return navigate('/');
-  }
-
   return {
     loginFn,
     loading,
     error: (errorLogin as any)?.response.data.error,
     loginError,
-    loginAttemps,
+    loginAttempts,
+    isFristConnection,
+    isAuthenticated,
+    responseGetProfile,
   };
 }
 

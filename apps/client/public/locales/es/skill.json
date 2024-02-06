@@ -22,5 +22,6 @@
   "attendance": "Asistencia",
   "averageRating": "Calificación promedio",
   "awards": "Premios",
-  "youCantEvaluateTwice": "No puedes evaluar tu habilidad dos veces"
+  "youCantEvaluateTwice": "No puedes evaluar tu habilidad dos veces",
+  "evaluationSuccess": "Evaluación exitosa"
 }

@@ -5,10 +5,10 @@
   "advanced": "Advanced",
   "expert": "Expert",
   "haveParticipedTo": "have participed to",
-  "received": "received",
+  "received": "Received",
   "ratingOrBonus": "rating or bonus",
   "hereIs": "Here is",
-  "averageSkills": "average skills",
+  "averageSkills": "Average skills",
   "defending": "Defending",
   "dribbling": "Dribbling",
   "passing": "Passing",
@@ -28,5 +28,7 @@
   "averageRating": "Average Rating",
   "awards": "Awards",
   "youCantEvaluateTwice": "You cant evaluate your skill twice",
-  "evaluationSuccess": "Evaluation success"
+  "evaluationSuccess": "Evaluation success",
+  "winningRate": "Wining Rate",
+  "attendedTo": "Attended to"
 }

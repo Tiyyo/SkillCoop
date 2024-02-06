@@ -66,9 +66,23 @@ export class Profile extends Core<typeof tableNames.profile> {
         )
         .execute();
 
+      const winningRate = await sql<{ winning_rate: number }>`
+          SELECT      
+            (SUM(CASE 
+                WHEN (team = 1 AND score_team_1 > score_team_2) OR 
+                     (team = 2 AND score_team_2 > score_team_1) 
+                THEN 1 ELSE 0 
+                END) * 1.0 / COUNT(event.id)) * 100  AS winning_rate
+          FROM profile_on_event
+          INNER JOIN event ON profile_on_event.event_id = event.id
+          INNER JOIN score ON event.id = score.event_id
+          WHERE profile_on_event.profile_id = ${id}
+          AND profile_on_event.status_name = 'confirmed'`.execute(this.client);
+
       type ReturnTypeProfile = typeof result & {
         nb_attended_events: number;
         nb_bonus: number;
+        winning_rate: number;
       };
       const profile: Partial<ReturnTypeProfile> = result;
 
@@ -76,6 +90,7 @@ export class Profile extends Core<typeof tableNames.profile> {
         profile.nb_attended_events =
           Number(nbAttendedEvents.nb_attended_events) ?? 0;
         profile.nb_bonus = Number(nbBonus) ?? 0;
+        profile.winning_rate = Number(winningRate.rows[0].winning_rate) ?? 0;
       }
       return profile;
     } catch (error) {

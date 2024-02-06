@@ -5,6 +5,7 @@ import strongbox from '../../assets/svg/strongbox.svg';
 import flash from '../../assets/svg/flash.svg';
 import reward from '../../assets/svg/reward.svg';
 import { useTranslation } from 'react-i18next';
+import cup from '../../assets/cup.png';
 
 type FriendStatsDesktopProps = {
   nbAttendedEvent: number | null;
@@ -12,6 +13,7 @@ type FriendStatsDesktopProps = {
   nbReview: number | null;
   nbBestStrikerBonus: number | null;
   lastEvaluation: number | null;
+  winningRate: number | null;
 };
 
 function FriendStatsDesktop({
@@ -20,11 +22,16 @@ function FriendStatsDesktop({
   nbReview,
   nbBestStrikerBonus,
   lastEvaluation,
+  winningRate,
 }: Partial<FriendStatsDesktopProps>) {
   const { t } = useTranslation('skill');
   return (
     <ul className="hidden items-center gap-x-5 md:flex">
-      {/* <StatBadge label="Winning Rate" icon={cup} /> */}
+      <StatBadge
+        label={t('winningRate')}
+        icon={cup}
+        value={`${winningRate}%`}
+      />
       <StatBadge
         label={t('attendance')}
         value={nbAttendedEvent}

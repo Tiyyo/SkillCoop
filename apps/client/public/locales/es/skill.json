@@ -5,10 +5,10 @@
   "advanced": "Avanzado",
   "expert": "Experto",
   "haveParticipedTo": "ha participado en",
-  "received": "recibido",
+  "received": "Recibido",
   "ratingOrBonus": "calificación o bonificación",
   "hereIs": "Aquí está",
-  "averageSkills": "habilidades promedio",
+  "averageSkills": "Habilidades promedio",
   "defending": "Defensa",
   "dribbling": "Regate",
   "passing": "Pases",
@@ -23,5 +23,7 @@
   "averageRating": "Calificación promedio",
   "awards": "Premios",
   "youCantEvaluateTwice": "No puedes evaluar tu habilidad dos veces",
-  "evaluationSuccess": "Evaluación exitosa"
+  "evaluationSuccess": "Evaluación exitosa",
+  "winningRate": "Tasa de victorias",
+  "attendedTo": "Asistido a"
 }

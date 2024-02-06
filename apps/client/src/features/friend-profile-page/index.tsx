@@ -22,10 +22,10 @@ function FriendProfile() {
   const { hasBeenEvaluated, evaluateProfile } = useProfileEval({ profileId });
   const values = Object.values(evaluateProfile);
   const maxValue = getMaxValue(values);
-
+  console.log(profile);
   //TODO : refactor this component
   //TODO: add last share events
-  //TODO: add win rate
+
   return (
     <>
       <Suspense fallback={<div>loading</div>}>
@@ -50,6 +50,7 @@ function FriendProfile() {
                 nbReview={profile?.nb_review}
                 nbBestStrikerBonus={profile?.nb_best_striker_bonus}
                 lastEvaluation={profile?.last_evaluation}
+                winningRate={profile?.winning_rate}
               />
             </div>
             <div className="flex justify-between ">
@@ -89,6 +90,7 @@ function FriendProfile() {
                   nbReview={profile?.nb_review}
                   nbBestStrikerBonus={profile?.nb_best_striker_bonus}
                   lastEvaluation={profile?.last_evaluation}
+                  winningRate={profile?.winning_rate}
                 />
               </Suspense>
             </div>

@@ -18,7 +18,6 @@ function DesktopChatHomePage() {
     setCurrentConversationFilter,
     currentConversationFilter,
     conversations,
-    updateLastSeenIndicator,
   } = useFiltersConversations(userId);
 
   const isConversationsExits =
@@ -29,7 +28,8 @@ function DesktopChatHomePage() {
     if (!conversations) return;
     if (conversations.length > 0) {
       navigate(
-        `/desktop/chat/conversation/${conversations[0].conversation_id}`,
+        location.pathname ??
+          `/desktop/chat/conversation/${conversations[0].conversation_id}`,
       );
     }
   }, [conversations]);
@@ -44,7 +44,6 @@ function DesktopChatHomePage() {
             setCurrentConversationFilter={setCurrentConversationFilter}
             currentConversationFilter={currentConversationFilter}
             conversations={conversations}
-            updateLastSeenIndicator={updateLastSeenIndicator}
             userId={userId}
           />
         </div>

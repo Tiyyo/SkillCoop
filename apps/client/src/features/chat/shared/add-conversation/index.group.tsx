@@ -27,7 +27,7 @@ function NewConversationGroup({
   const isDesktopChat = pathname.split('/').includes('desktop');
   const conversationLink = isDesktopChat
     ? '/desktop/chat/conversation/'
-    : '/chat/';
+    : '/chat/conversation/';
   const {
     friends: friendsToAdd,
     removeFriends,

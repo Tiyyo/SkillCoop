@@ -29,7 +29,7 @@ function NewConversationOneToOne({
   const isDesktopChat = pathname.split('/').includes('desktop');
   const conversationLink = isDesktopChat
     ? '/desktop/chat/conversation/'
-    : '/chat/';
+    : '/chat/conversation/';
   const { mutate: findOrCreateConversation } =
     useFindOrCreateOneToOneConversation({
       onSuccess: (response) => {

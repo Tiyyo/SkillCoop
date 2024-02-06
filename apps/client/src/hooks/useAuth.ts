@@ -15,14 +15,11 @@ import { useEffect, useState } from "react";
 import { loginUserFn } from "../api/auth.fn";
 import { getMeFn } from "../api/profile.fn";
 import { useApp } from "../stores/app.store";
-import { useNavigate } from "react-router-dom";
-import { queryClient } from "../main";
 import { detectFirstAccess } from "../utils/is-first-connection";
 import { Credentials } from "packages/types/src";
 
 /*eslint-enable*/
 function useAuth() {
-  // const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const { isFristConnection, setIsFirstConnection } = useApp();

@@ -11,7 +11,6 @@ type AvatarsProps = {
 };
 
 function ResponsiveAvatar({
-  profile_id,
   avatar,
 }: {
   profile_id: number;

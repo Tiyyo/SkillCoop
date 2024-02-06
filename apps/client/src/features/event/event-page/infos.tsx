@@ -33,7 +33,7 @@ import { useTranslation } from 'react-i18next';
 type EventPageInfosProps = {
   eventDuration: number | null;
   eventlocation: string | null;
-  eventDate: string | null;
+  eventDate: string;
   requiredParticipants: number | null;
   isAdmin: boolean;
   profileId: number;

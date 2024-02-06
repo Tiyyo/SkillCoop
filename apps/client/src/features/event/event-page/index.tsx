@@ -81,7 +81,7 @@ function EventPage() {
               <EventPageInfos
                 eventDuration={eventStore.duration}
                 eventlocation={eventStore.location}
-                eventDate={event?.date}
+                eventDate={eventStoreDate ?? event.date}
                 requiredParticipants={eventStore.required_participants}
                 profileId={profileId ?? 0}
                 eventStatus={eventStore.status_name}
@@ -91,7 +91,7 @@ function EventPage() {
               <EventPageScore
                 eventId={Number(eventId)}
                 isAdmin={eventStore.organizer_id === profileId}
-                eventDate={eventStoreDate}
+                eventDate={eventStoreDate ?? event.date}
                 scoreTeam1={event.score_team_1}
                 scoreTeam2={event.score_team_2}
                 eventStatus={eventStore.status_name}

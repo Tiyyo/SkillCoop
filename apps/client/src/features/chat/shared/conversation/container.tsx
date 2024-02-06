@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useEffect } from 'react';
 import Container from '../../../../layouts/container';
 import ConversationCardImage from '../image-conversation';
 import ConversationCardTitle from '../title-conversation';
@@ -7,6 +7,9 @@ import { ArrowLeft, Info } from 'lucide-react';
 import ConversationMessages from './messages.container';
 import ConversationInfos from './infos';
 import { Conversation, HistoricMessages, Profile } from '@skillcoop/types/src';
+/*eslint-disable-next-line*/
+import { useUpdateUserOnConversation } from '../../../../hooks/useConversations';
+import { getFormattedUTCTimestamp } from '@skillcoop/date-handler/src';
 
 type ConversationProps = {
   conversation: Conversation | null | undefined;
@@ -26,6 +29,17 @@ function ConversationContainer({
   userProfile,
 }: ConversationProps) {
   const navigate = useNavigate();
+  const { mutate: updateLastSeenIndicator } = useUpdateUserOnConversation({});
+  const todayUTCString = getFormattedUTCTimestamp();
+  useEffect(() => {
+    if (!conversation || !userId) return;
+    updateLastSeenIndicator({
+      conversation_id: conversation.conversation_id,
+      user_id: userId,
+      last_seen: todayUTCString,
+    });
+  }, [conversation, userId]);
+
   return (
     <Container
       className="flex h-[calc(100dvh-80px)] flex-grow flex-col justify-between 

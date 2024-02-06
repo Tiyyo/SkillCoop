@@ -1,7 +1,6 @@
 import ConversationCard from './card';
 import { Dispatch, SetStateAction } from 'react';
-import { Conversation, UpdateUserOnConversation } from '@skillcoop/types/src';
-import { UseMutateFunction } from '@tanstack/react-query';
+import { Conversation } from '@skillcoop/types/src';
 import Container from '../../../../layouts/container';
 import SearchInput from '../../../../components/search-input';
 import Tabs from '../tabs';
@@ -14,12 +13,6 @@ type ConversationCardsContainerProps = {
   >;
   currentConversationFilter: 'all' | 'event' | 'group' | 'personal';
   conversations: Conversation[] | undefined;
-  updateLastSeenIndicator: UseMutateFunction<
-    boolean,
-    unknown,
-    UpdateUserOnConversation,
-    unknown
-  >;
   userId: number | null | undefined;
 };
 
@@ -28,7 +21,6 @@ function ConversationCardsContainer({
   setCurrentConversationFilter,
   currentConversationFilter,
   conversations,
-  updateLastSeenIndicator,
   userId,
 }: ConversationCardsContainerProps) {
   const { t } = useTranslation('chat');
@@ -54,7 +46,6 @@ function ConversationCardsContainer({
             <ConversationCard
               conversation={conversation}
               currentUserId={userId}
-              updateLastSeen={updateLastSeenIndicator}
               key={conversation.conversation_id}
             />
           ))}

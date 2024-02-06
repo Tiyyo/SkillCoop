@@ -1,34 +1,23 @@
 import { Link } from 'react-router-dom';
 import ConversationCardTimeAgo from './time-ago';
 import ConversationCardLastMessage from './last-message';
-import { getFormattedUTCTimestamp } from '@skillcoop/date-handler/src';
 import NewMessageIndicator from './new-message-indicator';
-import { Conversation, UpdateUserOnConversation } from '@skillcoop/types/src';
+import { Conversation } from '@skillcoop/types/src';
 import ConversationCardImage from '../../image-conversation';
 import ConversationCardTitle from '../../title-conversation';
 
 type ConversationCardProps = {
   currentUserId: number;
   conversation: Conversation;
-  updateLastSeen: (data: UpdateUserOnConversation) => void;
 };
 function ConversationCard({
   conversation,
-  currentUserId,
-  updateLastSeen,
+  currentUserId, // updateLastSeen,
 }: ConversationCardProps) {
-  const todayUTCString = getFormattedUTCTimestamp();
   return (
     <Link
       className="flex py-4"
       to={`conversation/${conversation.conversation_id}`}
-      onClick={() =>
-        updateLastSeen({
-          conversation_id: conversation.conversation_id,
-          user_id: currentUserId,
-          last_seen: todayUTCString,
-        })
-      }
     >
       <div
         className="relative flex  w-14 

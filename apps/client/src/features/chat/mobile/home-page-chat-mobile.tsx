@@ -13,7 +13,6 @@ function MobileChatHomePage() {
     setCurrentConversationFilter,
     currentConversationFilter,
     conversations,
-    updateLastSeenIndicator,
   } = useFiltersConversations(userId);
 
   return (
@@ -24,7 +23,6 @@ function MobileChatHomePage() {
         setCurrentConversationFilter={setCurrentConversationFilter}
         currentConversationFilter={currentConversationFilter}
         conversations={conversations}
-        updateLastSeenIndicator={updateLastSeenIndicator}
         userId={userId}
       />
       <Outlet />

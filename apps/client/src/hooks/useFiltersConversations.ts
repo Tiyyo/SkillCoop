@@ -1,8 +1,5 @@
 import { useMemo, useState } from 'react';
-import {
-  useGetConversationsList,
-  useUpdateUserOnConversation,
-} from './useConversations';
+import { useGetConversationsList } from './useConversations';
 import { Conversation } from '@skillcoop/types/src';
 
 const convertFilterIntoMatchingTypeName = {
@@ -13,7 +10,6 @@ const convertFilterIntoMatchingTypeName = {
 };
 
 export default function useFiltersConversations(userId?: number | null) {
-  const { mutate: updateLastSeenIndicator } = useUpdateUserOnConversation({});
   const { data: fetchConversations } = useGetConversationsList({
     userId: userId,
   });
@@ -32,7 +28,7 @@ export default function useFiltersConversations(userId?: number | null) {
     return (
       type ===
       convertFilterIntoMatchingTypeName[
-        filter as keyof typeof convertFilterIntoMatchingTypeName
+      filter as keyof typeof convertFilterIntoMatchingTypeName
       ]
     );
   };
@@ -77,6 +73,5 @@ export default function useFiltersConversations(userId?: number | null) {
     setCurrentConversationFilter,
     currentConversationFilter,
     getSearchInputValue,
-    updateLastSeenIndicator,
   };
 }

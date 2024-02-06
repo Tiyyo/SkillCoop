@@ -44,9 +44,12 @@ function EventPage() {
     });
   }, [location.pathname, event, initEventState]);
 
-  const eventStoreDate = new Date(
-    `${eventStore?.start_date} ${eventStore.start_time}Z`,
-  ).toISOString();
+  const eventStoreDate =
+    eventStore.start_date &&
+    eventStore.start_time &&
+    new Date(
+      `${eventStore?.start_date} ${eventStore.start_time}Z`,
+    ).toISOString();
 
   useLayoutEffect(() => {
     if (eventStore && eventStore.user_status === 'declined') {
@@ -78,7 +81,7 @@ function EventPage() {
               <EventPageInfos
                 eventDuration={eventStore.duration}
                 eventlocation={eventStore.location}
-                eventDate={eventStoreDate}
+                eventDate={event?.date}
                 requiredParticipants={eventStore.required_participants}
                 profileId={profileId ?? 0}
                 eventStatus={eventStore.status_name}

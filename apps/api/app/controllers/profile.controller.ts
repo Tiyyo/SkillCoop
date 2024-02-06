@@ -11,7 +11,7 @@ import NotFoundError from '../helpers/errors/not-found.error.js';
 export default {
   async getOne(req: Request, res: Response) {
     const [profileId] = checkParams(req.params.profileId);
-    const profile = await Profile.findOne({ profile_id: profileId });
+    const profile = await Profile.find(profileId);
 
     return res.status(200).json(profile);
   },

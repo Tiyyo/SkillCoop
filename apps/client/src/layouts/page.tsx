@@ -5,8 +5,8 @@ import SideMenuDesktop from '../components/side-menu';
 function Page({ children }: { children: React.ReactNode }) {
   return (
     <div
-      className="relative flex min-h-screen-mobile flex-col
-      overflow-hidden text-text-base lg:min-h-screen lg:flex-row"
+      className="text-text-base relative flex min-h-screen-mobile
+      flex-col overflow-hidden lg:min-h-screen lg:flex-row"
     >
       <div className="relative hidden h-screen lg:flex">
         <Suspense>

@@ -157,6 +157,8 @@
   @media (prefers-color-scheme: dark) {
     :root {
       --dark: #070907f2;
+      --footer: #0b0d0bf2;
+      --white: #dfe6e0;
       --grey-off: #262726;
       --grey-sub-text: #b1b8b1;
       --grey-light: #3433338a;
@@ -164,15 +166,26 @@
       --base: hsl(120, 3%, 7%);
       --primary-100: hsla(131, 42%, 46%, 1);
       --primary-1100: hsla(120, 10%, 87%, 0.875);
+      --primary-gradient: hsl(0, 5%, 4%);
       --text-base: rgba(227, 230, 228, 0.91);
       --light: rgba(154, 156, 162, 0.7);
       --border: rgb(28, 28, 28);
       --bubble: rgb(49, 49, 49);
-      --footer: #1f1f1f;
       --home-page-gradient: linear-gradient(
         180deg,
-        hsl(120, 16%, 98%),
-        hsl(120deg, 100%, 98.1%)
+        hsl(105, 17%, 9%),
+        hsl(0, 5%, 4%)
+      );
+      --title: linear-gradient(
+        135deg,
+        rgba(68, 167, 86, 1) 0%,
+        rgba(5, 105, 27, 0.877) 63%
+      );
+      --subtitle: linear-gradient(
+        135deg,
+        rgba(68, 167, 86, 1) 0%,
+        rgba(0, 83, 16, 1) 19%,
+        rgb(106, 152, 114) 63%
       );
     }
   }
@@ -186,6 +199,7 @@
     --base: hsl(120, 3%, 7%);
     --primary-100: hsla(131, 42%, 46%, 1);
     --primary-1100: hsla(120, 10%, 87%, 0.875);
+    --primary-gradient: hsl(0, 5%, 4%);
     --text-base: rgba(227, 230, 228, 0.91);
     --light: rgba(154, 156, 162, 0.7);
     --border: rgb(28, 28, 28);
@@ -193,8 +207,19 @@
     --footer: #1f1f1f;
     --home-page-gradient: linear-gradient(
       180deg,
-      hsl(120, 16%, 98%),
-      hsl(120deg, 100%, 98.1%)
+      hsl(105, 17%, 9%),
+      hsl(0, 5%, 4%)
+    );
+    --title: linear-gradient(
+      135deg,
+      rgba(68, 167, 86, 1) 0%,
+      rgba(5, 105, 27, 0.877) 63%
+    );
+    --subtitle: linear-gradient(
+      135deg,
+      rgba(68, 167, 86, 1) 0%,
+      rgba(0, 83, 16, 1) 19%,
+      rgb(106, 152, 114) 63%
     );
   }
 

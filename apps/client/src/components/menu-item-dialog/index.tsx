@@ -48,15 +48,18 @@ function MenuItemDialog({
       >
         {children}
       </AlertDialogTrigger>
-      <AlertDialogContent className="w-4/5 rounded-lg bg-base-light">
+      <AlertDialogContent
+        className="border-border text-text-base w-4/5 
+        rounded-lg border bg-base-light"
+      >
         <AlertDialogHeader>
           <AlertDialogTitle>{t('areYouSure')}</AlertDialogTitle>
           <AlertDialogDescription>{description}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel
-            className="bg-primary-800 duration-300 
-            hover:bg-primary-400"
+            className="border-border border bg-primary-800 
+            duration-300 hover:bg-primary-400"
           >
             {t('cancel')}
           </AlertDialogCancel>

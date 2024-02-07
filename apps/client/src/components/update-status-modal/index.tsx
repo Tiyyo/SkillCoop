@@ -76,10 +76,13 @@ function UpdateStatusModal({
 
   return (
     <AlertDialog>
-      <AlertDialogTrigger className={menuItemStyle + 'h-10 w-full'}>
+      <AlertDialogTrigger className={menuItemStyle + ' h-10 w-full'}>
         {children}
       </AlertDialogTrigger>
-      <AlertDialogContent className="w-4/5 rounded-lg bg-base-light ">
+      <AlertDialogContent
+        className="border-border text-text-base w-4/5 
+        rounded-lg bg-base-light"
+      >
         <div className="w-full text-right">
           <AlertDialogCancel className="m-0 border-none" ref={closeModalRef}>
             <X size={18} />

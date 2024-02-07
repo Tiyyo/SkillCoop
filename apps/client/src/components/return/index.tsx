@@ -27,7 +27,7 @@ function ReturnBtn({ to }: ReturnBtnProps) {
             lg:w-10
             "
     >
-      <ChevronsLeft size={24} className="text-grey-off opacity-80" />
+      <ChevronsLeft size={24} className="text-white opacity-80" />
     </button>
   );
 }

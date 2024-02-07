@@ -302,10 +302,11 @@ i18next.init({
 });
 
 // Set the theme
-const { theme } = localStorage.getItem('_userPreferences')
+const userPreferences = localStorage.getItem('_userPreferences')
   ? JSON.parse(localStorage.getItem('_userPreferences')!)
   : null;
-theme ? setLightTheme() : setDarkTheme();
+
+userPreferences?.theme ? setLightTheme() : setDarkTheme();
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

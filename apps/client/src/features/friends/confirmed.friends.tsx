@@ -28,7 +28,7 @@ function ConfirmedFriends() {
         textButton={t('addNewFriend')}
         legend={t('myFriendsLegend')}
       />
-      <Container className="flex-grow">
+      <Container className="flex-grow lg:rounded-lg">
         <div className="flex items-center justify-between">
           <TitleH2 />
           <Link

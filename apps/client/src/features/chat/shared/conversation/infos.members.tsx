@@ -64,7 +64,7 @@ function ConversationInfosMembers({
     <>
       <div
         className="w-full overflow-x-auto 
-       border-b border-b-grey-sub-text border-opacity-20 py-4"
+       border-b border-b-grey-light border-opacity-20 py-4"
       >
         <div className="flex justify-between">
           <p className="text-xs font-medium text-primary-1100">

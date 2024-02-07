@@ -58,7 +58,10 @@ function LanguageSettings() {
       <h3 className="font-sm py-2 font-medium">{t('language')}</h3>
       <form onChange={handleChange}>
         <Select>
-          <SelectTrigger className="w-full max-w-xl">
+          <SelectTrigger
+            className="w-full max-w-xl border-border 
+          focus:ring-primary-700"
+          >
             <SelectValue
               placeholder={
                 language
@@ -68,7 +71,7 @@ function LanguageSettings() {
               className="w-12"
             />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="text-text-base">
             <SelectGroup>
               {languageSymbols.map((symbol, index) => (
                 <SelectItem value={symbol} key={index}>

@@ -17,7 +17,7 @@ function TeamGeneratedNotification({
       return (
         <>
           {t('eventScheduledOn')}{' '}
-          <span className="font-medium text-dark">{date}</span>{' '}
+          <span className="font-medium text-text-base">{date}</span>{' '}
           {t('hasReachedItsMaximumNumberOfParticipants')}
         </>
       );

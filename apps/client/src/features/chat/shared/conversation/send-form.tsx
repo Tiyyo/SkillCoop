@@ -66,10 +66,10 @@ export function MyForm({
           onChange={handleChange}
           name=""
           placeholder={`${t('typeYourMessage')} ...`}
-          className="palceholder:text-dark relative m-0 flex w-full 
+          className="palceholder:text-light relative m-0 flex w-full 
             flex-grow resize-none flex-col overflow-hidden 
-            rounded-lg border-0 bg-grey-off px-2.5 py-2 focus:ring-0 
-            focus-visible:ring-0  md:py-3.5 md:pl-[55px] md:pr-12"
+            rounded-lg border-0 bg-bubble px-2.5 py-2 focus:ring-0 
+            focus-visible:ring-0  md:py-3.5 md:pl-[20px] md:pr-12"
         />
         <button
           type="submit"

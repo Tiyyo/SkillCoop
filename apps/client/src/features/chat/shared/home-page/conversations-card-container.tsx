@@ -27,7 +27,7 @@ function ConversationCardsContainer({
   const isConversationsExits = conversations && conversations.length > 0;
 
   return (
-    <Container className="flex-grow overflow-hidden lg:pb-24">
+    <Container className="flex-grow overflow-hidden lg:rounded-none lg:pb-24">
       <SearchInput onChange={getSearchInputValue} />
       <Tabs
         getClickValue={setCurrentConversationFilter}

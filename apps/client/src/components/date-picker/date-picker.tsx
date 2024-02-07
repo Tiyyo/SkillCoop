@@ -17,8 +17,6 @@ function DatePicker({
   const { t } = useTranslation('event');
   const [date, setDate] = useState<Date>();
 
-  console.log('hasError', hasError);
-
   useEffect(() => {
     if (date) {
       onChange(date);
@@ -29,7 +27,7 @@ function DatePicker({
       <PopoverTrigger asChild>
         <Button
           className={`rouned-lg flex items-center justify-start 
-          gap-x-3 border ${hasError && 'ring-2 ring-error'}`}
+          gap-x-3 border border-border ${hasError && 'ring-2 ring-error'}`}
         >
           {date ? (
             getDefaultDatePicker(date, currentLng)
@@ -40,7 +38,7 @@ function DatePicker({
           )}
         </Button>
       </PopoverTrigger>
-      <PopoverContent>
+      <PopoverContent className="border border-border">
         <Calendar
           mode="single"
           selected={date}

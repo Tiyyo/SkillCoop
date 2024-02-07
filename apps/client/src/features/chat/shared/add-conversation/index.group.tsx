@@ -87,7 +87,7 @@ function NewConversationGroup({
                   <X
                     className="absolute -bottom-1 -right-1 cursor-pointer 
                     rounded-full bg-grey-constrast bg-opacity-80 p-0.5 
-                  text-dark"
+                  text-text-base"
                     size={16}
                     onClick={() => removeFriends(friend.userId)}
                   />
@@ -107,7 +107,8 @@ function NewConversationGroup({
         />
         <div
           className="no-scrollbar flex h-50vh flex-col content-start 
-        overflow-y-auto py-6 xl:grid xl:grid-cols-2 2xl:grid-cols-3"
+          overflow-y-auto px-2 py-6 lg:gap-3 xl:grid xl:grid-cols-2 
+          2xl:grid-cols-3"
         >
           {friends &&
             friends

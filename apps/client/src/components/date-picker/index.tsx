@@ -60,7 +60,7 @@ function InputDate({
             defaultValue={getDefaultDatePicker(defaultDate, currentLng)}
             disabled={disabled}
             className={`block h-7 w-full 
-            rounded-lg border border-none border-gray-300 bg-base-light pl-2 
+            rounded-lg border border-none border-border bg-base-light pl-2 
             text-xs font-semibold text-primary-1100`}
           />
         ) : (

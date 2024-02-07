@@ -45,7 +45,7 @@ function NotificationContainer() {
         </h2>
         <NotificationFilters />
       </Container>
-      <Container className="lg: flex-grow rounded-b-lg px-1.5 lg:rounded-none">
+      <Container className="lg: flex-grow px-1.5 lg:rounded-b-lg">
         {notifications && notifications.length === 0 && (
           <p className="mt-4 text-center text-sm text-light">
             {t('noNotifications')}

@@ -20,7 +20,7 @@ function AddedFriendsNotification({
       message={
         <>
           {t('youAreNowFriendsWith')}{' '}
-          <span className="font-medium text-dark">{username}</span>
+          <span className="font-medium text-text-base">{username}</span>
         </>
       }
     />

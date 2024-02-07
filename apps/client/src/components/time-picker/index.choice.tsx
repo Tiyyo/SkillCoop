@@ -4,9 +4,16 @@ type ChoiceProps = {
 };
 
 function Choice({ value, variant }: ChoiceProps) {
-  const styleHours = 'mx-10';
+  const styleHours = 'mx-auto bg-base';
   return (
-    <option value={value} className={variant === 'hours' ? styleHours : ''}>
+    <option
+      value={value}
+      className={
+        variant === 'hours'
+          ? styleHours
+          : 'mx-auto border border-border bg-base'
+      }
+    >
       {value}
     </option>
   );

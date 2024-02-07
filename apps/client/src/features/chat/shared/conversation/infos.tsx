@@ -10,7 +10,7 @@ type ConversationInfosProps = {
   currentUserId: number | null;
 };
 
-const mobileViewStyle = `absolute top-0 z-10  h-7 w-full    
+const mobileViewStyle = `absolute top-0 z-10 h-7 w-full    
     justify-start  `;
 
 const desktopViewStyle = `lg:w-4/12 lg:max-w-[260px] 

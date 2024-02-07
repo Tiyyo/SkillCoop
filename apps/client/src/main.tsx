@@ -58,6 +58,7 @@ import DesktopChatHomePage from './features/chat/desktop/home-page-chat-desktop'
 import DesktopConversationPage from './features/chat/desktop/conversation-desktop';
 import MobileChatHomePage from './features/chat/mobile/home-page-chat-mobile';
 import MobileConversationPage from './features/chat/mobile/conversation-mobile';
+import { setDarkTheme, setLightTheme } from './utils/set-theme';
 /*eslint-enable*/
 
 export const queryClient = new QueryClient({
@@ -299,6 +300,12 @@ i18next.init({
     escapeValue: false,
   },
 });
+
+// Set the theme
+const { theme } = localStorage.getItem('_userPreferences')
+  ? JSON.parse(localStorage.getItem('_userPreferences')!)
+  : null;
+theme ? setLightTheme() : setDarkTheme();
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

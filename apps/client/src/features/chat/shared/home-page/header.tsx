@@ -12,7 +12,7 @@ function HeaderHomePageChat() {
   return (
     <Container
       className="flex items-center justify-between lg:mt-4 
-      lg:h-[70px]"
+      lg:h-[70px] lg:rounded-none lg:rounded-t-lg"
     >
       <TitleH1
         title={t('conversations')}

@@ -36,7 +36,7 @@ function ConversationMessages({
                 ))}
             </div>
           </main>
-          <footer className="border-t border-b-grey-light py-4">
+          <footer className="border-t border-t-grey-light py-4">
             <MyForm
               conversationId={conversation?.conversation_id}
               userId={userId}

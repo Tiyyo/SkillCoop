@@ -58,6 +58,10 @@ function RadarChart({ skills, min, max, displayTicks }: RadarChartProps) {
             max,
             ticks: {
               display: displayTicks ?? true,
+              backdropColor: 'transparent',
+            },
+            grid: {
+              color: '#3433338a',
             },
           },
         },

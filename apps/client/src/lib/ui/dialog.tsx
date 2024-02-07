@@ -43,10 +43,9 @@ const DialogContent = React.forwardRef<
          w-full 
          max-w-lg translate-x-[-50%] 
          translate-y-[-50%] gap-4 
-         border 
+         border border-border
          p-6 
-         shadow-lg 
-         duration-200 sm:rounded-lg md:w-full`,
+         shadow-lg duration-200 sm:rounded-lg md:w-full`,
         className,
       )}
       {...props}

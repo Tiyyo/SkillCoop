@@ -74,7 +74,7 @@ function EventPageScore({
   if (eventStatus === 'cancelled') return null;
   if (eventStatus === 'open') return null;
   return (
-    <Container className="flex min-w-[335px] flex-col">
+    <Container className="flex min-w-[335px] flex-col lg:rounded-lg">
       <TitleH2 title={t('finalScore')} />
       {/* "bg-base-light mx-2 rounded-md py-4 px-3 flex flex-col items-center
       justify-between w-full" */}

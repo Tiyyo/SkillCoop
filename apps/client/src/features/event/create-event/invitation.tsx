@@ -34,7 +34,7 @@ function InvitationFromCreateEventPage() {
         legend={t('inviteYourFriendsLegend')}
       />
       <div className="flex h-full flex-grow flex-col justify-between">
-        <div className="flex flex-col justify-center px-4">
+        <div className="flex flex-col justify-center gap-y-4 p-4">
           <SearchInput onChange={getSearchValue} />
           <FriendCards
             profileSearchResult={profileSearchResult}

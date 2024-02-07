@@ -57,10 +57,13 @@ function UserResumeSkills() {
     );
 
   return (
-    <Container className="flex w-full flex-col gap-y-6 lg:mt-4 lg:flex-row">
+    <Container
+      className="flex w-full flex-grow flex-col gap-y-6 lg:mt-4 
+      lg:flex-row"
+    >
       <div className="basis-1/2">
         <TitleH2 title={t('title:stats')} />
-        <div className="flex w-full flex-col gap-y-2 py-4 ">
+        <div className="flex w-full flex-col gap-y-2 py-4 text-light">
           <div className="flex items-center gap-x-2">
             <img src={flash} className="h-8 rounded-lg bg-primary-100 p-1" />
             <p>
@@ -109,7 +112,10 @@ function UserResumeSkills() {
           }
         />
         {hasBeenEvaluated ? (
-          <div className="max-h-96 py-2 text-center">
+          <div
+            className="flex max-h-96 justify-center py-2 
+            text-center"
+          >
             <RadarChart skills={skillValues} min={0} max={100} displayTicks />
           </div>
         ) : (

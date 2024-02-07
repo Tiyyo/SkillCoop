@@ -13,7 +13,7 @@ function BenefitCard({ children, title, description }: BenefitCardProps) {
       <div className="mx-auto basis-2/5">{children}</div>
       <h3
         className="basis-1/5 py-2.5 text-center 
-        text-3xl font-semibold tracking-tight"
+        text-3xl font-semibold tracking-tight text-text-base"
       >
         {title}
       </h3>

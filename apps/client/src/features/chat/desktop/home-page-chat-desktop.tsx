@@ -38,7 +38,7 @@ function DesktopChatHomePage() {
   return (
     <div className="overflow-hidden rounded-lg">
       <HeaderHomePageChat />
-      <div className="flex h-[calc(100vh-214px)] w-full flex-grow">
+      <div className="flex h-[calc(100vh-214px)] w-full flex-grow ">
         <div className="flex w-1/4 min-w-[270px] basis-1/4 flex-col">
           <ConversationCardsContainer
             getSearchInputValue={getSearchInputValue}

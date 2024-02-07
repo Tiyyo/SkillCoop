@@ -56,11 +56,14 @@ function TeamComposition({
   return (
     <form
       className="mx-2 my-4 flex flex-col 
-      rounded-md bg-base-light px-3 py-4 shadow"
+      rounded-md bg-base-light py-4 shadow"
       onSubmit={handleSubmit}
       onChange={handleChangeForm}
     >
-      <h2 className="flex items-center py-1.5 text-sm font-semibold">
+      <h2
+        className="flex items-center px-3 py-1.5 text-sm 
+        font-semibold lg:rounded-lg"
+      >
         {t('teamComposition')}
       </h2>
       <Team
@@ -70,6 +73,10 @@ function TeamComposition({
         currentIdActive={currentIdpActive}
         nameInput={nameInput}
       />
+      <div className="flex h-7 justify-between bg-base-light">
+        <div className="w-[45%] rounded-r-xl bg-grey-off"></div>
+        <div className="w-[45%] rounded-l-xl bg-grey-off"></div>
+      </div>
       <Team
         title={t('team') + ' B'}
         participants={participants}

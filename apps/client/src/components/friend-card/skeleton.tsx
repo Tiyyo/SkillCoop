@@ -2,8 +2,8 @@ function FriendCardSkeleton() {
   return (
     <div className="relative">
       <div
-        className="absolute z-10 h-full 
-        w-full animate-opacity-in bg-base-light"
+        className="opacity-1 absolute z-10 
+        h-full w-full animate-reverse-opacity-in bg-base-light"
       ></div>
       <div
         className="relative z-0 flex animate-pulse items-center 

@@ -28,10 +28,10 @@ function AddFriends() {
 
   return (
     <>
-      <Container className="w-full lg:mt-4">
+      <Container className="w-full lg:mt-4 lg:rounded-lg">
         <TitleH2 title={t('addNew')} legend={t('addNewLegend')} />
       </Container>
-      <Container className="flex-grow lg:mt-4">
+      <Container className="flex-grow lg:mt-4 lg:rounded-lg">
         <div className="px-4 py-2">
           <SearchInput onChange={getInputSearchValue} />
         </div>

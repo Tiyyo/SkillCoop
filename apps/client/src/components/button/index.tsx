@@ -58,7 +58,7 @@ function Button({
 }: ButtonProps) {
   const { t } = useTranslation('system');
   const base = 'py-2 cursor-pointer duration-200 transition-all rounded-md';
-  const solid = `bg-primary-800 hover:bg-primary-900 text-white  px-3 w-[70%] 
+  const solid = `bg-primary-800 hover:bg-primary-400 text-white  px-3 w-[70%] 
                  max-w-xs font-bold uppercase shadow-sm tracking-wide`;
   const light = 'text-primary-700 my-3 px-8 w-fit self-center hover:bg-base ';
 

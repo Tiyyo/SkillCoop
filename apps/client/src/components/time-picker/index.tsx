@@ -123,7 +123,7 @@ function InputTime({
               id={name}
               {...props}
               className={cn(
-                `block w-full rounded-lg border bg-base-light
+                `block w-full rounded-lg border border-border bg-base-light
                  pl-10 text-xs text-primary-1100 focus:border-primary-800 
               focus:ring-primary-800
            `,

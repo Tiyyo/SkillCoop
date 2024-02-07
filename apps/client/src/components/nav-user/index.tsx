@@ -19,10 +19,13 @@ function NavUser({ children }: { children: JSX.Element }) {
         rounded-lg px-2 text-md'`;
 
   return (
-    <div className="relative  flex justify-center">
+    <div className="relative flex justify-center">
       <DropdownMenu>
         <DropdownMenuTrigger>{children}</DropdownMenuTrigger>
-        <DropdownMenuContent className="mx-2 bg-base-light">
+        <DropdownMenuContent
+          className="mx-2 border-border bg-base-light 
+          text-text-base"
+        >
           <NavLink to="/user/profile">
             <DropdownMenuItem className={menuItemStyle}>
               <User size={16} />

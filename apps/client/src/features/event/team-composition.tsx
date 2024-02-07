@@ -24,13 +24,21 @@ function TeamComposition({
   // this is a different team comp and need to be refactored with the new one
 
   return (
-    <Container className="w-full p-0 shadow-none">
-      <Container className="shadow-none">
+    <Container
+      className="w-full overflow-hidden  
+      p-0 shadow-none lg:rounded-lg"
+    >
+      <Container className="overflow-hidden shadow-none lg:rounded-lg">
         <TitleH2
           title={t('teamComposition')}
           legend={t('balancedGeneratedTeams')}
         />
       </Container>
+      <div className="flex h-7 justify-between bg-base-light">
+        <div className="w-[25%] rounded-r-xl bg-grey-off"></div>
+        <div className="w-[30%] rounded-xl bg-grey-off"></div>
+        <div className="w-[25%] rounded-l-xl bg-grey-off"></div>
+      </div>
       <div className="bg-grey-off lg:flex lg:gap-x-6">
         <Team
           title={t('team') + ' A'}

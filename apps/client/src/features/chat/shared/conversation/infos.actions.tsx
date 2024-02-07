@@ -81,10 +81,10 @@ function ConversationInfosActions({
         <Dialog>
           <DialogTrigger>
             <p
-              className="flex w-full max-w-sm cursor-pointer items-center 
-          justify-center gap-x-3 rounded-xl bg-gray-300
-          bg-opacity-5 py-2 text-xs font-medium 
-          text-dark duration-200 hover:bg-gray-300 
+              className="flex w-full max-w-sm cursor-pointer 
+          items-center justify-center gap-x-3 rounded-xl
+          bg-opacity-5 px-4 py-2 text-xs font-medium
+          text-text-base duration-200 hover:bg-gray-300 
           hover:bg-opacity-10 hover:shadow-sm"
             >
               <LogOut size={16} />

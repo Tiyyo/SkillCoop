@@ -16,7 +16,10 @@ function HeaderEventList({
 }) {
   const { t } = useTranslation('system');
   return (
-    <Container className="flex w-full items-center justify-between lg:my-4">
+    <Container
+      className="flex w-full items-center justify-between 
+      lg:my-4 lg:rounded-lg"
+    >
       <TitleH2 title={title} legend={legendHeader} />
       {!linkOff &&
         (linkTo ? (

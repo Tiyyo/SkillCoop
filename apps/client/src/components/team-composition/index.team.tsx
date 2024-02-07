@@ -27,13 +27,8 @@ function Team({
   eventStatus,
 }: TeamProps) {
   return (
-    <div className="bg-grey-off lg:basis-1/2">
-      {' '}
-      <div className="flex h-7 justify-between bg-base-light">
-        <div className="w-[45%] rounded-r-xl bg-grey-off"></div>
-        <div className="w-[45%] rounded-l-xl bg-grey-off"></div>
-      </div>
-      <Container className="shadow-none">
+    <div className=" bg-grey-off lg:basis-1/2 lg:rounded-lg">
+      <Container className="shadow-none lg:rounded-none lg:rounded-t-lg ">
         <TitleH2 title={title} />
         <ul
           className="flex flex-wrap justify-center gap-2 

@@ -69,10 +69,16 @@ function EndOfGameAwards() {
           {t('voteNowForTheBest')} :
         </h2>
         <TabsList className="flex">
-          <TabsTrigger value="mvp" className="w-1/2 max-w-xl border">
+          <TabsTrigger
+            value="mvp"
+            className="w-1/2 max-w-xl border border-border"
+          >
             {t('player')}
           </TabsTrigger>
-          <TabsTrigger value="striker" className="w-1/2 max-w-xl border">
+          <TabsTrigger
+            value="striker"
+            className="w-1/2 max-w-xl border border-border"
+          >
             {t('striker')}
           </TabsTrigger>
         </TabsList>

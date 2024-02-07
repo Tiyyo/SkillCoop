@@ -29,9 +29,9 @@ function NewConversation() {
     <Container className="flex-grow p-0">
       <div className="flex items-center gap-x-4 px-4 py-4">
         <div
-          className="flex aspect-square cursor-pointer items-center
-          justify-center rounded-full border border-opacity-10 p-1.5 
-         text-primary-700 shadow"
+          className="flex aspect-square cursor-pointer items-center 
+          justify-center rounded-full border border-border border-opacity-10 
+          p-1.5 text-primary-800 shadow"
           onClick={() => {
             typeConversation === 'oneToOne'
               ? navigate(-1)

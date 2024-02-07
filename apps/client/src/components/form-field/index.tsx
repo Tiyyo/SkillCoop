@@ -62,10 +62,10 @@ function FormField({
           autoComplete={type === 'password' ? 'off' : 'on'}
           className={cn(
             `autofill:shadow-[inset_0_0_0px_1000px_rgb(255 248 242)]
-             focus:border-secondary-100 border-secondary-400 peer block 
-             w-full appearance-none rounded-lg border border-opacity-20 
-             bg-transparent px-2.5 pb-1.5 pt-3 text-sm text-gray-900 
-             focus:outline-none focus:ring-0`,
+             foucs:ring-1 border-border text-text-base peer block 
+             w-full appearance-none rounded-lg border
+             border-opacity-20 bg-transparent px-2.5 pb-1.5 pt-3 text-sm 
+              focus:ring-primary-100 `,
             props.disabled && 'cursor-not-allowed border-none text-light',
           )}
           defaultValue={props.defaultValue}

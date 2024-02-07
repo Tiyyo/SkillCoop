@@ -63,9 +63,9 @@ function Input({
             {...props}
             className={cn(
               `block h-7 w-full rounded-lg
-              border border-gray-300 bg-base-light pl-2 text-sm 
-              font-medium text-primary-1100 placeholder:font-medium 
-            placeholder:text-dark`,
+               border border-bubble bg-base-light pl-2 text-sm 
+               font-medium text-primary-1100 placeholder:font-medium 
+               placeholder:text-light`,
               disabled && 'border-none',
               hasError && 'ring-2 ring-error',
               high ? 'h-10' : 'h-7',

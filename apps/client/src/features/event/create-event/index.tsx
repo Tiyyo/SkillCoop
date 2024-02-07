@@ -83,7 +83,7 @@ function CreateEvent() {
   };
 
   return (
-    <Container className=" h-full flex-grow pb-10 lg:mt-4">
+    <Container className=" h-full flex-grow pb-10 lg:mt-4 lg:rounded-lg">
       <div className="flex items-center justify-between pr-4">
         <TitleH2
           title={t('title:createNewEvent')}
@@ -91,10 +91,12 @@ function CreateEvent() {
         />
         <Link
           to="invitation"
-          className={`lg:text-smtext-base-light flex cursor-pointer 
-          items-center gap-2 rounded-full bg-primary-800 px-2.5 py-2.5 text-xs 
-          font-semibold shadow-md duration-300 hover:bg-primary-500
-         hover:text-dark sm:px-6`}
+          className={`lg:text-smtext-base-light hover:text-text-base 
+          flex cursor-pointer items-center gap-2 
+          rounded-full bg-primary-800 px-2.5 py-2.5 text-xs 
+          font-semibold shadow-md
+          duration-300
+         hover:bg-primary-500 sm:px-6`}
         >
           <p className="hidden sm:block">{t('inviteYourFriends')}</p>
           <Plus />

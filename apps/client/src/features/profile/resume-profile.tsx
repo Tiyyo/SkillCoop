@@ -29,12 +29,12 @@ function ResumeProfile({ infos }: { infos: Infos }) {
   };
   return (
     <div
-      className="flex h-fit w-full flex-col bg-base-light shadow 
-    lg:my-4 lg:rounded-xl "
+      className="flex h-fit w-full flex-col overflow-hidden bg-base-light 
+    shadow lg:my-4 lg:rounded-xl"
     >
       <div
         className="-top-12 flex 
-             flex-col bg-base pl-6"
+             flex-col border-b border-b-light bg-base-light pl-6"
       >
         <div className="relative flex items-center gap-x-5 py-4 ">
           <AvatarEdit

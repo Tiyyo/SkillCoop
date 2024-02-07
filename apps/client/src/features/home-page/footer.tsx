@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 function Footer() {
   const { t } = useTranslation();
   return (
-    <footer className="w-full bg-dark px-12 py-12 text-base-light lg:px-24 ">
+    <footer className="w-full bg-footer px-12 py-12 text-white lg:px-24 ">
       <ul className="flex flex-col gap-x-4 lg:flex-row">
         <li>{t('home')}</li>
         <li>{t('ourProduct')}</li>
@@ -25,7 +25,7 @@ function Footer() {
         <ul
           className="flex min-w-fit 
           max-w-[174px] basis-3/12 items-center
-          justify-center gap-x-5 rounded-full bg-base-light px-5 py-2"
+          justify-center gap-x-5 rounded-full bg-white px-5 py-2"
         >
           <li>
             <Xtwitter />

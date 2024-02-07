@@ -86,10 +86,11 @@ function SelectInput({
           <select
             name={name}
             className={cn(
-              `focus:ring-primary-800focus:border-primary-800 block h-7 w-full 
-              rounded-lg border 
-              bg-base-light
-              pl-2 text-sm font-medium text-primary-1100`,
+              `block h-7 w-full rounded-lg 
+              border border-border bg-base-light 
+              pl-2
+              text-sm font-medium text-primary-1100 
+            `,
               high ? 'h-10' : 'h-7',
               hasError && 'ring-2 ring-error',
             )}

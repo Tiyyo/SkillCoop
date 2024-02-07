@@ -6,6 +6,8 @@ import { UserPreference, themeAssertion } from '@skillcoop/types/src';
 import { useUpdateThemePreference } from '../../hooks/useUserPreference';
 import { updateThemePreferenceSchema } from '@skillcoop/schema/src';
 import { useTranslation } from 'react-i18next';
+import { setDarkTheme, setLightTheme } from '../../utils/set-theme';
+import { storeInLocalStorage } from '../../utils/store-in-local';
 
 function ApparenceSettings() {
   const { t } = useTranslation('system');
@@ -30,7 +32,12 @@ function ApparenceSettings() {
 
     if (!isValid.success) return null;
     updatePreference(updateThemeData);
+    checked ? setLightTheme() : setDarkTheme();
+    storeInLocalStorage('_userPreferences', {
+      theme: checked ? 'light' : 'dark',
+    });
   };
+
   return (
     <Container className="flex-grow p-5 lg:mt-4">
       <h3 className="py-2 text-sm font-medium">{t('theme')}</h3>

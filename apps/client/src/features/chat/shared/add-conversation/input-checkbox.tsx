@@ -49,8 +49,8 @@ function InputCheckbox({ friend }: InputCheckboxProps) {
     <label
       className="flex cursor-pointer items-center justify-between 
                  gap-x-4 border-b border-b-grey-regular border-opacity-10  
-                 px-4 py-2 shadow-sm first:border-t 
-               first:border-t-grey-regular first:border-opacity-10"
+                 px-4 py-2 shadow-sm first:border-t first:border-t-grey-regular
+               first:border-opacity-10 lg:rounded-xl lg:border-none lg:bg-base"
       aria-roledescription="Link to conversation"
       key={friend.friend_id}
       htmlFor="id"

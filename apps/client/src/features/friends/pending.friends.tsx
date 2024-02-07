@@ -12,7 +12,7 @@ function PendingFriends() {
   const { pendingFriends, loading, isError } = usePendingFriends({ profileId });
 
   return (
-    <Container className="flex w-full flex-grow flex-col lg:mt-4">
+    <Container className="flex w-full flex-grow flex-col lg:mt-4 lg:rounded-lg">
       <TitleH2 title={t('pendingRequest')} legend={t('pendingRequestLegend')} />
       <Friendlist
         loading={loading}

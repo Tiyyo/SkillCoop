@@ -99,7 +99,10 @@ function EventPage() {
             </div>
           )}
         </div>
-        <div className="h-15 flex w-10 flex-col items-center bg-base-light">
+        <div
+          className="h-15 flex w-10 flex-col items-center bg-base-light 
+          lg:rounded-lg"
+        >
           <DropdownEventMenu
             profileId={profileId}
             eventStatus={eventStore.status_name}

@@ -62,7 +62,8 @@ function NewConversationOneToOne({
       </div>
       <div
         className="no-scrollbar flex h-50vh flex-col content-start 
-        overflow-y-auto py-6 xl:grid xl:grid-cols-2 2xl:grid-cols-3"
+        overflow-y-auto px-2 py-6 lg:gap-3 xl:grid xl:grid-cols-2 
+        2xl:grid-cols-3"
       >
         {friends &&
           friends
@@ -75,7 +76,8 @@ function NewConversationOneToOne({
                 className="flex h-16 cursor-pointer items-center 
               gap-x-4 border-b border-b-grey-regular border-opacity-10  
               px-4 py-2 shadow-sm first:border-t 
-              first:border-t-grey-regular first:border-opacity-10"
+              first:border-t-grey-regular first:border-opacity-10 
+              lg:rounded-xl lg:border-none lg:bg-base"
                 onClick={() => navigateToConversation(friend.friend_id)}
                 aria-roledescription="Link to conversation"
                 key={friend.friend_id}

@@ -59,7 +59,7 @@ function CallToActionInvitation({
   return (
     <>
       {event.user_status === 'pending' && (
-        <Container className="flex w-full justify-between py-2">
+        <Container className="flex w-full justify-between py-2 lg:rounded-lg">
           <LeftBorder />
           <div
             className="ml-2 flex w-full flex-col items-center 

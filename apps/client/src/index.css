@@ -99,6 +99,159 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --dark: #12161f;
+    --base-light: hsl(110, 20%, 99%);
+    --base: hsl(120, 16.7%, 97.6%);
+    --grey-regular: #b6b7ba;
+    --grey-off: #f6f6f6;
+    --grey-light: #d9d9d9;
+    --grey-contrast: #f8fbff;
+    --grey-sub-text: #717379;
+    --primary-20: hsla(131, 42%, 46%, 0.2);
+    --primary-100: hsla(131, 42%, 46%, 1);
+    --primary-200: hsla(120, 98%, 35.5%, 0.079);
+    --primary-210: hsla(120, 98%, 35.5%, 0.03);
+    --primary-300: hsla(120, 98.7%, 31.5%, 0.126);
+    --primary-400: hsla(122, 98.5%, 29.9%, 0.193);
+    --primary-500: hsla(125, 99.2%, 27.9%, 0.283);
+    --primary-600: hsla(125, 99.9%, 27%, 0.408);
+    --primary-700: hsla(131, 100%, 27.6%, 0.604);
+    --primary-800: hsla(131, 99.7%, 26.3%, 0.726);
+    --primary-900: hsla(132, 99.9%, 24%, 0.761);
+    --primary-1000: hsla(133, 99.5%, 19.5%, 0.84);
+    --primary-1100: hsla(131, 99.1%, 6.3%, 0.875);
+    --primary-gradient: hsl(120deg, 100%, 98.1%);
+    --primary-light-100: #f0f8f1;
+    --accent-300: rgba(160, 1, 160, 0.8);
+    --accent-700: #850801;
+    --error: hsl(348, 83.3%, 47.1%);
+    --error-mid: #c63a46;
+    --error-light: #fce8e8;
+    --success: hsl(128.8, 27.9%, 28.8%);
+    --info: hsl(217, 59%, 41%);
+    --light: rgba(61, 65, 63, 0.7);
+    --text-base: rgb(3, 5, 2);
+    --border: rgb(242, 245, 242);
+    --bubble: rgb(243 244 246);
+    --footer: #070907f2;
+    --white: #dfe6e0;
+    --home-page-gradient: linear-gradient(
+      180deg,
+      hsl(120, 16%, 98%),
+      hsl(120deg, 100%, 98.1%)
+    );
+    --title: linear-gradient(
+      135deg,
+      rgba(68, 167, 86, 1) 0%,
+      rgba(3, 78, 19, 0.87718837535014) 63%
+    );
+    --subtitle: linear-gradient(
+      135deg,
+      rgba(68, 167, 86, 1) 0%,
+      rgba(0, 83, 16, 1) 19%,
+      rgba(0, 32, 6, 1) 63%
+    );
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --dark: #070907f2;
+      --grey-off: #262726;
+      --grey-sub-text: #b1b8b1;
+      --grey-light: #3433338a;
+      --base-light: hsl(120, 3%, 6%);
+      --base: hsl(120, 3%, 7%);
+      --primary-100: hsla(131, 42%, 46%, 1);
+      --primary-1100: hsla(120, 10%, 87%, 0.875);
+      --text-base: rgba(227, 230, 228, 0.91);
+      --light: rgba(154, 156, 162, 0.7);
+      --border: rgb(28, 28, 28);
+      --bubble: rgb(49, 49, 49);
+      --footer: #1f1f1f;
+      --home-page-gradient: linear-gradient(
+        180deg,
+        hsl(120, 16%, 98%),
+        hsl(120deg, 100%, 98.1%)
+      );
+    }
+  }
+
+  :root[data-theme='dark'] {
+    --dark: #070907f2;
+    --grey-off: #262726;
+    --grey-sub-text: #b1b8b1;
+    --grey-light: #3433338a;
+    --base-light: hsl(120, 3%, 6%);
+    --base: hsl(120, 3%, 7%);
+    --primary-100: hsla(131, 42%, 46%, 1);
+    --primary-1100: hsla(120, 10%, 87%, 0.875);
+    --text-base: rgba(227, 230, 228, 0.91);
+    --light: rgba(154, 156, 162, 0.7);
+    --border: rgb(28, 28, 28);
+    --bubble: rgb(49, 49, 49);
+    --footer: #1f1f1f;
+    --home-page-gradient: linear-gradient(
+      180deg,
+      hsl(120, 16%, 98%),
+      hsl(120deg, 100%, 98.1%)
+    );
+  }
+
+  :root[data-theme='light'] {
+    --dark: #12161f;
+    --base-light: hsl(110, 20%, 99%);
+    --base: hsl(120, 16.7%, 97.6%);
+    --grey-regular: #b6b7ba;
+    --grey-off: #f6f6f6;
+    --grey-light: #d9d9d9;
+    --grey-contrast: #f8fbff;
+    --grey-sub-text: #717379;
+    --primary-20: hsla(131, 42%, 46%, 0.2);
+    --primary-100: hsla(131, 42%, 46%, 1);
+    --primary-200: hsla(120, 98%, 35.5%, 0.079);
+    --primary-210: hsla(120, 98%, 35.5%, 0.03);
+    --primary-300: hsla(120, 98.7%, 31.5%, 0.126);
+    --primary-400: hsla(122, 98.5%, 29.9%, 0.193);
+    --primary-500: hsla(125, 99.2%, 27.9%, 0.283);
+    --primary-600: hsla(125, 99.9%, 27%, 0.408);
+    --primary-700: hsla(131, 100%, 27.6%, 0.604);
+    --primary-800: hsla(131, 99.7%, 26.3%, 0.726);
+    --primary-900: hsla(132, 99.9%, 24%, 0.761);
+    --primary-1000: hsla(133, 99.5%, 19.5%, 0.84);
+    --primary-1100: hsla(131, 99.1%, 6.3%, 0.875);
+    --primary-gradient: hsl(120deg, 100%, 98.1%);
+    --primary-light-100: #f0f8f1;
+    --accent-300: rgba(160, 1, 160, 0.8);
+    --accent-700: #850801;
+    --error: hsl(348, 83.3%, 47.1%);
+    --error-mid: #c63a46;
+    --error-light: #fce8e8;
+    --success: hsl(128.8, 27.9%, 28.8%);
+    --info: hsl(217, 59%, 41%);
+    --light: rgba(61, 65, 63, 0.7);
+    --text-base: rgb(3, 5, 2);
+    --border: rgb(242, 245, 242);
+    --bubble: rgb(243 244 246);
+    --footer: #070907f2;
+    --white: #dfe6e0;
+    --home-page-gradient: linear-gradient(
+      180deg,
+      hsl(120, 16%, 98%),
+      hsl(120deg, 100%, 98.1%)
+    );
+    --title: linear-gradient(
+      135deg,
+      rgba(68, 167, 86, 1) 0%,
+      rgba(3, 78, 19, 0.87718837535014) 63%
+    );
+    --subtitle: linear-gradient(
+      135deg,
+      rgba(68, 167, 86, 1) 0%,
+      rgba(0, 83, 16, 1) 19%,
+      rgba(0, 32, 6, 1) 63%
+    );
+  }
   body {
     font-family: 'Inter', 'Nato Sans', sans-serif;
     font-weight: 400;

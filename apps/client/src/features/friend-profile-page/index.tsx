@@ -122,8 +122,6 @@ function FriendProfile() {
           )}
           <SharedEvents
             username={profile?.username ?? ''}
-            currentUserId={userId}
-            friendId={profileId}
             events={sharedEvents}
           />
         </div>

@@ -59,11 +59,11 @@ function ShowcaseEventCard({
         </p>
       </div>
       <div className="flex w-full flex-grow items-center justify-between ">
-        <div className="flex basis-2/12 items-center gap-x-3">
+        <div className="flex h-full basis-2/12 items-center gap-x-3">
           <img
-            src="/images/jersey.png"
+            src="/images/generic_jersey_blue.png"
             alt="jersey icon"
-            className=" h-8 md:h-10 lg:h-18"
+            className="aspect-auto h-3/6 lg:mx-3"
           />
           <div className="flex-shrink-0">
             <div className="hidden md:block lg:font-semibold">{t('team')}</div>
@@ -77,11 +77,14 @@ function ShowcaseEventCard({
           </div>
         </div>
         <p className="text-lg font-semibold">VS</p>
-        <div className="flex basis-2/12 flex-row-reverse items-center gap-x-3">
+        <div
+          className="flex h-full basis-2/12 flex-row-reverse 
+          items-center gap-x-3"
+        >
           <img
-            src="/images/jersey.png"
+            src="/images/generic_jersey_blue.png"
             alt="jersey icon"
-            className=" h-8 md:h-10 lg:h-18"
+            className="aspect-auto h-3/6 lg:mx-3"
           />
           <div className="flex-shrink-0">
             <div className="hidden md:block lg:font-semibold">{t('team')}</div>

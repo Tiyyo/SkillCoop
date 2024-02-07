@@ -16,7 +16,6 @@ function ResponsiveAvatar({
   profile_id: number;
   avatar: string | null;
 }) {
-  console.log('avatar', avatar);
   return (
     <>
       <ImageWithFallback
@@ -55,12 +54,10 @@ function Avatars({
   plus,
 }: AvatarsProps) {
   const idComp = useId();
-  console.log('participants', participants);
-  console.log('team', team);
 
   return (
     <div className={`h-fit ${startSide === 'right' ? 'flex-row-reverse' : ''}`}>
-      <div className="mb-5 flex -space-x-3">
+      <div className=" flex -space-x-3">
         {participants
           .filter((participant) => {
             if (team) {

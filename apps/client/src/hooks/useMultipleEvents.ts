@@ -13,12 +13,13 @@ export function useGetAllEvents(options: { profileId?: number }) {
 }
 
 export function useGetSharedEvents(options: {
-  profileId: number;
+  profileId: number | null;
   friendId: number;
 }) {
   return useQuery(
     [`shared-events`, options.profileId, options.friendId],
     async () => {
+      if (!options.profileId) return null;
       return getSharedEventsFn({
         profileId: options.profileId,
         friendId: options.friendId,

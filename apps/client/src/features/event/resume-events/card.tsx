@@ -56,9 +56,9 @@ function EventCard({
         {shouldDisplayAvatars(eventStatus) && (
           <div className="flex basis-2/12 items-center gap-x-3">
             <img
-              src="/images/jersey.png"
+              src="/images/generic_jersey_blue.png"
               alt="jersey icon"
-              className=" h-8 md:h-10 lg:h-18"
+              className="aspect-auto h-2/6 lg:mx-3"
             />
             <div className="flex-shrink-0">
               <div className="hidden md:block lg:font-semibold">
@@ -88,9 +88,9 @@ function EventCard({
             items-center gap-x-3"
           >
             <img
-              src="/images/jersey.png"
+              src="/images/generic_jersey_blue.png"
               alt="jersey icon"
-              className=" h-8 md:h-10 lg:h-18"
+              className="aspect-auto h-2/6 lg:mx-3"
             />
             <div className="flex-shrink-0">
               <div className="hidden md:block lg:font-semibold">

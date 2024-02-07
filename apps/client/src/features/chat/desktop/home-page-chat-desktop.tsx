@@ -28,8 +28,9 @@ function DesktopChatHomePage() {
     if (!conversations) return;
     if (conversations.length > 0) {
       navigate(
-        location.pathname ??
-          `/desktop/chat/conversation/${conversations[0].conversation_id}`,
+        location.pathname.includes('conversation')
+          ? location.pathname
+          : `/desktop/chat/conversation/${conversations[0].conversation_id}`,
       );
     }
   }, [conversations]);

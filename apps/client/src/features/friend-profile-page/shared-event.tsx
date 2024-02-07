@@ -5,14 +5,12 @@ import SharedEventCard from '../event/resume-events/shared-event-card';
 
 type SharedEventsProps = {
   username: string;
-  friendId: number;
-  currentUserId: number | null;
   events: any;
 };
 
 function SharedEvents({ username, events }: SharedEventsProps) {
   const { t } = useTranslation('title');
-  console.log('events', events);
+
   return (
     <Container className="lg:w-1/2 lg:rounded-l-none">
       <TitleH2
@@ -35,6 +33,7 @@ function SharedEvents({ username, events }: SharedEventsProps) {
               participants={event.participants}
             />
           ))}
+      {(!events || events?.length === 0) && <p>{t('noSharedEvents')}</p>}
     </Container>
   );
 }

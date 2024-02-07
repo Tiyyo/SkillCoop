@@ -16,6 +16,7 @@ const {
   getPasts,
   getAllByUser,
   getUpcoming,
+  getLastSharedEvents,
   createOne,
   generateTeams,
   updateOne,
@@ -46,6 +47,10 @@ router.route('/upcoming').get(factory(getUpcoming));
 router
   .route('/details/:eventId/:profileId')
   .get(sanitizeParams, factory(getOne));
+
+router
+  .route('/shared/:profileId/:friendId')
+  .get(sanitizeParams, factory(getLastSharedEvents));
 
 router.route('/teams').post(factory(generateTeams));
 router.route('/:id/:profileId').delete(sanitizeParams, factory(deleteOne));

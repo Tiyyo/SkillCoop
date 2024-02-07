@@ -228,4 +228,13 @@ export default {
       success: true,
     });
   },
+  async getLastSharedEvents(req: Request, res: Response) {
+    const [profileId, friendId] = checkParams(
+      req.params.profileId,
+      req.params.friendId,
+    );
+    const events = await Event.getLastSharedEvents(profileId, friendId);
+
+    res.status(200).json(events);
+  },
 };

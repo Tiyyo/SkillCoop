@@ -113,3 +113,13 @@ export const saveScoreFn = async (data: {
   const response = await api.post(`api/score`, data);
   return response.data;
 };
+
+export const getSharedEventsFn = async (data: {
+  profileId: number;
+  friendId: number;
+}) => {
+  const response = await api.get(
+    `api/event/shared/${data.profileId}/${data.friendId}`,
+  );
+  return response.data;
+};

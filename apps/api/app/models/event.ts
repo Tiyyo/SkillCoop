@@ -476,4 +476,55 @@ GROUP BY participant.event_id`.execute(this.client);
       });
     }
   }
+  async getLastSharedEvents(profileId: number, friendId: number) {
+    try {
+      const result = await sql<Record<string, string | number>>`
+SELECT 
+  a.event_id, 
+  e.date,
+  e.duration,
+  e.location,
+  score.score_team_1,
+  score.score_team_2, 
+  (json_group_array(
+      json_object(
+          'profile_id' , participant.profile_id, 
+          'username' , profile.username	,
+          'avatar', profile.avatar_url,
+          'team', participant.team
+        )
+      ) 
+  ) AS participants
+FROM profile_on_event AS a
+JOIN profile_on_event AS b ON a.event_id = b.event_id
+INNER JOIN event AS e ON a.event_id = e.id
+LEFT JOIN score ON e.id = score.event_id
+JOIN profile_on_event AS participant ON e.id = participant.event_id
+JOIN profile ON participant.profile_id = profile.profile_id
+WHERE a.profile_id = ${profileId} 
+AND b.profile_id = ${friendId}
+AND a.status_name = 'confirmed' 
+AND b.status_name = 'confirmed'
+AND e.status_name = 'completed'
+GROUP BY a.event_id, b.event_id
+ORDER BY e.date DESC
+LIMIT 5
+`.execute(this.client);
+
+      const parsedResult = result.rows.map((event) => {
+        return {
+          ...event,
+          participants:
+            typeof event.participants === 'string' &&
+            JSON.parse(event.participants),
+        };
+      });
+
+      return parsedResult;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new DatabaseError(error);
+      }
+    }
+  }
 }

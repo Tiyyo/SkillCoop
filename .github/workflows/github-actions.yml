@@ -116,33 +116,25 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.PORT }}
           script: |
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+            sudo ln -s "$NVM_DIR/versions/node/v20.9.0/bin/node" "/usr/local/bin/node"
+
             cd SkillCoop/
-            git fetch
+
             git pull origin main
 
-      - name: Checkout repo
-        uses: actions/checkout@v4
-      - name: Use Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20.x'
-      - name: Install pnpm
-        run: npm install -g pnpm
+            npm install -g pnpm
+            pnpm install
 
-      - name: Install dependencies with pnpm
-        run: pnpm install
+            pnpm schema build 
+            pnpm date build
+            pnpm type build  
+            pnpm api build
+            pnpm chat build
 
-      - name: Build API
-        run: pnpm api build
+            pnpm api db:migrate:deploy
 
-      - name: Build Chat
-        run: pnpm chat build
-
-      - name: Database Migration
-        run: pnpm api db:migrate:deploy
-
-      - name: Install pm2
-        run: npm install pm2 -g
-
-      - name: Start apps
-        run: pm2 start skillcoop-pm2.json
+            npm install pm2 -g
+            pm2 reload skillcoop-pm2.json

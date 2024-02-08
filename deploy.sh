@@ -1,9 +1,6 @@
 echo "Stop all apps"
 sudo pm2 kill
 
-echo "Go to the project path"
-cd /Skillcoop
-
 echo "Pulling latest code"
 git pull origin main
 

@@ -119,13 +119,13 @@ jobs:
             cd SkillCoop/
             ls
             echo "Stop all apps"
-            pm2 kill
+            pm2 stop all
 
             echo "Pulling latest code"
             git pull origin main
 
             echo "Install dependencies"
-            sudo pnpm Install
+            pnpm Install
 
             echo "Build the project"
             pnpm schema build

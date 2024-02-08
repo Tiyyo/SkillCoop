@@ -121,18 +121,18 @@ jobs:
             git pull origin main
 
             npm install -g pnpm
-            pnpm install
+            /home/ubuntu/.nvm/versions/node/v20.9.0/bin/pnpm install
 
-            pnpm schema build
-            pnpm date build
-            pnpm types build
-            pnpm api build
-            pnpm chat build
+            /home/ubuntu/.nvm/versions/node/v20.9.0/bin/pnpm schema build
+            /home/ubuntu/.nvm/versions/node/v20.9.0/bin/pnpm date build
+            /home/ubuntu/.nvm/versions/node/v20.9.0/bin/pnpm types build
+            /home/ubuntu/.nvm/versions/node/v20.9.0/bin/pnpm api build
+            /home/ubuntu/.nvm/versions/node/v20.9.0/bin/pnpm chat build
 
-            pnpm api db:migrate:deploy
+            /home/ubuntu/.nvm/versions/node/v20.9.0/bin/pnpm api db:migrate:deploy
 
             npm install pm2 -g
-            pm2 reload skillcoop-pm2.json
+            /home/ubuntu/.nvm/versions/node/v20.9.0/bin/pm2 reload skillcoop-pm2.json
 
       # - name: Checkout repo
       #   uses: actions/checkout@v4

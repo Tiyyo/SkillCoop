@@ -115,34 +115,35 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.PORT }}
-          script: |
-            cd SkillCoop/
-            git fetch
-            git pull origin main
+          script: sh deploy.sh
 
-      - name: Checkout repo
-        uses: actions/checkout@v4
-      - name: Use Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20.x'
-      - name: Install pnpm
-        run: npm install -g pnpm
+      #       cd SkillCoop/
+      #       git fetch
+      #       git pull origin main
 
-      - name: Install dependencies with pnpm
-        run: pnpm install
+      # - name: Checkout repo
+      #   uses: actions/checkout@v4
+      # - name: Use Node.js
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version: '20.x'
+      # - name: Install pnpm
+      #   run: npm install -g pnpm
 
-      - name: Build API
-        run: pnpm api build
+      # - name: Install dependencies with pnpm
+      #   run: pnpm install
 
-      - name: Build Chat
-        run: pnpm chat build
+      # - name: Build API
+      #   run: pnpm api build
 
-      - name: Database Migration
-        run: pnpm api db:migrate:deploy
+      # - name: Build Chat
+      #   run: pnpm chat build
 
-      - name: Install pm2
-        run: npm install pm2 -g
+      # - name: Database Migration
+      #   run: pnpm api db:migrate:deploy
 
-      - name: Start apps
-        run: pm2 restart all
+      # - name: Install pm2
+      #   run: npm install pm2 -g
+
+      # - name: Start apps
+      #   run: pm2 restart all

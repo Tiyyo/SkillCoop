@@ -1,6 +1,7 @@
 import { Injectable, NestMiddleware, UnauthorizedException } from "@nestjs/common";
 import { Request, Response, NextFunction } from "express";
 import { JwtService } from '@nestjs/jwt'
+import { Logger } from "@nestjs/common";
 
 
 @Injectable()
@@ -15,6 +16,7 @@ export class AuthMiddleware implements NestMiddleware {
     try {
       await this.jwtService.verifyAsync(token, { secret: process.env.JWT_REFRESH_TOKEN_KEY })
     } catch (error) {
+      Logger.error(`Error validating token :`, error)
       throw new UnauthorizedException()
     }
     next()

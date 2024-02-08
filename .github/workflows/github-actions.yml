@@ -120,8 +120,7 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             cd SkillCoop/
-            node -v
-            npm install -g pnpm
+            /home/ubuntu/.nvm/versions/node/v20.9.0/bin/npm install -g pnpm
 
       # - name: Checkout repo
       #   uses: actions/checkout@v4

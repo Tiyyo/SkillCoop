@@ -118,8 +118,12 @@ jobs:
           script: |
             cd SkillCoop/
             git fetch
-            git reset --hard origin/main
             git pull origin main
+            pnpm install
+            pnpm chat build
+            pnpm api build
+            pnpm api db:migrate
+            pm2 start skillcoop-pm2.json
 
       - name: Checkout repo
         uses: actions/checkout@v4

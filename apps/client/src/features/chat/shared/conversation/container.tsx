@@ -51,8 +51,8 @@ function ConversationContainer({
            border-b-grey-light px-4 py-2 lg:h-[70px]"
         >
           <div
-            className="flex aspect-square cursor-pointer items-center 
-              justify-center rounded-full border border-border 
+            className="border-border flex aspect-square cursor-pointer 
+              items-center justify-center rounded-full border 
               border-opacity-10 
               p-1.5 text-primary-700 shadow lg:hidden"
             onClick={() =>

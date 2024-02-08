@@ -117,34 +117,49 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             cd SkillCoop/
+
             git pull origin main
 
-      - name: Checkout repo
-        uses: actions/checkout@v4
-      - name: Use Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20.x'
-      - name: Install pnpm
-        run: npm install -g pnpm
+            npm install -g pnpm
+            pnpm install
 
-      - name: Install dependencies with pnpm
-        run: pnpm install
+            pnpm schema build
+            pnpm date build
+            pnpm types build
+            pnpm api build
+            pnpm chat build
 
-      - name: Build API
-        run: pnpm api build
+            pnpm api db:migrate:deploy
 
-      - name: Build Chat
-        run: pnpm chat build
+            npm install pm2 -g
+            pm2 reload skillcoop-pm2.json
 
-      - name: Database Migration
-        run: pnpm api db:migrate:deploy
+      # - name: Checkout repo
+      #   uses: actions/checkout@v4
+      # - name: Use Node.js
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version: '20.x'
+      # - name: Install pnpm
+      #   run: npm install -g pnpm
 
-      - name: Install pm2
-        run: npm install pm2 -g
+      # - name: Install dependencies with pnpm
+      #   run: pnpm install
 
-      - name: Stop apps
-        run: pm2 stop all
+      # - name: Build API
+      #   run: pnpm api build
 
-      - name: Start apps
-        run: pm2 start skillcoop-pm2.json
+      # - name: Build Chat
+      #   run: pnpm chat build
+
+      # - name: Database Migration
+      #   run: pnpm api db:migrate:deploy
+
+      # - name: Install pm2
+      #   run: npm install pm2 -g
+
+      # - name: Stop apps
+      #   run: pm2 stop all
+
+      # - name: Start apps
+      #   run: pm2 start skillcoop-pm2.json

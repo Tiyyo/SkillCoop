@@ -37,7 +37,7 @@ function ShowcaseEventCard({
       bg-base-light bg-stadium 
       bg-cover px-6 pb-6 pt-2 shadow lg:my-2 lg:rounded-3xl"
     >
-      <p className="font-semibold">{t('nextEvent')}</p>
+      <p className="font-semibold text-dark">{t('nextEvent')}</p>
       <p
         className="flex items-center gap-x-1 py-0.5 text-xxs font-medium 
         text-dark lg:text-xs"
@@ -73,6 +73,7 @@ function ShowcaseEventCard({
               nbAvatarToDisplay={3}
               plus={requiredParticipants / 2 - 3}
               startSide="left"
+              borderNone
             />
           </div>
         </div>
@@ -94,6 +95,7 @@ function ShowcaseEventCard({
               nbAvatarToDisplay={3}
               plus={requiredParticipants / 2 - 3}
               startSide="right"
+              borderNone
             />
           </div>
         </div>

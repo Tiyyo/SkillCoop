@@ -33,7 +33,7 @@ function ErrorNotification({
   return (
     <div
       className={cn(
-        'relative my-4 w-full rounded-md bg-error-light px-8 py-5',
+        'relative my-4 w-full rounded-md bg-error-light px-8 py-5 text-error',
         !isOpen && 'hidden',
       )}
     >

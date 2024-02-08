@@ -76,7 +76,7 @@ function FormField({
           htmlFor={name}
           className={`peer-focus:text-secondary-400 absolute 
           left-1 top-2 z-10 origin-[0] -translate-y-4 scale-75 transform 
-          bg-base-light px-2 text-sm text-gray-500 duration-300 
+          bg-base-light px-2 text-sm text-grey-sub-text duration-300 
           peer-placeholder-shown:top-1/2 
           peer-placeholder-shown:-translate-y-1/2
           peer-placeholder-shown:scale-100 

@@ -34,7 +34,7 @@ function ResumeProfile({ infos }: { infos: Infos }) {
     >
       <div
         className="-top-12 flex 
-             flex-col border-b border-b-light bg-base-light pl-6"
+             flex-col border-b border-b-grey-light bg-base-light pl-6"
       >
         <div className="relative flex items-center gap-x-5 py-4 ">
           <AvatarEdit

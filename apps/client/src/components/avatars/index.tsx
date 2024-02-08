@@ -1,6 +1,7 @@
 import type { EventParticipant } from '@skillcoop/types/src';
 import ImageWithFallback from '../image';
 import { useId } from 'react';
+import { cn } from '../../lib/utils';
 
 type AvatarsProps = {
   participants: EventParticipant[];
@@ -8,13 +9,15 @@ type AvatarsProps = {
   plus?: number;
   team?: number;
   startSide?: 'left' | 'right';
+  borderNone?: boolean;
 };
 
 function ResponsiveAvatar({
   avatar,
+  borderNone,
 }: {
-  profile_id: number;
   avatar: string | null;
+  borderNone?: boolean;
 }) {
   return (
     <>
@@ -22,25 +25,34 @@ function ResponsiveAvatar({
         url={avatar}
         alt="Participant avatar"
         size={28}
-        className="aspect-square overflow-hidden
-                rounded-full border-2 border-base-light bg-primary-800 
-                md:hidden lg:border-3"
+        className={cn(
+          `"aspect-square lg:border-3"
+                overflow-hidden rounded-full border-2 border-base-light 
+                bg-primary-800 md:hidden`,
+          borderNone && 'border border-transparent',
+        )}
       />
       <ImageWithFallback
         url={avatar}
         alt="Participant avatar"
         size={36}
-        className="hidden aspect-square overflow-hidden
-                rounded-full border-2 border-base-light bg-primary-800 md:block
-                lg:hidden lg:border-3"
+        className={cn(
+          `lg:border-3" hidden aspect-square overflow-hidden 
+        rounded-full border-2 border-base-light bg-primary-800
+        md:block lg:hidden`,
+          borderNone && 'border border-transparent',
+        )}
       />
       <ImageWithFallback
         url={avatar}
         alt="Participant avatar"
         size={38}
-        className="hidden aspect-square overflow-hidden
+        className={cn(
+          `hidden aspect-square overflow-hidden
                 rounded-full border-2 border-base-light bg-primary-800
-                lg:block lg:border-3"
+                lg:block lg:border-3`,
+          borderNone && 'border border-transparent',
+        )}
       />
     </>
   );
@@ -52,6 +64,7 @@ function Avatars({
   team,
   startSide,
   plus,
+  borderNone,
 }: AvatarsProps) {
   const idComp = useId();
 
@@ -69,15 +82,18 @@ function Avatars({
           .map((participant) => (
             <ResponsiveAvatar
               key={idComp + participant.profile_id.toString()}
-              profile_id={participant.profile_id}
               avatar={participant.avatar}
+              borderNone={borderNone}
             />
           ))}
         {plus && plus > 0 ? (
           <div
-            className=" flex aspect-square w-7 items-center justify-center 
+            className={cn(
+              `flex aspect-square w-7 items-center justify-center 
             overflow-hidden rounded-full border-2 
-          border-base-light bg-primary-100 md:w-9 lg:w-10 lg:border-3"
+          border-base-light bg-primary-100 md:w-9 lg:w-10 lg:border-3`,
+              borderNone && 'border-none lg:border-none',
+            )}
           >
             <span className="text-xxs text-base-light lg:font-semibold">
               {Number(plus) > 0 && `${plus}+`}

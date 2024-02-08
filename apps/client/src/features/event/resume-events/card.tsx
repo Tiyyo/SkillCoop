@@ -126,8 +126,8 @@ function EventCard({
         <Link
           to={`/event/${eventId}`}
           state={{ eventId }}
-          className="flex flex-grow flex-row-reverse items-end 
-          text-xxs text-text-base transition-colors duration-300 
+          className="text-text-base flex flex-grow flex-row-reverse 
+          items-end text-xxs transition-colors duration-300 
           hover:text-primary-100 lg:text-sm"
         >
           <span className="flex items-center gap-x-0.5">

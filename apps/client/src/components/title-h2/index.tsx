@@ -7,7 +7,7 @@ function TitleH2({ title, legend }: { title?: string; legend?: string }) {
       ></div>
       <div className="flex flex-col justify-evenly">
         <h2 className="text-sm font-semibold lg:text-lg">{title}</h2>
-        <legend className="text-xs font-normal">{legend}</legend>
+        <legend className="text-xs font-normal text-light">{legend}</legend>
       </div>
     </div>
   );

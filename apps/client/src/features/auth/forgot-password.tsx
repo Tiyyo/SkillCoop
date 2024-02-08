@@ -46,14 +46,14 @@ function ForgotPassword() {
   return (
     <Page>
       <Center>
-        <h1 className="my-4 text-lg font-semibold text-primary-1100 opacity-30">
+        <h1 className="my-4 text-lg font-semibold text-primary-1100 opacity-90">
           {t('resetYourPassword')}
         </h1>
         {/* TODO: refactor make this form a component and include his state */}
         {!hasBeenSent ? (
           <form
             className="flex w-3/4 max-w-lg flex-col items-center gap-y-5 
-            rounded-sm bg-base-light p-6"
+            rounded-lg bg-base-light p-6"
             onSubmit={handleSubmit}
           >
             <p className="self-start text-sm text-primary-1100">

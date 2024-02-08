@@ -35,7 +35,12 @@ function Header() {
       <div className="flex items-center gap-x-4">
         <NotificationTrigger profileId={userProfile?.profile_id} />
         <div className="flex items-center gap-x-2.5">
-          <Avatar avatar={userProfile?.avatar_url} />
+          <div
+            className="aspect-square w-fit rounded-full border-2 
+          border-primary-900 p-0.5"
+          >
+            <Avatar avatar={userProfile?.avatar_url} size={32} />
+          </div>
           <div className="hidden flex-col justify-between lg:flex">
             <p className="font-medium">
               {`${userProfile?.first_name ?? ''} ${

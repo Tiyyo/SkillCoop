@@ -123,7 +123,7 @@ function InputTime({
               id={name}
               {...props}
               className={cn(
-                `block w-full rounded-lg border border-border bg-base-light
+                `border-border block w-full rounded-lg border bg-base-light
                  pl-10 text-xs text-primary-1100 focus:border-primary-800 
               focus:ring-primary-800
            `,
@@ -135,7 +135,7 @@ function InputTime({
               id="hours"
               className={cn(
                 `absolute left-0 top-0 flex h-7 max-h-28 w-1/2 
-                overflow-y-auto bg-transparent pr-10 text-end`,
+                overflow-y-auto bg-transparent pr-10 text-end text-light`,
                 high ? 'h-10' : 'h-7',
               )}
               onChange={(e) =>
@@ -162,7 +162,7 @@ function InputTime({
               id="minutes"
               className={cn(
                 `absolute right-0 top-0 h-7 max-h-28 w-1/2 
-                 bg-transparent pl-10`,
+                 bg-transparent pl-10 text-light`,
                 high ? 'h-10' : 'h-7',
               )}
               onChange={(e) =>

@@ -306,7 +306,7 @@ const userPreferences = localStorage.getItem('_userPreferences')
   ? JSON.parse(localStorage.getItem('_userPreferences')!)
   : null;
 
-userPreferences?.theme ? setLightTheme() : setDarkTheme();
+userPreferences?.theme === 'light' ? setLightTheme() : setDarkTheme();
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

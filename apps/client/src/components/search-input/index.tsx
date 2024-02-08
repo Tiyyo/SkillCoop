@@ -38,13 +38,13 @@ function SearchInput({ getFocusState, onChange }: SearchInputProps) {
         onFocus={handleFocus}
         onBlur={handleBlur}
         onChange={handleChangeValue}
-        className="w-full border-b-2 border-b-slate-800 border-opacity-10
+        className="w-full border-b-2 border-b-grey-light border-opacity-60
         bg-transparent bg-opacity-10 py-1 text-sm 
         leading-7 outline-none transition-all duration-300 ease-cubic 
-        hover:rounded-3xl 
-        hover:border hover:border-primary-600 hover:px-8 hover:py-1 
-        hover:outline-none focus:rounded-3xl focus:border 
-        focus:border-primary-600 
+        placeholder:text-light 
+        hover:rounded-3xl hover:border hover:border-primary-600 hover:px-8 
+        hover:py-1 hover:outline-none focus:rounded-3xl 
+        focus:border  focus:border-primary-600
         focus:bg-primary-20 focus:px-8 focus:py-1 focus:outline-none 
         focus:placeholder:opacity-0 focus:placeholder:transition-opacity 
         focus:placeholder:duration-300"

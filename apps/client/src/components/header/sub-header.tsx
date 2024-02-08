@@ -28,7 +28,7 @@ function SubHeader({
               rounded-full bg-primary-100 text-xs
               font-medium text-white duration-300
              hover:bg-primary-600 hover:text-dark sm:rounded-3xl lg:h-11
-              lg:w-fit lg:px-5 lg:py-4 lg:text-sm "
+              lg:w-fit lg:px-5 lg:py-4 lg:text-sm"
         >
           <PlusIcon size={24} />
           <p className="hidden text-center lg:block">{textButton}</p>

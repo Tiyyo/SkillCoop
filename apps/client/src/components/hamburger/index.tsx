@@ -30,12 +30,12 @@ function Hamburger({
           openMenu &&
             `origin-bottom translate-x-[3px] translate-y-[0px] 
              rotate-45 bg-primary-100`,
-          !openMenu && 'bg-slate-400',
+          !openMenu && 'bg-light',
         )}
       ></span>
       <span
         className={`h-0.5 w-full  rounded-lg duration-300 ease-cubic ${
-          openMenu ? 'origin-top -rotate-45 bg-primary-100' : 'bg-slate-400'
+          openMenu ? 'origin-top -rotate-45 bg-primary-100' : 'bg-light'
         }`}
       ></span>
       <span
@@ -44,7 +44,7 @@ function Hamburger({
           openMenu &&
             `w-1/2 origin-bottom -translate-y-[1px] translate-x-3.5 
             rotate-45 bg-primary-100`,
-          !openMenu && 'w-3/4 bg-slate-400',
+          !openMenu && 'w-3/4 bg-light',
         )}
       ></span>
     </button>

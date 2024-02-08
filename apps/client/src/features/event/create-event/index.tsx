@@ -91,21 +91,20 @@ function CreateEvent() {
         />
         <Link
           to="invitation"
-          className={`lg:text-smtext-base-light hover:text-text-base 
-          flex cursor-pointer items-center gap-2 
-          rounded-full bg-primary-800 px-2.5 py-2.5 text-xs 
-          font-semibold shadow-md
-          duration-300
-         hover:bg-primary-500 sm:px-6`}
+          className={`flex h-7 w-7 items-center justify-center self-center
+              rounded-full bg-primary-100 text-xs
+              font-medium text-white duration-300
+             hover:bg-primary-600 hover:text-dark sm:rounded-3xl lg:h-11
+              lg:w-fit lg:px-5 lg:py-4 lg:text-sm`}
         >
-          <p className="hidden sm:block">{t('inviteYourFriends')}</p>
+          <p className="hidden lg:block">{t('inviteYourFriends')}</p>
           <Plus />
         </Link>
       </div>
       <form
         onSubmit={handleFormSubmit}
         ref={createEventFormRef}
-        className="flex w-full flex-col items-center px-3"
+        className="flex w-full flex-col items-center px-3 py-6"
       >
         <div
           className="flex w-full flex-col items-center gap-4 px-3 sm:grid 

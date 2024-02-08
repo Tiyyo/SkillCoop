@@ -64,6 +64,12 @@ function Register() {
 
   return (
     <Page>
+      <Link
+        to="/"
+        className="self-end px-4 py-2 text-sm font-semibold text-primary-1100"
+      >
+        {t('system:home')}
+      </Link>
       <Center>
         <h1 className="py-4 text-center text-xl font-bold text-primary-1100">
           {t('createSkillcoop')}
@@ -120,7 +126,10 @@ function Register() {
             >
               <Eye size={16} />
             </FormField>
-            <div className="flex items-start self-start text-xxs">
+            <div
+              className="flex items-start self-start text-xxs 
+              text-grey-sub-text"
+            >
               <p>{t('passwordContains')}</p>
               <ul className="ml-7 list-disc">
                 <li>8 {t('characters')}</li>
@@ -132,7 +141,8 @@ function Register() {
             </div>
             <label
               htmlFor="termsAndService"
-              className="inline text-center text-xs text-opacity-70 "
+              className="inline text-center text-xs text-grey-sub-text 
+              text-opacity-70"
             >
               <input
                 type="checkbox"
@@ -161,7 +171,7 @@ function Register() {
             />
           </form>
         </div>
-        <p className="py-2 text-xs">
+        <p className="py-2 text-xs text-grey-sub-text">
           {t('alreadyHaveAccount')} ?{' '}
           <Link to="/login" className="font-bold text-primary-1000">
             {t('logIn')}

@@ -70,6 +70,12 @@ function Login() {
 
   return (
     <Page>
+      <Link
+        to="/"
+        className="self-end px-8 py-4 text-sm font-semibold text-primary-1100"
+      >
+        {t('system:home')}
+      </Link>
       <Center>
         <h1 className="py-4 text-center text-xl font-bold text-primary-1100">
           {t('loginSkillcoop')}
@@ -108,15 +114,15 @@ function Login() {
             </FormField>
             <Link
               to="/forgot-password"
-              className="duration-600 cursor-pointer  self-end text-xs
-                 text-primary-1100 transition-all hover:text-primary-1100
-                   hover:underline"
+              className="duration-600 cursor-pointer self-end text-xs
+                 text-grey-sub-text transition-all
+                   hover:text-primary-1100 hover:underline"
             >
               {t('forgotPassword')} ?
             </Link>
             <Button
               textContent={t('login')}
-              // isLoading={loading}
+              isLoading={loading}
               type="submit"
             />
             <ErrorContainer
@@ -125,7 +131,7 @@ function Login() {
             />
           </form>
         </div>
-        <p className="py-2 text-xs">
+        <p className="py-2 text-xs text-primary-1100">
           {t('dontHaveAccount')} ?{' '}
           <Link to="/register" className="font-bold text-primary-1000">
             {t('joinUs')}

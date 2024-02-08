@@ -27,7 +27,7 @@ function Friendlist({
   return (
     <>
       {friends?.length === 0 ? (
-        <div className="py-4 text-center text-xs italic text-light">
+        <div className="py-20 text-center text-xs italic text-light">
           {t('noFriendsFound')}.
         </div>
       ) : (

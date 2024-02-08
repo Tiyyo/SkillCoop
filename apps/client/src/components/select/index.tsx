@@ -86,10 +86,10 @@ function SelectInput({
           <select
             name={name}
             className={cn(
-              `block h-7 w-full rounded-lg 
-              border border-border bg-base-light 
-              pl-2
-              text-sm font-medium text-primary-1100 
+              `border-border block h-7 w-full 
+              rounded-lg border bg-base-light 
+              pl-2 text-sm
+              font-medium text-light  
             `,
               high ? 'h-10' : 'h-7',
               hasError && 'ring-2 ring-error',
@@ -97,11 +97,18 @@ function SelectInput({
             onChange={handleChange}
             {...props}
           >
-            <option className="text-ligh text-xs font-light">
+            <option
+              className="text-xs font-light text-light 
+              placeholder:text-light"
+            >
               {t('pickAnOption')}
             </option>
             {options.map((option: any, index) => (
-              <option key={index + idComponent} value={option.value}>
+              <option
+                key={index + idComponent}
+                value={option.value}
+                className="text-primary-1100"
+              >
                 {option.label}
               </option>
             ))}

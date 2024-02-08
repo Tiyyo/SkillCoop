@@ -19,3 +19,21 @@ sudo pnpm api db:migrate:deploy
 
 echo "Start all apps"
 sudo pm2 start skillcoop-pm2.json
+
+            cd SkillCoop/
+
+            git pull origin main
+
+            npm install -g pnpm
+            pnpm install
+
+            pnpm schema build
+            pnpm date build
+            pnpm types build
+            pnpm api build
+            pnpm chat build
+
+            pnpm api db:migrate:deploy
+
+            npm install pm2 -g
+            pm2 reload skillcoop-pm2.json

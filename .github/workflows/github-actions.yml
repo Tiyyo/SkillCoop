@@ -117,22 +117,8 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             cd SkillCoop/
-
-            git pull origin main
-
+            node -v
             npm install -g pnpm
-            /home/ubuntu/.nvm/versions/node/v20.9.0/bin/pnpm install
-
-            /home/ubuntu/.nvm/versions/node/v20.9.0/bin/pnpm schema build
-            /home/ubuntu/.nvm/versions/node/v20.9.0/bin/pnpm date build
-            /home/ubuntu/.nvm/versions/node/v20.9.0/bin/pnpm types build
-            /home/ubuntu/.nvm/versions/node/v20.9.0/bin/pnpm api build
-            /home/ubuntu/.nvm/versions/node/v20.9.0/bin/pnpm chat build
-
-            /home/ubuntu/.nvm/versions/node/v20.9.0/bin/pnpm api db:migrate:deploy
-
-            npm install pm2 -g
-            /home/ubuntu/.nvm/versions/node/v20.9.0/bin/pm2 reload skillcoop-pm2.json
 
       # - name: Checkout repo
       #   uses: actions/checkout@v4

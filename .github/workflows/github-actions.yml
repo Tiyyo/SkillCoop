@@ -117,7 +117,7 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             ls
-            sh deploy.sh
+      # sh deploy.sh
 
       #       cd SkillCoop/
       #       git fetch

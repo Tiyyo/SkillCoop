@@ -24,7 +24,7 @@ export async function signin(req: Request, res: Response) {
       loginTrack.accessToken &&
       loginTrack.refreshToken
     ) {
-      logger.info('Cookie Domain :', HOST);
+      logger.info('Cookie Domain : ' + HOST);
       res.cookie('refreshToken', loginTrack.refreshToken, {
         httpOnly: true,
         sameSite: 'none',

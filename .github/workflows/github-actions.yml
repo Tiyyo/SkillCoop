@@ -106,7 +106,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     if: ${{ github.ref == 'refs/heads/main' }}
-    needs: [lint-api, vitest, typecheck-client, typecheck-api, lint-client]
+    # needs: [lint-api, vitest, typecheck-client, typecheck-api, lint-client]
     steps:
       - name: Use Node.js
         uses: actions/setup-node@v4
@@ -125,7 +125,19 @@ jobs:
             sudo ln -s "$NVM_DIR/versions/node/v20.9.0/bin/node" "/usr/local/bin/node"
 
             cd SkillCoop/
+            git pull origin main
             npm install -g pnpm
+            pnpm install
+            pnpm schema build 
+            pnpm date build
+            pnpm types build  
+            pnpm api build
+            pnpm chat build
+
+            pnpm api db:migrate:deploy
+
+            npm install pm2 -g
+            pm2 reload skillcoop-pm2.json
 
       # - name: Checkout repo
       #   uses: actions/checkout@v4

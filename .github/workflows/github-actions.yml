@@ -116,8 +116,9 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            cd /SkillCoop
+            cd SkillCoop/
             ls
+            sudo pm2 kill
 
       # sh deploy.sh
 

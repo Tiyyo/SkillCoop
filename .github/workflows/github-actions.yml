@@ -108,12 +108,6 @@ jobs:
     if: ${{ github.ref == 'refs/heads/main' }}
     needs: [lint-api, vitest, typecheck-client, typecheck-api, lint-client]
     steps:
-      - name: Install pm2
-        run: npm install pm2 -g
-
-      - name: Install pnpm
-        run: npm install -g pnpm
-
       - name: SSH Remote Commands
         uses: appleboy/ssh-action@master
         with:
@@ -123,57 +117,34 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             cd SkillCoop/
-            ls
-            echo "Stop all apps"
-            pm2 stop all
-
-            echo "Pulling latest code"
             git pull origin main
 
-            echo "Install dependencies"
-            pnpm Install
+      - name: Checkout repo
+        uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+      - name: Install pnpm
+        run: npm install -g pnpm
 
-            echo "Build the project"
-            pnpm schema build
-            pnpm date build            
-            pnpm types build
-            pnpm api build 
-            pnpm chat build
+      - name: Install dependencies with pnpm
+        run: pnpm install
 
-            echo "Database migration"
-            pnpm api db:migrate:deploy
+      - name: Build API
+        run: pnpm api build
 
-            echo "Start all apps"
-            pm2 start skillcoop-pm2.json
-      # sh deploy.sh
+      - name: Build Chat
+        run: pnpm chat build
 
-      #       cd SkillCoop/
-      #       git fetch
-      #       git pull origin main
+      - name: Database Migration
+        run: pnpm api db:migrate:deploy
 
-      # - name: Checkout repo
-      #   uses: actions/checkout@v4
-      # - name: Use Node.js
-      #   uses: actions/setup-node@v4
-      #   with:
-      #     node-version: '20.x'
-      # - name: Install pnpm
-      #   run: npm install -g pnpm
+      - name: Install pm2
+        run: npm install pm2 -g
 
-      # - name: Install dependencies with pnpm
-      #   run: pnpm install
+      - name: Stop apps
+        run: pm2 stop all
 
-      # - name: Build API
-      #   run: pnpm api build
-
-      # - name: Build Chat
-      #   run: pnpm chat build
-
-      # - name: Database Migration
-      #   run: pnpm api db:migrate:deploy
-
-      # - name: Install pm2
-      #   run: npm install pm2 -g
-
-      # - name: Start apps
-      #   run: pm2 restart all
+      - name: Start apps
+        run: pm2 start skillcoop-pm2.json

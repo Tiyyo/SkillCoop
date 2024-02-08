@@ -118,8 +118,27 @@ jobs:
           script: |
             cd SkillCoop/
             ls
-            sudo pm2 kill
+            echo "Stop all apps"
+            pm2 kill
 
+            echo "Pulling latest code"
+            git pull origin main
+
+            echo "Install dependencies"
+            sudo pnpm Install
+
+            echo "Build the project"
+            pnpm schema build
+            pnpm date build            
+            pnpm types build
+            pnpm api build 
+            pnpm chat build
+
+            echo "Database migration"
+            pnpm api db:migrate:deploy
+
+            echo "Start all apps"
+            pm2 start skillcoop-pm2.json
       # sh deploy.sh
 
       #       cd SkillCoop/

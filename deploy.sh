@@ -1,5 +1,5 @@
 echo "Stop all apps"
-sudo pm2 kill
+pm2 kill
 
 echo "Pulling latest code"
 git pull origin main

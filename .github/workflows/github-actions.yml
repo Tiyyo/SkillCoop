@@ -125,12 +125,15 @@ jobs:
             sudo ln -s "$NVM_DIR/versions/node/v20.9.0/bin/node" "/usr/local/bin/node"
 
             cd SkillCoop/
+
             git pull origin main
+
             npm install -g pnpm
             pnpm install
+
             pnpm schema build 
             pnpm date build
-            pnpm types build  
+            pnpm type build  
             pnpm api build
             pnpm chat build
 
@@ -138,33 +141,3 @@ jobs:
 
             npm install pm2 -g
             pm2 reload skillcoop-pm2.json
-
-      # - name: Checkout repo
-      #   uses: actions/checkout@v4
-      # - name: Use Node.js
-      #   uses: actions/setup-node@v4
-      #   with:
-      #     node-version: '20.x'
-      # - name: Install pnpm
-      #   run: npm install -g pnpm
-
-      # - name: Install dependencies with pnpm
-      #   run: pnpm install
-
-      # - name: Build API
-      #   run: pnpm api build
-
-      # - name: Build Chat
-      #   run: pnpm chat build
-
-      # - name: Database Migration
-      #   run: pnpm api db:migrate:deploy
-
-      # - name: Install pm2
-      #   run: npm install pm2 -g
-
-      # - name: Stop apps
-      #   run: pm2 stop all
-
-      # - name: Start apps
-      #   run: pm2 start skillcoop-pm2.json

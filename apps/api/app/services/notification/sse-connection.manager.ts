@@ -15,7 +15,7 @@ export function sseConnectionManager(req: Request, res: Response) {
     return res.sendStatus(401);
   }
 
-  logger.info('SSE connection : on' + CLIENT_URL);
+  logger.info('SSE connection : on ' + CLIENT_URL);
 
   const headers = {
     'Content-Type': 'text/event-stream',

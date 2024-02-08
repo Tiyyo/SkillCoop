@@ -115,7 +115,9 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.PORT }}
-          script: sh deploy.sh
+          script: |
+            ls
+            sh deploy.sh
 
       #       cd SkillCoop/
       #       git fetch

@@ -108,6 +108,9 @@ jobs:
     if: ${{ github.ref == 'refs/heads/main' }}
     needs: [lint-api, vitest, typecheck-client, typecheck-api, lint-client]
     steps:
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+
       - name: SSH Remote Commands
         uses: appleboy/ssh-action@master
         with:

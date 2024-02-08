@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import authService from '../../services/auth/auth.js';
 import logger from '../../helpers/logger.js';
+import { HOST } from '../../utils/variables.js';
 
 export async function signin(req: Request, res: Response) {
   const { email, password } = req.body;
@@ -28,6 +29,7 @@ export async function signin(req: Request, res: Response) {
         sameSite: 'none',
         secure: true,
         maxAge: MAX_AGE,
+        domain: HOST,
       });
       res.status(200).json({ accessToken: loginTrack.accessToken });
     }

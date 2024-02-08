@@ -12,11 +12,9 @@ export class AuthMiddleware implements NestMiddleware {
     const token = req.cookies.refreshToken
     console.log('token', token)
     Logger.debug('token', token)
-    console.log('req.cookies', req.cookies)
-    Logger.debug('req.cookies', req.cookies)
+    console.log('req.cookies', JSON.parse(req.cookies))
+    Logger.debug('req.cookies', JSON.parse(req.cookies))
     if (!token) {
-      console.log('No token found')
-      Logger.debug('No token found')
       throw new UnauthorizedException()
     }
     try {

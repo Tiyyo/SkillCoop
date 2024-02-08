@@ -62,9 +62,9 @@ function FormField({
           autoComplete={type === 'password' ? 'off' : 'on'}
           className={cn(
             `autofill:shadow-[inset_0_0_0px_1000px_rgb(255 248 242)]
-             foucs:ring-1 border-border text-text-base peer block 
-             w-full appearance-none rounded-lg border
-             border-opacity-20 bg-transparent px-2.5 pb-1.5 pt-3 text-sm 
+             foucs:ring-1 peer block w-full appearance-none 
+             rounded-lg border border-border border-opacity-20
+             bg-transparent px-2.5 pb-1.5 pt-3 text-sm text-text-base 
               focus:ring-primary-100 `,
             props.disabled && 'cursor-not-allowed border-none text-light',
           )}

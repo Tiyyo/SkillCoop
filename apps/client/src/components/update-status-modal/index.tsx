@@ -47,11 +47,11 @@ function UpdateStatusModal({
     eventId,
     onSuccess: (response: any) => {
       if (!nextStatus) return;
-      if (response?.message === 'Organizer cannot change his status') {
+      if (response === 'Organizer cannot change his status') {
         setIsOrganizer(true);
         return;
       }
-      if (response?.message === 'Event is already completed') {
+      if (response === 'Event is already completed') {
         toast.error(t('toast:eventIsCompleted'));
       }
       if (response === 'Status has been updated') {
@@ -73,15 +73,15 @@ function UpdateStatusModal({
     updateUserStatusInDb(data);
     setNextStatus(e.currentTarget.value as InvitationStatus);
   };
-
+  console.log('isOrganizer', isOrganizer);
   return (
     <AlertDialog>
       <AlertDialogTrigger className={menuItemStyle + ' h-10 w-full'}>
         {children}
       </AlertDialogTrigger>
       <AlertDialogContent
-        className="border-border text-text-base w-4/5 
-        rounded-lg bg-base-light"
+        className="w-4/5 rounded-lg border-border 
+        bg-base-light text-text-base"
       >
         <div className="w-full text-right">
           <AlertDialogCancel className="m-0 border-none" ref={closeModalRef}>

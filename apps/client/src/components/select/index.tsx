@@ -86,8 +86,8 @@ function SelectInput({
           <select
             name={name}
             className={cn(
-              `border-border block h-7 w-full 
-              rounded-lg border bg-base-light 
+              `block h-7 w-full rounded-lg 
+              border border-border bg-base-light 
               pl-2 text-sm
               font-medium text-light  
             `,

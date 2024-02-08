@@ -26,8 +26,8 @@ function DatePicker({
     <Popover>
       <PopoverTrigger asChild>
         <Button
-          className={`rouned-lg border-border flex items-center 
-          justify-start gap-x-3 border ${hasError && 'ring-2 ring-error'}`}
+          className={`rouned-lg flex items-center justify-start 
+          gap-x-3 border border-border ${hasError && 'ring-2 ring-error'}`}
         >
           {date ? (
             getDefaultDatePicker(date, currentLng)
@@ -38,7 +38,7 @@ function DatePicker({
           )}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="border-border border">
+      <PopoverContent className="border border-border">
         <Calendar
           mode="single"
           selected={date}

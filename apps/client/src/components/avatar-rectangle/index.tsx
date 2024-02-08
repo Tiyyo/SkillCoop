@@ -5,7 +5,7 @@ function AvatarRectangle({ avatar }: { avatar: string | null }) {
     <ImageWithFallback
       url={avatar}
       size={96}
-      className="rounded-md border-3 border-base-light"
+      className="rounded-md border-3 border-base-light bg-primary-20"
       alt="avatar"
     />
   );

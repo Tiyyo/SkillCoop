@@ -45,7 +45,7 @@ function MenuSettings() {
           <MessagesSquare size={18} />
         </MenuSettingItem>
       </Container>
-      <Container className="bg-transparent shadow-none lg:mt-4">
+      <Container className="border-t border-t-grey-light shadow-none lg:mt-4">
         <Logout />
         <DeleteUserAccount />
       </Container>

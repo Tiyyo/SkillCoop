@@ -14,7 +14,8 @@ const mobileViewStyle = `absolute top-0 z-10 h-7 w-full
     justify-start  `;
 
 const desktopViewStyle = `lg:w-4/12 lg:max-w-[260px] 
-lg:flex-grow-0 lg:basis-4/12 lg:justify-between lg:static `;
+lg:flex-grow-0 lg:basis-4/12 lg:justify-between lg:static lg:border-l 
+lg:border-l-grey-light`;
 
 function ConversationInfos({
   conversation,

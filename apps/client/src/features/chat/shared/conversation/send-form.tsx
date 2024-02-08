@@ -75,7 +75,8 @@ export function MyForm({
           type="submit"
           disabled={isLoading}
           className=" flex
-        h-9 w-9 items-center justify-center rounded-full text-opacity-80 shadow"
+          h-9 w-9 items-center justify-center rounded-full border border-border 
+          text-opacity-80 shadow"
         >
           <Send size={20} className="text-primary-700" />
         </button>

@@ -11,6 +11,7 @@ import Container from '../../layouts/container';
 import strongbox from '../../assets/svg/strongbox.svg';
 import flash from '../../assets/svg/flash.svg';
 import reward from '../../assets/svg/reward.svg';
+import cup from '../../assets/cup.png';
 import { sumValues } from '../../utils/sum-values';
 import associateNumberToString from '../../utils/associate-number-stringscale';
 import { useTranslation } from 'react-i18next';
@@ -98,6 +99,15 @@ function UserResumeSkills() {
                 )}
               </span>{' '}
               {t('rewardsInclude')}
+            </p>
+          </div>
+          <div className="flex items-center gap-x-2">
+            <img src={cup} className="h-8 rounded-lg bg-primary-100 p-1" />
+            <p>
+              {t('winningRate')}{' '}
+              <span className="font-semibold text-primary-1100">
+                {userProfile?.winning_rate ?? 0}%
+              </span>
             </p>
           </div>
         </div>

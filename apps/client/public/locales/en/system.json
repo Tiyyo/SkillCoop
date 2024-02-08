@@ -76,5 +76,7 @@
   "areYouSureToContinue": "Are you sure you want to continue",
   "back": "Back",
   "next": "Next",
-  "onlyUsernameIsRequired": "Only username is required"
+  "onlyUsernameIsRequired": "Only username is required",
+  "yes": "Yes",
+  "no": "No"
 }

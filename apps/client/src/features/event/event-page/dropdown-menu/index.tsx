@@ -47,8 +47,8 @@ function DropdownEventMenu({
           </svg>
         </DropdownMenuTrigger>
         <DropdownMenuContent
-          className={`border-border text-text-base z-10 
-          mx-2 flex flex-col border bg-base-light`}
+          className={`z-10 mx-2 flex 
+          flex-col border border-border bg-base-light text-text-base`}
         >
           <InviteFriendsMeuItems eventStatus={eventStatus} eventId={eventId} />
           <RevokeParticipationMenuItem

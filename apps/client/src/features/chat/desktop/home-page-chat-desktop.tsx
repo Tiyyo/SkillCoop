@@ -39,7 +39,10 @@ function DesktopChatHomePage() {
     <div className="overflow-hidden rounded-lg">
       <HeaderHomePageChat />
       <div className="flex h-[calc(100vh-214px)] w-full flex-grow ">
-        <div className="flex w-1/4 min-w-[270px] basis-1/4 flex-col">
+        <div
+          className="flex w-1/4 min-w-[270px] basis-1/4 flex-col 
+          lg:border-r lg:border-r-grey-light"
+        >
           <ConversationCardsContainer
             getSearchInputValue={getSearchInputValue}
             setCurrentConversationFilter={setCurrentConversationFilter}
@@ -51,7 +54,7 @@ function DesktopChatHomePage() {
         {isConversationsExits ? (
           <Outlet />
         ) : (
-          <Container className="flex flex-grow items-center justify-center ">
+          <Container className="flex flex-grow items-center justify-center">
             {' '}
             {!isConversationsExits && (
               <p className="w-full py-4 text-center text-xs italic text-light">

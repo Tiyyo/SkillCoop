@@ -29,7 +29,7 @@ function ImageWithUsernamefallback({
       style={
         size
           ? { height: `${size}px`, width: `${size}px` }
-          : { height: '100%', width: '100%' }
+          : { height: '40px', width: '40px' }
       }
     >
       <p className="text-xl font-medium text-slate-600 text-opacity-50">

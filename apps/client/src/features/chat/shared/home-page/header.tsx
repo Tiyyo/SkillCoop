@@ -12,7 +12,8 @@ function HeaderHomePageChat() {
   return (
     <Container
       className="flex items-center justify-between lg:mt-4 
-      lg:h-[70px] lg:rounded-none lg:rounded-t-lg"
+      lg:h-[70px] lg:rounded-none lg:rounded-t-lg lg:border-b 
+      lg:border-b-grey-light"
     >
       <TitleH1
         title={t('conversations')}
@@ -20,13 +21,16 @@ function HeaderHomePageChat() {
       />
       <Link
         to={`new-conversation/${userId}`}
-        className={`flex aspect-square cursor-pointer 
-          items-center rounded-full bg-primary-800 
-          p-0.5 text-xs font-semibold 
-          text-base-light shadow-md duration-300
-          hover:bg-primary-500 hover:text-dark sm:px-2 lg:text-sm`}
+        className={`flex h-7 w-7 items-center justify-center self-center
+              rounded-full bg-primary-100 text-xs
+              font-medium text-white duration-300
+             hover:bg-primary-600 hover:text-dark sm:rounded-3xl lg:h-11
+              lg:w-fit lg:px-5 lg:py-4 lg:text-sm`}
       >
         <Plus />
+        <p className="hidden text-center text-xs lg:block">
+          Ajouter une nouvelle discussion
+        </p>
       </Link>
     </Container>
   );

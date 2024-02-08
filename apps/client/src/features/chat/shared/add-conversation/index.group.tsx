@@ -96,13 +96,13 @@ function NewConversationGroup({
             </div>
           ))}
       </div>
-      <div className="flex flex-col pb-20 pt-6">
+      <div className="flex flex-col pb-20 pt-6 lg:relative">
         <input
           type="text"
           placeholder={t('optionalGroupName')}
           name="title"
-          className="mx-auto w-2/3 max-w-lg rounded-xl bg-grey-off px-3 
-        py-1.5 text-sm placeholder:px-3 placeholder:text-xs"
+          className="mx-auto mb-4 w-2/3 max-w-lg rounded-xl bg-grey-off 
+        px-3 py-1.5 text-sm placeholder:px-3 placeholder:text-xs"
           onChange={handleChangeTitile}
         />
         <div
@@ -123,7 +123,7 @@ function NewConversationGroup({
         <div
           className="fixed bottom-4 right-4 z-10 flex h-10
         w-10 cursor-pointer items-center justify-center rounded-full 
-      bg-primary-900 text-white"
+      bg-primary-900 text-white lg:absolute"
           onClick={handleClickCreateConversation}
         >
           <ArrowRight size={24} />

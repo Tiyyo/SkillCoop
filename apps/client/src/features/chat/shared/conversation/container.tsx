@@ -52,7 +52,8 @@ function ConversationContainer({
         >
           <div
             className="flex aspect-square cursor-pointer items-center 
-              justify-center rounded-full border border-opacity-10 
+              justify-center rounded-full border border-border 
+              border-opacity-10 
               p-1.5 text-primary-700 shadow lg:hidden"
             onClick={() =>
               showConvInfos

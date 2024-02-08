@@ -75,5 +75,7 @@
   "yo": "años",
   "back": "Atrás",
   "next": "Siguiente",
-  "onlyUsernameIsRequired": "Solo se requiere el nombre de usuario"
+  "onlyUsernameIsRequired": "Solo se requiere el nombre de usuario",
+  "yes": "Sí",
+  "no": "No"
 }

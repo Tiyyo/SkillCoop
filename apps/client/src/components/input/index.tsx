@@ -62,8 +62,8 @@ function Input({
             disabled={disabled}
             {...props}
             className={cn(
-              `border-bubble block h-7 w-full rounded-lg 
-              border bg-base-light pl-2 text-sm 
+              `block h-7 w-full rounded-lg border 
+              border-bubble bg-base-light pl-2 text-sm 
                font-medium text-primary-1100 placeholder:font-medium 
                placeholder:text-light`,
               disabled && 'border-none',

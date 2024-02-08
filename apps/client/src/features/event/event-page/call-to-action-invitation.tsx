@@ -75,15 +75,15 @@ function CallToActionInvitation({
                 font-semibold shadow-lg"
                 onClick={handleClickInvitation}
               >
-                Yes
+                {t('system:yes')}
               </button>
               <button
                 value="declined"
-                className="rounded-md bg-white px-2.5 py-1.5 
+                className="rounded-md bg-base px-2.5 py-1.5 
                 font-semibold shadow-md"
                 onClick={handleClickInvitation}
               >
-                No
+                {t('system:no')}
               </button>
             </div>
           </div>

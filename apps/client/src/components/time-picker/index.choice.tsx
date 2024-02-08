@@ -11,7 +11,7 @@ function Choice({ value, variant }: ChoiceProps) {
       className={
         variant === 'hours'
           ? styleHours
-          : 'border-border mx-auto border bg-base text-primary-1100'
+          : 'mx-auto border border-border bg-base text-primary-1100'
       }
     >
       {value}

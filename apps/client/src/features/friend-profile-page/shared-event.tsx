@@ -33,7 +33,11 @@ function SharedEvents({ username, events }: SharedEventsProps) {
               participants={event.participants}
             />
           ))}
-      {(!events || events?.length === 0) && <p>{t('noSharedEvents')}</p>}
+      {(!events || events?.length === 0) && (
+        <p className="py-20 text-center text-xs italic text-light">
+          {t('event:noSharedEvents', { username })}
+        </p>
+      )}
     </Container>
   );
 }

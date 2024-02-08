@@ -67,5 +67,6 @@
   "ifNoYouWillNoLonger": "Si no, ya no tendrás acceso a este evento.",
   "yesIdo": "Sí, quiero",
   "noIdont": "No, no quiero",
-  "pickADateForYourEvent": "Elige una fecha para tu evento"
+  "pickADateForYourEvent": "Elige una fecha para tu evento",
+  "noSharedEvents": "No compartiste ningún evento con {{username}}."
 }

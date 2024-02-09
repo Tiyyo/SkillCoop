@@ -85,9 +85,9 @@ function NewConversationGroup({
                 />
                 <button>
                   <X
-                    className="text-text-base absolute -bottom-1 -right-1 
-                    cursor-pointer rounded-full bg-base bg-opacity-80 
-                  p-0.5"
+                    className="absolute -bottom-1 -right-1 cursor-pointer 
+                    rounded-full bg-base bg-opacity-80 p-0.5 
+                  text-text-base"
                     size={16}
                     onClick={() => removeFriends(friend.userId)}
                   />

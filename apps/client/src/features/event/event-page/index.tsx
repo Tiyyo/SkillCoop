@@ -6,11 +6,12 @@ import EventPageInfos from './infos';
 import TeamComposition from '../team-composition';
 import EventPageScore from './score';
 import EventPageVotesBanner from './votes';
-import { useEffect, useLayoutEffect } from 'react';
+import { useEffect, useLayoutEffect, useRef } from 'react';
 import { useEvent } from '../../../stores/event.store';
 import { useGetSingleEvent } from '../../../hooks/useSingleEvent';
 import ParticipantsList from './participants-list';
 import { getStringDate } from '@skillcoop/date-handler/src';
+import ChatEventPage from './chat';
 
 function EventPage() {
   const location = useLocation();
@@ -18,6 +19,7 @@ function EventPage() {
   const { eventId } = useParams<{ eventId: string }>();
   const { initEventState, data: eventStore } = useEvent();
   const { userProfile } = useApp();
+  const bodyRef = useRef<HTMLDivElement>(null);
   const profileId = userProfile?.profile_id;
 
   const { data: event } = useGetSingleEvent({
@@ -58,8 +60,10 @@ function EventPage() {
   }, [eventStore.user_status]);
   return (
     <div
-      className="flex w-full flex-col items-center justify-center 
-      self-center lg:gap-y-4  lg:pt-4"
+      ref={bodyRef}
+      className="flex w-full flex-col 
+      items-center justify-center self-center  
+      lg:gap-y-4 lg:pt-4"
     >
       <Outlet />
       <div className="flex w-full lg:gap-x-4">
@@ -127,6 +131,7 @@ function EventPage() {
           bestStriker={event.best_striker_id}
         />
       )}
+      <ChatEventPage parentRef={bodyRef} eventId={Number(eventId)} />
     </div>
   );
 }

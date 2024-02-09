@@ -42,7 +42,7 @@ function ConversationContainer({
 
   return (
     <Container
-      className="flex h-[calc(100dvh-80px)] flex-grow flex-col justify-between 
+      className="flex h-body flex-grow flex-col justify-between 
          rounded-none p-0 lg:h-[calc(100vh-214px)] lg:rounded-none"
     >
       {conversation && (
@@ -51,8 +51,8 @@ function ConversationContainer({
            border-b-grey-light px-4 py-2 lg:h-[70px]"
         >
           <div
-            className="border-border flex aspect-square cursor-pointer 
-              items-center justify-center rounded-full border 
+            className="flex aspect-square cursor-pointer items-center 
+              justify-center rounded-full border border-border 
               border-opacity-10 
               p-1.5 text-primary-700 shadow lg:hidden"
             onClick={() =>

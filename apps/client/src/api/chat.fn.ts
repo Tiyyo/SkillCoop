@@ -33,6 +33,13 @@ export const getConversationFn = async (
   return response.data;
 };
 
+export const getConversationByEventIdFn = async (
+  eventId: number,
+): Promise<Conversation> => {
+  const response = await api.get(`/chat-service/conversation/event/${eventId}`);
+  return response.data;
+};
+
 export const updateUserOnConversationFn = async (
   data: UpdateUserOnConversation,
 ): Promise<boolean> => {

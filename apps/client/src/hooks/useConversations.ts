@@ -4,6 +4,7 @@ import {
   createGroupConversationFn,
   deleteConversationFn,
   findOrCreateOneToOneConversationFn,
+  getConversationByEventIdFn,
   getConversationFn,
   getConversationsFn,
   removeFromConversationGroupFn,
@@ -144,4 +145,17 @@ export function useDeleteConversation(options: {
       if (options.onSuccess) options.onSuccess();
     },
   });
+}
+
+export function useGetEventConversation(options: {
+  eventId: number | undefined;
+}) {
+  return useQuery(
+    keys.getConversation(options.eventId),
+    async () => {
+      if (!options.eventId) return null;
+      return getConversationByEventIdFn(options.eventId);
+    },
+    { enabled: !!options.eventId },
+  );
 }

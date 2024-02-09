@@ -28,6 +28,9 @@ export default {
         'circle-fade-in': 'circle-fade-in 0.3s ease-in-out 0.12s 1 forwards',
         'expand-page-in': 'expand-page-in 0.4s ease-in-out 0.12s 1 forwards',
         'open-vertical': 'open-vertical 0.3s ease-in-out 0.12s 1 forwards',
+        'opacity-in-delayed': 'opacity-in 0.3s linear 0.7s forwards',
+        'fade-in-right':
+          'translate-right-left 0.3s ease-in-out 0.12s 1 forwards, opacity-in 0.5s linear 0s forwards',
       },
       aspectRatio: {
         '1/4': '1/4',
@@ -112,6 +115,7 @@ export default {
         '75vh': '75vh',
         '50vh': '50vh',
         '60vh': '60vh',
+        body: 'calc(100dvh - 5rem)',
       },
       keyframes: {
         'fade-in': {
@@ -160,6 +164,10 @@ export default {
             transformOrigin: 'top',
             height: '26rem',
           },
+        },
+        'translate-right-left': {
+          '0%': { transform: 'translateX(100%)' },
+          '100%': { transform: 'translateX(0)' },
         },
       },
       minHeight: {

@@ -16,7 +16,6 @@ import TermsAndService from './features/terms-and-service/index';
 import Register from './features/auth/register';
 import { api } from './api/api.fn';
 import VerifyEmail from './features/auth/verify-email';
-import HomePageEvent from './features/event/index';
 import CreateEvent from './features/event/create-event/index';
 import ResumeEvents from './features/event/resume-events/index';
 import ConfirmedFriends from './features/friends/confirmed.friends';
@@ -59,6 +58,7 @@ import DesktopConversationPage from './features/chat/desktop/conversation-deskto
 import MobileChatHomePage from './features/chat/mobile/home-page-chat-mobile';
 import MobileConversationPage from './features/chat/mobile/conversation-mobile';
 import { setDarkTheme, setLightTheme } from './utils/set-theme';
+import AppLayout from './app-layout';
 /*eslint-enable*/
 
 export const queryClient = new QueryClient({
@@ -125,7 +125,7 @@ const router = createBrowserRouter([
     element: (
       <AccessControlGateway>
         <Protected>
-          <HomePageEvent />
+          <AppLayout />
         </Protected>
       </AccessControlGateway>
     ),

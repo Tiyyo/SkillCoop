@@ -306,4 +306,17 @@ ORDER BY conversation.last_update DESC
       this.logger.error('Could not search for one to one conversation ' + error.message)
     }
   }
+  async getConversationIdByEvent(eventId: number) {
+    try {
+      const conversationId = await this.dbClient
+        .selectFrom('conversation')
+        .select('conversation_id')
+        .where('event_id', '=', eventId)
+        .executeTakeFirst();
+
+      return conversationId.conversation_id ? conversationId.conversation_id : null
+    } catch (error) {
+      this.logger.error('Could not get conversation by event ' + eventId + ' ' + error.message)
+    }
+  }
 }

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Patch, HttpCode, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Patch, HttpCode, Delete, NotFoundException } from '@nestjs/common';
 import { ConversationService } from './message-storage/conversation.service';
 import { CreateOneToOneConversationDto } from './dto/create-one-conversation.dto';
 import { CreateGroupConversationDto } from './dto/create-group-conversation.dto';
@@ -8,6 +8,7 @@ import { UserIdParamsDto } from './dto/userId.params.dto';
 import { ConversationIdParamsDto } from './dto/conversationId.params.dto';
 import { UpdateUserOnConversationDto } from './dto/update-user-conversation.dto';
 import { DeleteConversationParamsDto } from './dto/delete-conversation.dto';
+import { EventIdParamsDto } from './dto/eventId.params.dto';
 
 @Controller('chat-service')
 export class AppController {
@@ -62,7 +63,17 @@ export class AppController {
     );
     return conversation;
   }
-
+  @Get('conversation/event/:eventId')
+  async getConversationByEvent(@Param() params: EventIdParamsDto) {
+    const conversationId = await this.conversationService.getConversationIdByEvent(
+      params.eventId,
+    );
+    if (!conversationId) throw new NotFoundException('No conversation found for this event');
+    const conversation = await this.conversationService.getConversation(
+      conversationId,
+    );
+    return conversation;
+  }
   @Patch('/user-conversation')
   async updateUserOneConversation(
     @Body() body: UpdateUserOnConversationDto,

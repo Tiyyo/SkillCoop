@@ -26,11 +26,11 @@ function NewConversation() {
   };
 
   return (
-    <Container className="flex-grow p-0 lg:mt-4">
+    <Container className="flex-grow p-0 lg:relative lg:rounded-none">
       <div className="flex items-center gap-x-4 px-4 py-4">
         <div
-          className="flex aspect-square cursor-pointer items-center 
-          justify-center rounded-full border border-border border-opacity-10 
+          className="border-border flex aspect-square cursor-pointer 
+          items-center justify-center rounded-full border border-opacity-10 
           p-1.5 text-primary-800 shadow"
           onClick={() => {
             typeConversation === 'oneToOne'

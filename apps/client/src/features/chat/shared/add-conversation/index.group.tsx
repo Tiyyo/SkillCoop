@@ -71,7 +71,7 @@ function NewConversationGroup({
     <>
       <div
         className="no-scrollbar flex w-full gap-x-4 overflow-x-auto 
-         px-6 py-3"
+          px-6 py-3"
       >
         {friendsToAdd &&
           friendsToAdd.length > 0 &&
@@ -85,9 +85,9 @@ function NewConversationGroup({
                 />
                 <button>
                   <X
-                    className="absolute -bottom-1 -right-1 cursor-pointer 
-                    rounded-full bg-grey-constrast bg-opacity-80 p-0.5 
-                  text-text-base"
+                    className="text-text-base absolute -bottom-1 -right-1 
+                    cursor-pointer rounded-full bg-base bg-opacity-80 
+                  p-0.5"
                     size={16}
                     onClick={() => removeFriends(friend.userId)}
                   />
@@ -96,7 +96,7 @@ function NewConversationGroup({
             </div>
           ))}
       </div>
-      <div className="flex flex-col pb-20 pt-6 lg:relative">
+      <div className="flex flex-col overflow-y-auto pb-20 pt-6">
         <input
           type="text"
           placeholder={t('optionalGroupName')}
@@ -106,7 +106,7 @@ function NewConversationGroup({
           onChange={handleChangeTitile}
         />
         <div
-          className="no-scrollbar flex h-50vh flex-col content-start 
+          className="no-scrollbar flex h-[30vh] flex-col content-start 
           overflow-y-auto px-2 py-6 lg:gap-3 xl:grid xl:grid-cols-2 
           2xl:grid-cols-3"
         >

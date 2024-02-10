@@ -3,7 +3,7 @@ import {
   NotificationType,
 } from '@skillcoop/types/src';
 import capitalize from '../../../utils/capitalize';
-import NotificationSwitch from './notification-switch';
+import NotificationSwitch from './switch';
 
 type NotificationSettingProps = {
   type: NotificationType;

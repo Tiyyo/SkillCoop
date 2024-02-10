@@ -1,16 +1,11 @@
 import { Calendar, MapPin, User2 } from 'lucide-react';
 import FormField from '../../components/form-field';
 import capitalize from '../../utils/capitalize';
-import { UseFormRegister, useForm } from 'react-hook-form';
-import { useState } from 'react';
+import { UseFormRegister } from 'react-hook-form';
 import { Infos } from './resume-profile';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { editProfileInfosSchema } from '@skillcoop/schema/src';
 import Button from '../../components/button';
-import { useUpdateProfile } from '../../hooks/useProfile';
-import toast from '../../utils/toast';
-import { getAge } from '@skillcoop/date-handler/src';
 import { useTranslation } from 'react-i18next';
+import useUpdateProfileInfos from './hooks/useUpdateProfileInfos';
 
 type FormEditProfileInfosProps = {
   shouldEditInfos: boolean;
@@ -75,40 +70,15 @@ function FormEditProfileInfos({
   infos,
 }: FormEditProfileInfosProps) {
   const { t } = useTranslation('system');
-  const [profileInfos, setProfileInfos] = useState(infos);
-  const { register, handleSubmit } = useForm({
-    resolver: zodResolver(editProfileInfosSchema),
-  });
-  const { mutate: updateProfileInfos, isLoading } = useUpdateProfile({
-    profileId: infos.profileId,
-    onSuccess: () => {
-      toast.success(t('profileInformationsUpdated'));
-    },
-  });
-
-  const getBirthDate = (date: string | null) => {
-    if (!date) return '';
-    return date.split(' ')[0];
-  };
-
-  const getAgeString = (date: string | null) => {
-    if (!date) return '';
-    return getAge(date) + ' ' + t('yo');
-  };
-
-  //@ts-ignore
-  const onSubmit = (data) => {
-    data.profile_id = infos.profileId;
-    updateProfileInfos(data);
-    setProfileInfos({
-      ...profileInfos,
-      username: data.username,
-      firstname: data.first_name,
-      lastname: data.last_name,
-      age: data.date_of_birth === '' ? null : data.date_of_birth,
-      location: data.location === '' ? null : data.location,
-    });
-  };
+  const {
+    onSubmit,
+    handleSubmit,
+    register,
+    getAgeString,
+    getBirthDate,
+    isLoading,
+    profileInfos,
+  } = useUpdateProfileInfos({ infos });
 
   return (
     <form
@@ -132,7 +102,7 @@ function FormEditProfileInfos({
         <Field
           label={t('firstName')}
           type="text"
-          name="first_name"
+          name="firstname"
           value={profileInfos.firstname}
           shouldEditInfos={shouldEditInfos}
           Icon={<User2 size={18} />}
@@ -141,7 +111,7 @@ function FormEditProfileInfos({
         <Field
           label={t('lastName')}
           type="text"
-          name="last_name"
+          name="lastname"
           value={profileInfos.lastname}
           shouldEditInfos={shouldEditInfos}
           Icon={<User2 size={18} />}
@@ -150,7 +120,7 @@ function FormEditProfileInfos({
         <Field
           label={t('age')}
           type="date"
-          name="date_of_birth"
+          name="age"
           value={getAgeString(profileInfos.age)}
           valueForm={getBirthDate(profileInfos.age)}
           Icon={<Calendar size={18} />}

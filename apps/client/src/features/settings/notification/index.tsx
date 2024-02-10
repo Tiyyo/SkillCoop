@@ -4,7 +4,7 @@ import {
   NotificationMethodSetting,
   UserPreference,
 } from '@skillcoop/types/src';
-import NotificationSetting from './notification-setting';
+import NotificationSetting from './setting';
 import { useTranslation } from 'react-i18next';
 
 type NotificationMethodSettings = Record<string, NotificationMethodSetting>;

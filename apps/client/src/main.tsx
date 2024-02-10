@@ -42,7 +42,7 @@ import InvitationFromEventPage from './features/event/event-page/invitation/inde
 import InvitationFromCreateEventPage from './features/create-event/invitation';
 import Settings from './features/settings/index';
 import MenuSettings from './features/settings/menu';
-import NotificationsSettings from './features/settings/notification/notifications';
+import NotificationsSettings from './features/settings/notification';
 import LanguageSettings from './features/settings/language';
 import ApparenceSettings from './features/settings/apparence';
 import LoadingPage from './components/loading-page/index';

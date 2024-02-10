@@ -63,7 +63,7 @@ function ResumeEmailInfos({ email }: { email?: string | null }) {
       />
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex w-full flex-col pl-8 lg:pl-36 xl:w-1/2"
+        className="flex w-full flex-col lg:w-1/2"
       >
         <div className="flex justify-between pr-3">
           <div className="flex w-full max-w-xs items-center gap-x-2.5 py-4">

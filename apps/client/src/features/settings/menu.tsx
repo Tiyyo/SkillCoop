@@ -1,7 +1,7 @@
 import Container from '../../shared/layouts/container';
 import DeleteUserAccount from './delete-account';
 import Logout from './logout';
-import MenuSettingItem from './menu-item';
+import MenuSettingItem from './menu.item';
 import {
   Bell,
   Flag,

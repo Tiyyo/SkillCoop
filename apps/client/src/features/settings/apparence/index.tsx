@@ -1,13 +1,13 @@
 import { useOutletContext } from 'react-router-dom';
-import Container from '../../shared/layouts/container';
-import { Switch } from '../../lib/ui/switch';
-import { useApp } from '../../shared/store/app.store';
+import Container from '../../../shared/layouts/container';
+import { Switch } from '../../../lib/ui/switch';
+import { useApp } from '../../../shared/store/app.store';
 import { UserPreference, themeAssertion } from '@skillcoop/types/src';
-import { useUpdateThemePreference } from '../../hooks/useUserPreference';
+import { useUpdateThemePreference } from '../../../hooks/useUserPreference';
 import { updateThemePreferenceSchema } from '@skillcoop/schema/src';
 import { useTranslation } from 'react-i18next';
-import { setDarkTheme, setLightTheme } from '../../utils/set-theme';
-import { storeInLocalStorage } from '../../utils/store-in-local';
+import { setDarkTheme, setLightTheme } from '../../../utils/set-theme';
+import { storeInLocalStorage } from '../../../utils/store-in-local';
 
 function ApparenceSettings() {
   const { t } = useTranslation('system');

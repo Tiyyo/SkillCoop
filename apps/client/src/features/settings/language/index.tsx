@@ -1,5 +1,5 @@
 import { useOutletContext } from 'react-router-dom';
-import Container from '../../shared/layouts/container';
+import Container from '../../../shared/layouts/container';
 import {
   Select,
   SelectContent,
@@ -7,18 +7,18 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '../../lib/ui/select';
+} from '../../../lib/ui/select';
 import {
   LanguageSymbol,
   UserPreference,
   languageSymbolToName,
 } from '@skillcoop/types/src';
-import { useUpdateLanguagePreference } from '../../hooks/useUserPreference';
-import { useApp } from '../../shared/store/app.store';
+import { useUpdateLanguagePreference } from '../../../hooks/useUserPreference';
+import { useApp } from '../../../shared/store/app.store';
 import { updateLanguagePreferenceSchema } from '@skillcoop/schema/src';
-import toast from '../../utils/toast';
+import toast from '../../../utils/toast';
 import { useTranslation } from 'react-i18next';
-import { storeInLocalStorage } from '../../utils/store-in-local';
+import { storeInLocalStorage } from '../../../utils/store-in-local';
 
 function LanguageSettings() {
   const { t, i18n } = useTranslation('system');

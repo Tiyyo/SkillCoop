@@ -1,5 +1,5 @@
 import { useOutletContext } from 'react-router-dom';
-import Container from '../../shared/layouts/container';
+import Container from '../../../shared/layouts/container';
 import {
   NotificationMethodSetting,
   UserPreference,

@@ -1,7 +1,7 @@
 import TitleH2 from '../../components/title-h2';
 import RadarChart from '../../components/radar-chart';
 import { useTranslation } from 'react-i18next';
-import EvaluationSkillForm from './index.visual.form';
+import EvaluationSkillForm from './visual.form';
 import { Skills } from '@skillcoop/types/src';
 
 type ProfileSkillVisualizationProps = {

@@ -3,8 +3,8 @@ import { ownSkillSchema } from '@skillcoop/schema/src';
 import { useUserProfileEval } from '../../hooks/useUserProfileEval';
 import Container from '../../shared/layouts/container';
 import LoadingPage from '../../components/loading-page';
-import ProfileSkillVisualization from './index.visual';
-import ProfileStats from './index.stats';
+import ProfileSkillVisualization from './visual';
+import ProfileStats from './stats';
 
 function UserResumeSkills() {
   const { userProfile } = useApp();

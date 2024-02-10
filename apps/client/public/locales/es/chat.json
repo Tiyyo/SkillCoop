@@ -17,5 +17,6 @@
   "typeYourMessage": "Escribe tu mensaje",
   "members": "Miembros",
   "optionalGroupName": "Nombre del grupo (opcional)",
-  "newDiscussion": "Nueva conversación"
+  "newDiscussion": "Nueva conversación",
+  "addNewDiscussion": "Añadir nueva conversación"
 }

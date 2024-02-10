@@ -9,11 +9,11 @@ import {
   redirect,
   RouterProvider,
 } from 'react-router-dom';
-import Login from './features/auth/login';
+import Login from './features/auth/login/login';
 import Protected from './components/redirection/protected-routes';
 import RedirectToHome from './components/redirection/redirect-to-home';
 import TermsAndService from './features/terms-and-service/index';
-import Register from './features/auth/register';
+import Register from './features/auth/register/register';
 import { api } from './api/api.fn';
 import VerifyEmail from './features/auth/verify-email';
 import CreateEvent from './features/event/create-event/index';
@@ -26,7 +26,7 @@ import IncomingEvents from './features/event/events/upcoming';
 import MyEvents from './features/event/events/admin-event';
 import EventPage from './features/event/event-page/index';
 import ProfileInfos from './features/profile/index';
-import UserResumeSkills from './features/skills/index';
+import UserResumeSkills from './features/skills/pages/index';
 import FriendProfile from './features/friend-profile-page/index';
 /*eslint-disable*/
 import ModalRouteRatingEvent from './features/event/event-page/modal-route-rating';
@@ -46,17 +46,17 @@ import NotificationsSettings from './features/settings/notifications';
 import LanguageSettings from './features/settings/language';
 import ApparenceSettings from './features/settings/apparence';
 import LoadingPage from './components/loading-page/index';
-import VerifyEmailSuccess from './features/auth/verify-email-success';
+import VerifyEmailSuccess from './features/auth/email-success';
 import OnBoarding from './features/onboarding';
 import AccessControlGateway from './components/redirection/acces-gateway';
 import OnBoardingCreateProfile from './features/onboarding/create-profile';
 import OnBoardinAddImageProfile from './features/onboarding/add-image-profile';
 import OnBoardingEvaluateSkill from './features/onboarding/evaluate-skill';
-import NewConversation from './features/chat/shared/add-conversation';
-import DesktopChatHomePage from './features/chat/desktop/home-page-chat-desktop';
-import DesktopConversationPage from './features/chat/desktop/conversation-desktop';
-import MobileChatHomePage from './features/chat/mobile/home-page-chat-mobile';
-import MobileConversationPage from './features/chat/mobile/conversation-mobile';
+import NewConversation from './features/chat/add-conversation';
+import DesktopChatHomePage from './features/chat/conversations/index.desktop';
+import DesktopConversationPage from './features/chat/conversation/index.desktop';
+import MobileChatHomePage from './features/chat/conversations/index.mobile';
+import MobileConversationPage from './features/chat/conversation/index.mobile';
 import { setDarkTheme, setLightTheme } from './utils/set-theme';
 import AppLayout from './app-layout';
 /*eslint-enable*/

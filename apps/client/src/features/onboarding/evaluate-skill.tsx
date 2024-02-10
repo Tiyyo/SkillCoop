@@ -2,7 +2,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import TitleH2 from '../../components/title-h2';
 import Container from '../../layouts/container';
 import { cn } from '../../lib/utils';
-import FieldsetRadioInput from '../skills/fieldset-radio.input';
+import FieldsetRadioInput from '../skills/components/fieldset-radio.input';
 import { ALL_SKILLS } from '../../constants/skill-constant';
 import { LEVEL_SCALE } from '../../constants/skill-constant';
 import { useId } from 'react';

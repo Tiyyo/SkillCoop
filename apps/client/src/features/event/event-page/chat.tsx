@@ -1,17 +1,18 @@
 import { cn } from '../../../lib/utils';
 import { useEffect, useState } from 'react';
 import { ArrowLeft, Info, MessageSquare } from 'lucide-react';
-import ConversationInfos from '../../chat/shared/conversation/infos';
-import ConversationCardTitle from '../../chat/shared/title-conversation';
-import ConversationCardImage from '../../chat/shared/image-conversation';
+import ConversationInfos from '../../chat/conversation/infos';
+/*eslint-disable */
+import ConversationCardTitle from '../../../shared/components/conversation-title';
+import ConversationCardImage from '../../../shared/components/conversation-image';
+/*eslint-enable */
 import Container from '../../../layouts/container';
-import { socket } from '../../chat/socket';
+import { socket } from '../../../config/socket';
 import useMessages from '../../../hooks/useMessages';
-import { useGetEventConversation } from '../../../hooks/useConversations';
+import { useGetEventConversation } from '../../chat/hooks/useConversations';
 import { useApp } from '../../../stores/app.store';
-/*eslint-disable*/
-import ConversationMessages from '../../chat/shared/conversation/messages.container';
-/*eslint-enable*/
+
+import ConversationMessages from '../../chat/conversation/message';
 
 //TODO: Refactor this component to use the new useConnectChatServer hook
 // Test if doing another abstraction is worth it

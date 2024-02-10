@@ -1,5 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { getNotificationFn, markNotficationAsReadFn } from '../api/api.fn';
+import {
+  getNotificationFn,
+  markNotficationAsReadFn,
+} from '../../../api/api.fn';
 
 const keys = {
   getNotifications: ['notification'],

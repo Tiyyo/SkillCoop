@@ -266,7 +266,7 @@ const router = createBrowserRouter([
         path: '/notification',
         element: (
           <Suspense fallback="coucou">
-            <NotificationContainer />,
+            <NotificationContainer />
           </Suspense>
         ),
       },

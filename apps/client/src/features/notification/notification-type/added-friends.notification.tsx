@@ -1,5 +1,5 @@
 import type { Notification } from '@skillcoop/types';
-import CoreNotification from '../core';
+import CoreNotification from '../wrapper';
 import { useTranslation } from 'react-i18next';
 
 function AddedFriendsNotification({

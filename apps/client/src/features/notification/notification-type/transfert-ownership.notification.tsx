@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import CoreNotification from '../core';
+import CoreNotification from '../wrapper';
 import { ArrowRight } from 'lucide-react';
 import type { Notification } from '@skillcoop/types/src';
 import { useTranslation } from 'react-i18next';

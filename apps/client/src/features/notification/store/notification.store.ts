@@ -36,15 +36,13 @@ export const useNotificationStore = create<NotificationStoreProps>()((set) => ({
 }));
 
 export const useNotifications = () => {
-  const notifications = useNotificationStore((state) => state.notifications);
-  const setNotification = useNotificationStore(
-    (state) => state.setNotification,
-  );
-  const markAsRead = useNotificationStore((state) => state.markAsRead);
-  const activeFilter = useNotificationStore((state) => state.activeFilter);
-  const setActiveFilter = useNotificationStore(
-    (state) => state.setActiveFilter,
-  );
+  const {
+    notifications,
+    setNotification,
+    markAsRead,
+    activeFilter,
+    setActiveFilter,
+  } = useNotificationStore((state) => state);
 
   const allUnreadNotifications = notifications?.filter(
     (notif) => notif.is_read === 0,

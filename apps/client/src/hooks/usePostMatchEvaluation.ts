@@ -4,7 +4,7 @@ import {
   useEvaluationSkill,
   useGetAverageEval,
   useGetProfile,
-} from './useProfile';
+} from '../shared/hooks/useProfile';
 import { ALL_SKILLS } from '../shared/constants/skill-constant';
 import { participantSkillSchema } from '@skillcoop/schema/src';
 import toast from '../utils/toast';

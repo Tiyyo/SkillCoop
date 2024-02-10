@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useGetConversation } from './useConversations';
-import useMessages from '../../../hooks/useMessages';
+import useMessages from './useMessages';
 import { socket } from '../../../config/socket';
 import { useApp } from '../../../shared/store/app.store';
 

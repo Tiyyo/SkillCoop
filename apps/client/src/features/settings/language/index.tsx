@@ -13,7 +13,7 @@ import {
   UserPreference,
   languageSymbolToName,
 } from '@skillcoop/types/src';
-import { useUpdateLanguagePreference } from '../../../hooks/useUserPreference';
+import { useUpdateLanguagePreference } from '../hooks/useUserPreference';
 import { useApp } from '../../../shared/store/app.store';
 import { updateLanguagePreferenceSchema } from '@skillcoop/schema/src';
 import toast from '../../../utils/toast';

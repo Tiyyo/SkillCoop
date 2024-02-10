@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useAutoEvaluateSkill, useGetProfileEval } from './useProfile';
+import { useAutoEvaluateSkill, useGetProfileEval } from '../shared/hooks/useProfile';
 import type { Skills } from '@skillcoop/types/src';
 
 export function useUserProfileEval({

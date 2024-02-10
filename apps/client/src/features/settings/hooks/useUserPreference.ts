@@ -4,7 +4,7 @@ import {
   updateLanguagePreferenceFn,
   updateNotificationPreferenceFn,
   updateThemePreferenceFn,
-} from '../api/preferences.fn';
+} from '../../../api/preferences.fn';
 import {
   UpdateLanguagePreference,
   UpdateNotificationPreference,

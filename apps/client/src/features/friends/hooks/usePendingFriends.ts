@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { useFriends } from '../features/friends/store/friend.store';
-import { useGetPendingFriendsRequest } from './useFriends';
+import { useFriends } from '../store/friend.store';
+import { useGetPendingFriendsRequest } from '../../../hooks/useFriends';
 
 export function usePendingFriends({ profileId }: { profileId?: number }) {
   const { addPendingFriend, pendingFriends } = useFriends();

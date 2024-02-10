@@ -3,7 +3,7 @@ import ProfileCard from '../../components/friend-card/profile';
 import { useFriends } from './store/friend.store';
 import TitleH2 from '../../components/title-h2';
 import { useApp } from '../../shared/store/app.store';
-import { useSearchProfile } from '../../hooks/useSearchProfile';
+import { useSearchProfile } from './hooks/useSearchProfile';
 import { useSuggestProfile } from '../../hooks/useSuggestProfile';
 import Container from '../../shared/layouts/container';
 import { useTranslation } from 'react-i18next';

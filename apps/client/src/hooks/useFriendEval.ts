@@ -1,7 +1,7 @@
 // should return a boolean to indicate if the profile have skills
 // should return the skill level of the profile
 import { useEffect, useState } from 'react';
-import { useGetProfileEval } from './useProfile';
+import { useGetProfileEval } from '../shared/hooks/useProfile';
 
 export function useProfileEval({ profileId }: { profileId: number }) {
   const [hasBeenEvaluated, setHasBeenEvaluated] = useState<boolean>(false);

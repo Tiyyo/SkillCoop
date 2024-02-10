@@ -8,7 +8,7 @@ import ConversationCardImage from '../../../shared/components/conversation-image
 /*eslint-enable */
 import Container from '../../../shared/layouts/container';
 import { socket } from '../../../config/socket';
-import useMessages from '../../../hooks/useMessages';
+import useMessages from '../../chat/hooks/useMessages';
 import { useGetEventConversation } from '../../chat/hooks/useConversations';
 import { useApp } from '../../../shared/store/app.store';
 

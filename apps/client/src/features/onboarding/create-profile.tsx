@@ -6,7 +6,7 @@ import { Calendar, MapPin, User2 } from 'lucide-react';
 import { cn } from '../../lib/utils';
 import { useOnboarding } from './store/onboarding.store';
 import { queryClient } from '../../main';
-import { userCreateProfile } from '../../hooks/useProfile';
+import { userCreateProfile } from '../../shared/hooks/useProfile';
 import { useTranslation } from 'react-i18next';
 
 function OnBoardingCreateProfile() {

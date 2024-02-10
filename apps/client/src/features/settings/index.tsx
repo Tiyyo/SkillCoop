@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import TitleH1 from '../../components/title-h1';
 import Container from '../../shared/layouts/container';
-import { useGetUserPreferences } from '../../hooks/useUserPreference';
+import { useGetUserPreferences } from './hooks/useUserPreference';
 import { useApp } from '../../shared/store/app.store';
 import { useTranslation } from 'react-i18next';
 

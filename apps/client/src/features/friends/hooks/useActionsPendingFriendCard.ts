@@ -1,6 +1,6 @@
-import { useFriends } from '../features/friends/store/friend.store';
-import { useFriendInvitationActions } from './useFriends';
-import toast from '../utils/toast';
+import { useFriends } from '../store/friend.store';
+import { useFriendInvitationActions } from '../../../hooks/useFriends';
+import toast from '../../../utils/toast';
 import { invitationStatus } from '@skillcoop/types/src';
 import type { InvitationStatus } from '@skillcoop/types/src';
 import { updateFriendshipSchema } from '@skillcoop/schema/src';

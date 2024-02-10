@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { SERVER_URL } from '../utils/server';
+import { SERVER_URL } from '../../utils/server';
 
 export function useHealthCheckServer() {
   const fetchServerUrl = async () => {

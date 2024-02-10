@@ -20,7 +20,7 @@ import ErrorNotification from '../../../components/error/notification';
 import { AtSign, Eye, EyeOff } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import LoginDemoMode from '../login-demo/login-demo';
-import usePasswordMeter from '../../../hooks/usePasswordMeter';
+import usePasswordMeter from '../hooks/usePasswordMeter';
 import PasswordStrengthMeter from '../../../components/password-strenght-meter';
 
 function Register() {

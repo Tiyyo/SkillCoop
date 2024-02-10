@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import usePasswordMeter from '../usePasswordMeter';
+import usePasswordMeter from '../../features/auth/hooks/usePasswordMeter';
 import { renderHook } from '@testing-library/react';
 
 describe('usePasswordMeter', () => {

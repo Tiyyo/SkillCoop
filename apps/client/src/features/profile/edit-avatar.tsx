@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import toast from '../../utils/toast';
-import { useUpdateAvatar } from '../../hooks/useProfile';
+import { useUpdateAvatar } from '../../shared/hooks/useProfile';
 import { useTranslation } from 'react-i18next';
 import ImageWithFallback from '../../components/image';
 

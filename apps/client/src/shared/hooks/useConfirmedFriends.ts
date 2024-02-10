@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { useFriends } from '../features/friends/store/friend.store';
-import { useGetConfirmedFriends } from './useFriends';
+import { useFriends } from '../../features/friends/store/friend.store';
+import { useGetConfirmedFriends } from '../../hooks/useFriends';
 
 export function useConfirmedfriends({ profileId }: { profileId?: number }) {
   const { addConfirmedFriends, confirmedFriends } = useFriends();

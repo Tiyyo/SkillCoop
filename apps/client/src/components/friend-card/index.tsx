@@ -4,7 +4,7 @@ import { invitationStatus } from '@skillcoop/types/src';
 import { Link } from 'react-router-dom';
 import associateNumberToString from '../../utils/associate-number-stringscale';
 /* eslint-disable max-len */
-import { useActionsPendingFriendCard } from '../../hooks/useActionsPendingFriendCard';
+import { useActionsPendingFriendCard } from '../../features/friends/hooks/useActionsPendingFriendCard';
 import { useSelectionOfFriends } from '../../hooks/useSelectionOfFriends';
 import { CreateEventStateStore } from '../../features/create-event/store/create-event.store';
 import { EventStateStore } from '../../features/event-page/store/event.store';

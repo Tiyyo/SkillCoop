@@ -8,7 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useApp } from '../../shared/store/app.store';
 import ErrorNotification from '../../components/error/notification';
 import Button from '../../components/button';
-import { useUpdateEmail } from '../../hooks/useProfile';
+import { useUpdateEmail } from '../../shared/hooks/useProfile';
 import type { UpdateEmail } from '@skillcoop/types/src';
 import { updateEmailSchema } from '@skillcoop/schema/src';
 import toast from '../../utils/toast';

@@ -26,7 +26,7 @@ function FriendStatsDesktop({
 }: Partial<FriendStatsDesktopProps>) {
   const { t } = useTranslation('skill');
   return (
-    <ul className="hidden items-center gap-x-5 md:flex">
+    <ul className="relative -top-5 hidden items-center gap-x-5 md:flex">
       <StatBadge
         label={t('winningRate')}
         icon={cup}

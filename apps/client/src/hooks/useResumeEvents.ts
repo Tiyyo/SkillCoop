@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useGetAllEvents } from './useMultipleEvents';
+import { useGetAllEvents } from '../features/event-list/hooks/useMultipleEvents';
 import type { EventType } from '@skillcoop/types/src';
 import { startTransition } from 'react';
 

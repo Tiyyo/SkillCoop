@@ -3,7 +3,7 @@ import { cn } from '../../lib/utils';
 import { useEvent } from '../../features/event-page/store/event.store';
 import toast from '../../utils/toast';
 import { useTranslation } from 'react-i18next';
-import useResetError from '../../hooks/useResetError';
+import useResetError from '../../shared/hooks/useResetError';
 
 type Option = {
   label: string;

@@ -5,7 +5,7 @@ import { useMutation } from '@tanstack/react-query';
 import { resetPasswordFn } from '../../../api/api.fn';
 import { useState } from 'react';
 import { ResetPassword } from '@skillcoop/types/src';
-import usePasswordMeter from '../../../hooks/usePasswordMeter';
+import usePasswordMeter from './usePasswordMeter';
 
 export default function useResetPassword() {
   const [hasBeenReset, setHasBeenReset] = useState(false);

@@ -2,7 +2,7 @@ import { getOrganizeEventFn } from '../../../api/api.fn';
 import { useApp } from '../../../shared/store/app.store';
 import EventList from '../resume-events/list';
 import type { EventType } from '@skillcoop/types/src';
-import useInfinite from '../../../hooks/useInfinite';
+import useInfinite from '../../../shared/hooks/useInfinite';
 import { useId } from 'react';
 import ErrorFallback from '../../../components/error-fallback';
 import { useTranslation } from 'react-i18next';

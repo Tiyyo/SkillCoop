@@ -13,7 +13,7 @@ import {
   updateAvatarFn,
   updateEmailFn,
   updateProfileInfoFn,
-} from '../api/api.fn';
+} from '../../api/api.fn';
 import type {
   EvaluationOwnSkill,
   EvaluationParticipantSkill,
@@ -22,7 +22,7 @@ import type {
   UpdateEmail,
 } from '@skillcoop/types/src';
 import { AxiosResponse } from 'axios';
-import { queryClient } from '../main';
+import { queryClient } from '../../main';
 
 const keys = {
   getProfile: ['profile'],

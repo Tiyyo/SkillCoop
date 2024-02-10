@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
-import Friendlist from './list.friends';
+import Friendlist from './card-container';
 import TitleH2 from '../../components/title-h2';
 import { useApp } from '../../shared/store/app.store';
-import { useConfirmedfriends } from '../../hooks/useConfirmedFriends';
+import { useConfirmedfriends } from '../../shared/hooks/useConfirmedFriends';
 import SubHeader from '../../components/header/sub-header';
 import Container from '../../shared/layouts/container';
 import { ArrowRight } from 'lucide-react';

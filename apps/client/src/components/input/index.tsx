@@ -1,6 +1,6 @@
 import type { ComponentPropsWithoutRef } from 'react';
 import { cn } from '../../lib/utils';
-import useResetError from '../../hooks/useResetError';
+import useResetError from '../../shared/hooks/useResetError';
 
 interface InputProps extends ComponentPropsWithoutRef<'input'> {
   type?: string;

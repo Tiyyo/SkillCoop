@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getEventsFn, getSharedEventsFn } from '../api/api.fn';
+import { getEventsFn, getSharedEventsFn } from '../../../api/api.fn';
 
 export function useGetAllEvents(options: { profileId?: number }) {
   return useQuery(

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useGetSuggestProfile } from './useProfile';
+import { useGetSuggestProfile } from '../shared/hooks/useProfile';
 import { useFriends } from '../features/friends/store/friend.store';
 
 export function useSuggestProfile({ profileId }: { profileId?: number }) {

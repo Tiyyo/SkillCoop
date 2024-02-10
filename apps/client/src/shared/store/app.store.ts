@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import type { Profile } from '@skillcoop/types/src';
 import { useEffect } from 'react';
-import { useGetMe } from '../../hooks/useProfile';
+import { useGetMe } from '../hooks/useProfile';
 import { detectFirstAccess } from '../../utils/is-first-connection';
 
 type AppStoreProps = {

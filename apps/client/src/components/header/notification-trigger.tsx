@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import notificationBellIcon from '../../assets/svg/notification-bell.svg';
 //eslint-disable-next-line
-import useSubscriptionNotification from '../../hooks/useSubscriptionNotification';
+import useSubscriptionNotification from '../../features/notification/hooks/useSubscriptionNotification';
 import { useGetNotifications } from '../../features/notification/hooks/useNotification';
 import { useNotifications } from '../../features/notification/store/notification.store';
 import { Link } from 'react-router-dom';

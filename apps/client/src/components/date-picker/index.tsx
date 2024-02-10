@@ -2,7 +2,7 @@ import { CalendarSearch } from 'lucide-react';
 import { getDefaultDatePicker } from '@skillcoop/date-handler/src';
 import { getCurrentLngInLocalStorage } from '../../utils/get-current-lng';
 import DatePicker from './date-picker';
-import useResetError from '../../hooks/useResetError';
+import useResetError from '../../shared/hooks/useResetError';
 
 type InputDateProps = {
   updateState?: (e: any) => void;

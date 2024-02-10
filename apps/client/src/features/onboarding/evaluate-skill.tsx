@@ -9,7 +9,7 @@ import { useId } from 'react';
 import { useUserProfileEval } from '../../hooks/useUserProfileEval';
 import { ownSkillSchema, editProfileInfosSchema } from '@skillcoop/schema/src';
 import { useOnboarding } from './store/onboarding.store';
-import { useUpdateProfile } from '../../hooks/useProfile';
+import { useUpdateProfile } from '../../shared/hooks/useProfile';
 import toast from '../../utils/toast';
 import { useApp } from '../../shared/store/app.store';
 import { useTranslation } from 'react-i18next';

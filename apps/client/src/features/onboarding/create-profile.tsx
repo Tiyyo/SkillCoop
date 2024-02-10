@@ -1,12 +1,12 @@
 import { Link, useParams } from 'react-router-dom';
-import Input from '../../components/input';
-import Container from '../../layouts/container';
-import TitleH2 from '../../components/title-h2';
+import Input from '../../shared/components/input';
+import Container from '../../shared/layouts/container';
+import TitleH2 from '../../shared/components/title-h2';
 import { Calendar, MapPin, User2 } from 'lucide-react';
 import { cn } from '../../lib/utils';
-import { useOnboarding } from '../../stores/onboarding.store';
+import { useOnboarding } from './store/onboarding.store';
 import { queryClient } from '../../main';
-import { userCreateProfile } from '../../hooks/useProfile';
+import { userCreateProfile } from '../../shared/hooks/useProfile';
 import { useTranslation } from 'react-i18next';
 
 function OnBoardingCreateProfile() {

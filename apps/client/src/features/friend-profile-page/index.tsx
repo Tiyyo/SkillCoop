@@ -1,24 +1,17 @@
-import RadarChart from '../../components/radar-chart';
 import { useParams } from 'react-router-dom';
-import Container from '../../layouts/container';
-import { useGetProfile } from '../../hooks/useProfile';
-import { getMaxValue } from '../../utils/get-max';
-import { useProfileEval } from '../../hooks/useFriendEval';
-// import cup from '../../assets/cup.png';
-import TitleH2 from '../../components/title-h2';
-import capitalize from '../../utils/capitalize';
+import { useGetProfile } from '../../shared/hooks/useProfile';
+import { getMaxValue } from '../../shared/utils/get-max';
+import { useProfileEval } from './hooks/useFriendEval';
 import FriendStatsDesktop from './stats-desktop';
-import AvatarRectangle from '../../components/avatar-rectangle';
 import FriendStatsMobile from './stats-mobile';
-import { getAge } from '@skillcoop/date-handler/src';
 import { Suspense } from 'react';
-import { useTranslation } from 'react-i18next';
 import SharedEvents from './shared-event';
-import { useApp } from '../../stores/app.store';
-import { useGetSharedEvents } from '../../hooks/useMultipleEvents';
+import { useApp } from '../../shared/store/app.store';
+import { useGetSharedEvents } from '../event-list/hooks/useMultipleEvents';
+import FriendProfileStatsVisualization from './visual';
+import FriendProfileInfos from './infos';
 
 function FriendProfile() {
-  const { t } = useTranslation('title');
   const { userId } = useApp();
   const params = useParams<{ id: string }>();
   const profileId = Number(params.id);
@@ -31,12 +24,12 @@ function FriendProfile() {
   const values = Object.values(evaluateProfile);
   const maxValue = getMaxValue(values);
   //TODO : refactor this component
-  //TODO: add last share events
 
   return (
     <>
       <Suspense fallback={<div>loading</div>}>
         <div className="w-full bg-base-light shadow   lg:my-4 lg:rounded-xl">
+          {/*banner*/}
           <div className="relative -z-0 h-56 w-full ">
             <img
               src="/images/stadium.png"
@@ -49,8 +42,14 @@ function FriendProfile() {
              flex flex-col pl-6"
           >
             <div className="flex items-center gap-x-5">
-              <AvatarRectangle avatar={profile?.avatar_url ?? null} />
-
+              <FriendProfileInfos
+                avatar={profile?.avatar_url}
+                firstname={profile?.first_name}
+                lastname={profile?.last_name}
+                age={profile?.date_of_birth}
+                location={profile?.location}
+                username={profile?.username}
+              />
               <FriendStatsDesktop
                 nbAttendedEvent={profile?.nb_attended_events}
                 nbMvpBonus={profile?.nb_mvp_bonus}
@@ -60,36 +59,7 @@ function FriendProfile() {
                 winningRate={profile?.winning_rate}
               />
             </div>
-            <div className="flex justify-between ">
-              <div>
-                <h2 className="text-sm font-semibold">
-                  {capitalize(profile?.first_name)}{' '}
-                  {capitalize(profile?.last_name)}
-                </h2>
-                <p className="text-xs font-light">{profile?.username}</p>
-                <div className="flex items-baseline gap-x-2 py-2">
-                  {profile?.date_of_birth && (
-                    <span className="flex items-end text-xs">
-                      <img
-                        src="/images/small-profile-green.png"
-                        alt="Age icon"
-                        className="h-5 w-5"
-                      />
-                      {getAge(profile.date_of_birth)}
-                    </span>
-                  )}
-                  {profile?.location && (
-                    <span className="flex items-end text-xs">
-                      <img
-                        src="/images/location.png"
-                        alt="location icon"
-                        className="h-5 w-5"
-                      />
-                      {profile.location}
-                    </span>
-                  )}
-                </div>
-              </div>
+            <div>
               <Suspense fallback={<div>loading</div>}>
                 <FriendStatsMobile
                   nbAttendedEvent={profile?.nb_attended_events}
@@ -104,21 +74,11 @@ function FriendProfile() {
           </div>
         </div>
         <div className="flex flex-col lg:flex-row ">
-          {/*      TODO : move this into his own component */}
           {hasBeenEvaluated && (
-            <Container className="lg:w-1/2 lg:rounded-r-none">
-              <TitleH2 title={t('stats')} />
-              <div className="flex max-h-96 justify-center">
-                <RadarChart
-                  skills={evaluateProfile}
-                  min={0}
-                  // set the scale to a max of the highest score of an user
-                  // to have a consistent scale
-                  max={maxValue ? maxValue + 10 : 100}
-                  displayTicks={false}
-                />
-              </div>
-            </Container>
+            <FriendProfileStatsVisualization
+              evaluateProfile={evaluateProfile}
+              maxValue={maxValue}
+            />
           )}
           <SharedEvents
             username={profile?.username ?? ''}

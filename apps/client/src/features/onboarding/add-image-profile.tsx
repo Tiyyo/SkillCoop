@@ -1,9 +1,9 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import TitleH2 from '../../components/title-h2';
-import Container from '../../layouts/container';
+import TitleH2 from '../../shared/components/title-h2';
+import Container from '../../shared/layouts/container';
 import { cn } from '../../lib/utils';
 import AvatarEdit from '../profile/edit-avatar';
-import { useOnboarding } from '../../stores/onboarding.store';
+import { useOnboarding } from './store/onboarding.store';
 import { useTranslation } from 'react-i18next';
 
 function OnBoardinAddImageProfile() {

@@ -1,12 +1,9 @@
 import { useState } from 'react';
-import TriggerEditBtn from './trigger-edit-btn';
-import AvatarEdit from './edit-avatar';
 import FormEditProfileInfos from './form-edit-profile';
-import ResumeEmailInfos from './resume-email';
-import EditModalPassword from './modal-edit-password';
-import { Edit2, Lock } from 'lucide-react';
-import { useTranslation } from 'react-i18next';
-import { useApp } from '../../stores/app.store';
+import ResumeEmailInfos from './resume-profile.email';
+import { useApp } from '../../shared/store/app.store';
+import ResumeProfileBanner from './resume-profile.banner';
+import ResumeProfilePassword from './resume-profile.password';
 
 export type Infos = {
   username: string | null;
@@ -20,7 +17,6 @@ export type Infos = {
 };
 
 function ResumeProfile({ infos }: { infos: Infos }) {
-  const { t } = useTranslation('system');
   const [isEditing, setIsEditing] = useState(false);
   const { userProfile } = useApp();
 
@@ -32,53 +28,20 @@ function ResumeProfile({ infos }: { infos: Infos }) {
       className="flex h-fit w-full flex-col overflow-hidden bg-base-light 
     shadow lg:my-4 lg:rounded-xl"
     >
-      <div
-        className="-top-12 flex 
-             flex-col border-b border-b-grey-light bg-base-light pl-6"
-      >
-        <div className="relative flex items-center gap-x-5 py-4 ">
-          <AvatarEdit
-            avatar={infos.avatar}
-            profileId={userProfile?.profile_id}
-          />
-          <TriggerEditBtn
-            className="absolute right-3 top-3"
-            getCurrentState={getEditState}
-          />
-        </div>
-      </div>
+      <ResumeProfileBanner
+        avatar={infos.avatar}
+        profileId={userProfile?.profile_id}
+        getCurrentState={getEditState}
+      />
       <div className="relative w-full self-end py-4 text-end">
         <FormEditProfileInfos shouldEditInfos={isEditing} infos={infos} />
-        <div className="flex flex-col items-center justify-start xl:flex-row">
+        <div
+          className="flex flex-col items-center justify-start px-8 
+          lg:flex-row"
+        >
           <ResumeEmailInfos email={infos.email} />
-          <div className="relative flex w-full flex-col pl-8 lg:pl-36 xl:w-1/2">
-            <div className="flex justify-between pr-3">
-              <div className="flex w-full max-w-xs items-center gap-x-2.5 py-4">
-                <div className="basis-7 text-primary-100">
-                  <Lock size={18} />
-                </div>
-                <div className="flex flex-grow flex-col gap-y-1">
-                  <label
-                    htmlFor="email"
-                    className="ml-2 block h-4 text-start text-xs font-medium
-                     text-grey-sub-text"
-                  >
-                    {t('password')}
-                  </label>
-                  <input
-                    type="password"
-                    defaultValue={'nicetrynotyours'}
-                    readOnly
-                    disabled
-                    className="border-secondary-400 peer block 
-                    w-full bg-transparent px-2.5 pb-1.5 pt-3 text-sm"
-                  />
-                </div>
-              </div>
-              <EditModalPassword>
-                <Edit2 className="text-light" size={18} />
-              </EditModalPassword>
-            </div>
+          <div className="relative flex w-full flex-col lg:w-1/2">
+            <ResumeProfilePassword />
           </div>
         </div>
       </div>

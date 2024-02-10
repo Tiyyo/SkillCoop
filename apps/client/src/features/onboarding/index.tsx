@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
-import useLogout from '../../hooks/useLogout';
-import Page from '../../layouts/page';
-import Container from '../../layouts/container';
+import useLogout from '../../shared/hooks/useLogout';
+import Page from '../../shared/layouts/page';
+import Container from '../../shared/layouts/container';
 import { useTranslation } from 'react-i18next';
 
 function OnBoarding() {

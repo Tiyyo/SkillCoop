@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { SERVER_URL } from '../utils/server';
+import { SERVER_URL } from '../shared/utils/server';
 export * from './auth.fn';
 export * from './evaluation.fn';
 export * from './event.fn';

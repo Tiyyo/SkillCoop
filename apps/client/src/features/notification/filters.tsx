@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { cn } from '../../lib/utils';
 import { NotificationFilters } from '@skillcoop/types/src';
 import { notificationFilters } from '@skillcoop/types/src';
-import { useNotifications } from '../../stores/notification.store';
+import { useNotifications } from './store/notification.store';
 import { useTranslation } from 'react-i18next';
 
 type FilterBtnProps = {

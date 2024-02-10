@@ -1,10 +1,11 @@
-import { useUpdateParticipant } from '../../../hooks/useSingleEvent';
+import { useUpdateParticipant } from '../../../shared/hooks/useSingleEvent';
 import type { InvitationStatus, Notification } from '@skillcoop/types/src';
 import { invitationStatus } from '@skillcoop/types/src';
-import CoreNotification from '../core';
+import CoreNotification from '../wrapper';
 import { useTranslation } from 'react-i18next';
-
-import { getCurrentLngInLocalStorage } from '../../../utils/get-current-lng';
+/*eslint-disable */
+import { getCurrentLngInLocalStorage } from '../../../shared/utils/get-current-lng';
+/*eslint-enable */
 
 function EventInvitationNotification({
   notification,

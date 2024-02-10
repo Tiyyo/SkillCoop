@@ -2,11 +2,11 @@
   "extends": "./tsconfig.build.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "paths": {
-      "@skillcoop/date-handler": [
-        "packages/date-handler/src"
-      ]
-    },
+    // "paths": {
+    //   "@skillcoop/date-handler": [
+    //     "packages/date-handler/src"
+    //   ]
+    // },
     "noEmit": true,
   },
 }

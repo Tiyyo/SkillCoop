@@ -1,5 +1,5 @@
 import { LogOut } from 'lucide-react';
-import useLogout from '../../hooks/useLogout';
+import useLogout from '../../shared/hooks/useLogout';
 import { useTranslation } from 'react-i18next';
 
 function Logout() {

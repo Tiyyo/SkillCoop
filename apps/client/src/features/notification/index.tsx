@@ -1,38 +1,13 @@
-import { useApp } from '../../stores/app.store';
-import Container from '../../layouts/container';
+import Container from '../../shared/layouts/container';
 import DispatchNotifications from './dispatch';
 import NotificationFilters from './filters';
-import { useNotifications } from '../../stores/notification.store';
-import { useEffect, useLayoutEffect } from 'react';
-import { useGetNotifications } from '../../hooks/useNotification';
 import { useTranslation } from 'react-i18next';
+import NotFoundMessage from '../../shared/components/not-found-message';
+import useNotificationManager from './hooks/useNotificationManager';
 
 function NotificationContainer() {
   const { t } = useTranslation('system');
-  const { userProfile } = useApp();
-  const { activeFilter, notifications, setNotification } = useNotifications();
-  const {
-    data: fetchNotifications,
-    isLoading,
-    isFetching,
-    refetch,
-  } = useGetNotifications({
-    profileId: userProfile?.profile_id,
-  });
-
-  useLayoutEffect(() => {
-    if (userProfile?.profile_id) {
-      refetch();
-    }
-  }, [userProfile]);
-
-  const loading = isLoading || isFetching;
-
-  useEffect(() => {
-    if (fetchNotifications) {
-      setNotification(fetchNotifications);
-    }
-  }, [loading]);
+  const { activeFilter, notifications } = useNotificationManager();
 
   return (
     <>
@@ -45,11 +20,9 @@ function NotificationContainer() {
         </h2>
         <NotificationFilters />
       </Container>
-      <Container className="lg: flex-grow px-1.5 lg:rounded-b-lg">
+      <Container className="flex-grow px-1.5 lg:rounded-none  lg:rounded-b-lg">
         {notifications && notifications.length === 0 && (
-          <p className="mt-4 text-center text-sm text-light">
-            {t('noNotifications')}
-          </p>
+          <NotFoundMessage message={t('noNotifications')} />
         )}
         {notifications &&
           notifications

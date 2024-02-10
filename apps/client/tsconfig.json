@@ -4,19 +4,8 @@
     "target": "ES2020",
     "useDefineForClassFields": true,
     "paths": {
-      "@skillcoop/*": [
-        "@skillcoop/*/src"
-      ],
-      "#*": [
-        "./src/*",
-        "./src/*.ts",
-        "./src/*.tsx",
-        "./src/*.js",
-        "./src/*.jsx",
-        "./src/*/index.ts",
-        "./src/*/index.tsx",
-        "./src/*/index.js",
-        "./src/*/index.jsx"
+      "@/*": [
+        "./src/*"
       ]
     },
     "lib": [

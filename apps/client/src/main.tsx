@@ -1,4 +1,4 @@
-import i18next from './i18/i18n';
+import i18next from './config/i18n';
 import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
@@ -9,55 +9,55 @@ import {
   redirect,
   RouterProvider,
 } from 'react-router-dom';
-import Login from './features/auth/login';
-import Protected from './components/redirection/protected-routes';
-import RedirectToHome from './components/redirection/redirect-to-home';
+import Login from './features/auth/login/login';
+import Protected from './shared/components/redirection/protected-routes';
+import RedirectToHome from './shared/components/redirection/redirect-to-home';
 import TermsAndService from './features/terms-and-service/index';
-import Register from './features/auth/register';
+import Register from './features/auth/register/register';
 import { api } from './api/api.fn';
 import VerifyEmail from './features/auth/verify-email';
-import CreateEvent from './features/event/create-event/index';
-import ResumeEvents from './features/event/resume-events/index';
-import ConfirmedFriends from './features/friends/confirmed.friends';
-import PendingFriends from './features/friends/pending.friends';
-import AddFriends from './features/friends/add.friends';
-import PastEvents from './features/event/events/past';
-import IncomingEvents from './features/event/events/upcoming';
-import MyEvents from './features/event/events/admin-event';
-import EventPage from './features/event/event-page/index';
+import CreateEvent from './features/create-event/index';
+import ResumeEvents from './features/event-list/home';
+import ConfirmedFriends from './features/friends/confirmed';
+import PendingFriends from './features/friends/pending';
+import AddFriends from './features/friends/add-new';
+import PastEvents from './features/event-list/past';
+import IncomingEvents from './features/event-list/upcoming';
+import MyEvents from './features/event-list/admin-event';
+import EventPage from './features/event-page/main/call-to-action-votes';
 import ProfileInfos from './features/profile/index';
 import UserResumeSkills from './features/skills/index';
 import FriendProfile from './features/friend-profile-page/index';
 /*eslint-disable*/
-import ModalRouteRatingEvent from './features/event/event-page/modal-route-rating';
-import ControlAccesEventPage from './components/redirection/control-access-event';
-import Page404 from './components/404-page/index';
-import ControlAccessOwnership from './components/redirection/control-access-ownership';
+import ModalRouteRatingEvent from './features/event-page/main/modal-route-rating';
+import ControlAccesEventPage from './shared/components/redirection/control-access-event';
+import Page404 from './shared/components/404-page/index';
+import ControlAccessOwnership from './shared/components/redirection/control-access-ownership';
 import { Toaster } from 'sonner';
-import EndOfGameAwards from './features/event/awards';
+import EndOfGameAwards from './features/event-page/awards';
 import ForgotPassword from './features/auth/forgot-password';
-import ResetPasswordMiddleware from './components/redirection/control-reset-password';
+import ResetPasswordMiddleware from './shared/components/redirection/control-reset-password';
 import NotificationContainer from './features/notification/index';
-import InvitationFromEventPage from './features/event/event-page/invitation/index';
-import InvitationFromCreateEventPage from './features/event/create-event/invitation';
+import InvitationFromEventPage from './features/event-page/invitation/index';
+import InvitationFromCreateEventPage from './features/create-event/invitation';
 import Settings from './features/settings/index';
 import MenuSettings from './features/settings/menu';
-import NotificationsSettings from './features/settings/notifications';
+import NotificationsSettings from './features/settings/notification';
 import LanguageSettings from './features/settings/language';
 import ApparenceSettings from './features/settings/apparence';
-import LoadingPage from './components/loading-page/index';
-import VerifyEmailSuccess from './features/auth/verify-email-success';
+import LoadingPage from './shared/components/loading-page/index';
+import VerifyEmailSuccess from './features/auth/email-success';
 import OnBoarding from './features/onboarding';
-import AccessControlGateway from './components/redirection/acces-gateway';
+import AccessControlGateway from './shared/components/redirection/acces-gateway';
 import OnBoardingCreateProfile from './features/onboarding/create-profile';
 import OnBoardinAddImageProfile from './features/onboarding/add-image-profile';
 import OnBoardingEvaluateSkill from './features/onboarding/evaluate-skill';
-import NewConversation from './features/chat/shared/add-conversation';
-import DesktopChatHomePage from './features/chat/desktop/home-page-chat-desktop';
-import DesktopConversationPage from './features/chat/desktop/conversation-desktop';
-import MobileChatHomePage from './features/chat/mobile/home-page-chat-mobile';
-import MobileConversationPage from './features/chat/mobile/conversation-mobile';
-import { setDarkTheme, setLightTheme } from './utils/set-theme';
+import NewConversation from './features/chat/add-conversation';
+import DesktopChatHomePage from './features/chat/conversations/index.desktop';
+import DesktopConversationPage from './features/chat/conversation/index.desktop';
+import MobileChatHomePage from './features/chat/conversations/index.mobile';
+import MobileConversationPage from './features/chat/conversation/index.mobile';
+import { setDarkTheme, setLightTheme } from './shared/utils/set-theme';
 import AppLayout from './app-layout';
 /*eslint-enable*/
 
@@ -266,7 +266,7 @@ const router = createBrowserRouter([
         path: '/notification',
         element: (
           <Suspense fallback="coucou">
-            <NotificationContainer />,
+            <NotificationContainer />
           </Suspense>
         ),
       },

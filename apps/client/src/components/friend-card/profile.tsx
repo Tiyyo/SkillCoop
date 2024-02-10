@@ -1,5 +1,5 @@
 import { createInvitationSchema } from '@skillcoop/schema/src';
-import { useFriends as useFriendStore } from '../../stores/friend.store';
+import { useFriends as useFriendStore } from '../../features/friends/store/friend.store';
 import toast from '../../utils/toast';
 import associateNumberToString from '../../utils/associate-number-stringscale';
 import { useInviteFriend } from '../../hooks/useFriends';

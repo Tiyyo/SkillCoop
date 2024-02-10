@@ -4,7 +4,7 @@ import Button from '../button';
 import { EventParticipant } from '@skillcoop/types/src';
 import { UseMutateFunction } from '@tanstack/react-query';
 import { voteSchema } from '@skillcoop/schema/src';
-import { useApp } from '../../stores/app.store';
+import { useApp } from '../../shared/store/app.store';
 import { useTranslation } from 'react-i18next';
 
 type TeamCompositionProps = {

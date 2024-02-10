@@ -12,14 +12,14 @@ import { useParams } from 'react-router-dom';
 import SelectInput from '../../../components/select';
 import InputTime from '../../../components/time-picker';
 import InputDate from '../../../components/date-picker';
-import { useEvent } from '../../../stores/event.store';
+import { useEvent } from '../../event-page/store/event.store';
 import {
   OPTION_DURATION,
   OPTION_FORMAT,
-} from '../../../constants/select.options';
-import Container from '../../../layouts/container';
+} from '../../../shared/constants/select.options';
+import Container from '../../../shared/layouts/container';
 import TitleH2 from '../../../components/title-h2';
-import { useUpdateSingleEvent } from '../../../hooks/useSingleEvent';
+import { useUpdateSingleEvent } from '../../../shared/hooks/useSingleEvent';
 import toast from '../../../utils/toast';
 import { updateEventSchema } from '@skillcoop/schema/src';
 import type { EventStatus } from '@skillcoop/types/src';

@@ -1,14 +1,14 @@
 import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import DropdownEventMenu from './dropdown-menu/index';
 import CallToActionInvitation from './call-to-action-invitation';
-import { useApp } from '../../../stores/app.store';
+import { useApp } from '../../../shared/store/app.store';
 import EventPageInfos from './infos';
 import TeamComposition from '../team-composition';
 import EventPageScore from './score';
 import EventPageVotesBanner from './votes';
 import { useEffect, useLayoutEffect, useRef } from 'react';
-import { useEvent } from '../../../stores/event.store';
-import { useGetSingleEvent } from '../../../hooks/useSingleEvent';
+import { useEvent } from '../../event-page/store/event.store';
+import { useGetSingleEvent } from '../../../shared/hooks/useSingleEvent';
 import ParticipantsList from './participants-list';
 import { getStringDate } from '@skillcoop/date-handler/src';
 import ChatEventPage from './chat';

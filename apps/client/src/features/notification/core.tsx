@@ -1,6 +1,6 @@
 import capitalize from '../../utils/capitalize';
 import { useMarkNotificationAsRead } from '../../hooks/useNotification';
-import { useNotifications } from '../../stores/notification.store';
+import { useNotifications } from './store/notification.store';
 import { useTranslation } from 'react-i18next';
 import ImageWithFallback from '../../components/image';
 

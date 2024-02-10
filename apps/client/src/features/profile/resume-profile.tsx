@@ -6,7 +6,7 @@ import ResumeEmailInfos from './resume-email';
 import EditModalPassword from './modal-edit-password';
 import { Edit2, Lock } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { useApp } from '../../stores/app.store';
+import { useApp } from '../../shared/store/app.store';
 
 export type Infos = {
   username: string | null;

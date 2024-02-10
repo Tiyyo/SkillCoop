@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { Navigate, useParams } from 'react-router-dom';
-import { useApp } from '../../stores/app.store';
+import { useApp } from '../../shared/store/app.store';
 import { getEventFn } from '../../api/api.fn';
 import Spinner from '../loading';
 import TransfertOwnership from '../../features/event/event-page/ownership';

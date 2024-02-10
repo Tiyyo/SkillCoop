@@ -1,6 +1,6 @@
 import Footer from './footer';
 import Benefits from './benefits';
-import HeaderLandingPage from './header-landing-page';
+import HeaderLandingPage from './header';
 import HeroSection from './hero-section';
 import { Suspense } from 'react';
 import LoadingPage from '../../components/loading-page';

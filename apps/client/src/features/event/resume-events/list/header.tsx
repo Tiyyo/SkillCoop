@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import TitleH2 from '../../../../components/title-h2';
-import Container from '../../../../layouts/container';
+import Container from '../../../../shared/layouts/container';
 import { useTranslation } from 'react-i18next';
 
 function HeaderEventList({

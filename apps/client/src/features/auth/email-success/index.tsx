@@ -1,7 +1,7 @@
-import Page from '../../../layouts/page';
+import Page from '../../../shared/layouts/page';
 import animatedCheck from '../../../assets/svg/animated-check.svg';
 import './animation.css';
-import Center from '../../../layouts/center';
+import Center from '../../../shared/layouts/center';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 

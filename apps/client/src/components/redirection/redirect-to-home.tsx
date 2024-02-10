@@ -1,5 +1,5 @@
 import { Navigate } from 'react-router-dom';
-import { useApp } from '../../stores/app.store';
+import { useApp } from '../../shared/store/app.store';
 
 function RedirectToHome({ children }: { children: React.ReactNode }) {
   const { isAuth } = useApp();

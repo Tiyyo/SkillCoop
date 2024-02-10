@@ -1,6 +1,6 @@
 import RadarChart from '../../components/radar-chart';
 import { useParams } from 'react-router-dom';
-import Container from '../../layouts/container';
+import Container from '../../shared/layouts/container';
 import { useGetProfile } from '../../hooks/useProfile';
 import { getMaxValue } from '../../utils/get-max';
 import { useProfileEval } from '../../hooks/useFriendEval';
@@ -14,7 +14,7 @@ import { getAge } from '@skillcoop/date-handler/src';
 import { Suspense } from 'react';
 import { useTranslation } from 'react-i18next';
 import SharedEvents from './shared-event';
-import { useApp } from '../../stores/app.store';
+import { useApp } from '../../shared/store/app.store';
 import { useGetSharedEvents } from '../../hooks/useMultipleEvents';
 
 function FriendProfile() {

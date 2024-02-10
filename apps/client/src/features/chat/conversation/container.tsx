@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { Dispatch, SetStateAction } from 'react';
-import Container from '../../../layouts/container';
+import Container from '../../../shared/layouts/container';
 /*eslint-disable */
 import ConversationCardImage from '../../../shared/components/conversation-image';
 import ConversationCardTitle from '../../../shared/components/conversation-title';
@@ -38,7 +38,7 @@ function ConversationContainer({
 
   return (
     <Container
-      className="flex h-body flex-grow flex-col justify-between 
+      className="h-body flex flex-grow flex-col justify-between 
          rounded-none p-0 lg:h-[calc(100vh-214px)] lg:rounded-none"
     >
       {conversation && (

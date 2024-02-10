@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useGetConversation } from './useConversations';
 import useMessages from '../../../hooks/useMessages';
 import { socket } from '../../../config/socket';
-import { useApp } from '../../../stores/app.store';
+import { useApp } from '../../../shared/store/app.store';
 
 export default function useConnectChatServer(conversationId: number) {
   const { userProfile, userId } = useApp();

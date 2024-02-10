@@ -1,5 +1,5 @@
 import { useOutletContext } from 'react-router-dom';
-import Container from '../../layouts/container';
+import Container from '../../shared/layouts/container';
 import {
   Select,
   SelectContent,
@@ -14,7 +14,7 @@ import {
   languageSymbolToName,
 } from '@skillcoop/types/src';
 import { useUpdateLanguagePreference } from '../../hooks/useUserPreference';
-import { useApp } from '../../stores/app.store';
+import { useApp } from '../../shared/store/app.store';
 import { updateLanguagePreferenceSchema } from '@skillcoop/schema/src';
 import toast from '../../utils/toast';
 import { useTranslation } from 'react-i18next';

@@ -1,6 +1,6 @@
 import EventList from './list';
 import Spinner from '../../../components/loading';
-import { useApp } from '../../../stores/app.store';
+import { useApp } from '../../../shared/store/app.store';
 import { useResumeEvents } from '../../../hooks/useResumeEvents';
 import SubHeader from '../../../components/header/sub-header';
 import ErrorFallback from '../../../components/error-fallback';

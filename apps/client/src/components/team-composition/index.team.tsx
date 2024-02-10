@@ -1,4 +1,4 @@
-import Container from '../../layouts/container';
+import Container from '../../shared/layouts/container';
 import { EventParticipant, EventStatus } from '@skillcoop/types/src';
 import Participant from '../participant';
 import TitleH2 from '../title-h2';

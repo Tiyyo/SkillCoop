@@ -8,7 +8,7 @@ import toast from '../../utils/toast';
 import {
   useVoteForMvp,
   useVoteForbestStriker,
-} from '../../hooks/useSingleEvent';
+} from '../../shared/hooks/useSingleEvent';
 import { useTranslation } from 'react-i18next';
 
 type LocationState = {

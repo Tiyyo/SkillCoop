@@ -9,7 +9,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { cn } from '../../../lib/utils';
 import { useTranslation } from 'react-i18next';
 import ImageWithFallback from '../../../components/image/index';
-import { ALL_SKILLS } from '../../../constants/skill-constant';
+import { ALL_SKILLS } from '../../../shared/constants/skill-constant';
 import usePostMatchEvaluation from '../../../hooks/usePostMatchEvaluation';
 
 // Shitty component, need to be refactored or rewrite

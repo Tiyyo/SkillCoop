@@ -1,4 +1,4 @@
-import { useApp } from '../../stores/app.store';
+import { useApp } from '../../shared/store/app.store';
 import ResumeProfile from './resume-profile';
 import SubHeader from '../../components/header/sub-header';
 import { useTranslation } from 'react-i18next';

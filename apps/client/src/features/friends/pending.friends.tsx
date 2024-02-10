@@ -1,8 +1,8 @@
 import Friendlist from './list.friends';
 import TitleH2 from '../../components/title-h2';
-import { useApp } from '../../stores/app.store';
+import { useApp } from '../../shared/store/app.store';
 import { usePendingFriends } from '../../hooks/usePendingFriends';
-import Container from '../../layouts/container';
+import Container from '../../shared/layouts/container';
 import { useTranslation } from 'react-i18next';
 
 function PendingFriends() {

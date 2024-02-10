@@ -4,7 +4,7 @@ import MobileNav from '../mobile-nav';
 import NavUser from '../nav-user';
 import { ChevronDown } from 'lucide-react';
 import Avatar from '../avatar';
-import { useApp } from '../../stores/app.store';
+import { useApp } from '../../shared/store/app.store';
 import NotificationTrigger from './notification-trigger';
 import WelcomeMessage from './welcome-message';
 import { startTransition } from 'react';

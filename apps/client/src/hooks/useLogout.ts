@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { logoutUserFn } from '../api/auth.fn';
-import { useApp } from '../stores/app.store';
+import { useApp } from '../shared/store/app.store';
 import { queryClient } from '../main';
 import { useNavigate } from 'react-router-dom';
 

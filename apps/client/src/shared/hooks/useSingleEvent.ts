@@ -10,7 +10,7 @@ import {
   updateParticipantFn,
   voteBestStrikerFn,
   voteMvpFn,
-} from '../api/api.fn';
+} from '../../api/api.fn';
 import type {
   DeleteEventData,
   EventInvitation,

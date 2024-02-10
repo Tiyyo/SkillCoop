@@ -1,7 +1,7 @@
 import ConversationCardsContainer from './container';
 
 import useFiltersConversations from '../hooks/useFiltersConversations';
-import { useApp } from '../../../stores/app.store';
+import { useApp } from '../../../shared/store/app.store';
 import HeaderHomePageChat from './header';
 import { Outlet } from 'react-router-dom';
 

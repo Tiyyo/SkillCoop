@@ -1,7 +1,7 @@
 import { Trash2 } from 'lucide-react';
 import MenuItemDialog from '../../components/menu-item-dialog';
 import { useDeleteUser } from '../../hooks/useProfile';
-import { useApp } from '../../stores/app.store';
+import { useApp } from '../../shared/store/app.store';
 import { useTranslation } from 'react-i18next';
 
 function DeleteUserAccount() {

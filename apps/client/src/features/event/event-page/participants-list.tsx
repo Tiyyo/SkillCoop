@@ -1,7 +1,7 @@
 import Participant from '../../../components/participant';
 import TitleH2 from '../../../components/title-h2';
-import Container from '../../../layouts/container';
-import { useEvent } from '../../../stores/event.store';
+import Container from '../../../shared/layouts/container';
+import { useEvent } from '../../event-page/store/event.store';
 import type { EventParticipant } from '@skillcoop/types/src';
 import { useTranslation } from 'react-i18next';
 

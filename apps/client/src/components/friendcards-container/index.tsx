@@ -2,8 +2,8 @@
 import SkeletonsLoader from '../../features/event/event-page/invitation/skeletons-loader';
 import {
   CreateEventStateStore,
-  useCreateEvent,
-} from '../../stores/create-event.store';
+  useMutateEvent,
+} from '../../features/create-event/store/create-event.store';
 import type { Friend } from '@skillcoop/types/src';
 import FriendCard from '../friend-card';
 import { useTranslation } from 'react-i18next';
@@ -26,7 +26,7 @@ function FriendCards({
   loading,
 }: FriendCardProps) {
   const { t } = useTranslation('system');
-  const { data: event } = useCreateEvent();
+  const { data: event } = useMutateEvent();
 
   if (loading) {
     return <SkeletonsLoader nbSkeleton={10} />;

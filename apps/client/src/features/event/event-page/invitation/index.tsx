@@ -4,12 +4,12 @@ import SearchInput from '../../../../components/search-input';
 import TitleH2 from '../../../../components/title-h2';
 /*eslint-disable-next-line*/
 import { useSearchResultOrDefault } from '../../../../hooks/useSearchResultOrDefault';
-import Container from '../../../../layouts/container';
-import { useEvent } from '../../../../stores/event.store';
-import { useApp } from '../../../../stores/app.store';
+import Container from '../../../../shared/layouts/container';
+import { useEvent } from '../../../event-page/store/event.store';
+import { useApp } from '../../../../shared/store/app.store';
 import { inviteParticipantSchema } from '@skillcoop/schema/src';
 import toast from '../../../../utils/toast';
-import { useSendEventInvitation } from '../../../../hooks/useSingleEvent';
+import { useSendEventInvitation } from '../../../../shared/hooks/useSingleEvent';
 import SearchResult from './search-result';
 import { useTranslation } from 'react-i18next';
 

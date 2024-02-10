@@ -1,8 +1,8 @@
-import { useApp } from '../../stores/app.store';
-import Container from '../../layouts/container';
+import { useApp } from '../../shared/store/app.store';
+import Container from '../../shared/layouts/container';
 import DispatchNotifications from './dispatch';
 import NotificationFilters from './filters';
-import { useNotifications } from '../../stores/notification.store';
+import { useNotifications } from './store/notification.store';
 import { useEffect, useLayoutEffect } from 'react';
 import { useGetNotifications } from '../../hooks/useNotification';
 import { useTranslation } from 'react-i18next';

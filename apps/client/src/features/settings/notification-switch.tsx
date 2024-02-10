@@ -1,5 +1,5 @@
 import { Switch } from '../../lib/ui/switch';
-import { useApp } from '../../stores/app.store';
+import { useApp } from '../../shared/store/app.store';
 import capitalize from '../../utils/capitalize';
 import { useUpdateNotificationPreference } from '../../hooks/useUserPreference';
 import { updateNotificationPreferenceSchema } from '@skillcoop/schema/src';

@@ -1,7 +1,7 @@
 import { useOutletContext } from 'react-router-dom';
-import Container from '../../layouts/container';
+import Container from '../../shared/layouts/container';
 import { Switch } from '../../lib/ui/switch';
-import { useApp } from '../../stores/app.store';
+import { useApp } from '../../shared/store/app.store';
 import { UserPreference, themeAssertion } from '@skillcoop/types/src';
 import { useUpdateThemePreference } from '../../hooks/useUserPreference';
 import { updateThemePreferenceSchema } from '@skillcoop/schema/src';

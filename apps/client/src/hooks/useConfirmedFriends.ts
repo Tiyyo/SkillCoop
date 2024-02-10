@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useFriends } from '../stores/friend.store';
+import { useFriends } from '../features/friends/store/friend.store';
 import { useGetConfirmedFriends } from './useFriends';
 
 export function useConfirmedfriends({ profileId }: { profileId?: number }) {

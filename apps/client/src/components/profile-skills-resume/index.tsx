@@ -1,4 +1,4 @@
-import Container from '../../layouts/container';
+import Container from '../../shared/layouts/container';
 import associateNumberToString from '../../utils/associate-number-stringscale';
 import capitalize from '../../utils/capitalize';
 import { sumValues } from '../../utils/sum-values';

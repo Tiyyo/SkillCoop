@@ -1,7 +1,7 @@
 // Event page team composition
 import Team from '../../components/team-composition/index.team';
 import TitleH2 from '../../components/title-h2';
-import Container from '../../layouts/container';
+import Container from '../../shared/layouts/container';
 import type { EventParticipant, EventStatus } from '@skillcoop/types/src';
 import { useTranslation } from 'react-i18next';
 

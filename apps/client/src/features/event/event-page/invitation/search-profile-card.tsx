@@ -1,7 +1,7 @@
 /*eslint-disable*/
 import associateNumberToString from '../../../../utils/associate-number-stringscale';
 import { invitationStatus } from '@skillcoop/types/src';
-import { useEvent } from '../../../../stores/event.store';
+import { useEvent } from '../../../event-page/store/event.store';
 import AvatarSmallWithBorder from '../../../../components/avatar/avatar-border-small';
 /*eslint-enabled*/
 import { useTranslation } from 'react-i18next';

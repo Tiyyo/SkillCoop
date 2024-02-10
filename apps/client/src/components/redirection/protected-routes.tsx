@@ -1,6 +1,6 @@
-import { useApp } from '../../stores/app.store';
+import { useApp } from '../../shared/store/app.store';
 import LoadingPageNavFree from '../loading-page/page-nav-free';
-import LandingPage from '../../features/home-page/landing-page';
+import LandingPage from '../../features/landing-page';
 
 function Protected({ children }: { children: React.ReactNode }) {
   const { isAuth, loading } = useApp();

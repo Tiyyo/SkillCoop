@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { passwordUpdateSchema } from '@skillcoop/schema/src';
 import { useMutation } from '@tanstack/react-query';
 import { updatePasswordFn } from '../../api/api.fn';
-import { useApp } from '../../stores/app.store';
+import { useApp } from '../../shared/store/app.store';
 import toast from '../../utils/toast';
 import { useTranslation } from 'react-i18next';
 

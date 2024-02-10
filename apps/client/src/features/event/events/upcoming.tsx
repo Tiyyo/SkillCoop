@@ -1,5 +1,5 @@
 import { getUpcomingEventFn } from '../../../api/api.fn';
-import { useApp } from '../../../stores/app.store';
+import { useApp } from '../../../shared/store/app.store';
 import type { EventType } from '@skillcoop/types/src';
 import EventList from '../resume-events/list';
 import ErrorFallback from '../../../components/error-fallback';

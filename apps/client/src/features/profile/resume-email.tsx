@@ -5,7 +5,7 @@ import FormField from '../../components/form-field';
 import { SendIcon } from 'lucide-react';
 import { emailSchema } from '@skillcoop/schema/src';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useApp } from '../../stores/app.store';
+import { useApp } from '../../shared/store/app.store';
 import ErrorNotification from '../../components/error/notification';
 import Button from '../../components/button';
 import { useUpdateEmail } from '../../hooks/useProfile';

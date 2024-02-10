@@ -6,8 +6,8 @@ import associateNumberToString from '../../utils/associate-number-stringscale';
 /* eslint-disable max-len */
 import { useActionsPendingFriendCard } from '../../hooks/useActionsPendingFriendCard';
 import { useSelectionOfFriends } from '../../hooks/useSelectionOfFriends';
-import { CreateEventStateStore } from '../../stores/create-event.store';
-import { EventStateStore } from '../../stores/event.store';
+import { CreateEventStateStore } from '../../features/create-event/store/create-event.store';
+import { EventStateStore } from '../../features/event-page/store/event.store';
 import AvatarSmallWithBorder from '../avatar/avatar-border-small';
 import { cn } from '../../lib/utils';
 import { useTranslation } from 'react-i18next';

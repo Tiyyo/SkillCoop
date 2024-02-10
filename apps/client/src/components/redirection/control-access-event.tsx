@@ -1,5 +1,5 @@
 import { Navigate, useParams } from 'react-router-dom';
-import { useApp } from '../../stores/app.store';
+import { useApp } from '../../shared/store/app.store';
 import { useQuery } from '@tanstack/react-query';
 import { getEventFn } from '../../api/api.fn';
 import { useLayoutEffect, useState } from 'react';

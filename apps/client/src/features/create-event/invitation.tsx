@@ -1,11 +1,11 @@
-import { useApp } from '../../../stores/app.store';
+import { useApp } from '../../shared/store/app.store';
 /*eslint-disable-next-line*/
-import { useSearchResultOrDefault } from '../../../hooks/useSearchResultOrDefault';
-import Container from '../../../layouts/container';
-import TitleH2 from '../../../components/title-h2';
-import SearchInput from '../../../components/search-input';
-import FriendCards from '../../../components/friendcards-container';
-import { useCreateEvent } from '../../../stores/create-event.store';
+import { useSearchResultOrDefault } from '../../hooks/useSearchResultOrDefault';
+import Container from '../../shared/layouts/container';
+import TitleH2 from '../../components/title-h2';
+import SearchInput from '../../components/search-input';
+import FriendCards from '../../components/friendcards-container';
+import { useMutateEvent } from './store/create-event.store';
 import { useTranslation } from 'react-i18next';
 
 function InvitationFromCreateEventPage() {
@@ -25,7 +25,7 @@ function InvitationFromCreateEventPage() {
     addInvitedParticipantsIds,
     removeInvitedParticipantsIds,
     data: dataFromState,
-  } = useCreateEvent();
+  } = useMutateEvent();
 
   return (
     <Container className="flex h-full flex-grow flex-col lg:mt-4 lg:rounded-lg">

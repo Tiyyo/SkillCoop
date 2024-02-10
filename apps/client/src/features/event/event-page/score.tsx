@@ -1,17 +1,17 @@
 import React from 'react';
 import { saveScoreSchema, updateEventSchema } from '@skillcoop/schema/src';
 import Button from '../../../components/button';
-import { useApp } from '../../../stores/app.store';
+import { useApp } from '../../../shared/store/app.store';
 import type { EventStatus } from '@skillcoop/types/src';
 import { eventStatus as eventStatusAssertion } from '@skillcoop/types/src';
 import {
   useUpdateScoreEvent,
   useUpdateSingleEvent,
-} from '../../../hooks/useSingleEvent';
+} from '../../../shared/hooks/useSingleEvent';
 import toast from '../../../utils/toast';
-import Container from '../../../layouts/container';
+import Container from '../../../shared/layouts/container';
 import TitleH2 from '../../../components/title-h2';
-import { useEvent } from '../../../stores/event.store';
+import { useEvent } from '../../event-page/store/event.store';
 import { useTranslation } from 'react-i18next';
 
 type EventPageScoreProps = {

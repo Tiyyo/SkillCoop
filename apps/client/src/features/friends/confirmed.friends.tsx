@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
 import Friendlist from './list.friends';
 import TitleH2 from '../../components/title-h2';
-import { useApp } from '../../stores/app.store';
+import { useApp } from '../../shared/store/app.store';
 import { useConfirmedfriends } from '../../hooks/useConfirmedFriends';
 import SubHeader from '../../components/header/sub-header';
-import Container from '../../layouts/container';
+import Container from '../../shared/layouts/container';
 import { ArrowRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Suspense } from 'react';

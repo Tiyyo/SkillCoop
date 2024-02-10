@@ -7,11 +7,11 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '../../lib/ui/alert-dialog';
-import { useEvent } from '../../stores/event.store';
+import { useEvent } from '../../features/event-page/store/event.store';
 import { InvitationStatus, invitationStatus } from '@skillcoop/types/src';
 import { useRef, useState } from 'react';
 import { X } from 'lucide-react';
-import { useUpdateParticipant } from '../../hooks/useSingleEvent';
+import { useUpdateParticipant } from '../../shared/hooks/useSingleEvent';
 import toast from '../../utils/toast';
 import { useTranslation } from 'react-i18next';
 

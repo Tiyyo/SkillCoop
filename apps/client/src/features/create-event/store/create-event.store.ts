@@ -1,9 +1,9 @@
 import { useMutation } from '@tanstack/react-query';
 import { create } from 'zustand';
-import { createEventFn } from '../api/api.fn';
+import { createEventFn } from '../../../api/api.fn';
 import type { CreateEventData } from '@skillcoop/types/src';
-import toast from '../utils/toast';
-import { queryClient } from '../main';
+import toast from '../../../utils/toast';
+import { queryClient } from '../../../main';
 import { useTranslation } from 'react-i18next';
 
 export type CreateEventStateStore = {
@@ -113,25 +113,19 @@ export const useCreateEventStore = create<CreateEventStore>()((set) => ({
     })),
 }));
 
-export const useCreateEvent = () => {
-  const updateStartDate = useCreateEventStore((state) => state.updateStartDate);
-  const updateStartTime = useCreateEventStore((state) => state.updateStartTime);
-  const updateDuration = useCreateEventStore((state) => state.updateDuration);
-  const updateLocation = useCreateEventStore((state) => state.updateLocation);
-  const updateRequiredParticipants = useCreateEventStore(
-    (state) => state.updateRequiredParticipants,
-  );
-  const addInvitedParticipantsIds = useCreateEventStore(
-    (state) => state.addInvitedParticipantsIds,
-  );
-  const removeInvitedParticipantsIds = useCreateEventStore(
-    (state) => state.removeInvitedParticipantsIds,
-  );
-  const updateOrganizerId = useCreateEventStore(
-    (state) => state.updateOrganizerId,
-  );
-  const clearEventState = useCreateEventStore((state) => state.clearEventState);
-  const data = useCreateEventStore((state) => state.event);
+export const useMutateEvent = () => {
+  const {
+    updateStartDate,
+    updateStartTime,
+    updateDuration,
+    updateLocation,
+    updateRequiredParticipants,
+    addInvitedParticipantsIds,
+    removeInvitedParticipantsIds,
+    updateOrganizerId,
+    clearEventState,
+    event: data,
+  } = useCreateEventStore((state) => state);
   const { t } = useTranslation('toast');
   const { mutate: createEvent, isLoading } = useMutation({
     mutationFn: async (data: CreateEventData) => createEventFn(data),

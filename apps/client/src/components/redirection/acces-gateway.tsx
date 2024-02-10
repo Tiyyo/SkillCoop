@@ -1,5 +1,5 @@
 import OnBoarding from '../../features/onboarding';
-import { useApp } from '../../stores/app.store';
+import { useApp } from '../../shared/store/app.store';
 
 function AccessControlGateway({ children }: { children: React.ReactNode }) {
   const { isAuth, isFristConnection } = useApp();

@@ -1,4 +1,4 @@
-import { useFriends } from '../stores/friend.store';
+import { useFriends } from '../features/friends/store/friend.store';
 import { useFriendInvitationActions } from './useFriends';
 import toast from '../utils/toast';
 import { invitationStatus } from '@skillcoop/types/src';

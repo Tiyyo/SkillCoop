@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { CreateEventStateStore } from '../stores/create-event.store';
+import { CreateEventStateStore } from '../features/create-event/store/create-event.store';
 
 type UseSelectionOfFriendsProps = {
   activeSelected?: boolean;

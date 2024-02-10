@@ -1,4 +1,4 @@
-import Container from '../../layouts/container';
+import Container from '../../shared/layouts/container';
 import DeleteUserAccount from './delete-account';
 import Logout from './logout';
 import MenuSettingItem from './menu-item';

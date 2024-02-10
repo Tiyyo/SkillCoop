@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
-import ReturnBtn from '../components/return';
-import SideMenuDesktop from '../components/side-menu';
+import ReturnBtn from '../../components/return';
+import SideMenuDesktop from '../../components/side-menu';
 
 function Page({ children }: { children: React.ReactNode }) {
   return (

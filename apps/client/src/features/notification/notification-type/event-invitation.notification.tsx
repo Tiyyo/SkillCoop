@@ -1,4 +1,4 @@
-import { useUpdateParticipant } from '../../../hooks/useSingleEvent';
+import { useUpdateParticipant } from '../../../shared/hooks/useSingleEvent';
 import type { InvitationStatus, Notification } from '@skillcoop/types/src';
 import { invitationStatus } from '@skillcoop/types/src';
 import CoreNotification from '../core';

@@ -3,6 +3,7 @@ import type { Friend } from '@skillcoop/types/src';
 import { useTranslation } from 'react-i18next';
 import ErrorFallback from '../../components/error-fallback';
 import SkeletonFallback from '../../components/skeleton-fallback';
+import NotFoundMessage from '../../shared/components/not-found-message';
 
 type FriendlistProps = {
   friends?: Friend[];
@@ -27,9 +28,7 @@ function Friendlist({
   return (
     <>
       {friends?.length === 0 ? (
-        <p className="py-20 text-center text-xs italic text-light">
-          {t('noFriendsFound')}.
-        </p>
+        <NotFoundMessage message={t('noFriendsFound')} />
       ) : (
         <div
           className="grid grid-cols-2 flex-wrap justify-start gap-2 

@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import Page from './layouts/page';
+import Page from './shared/layouts/page';
 import Header from './components/header';
 import { Outlet } from 'react-router-dom';
 

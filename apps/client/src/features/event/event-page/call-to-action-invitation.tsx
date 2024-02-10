@@ -2,9 +2,9 @@ import type { EventStatus } from '@skillcoop/types/src';
 import { invitationStatus } from '@skillcoop/types/src';
 import { updateParticipantSchema } from '@skillcoop/schema/src';
 import toast from '../../../utils/toast';
-import { useEvent } from '../../../stores/event.store';
-import { useUpdateParticipant } from '../../../hooks/useSingleEvent';
-import Container from '../../../layouts/container';
+import { useEvent } from '../../event-page/store/event.store';
+import { useUpdateParticipant } from '../../../shared/hooks/useSingleEvent';
+import Container from '../../../shared/layouts/container';
 import LeftBorder from '../../../components/left-border';
 import { useTranslation } from 'react-i18next';
 

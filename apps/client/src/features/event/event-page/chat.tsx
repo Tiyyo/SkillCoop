@@ -6,11 +6,11 @@ import ConversationInfos from '../../chat/conversation/infos';
 import ConversationCardTitle from '../../../shared/components/conversation-title';
 import ConversationCardImage from '../../../shared/components/conversation-image';
 /*eslint-enable */
-import Container from '../../../layouts/container';
+import Container from '../../../shared/layouts/container';
 import { socket } from '../../../config/socket';
 import useMessages from '../../../hooks/useMessages';
 import { useGetEventConversation } from '../../chat/hooks/useConversations';
-import { useApp } from '../../../stores/app.store';
+import { useApp } from '../../../shared/store/app.store';
 
 import ConversationMessages from '../../chat/conversation/message';
 
@@ -100,12 +100,12 @@ function ChatEventPage({
         className={cn(
           'z-10 hidden ',
           openMessage &&
-            `fixed top-20 flex h-body w-full animate-fade-in-right 
+            `h-body animate-fade-in-right fixed top-20 flex w-full 
              opacity-0 backdrop-blur-md`,
         )}
       >
         <Container
-          className="flex h-body flex-grow flex-col justify-between 
+          className="h-body flex flex-grow flex-col justify-between 
          rounded-none p-0"
         >
           {conversation && (

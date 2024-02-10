@@ -1,5 +1,5 @@
-import Center from '../../../layouts/center';
-import Page from '../../../layouts/page';
+import Center from '../../../shared/layouts/center';
+import Page from '../../../shared/layouts/page';
 import { useTranslation } from 'react-i18next';
 import BeforeSendResetEmail from './before-send-email';
 import AfterSendResetEmail from './after-send-email';

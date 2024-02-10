@@ -1,4 +1,4 @@
-import Page from '../../layouts/page';
+import Page from '../../shared/layouts/page';
 import Spinner from '../loading';
 
 function LoadingPage() {

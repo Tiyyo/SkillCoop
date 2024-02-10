@@ -1,4 +1,4 @@
-import BenefitCard from './benefit-card';
+import BenefitCard from './benefits.card';
 import { useTranslation } from 'react-i18next';
 
 function Benefits() {

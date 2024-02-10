@@ -1,11 +1,11 @@
 import { Ban } from 'lucide-react';
 import MenuItemDialog from '../../../../components/menu-item-dialog';
-import { useUpdateSingleEvent } from '../../../../hooks/useSingleEvent';
+import { useUpdateSingleEvent } from '../../../../shared/hooks/useSingleEvent';
 import {
   EventStatus,
   eventStatus as eventStatusType,
 } from '@skillcoop/types/src';
-import { useEvent } from '../../../../stores/event.store';
+import { useEvent } from '../../../event-page/store/event.store';
 import { useTranslation } from 'react-i18next';
 
 type CancelEventMenuItemProps = {

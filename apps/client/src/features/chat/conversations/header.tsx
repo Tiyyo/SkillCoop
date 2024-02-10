@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Plus } from 'lucide-react';
-import Container from '../../../layouts/container';
-import { useApp } from '../../../stores/app.store';
+import Container from '../../../shared/layouts/container';
+import { useApp } from '../../../shared/store/app.store';
 import TitleH1 from '../../../components/title-h1';
 
 function HeaderHomePageChat() {

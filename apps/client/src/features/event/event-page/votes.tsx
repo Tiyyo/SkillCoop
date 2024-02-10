@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import type { EventParticipant } from '@skillcoop/types/src';
-import Container from '../../../layouts/container';
+import Container from '../../../shared/layouts/container';
 import { Info, MoveRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 

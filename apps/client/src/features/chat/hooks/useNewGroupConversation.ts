@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { useNewConversationGroup } from '../../../stores/new-group.store';
+import { useNewConversationGroup } from '../store/new-group.store';
 import { useCreateGroupConversation } from './useConversations';
 import { FriendStoreChat } from '@skillcoop/types';
 /*eslint-disable*/

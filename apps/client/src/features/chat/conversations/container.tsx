@@ -1,7 +1,7 @@
 import ConversationCard from './card';
 import { Dispatch, SetStateAction } from 'react';
 import { Conversation } from '@skillcoop/types/src';
-import Container from '../../../layouts/container';
+import Container from '../../../shared/layouts/container';
 import SearchInput from '../../../components/search-input';
 import Tabs from './tabs';
 import { useTranslation } from 'react-i18next';

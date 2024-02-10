@@ -1,5 +1,5 @@
-import Page from '../../../layouts/page';
-import Center from '../../../layouts/center';
+import Page from '../../../shared/layouts/page';
+import Center from '../../../shared/layouts/center';
 import FormField from '../../../components/form-field';
 import Button from '../../../components/button';
 import { Eye, EyeOff } from 'lucide-react';

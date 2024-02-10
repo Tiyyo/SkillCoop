@@ -1,6 +1,6 @@
 import { Trash2 } from 'lucide-react';
 import MenuItemDialog from '../../../../components/menu-item-dialog';
-import { useDeleteSingleEvent } from '../../../../hooks/useSingleEvent';
+import { useDeleteSingleEvent } from '../../../../shared/hooks/useSingleEvent';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 

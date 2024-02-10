@@ -1,6 +1,6 @@
 import { type ComponentPropsWithoutRef, useId } from 'react';
 import { cn } from '../../lib/utils';
-import { useEvent } from '../../stores/event.store';
+import { useEvent } from '../../features/event-page/store/event.store';
 import toast from '../../utils/toast';
 import { useTranslation } from 'react-i18next';
 import useResetError from '../../hooks/useResetError';

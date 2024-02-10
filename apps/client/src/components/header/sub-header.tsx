@@ -1,7 +1,7 @@
 import { PlusIcon } from 'lucide-react';
 import TitleH1 from '../title-h1';
 import { Link } from 'react-router-dom';
-import Container from '../../layouts/container';
+import Container from '../../shared/layouts/container';
 
 type SubHeaderProps = {
   title: string;

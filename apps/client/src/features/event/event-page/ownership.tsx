@@ -6,12 +6,12 @@ import Avatar from '../../../components/avatar';
 import { useState } from 'react';
 import Button from '../../../components/button';
 import { useNavigate } from 'react-router-dom';
-import { useTransfertOwnership } from '../../../hooks/useSingleEvent';
-import { useEvent } from '../../../stores/event.store';
+import { useTransfertOwnership } from '../../../shared/hooks/useSingleEvent';
+import { useEvent } from '../../event-page/store/event.store';
 /*eslint-disable-next-line*/
 import associateNumberToString from '../../../utils/associate-number-stringscale';
 import { cn } from '../../../lib/utils';
-import Container from '../../../layouts/container';
+import Container from '../../../shared/layouts/container';
 import TitleH2 from '../../../components/title-h2';
 import { useTranslation } from 'react-i18next';
 

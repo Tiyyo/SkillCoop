@@ -6,7 +6,7 @@ import soccerBall from '../../assets/svg/soccer-ball.svg';
 import capitalize from '../../utils/capitalize';
 import { Link } from 'react-router-dom';
 import Avatar from '../avatar';
-import { useApp } from '../../stores/app.store';
+import { useApp } from '../../shared/store/app.store';
 import ParticipantStatusMark from '../status';
 import type { EventStatus } from '@skillcoop/types/src';
 import { useTranslation } from 'react-i18next';

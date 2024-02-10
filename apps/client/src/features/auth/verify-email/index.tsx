@@ -1,5 +1,5 @@
-import Page from '../../../layouts/page';
-import Center from '../../../layouts/center';
+import Page from '../../../shared/layouts/page';
+import Center from '../../../shared/layouts/center';
 import envelope from '../../../assets/svg/envelope.svg';
 import paperPlane from '../../../assets/svg/paper-plane.svg';
 import { Link } from 'react-router-dom';

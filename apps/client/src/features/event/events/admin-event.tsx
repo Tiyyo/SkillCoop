@@ -1,5 +1,5 @@
 import { getOrganizeEventFn } from '../../../api/api.fn';
-import { useApp } from '../../../stores/app.store';
+import { useApp } from '../../../shared/store/app.store';
 import EventList from '../resume-events/list';
 import type { EventType } from '@skillcoop/types/src';
 import useInfinite from '../../../hooks/useInfinite';

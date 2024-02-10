@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { Friend } from '@skillcoop/types/src';
 /*eslint-disable*/
-import ImageWithUsernamefallback from '../../../../components/image-fallback-username';
+import ImageWithUsernamefallback from '../../../../shared/components/image-fallback-username';
 /*eslint-enable*/
 
 type InfosMembersFriendslistProps = {

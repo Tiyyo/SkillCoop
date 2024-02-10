@@ -1,6 +1,6 @@
 import { useApp } from '../../shared/store/app.store';
 import ResumeProfile from './resume-profile';
-import SubHeader from '../../components/header/sub-header';
+import SubHeader from '../../shared/components/header/sub-header';
 import { useTranslation } from 'react-i18next';
 
 function ProfileInfos() {

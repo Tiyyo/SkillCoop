@@ -1,5 +1,5 @@
 import { io, Socket } from 'socket.io-client';
-import { CHAT_SERVER_URL } from '../utils/server';
+import { CHAT_SERVER_URL } from '../shared/utils/server';
 
 const options = {
   reconnection: true,

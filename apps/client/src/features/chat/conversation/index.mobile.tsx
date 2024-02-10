@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { Suspense } from 'react';
-import LoadingPage from '../../../components/loading-page';
+import LoadingPage from '../../../shared/components/loading-page';
 import ConversationContainer from './container';
 import useConnectChatServer from '../hooks/useConnectChatServer';
 

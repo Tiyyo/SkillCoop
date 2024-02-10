@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { useGetConfirmedFriends } from '../../../hooks/useFriends';
+import { useGetConfirmedFriends } from '../../friends/hooks/useFriends';
 import { useState } from 'react';
 
 export default function useNewConversation() {

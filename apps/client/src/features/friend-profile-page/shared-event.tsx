@@ -1,7 +1,7 @@
 import Container from '../../shared/layouts/container';
-import TitleH2 from '../../components/title-h2';
+import TitleH2 from '../../shared/components/title-h2';
 import { useTranslation } from 'react-i18next';
-import SharedEventCard from '../event/resume-events/shared-event-card';
+import SharedEventCard from '../../shared/components/shared-event-card';
 
 type SharedEventsProps = {
   username: string;

@@ -1,5 +1,7 @@
-import associateNumberToString from '../../utils/associate-number-stringscale';
-import { sumValues } from '../../utils/sum-values';
+/*eslint-disable */
+import associateNumberToString from '../../shared/utils/associate-number-stringscale';
+/*eslint-enable */
+import { sumValues } from '../../shared/utils/sum-values';
 import StatBadge from './stat-badge';
 import strongbox from '../../assets/svg/strongbox.svg';
 import flash from '../../assets/svg/flash.svg';

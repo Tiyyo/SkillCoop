@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useGetProfile } from '../../shared/hooks/useProfile';
-import { getMaxValue } from '../../utils/get-max';
-import { useProfileEval } from '../../hooks/useFriendEval';
+import { getMaxValue } from '../../shared/utils/get-max';
+import { useProfileEval } from './hooks/useFriendEval';
 import FriendStatsDesktop from './stats-desktop';
 import FriendStatsMobile from './stats-mobile';
 import { Suspense } from 'react';

@@ -2,7 +2,7 @@ import { Friend } from '@skillcoop/types/src';
 import { Checkbox } from '../../../lib/ui/checkbox';
 import { useEffect, useRef } from 'react';
 import { useNewConversationGroup } from '../store/new-group.store';
-import ImageWithFallback from '../../../components/image';
+import ImageWithFallback from '../../../shared/components/image';
 
 type InputCheckboxProps = {
   friend: Friend;

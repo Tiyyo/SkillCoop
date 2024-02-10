@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { editProfileInfosSchema } from '@skillcoop/schema/src';
 import { useUpdateProfile } from '../../../shared/hooks/useProfile';
-import toast from '../../../utils/toast';
+import toast from '../../../shared/utils/toast';
 import { getAge } from '@skillcoop/date-handler/src';
 import { useTranslation } from 'react-i18next';
 import { Infos } from '../resume-profile';

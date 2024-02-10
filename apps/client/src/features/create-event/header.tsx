@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import Plus from '../../assets/icon/Plus';
-import TitleH2 from '../../components/title-h2';
+import TitleH2 from '../../shared/components/title-h2';
 import { useTranslation } from 'react-i18next';
 
 function HeaderCreateEvent() {

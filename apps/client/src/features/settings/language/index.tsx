@@ -16,9 +16,9 @@ import {
 import { useUpdateLanguagePreference } from '../hooks/useUserPreference';
 import { useApp } from '../../../shared/store/app.store';
 import { updateLanguagePreferenceSchema } from '@skillcoop/schema/src';
-import toast from '../../../utils/toast';
+import toast from '../../../shared/utils/toast';
 import { useTranslation } from 'react-i18next';
-import { storeInLocalStorage } from '../../../utils/store-in-local';
+import { storeInLocalStorage } from '../../../shared/utils/store-in-local';
 
 function LanguageSettings() {
   const { t, i18n } = useTranslation('system');

@@ -1,5 +1,5 @@
-import capitalize from '../../utils/capitalize';
-import AvatarRectangle from '../../components/avatar-rectangle';
+import capitalize from '../../shared/utils/capitalize';
+import AvatarRectangle from '../../shared/components/avatar-rectangle';
 import { getAge } from '@skillcoop/date-handler/src';
 
 type FriendProfileInfosProps = {

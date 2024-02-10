@@ -1,8 +1,8 @@
 import { useApp } from '../../shared/store/app.store';
 import { ownSkillSchema } from '@skillcoop/schema/src';
-import { useUserProfileEval } from '../../hooks/useUserProfileEval';
+import { useUserProfileEval } from '../../shared/hooks/useUserProfileEval';
 import Container from '../../shared/layouts/container';
-import LoadingPage from '../../components/loading-page';
+import LoadingPage from '../../shared/components/loading-page';
 import ProfileSkillVisualization from './visual';
 import ProfileStats from './stats';
 

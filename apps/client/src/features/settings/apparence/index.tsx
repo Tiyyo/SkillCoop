@@ -6,8 +6,8 @@ import { UserPreference, themeAssertion } from '@skillcoop/types/src';
 import { useUpdateThemePreference } from '../hooks/useUserPreference';
 import { updateThemePreferenceSchema } from '@skillcoop/schema/src';
 import { useTranslation } from 'react-i18next';
-import { setDarkTheme, setLightTheme } from '../../../utils/set-theme';
-import { storeInLocalStorage } from '../../../utils/store-in-local';
+import { setDarkTheme, setLightTheme } from '../../../shared/utils/set-theme';
+import { storeInLocalStorage } from '../../../shared/utils/store-in-local';
 
 function ApparenceSettings() {
   const { t } = useTranslation('system');

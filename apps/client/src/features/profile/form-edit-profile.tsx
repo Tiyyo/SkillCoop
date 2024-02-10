@@ -1,9 +1,9 @@
 import { Calendar, MapPin, User2 } from 'lucide-react';
-import FormField from '../../components/form-field';
-import capitalize from '../../utils/capitalize';
+import FormField from '../../shared/components/form-field';
+import capitalize from '../../shared/utils/capitalize';
 import { UseFormRegister } from 'react-hook-form';
 import { Infos } from './resume-profile';
-import Button from '../../components/button';
+import Button from '../../shared/components/button';
 import { useTranslation } from 'react-i18next';
 import useUpdateProfileInfos from './hooks/useUpdateProfileInfos';
 

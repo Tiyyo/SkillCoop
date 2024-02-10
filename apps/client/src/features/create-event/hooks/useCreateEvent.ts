@@ -3,7 +3,7 @@ import { useApp } from '../../../shared/store/app.store';
 import { useRef, useState } from 'react';
 import { useMutateEvent } from '../store/create-event.store';
 import { createEventSchema } from '@skillcoop/schema/src';
-import toast from '../../../utils/toast';
+import toast from '../../../shared/utils/toast';
 import { useTranslation } from 'react-i18next';
 
 export default function useCreateEvent() {

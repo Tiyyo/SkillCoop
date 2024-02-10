@@ -1,8 +1,8 @@
-import FriendCard from '../../components/friend-card';
+import FriendCard from '../../shared/components/friend-card';
 import type { Friend } from '@skillcoop/types/src';
 import { useTranslation } from 'react-i18next';
-import ErrorFallback from '../../components/error-fallback';
-import SkeletonFallback from '../../components/skeleton-fallback';
+import ErrorFallback from '../../shared/components/error-fallback';
+import SkeletonFallback from '../../shared/components/skeleton-fallback';
 import NotFoundMessage from '../../shared/components/not-found-message';
 
 type FriendlistProps = {

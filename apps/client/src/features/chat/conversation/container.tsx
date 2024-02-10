@@ -38,7 +38,7 @@ function ConversationContainer({
 
   return (
     <Container
-      className="h-body flex flex-grow flex-col justify-between 
+      className="flex h-body flex-grow flex-col justify-between 
          rounded-none p-0 lg:h-[calc(100vh-214px)] lg:rounded-none"
     >
       {conversation && (

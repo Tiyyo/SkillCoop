@@ -1,8 +1,8 @@
 import { useRef, useState } from 'react';
-import toast from '../../utils/toast';
+import toast from '../../shared/utils/toast';
 import { useUpdateAvatar } from '../../shared/hooks/useProfile';
 import { useTranslation } from 'react-i18next';
-import ImageWithFallback from '../../components/image';
+import ImageWithFallback from '../../shared/components/image';
 
 function AvatarEdit({
   avatar,

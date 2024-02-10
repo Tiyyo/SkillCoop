@@ -1,4 +1,4 @@
-import ImageWithFallback from '../../../components/image';
+import ImageWithFallback from '../../../shared/components/image';
 import { Friend } from '@skillcoop/types';
 
 type AddNewConversationOneToOneFriendsProps = {

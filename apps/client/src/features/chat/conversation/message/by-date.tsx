@@ -1,5 +1,7 @@
 import { AuthorGroupMessages } from 'packages/types/src';
-import { getCurrentLngInLocalStorage } from '../../../../utils/get-current-lng';
+/*eslint-disable */
+import { getCurrentLngInLocalStorage } from '../../../../shared/utils/get-current-lng';
+/*eslint-enable */
 import GroupAuthorMessage from './by-author';
 
 type GroupDateMessagesProps = {

@@ -1,11 +1,13 @@
 import Page from '../../../shared/layouts/page';
 import Center from '../../../shared/layouts/center';
-import FormField from '../../../components/form-field';
-import Button from '../../../components/button';
+import FormField from '../../../shared/components/form-field';
+import Button from '../../../shared/components/button';
 import { Eye, EyeOff } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import PasswordStrengthMeter from '../../../components/password-strenght-meter';
+/*eslint-disable */
+import PasswordStrengthMeter from '../../../shared/components/password-strenght-meter';
+/*eslint-enable */
 import useResetPassword from '../hooks/useResetPassword';
 
 function ResetPassword() {

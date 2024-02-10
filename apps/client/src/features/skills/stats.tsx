@@ -1,11 +1,11 @@
-import TitleH2 from '../../components/title-h2';
+import TitleH2 from '../../shared/components/title-h2';
 import strongbox from '../../assets/svg/strongbox.svg';
 import flash from '../../assets/svg/flash.svg';
 import reward from '../../assets/svg/reward.svg';
 import cup from '../../assets/cup.png';
-import { sumValues } from '../../utils/sum-values';
+import { sumValues } from '../../shared/utils/sum-values';
 /*eslint-disable */
-import associateNumberToString from '../../utils/associate-number-stringscale';
+import associateNumberToString from '../../shared/utils/associate-number-stringscale';
 /*eslint-enable */
 import StatWrapper from './layout/stat-wrapper';
 import { useTranslation } from 'react-i18next';

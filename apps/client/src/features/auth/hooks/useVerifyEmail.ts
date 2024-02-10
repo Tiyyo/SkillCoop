@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { useLocation } from 'react-router-dom';
 import { sendEmailVerifyFn } from '../../../api/api.fn';
-import toast from '../../../utils/toast';
+import toast from '../../../shared/utils/toast';
 import { emailSchema } from '@skillcoop/schema/src';
 import { useTranslation } from 'react-i18next';
 

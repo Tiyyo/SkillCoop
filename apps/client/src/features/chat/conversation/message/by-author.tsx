@@ -1,11 +1,11 @@
 import { useId } from 'react';
 /*eslint-disable*/
-import ImageWithUsernamefallback from '../../../../components/image-fallback-username';
+import ImageWithUsernamefallback from '../../../../shared/components/image-fallback-username';
+import { getCurrentLngInLocalStorage } from '../../../../shared/utils/get-current-lng';
 /*eslint-enable*/
 import { cn } from '../../../../lib/utils';
 import ChatBubble from './bubble';
 import { Message } from 'packages/types/src';
-import { getCurrentLngInLocalStorage } from '../../../../utils/get-current-lng';
 
 type GroupAuthorMessageProps = {
   messages: Message[];

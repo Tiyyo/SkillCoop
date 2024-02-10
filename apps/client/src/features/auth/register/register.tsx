@@ -6,22 +6,24 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { registerSchema } from '@skillcoop/schema/src';
 import Page from '../../../shared/layouts/page';
 import Center from '../../../shared/layouts/center';
-import SocialButton from '../../../components/social-link';
+import SocialButton from '../../../shared/components/social-link';
 import Google from '../../../assets/icon/Google';
-import getGoogleUrl from '../../../utils/get-google-url';
-import SeparatorLine from '../../../components/seperator-line';
-import FormField from '../../../components/form-field';
-import Button from '../../../components/button';
+import getGoogleUrl from '../../../shared/utils/get-google-url';
+import SeparatorLine from '../../../shared/components/seperator-line';
+import FormField from '../../../shared/components/form-field';
+import Button from '../../../shared/components/button';
 import type { RegisterUser } from '@skillcoop/types/src';
 import { useState } from 'react';
-import checkIfString from '../../../utils/check-string';
-import ErrorContainer from '../../../components/error';
-import ErrorNotification from '../../../components/error/notification';
+import checkIfString from '../../../shared/utils/check-string';
+import ErrorContainer from '../../../shared/components/error';
+import ErrorNotification from '../../../shared/components/error/notification';
 import { AtSign, Eye, EyeOff } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import LoginDemoMode from '../login-demo/login-demo';
 import usePasswordMeter from '../hooks/usePasswordMeter';
-import PasswordStrengthMeter from '../../../components/password-strenght-meter';
+/*eslint-disable */
+import PasswordStrengthMeter from '../../../shared/components/password-strenght-meter';
+/*eslint-enable */
 
 function Register() {
   const { t } = useTranslation('auth');

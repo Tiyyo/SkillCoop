@@ -1,4 +1,4 @@
-import { useFriendInvitationActions } from '../../../hooks/useFriends';
+import { useFriendInvitationActions } from '../../friends/hooks/useFriends';
 import type { Notification } from '@skillcoop/types/src';
 import { invitationStatus } from '@skillcoop/types/src';
 import CoreNotification from '../wrapper';

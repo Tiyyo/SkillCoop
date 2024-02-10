@@ -4,7 +4,7 @@ import envelope from '../../../assets/svg/envelope.svg';
 import paperPlane from '../../../assets/svg/paper-plane.svg';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import capitalize from '../../../utils/capitalize';
+import capitalize from '../../../shared/utils/capitalize';
 import useVerifyEmail from '../hooks/useVerifyEmail';
 
 function VerifyEmail() {

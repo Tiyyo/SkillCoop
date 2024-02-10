@@ -1,6 +1,6 @@
 import { ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import capitalize from '../../utils/capitalize';
+import capitalize from '../../shared/utils/capitalize';
 
 type MenuSettingItemProps = {
   link: string;

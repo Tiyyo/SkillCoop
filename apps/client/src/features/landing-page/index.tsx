@@ -3,7 +3,7 @@ import Benefits from './benefits';
 import HeaderLandingPage from './header';
 import HeroSection from './hero-section';
 import { Suspense } from 'react';
-import LoadingPage from '../../components/loading-page';
+import LoadingPage from '../../shared/components/loading-page';
 
 function LandingPage() {
   return (

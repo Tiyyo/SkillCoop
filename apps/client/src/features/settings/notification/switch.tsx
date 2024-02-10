@@ -1,9 +1,9 @@
 import { Switch } from '../../../lib/ui/switch';
 import { useApp } from '../../../shared/store/app.store';
-import capitalize from '../../../utils/capitalize';
-/*eslint-disable */
+import capitalize from '../../../shared/utils/capitalize';
+
 import { useUpdateNotificationPreference } from '../hooks/useUserPreference';
-/*eslint-enable */
+
 import { updateNotificationPreferenceSchema } from '@skillcoop/schema/src';
 import { NotificationType } from '@skillcoop/types/src';
 

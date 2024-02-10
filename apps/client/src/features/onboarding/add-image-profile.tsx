@@ -1,5 +1,5 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import TitleH2 from '../../components/title-h2';
+import TitleH2 from '../../shared/components/title-h2';
 import Container from '../../shared/layouts/container';
 import { cn } from '../../lib/utils';
 import AvatarEdit from '../profile/edit-avatar';

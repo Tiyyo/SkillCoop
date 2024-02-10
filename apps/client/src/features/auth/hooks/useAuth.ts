@@ -15,7 +15,7 @@ import { useEffect, useState } from "react";
 import { loginUserFn } from "../../../api/auth.fn";
 import { getMeFn } from "../../../api/profile.fn";
 import { useApp } from "../../../shared/store/app.store";
-import { detectFirstAccess } from "../../../utils/is-first-connection";
+import { detectFirstAccess } from "../../../shared/utils/is-first-connection";
 import { Credentials } from "packages/types/src";
 
 /*eslint-enable*/

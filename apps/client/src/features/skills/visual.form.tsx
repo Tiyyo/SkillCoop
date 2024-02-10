@@ -1,5 +1,5 @@
 import FieldsetRadioInput from './fieldset-radio.input';
-import Button from '../../components/button';
+import Button from '../../shared/components/button';
 import { ALL_SKILLS } from '../../shared/constants/skill-constant';
 import { LEVEL_SCALE } from '../../shared/constants/skill-constant';
 import { useTranslation } from 'react-i18next';

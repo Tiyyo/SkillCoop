@@ -1,7 +1,9 @@
 import { useTranslation } from 'react-i18next';
-import associateNumberToString from '../../utils/associate-number-stringscale';
-import capitalize from '../../utils/capitalize';
-import { sumValues } from '../../utils/sum-values';
+/*eslint-disable */
+import associateNumberToString from '../../shared/utils/associate-number-stringscale';
+/*eslint-enable */
+import capitalize from '../../shared/utils/capitalize';
+import { sumValues } from '../../shared/utils/sum-values';
 
 type FriendStatsMobileProps = {
   nbAttendedEvent?: number | null;

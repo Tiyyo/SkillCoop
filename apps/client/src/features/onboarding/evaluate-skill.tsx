@@ -1,16 +1,16 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import TitleH2 from '../../components/title-h2';
+import TitleH2 from '../../shared/components/title-h2';
 import Container from '../../shared/layouts/container';
 import { cn } from '../../lib/utils';
 import FieldsetRadioInput from '../skills/fieldset-radio.input';
 import { ALL_SKILLS } from '../../shared/constants/skill-constant';
 import { LEVEL_SCALE } from '../../shared/constants/skill-constant';
 import { useId } from 'react';
-import { useUserProfileEval } from '../../hooks/useUserProfileEval';
+import { useUserProfileEval } from '../../shared/hooks/useUserProfileEval';
 import { ownSkillSchema, editProfileInfosSchema } from '@skillcoop/schema/src';
 import { useOnboarding } from './store/onboarding.store';
 import { useUpdateProfile } from '../../shared/hooks/useProfile';
-import toast from '../../utils/toast';
+import toast from '../../shared/utils/toast';
 import { useApp } from '../../shared/store/app.store';
 import { useTranslation } from 'react-i18next';
 

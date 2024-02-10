@@ -1,14 +1,14 @@
 import { Link } from 'react-router-dom';
 import Friendlist from './card-container';
-import TitleH2 from '../../components/title-h2';
+import TitleH2 from '../../shared/components/title-h2';
 import { useApp } from '../../shared/store/app.store';
 import { useConfirmedfriends } from '../../shared/hooks/useConfirmedFriends';
-import SubHeader from '../../components/header/sub-header';
+import SubHeader from '../../shared/components/header/sub-header';
 import Container from '../../shared/layouts/container';
 import { ArrowRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Suspense } from 'react';
-import SkeletonFallback from '../../components/skeleton-fallback';
+import SkeletonFallback from '../../shared/components/skeleton-fallback';
 
 function ConfirmedFriends() {
   // TODO implement infinite scroll

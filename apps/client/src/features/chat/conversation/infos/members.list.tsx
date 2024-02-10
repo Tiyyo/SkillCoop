@@ -1,6 +1,6 @@
 /*eslint-disable*/
 import { X } from 'lucide-react';
-import ImageWithUsernamefallback from '../../../../components/image-fallback-username';
+import ImageWithUsernamefallback from '../../../../shared/components/image-fallback-username';
 import { ConversationParticipant, TypeConversation } from '@skillcoop/types';
 /*eslint-enable*/
 

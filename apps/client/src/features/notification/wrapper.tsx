@@ -1,6 +1,6 @@
-import capitalize from '../../utils/capitalize';
+import capitalize from '../../shared/utils/capitalize';
 import { useTranslation } from 'react-i18next';
-import ImageWithFallback from '../../components/image';
+import ImageWithFallback from '../../shared/components/image';
 import useMarkAsRead from './hooks/useMarkAsRead';
 import { createdSince } from './utils/created-since';
 

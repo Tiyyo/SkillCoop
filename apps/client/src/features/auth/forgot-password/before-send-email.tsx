@@ -1,7 +1,7 @@
-import ErrorNotification from '../../../components/error/notification';
+import ErrorNotification from '../../../shared/components/error/notification';
 import { useTranslation } from 'react-i18next';
-import FormField from '../../../components/form-field';
-import Button from '../../../components/button';
+import FormField from '../../../shared/components/form-field';
+import Button from '../../../shared/components/button';
 
 type BeforeSendResetEmailProps = {
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;

@@ -1,5 +1,5 @@
 import { Trash2 } from 'lucide-react';
-import MenuItemDialog from '../../components/menu-item-dialog';
+import MenuItemDialog from '../../shared/components/menu-item-dialog';
 import { useDeleteUser } from '../../shared/hooks/useProfile';
 import { useApp } from '../../shared/store/app.store';
 import { useTranslation } from 'react-i18next';

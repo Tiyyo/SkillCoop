@@ -1,5 +1,5 @@
 import Friendlist from './card-container';
-import TitleH2 from '../../components/title-h2';
+import TitleH2 from '../../shared/components/title-h2';
 import { useApp } from '../../shared/store/app.store';
 import { usePendingFriends } from './hooks/usePendingFriends';
 import Container from '../../shared/layouts/container';

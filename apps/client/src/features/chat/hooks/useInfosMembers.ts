@@ -2,7 +2,7 @@ import {
   useAddParticipantsToConversationGroup,
   useRemoveFromConversationGroup,
 } from './useConversations';
-import { useGetConfirmedFriends } from '../../../hooks/useFriends';
+import { useGetConfirmedFriends } from '../../friends/hooks/useFriends';
 import { ConversationParticipant } from '@skillcoop/types';
 import { useRef, useState } from 'react';
 

@@ -1,8 +1,8 @@
-import Button from '../../components/button';
-import Input from '../../components/input';
-import SelectInput from '../../components/select';
-import InputDate from '../../components/date-picker';
-import InputTime from '../../components/time-picker';
+import Button from '../../shared/components/button';
+import Input from '../../shared/components/input';
+import SelectInput from '../../shared/components/select';
+import InputDate from '../../shared/components/date-picker';
+import InputTime from '../../shared/components/time-picker';
 import { CreateEventStateStore } from './store/create-event.store';
 import Globe from '../../assets/icon/Globe';
 import Users from '../../assets/icon/Users';

@@ -1,5 +1,5 @@
 import { Eye, EyeOff } from 'lucide-react';
-import FormField from '../../components/form-field';
+import FormField from '../../shared/components/form-field';
 import { Dialog, DialogContent, DialogTrigger } from '../../lib/ui/dialog';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -7,7 +7,7 @@ import { passwordUpdateSchema } from '@skillcoop/schema/src';
 import { useMutation } from '@tanstack/react-query';
 import { updatePasswordFn } from '../../api/api.fn';
 import { useApp } from '../../shared/store/app.store';
-import toast from '../../utils/toast';
+import toast from '../../shared/utils/toast';
 import { useTranslation } from 'react-i18next';
 
 type UpdatePasswordField = {

@@ -1,6 +1,6 @@
-import ImageWithFallback from '../../../components/image';
+import ImageWithFallback from '../../../shared/components/image';
 /*eslint-disable*/
-import ImageWithUsernamefallback from '../../../components/image-fallback-username';
+import ImageWithUsernamefallback from '../../../shared/components/image-fallback-username';
 import GroupChatImageWithUsernameFallback from '../pair-avatar';
 /*eslint-enable*/
 

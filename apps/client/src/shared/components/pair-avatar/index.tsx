@@ -1,5 +1,5 @@
 import { cn } from '../../../lib/utils';
-import capitalize from '../../../utils/capitalize';
+import capitalize from '../../utils/capitalize';
 
 type ConversationCardImageProps = {
   avatarUerOne: null | string;

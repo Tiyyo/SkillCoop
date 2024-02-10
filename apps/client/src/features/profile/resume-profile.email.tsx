@@ -1,17 +1,17 @@
 import { useState } from 'react';
 import TriggerEditBtn from './trigger-edit-btn';
 import { useForm } from 'react-hook-form';
-import FormField from '../../components/form-field';
+import FormField from '../../shared/components/form-field';
 import { SendIcon } from 'lucide-react';
 import { emailSchema } from '@skillcoop/schema/src';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useApp } from '../../shared/store/app.store';
-import ErrorNotification from '../../components/error/notification';
-import Button from '../../components/button';
+import ErrorNotification from '../../shared/components/error/notification';
+import Button from '../../shared/components/button';
 import { useUpdateEmail } from '../../shared/hooks/useProfile';
 import type { UpdateEmail } from '@skillcoop/types/src';
 import { updateEmailSchema } from '@skillcoop/schema/src';
-import toast from '../../utils/toast';
+import toast from '../../shared/utils/toast';
 import { useTranslation } from 'react-i18next';
 
 function ResumeEmailInfos({ email }: { email?: string | null }) {

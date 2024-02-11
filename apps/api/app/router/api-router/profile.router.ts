@@ -2,13 +2,16 @@ import express, { Router } from 'express';
 import { editProfileInfosSchema } from '@skillcoop/schema';
 import factory from '../../middlewares/wrapper-controller.js';
 import { validateSchema } from '../../middlewares/schema-validator.js';
-import profileController from '../../controllers/profile.controller.js';
+import { getOne } from '../../controllers/profile/get-one.js';
+import { updateOne } from '../../controllers/profile/update-one.js';
+import { updateImage } from '../../controllers/profile/update-image.js';
+import { createOne } from '../../controllers/profile/create-one.js';
+/*eslint-disable */
+import { searchProfileByUsername } from '../../controllers/profile/search-by-username.js';
+/*eslint-enable */
 import { canals } from '../../@types/types.js';
 import upload from '../../services/upload/upload.js';
 import { sanitizeParams } from '../../middlewares/sanitizer.params.js';
-
-const { getOne, updateOne, updateImage, searchProfileByUsername, createOne } =
-  profileController;
 
 const router: Router = express.Router();
 

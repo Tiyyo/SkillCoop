@@ -1,12 +1,10 @@
-import bestStrikerController from '../best-striker.controller.js';
+import { createOne } from '../../controllers/best-striker/create-one.js';
 import { mockResponse } from './mock-response.js';
 import { Request } from 'express';
 import {
   event as Event,
   bestStriker as BestStriker,
 } from '../../models/index.js';
-
-const { createOne } = bestStrikerController;
 
 describe.skip('createOne', () => {
   afterEach(() => {

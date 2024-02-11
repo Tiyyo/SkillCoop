@@ -1,7 +1,7 @@
 import express, { Router } from 'express';
 import profileRouter from './api-router/profile.router.js';
 import eventRouter from './api-router/event.router.js';
-import friendlistRouter from './api-router/friendslist.router.js';
+import friendlistRouter from './api-router/profile-on-profile.router.js';
 import profileOnEventRouter from './api-router/profile-on-event.router.js';
 import skilFootRouter from './api-router/skill-foot.router.js';
 import userRouter from './api-router/user.router.js';

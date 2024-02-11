@@ -5,19 +5,17 @@ import {
   updateFriendshipSchema,
 } from '@skillcoop/schema';
 import factory from '../../middlewares/wrapper-controller.js';
-import friendslistController from '../../controllers/friendslist.controller.js';
 import { validateSchema } from '../../middlewares/schema-validator.js';
 import { canals } from '../../@types/types.js';
 import { sanitizeParams } from '../../middlewares/sanitizer.params.js';
-
-const {
-  getFriends,
-  sendFriendRequest,
-  getRequestToAccept,
-  acceptOrDeclined,
-  searchFriends,
-  getSuggestProfile,
-} = friendslistController;
+/* eslint-disable */
+import { searchFriends } from '../../controllers/profile-on-profile/search.js';
+import { acceptOrDeclined } from '../../controllers/profile-on-profile/accept-or-declined.js';
+import { getRequestToAccept } from '../../controllers/profile-on-profile/get-pending-request.js';
+import { sendFriendRequest } from '../../controllers/profile-on-profile/send-request.js';
+import { getFriends } from '../../controllers/profile-on-profile/get-friends.js';
+import { getSuggestProfile } from '../../controllers/profile-on-profile/get-suggestion.js';
+/* eslint-enable */
 
 const router: Router = express.Router();
 

@@ -1,13 +1,15 @@
 import express, { Router } from 'express';
 import { ownSkillSchema, participantSkillSchema } from '@skillcoop/schema';
 import factory from '../../middlewares/wrapper-controller.js';
-import skillFootController from '../../controllers/skill-foot.controller.js';
 import { validateSchema } from '../../middlewares/schema-validator.js';
 import { canals } from '../../@types/types.js';
 import { sanitizeParams } from '../../middlewares/sanitizer.params.js';
-
-const { getProfileEvalByEvent, getProfileEval, createOwnRating, createRating } =
-  skillFootController;
+import { getProfileEval } from '../../controllers/skill/get-eval.js';
+import { createOwnRating } from '../../controllers/skill/create-own-rating.js';
+import { createRating } from '../../controllers/skill/create-rating.js';
+/*eslint-disable */
+import { getProfileEvalByEvent } from '../../controllers/skill/get-profile-eval-event.js';
+/*eslint-enable */
 
 const router: Router = express.Router();
 

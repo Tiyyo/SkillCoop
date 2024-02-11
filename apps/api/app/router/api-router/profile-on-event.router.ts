@@ -1,16 +1,15 @@
 import express, { Router } from 'express';
 import factory from '../../middlewares/wrapper-controller.js';
-/* eslint-disable-next-line */
 import {
   inviteParticipantSchema,
   updateParticipantSchema,
 } from '@skillcoop/schema';
 import { validateSchema } from '../../middlewares/schema-validator.js';
 import { canals } from '../../@types/types.js';
-/* eslint-disable-next-line */
-import participantController from '../../controllers/profile-on-event.controller.js';
-
-const { sendInvitationToEvent, updateStatus } = participantController;
+/* eslint-disable */
+import { sendInvitationToEvent } from '../../controllers/profile-on-event/send-invitations.js';
+import { updateStatus } from '../../controllers/profile-on-event/update-status.js';
+/* eslint-enable */
 
 const router: Router = express.Router();
 

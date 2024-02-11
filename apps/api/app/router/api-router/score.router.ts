@@ -3,9 +3,7 @@ import { saveScoreSchema } from '@skillcoop/schema';
 import factory from '../../middlewares/wrapper-controller.js';
 import { validateSchema } from '../../middlewares/schema-validator.js';
 import { canals } from '../../@types/types.js';
-import scoreController from '../../controllers/score.controller.js';
-
-const { createOne } = scoreController;
+import { createOne } from '../../controllers/score/create-one.js';
 
 const router: Router = express.Router();
 

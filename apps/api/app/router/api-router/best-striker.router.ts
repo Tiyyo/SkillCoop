@@ -4,9 +4,7 @@ import { validateSchema } from '../../middlewares/schema-validator.js';
 import factory from '../../middlewares/wrapper-controller.js';
 import { canals } from '../../@types/types.js';
 /* eslint-disable-next-line */
-import bestStrikerController from '../../controllers/best-striker.controller.js';
-
-const { createOne } = bestStrikerController;
+import { createOne } from '../../controllers/best-striker/create-one.js';
 
 const router: Router = express.Router();
 

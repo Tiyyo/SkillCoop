@@ -5,9 +5,9 @@ import { validateSchema } from '../../middlewares/schema-validator.js';
 import { sanitizeParams } from '../../middlewares/sanitizer.params.js';
 import tokenHandler from '../../helpers/token.handler.js';
 import { canals } from '../../@types/types.js';
-import userController from '../../controllers/user.controller.js';
-
-const { updateEmail, updatePassword, deleteUser } = userController;
+import { updateEmail } from '../../controllers/user/update-eamil.js';
+import { updatePassword } from '../../controllers/user/update-password.js';
+import { deleteUser } from '../../controllers/user/delete-user.js';
 
 const router: Router = express.Router();
 

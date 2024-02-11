@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { InvitationStatus } from '@skillcoop/types/src';
 import { cn } from '../../../lib/utils';
-import star from '../../assets/svg/star.svg';
-import soccerBall from '../../assets/svg/soccer-ball.svg';
+import star from '../../../assets/svg/star.svg';
+import soccerBall from '../../../assets/svg/soccer-ball.svg';
 import capitalize from '../../../shared/utils/capitalize';
 import { Link } from 'react-router-dom';
 import Avatar from '../avatar';

@@ -27,7 +27,7 @@ api.interceptors.response.use(
   },
   async (error) => {
     const originalRequest = error.config;
-    const errMessage = error.response.data.error as string;
+    const errMessage = error.response?.data?.error as string;
     // errMessage should be unique and bind to validation access token error
     // if errMessage is not unique, it will cause infinite loop
     if (errMessage === 'No access' && !originalRequest._retry) {

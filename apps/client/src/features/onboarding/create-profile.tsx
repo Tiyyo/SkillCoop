@@ -112,7 +112,7 @@ function OnBoardingCreateProfile() {
           <Link
             to=""
             className="my-auto w-1/2 rounded-md border border-primary-700 
-          bg-base-light bg-opacity-75 py-2 text-center text-lg text-dark 
+          bg-base-light bg-opacity-75 py-2 text-center text-lg text-light 
             opacity-0 shadow-md"
           >
             {t('back')}

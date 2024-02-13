@@ -9,7 +9,7 @@ export const signUpUserFn = async (
 };
 
 export const loginUserFn = async (user: Credentials) => {
-  const response = await api.post('auth/login', user);
+  const response = await api.post('auth/login', user, { timeout: 5000 });
   api.defaults.headers.common[
     'Authorization'
   ] = `Bearer ${response.data.accessToken}`;

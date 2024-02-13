@@ -12,6 +12,7 @@ export async function signin(req: Request, res: Response) {
       email,
       password,
     });
+
     if (!loginTrack.success) {
       return res.status(loginTrack.status).json({
         error: loginTrack.error,

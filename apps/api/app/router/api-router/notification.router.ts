@@ -2,11 +2,9 @@ import express, { Router } from 'express';
 import factory from '../../middlewares/wrapper-controller.js';
 import { validateSchema } from '../../middlewares/schema-validator.js';
 import { canals } from '../../@types/types.js';
-/*eslint-disable-next-line */
-import notificationController from '../../controllers/notification.controller.js';
 import { markAsReadNotificationSchema } from '@skillcoop/schema';
-
-const { getNotification, markAsRead } = notificationController;
+import { markAsRead } from '../../controllers/notification/mark-as-read.js';
+import { getNotification } from '../../controllers/notification/get-all.js';
 
 const router: Router = express.Router();
 

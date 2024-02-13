@@ -10,6 +10,7 @@ import { score as Score } from '../app/models/index.js';
 import { friendslist as Friendlist } from '../app/models/index.js';
 import { skillFoot as SkillFoot } from '../app/models/index.js';
 import { notificationType as NotificationType } from '../app/models/index.js';
+import { playground as Playground } from '../app/models/index.js';
 import {
   getFormattedUTCTimestamp,
   getUTCString,
@@ -18,6 +19,29 @@ import { userQueuePublisher } from '../app/publishers/user.publisher.js';
 import { eventQueuePublisher } from '../app/publishers/event.publisher.js';
 import { uploadLocalFile } from '../app/services/upload/upload-local-file.js';
 import authService from '../app/services/auth/auth.js';
+import url from 'url';
+import path from 'path';
+import { convertCsvToJson } from './csv-to-json.js';
+
+function getRandomIntInclusive(max: number) {
+  const maxFloored = Math.floor(max);
+  return Math.floor(Math.random() * (maxFloored - 2) + 1);
+}
+
+const __filename = url.fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+async function getPlaygroundJson() {
+  const filePath = path.join(__dirname, 'data.csv');
+  try {
+    const stringify = await convertCsvToJson(filePath);
+    const json = JSON.parse(stringify);
+    /*eslint-disable-next-line */
+    return json as Array<Record<string, any>>;
+  } catch (error) {
+    logger.error('Error while converting csv to json' + error);
+  }
+}
 
 async function seed() {
   logger.info('Start seeding');
@@ -51,9 +75,33 @@ async function seed() {
   });
   /*await Promise.all(queriesStatusGenerated);*/
 
+  const playgrounds = await getPlaygroundJson();
+  if (!playgrounds) return logger.error('Error while getting playgrounds');
+
+  const nbPlayground = playgrounds.length;
+  console.log('nbPlayground', nbPlayground);
+  console.log(typeof playgrounds);
+  console.log(playgrounds.forEach((playground) => console.log(playground)));
+
+  const queriesPlayground = playgrounds.map((playground) => {
+    return Playground.createOne({
+      name: playground.name,
+      address: playground.address,
+      city: playground.city,
+      region: playground.region,
+      country: playground.country,
+      longitude: playground.longitude,
+      latitude: playground.latitude,
+      post_code: playground.post_code,
+      created_at: todayUTCString,
+      updated_at: todayUTCString,
+    });
+  });
+
   await Promise.all([
     ...queriesNotificationTypeGenerated,
     ...queriesStatusGenerated,
+    ...queriesPlayground,
   ]);
 
   /* Create user and profile */
@@ -284,11 +332,12 @@ async function seed() {
   for await (const _ of arrayToIterateOnEvents) {
     const randomDate = faker.date.past();
     const date = getUTCString(randomDate);
-
+    const randomPlayground = getRandomIntInclusive(nbPlayground);
+    console.log('randomPlayground', randomPlayground);
     const event = await Event.create({
       date,
       duration: 90,
-      location: faker.location.city(),
+      location_id: randomPlayground,
       required_participants: 10,
       organizer_id: 1,
       status_name: 'completed',
@@ -334,7 +383,7 @@ async function seed() {
     const event = await Event.create({
       date,
       duration: 90,
-      location: faker.location.city(),
+      location_id: getRandomIntInclusive(nbPlayground),
       required_participants: 10,
       organizer_id: 2,
       status_name: 'completed',
@@ -387,7 +436,7 @@ async function seed() {
     const event = await Event.create({
       date,
       duration: 90,
-      location: faker.location.city(),
+      location_id: getRandomIntInclusive(nbPlayground),
       required_participants: 10,
       organizer_id: 1,
       status_name: 'full',
@@ -426,7 +475,7 @@ async function seed() {
     const event = await Event.create({
       date,
       duration: 90,
-      location: faker.location.city(),
+      location_id: getRandomIntInclusive(nbPlayground),
       required_participants: 10,
       organizer_id: 2,
       status_name: 'full',
@@ -470,7 +519,7 @@ async function seed() {
     const event = await Event.create({
       date,
       duration: 90,
-      location: faker.location.city(),
+      location_id: getRandomIntInclusive(nbPlayground),
       required_participants: 10,
       organizer_id: 1,
       status_name: 'open',
@@ -499,7 +548,7 @@ async function seed() {
     const event = await Event.create({
       date,
       duration: 90,
-      location: faker.location.city(),
+      location_id: getRandomIntInclusive(nbPlayground),
       required_participants: 10,
       organizer_id: 2,
       status_name: 'open',

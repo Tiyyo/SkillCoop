@@ -1,11 +1,10 @@
 import { mockResponse } from './mock-response.js';
-import * as authController from '../auth.controller.js';
+import { register } from '../../controllers/auth/register.js';
+import { signin } from '../../controllers/auth/signin.js';
 import { Request } from 'express';
 import google from '../../services/auth/google.js';
 import authService from '../../services/auth/auth.js';
 import emailService from '../../utils/send-email.js';
-
-const { register, signin } = authController;
 
 describe('AuthController', () => {
   describe('register', () => {

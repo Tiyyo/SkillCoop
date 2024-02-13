@@ -5,24 +5,22 @@ import {
   updateOrganizerSchema,
 } from '@skillcoop/schema';
 import factory from '../../middlewares/wrapper-controller.js';
-import eventController from '../../controllers/event.controller.js';
+import { getOrganizerEvents } from '../../controllers/event/get-organize.js';
+import { getOne } from '../../controllers/event/get-one.js';
+import { getPasts } from '../../controllers/event/get-pasts.js';
+import { getAllByUser } from '../../controllers/event/get-all-userid.js';
+import { getUpcoming } from '../../controllers/event/get-upcoming.js';
+/*eslint-disable */
+import { getLastSharedEvents } from '../../controllers/event/get-last-shared.js';
+/*eslint-enable */
+import { createOne } from '../../controllers/event/create-one.js';
+import { generateTeams } from '../../controllers/event/generate-teams.js';
+import { updateOne } from '../../controllers/event/update-one.js';
+import { updateOrganizer } from '../../controllers/event/update-organizer.js';
+import { deleteOne } from '../../controllers/event/delete-one.js';
 import { validateSchema } from '../../middlewares/schema-validator.js';
 import { canals } from '../../@types/types.js';
 import { sanitizeParams } from '../../middlewares/sanitizer.params.js';
-
-const {
-  getOrganizerEvents,
-  getOne,
-  getPasts,
-  getAllByUser,
-  getUpcoming,
-  getLastSharedEvents,
-  createOne,
-  generateTeams,
-  updateOne,
-  updateOrganizer,
-  deleteOne,
-} = eventController;
 
 const router: Router = express.Router();
 

@@ -31,7 +31,7 @@ exports.createEventSchema = z.object({
     start_time: z.string(),
     date: z.string(),
     duration: z.number().positive(),
-    location: z.string(),
+    location_id: z.number().int().positive(),
     required_participants: z.number().refine((data) => acceptableEventFormat.includes(data), {
         message: "wrongFormatEvent"
     }),
@@ -44,7 +44,7 @@ exports.updateEventSchema = z.object({
     event_id: z.number().positive().int(),
     date: z.string().optional(),
     duration: z.number().optional(),
-    location: z.string().optional(),
+    location_id: z.number().int().positive(),
     required_participants: z.number().refine((data) => acceptableEventFormat.includes(data), {
         message: "wrongFormatEvent"
     }).optional(),

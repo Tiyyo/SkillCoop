@@ -74,25 +74,27 @@ model event {
   id                    Int                @id @default(autoincrement())
   date                  String
   duration              Int
-  location              String
   required_participants Int
   nb_teams              Int                 @default(2)
+  visibility            String              @default("private")                 
+  location_id           Int
+  playground            playground          @relation(fields: [location_id], references: [id], onDelete: NoAction, onUpdate: Cascade)
   organizer_id          Int?
   organizer             profile?            @relation("organizer", fields: [organizer_id], references: [profile_id], onDelete: SetNull, onUpdate: Cascade)
   status_name           String
   status                status              @relation(fields: [status_name], references: [name], onDelete: NoAction, onUpdate: Cascade)
-  created_at            String           
-  updated_at            String?
-  profile_on_event      profile_on_event[]
-  score                 score[]
   mvp_id                Int? 
   mvp                   profile?             @relation("mvp" , fields: [mvp_id], references: [profile_id], onDelete: SetNull, onUpdate: Cascade)
   best_striker_id       Int?
   best_striker          profile?             @relation("best_striker" ,fields : [best_striker_id], references: [profile_id], onDelete: SetNull, onUpdate: Cascade)
+  score                 score[]
+  profile_on_event      profile_on_event[]
   mvp_poll              mvp_poll[]
   best_striker_poll     best_striker_poll[]
   skills                skill_foot[]
   notification          notification[]
+  created_at            String           
+  updated_at            String?
 }
 
 model score {
@@ -242,4 +244,21 @@ model language_preference {
   name        String    @default("en")
   created_at  String
   updated_at  String?
+}
+
+model playground {
+  id          Int       @id @default(autoincrement())
+  name        String   
+  address     String 
+  city        String   
+  post_code   String
+  region      String
+  country     String
+  longitude   Float
+  latitude    Float
+  events      event[]
+  created_at  String
+  updated_at  String?
+
+  @@unique([name, address, city], name: "unique_playground")
 }

@@ -35,7 +35,7 @@ export default function useCreateEvent() {
       date: `${eventCreatedState.start_date} ${eventCreatedState.start_time}`,
       participants: eventCreatedState.participants ?? undefined,
       duration: Number(eventCreatedState.duration) ?? undefined,
-      location: eventCreatedState.location ?? undefined,
+      location_id: eventCreatedState.location_id ?? undefined,
       required_participants:
         Number(eventCreatedState.required_participants) ?? undefined,
     };

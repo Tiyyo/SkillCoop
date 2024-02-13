@@ -114,7 +114,7 @@ function OnBoardingEvaluateSkill() {
             onClick={() => navigate(-1)}
             className="my-auto w-1/2 rounded-md 
             border border-primary-700 bg-base-light bg-opacity-75 py-2 
-            text-center text-lg text-dark shadow-md"
+            text-center text-lg text-light shadow-md"
           >
             {t('system:back')}
           </button>

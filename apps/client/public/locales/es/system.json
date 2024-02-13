@@ -77,5 +77,6 @@
   "next": "Siguiente",
   "onlyUsernameIsRequired": "Solo se requiere el nombre de usuario",
   "yes": "Sí",
-  "no": "No"
+  "no": "No",
+  "confirm": "Confirmar"
 }

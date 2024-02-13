@@ -13,6 +13,7 @@ type Option = {
 interface SelectInputProps extends ComponentPropsWithoutRef<'select'> {
   label?: string;
   name: string;
+  getCurrentValue?: (args: any) => void;
   updateState?: (args: any) => void;
   props?: any;
   options: Option[];
@@ -26,6 +27,7 @@ interface SelectInputProps extends ComponentPropsWithoutRef<'select'> {
 function SelectInput({
   label,
   name,
+  getCurrentValue,
   updateState,
   options,
   children,
@@ -53,6 +55,7 @@ function SelectInput({
     if (updateState) {
       updateState(e.target.value);
     }
+    if (getCurrentValue) getCurrentValue(e.target.value);
   };
 
   return (
@@ -72,14 +75,14 @@ function SelectInput({
         {disabled ? (
           <input
             type="text"
-            className="block h-7 w-full 
-            rounded-lg border border-none border-gray-300 
+            className="block h-7 w-full
+            rounded-lg border border-none border-gray-300
             bg-base-light pl-2 text-xs font-semibold  text-primary-1100"
             disabled={disabled}
-            defaultValue={
-              mutateKey === 'duration'
+            value={
+              (mutateKey === 'duration'
                 ? props.defaultValue + ' min'
-                : props.defaultValue
+                : props.defaultValue) || ''
             }
           />
         ) : (
@@ -89,7 +92,11 @@ function SelectInput({
               `block h-7 w-full rounded-lg 
               border border-border bg-base-light 
               pl-2 text-sm
-              font-medium text-light  
+              font-medium
+              text-text-base 
+              focus-within:outline-none 
+              focus:ring-1
+              focus:ring-primary-600
             `,
               high ? 'h-10' : 'h-7',
               hasError && 'ring-2 ring-error',

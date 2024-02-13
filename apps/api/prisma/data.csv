@@ -1,0 +1,6 @@
+id,name,address,city,post_code,region,country,longitude,latitude,created_at,updated_at
+1,"Stade Michel Hidalgo","2, boulevard de l'entente",Saint-Gratien,95210,"Val-d'Oise",France,2.274558,48.974583,2024-02-11T21:53:37.543Z,
+2,"UrbanSoccer Puteaux","159 Rue de la République",Puteaux,92800,Hauts-de-Seine,France,2.2312275,48.8836145,2024-02-12T10:05:51.704Z,
+3,"UrbanSoccer - Guyancourt","19 Route De Troux",Guyancourt,78280,Yvelines,France,2.05988,48.77238,2024-02-12T10:07:00.925Z,
+5,"Stade Auguste Delaune","52 Rue du Lieutenant Georges Keiser",Sannois,95110,"Val-d'Oise",France,2.256437,48.97527,2024-02-12T14:36:16.904Z,
+6,"Le Five Paris 13","9 Avenue de la Porte de Choisy",Paris,75013,Paris,France,2.365581,48.81775,2024-02-12T16:31:26.013Z,

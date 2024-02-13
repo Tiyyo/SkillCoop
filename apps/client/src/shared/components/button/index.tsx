@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 interface ButtonProps extends ComponentPropsWithRef<'button'> {
   textContent: string;
   type: 'button' | 'submit' | undefined;
+  formId?: string;
   children?: React.ReactNode;
   variant?: 'solid' | 'light';
   isLoading?: boolean;
@@ -53,6 +54,7 @@ function Button({
   className,
   isLoading,
   children,
+  formId,
   variant = 'solid',
   ...props
 }: ButtonProps) {
@@ -64,6 +66,7 @@ function Button({
 
   return (
     <button
+      form={formId}
       {...props}
       className={cn(
         base,

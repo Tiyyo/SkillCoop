@@ -6,5 +6,6 @@ logs
 /logs
 *.db
 sqlite.db
+*.exe
 # Keep environment variables out of version control
 .env

@@ -26,6 +26,7 @@ export default function useEventPageManager() {
       start_date: getStringDate(new Date(event.date)).split(' ')[0],
       duration: event.duration,
       location: event.location,
+      location_id: event.location_id,
       required_participants: event.required_participants,
       organizer_id: event.organizer_id,
       start_time: getStringDate(new Date(event.date)).split(' ')[1],

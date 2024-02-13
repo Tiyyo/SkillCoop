@@ -65,6 +65,7 @@ export default {
 
     const { email, password } = data;
     const user = await User.findOne({ email });
+
     if (!user) {
       loginTrack.error = 'Bad credentials';
       loginTrack.status = 400;

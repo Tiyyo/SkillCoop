@@ -68,7 +68,6 @@ export class Core<Table extends keyof DB> {
   async createOne(data: InsertObjectDB<Table>) {
     const todayUTCString = getFormattedUTCTimestamp();
     data.created_at = todayUTCString;
-
     try {
       const result = await this.client
         .insertInto(this.tableName)
@@ -77,6 +76,7 @@ export class Core<Table extends keyof DB> {
 
       return Number(result[0].insertId);
     } catch (error) {
+      console.log('error', error);
       if (error instanceof Error) {
         throw new DatabaseError(error);
       }

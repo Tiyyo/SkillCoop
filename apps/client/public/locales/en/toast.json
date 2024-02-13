@@ -23,5 +23,7 @@
   "thisIsNotAValidEmail": "This is not a valid email",
   "yourAccountHasBeenBlocked": "Your account has been blocked. However, you can still reset your password to regain access to your account.",
   "yourAccountHasNotBeenVerified": "Your account has not been verified yet. We have sent a new link to your email for account validation.",
-  "youHaveOnlyXLeft": "You have only {{count}} left before you account is blocked."
+  "youHaveOnlyXLeft": "You have only {{count}} left before you account is blocked.",
+  "playgroundHasBeenCreated": "Playground has been created",
+  "playgroundNotCreated": "Could not create this playground, most likely because it already exists"
 }

@@ -1,13 +1,5 @@
 import { useState } from 'react';
-import Input from '../../../shared/components/input';
-import {
-  Globe,
-  Clock,
-  Users,
-  CalendarClock,
-  Pencil,
-  Check,
-} from 'lucide-react';
+import { Clock, Users, CalendarClock, Pencil, Check } from 'lucide-react';
 import { useParams } from 'react-router-dom';
 import SelectInput from '../../../shared/components/select';
 import InputTime from '../../../shared/components/time-picker';
@@ -29,6 +21,7 @@ import {
   getLocalStringCustom,
 } from '@skillcoop/date-handler/src';
 import { useTranslation } from 'react-i18next';
+import InputLocation from '../../create-event/input-location';
 
 type EventPageInfosProps = {
   eventDuration: number | null;
@@ -94,9 +87,10 @@ function EventPageInfos({
               status_name: event.status_name ?? undefined,
               date: `${event.start_date} ${event.start_time}`,
               duration: Number(event.duration),
-              location: event.location ?? undefined,
+              location_id: event.location_id ?? undefined,
               required_participants: Number(event.required_participants),
             };
+            console.log(data, 'event data to update');
 
             if (
               confirmedParticipants &&
@@ -120,6 +114,7 @@ function EventPageInfos({
               return;
             }
             data.date = getUTCString(new Date(data.date));
+            console.log('Is all checked are ok');
             updateEvent(data);
           }}
           className="relative -top-0.5 my-auto cursor-pointer"
@@ -165,6 +160,7 @@ function EventPageInfos({
           mutateKey="date"
           label={t('date')}
           disabled={!isEditActive}
+          high
         />
         <InputTime
           label={t('scheduleTime')}
@@ -176,6 +172,7 @@ function EventPageInfos({
             getLocalStringCustom(new Date(eventDate)).split(' ')[1]
           }
           disabled={!isEditActive}
+          high
         >
           <CalendarClock />
         </InputTime>
@@ -187,19 +184,16 @@ function EventPageInfos({
           options={OPTION_DURATION}
           defaultValue={event.duration ?? eventDuration ?? undefined}
           disabled={!isEditActive}
+          high
         >
           <Clock />
         </SelectInput>
-        <Input
-          name="location"
+        <InputLocation
           label={t('location')}
-          type="text"
-          updateState={updateLocation}
+          updateLocationNameAndId={updateLocation}
           disabled={!isEditActive}
           defaultValue={event.location ?? eventlocation ?? undefined}
-        >
-          <Globe />
-        </Input>
+        />
         <SelectInput
           name="requiredParticipants"
           label={t('participants')}
@@ -210,6 +204,7 @@ function EventPageInfos({
           }
           disabled={!isEditActive}
           mutateKey="required_participants"
+          high
         >
           <Users />
         </SelectInput>

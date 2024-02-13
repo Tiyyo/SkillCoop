@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import notificationBellIcon from '../../assets/svg/notification-bell.svg';
+import notificationBellIcon from '../../../assets/svg/notification-bell.svg';
 /*eslint-disable*/
 import useSubscriptionNotification from '../../../features/notification/hooks/useSubscriptionNotification';
 import { useGetNotifications } from '../../../features/notification/hooks/useNotification';

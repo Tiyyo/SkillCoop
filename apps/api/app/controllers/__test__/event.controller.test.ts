@@ -1,20 +1,16 @@
-import eventController from '../event.controller.js';
+import { createOne } from '../../controllers/event/create-one.js';
+import { getOne } from '../../controllers/event/get-one.js';
+import { deleteOne } from '../../controllers/event/delete-one.js';
+import { updateOne } from '../../controllers/event/update-one.js';
+import { getAllByUser } from '../../controllers/event/get-all-userid.js';
+import { getOrganizerEvents } from '../../controllers/event/get-organize.js';
+import { getPasts } from '../../controllers/event/get-pasts.js';
 import { mockResponse } from './mock-response.js';
 import { Request } from 'express';
 import {
   event as Event,
   profileOnEvent as ProfileOnEvent,
 } from '../../models/index.js';
-
-const {
-  createOne,
-  getOne,
-  updateOne,
-  deleteOne,
-  getAllByUser,
-  getOrganizerEvents,
-  getPasts,
-} = eventController;
 
 describe.skip('createOne', () => {
   afterEach(() => {

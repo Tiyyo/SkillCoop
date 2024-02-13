@@ -9,6 +9,7 @@ export type EventStateStore = {
   start_date: string | null;
   start_time: string | null;
   location: string | null;
+  location_id: number | null;
   duration: number | null;
   required_participants: number | null;
   organizer_id?: number | null;
@@ -25,6 +26,7 @@ type eventStore = {
   updateStartDate: (args: string) => void;
   updateStartTime: (args: string) => void;
   updateLocation: (args: string) => void;
+  updateLocationId: (args: number) => void;
   updateDuration: (args: number) => void;
   updateRequiredParticipants: (args: number) => void;
   updateOrganizerId: (args: number) => void;
@@ -41,6 +43,7 @@ export const useEventStore = create<eventStore>()((set) => ({
     start_date: null,
     start_time: null,
     location: null,
+    location_id: null,
     duration: null,
     required_participants: null,
     organizer_id: null,
@@ -69,6 +72,11 @@ export const useEventStore = create<eventStore>()((set) => ({
     set((state) => ({
       ...state,
       event: { ...state.event, location: location },
+    })),
+  updateLocationId: (locationId: number) =>
+    set((state) => ({
+      ...state,
+      event: { ...state.event, location_id: locationId },
     })),
   updateDuration: (duration: number) =>
     set((state) => ({
@@ -142,31 +150,35 @@ export const useEventStore = create<eventStore>()((set) => ({
 }));
 
 export const useEvent = () => {
-  const initEventState = useEventStore((state) => state.initEventState);
-  const updateStartDate = useEventStore((state) => state.updateStartDate);
-  const updateStartTime = useEventStore((state) => state.updateStartTime);
-  const updateDuration = useEventStore((state) => state.updateDuration);
-  const updateLocation = useEventStore((state) => state.updateLocation);
-  const updateOrganizerId = useEventStore((state) => state.updateOrganizerId);
-  const updateStatusName = useEventStore((state) => state.updateStatusName);
-  const updateParticipantStatus = useEventStore(
-    (state) => state.updateParticipantStatus,
-  );
-  const updateRequiredParticipants = useEventStore(
-    (state) => state.updateRequiredParticipants,
-  );
-  const updateParticipants = useEventStore((state) => state.updateParticipants);
-  const addToStaged = useEventStore((state) => state.addToStaged);
-  const removeFromStaged = useEventStore((state) => state.removeFromStaged);
-  const updateUserStatus = useEventStore((state) => state.updateUserStatus);
-  const data = useEventStore((state) => state.event);
+  const {
+    initEventState,
+    updateStartDate,
+    updateStartTime,
+    updateDuration,
+    updateLocation,
+    updateLocationId,
+    updateOrganizerId,
+    updateStatusName,
+    updateParticipantStatus,
+    updateRequiredParticipants,
+    updateParticipants,
+    addToStaged,
+    removeFromStaged,
+    updateUserStatus,
+    event: data,
+  } = useEventStore((state) => state);
+
+  function updateLocationNameAndId(locationId: number, location: string) {
+    updateLocation(location);
+    updateLocationId(locationId);
+  }
 
   return {
     initEventState,
     updateStartDate,
     updateStartTime,
     updateDuration,
-    updateLocation,
+    updateLocation: updateLocationNameAndId,
     updateRequiredParticipants,
     updateParticipants,
     addToStaged,

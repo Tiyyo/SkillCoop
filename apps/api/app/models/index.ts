@@ -15,6 +15,7 @@ import { NotificationPreference } from './notification-preference.js';
 import { NotificationType } from './notification-type.js';
 import { ThemePreference } from './theme-preference.js';
 import { LanguagePreference } from './language-preference.js';
+import { Playground } from './playground.js';
 import { db } from '../helpers/client.db.js';
 
 export const bestStriker = new BestStriker(db);
@@ -26,6 +27,7 @@ export const mvp = new Mvp(db);
 export const notification = new Notification(db);
 export const notificationPreference = new NotificationPreference(db);
 export const notificationType = new NotificationType(db);
+export const playground = new Playground(db);
 export const profile = new Profile(db);
 export const profileOnEvent = new ProfileOnEvent(db);
 export const score = new Score(db);

@@ -47,7 +47,10 @@ function useAuth() {
       // trigger the query to get the user profile data
       setIsAuthenticated(true);
     },
-    onError: () => {
+    onError: (err) => {
+      if (err instanceof Error && err?.message.includes('timeout')) {
+        setLoginError('Server is not responding');
+      }
       setLoading(false);
     },
   });
@@ -65,7 +68,7 @@ function useAuth() {
   return {
     loginFn,
     loading,
-    error: (errorLogin as any)?.response.data.error,
+    error: (errorLogin as any)?.response?.data.error,
     loginError,
     loginAttempts,
     isFristConnection,

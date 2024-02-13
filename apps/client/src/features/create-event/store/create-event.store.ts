@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 export type CreateEventStateStore = {
   start_date: string | null;
   start_time: string | null;
-  location: string | null;
+  location_id: number | null;
   duration: number | null;
   required_participants: number | null;
   organizer_id: number | null;
@@ -21,7 +21,7 @@ type CreateEventStore = {
   event: CreateEventStateStore;
   updateStartDate: (args: string) => void;
   updateStartTime: (args: string) => void;
-  updateLocation: (args: string) => void;
+  updateLocation: (args: number) => void;
   updateDuration: (args: number) => void;
   updateRequiredParticipants: (args: number) => void;
   updateOrganizerId: (args: number) => void;
@@ -35,7 +35,7 @@ export const useCreateEventStore = create<CreateEventStore>()((set) => ({
   event: {
     start_date: null,
     start_time: null,
-    location: null,
+    location_id: null,
     duration: null,
     required_participants: null,
     organizer_id: null,
@@ -52,10 +52,10 @@ export const useCreateEventStore = create<CreateEventStore>()((set) => ({
       ...state,
       event: { ...state.event, start_time: startTime },
     })),
-  updateLocation: (location: string) =>
+  updateLocation: (location: number) =>
     set((state) => ({
       ...state,
-      event: { ...state.event, location: location },
+      event: { ...state.event, location_id: location },
     })),
   updateDuration: (duration: number) =>
     set((state) => ({
@@ -103,7 +103,7 @@ export const useCreateEventStore = create<CreateEventStore>()((set) => ({
       event: {
         start_date: null,
         start_time: null,
-        location: null,
+        location_id: null,
         duration: null,
         required_participants: null,
         organizer_id: null,

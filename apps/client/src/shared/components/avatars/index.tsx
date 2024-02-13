@@ -48,9 +48,9 @@ function ResponsiveAvatar({
         alt="Participant avatar"
         size={38}
         className={cn(
-          `hidden aspect-square overflow-hidden
-                rounded-full border-2 border-base-light bg-primary-800
-                lg:block lg:border-3`,
+          `hidden aspect-square 
+                overflow-hidden rounded-full border-2 border-base-light
+                bg-primary-800 lg:block lg:border-3`,
           borderNone && 'border border-transparent',
         )}
       />
@@ -67,10 +67,10 @@ function Avatars({
   borderNone,
 }: AvatarsProps) {
   const idComp = useId();
-
+  console.log('nbAvatarToDisplay', nbAvatarToDisplay > 1);
   return (
     <div className={`h-fit ${startSide === 'right' ? 'flex-row-reverse' : ''}`}>
-      <div className=" flex -space-x-3">
+      <div className={cn('flex', nbAvatarToDisplay > 2 && '-space-x-3')}>
         {participants
           .filter((participant) => {
             if (team) {

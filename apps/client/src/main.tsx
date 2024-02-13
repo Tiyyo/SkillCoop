@@ -24,7 +24,7 @@ import AddFriends from './features/friends/add-new';
 import PastEvents from './features/event-list/past';
 import IncomingEvents from './features/event-list/upcoming';
 import MyEvents from './features/event-list/admin-event';
-import EventPage from './features/event-page/main/call-to-action-votes';
+import EventPage from './features/event-page/main';
 import ProfileInfos from './features/profile/index';
 import UserResumeSkills from './features/skills/index';
 import FriendProfile from './features/friend-profile-page/index';
@@ -59,6 +59,7 @@ import MobileChatHomePage from './features/chat/conversations/index.mobile';
 import MobileConversationPage from './features/chat/conversation/index.mobile';
 import { setDarkTheme, setLightTheme } from './shared/utils/set-theme';
 import AppLayout from './app-layout';
+import GeoCodingTest from './features/create-event/create-playground';
 /*eslint-enable*/
 
 export const queryClient = new QueryClient({
@@ -76,6 +77,7 @@ export const queryClient = new QueryClient({
 });
 
 const router = createBrowserRouter([
+  { path: '/test', element: <GeoCodingTest /> },
   {
     path: '/login',
     element: (

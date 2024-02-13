@@ -1,10 +1,8 @@
 import Button from '../../shared/components/button';
-import Input from '../../shared/components/input';
 import SelectInput from '../../shared/components/select';
 import InputDate from '../../shared/components/date-picker';
 import InputTime from '../../shared/components/time-picker';
 import { CreateEventStateStore } from './store/create-event.store';
-import Globe from '../../assets/icon/Globe';
 import Users from '../../assets/icon/Users';
 import Clock from '../../assets/icon/Clock';
 import CalendarClock from '../../assets/icon/CalendarClock';
@@ -13,6 +11,9 @@ import {
   OPTION_FORMAT,
 } from '../../shared/constants/select.options';
 import { useTranslation } from 'react-i18next';
+import AddNewPlayground from './create-playground';
+import { useState } from 'react';
+import InputLocation from './input-location';
 
 type CreateEventFormProps = {
   handleFormSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -21,7 +22,7 @@ type CreateEventFormProps = {
   inputHasError: (name: string, validationErrors: any) => boolean;
   isLoading: boolean;
   updateDuration: (value: number) => void;
-  updateLocation: (value: string) => void;
+  updateLocation: (value: number) => void;
   updateStartDate: (value: string) => void;
   updateStartTime: (value: string) => void;
   updateRequiredParticipants: (value: number) => void;
@@ -42,15 +43,18 @@ function CreateEventForm({
   validationErrors,
 }: CreateEventFormProps) {
   const { t } = useTranslation('event');
+  const [displayCreatePlayground, setDisplayCreatePlayground] = useState(false);
+
   return (
-    <form
-      onSubmit={handleFormSubmit}
-      ref={createEventFormRef}
-      className="flex w-full flex-col items-center px-3 py-6"
-    >
+    <div className="flex w-full flex-col items-center px-3 py-6">
+      <form
+        id="create-event"
+        onSubmit={handleFormSubmit}
+        ref={createEventFormRef}
+      />
       <div
-        className="flex w-full flex-col items-center gap-4 px-3 sm:grid 
-        sm:grid-cols-2 "
+        className="flex w-full flex-col items-start gap-4 px-3 
+        sm:grid sm:grid-cols-2"
       >
         <InputDate
           updateState={updateStartDate}
@@ -84,18 +88,7 @@ function CreateEventForm({
         >
           <Clock />
         </SelectInput>
-        <Input
-          name="location"
-          label={t('selectLocation')}
-          type="text"
-          placeholder={t('city')}
-          updateState={updateLocation}
-          defaultValue={eventCreatedState.location ?? ''}
-          error={inputHasError('location', validationErrors)}
-          high
-        >
-          <Globe />
-        </Input>
+
         <SelectInput
           name="requiredParticipants"
           label={t('selectFormat')}
@@ -107,14 +100,24 @@ function CreateEventForm({
         >
           <Users />
         </SelectInput>
+        <InputLocation
+          error={inputHasError('location', validationErrors)}
+          // defaultValue={eventCreatedState.location ?? ''}
+          updateLocationId={updateLocation}
+          setCreatePlayground={setDisplayCreatePlayground}
+          label={t('selectPlayground')}
+          placeholder={t('choosePlayground')}
+        />
+        {displayCreatePlayground && <AddNewPlayground />}
       </div>
       <Button
         textContent={t('createEvent')}
+        formId="create-event"
         type="submit"
         isLoading={isLoading}
         className="mt-4"
       />
-    </form>
+    </div>
   );
 }
 

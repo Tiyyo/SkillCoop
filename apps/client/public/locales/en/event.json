@@ -69,5 +69,12 @@
   "yesIdo": "Yes I do",
   "noIdont": "No I don't",
   "pickADateForYourEvent": "Pick a date for your event",
-  "noSharedEvents": "You didn't shared any event with {{username}}"
+  "noSharedEvents": "You didn't shared any event with {{username}}",
+  "cantFindPlayground": "Can't find your favorite playground ? Don't worry ! You can search for it and add it to our database by clicking",
+  "selectPlayground": "Select a playground",
+  "choosePlayground": "Choose a playground from our database",
+  "needMoreInfosPlayground": "We could not find that information about this playground. Please help us by completing it.",
+  "typeNamePlayground": "Type the name of playground you are looking for",
+  "searchPlayground": "Search for a playground",
+  "add": "Add"
 }

@@ -69,5 +69,12 @@
   "yesIdo": "Oui, je le veux",
   "noIdont": "Non, je ne veux pas",
   "pickADateForYourEvent": "Choisissez une date pour votre événement",
-  "noSharedEvents": "Vous n'avez partagé aucun événement avec {{username}}"
+  "noSharedEvents": "Vous n'avez partagé aucun événement avec {{username}}",
+  "cantFindPlayground": "Vous ne trouvez pas votre terrain de sport préféré ? Ne vous inquiétez pas ! Vous pouvez le rechercher et l'ajouter à notre base de données en cliquant",
+  "selectPlayground": "Sélectionnez un terrain de sport",
+  "choosePlayground": "Choisissez un terrain de sport dans notre base de données",
+  "needMoreInfosPlayground": "Nous n'avons pas pu trouver ces informations sur ce terrain de sport. Merci de nous aider en les complétant.",
+  "typeNamePlayground": "Tapez le nom du terrain de sport que vous recherchez",
+  "searchPlayground": "Recherchez un terrain de sport",
+  "add": "Ajouter"
 }

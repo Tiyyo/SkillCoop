@@ -68,5 +68,12 @@
   "yesIdo": "Sí, quiero",
   "noIdont": "No, no quiero",
   "pickADateForYourEvent": "Elige una fecha para tu evento",
-  "noSharedEvents": "No compartiste ningún evento con {{username}}."
+  "noSharedEvents": "No compartiste ningún evento con {{username}}.",
+  "cantFindPlayground": "¿No encuentras tu campo deportivo favorito? ¡No te preocupes! Puedes buscarlo y añadirlo a nuestra base de datos haciendo clic",
+  "selectPlayground": "Selecciona un campo deportivo",
+  "choosePlayground": "Elige un campo deportivo de nuestra base de datos",
+  "needMoreInfosPlayground": "No pudimos encontrar esa información sobre este campo deportivo. Por favor, ayúdanos completándola.",
+  "typeNamePlayground": "Escribe el nombre del campo deportivo que estás buscando",
+  "searchPlayground": "Buscar un campo deportivo",
+  "add": "Añadir"
 }

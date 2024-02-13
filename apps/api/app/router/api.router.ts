@@ -10,6 +10,7 @@ import mvpRouter from './api-router/mvp.router.js';
 import bestStrikerRouter from './api-router/best-striker.router.js';
 import notificationRouter from './api-router/notification.router.js';
 import userPreferenceRouter from './api-router/user-preference.router.js';
+import playgroundRouter from './api-router/playground.router.js';
 
 const router: Router = express.Router();
 
@@ -24,5 +25,6 @@ router.use('/mvp', mvpRouter);
 router.use('/best_striker', bestStrikerRouter);
 router.use('/notification', notificationRouter);
 router.use('/user-preference', userPreferenceRouter);
+router.use('/playground', playgroundRouter);
 
 export default router;

@@ -19,6 +19,7 @@ export const canals = {
   query: 'query',
 } as const;
 
+//TODO: write a script to generate this type
 export type TableNames =
   | 'best_striker_poll'
   | 'event'
@@ -36,8 +37,10 @@ export type TableNames =
   | 'sport'
   | 'status'
   | 'theme_preference'
-  | 'user';
+  | 'user'
+  | 'playground';
 
+//TODO: write a script to generate this type
 export const tableNames = {
   best_striker_poll: 'best_striker_poll',
   event: 'event',
@@ -56,6 +59,7 @@ export const tableNames = {
   status: 'status',
   theme_preference: 'theme_preference',
   user: 'user',
+  playground: 'playground',
 } as const;
 
 type IsNullable<T> = {

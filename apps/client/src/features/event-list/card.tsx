@@ -43,6 +43,7 @@ function EventCard({
     if (eventStatus === 'full') return true;
     return false;
   };
+  const nbAvatarsToDisplay = participants.length > 3 ? 3 : participants.length;
 
   return (
     <div
@@ -67,7 +68,7 @@ function EventCard({
               <Avatars
                 participants={participants}
                 team={1}
-                nbAvatarToDisplay={3}
+                nbAvatarToDisplay={nbAvatarsToDisplay}
                 plus={requiredParticipants / 2 - 3}
                 startSide="left"
               />
@@ -99,7 +100,7 @@ function EventCard({
               <Avatars
                 participants={participants}
                 team={2}
-                nbAvatarToDisplay={3}
+                nbAvatarToDisplay={nbAvatarsToDisplay}
                 plus={requiredParticipants / 2 - 3}
                 startSide="right"
               />
@@ -110,10 +111,10 @@ function EventCard({
       <div className="flex justify-between py-2">
         <div>
           {!shouldDisplayAvatars(eventStatus) && (
-            <div className="flex items-end text-xxs ">
+            <div className="flex items-end text-xxs">
               <Avatars
                 participants={participants}
-                nbAvatarToDisplay={3}
+                nbAvatarToDisplay={nbAvatarsToDisplay}
                 plus={confirmedParticipants - 3}
               />
               <p className="relative translate-x-1 font-light lg:text-xs">

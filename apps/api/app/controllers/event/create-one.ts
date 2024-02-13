@@ -22,7 +22,7 @@ export async function createOne(req: Request, res: Response) {
     status_name: 'open',
     date: data.date,
     duration: data.duration,
-    location: data.location,
+    location_id: data.location_id,
     required_participants: data.required_participants,
   });
   if (!event) throw new ServerError('Failed to create event');

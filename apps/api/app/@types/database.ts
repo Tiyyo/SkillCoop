@@ -15,15 +15,16 @@ export type event = {
   id: Generated<number>;
   date: string;
   duration: number;
-  location: string;
   required_participants: number;
   nb_teams: Generated<number>;
+  visibility: Generated<string>;
+  location_id: number;
   organizer_id: number | null;
   status_name: string;
-  created_at: string;
-  updated_at: string | null;
   mvp_id: number | null;
   best_striker_id: number | null;
+  created_at: string;
+  updated_at: string | null;
 };
 export type image = {
   id: Generated<number>;
@@ -70,6 +71,19 @@ export type notification_preference = {
 };
 export type notification_type = {
   name: string;
+  created_at: string;
+  updated_at: string | null;
+};
+export type playground = {
+  id: Generated<number>;
+  name: string;
+  address: string;
+  city: string;
+  post_code: string;
+  region: string;
+  country: string;
+  longitude: number;
+  latitude: number;
   created_at: string;
   updated_at: string | null;
 };
@@ -159,6 +173,7 @@ export type DB = {
   notification: notification;
   notification_preference: notification_preference;
   notification_type: notification_type;
+  playground: playground;
   profile: profile;
   profile_on_event: profile_on_event;
   profile_on_profile: profile_on_profile;

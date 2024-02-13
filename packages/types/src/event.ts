@@ -18,6 +18,9 @@ export type EventType = {
   date: string;
   duration: number;
   location: string;
+  location_id: number;
+  playground_city: string;
+  playground_address: string;
   required_participants: number;
   nb_teams: number;
   organizer_id: number;

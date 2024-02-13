@@ -8,5 +8,6 @@ export * from './vote';
 export * from './event';
 export * from './notification';
 export * from './preferences';
+export * from './playground';
 export type { AnyZodObject, ZodType, ZodTypeDef } from 'zod';
 export { ZodError } from 'zod';

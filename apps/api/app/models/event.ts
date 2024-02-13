@@ -47,7 +47,10 @@ SELECT
   event.id AS event_id,
   event.date,
   event.duration,
-  event.location,
+  playground.name AS location,
+  playground.city AS playground_city,
+  playground.address AS playground_address,
+  event.location_id,
   event.required_participants,
   event.nb_teams,
   event.organizer_id,
@@ -77,6 +80,7 @@ SELECT
   AND participant.event_id = ${eventId} ) AS user_status
 FROM event
 LEFT JOIN score ON event.id = score.event_id
+JOIN playground ON event.location_id = playground.id
 JOIN profile_on_event AS participant ON event.id = participant.event_id
 JOIN profile ON participant.profile_id = profile.profile_id
 WHERE event.id = ${eventId}
@@ -104,7 +108,10 @@ SELECT
   event.id AS event_id,
   event.date,
   event.duration,
-  event.location,
+  playground.name AS location,
+  playground.city AS playground_city,
+  playground.address AS playground_address,
+  event.location_id,
   event.required_participants,
   event.nb_teams,
   event.organizer_id,
@@ -132,6 +139,7 @@ SELECT
   AND status_name = 'confirmed') AS confirmed_participants
 FROM event
 LEFT JOIN score ON event.id = score.event_id
+JOIN playground ON event.location_id = playground.id
 JOIN profile_on_event AS participant ON event.id = participant.event_id
 JOIN profile ON participant.profile_id = profile.profile_id
 WHERE user_status <> 'declined'
@@ -168,7 +176,10 @@ SELECT
   event.id AS event_id,
   event.date,
   event.duration,
-  event.location,
+  playground.name AS location,
+  playground.city AS playground_city,
+  playground.address AS playground_address,
+  event.location_id,
   event.required_participants,
   event.nb_teams,
   event.organizer_id,
@@ -192,6 +203,7 @@ SELECT
    ) AS confirmed_participants
 FROM event
 LEFT JOIN score ON event.id = score.event_id
+JOIN playground ON event.location_id = playground.id
 JOIN profile_on_event AS participant ON event.id = participant.event_id
 JOIN profile ON participant.profile_id = profile.profile_id
 WHERE event.organizer_id = ${profileId}
@@ -229,7 +241,10 @@ SELECT
   event.id AS event_id,
   event.date,
   event.duration,
-  event.location,
+  playground.name AS location,
+  playground.city AS playground_city,
+  playground.address AS playground_address,
+  event.location_id,
   event.required_participants,
   event.nb_teams,
   event.organizer_id,
@@ -256,6 +271,7 @@ SELECT
   AND status_name = 'confirmed') AS confirmed_participants
 FROM event
 LEFT JOIN score ON event.id = score.event_id
+JOIN playground ON event.location_id = playground.id
 JOIN profile_on_event AS participant ON event.id = participant.event_id
 JOIN profile ON participant.profile_id = profile.profile_id
 WHERE user_status <> 'declined'
@@ -305,7 +321,10 @@ SELECT
   event.id AS event_id,
   event.date,
   event.duration,
-  event.location,
+  playground.name AS location,
+  playground.city AS playground_city,
+  playground.address AS playground_address,
+  event.location_id,
   event.required_participants,
   event.nb_teams,
   event.organizer_id,
@@ -332,6 +351,7 @@ SELECT
   AND status_name = 'confirmed') AS confirmed_participants
 FROM event
 LEFT JOIN score ON event.id = score.event_id
+JOIN playground ON event.location_id = playground.id
 JOIN profile_on_event AS participant ON event.id = participant.event_id
 JOIN profile ON participant.profile_id = profile.profile_id
 WHERE user_status <> 'declined'
@@ -483,7 +503,10 @@ SELECT
   a.event_id, 
   e.date,
   e.duration,
-  e.location,
+  playground.name AS location,
+  playground.city AS playground_city,
+  playground.address AS playground_address,
+  e.location_id,
   score.score_team_1,
   score.score_team_2, 
   (json_group_array(
@@ -499,6 +522,7 @@ FROM profile_on_event AS a
 JOIN profile_on_event AS b ON a.event_id = b.event_id
 INNER JOIN event AS e ON a.event_id = e.id
 LEFT JOIN score ON e.id = score.event_id
+JOIN playground ON event.location_id = playground.id
 JOIN profile_on_event AS participant ON e.id = participant.event_id
 JOIN profile ON participant.profile_id = profile.profile_id
 WHERE a.profile_id = ${profileId} 

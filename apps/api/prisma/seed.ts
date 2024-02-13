@@ -31,8 +31,13 @@ function getRandomIntInclusive(max: number) {
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+const pathToFile =
+  process.env.NODE_ENV === 'production'
+    ? '../dist/prisma/data.csv'
+    : 'data.csv';
+
 async function getPlaygroundJson() {
-  const filePath = path.join(__dirname, 'data.csv');
+  const filePath = path.join(__dirname, pathToFile);
   try {
     const stringify = await convertCsvToJson(filePath);
     const json = JSON.parse(stringify);

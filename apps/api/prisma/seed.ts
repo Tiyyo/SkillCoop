@@ -32,7 +32,7 @@ const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const pathToFile =
-  process.env.NODE_ENV === 'production' ? '../../primsa/data.csv' : 'data.csv';
+  process.env.NODE_ENV === 'production' ? '../../prisma/data.csv' : 'data.csv';
 
 async function getPlaygroundJson() {
   const filePath = path.join(__dirname, pathToFile);

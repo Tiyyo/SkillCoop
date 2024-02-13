@@ -4,7 +4,7 @@ export type EventWithoutAggr = {
   id: number
   date: string;
   duration: number;
-  location: string;
+  location_id: number;
   required_participants: number;
   nb_teams: number;
   organizer_id: number | null;

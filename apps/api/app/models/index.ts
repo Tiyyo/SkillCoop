@@ -1,11 +1,11 @@
 import { User } from './user.js';
 import { EventModel } from './event.js';
-import { Friendlist } from './friendslist.js';
+import { ProfileOnProfile } from './profile-on-profile.js';
 import { Image } from './image.js';
 import { Profile } from './profile.js';
 import { SkillFoot } from './skill-foot.js';
 import { Sport } from './sport.js';
-import { ProfileOnEvent } from './profile_on_event.js';
+import { ProfileOnEvent } from './profile-on-event.js';
 import { Status } from './status.js';
 import { Score } from './score.js';
 import { Mvp } from './mvp.js';
@@ -20,7 +20,7 @@ import { db } from '../helpers/client.db.js';
 
 export const bestStriker = new BestStriker(db);
 export const event = new EventModel(db);
-export const friendslist = new Friendlist(db);
+export const profileOnProfile = new ProfileOnProfile(db);
 export const image = new Image(db);
 export const languagePreference = new LanguagePreference(db);
 export const mvp = new Mvp(db);

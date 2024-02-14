@@ -11,7 +11,7 @@ function HeaderHomePageChat() {
 
   return (
     <Container
-      className="flex items-center justify-between lg:mt-4 
+      className="flex flex-row items-center justify-between lg:mt-4 
       lg:h-[70px] lg:rounded-none lg:rounded-t-lg lg:border-b 
       lg:border-b-grey-light"
     >

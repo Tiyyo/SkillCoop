@@ -9,57 +9,121 @@ import {
   redirect,
   RouterProvider,
 } from 'react-router-dom';
-import Login from './features/auth/login/login';
-import Protected from './shared/components/redirection/protected-routes';
-import RedirectToHome from './shared/components/redirection/redirect-to-home';
-import TermsAndService from './features/terms-and-service/index';
-import Register from './features/auth/register/register';
 import { api } from './api/api.fn';
-import VerifyEmail from './features/auth/verify-email';
-import CreateEvent from './features/create-event/index';
-import ResumeEvents from './features/event-list/home';
-import ConfirmedFriends from './features/friends/confirmed';
-import PendingFriends from './features/friends/pending';
-import AddFriends from './features/friends/add-new';
-import PastEvents from './features/event-list/past';
-import IncomingEvents from './features/event-list/upcoming';
-import MyEvents from './features/event-list/admin-event';
-import EventPage from './features/event-page/main';
-import ProfileInfos from './features/profile/index';
-import UserResumeSkills from './features/skills/index';
-import FriendProfile from './features/friend-profile-page/index';
-/*eslint-disable*/
-import ModalRouteRatingEvent from './features/event-page/main/modal-route-rating';
-import ControlAccesEventPage from './shared/components/redirection/control-access-event';
-import Page404 from './shared/components/404-page/index';
-import ControlAccessOwnership from './shared/components/redirection/control-access-ownership';
 import { Toaster } from 'sonner';
-import EndOfGameAwards from './features/event-page/awards';
-import ForgotPassword from './features/auth/forgot-password';
-import ResetPasswordMiddleware from './shared/components/redirection/control-reset-password';
-import NotificationContainer from './features/notification/index';
-import InvitationFromEventPage from './features/event-page/invitation/index';
-import InvitationFromCreateEventPage from './features/create-event/invitation';
-import Settings from './features/settings/index';
-import MenuSettings from './features/settings/menu';
-import NotificationsSettings from './features/settings/notification';
-import LanguageSettings from './features/settings/language';
-import ApparenceSettings from './features/settings/apparence';
-import LoadingPage from './shared/components/loading-page/index';
-import VerifyEmailSuccess from './features/auth/email-success';
-import OnBoarding from './features/onboarding';
-import AccessControlGateway from './shared/components/redirection/acces-gateway';
-import OnBoardingCreateProfile from './features/onboarding/create-profile';
-import OnBoardinAddImageProfile from './features/onboarding/add-image-profile';
-import OnBoardingEvaluateSkill from './features/onboarding/evaluate-skill';
-import NewConversation from './features/chat/add-conversation';
-import DesktopChatHomePage from './features/chat/conversations/index.desktop';
-import DesktopConversationPage from './features/chat/conversation/index.desktop';
-import MobileChatHomePage from './features/chat/conversations/index.mobile';
-import MobileConversationPage from './features/chat/conversation/index.mobile';
 import { setDarkTheme, setLightTheme } from './shared/utils/set-theme';
-import AppLayout from './app-layout';
-import GeoCodingTest from './features/create-event/create-playground';
+/*eslint-disable*/
+const Login = React.lazy(() => import('./features/auth/login/login'));
+const Protected = React.lazy(
+  () => import('./shared/components/redirection/protected-routes'),
+);
+const RedirectToHome = React.lazy(
+  () => import('./shared/components/redirection/redirect-to-home'),
+);
+const TermsAndService = React.lazy(
+  () => import('./features/terms-and-service/index'),
+);
+const Register = React.lazy(() => import('./features/auth/register/register'));
+const VerifyEmail = React.lazy(() => import('./features/auth/verify-email'));
+const CreateEvent = React.lazy(() => import('./features/create-event/index'));
+const ResumeEvents = React.lazy(() => import('./features/event-list/home'));
+const ConfirmedFriends = React.lazy(
+  () => import('./features/friends/confirmed'),
+);
+const PendingFriends = React.lazy(() => import('./features/friends/pending'));
+const AddFriends = React.lazy(() => import('./features/friends/add-new'));
+const PastEvents = React.lazy(() => import('./features/event-list/past'));
+const IncomingEvents = React.lazy(
+  () => import('./features/event-list/upcoming'),
+);
+const MyEvents = React.lazy(() => import('./features/event-list/admin-event'));
+const EventPage = React.lazy(() => import('./features/event-page/main'));
+const ProfileInfos = React.lazy(() => import('./features/profile/index'));
+const UserResumeSkills = React.lazy(() => import('./features/skills/index'));
+const FriendProfile = React.lazy(
+  () => import('./features/friend-profile-page/index'),
+);
+const ModalRouteRatingEvent = React.lazy(
+  () => import('./features/event-page/main/modal-route-rating'),
+);
+const ControlAccesEventPage = React.lazy(
+  () => import('./shared/components/redirection/control-access-event'),
+);
+const Page404 = React.lazy(() => import('./shared/components/404-page/index'));
+const ControlAccessOwnership = React.lazy(
+  () => import('./shared/components/redirection/control-access-ownership'),
+);
+const EndOfGameAwards = React.lazy(
+  () => import('./features/event-page/awards'),
+);
+const ForgotPassword = React.lazy(
+  () => import('./features/auth/forgot-password'),
+);
+const ResetPasswordMiddleware = React.lazy(
+  () => import('./shared/components/redirection/control-reset-password'),
+);
+const NotificationContainer = React.lazy(
+  () => import('./features/notification/index'),
+);
+const InvitationFromEventPage = React.lazy(
+  () => import('./features/event-page/invitation/index'),
+);
+const InvitationFromCreateEventPage = React.lazy(
+  () => import('./features/create-event/invitation'),
+);
+const Settings = React.lazy(() => import('./features/settings/index'));
+const MenuSettings = React.lazy(() => import('./features/settings/menu'));
+const NotificationsSettings = React.lazy(
+  () => import('./features/settings/notification'),
+);
+const LanguageSettings = React.lazy(
+  () => import('./features/settings/language'),
+);
+const ApparenceSettings = React.lazy(
+  () => import('./features/settings/apparence'),
+);
+const LoadingPage = React.lazy(
+  () => import('./shared/components/loading-page/index'),
+);
+const VerifyEmailSuccess = React.lazy(
+  () => import('./features/auth/email-success'),
+);
+const OnBoarding = React.lazy(() => import('./features/onboarding'));
+
+import AccessControlGateway from './shared/components/redirection/acces-gateway';
+// const AccessControlGateway = React.lazy(
+//   () => import('./shared/components/redirection/acces-gateway'),
+// );
+const OnBoardingCreateProfile = React.lazy(
+  () => import('./features/onboarding/create-profile'),
+);
+const OnBoardinAddImageProfile = React.lazy(
+  () => import('./features/onboarding/add-image-profile'),
+);
+const OnBoardingEvaluateSkill = React.lazy(
+  () => import('./features/onboarding/evaluate-skill'),
+);
+const DesktopChatHomePage = React.lazy(
+  () => import('./features/chat/conversations/index.desktop'),
+);
+const DesktopConversationPage = React.lazy(
+  () => import('./features/chat/conversation/index.desktop'),
+);
+const MobileChatHomePage = React.lazy(
+  () => import('./features/chat/conversations/index.mobile'),
+);
+const MobileConversationPage = React.lazy(
+  () => import('./features/chat/conversation/index.mobile'),
+);
+const AppLayout = React.lazy(() => import('./app-layout'));
+const GeoCodingTest = React.lazy(
+  () => import('./features/create-event/create-playground'),
+);
+const NewConversation = React.lazy(
+  () => import('./features/chat/add-conversation/index'),
+);
+import SkillcoopLoadingPage from './shared/components/skillcoop-loading-page';
+
 /*eslint-enable*/
 
 export const queryClient = new QueryClient({
@@ -81,17 +145,21 @@ const router = createBrowserRouter([
   {
     path: '/login',
     element: (
-      <RedirectToHome>
-        <Login />
-      </RedirectToHome>
+      <Suspense fallback={<>...Loading</>}>
+        <RedirectToHome>
+          <Login />
+        </RedirectToHome>
+      </Suspense>
     ),
   },
   {
     path: '/register',
     element: (
-      <RedirectToHome>
-        <Register />
-      </RedirectToHome>
+      <Suspense fallback={<>...Loading</>}>
+        <RedirectToHome>
+          <Register />
+        </RedirectToHome>
+      </Suspense>
     ),
   },
   {
@@ -127,7 +195,9 @@ const router = createBrowserRouter([
     element: (
       <AccessControlGateway>
         <Protected>
-          <AppLayout />
+          <Suspense fallback={<SkillcoopLoadingPage />}>
+            <AppLayout />
+          </Suspense>
         </Protected>
       </AccessControlGateway>
     ),

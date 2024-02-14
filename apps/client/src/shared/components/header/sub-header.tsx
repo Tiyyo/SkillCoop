@@ -19,7 +19,10 @@ function SubHeader({
   legend,
 }: SubHeaderProps) {
   return (
-    <Container className="flex w-full justify-between lg:my-2 lg:rounded-lg">
+    <Container
+      className="flex w-full flex-row justify-between lg:my-2 
+      lg:rounded-lg"
+    >
       <TitleH1 title={title} legend={legend} />
       {isPlusExist && linkFromPlus && textButton && (
         <Link

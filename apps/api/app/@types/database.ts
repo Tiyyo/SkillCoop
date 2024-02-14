@@ -16,6 +16,7 @@ export type event = {
   date: string;
   duration: number;
   required_participants: number;
+  price: number | null;
   nb_teams: Generated<number>;
   visibility: Generated<string>;
   location_id: number;

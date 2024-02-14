@@ -6,7 +6,9 @@ import { db } from '../helpers/client.db.js';
 import DatabaseError from '../helpers/errors/database.error.js';
 import UserInputError from '../helpers/errors/user-input.error.js';
 
-export class Friendlist extends Core<typeof tableNames.profile_on_profile> {
+export class ProfileOnProfile extends Core<
+  typeof tableNames.profile_on_profile
+> {
   declare tableName: typeof tableNames.profile_on_profile;
 
   constructor(client: typeof db) {

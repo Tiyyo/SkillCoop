@@ -7,7 +7,7 @@ import { InsertObjectDB, tableNames } from '../@types/types.js';
 import { db } from '../helpers/client.db.js';
 import DatabaseError from '../helpers/errors/database.error.js';
 import { eventQueuePublisher } from '../publishers/event.publisher.js';
-
+//TODO : refactor the class into smaller class
 export class EventModel extends Core<typeof tableNames.event> {
   declare tableName: typeof tableNames.event;
 
@@ -545,6 +545,75 @@ LIMIT 5
       });
 
       return parsedResult;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new DatabaseError(error);
+      }
+    }
+  }
+  async getEventLocationByCountry(country: string) {
+    try {
+      const result = await db
+        .selectFrom('event')
+        .innerJoin('playground', 'event.location_id', 'playground.id')
+        .select([
+          'event.id',
+          'playground.longitude as longitude',
+          'playground.latitude as latitude',
+          'playground.country as country',
+        ])
+        .where('playground.country', '=', country)
+        .where('event.status_name', '=', 'open')
+        .where('event.date', '>=', sql`CURRENT_DATE`)
+        // .where('event.visibility', '=', 'public')
+        .execute();
+
+      return result;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new DatabaseError(error);
+      }
+    }
+  }
+  async getNearestEventsInfos(eventIds: number[]) {
+    try {
+      const result = await db
+        .selectFrom('event')
+        .innerJoin('playground', 'event.location_id', 'playground.id')
+        .innerJoin('profile', 'event.organizer_id', 'profile.profile_id')
+        .innerJoin('profile_on_event', 'event.id', 'profile_on_event.event_id')
+        .select([
+          'event.id',
+          'event.date',
+          'event.duration',
+          'event.required_participants',
+          'event.price',
+          'playground.name',
+          'playground.city',
+          'profile.username',
+          'profile.avatar_url',
+        ])
+        .select(({ selectFrom }) => [
+          selectFrom('profile_on_event')
+            .select(({ fn }) => fn.count('event_id').as('confirmed'))
+            .whereRef('event_id', '=', 'event.id')
+            .where('status_name', '=', 'confirmed')
+            .as('confirmed_participants'),
+          selectFrom('profile_on_event')
+            .select(({ fn }) => fn.avg('profile.last_evaluation').as('average'))
+            .innerJoin(
+              'profile',
+              'profile_on_event.profile_id',
+              'profile.profile_id',
+            )
+            .whereRef('event_id', '=', 'event.id')
+            .where('status_name', '=', 'confirmed')
+            .as('average_event_evaluation'),
+        ])
+        .where('event.id', 'in', eventIds)
+        .groupBy('event.id')
+        .execute();
+      return result;
     } catch (error) {
       if (error instanceof Error) {
         throw new DatabaseError(error);

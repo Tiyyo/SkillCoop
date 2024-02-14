@@ -1,6 +1,31 @@
 id,name,address,city,post_code,region,country,longitude,latitude,created_at,updated_at
-1,"Stade Michel Hidalgo","2, boulevard de l'entente",Saint-Gratien,95210,"Val-d'Oise",France,2.274558,48.974583,2024-02-11T21:53:37.543Z,
-2,"UrbanSoccer Puteaux","159 Rue de la République",Puteaux,92800,Hauts-de-Seine,France,2.2312275,48.8836145,2024-02-12T10:05:51.704Z,
-3,"UrbanSoccer - Guyancourt","19 Route De Troux",Guyancourt,78280,Yvelines,France,2.05988,48.77238,2024-02-12T10:07:00.925Z,
-5,"Stade Auguste Delaune","52 Rue du Lieutenant Georges Keiser",Sannois,95110,"Val-d'Oise",France,2.256437,48.97527,2024-02-12T14:36:16.904Z,
-6,"Le Five Paris 13","9 Avenue de la Porte de Choisy",Paris,75013,Paris,France,2.365581,48.81775,2024-02-12T16:31:26.013Z,
+1,"Stade Michel Hidalgo","2, boulevard de l'entente",Saint-Gratien,95210,"Val-d'Oise",France,2.274558,48.974583,2024-02-13T09:04:40.797Z,2024-02-13T09:04:40.702Z
+2,"UrbanSoccer Puteaux","159 Rue de la République",Puteaux,92800,Hauts-de-Seine,France,2.2312275,48.8836145,2024-02-13T09:04:40.798Z,2024-02-13T09:04:40.702Z
+3,"UrbanSoccer - Guyancourt","19 Route De Troux",Guyancourt,78280,Yvelines,France,2.05988,48.77238,2024-02-13T09:04:40.798Z,2024-02-13T09:04:40.702Z
+4,"Stade Auguste Delaune","52 Rue du Lieutenant Georges Keiser",Sannois,95110,"Val-d'Oise",France,2.256437,48.97527,2024-02-13T09:04:40.798Z,2024-02-13T09:04:40.702Z
+5,"Le Five Paris 13","9 Avenue de la Porte de Choisy",Paris,75013,Paris,France,2.365581,48.81775,2024-02-13T09:04:40.798Z,2024-02-13T09:04:40.702Z
+6,"UrbanSoccer - Nice Villeneuve Loubet","La Vanade 2284 route de grasse",Villeneuve-Loubet,06270,Alpes-Maritimes,France,7.09567,43.661219,2024-02-13T18:01:34.296Z,
+7,"UrbanSoccer - Orsay","4 rue Nicolas Appert",Orsay,91400,Essonne,France,2.178365,48.708406,2024-02-13T18:01:56.284Z,
+8,"UrbanSoccer - Gennevilliers","63 rue Henri Vuillemin",Gennevilliers,92230,Hauts-de-Seine,France,2.306788,48.92189,2024-02-13T18:04:32.301Z,
+9,"UrbanSoccer - Nanterre","85 avenue François Arago",Nanterre,92000,Hauts-de-Seine,France,2.221543,48.899617,2024-02-13T18:05:50.707Z,
+10,"UrbanSoccer Meudon","Route de la Mare Adam",Meudon,92360,Hauts-de-Seine,France,2.214233,48.800025,2024-02-13T18:07:01.010Z,
+11,"UrbanSoccer - Aubervilliers","45 rue de la Haie Coq",Aubervilliers,93300,Seine-Saint-Denis,France,2.37347,48.907584,2024-02-13T18:09:26.939Z,
+12,"UrbanSoccer - Nantes-St Sebastien","199 Route de Clisson","Saint-Sébastien-sur-Loire",44230,Loire-Atlantique,France,-1.508035,47.189611,2024-02-13T18:14:29.053Z,
+13,"UrbanSoccer - Le Mans","27 avenue du Panorama","Le Mans",72100,Sarthe,France,0.219079,47.963671,2024-02-13T18:17:16.037Z,
+14,"UrbanSoccer - Angers","331 avenue du General Patton",Angers,49000,Maine-et-Loire,France,-0.602717,47.47297,2024-02-13T18:24:05.566Z,
+15,"UrbanSoccer - Bordeaux-Merignac","21 rue Archimède","Mérignac",33700,Gironde,France,-0.683966,44.825356,2024-02-13T18:28:08.558Z,
+16,"UrbanSoccer - Bordeaux-Pessac","16 avenue Louis de Brogile",Pessac,33600,Gironde,France,-0.643335,44.779362,2024-02-13T18:38:17.984Z,
+17,"UrbanSoccer - Clermont-Aubiere","46 rue des Varennes","Aubière",63170,"Puy-de-Dôme",France,3.136767,45.755405,2024-02-13T18:40:07.346Z,
+18,"UrbanSoccer - Dijon","28 Rue de Cracovie",Saint-Apollinaire,21850,"Côte-d’Or",France,5.072775,47.340286,2024-02-13T18:41:24.672Z,
+19,"UrbanSoccer - Evry","3 avenue du Bois de l'Epine","Évry-Courcouronnes",91080,Essonne,France,2.407075,48.62901,2024-02-13T18:41:45.464Z,
+20,"UrbanSoccer - Grenoble","45 Boulevard des Alpes",Meylan,38240,"Isère",France,5.77293,45.204017,2024-02-13T18:42:51.353Z,
+21,"UrbanSoccer - Lille Bondues","5 chemin des Grands Obeaux",Bondues,59910,Nord,France,3.085881,50.691139,2024-02-13T18:43:30.842Z,
+22,"UrbanSoccer - Lille Lezennes","4 Rue Paul Langevin ZI du Hellu",Lezennes,59260,Nord,France,3.100388,50.615988,2024-02-13T18:44:30.636Z,
+23,"UrbanSoccer - Lyon Parilly","52 Rue Jean Zay",Saint-Priest,69800,"Rhône",France,4.904161,45.711279,2024-02-13T18:46:35.013Z,
+24,"UrbanSoccer - Lyon Barolles","36 Chem. de Sacuny",Brignais,69530,"Rhône",France,4.771846,45.683639,2024-02-13T18:48:57.548Z,
+25,UrbanSoccer,"Dok-Noord 7 / 202",Gent,9000,"East Flanders",Belgium,3.732372,51.0665,2024-02-13T18:49:59.680Z,
+26,"UrbanSoccer - Marnes-La-Vallée","29 Rue de la Maison Rouge",Lognes,77185,Seine-et-Marne,France,2.629701,48.826501,2024-02-13T18:51:01.835Z,
+27,"UrbanSoccer - Nantes - Carquefou","ZAC du Moulin Boisseau, 3 Rue Suzanne Lenglen",Carquefou,44470,Loire-Atlantique,France,-1.476365,47.284409,2024-02-13T18:54:23.240Z,
+28,"UrbanSoccer - Quai d'ivry","14 Rue Jules Vanzuppe",Ivry-sur-Seine,94800,Val-de-Marne,France,2.393402,48.819904,2024-02-13T18:55:57.025Z,
+29,"Foot in Five","187 route de saint-leu","Épinay-sur-Seine",93800,Seine-Saint-Denis,France,2.333118,48.955073,2024-02-13T18:58:21.100Z,
+30,"Le Five Paris 18 ","32 rue Moussorgski",Paris,75018,Paris,France,2.362536,48.896396,2024-02-13T18:59:12.412Z,

@@ -8,7 +8,12 @@ function Container({
   className?: string;
 }) {
   return (
-    <div className={cn('bg-base-light p-5 shadow lg:rounded-lg ', className)}>
+    <div
+      className={cn(
+        'flex flex-col bg-base-light p-5 shadow lg:rounded-lg',
+        className,
+      )}
+    >
       {children}
     </div>
   );

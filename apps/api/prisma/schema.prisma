@@ -75,6 +75,7 @@ model event {
   date                  String
   duration              Int
   required_participants Int
+  price                 Float?               
   nb_teams              Int                 @default(2)
   visibility            String              @default("private")                 
   location_id           Int

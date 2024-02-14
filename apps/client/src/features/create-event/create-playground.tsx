@@ -81,6 +81,20 @@ function AddNewPlayground() {
           <div className="flex w-full flex-col items-center">
             {locationInfos &&
               Object.entries(locationInfos).map(([key, value]) => {
+                if (key === 'name')
+                  return (
+                    <Input
+                      id={key}
+                      // value={value}
+                      defaultValue={value}
+                      placeholder={
+                        (value as string) ?? 'Complete this information'
+                      }
+                      label={capitalize(key)}
+                      formId="create-playground"
+                      high
+                    />
+                  );
                 if (value) return;
                 if (key !== 'latitude' && key !== 'longitude')
                   return (
@@ -107,7 +121,7 @@ function AddNewPlayground() {
         </DialogContent>
       </Dialog>
       <InputGeocode<Playground>
-        nbOfSuggestions={2}
+        nbOfSuggestions={4}
         name="playground"
         label={t('searchPlayground')}
         placeholder={t('typeNamePlayground')}

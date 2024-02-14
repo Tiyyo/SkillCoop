@@ -18,6 +18,7 @@ import { generateTeams } from '../../controllers/event/generate-teams.js';
 import { updateOne } from '../../controllers/event/update-one.js';
 import { updateOrganizer } from '../../controllers/event/update-organizer.js';
 import { deleteOne } from '../../controllers/event/delete-one.js';
+import { getEventsByProximity } from '../../controllers/event/get-by-proximity.js';
 import { validateSchema } from '../../middlewares/schema-validator.js';
 import { canals } from '../../@types/types.js';
 import { sanitizeParams } from '../../middlewares/sanitizer.params.js';
@@ -52,5 +53,7 @@ router
 
 router.route('/teams').post(factory(generateTeams));
 router.route('/:id/:profileId').delete(sanitizeParams, factory(deleteOne));
+
+router.route('/near').get(factory(getEventsByProximity));
 
 export default router;

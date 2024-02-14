@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { friendslist as Friendlist } from '../../models/index.js';
+import { profileOnProfile as ProfileOnProfile } from '../../models/index.js';
 import deleteDecodedKey from '../../utils/delete-decoded.js';
 import ServerError from '../../helpers/errors/server.error.js';
 //eslint-disable-next-line
@@ -10,11 +10,11 @@ export async function acceptOrDeclined(req: Request, res: Response) {
   const { adder_id, friend_id, status_name, username } = req.body;
   //friend_id is the id of the user who receive invitation
   //and send the update request
-  const isExist = await Friendlist.find(adder_id, friend_id, 'pending');
+  const isExist = await ProfileOnProfile.find(adder_id, friend_id, 'pending');
 
   if (!isExist) throw new ServerError('friend request not found');
 
-  const result = await Friendlist.updateStatus({
+  const result = await ProfileOnProfile.updateStatus({
     adder_id,
     friend_id,
     status_name,

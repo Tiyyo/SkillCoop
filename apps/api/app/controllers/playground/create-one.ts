@@ -24,7 +24,7 @@ export async function createOne(req: Request, res: Response) {
     latitude,
   });
   if (!isCreated) {
-    return res.status(400).json({ message: 'playground not created' });
+    return res.status(400).json({ error: 'playground not created' });
   }
-  return res.status(400).json({ error: 'Failed' });
+  return res.status(200).json({ message: 'Playground created successfully' });
 }

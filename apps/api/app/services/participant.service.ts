@@ -3,7 +3,7 @@ import {
   invitationStatus,
   type EventWithoutAggr,
 } from '@skillcoop/types';
-import { ProfileOnEvent } from '../models/profile_on_event.js';
+import { ProfileOnEvent } from '../models/profile-on-event.js';
 import { EventStatusEvaluator } from './event-state.service.js';
 import { generateBalancedTeam } from './generate-teams/index.js';
 import { event } from '../models/index.js';

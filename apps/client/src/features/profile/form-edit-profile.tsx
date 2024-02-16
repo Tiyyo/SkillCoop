@@ -88,7 +88,7 @@ function FormEditProfileInfos({
       <input hidden value={infos.profileId} {...register('profile_id')} />
       <div
         className="flex flex-col pl-4 sm:grid sm:grid-cols-2 
-        xl:flex xl:flex-row"
+        lg:flex lg:flex-row"
       >
         <Field
           label={t('username')}

@@ -30,7 +30,6 @@ export default function useConnectChatServer(conversationId: number) {
     }
 
     if (conversation) {
-      console.log('historic', conversation?.conversation_id);
       socket.emit('join_conversation', {
         conversation_id: conversation.conversation_id,
       });

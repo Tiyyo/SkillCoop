@@ -88,3 +88,10 @@ export type EventQuery = {
   profileId: number;
   page: number;
 }
+
+export type NearestEventQuery = {
+  userCountry: string;
+  userLatitude: number;
+  userLongitude: number;
+  distance: number;
+}

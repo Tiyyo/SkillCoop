@@ -90,7 +90,6 @@ function EventPageInfos({
               location_id: event.location_id ?? undefined,
               required_participants: Number(event.required_participants),
             };
-            console.log(data, 'event data to update');
 
             if (
               confirmedParticipants &&
@@ -114,7 +113,6 @@ function EventPageInfos({
               return;
             }
             data.date = getUTCString(new Date(data.date));
-            console.log('Is all checked are ok');
             updateEvent(data);
           }}
           className="relative -top-0.5 my-auto cursor-pointer"

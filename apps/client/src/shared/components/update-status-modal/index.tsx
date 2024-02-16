@@ -73,7 +73,6 @@ function UpdateStatusModal({
     updateUserStatusInDb(data);
     setNextStatus(e.currentTarget.value as InvitationStatus);
   };
-  console.log('isOrganizer', isOrganizer);
   return (
     <AlertDialog>
       <AlertDialogTrigger className={menuItemStyle + ' h-10 w-full'}>

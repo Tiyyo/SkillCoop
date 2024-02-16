@@ -67,7 +67,6 @@ function Avatars({
   borderNone,
 }: AvatarsProps) {
   const idComp = useId();
-  console.log('nbAvatarToDisplay', nbAvatarToDisplay > 1);
   return (
     <div className={`h-fit ${startSide === 'right' ? 'flex-row-reverse' : ''}`}>
       <div className={cn('flex', nbAvatarToDisplay > 2 && '-space-x-3')}>

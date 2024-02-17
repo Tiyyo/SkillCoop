@@ -1,6 +1,5 @@
 import { Outlet } from 'react-router-dom';
 import DropdownEventMenu from '../dropdown-menu/index';
-
 import CallToActionInvitation from './call-to-action-invitation';
 import EventPageInfos from './infos';
 import TeamComposition from '../team-composition';
@@ -11,7 +10,7 @@ import ChatEventPage from './chat';
 import useEventPageManager from '../hooks/useEventPageManager';
 
 function EventPage() {
-  const { bodyRef, eventStoreDate, eventStore, eventId, event, profileId } =
+  const { bodyRef, eventStore, eventId, event, profileId } =
     useEventPageManager();
 
   return (
@@ -41,7 +40,7 @@ function EventPage() {
               <EventPageInfos
                 eventDuration={eventStore.duration}
                 eventlocation={eventStore.location}
-                eventDate={eventStoreDate ?? event.date}
+                eventDate={eventStore.date}
                 requiredParticipants={eventStore.required_participants}
                 profileId={profileId ?? 0}
                 eventStatus={eventStore.status_name}
@@ -51,7 +50,7 @@ function EventPage() {
               <EventPageScore
                 eventId={Number(eventId)}
                 isAdmin={eventStore.organizer_id === profileId}
-                eventDate={eventStoreDate ?? event.date}
+                eventDate={eventStore.date}
                 scoreTeam1={event.score_team_1}
                 scoreTeam2={event.score_team_2}
                 eventStatus={eventStore.status_name}

@@ -23,11 +23,7 @@ import { useUpdateSingleEvent } from '../../../shared/hooks/useSingleEvent';
 import toast from '../../../shared/utils/toast';
 import { updateEventSchema } from '@skillcoop/schema/src';
 import type { EventStatus } from '@skillcoop/types/src';
-import {
-  isPastDate,
-  getUTCString,
-  getLocalStringCustom,
-} from '@skillcoop/date-handler/src';
+import { isPastDate, getLocalStringCustom } from '@skillcoop/date-handler/src';
 import { useTranslation } from 'react-i18next';
 import InputLocation from '../../create-event/input-location';
 import Input from '../../../shared/components/input';
@@ -35,7 +31,7 @@ import Input from '../../../shared/components/input';
 type EventPageInfosProps = {
   eventDuration: number | null;
   eventlocation: string | null;
-  eventDate: string;
+  eventDate: string | null;
   requiredParticipants: number | null;
   isAdmin: boolean;
   profileId: number;
@@ -90,16 +86,23 @@ function EventPageInfos({
         <div
           onClick={() => {
             setIsEditActive(!isEditActive);
-            if (!event.organizer_id || event.organizer_id !== profileId) return;
+            if (
+              !event.organizer_id ||
+              event.organizer_id !== profileId ||
+              !event.date
+            )
+              return;
             const data = {
               profile_id: profileId,
               event_id: Number(eventId),
               organizer_id: event.organizer_id,
               status_name: event.status_name ?? undefined,
-              date: `${event.start_date} ${event.start_time}`,
+              date: event.date,
               duration: Number(event.duration),
               location_id: event.location_id ?? undefined,
               required_participants: Number(event.required_participants),
+              price: Number(event.price) ?? null,
+              visibility: event.visibility ?? 'private',
             };
 
             if (
@@ -123,7 +126,6 @@ function EventPageInfos({
               toast.error(t('system:somethingWentWrong'));
               return;
             }
-            data.date = getUTCString(new Date(data.date));
             updateEvent(data);
           }}
           className="relative -top-0.5 my-auto cursor-pointer"
@@ -164,7 +166,9 @@ function EventPageInfos({
       >
         <InputDate
           updateState={updateStartDate}
-          defaultValue={getLocalStringCustom(new Date(eventDate)).split(' ')[0]}
+          defaultValue={
+            getLocalStringCustom(new Date(eventDate!)).split(' ')[0]
+          }
           updateData={updateEventData}
           mutateKey="date"
           label={t('date')}
@@ -178,7 +182,7 @@ function EventPageInfos({
           readOnly
           updateState={updateStartTime}
           defaultValues={
-            getLocalStringCustom(new Date(eventDate)).split(' ')[1]
+            getLocalStringCustom(new Date(eventDate!)).split(' ')[1]
           }
           disabled={!isEditActive}
           high
@@ -236,7 +240,7 @@ function EventPageInfos({
           label="Playground Price"
           type="number"
           disabled={!isEditActive}
-          defaultValue={event.price ?? 'NC'}
+          value={event.price ?? 'NC'}
           updateState={updatePrice}
           high
         >

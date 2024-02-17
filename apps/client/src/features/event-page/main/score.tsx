@@ -19,7 +19,7 @@ type EventPageScoreProps = {
   isAdmin: boolean;
   scoreTeam1: number | null;
   scoreTeam2: number | null;
-  eventDate: string;
+  eventDate: string | null;
   eventStatus: EventStatus | null;
 };
 

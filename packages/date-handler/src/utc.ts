@@ -10,6 +10,7 @@ export function getStringDate(date: Date) {
 }
 
 export function getLocalStringCustom(date: Date) {
+  // console.log('date received from db', date)
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
   const day = date.getDate();
@@ -17,6 +18,7 @@ export function getLocalStringCustom(date: Date) {
   const minute = date.getMinutes();
   const second = date.getSeconds();
   const millisecond = date.getMilliseconds();
+
   return `${year}-${month}-${day} ${hour}:${minute}:${second}.${millisecond}`;
 }
 

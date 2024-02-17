@@ -5,10 +5,12 @@ import type {
   InvitationStatus,
   Visibility,
 } from '@skillcoop/types/src';
+import { getUTCString } from '@skillcoop/date-handler/src';
 
 export type EventStateStore = {
   start_date: string | null;
   start_time: string | null;
+  date: string | null; // date should remain in UTC in the store
   location: string | null;
   location_id: number | null;
   duration: number | null;
@@ -26,6 +28,7 @@ export type EventStateStore = {
 type eventStore = {
   event: EventStateStore;
   initEventState: (args: EventStateStore) => void;
+  updateDate: (args: string) => void;
   updateStartDate: (args: string) => void;
   updateStartTime: (args: string) => void;
   updateLocation: (args: string) => void;
@@ -47,6 +50,7 @@ export const useEventStore = create<eventStore>()((set) => ({
   event: {
     start_date: null,
     start_time: null,
+    date: null,
     location: null,
     location_id: null,
     duration: null,
@@ -64,6 +68,11 @@ export const useEventStore = create<eventStore>()((set) => ({
     set((state) => ({
       ...state,
       event: event,
+    })),
+  updateDate: (date: string) =>
+    set((state) => ({
+      ...state,
+      event: { ...state.event, date: date },
     })),
   updateStartDate: (startDate: string) =>
     set((state) => ({
@@ -169,8 +178,9 @@ export const useEventStore = create<eventStore>()((set) => ({
 export const useEvent = () => {
   const {
     initEventState,
-    updateStartDate,
-    updateStartTime,
+    updateDate,
+    updateStartDate: updateStartDateWithoutConversation,
+    updateStartTime: updateStartTimeWithoutConversation,
     updateDuration,
     updateLocation,
     updateLocationId,
@@ -190,6 +200,24 @@ export const useEvent = () => {
   function updateLocationNameAndId(locationId: number, location: string) {
     updateLocation(location);
     updateLocationId(locationId);
+  }
+
+  function updateStartTime(startTime: string) {
+    // compute the new local date from the start date and the start time
+    // convert the local date to UTC
+    const newLocalDate = new Date(`${data.start_date} ${startTime}`);
+    const convertedUTCDate = getUTCString(newLocalDate);
+    updateStartTimeWithoutConversation(startTime);
+    updateDate(convertedUTCDate);
+  }
+
+  function updateStartDate(startDate: string) {
+    // compute the new local date from the start date and the start time
+    // convert the local date to UTC
+    const newLocalDate = new Date(`${startDate} ${data.start_time}`);
+    const convertedUTCDate = getUTCString(newLocalDate);
+    updateStartDateWithoutConversation(startDate);
+    updateDate(convertedUTCDate);
   }
 
   return {

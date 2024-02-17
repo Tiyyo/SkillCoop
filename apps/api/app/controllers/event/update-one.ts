@@ -10,6 +10,16 @@ import { invitationStatus } from '@skillcoop/types';
 import deleteDecodedKey from '../../utils/delete-decoded.js';
 import ForbidenError from '../../helpers/errors/forbiden.js';
 
+const possibleFieldsUpdated = [
+  'date',
+  'duration',
+  'location',
+  'required_participants',
+  'status_name',
+  'visibility',
+  'price',
+];
+
 export async function updateOne(req: Request, res: Response) {
   // update one event
   // only the organize can update the event
@@ -20,14 +30,6 @@ export async function updateOne(req: Request, res: Response) {
     event_id,
     status_name: invitationStatus.confirmed,
   });
-
-  const possibleFieldsUpdated = [
-    'date',
-    'duration',
-    'location',
-    'required_participants',
-    'status_name',
-  ];
 
   if (!event || event.organizer_id !== profile_id)
     throw new ForbidenError(
@@ -45,6 +47,7 @@ export async function updateOne(req: Request, res: Response) {
     return res.status(201).json({
       message: 'Nothing to update',
     });
+
   if (data.required_participants > event.required_participants) {
     data.status_name = 'open';
   }

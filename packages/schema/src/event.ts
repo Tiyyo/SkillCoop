@@ -35,3 +35,11 @@ export const updateOrganizerSchema = z.object({
   organizer_id: z.number().int().positive(),
   new_organizer_id: z.number().int().positive(),
 });
+
+export const getEventNearbySchema = z.object({
+  userCountry: z.string(),
+  userLongitude: z.string(),
+  userLatitude: z.string(),
+  distance: z.number().positive(),
+  profileId: z.number().positive().int(),
+});

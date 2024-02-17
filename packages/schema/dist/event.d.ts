@@ -71,3 +71,22 @@ export declare const updateOrganizerSchema: z.ZodObject<{
     event_id: number;
     new_organizer_id: number;
 }>;
+export declare const getEventNearbySchema: z.ZodObject<{
+    userCountry: z.ZodString;
+    userLongitude: z.ZodString;
+    userLatitude: z.ZodString;
+    distance: z.ZodNumber;
+    profileId: z.ZodNumber;
+}, "strip", z.ZodTypeAny, {
+    userCountry: string;
+    userLongitude: string;
+    userLatitude: string;
+    distance: number;
+    profileId: number;
+}, {
+    userCountry: string;
+    userLongitude: string;
+    userLatitude: string;
+    distance: number;
+    profileId: number;
+}>;

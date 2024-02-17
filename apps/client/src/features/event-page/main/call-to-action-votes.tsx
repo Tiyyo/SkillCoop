@@ -17,7 +17,7 @@ function EventPageVotesBanner({
 }: EventPageVotesBannerProps) {
   const { t } = useTranslation('event');
   return (
-    <Container className="flex w-full items-center gap-2 p-3.5">
+    <Container className="flex w-full flex-row items-center gap-2 p-3.5">
       <Info size={24} className="flex-grow-0 basis-7 text-primary-100" />
       <p className=" flex-grow text-xs font-normal lg:text-sm">
         {t('electionsFor')}

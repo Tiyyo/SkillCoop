@@ -33,6 +33,8 @@ export default function useEventPageManager() {
       participants: event.participants,
       status_name: event.status_name,
       user_status: event.user_status,
+      visibility: event.visibility,
+      price: event.price,
       confirmed_participants: event.participants.filter(
         (p) => p.status === 'confirmed',
       ).length,

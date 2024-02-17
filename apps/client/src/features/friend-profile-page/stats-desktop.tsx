@@ -1,5 +1,5 @@
 /*eslint-disable */
-import associateNumberToString from '../../shared/utils/associate-number-stringscale';
+import associateNumberToString from '../../shared/utils/associate-number-string-scale';
 /*eslint-enable */
 import { sumValues } from '../../shared/utils/sum-values';
 import StatBadge from './stat-badge';

@@ -1,5 +1,5 @@
 import Container from '../../../shared/layouts/container';
-import associateNumberToString from '../../utils/associate-number-stringscale';
+import associateNumberToString from '../../utils/associate-number-string-scale';
 import capitalize from '../../utils/capitalize';
 import { sumValues } from '../../utils/sum-values';
 import { useTranslation } from 'react-i18next';

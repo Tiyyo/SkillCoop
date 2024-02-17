@@ -20,6 +20,8 @@ export default function useCreateEvent() {
     updateStartDate,
     updateStartTime,
     updateRequiredParticipants,
+    updatePrice,
+    updateVisibility,
   } = useMutateEvent();
   const profileId = userProfile?.profile_id;
 
@@ -36,6 +38,8 @@ export default function useCreateEvent() {
       participants: eventCreatedState.participants ?? undefined,
       duration: Number(eventCreatedState.duration) ?? undefined,
       location_id: eventCreatedState.location_id ?? undefined,
+      visibility: eventCreatedState.visibility,
+      price: Number(eventCreatedState.price) ?? null,
       required_participants:
         Number(eventCreatedState.required_participants) ?? undefined,
     };
@@ -75,6 +79,8 @@ export default function useCreateEvent() {
     updateStartDate,
     updateStartTime,
     updateRequiredParticipants,
+    updatePrice,
+    updateVisibility,
     validationErrors,
   };
 }

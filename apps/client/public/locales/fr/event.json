@@ -76,5 +76,7 @@
   "needMoreInfosPlayground": "Nous n'avons pas pu trouver ces informations sur ce terrain de sport. Merci de nous aider en les complétant.",
   "typeNamePlayground": "Tapez le nom du terrain de sport que vous recherchez",
   "searchPlayground": "Recherchez un terrain de sport",
-  "add": "Ajouter"
+  "add": "Ajouter",
+  "invited": "Invité",
+  "applicant": "Candidat"
 }

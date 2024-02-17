@@ -8,6 +8,7 @@ import { validateSchema } from '../../middlewares/schema-validator.js';
 import { canals } from '../../@types/types.js';
 /* eslint-disable */
 import { sendInvitationToEvent } from '../../controllers/profile-on-event/send-invitations.js';
+import { useSendRequestToJoinEvent } from '../../controllers/profile-on-event/send-request.js';
 import { updateStatus } from '../../controllers/profile-on-event/update-status.js';
 /* eslint-enable */
 
@@ -23,5 +24,7 @@ router
     validateSchema(updateParticipantSchema, canals.body),
     factory(updateStatus),
   );
+
+router.route('/request').post(factory(useSendRequestToJoinEvent));
 
 export default router;

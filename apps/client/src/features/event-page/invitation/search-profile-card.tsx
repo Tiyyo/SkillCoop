@@ -1,5 +1,5 @@
 /*eslint-disable*/
-import associateNumberToString from '../../../shared/utils/associate-number-stringscale';
+import associateNumberToString from '../../../shared/utils/associate-number-string-scale';
 import { invitationStatus } from '@skillcoop/types/src';
 import { useEvent } from '../store/event.store';
 import AvatarSmallWithBorder from '../../../shared/components/avatar/avatar-border-small';

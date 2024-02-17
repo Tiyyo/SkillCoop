@@ -45,6 +45,7 @@ export default {
         home: "url('/images/stadium.png')",
         title: 'var(--title)',
         subtitle: 'var(--subtitle)',
+        blurry: "url('/images/bbblurry.svg')",
       },
       borderWidth: {
         3: '3px',
@@ -107,6 +108,7 @@ export default {
       },
       gridTemplateColumns: {
         'particpant-layout': 'repeat(auto-fit, minmax(150px, 2fr))',
+        'event-cards': 'repeat(auto-fit, minmax(250px, 3fr))',
       },
       height: {
         10.5: '42px',

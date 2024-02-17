@@ -16,6 +16,7 @@ export async function createOne(req: Request, res: Response) {
   // add organizer to the participant list
   deleteDecodedKey(req.body);
   const { participants: ids, ...data } = req.body;
+  console.log('data', data);
 
   const event = await Event.create({
     organizer_id: data.organizer_id,
@@ -24,6 +25,8 @@ export async function createOne(req: Request, res: Response) {
     duration: data.duration,
     location_id: data.location_id,
     required_participants: data.required_participants,
+    visibility: data.visibility,
+    price: data.price,
   });
   if (!event) throw new ServerError('Failed to create event');
 

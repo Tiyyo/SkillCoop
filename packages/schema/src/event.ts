@@ -21,7 +21,7 @@ export const updateEventSchema = z.object({
   event_id: z.number().positive().int(),
   date: z.string().optional(),
   duration: z.number().optional(),
-  location_id: z.number().int().positive(),
+  location_id: z.number().int().positive().optional(),
   required_participants: z.number().refine((data) => acceptableEventFormat.includes(data), {
     message: "wrongFormatEvent"
   }).optional(),

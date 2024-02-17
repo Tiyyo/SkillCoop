@@ -5,6 +5,7 @@ import {
   getEventFn,
   saveScoreFn,
   sendEventInvitationFn,
+  sendRequestToJoinEventFn,
   transfertOwnershipEventFn,
   updateEventFn,
   updateParticipantFn,
@@ -14,6 +15,7 @@ import {
 import type {
   DeleteEventData,
   EventInvitation,
+  EventParticipationRequest,
   SaveScore,
   TransfertOwnership,
   UpdateEventData,
@@ -199,6 +201,38 @@ export function useSendEventInvitation(options: {
     onSuccess: () => {
       if (!options.eventId) return;
       queryClient.invalidateQueries(keys.getEventId(options.eventId));
+      if (options.onSuccess) options.onSuccess();
+    },
+    onError: () => {
+      if (options.onError) options.onError();
+    },
+  });
+}
+
+export function useSendRequestToJoinEvent(options: {
+  eventId?: number;
+  country?: string | null | undefined;
+  distance?: number;
+  latitude?: number | null;
+  longitude?: number | null;
+  onSuccess?: () => void;
+  onError?: () => void;
+}) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (data: EventParticipationRequest) => {
+      return sendRequestToJoinEventFn(data);
+    },
+    onSuccess: () => {
+      if (!options.eventId) return;
+      queryClient.invalidateQueries(keys.getEventId(options.eventId));
+      queryClient.invalidateQueries([
+        'nearest-events',
+        options.country,
+        options.distance,
+        options.latitude,
+        options.longitude,
+      ]);
       if (options.onSuccess) options.onSuccess();
     },
     onError: () => {

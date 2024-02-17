@@ -15,13 +15,13 @@ export declare const inviteParticipantSchema: z.ZodObject<{
 export declare const updateParticipantSchema: z.ZodObject<{
     event_id: z.ZodNumber;
     profile_id: z.ZodNumber;
-    status_name: z.ZodEnum<["confirmed", "declined", "pending"]>;
+    status_name: z.ZodEnum<["confirmed", "declined", "pending", "refused", "requested"]>;
 }, "strip", z.ZodTypeAny, {
-    status_name: "pending" | "confirmed" | "declined";
+    status_name: "pending" | "confirmed" | "declined" | "refused" | "requested";
     event_id: number;
     profile_id: number;
 }, {
-    status_name: "pending" | "confirmed" | "declined";
+    status_name: "pending" | "confirmed" | "declined" | "refused" | "requested";
     event_id: number;
     profile_id: number;
 }>;

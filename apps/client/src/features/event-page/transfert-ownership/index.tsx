@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTransfertOwnership } from '../../../shared/hooks/useSingleEvent';
 import { useEvent } from '../store/event.store';
 /*eslint-disable-next-line*/
-import associateNumberToString from '../../../shared/utils/associate-number-stringscale';
+import associateNumberToString from '../../../shared/utils/associate-number-string-scale';
 import { cn } from '../../../lib/utils';
 import Container from '../../../shared/layouts/container';
 import TitleH2 from '../../../shared/components/title-h2';

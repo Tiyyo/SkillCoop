@@ -57,7 +57,7 @@ export class ParticipantStatusManager {
     if (this.event.status_name === 'full') {
       await event.updateOne({ id: this.event.id }, { status_name: 'open' });
     }
-    await this.participant.updateStatus({
+    await this.participant.upsert({
       event_id: this.event.id,
       status_name: 'pending',
       profile_id: this.profileId,
@@ -67,11 +67,16 @@ export class ParticipantStatusManager {
   }
   async shouldConfirmed() {
     if (this.eventState === 'open') {
-      await this.participant.updateStatus({
+      await this.participant.updateStatusWithExistenceCheck({
         profile_id: this.profileId,
         event_id: this.event.id,
         status_name: this.updateStatus,
         updated_at: undefined,
+      });
+      await participantQueuePublisher({
+        event_id: this.event.id,
+        participants_id: [this.profileId],
+        action: 'add_participant',
       });
       return 'Status has been updated';
     }
@@ -95,7 +100,7 @@ export class ParticipantStatusManager {
     if (this.event.status_name === 'full') {
       await event.updateOne({ id: this.event.id }, { status_name: 'open' });
     }
-    await this.participant.updateStatus({
+    await this.participant.updateStatusWithExistenceCheck({
       event_id: this.event.id,
       status_name: 'pending',
       profile_id: this.profileId,

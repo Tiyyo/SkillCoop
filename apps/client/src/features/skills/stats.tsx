@@ -5,7 +5,7 @@ import reward from '../../assets/svg/reward.svg';
 import cup from '../../assets/cup.png';
 import { sumValues } from '../../shared/utils/sum-values';
 /*eslint-disable */
-import associateNumberToString from '../../shared/utils/associate-number-stringscale';
+import associateNumberToString from '../../shared/utils/associate-number-string-scale';
 /*eslint-enable */
 import StatWrapper from './layout/stat-wrapper';
 import { useTranslation } from 'react-i18next';

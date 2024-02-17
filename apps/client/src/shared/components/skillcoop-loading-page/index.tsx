@@ -1,3 +1,4 @@
+import Spinner from '../spinner';
 import './loading-skillcoop.css';
 
 function SkillcoopLoadingPage() {
@@ -12,18 +13,7 @@ function SkillcoopLoadingPage() {
       >
         Skill<span className="text-primary-100">coop</span>
       </p>
-      <div className="skillcoop-spinner">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
+      <Spinner />
     </div>
   );
 }

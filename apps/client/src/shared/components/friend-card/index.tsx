@@ -3,7 +3,7 @@ import Check from '../../../assets/icon/Check';
 import { invitationStatus } from '@skillcoop/types/src';
 import { Link } from 'react-router-dom';
 /* eslint-disable */
-import associateNumberToString from '../../../shared/utils/associate-number-stringscale';
+import associateNumberToString from '../../utils/associate-number-string-scale';
 import { useActionsPendingFriendCard } from '../../../features/friends/hooks/useActionsPendingFriendCard';
 import { useSelectionOfFriends } from '../../../shared/hooks/useSelectionOfFriends';
 import { CreateEventStateStore } from '../../../features/create-event/store/create-event.store';

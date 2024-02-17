@@ -47,9 +47,15 @@ function EventCard({
 
   return (
     <div
+      className="bg-blurry relative h-fit w-full
+                border border-border bg-base-light bg-opacity-20 
+                bg-contain bg-[right_13rem_top_6rem] 
+                px-6 pb-6 pt-2"
+    >
+      {/* <div
       className="flex h-fit w-full flex-col border-t border-primary-200 
       bg-base-light px-6 pb-6 pt-2 shadow lg:my-2 lg:rounded-3xl lg:border-none"
-    >
+    > */}
       <div className="flex justify-end py-2">
         <Badge content={displayCorrectStatus(userStatus, eventStatus)} />{' '}
       </div>

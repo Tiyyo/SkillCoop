@@ -59,6 +59,8 @@ async function seed() {
     { name: 'full' },
     { name: 'completed' },
     { name: 'cancelled' },
+    { name: 'requested' },
+    { name: 'refused' },
   ];
   const notificationTypes = [
     { name: 'event' },

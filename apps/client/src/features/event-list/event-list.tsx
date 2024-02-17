@@ -6,6 +6,7 @@ import { useCallback } from 'react';
 import ShowcaseEventCard from './showcase-card';
 import { useTranslation } from 'react-i18next';
 import NotFoundMessage from '../../shared/components/not-found-message';
+import Container from '../../shared/layouts/container';
 
 type EventListProps = {
   title: string;
@@ -89,7 +90,11 @@ function EventList({
           linkOff={isEventsEmpty ? true : linkOff}
         />
       )}
-      {isEventsEmpty && <NotFoundMessage message={t('noEventsFound')} />}
+      {isEventsEmpty && (
+        <Container className="w-full flex-grow lg:mt-4">
+          <NotFoundMessage message={t('noEventsFound')} />
+        </Container>
+      )}
       <InfiniteScroll
         loading={loading ?? false}
         triggerNextPage={triggerNextPage}

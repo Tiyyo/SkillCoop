@@ -55,6 +55,8 @@ SELECT
   event.nb_teams,
   event.organizer_id,
   event.status_name,
+  event.price,
+  event.visibility,
   event.mvp_id,
   event.best_striker_id,
   score.score_team_1,
@@ -142,7 +144,9 @@ LEFT JOIN score ON event.id = score.event_id
 JOIN playground ON event.location_id = playground.id
 JOIN profile_on_event AS participant ON event.id = participant.event_id
 JOIN profile ON participant.profile_id = profile.profile_id
-WHERE user_status <> 'declined'
+WHERE user_status <> 'declined' 
+AND user_status <> 'requested'
+AND user_status <> 'refused'
 AND EXISTS(
   SELECT 1
   FROM profile_on_event 
@@ -274,7 +278,9 @@ LEFT JOIN score ON event.id = score.event_id
 JOIN playground ON event.location_id = playground.id
 JOIN profile_on_event AS participant ON event.id = participant.event_id
 JOIN profile ON participant.profile_id = profile.profile_id
-WHERE user_status <> 'declined'
+WHERE user_status <> 'declined' 
+AND user_status <> 'requested'
+AND user_status <> 'refused'
 AND EXISTS(
   SELECT 1
   FROM profile_on_event 
@@ -354,7 +360,9 @@ LEFT JOIN score ON event.id = score.event_id
 JOIN playground ON event.location_id = playground.id
 JOIN profile_on_event AS participant ON event.id = participant.event_id
 JOIN profile ON participant.profile_id = profile.profile_id
-WHERE user_status <> 'declined'
+WHERE user_status <> 'declined' 
+AND user_status <> 'requested'
+AND user_status <> 'refused'
 AND EXISTS(
   SELECT 1
   FROM profile_on_event 
@@ -565,7 +573,7 @@ LIMIT 5
         .where('playground.country', '=', country)
         .where('event.status_name', '=', 'open')
         .where('event.date', '>=', sql`CURRENT_DATE`)
-        // .where('event.visibility', '=', 'public')
+        .where('event.visibility', '=', 'public')
         .execute();
 
       return result;
@@ -575,7 +583,7 @@ LIMIT 5
       }
     }
   }
-  async getNearestEventsInfos(eventIds: number[]) {
+  async getNearestEventsInfos(eventIds: number[], profileId: number) {
     try {
       const result = await db
         .selectFrom('event')
@@ -588,10 +596,10 @@ LIMIT 5
           'event.duration',
           'event.required_participants',
           'event.price',
-          'playground.name',
-          'playground.city',
-          'profile.username',
-          'profile.avatar_url',
+          'playground.name as playground_name',
+          'playground.city as playground_city',
+          'profile.username as organizer_username',
+          'profile.avatar_url as organizer_avatar',
         ])
         .select(({ selectFrom }) => [
           selectFrom('profile_on_event')
@@ -611,6 +619,24 @@ LIMIT 5
             .as('average_event_evaluation'),
         ])
         .where('event.id', 'in', eventIds)
+        .where((qb) =>
+          qb.not(
+            qb.exists(
+              qb
+                .selectFrom('profile_on_event')
+                .select(['event_id', 'profile_id'])
+                .whereRef('event_id', '=', 'event.id')
+                .where((eb) =>
+                  eb.or([
+                    eb('status_name', '=', 'confirmed'),
+                    eb('status_name', '=', 'pending'),
+                    eb('status_name', '=', 'requested'),
+                  ]),
+                )
+                .where('profile_id', '=', profileId),
+            ),
+          ),
+        )
         .groupBy('event.id')
         .execute();
       return result;

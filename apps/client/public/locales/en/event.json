@@ -76,5 +76,7 @@
   "needMoreInfosPlayground": "We could not find that information about this playground. Please help us by completing it.",
   "typeNamePlayground": "Type the name of playground you are looking for",
   "searchPlayground": "Search for a playground",
-  "add": "Add"
+  "add": "Add",
+  "invited": "Invited",
+  "applicant": "Applicant"
 }

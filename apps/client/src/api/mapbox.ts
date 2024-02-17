@@ -12,3 +12,19 @@ export const getGeoCodingFn = async (query: string) => {
   );
   return response.data;
 };
+
+export const getReverseGeoCodingCountryFn = async (
+  longitude: number,
+  latitude: number,
+) => {
+  const response = await api.get(
+    /*eslint-disable-next-line */
+    `geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${API_KEY}`,
+  );
+  if (response.data.features) {
+    const place = response.data.features.find((ctx: any) =>
+      ctx.id.includes('country'),
+    );
+    return place.place_name as string;
+  }
+};

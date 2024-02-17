@@ -13,6 +13,7 @@ import useEventPageManager from '../hooks/useEventPageManager';
 function EventPage() {
   const { bodyRef, eventStoreDate, eventStore, eventId, event, profileId } =
     useEventPageManager();
+
   return (
     <div
       ref={bodyRef}
@@ -66,6 +67,7 @@ function EventPage() {
             profileId={profileId}
             eventStatus={eventStore.status_name}
             isAdmin={eventStore.organizer_id === profileId}
+            visibility={eventStore.visibility}
             eventId={Number(eventId)}
           />
         </div>

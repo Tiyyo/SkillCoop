@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { create } from 'zustand';
 import { createEventFn } from '../../../api/api.fn';
-import type { CreateEventData } from '@skillcoop/types/src';
+import type { CreateEventData, Visibility } from '@skillcoop/types/src';
 import toast from '../../../shared/utils/toast';
 import { queryClient } from '../../../main';
 import { useTranslation } from 'react-i18next';
@@ -13,6 +13,8 @@ export type CreateEventStateStore = {
   duration: number | null;
   required_participants: number | null;
   organizer_id: number | null;
+  visibility: Visibility;
+  price: number | null;
   status_name: string | null;
   participants?: number[] | null;
 };
@@ -26,6 +28,8 @@ type CreateEventStore = {
   updateRequiredParticipants: (args: number) => void;
   updateOrganizerId: (args: number) => void;
   updateStatusName: (args: string) => void;
+  updateVisibility: (args: Visibility) => void;
+  updatePrice: (args: number) => void;
   addInvitedParticipantsIds: (args: number) => void;
   removeInvitedParticipantsIds: (args: number) => void;
   clearEventState: () => void;
@@ -40,6 +44,8 @@ export const useCreateEventStore = create<CreateEventStore>()((set) => ({
     required_participants: null,
     organizer_id: null,
     status_name: 'open',
+    visibility: 'private',
+    price: null,
     participants: null,
   },
   updateStartDate: (startDate: string) =>
@@ -77,6 +83,16 @@ export const useCreateEventStore = create<CreateEventStore>()((set) => ({
       ...state,
       event: { ...state.event, status_name: statusName },
     })),
+  updateVisibility: (visibility: Visibility) =>
+    set((state) => ({
+      ...state,
+      event: { ...state.event, visibility: visibility },
+    })),
+  updatePrice: (price: number) =>
+    set((state) => ({
+      ...state,
+      event: { ...state.event, price: price },
+    })),
   addInvitedParticipantsIds: (invitedParticipantsIds: number) =>
     set((state) => ({
       ...state,
@@ -109,6 +125,8 @@ export const useCreateEventStore = create<CreateEventStore>()((set) => ({
         organizer_id: null,
         status_name: 'open',
         invited_participants_ids: null,
+        price: null,
+        visibility: 'private',
       },
     })),
 }));
@@ -124,6 +142,8 @@ export const useMutateEvent = () => {
     removeInvitedParticipantsIds,
     updateOrganizerId,
     clearEventState,
+    updatePrice,
+    updateVisibility,
     event: data,
   } = useCreateEventStore((state) => state);
   const { t } = useTranslation('toast');
@@ -168,6 +188,8 @@ export const useMutateEvent = () => {
     removeInvitedParticipantsIds,
     updateOrganizerId,
     clearEventState,
+    updatePrice,
+    updateVisibility,
     isLoading,
     data,
   };

@@ -1,7 +1,7 @@
 import { getFormattedUTCTimestamp } from '@skillcoop/date-handler';
 import { Core } from './core.js';
 import { DB } from '../@types/database.js';
-import { ReferenceExpression } from 'kysely';
+import { ReferenceExpression, InsertObject } from 'kysely';
 import { InsertObjectDB, tableNames } from '../@types/types.js';
 import { db } from '../helpers/client.db.js';
 import DatabaseError from '../helpers/errors/database.error.js';
@@ -16,10 +16,10 @@ export class ProfileOnEvent extends Core<typeof tableNames.profile_on_event> {
     this.tableName = tableNames.profile_on_event;
   }
 
-  async updateStatus(data: {
+  async updateStatusWithExistenceCheck(data: {
     event_id: number;
     profile_id: number;
-    status_name: 'confirmed' | 'declined' | 'pending';
+    status_name: 'confirmed' | 'declined' | 'pending' | 'requested' | 'refused';
     updated_at: undefined | string;
   }) {
     const todayUTCString = getFormattedUTCTimestamp();
@@ -69,6 +69,34 @@ export class ProfileOnEvent extends Core<typeof tableNames.profile_on_event> {
       const result = await promise.execute();
       if (!result || result.length === 0) throw new NotFoundError('Not found');
       return result;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new DatabaseError(error);
+      }
+    }
+  }
+  async upsert(data: {
+    event_id: number;
+    profile_id: number;
+    status_name: 'confirmed' | 'declined' | 'pending' | 'requested' | 'refused';
+    created_at?: string;
+    updated_at?: string;
+  }) {
+    const todayUTCString = getFormattedUTCTimestamp();
+    data.created_at = todayUTCString;
+    try {
+      const result = await this.client
+        .insertInto(this.tableName)
+        .values(data as InsertObject<DB, typeof this.tableName>)
+        .onConflict((oc) =>
+          oc.columns(['event_id', 'profile_id']).doUpdateSet({
+            status_name: data.status_name,
+            updated_at: data.updated_at,
+          }),
+        )
+        .executeTakeFirst();
+
+      return !!Number(result.numInsertedOrUpdatedRows);
     } catch (error) {
       if (error instanceof Error) {
         throw new DatabaseError(error);

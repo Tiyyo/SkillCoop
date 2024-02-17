@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import Spinner from '../loading';
+import Container from '../../layouts/container';
 
 type InfiniteScrollProps = {
   children: React.ReactNode;
@@ -38,7 +39,10 @@ function InfiniteScroll({
   }, []);
 
   return (
-    <div className="flex w-full flex-col items-center justify-center">
+    <Container
+      className="bg-blurry flex w-full flex-col 
+      items-center justify-center overflow-hidden bg-base p-0 lg:rounded-md"
+    >
       {children}
       <div ref={bottomDivRef} />
       {loading && !firstRender.current && (
@@ -46,7 +50,7 @@ function InfiniteScroll({
           <Spinner />
         </div>
       )}
-    </div>
+    </Container>
   );
 }
 

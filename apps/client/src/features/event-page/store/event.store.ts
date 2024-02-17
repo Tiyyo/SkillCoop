@@ -3,6 +3,7 @@ import type {
   EventParticipant,
   EventStatus,
   InvitationStatus,
+  Visibility,
 } from '@skillcoop/types/src';
 
 export type EventStateStore = {
@@ -11,6 +12,8 @@ export type EventStateStore = {
   location: string | null;
   location_id: number | null;
   duration: number | null;
+  visibility: Visibility | null;
+  price: number | null;
   required_participants: number | null;
   organizer_id?: number | null;
   status_name: EventStatus | null;
@@ -32,6 +35,8 @@ type eventStore = {
   updateOrganizerId: (args: number) => void;
   updateStatusName: (args: EventStatus) => void;
   updateParticipants: (args: EventParticipant[]) => void;
+  updatePrice: (args: number) => void;
+  updateVisibility: (args: Visibility) => void;
   addToStaged: (args: EventParticipant) => void;
   removeFromStaged: (args: number) => void;
   updateUserStatus: (args: string) => void;
@@ -45,6 +50,8 @@ export const useEventStore = create<eventStore>()((set) => ({
     location: null,
     location_id: null,
     duration: null,
+    visibility: null,
+    price: null,
     required_participants: null,
     organizer_id: null,
     status_name: null,
@@ -111,6 +118,16 @@ export const useEventStore = create<eventStore>()((set) => ({
         participants: [...participants, ...(state.event.participants || [])],
       },
     })),
+  updatePrice: (price: number) =>
+    set((state) => ({
+      ...state,
+      event: { ...state.event, price: price },
+    })),
+  updateVisibility: (visibility: Visibility) =>
+    set((state) => ({
+      ...state,
+      event: { ...state.event, visibility: visibility },
+    })),
   addToStaged: (participant: EventParticipant) =>
     set((state) => ({
       ...state,
@@ -162,6 +179,8 @@ export const useEvent = () => {
     updateParticipantStatus,
     updateRequiredParticipants,
     updateParticipants,
+    updatePrice,
+    updateVisibility,
     addToStaged,
     removeFromStaged,
     updateUserStatus,
@@ -187,6 +206,8 @@ export const useEvent = () => {
     updateOrganizerId,
     updateStatusName,
     updateParticipantStatus,
+    updatePrice,
+    updateVisibility,
     data,
   };
 };

@@ -75,5 +75,7 @@
   "needMoreInfosPlayground": "No pudimos encontrar esa información sobre este campo deportivo. Por favor, ayúdanos completándola.",
   "typeNamePlayground": "Escribe el nombre del campo deportivo que estás buscando",
   "searchPlayground": "Buscar un campo deportivo",
-  "add": "Añadir"
+  "add": "Añadir",
+  "invited": "Invitado",
+  "applicant": "Solicitante"
 }

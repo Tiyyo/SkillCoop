@@ -69,7 +69,7 @@ function Avatars({
   const idComp = useId();
   return (
     <div className={`h-fit ${startSide === 'right' ? 'flex-row-reverse' : ''}`}>
-      <div className={cn('flex', nbAvatarToDisplay > 2 && '-space-x-3')}>
+      <div className={cn('flex', nbAvatarToDisplay > 1 && '-space-x-3')}>
         {participants
           .filter((participant) => {
             if (team) {

@@ -1,4 +1,10 @@
-import { CalendarClock, History, Home, MessagesSquare } from 'lucide-react';
+import {
+  CalendarClock,
+  History,
+  Home,
+  MessagesSquare,
+  Search,
+} from 'lucide-react';
 import Calendar from '../../../assets/icon/Calendar';
 import NavMobileLink from '../nav-link';
 import Profile from '../../../assets/icon/Profile';
@@ -40,19 +46,8 @@ function MobileNav({
         <NavMobileLink to="/my-event" value={t('myEvents')} setClose={setClose}>
           <Calendar />
         </NavMobileLink>
-        <NavMobileLink
-          to="/events/incoming"
-          value={t('upcomingEvents')}
-          setClose={setClose}
-        >
-          <CalendarClock size={20} />
-        </NavMobileLink>
-        <NavMobileLink
-          to="/events/past"
-          value={t('pastEvents')}
-          setClose={setClose}
-        >
-          <History size={20} />
+        <NavMobileLink to="/find-event" value="Find Events" setClose={setClose}>
+          <Search size={20} />
         </NavMobileLink>
         <NavMobileLink to="/chat" value="Chat" setClose={setClose}>
           <MessagesSquare size={20} />

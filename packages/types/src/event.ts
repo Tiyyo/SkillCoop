@@ -19,6 +19,8 @@ export type EventType = {
   duration: number;
   location: string;
   location_id: number;
+  price: number | null
+  visibility: Visibility;
   playground_city: string;
   playground_address: string;
   required_participants: number;
@@ -35,6 +37,8 @@ export type EventType = {
 };
 
 export type EventStatus = 'open' | 'full' | 'completed' | 'cancelled';
+
+export type Visibility = 'private' | 'public';
 
 export const eventStatus = {
   open: 'open',
@@ -53,6 +57,8 @@ export type CreateEventData = {
   organizer_id: number;
   status_name: 'open';
   participants?: number[];
+  visibility: Visibility;
+  price: number | null;
 };
 
 export type UpdateEventData = Omit<CreateEventData, 'status_name'> & {
@@ -89,9 +95,24 @@ export type EventQuery = {
   page: number;
 }
 
+export type NearestEventInfos = {
+  id: number;
+  required_participants: number;
+  confirmed_participants: number;
+  organizer_avatar: string | null;
+  organizer_username: string;
+  date: string;
+  duration: number;
+  average_event_evaluation: number;
+  playground_name: string;
+  playground_city: string;
+  price: number | undefined | null;
+}
+
 export type NearestEventQuery = {
   userCountry: string;
   userLatitude: number;
   userLongitude: number;
   distance: number;
+  profileId: number;
 }

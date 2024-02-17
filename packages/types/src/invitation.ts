@@ -1,4 +1,4 @@
-export type InvitationStatus = 'pending' | 'confirmed' | 'declined';
+export type InvitationStatus = 'pending' | 'confirmed' | 'declined' | 'requested' | 'refused';
 
 export type InvitationPageVariant = 'update' | 'mutate';
 
@@ -6,6 +6,8 @@ export const invitationStatus = {
   pending: 'pending',
   confirmed: 'confirmed',
   declined: 'declined',
+  requested: 'requested',
+  refused: 'refused',
 } as const;
 
 export const invitationPageVariant = {
@@ -18,6 +20,11 @@ export type EventInvitation = {
   initiator?: number;
   ids: number[];
 };
+
+export type EventParticipationRequest = {
+  event_id: number;
+  profile_id: number;
+}
 
 export type CreateFriendsInvitation = {
   adder_id: number;

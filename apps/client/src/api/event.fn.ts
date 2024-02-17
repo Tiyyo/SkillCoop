@@ -6,6 +6,7 @@ import type {
   UpdateEventData,
   TransfertOwnership,
   NearestEventQuery,
+  NearestEventInfos,
 } from '@skillcoop/types/src';
 
 // TODO: find why and when this fn is used
@@ -125,7 +126,9 @@ export const getSharedEventsFn = async (data: {
   return response.data;
 };
 
-export const getNearestEventsFn = async (data: NearestEventQuery) => {
+export const getNearestEventsFn = async (
+  data: NearestEventQuery,
+): Promise<Array<NearestEventInfos>> => {
   const response = await api.get('api/event/near', { params: data });
   return response.data;
 };

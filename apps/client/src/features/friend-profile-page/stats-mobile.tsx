@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 /*eslint-disable */
-import associateNumberToString from '../../shared/utils/associate-number-stringscale';
+import associateNumberToString from '../../shared/utils/associate-number-string-scale';
 /*eslint-enable */
 import capitalize from '../../shared/utils/capitalize';
 import { sumValues } from '../../shared/utils/sum-values';

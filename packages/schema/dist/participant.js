@@ -33,6 +33,6 @@ exports.inviteParticipantSchema = z.object({
 exports.updateParticipantSchema = z.object({
     event_id: z.number().int().positive(),
     profile_id: z.number().int().positive(),
-    status_name: z.enum(["confirmed", "declined", "pending"])
+    status_name: z.enum(["confirmed", "declined", "pending", "refused", "requested"])
 });
 //# sourceMappingURL=participant.js.map

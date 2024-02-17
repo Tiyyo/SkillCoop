@@ -1,3 +1,4 @@
+import { useApp } from '../../../shared/store/app.store';
 import Participant from '../../../shared/components/participant';
 import TitleH2 from '../../../shared/components/title-h2';
 import Container from '../../../shared/layouts/container';
@@ -26,6 +27,7 @@ function ParticipantsList({
   };
 
   const { data: eventStore } = useEvent();
+  const { userId } = useApp();
 
   return (
     <Container className="w-full">
@@ -39,7 +41,10 @@ function ParticipantsList({
           typeof participants !== 'string' &&
           participants.map((participant) => (
             <Participant
-              isAdmin={eventStore?.organizer_id === participant.profile_id}
+              profileIsAdmin={
+                eventStore?.organizer_id === participant.profile_id
+              }
+              currentUserIsAdmin={eventStore?.organizer_id === userId}
               profileId={participant.profile_id}
               eventStatus={eventStore.status_name}
               key={participant.profile_id}

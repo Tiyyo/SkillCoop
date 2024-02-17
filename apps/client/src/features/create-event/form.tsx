@@ -14,6 +14,9 @@ import { useTranslation } from 'react-i18next';
 import AddNewPlayground from './create-playground';
 import { useState } from 'react';
 import InputLocation from './input-location';
+import { Visibility } from '@skillcoop/types/src';
+import { Euro, UnlockKeyhole } from 'lucide-react';
+import Input from '../../shared/components/input';
 
 type CreateEventFormProps = {
   handleFormSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -26,6 +29,8 @@ type CreateEventFormProps = {
   updateStartDate: (value: string) => void;
   updateStartTime: (value: string) => void;
   updateRequiredParticipants: (value: number) => void;
+  updatePrice: (value: number) => void;
+  updateVisibility: (value: Visibility) => void;
   validationErrors: any;
 };
 
@@ -40,6 +45,8 @@ function CreateEventForm({
   updateStartDate,
   updateStartTime,
   updateRequiredParticipants,
+  updatePrice,
+  updateVisibility,
   validationErrors,
 }: CreateEventFormProps) {
   const { t } = useTranslation('event');
@@ -100,6 +107,20 @@ function CreateEventForm({
         >
           <Users />
         </SelectInput>
+        <SelectInput
+          name="visibility"
+          label="Select a visibility"
+          updateState={updateVisibility}
+          options={[
+            { value: 'public', label: t('public') },
+            { value: 'private', label: t('private') },
+          ]}
+          defaultValue={eventCreatedState.visibility ?? ''}
+          error={inputHasError('visibility', validationErrors)}
+          high
+        >
+          <UnlockKeyhole />
+        </SelectInput>
         <InputLocation
           error={inputHasError('location', validationErrors)}
           // defaultValue={eventCreatedState.location ?? ''}
@@ -109,6 +130,17 @@ function CreateEventForm({
           placeholder={t('choosePlayground')}
         />
         {displayCreatePlayground && <AddNewPlayground />}
+        <Input
+          name="price"
+          label="Playground Price"
+          placeholder="Indicate the price of the playground if you wish"
+          updateState={updatePrice}
+          error={inputHasError('price', validationErrors)}
+          type="number"
+          high
+        >
+          <Euro />
+        </Input>
       </div>
       <Button
         textContent={t('createEvent')}

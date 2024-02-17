@@ -2,7 +2,7 @@ import { createInvitationSchema } from '@skillcoop/schema/src';
 /* eslint-disable */
 import { useFriends as useFriendStore } from '../../../features/friends/store/friend.store';
 import toast from '../../utils/toast';
-import associateNumberToString from '../../utils/associate-number-stringscale';
+import associateNumberToString from '../../utils/associate-number-string-scale';
 import { useInviteFriend } from '../../../features/friends/hooks/useFriends';
 import AvatarWithBorder from '../avatar/avatar-border';
 import capitalize from '../../utils/capitalize';

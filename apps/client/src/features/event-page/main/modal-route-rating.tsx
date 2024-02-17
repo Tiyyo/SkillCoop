@@ -4,7 +4,7 @@ import GroupedStars from '../../../shared/components/star-rating';
 import { Suspense } from 'react';
 import capitalize from '../../../shared/utils/capitalize';
 /* eslint-disable-next-line */
-import associateNumberToString from '../../../shared/utils/associate-number-stringscale';
+import associateNumberToString from '../../../shared/utils/associate-number-string-scale';
 import { useNavigate, useParams } from 'react-router-dom';
 import { cn } from '../../../lib/utils';
 import { useTranslation } from 'react-i18next';
@@ -32,15 +32,15 @@ function ModalRouteRatingEvent() {
 
   return (
     <div
-      className="bg-background/80 animate-in fixed inset-0 z-50 
+      className="animate-in fixed inset-0 z-50 
           max-h-screen animate-opacity-in overflow-hidden 
           opacity-0 backdrop-blur-sm"
     >
       <div
         className="bg-background  animate-in animate-in fixed left-[50%] 
-          top-[50%] z-50 grid w-full max-w-lg 
-          translate-x-[-50%] translate-y-[-50%] animate-opacity-in gap-4 
-          border bg-base-light p-6 opacity-0 shadow-lg duration-200 
+          top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%]
+          translate-y-[-50%] animate-opacity-in gap-4 border 
+          border-border bg-base-light p-6 opacity-0 shadow-lg duration-200 
           sm:rounded-lg md:w-full"
       >
         <div className="flex justify-end">

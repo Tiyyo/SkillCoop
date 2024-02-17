@@ -10,12 +10,14 @@ import TransfertOwnershipMenuItem from './transfert-ownership';
 import DeleteEventMenuItem from './delete-event';
 import CancelEventMenuItem from './cancel-event';
 import InviteFriendsMeuItems from './Invite-friends';
+import ToggleEventVisibility from './toggle-visibility';
 
 type DropdownEventMenuProps = {
   eventStatus?: EventStatus | null;
   eventId?: number;
   profileId?: number;
   isAdmin?: boolean;
+  visibility: 'public' | 'private' | null;
 };
 
 const eventStatusWithAuthorizeAction = ['open', 'full'];
@@ -25,6 +27,7 @@ function DropdownEventMenu({
   profileId,
   isAdmin = false,
   eventStatus = 'open',
+  visibility,
 }: DropdownEventMenuProps) {
   if (!isAdmin && !eventStatusWithAuthorizeAction.includes(eventStatus ?? ''))
     return null;
@@ -55,6 +58,13 @@ function DropdownEventMenu({
             eventStatus={eventStatus}
             eventId={eventId}
             profileId={profileId}
+          />
+          <ToggleEventVisibility
+            eventStatus={eventStatus}
+            eventId={eventId}
+            profileId={profileId}
+            visibility={visibility}
+            isAdmin={isAdmin}
           />
           <GenerateTeamsMenuItem
             isAdmin={isAdmin}

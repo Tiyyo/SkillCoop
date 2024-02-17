@@ -14,6 +14,7 @@ type EventGeoLocatorServiceContructor = {
   centerLongitude: number;
   centerLatitude: number;
   distance?: number;
+  profileId: number;
 };
 
 export class EventGeoLocatorService {
@@ -21,6 +22,7 @@ export class EventGeoLocatorService {
   distance: number = 50; // default distance in kilometers
   centerLongitude: number;
   centerLatitude: number;
+  profileId: number;
   declare locations: EventLocation[];
 
   constructor({
@@ -28,18 +30,20 @@ export class EventGeoLocatorService {
     centerLongitude,
     centerLatitude,
     distance = 50,
+    profileId,
   }: EventGeoLocatorServiceContructor) {
     this.country = country;
     this.distance = distance;
     this.centerLongitude = centerLongitude;
     this.centerLatitude = centerLatitude;
+    this.profileId = profileId;
   }
   async getNearestEvents() {
     await this.getLocationByCountry();
     const eventIds = this.filterByDistance();
     if (!eventIds || eventIds.length === 0)
       throw new UserInputError('No events found');
-    return this.aggregateEventIds(eventIds);
+    return this.aggregateEventIds(eventIds, this.profileId);
   }
   private async getLocationByCountry() {
     const locations = await Event.getEventLocationByCountry(this.country);
@@ -61,8 +65,8 @@ export class EventGeoLocatorService {
       )
       .map((location) => location.id);
   }
-  private aggregateEventIds(eventIds: number[]) {
-    const events = Event.getNearestEventsInfos(eventIds);
+  private aggregateEventIds(eventIds: number[], profileId: number) {
+    const events = Event.getNearestEventsInfos(eventIds, profileId);
     return events;
   }
 }

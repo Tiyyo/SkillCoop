@@ -1,5 +1,13 @@
 import { useState } from 'react';
-import { Clock, Users, CalendarClock, Pencil, Check } from 'lucide-react';
+import {
+  Clock,
+  Users,
+  CalendarClock,
+  Pencil,
+  Check,
+  UnlockKeyhole,
+  Euro,
+} from 'lucide-react';
 import { useParams } from 'react-router-dom';
 import SelectInput from '../../../shared/components/select';
 import InputTime from '../../../shared/components/time-picker';
@@ -22,6 +30,7 @@ import {
 } from '@skillcoop/date-handler/src';
 import { useTranslation } from 'react-i18next';
 import InputLocation from '../../create-event/input-location';
+import Input from '../../../shared/components/input';
 
 type EventPageInfosProps = {
   eventDuration: number | null;
@@ -62,6 +71,8 @@ function EventPageInfos({
     updateDuration,
     updateStartDate,
     updateRequiredParticipants,
+    updateVisibility,
+    updatePrice,
   } = useEvent();
 
   const handleClickActiveEdit = () => {
@@ -193,6 +204,20 @@ function EventPageInfos({
           defaultValue={event.location ?? eventlocation ?? undefined}
         />
         <SelectInput
+          name="visibility"
+          label="visibility"
+          updateState={updateVisibility}
+          options={[
+            { value: 'public', label: t('public') },
+            { value: 'private', label: t('private') },
+          ]}
+          defaultValue={event.visibility ?? 'private'}
+          disabled={!isEditActive}
+          high
+        >
+          <UnlockKeyhole />
+        </SelectInput>
+        <SelectInput
           name="requiredParticipants"
           label={t('participants')}
           updateState={updateRequiredParticipants}
@@ -206,6 +231,17 @@ function EventPageInfos({
         >
           <Users />
         </SelectInput>
+        <Input
+          name="price"
+          label="Playground Price"
+          type="number"
+          disabled={!isEditActive}
+          defaultValue={event.price ?? 'NC'}
+          updateState={updatePrice}
+          high
+        >
+          <Euro />
+        </Input>
       </div>
     </Container>
   );

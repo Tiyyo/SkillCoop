@@ -27,6 +27,7 @@ export class Profile extends Core<typeof tableNames.profile> {
           'date_of_birth',
           'first_name',
           'last_name',
+          'last_evaluation',
           'location',
         ])
         .leftJoin('skill_foot', 'profile_id', 'skill_foot.reviewee_id')

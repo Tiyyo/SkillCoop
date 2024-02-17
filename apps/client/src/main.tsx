@@ -110,6 +110,8 @@ const NewConversation = lazy(
 );
 import SkillcoopLoadingPage from './shared/components/skillcoop-loading-page';
 import FindEvents from './features/find-event';
+import Spinner from './shared/components/spinner';
+import ModalRouteRequestApprovalEvent from './features/event-page/main/modal-route-request-approval';
 
 /*eslint-enable*/
 
@@ -240,8 +242,16 @@ const router = createBrowserRouter([
           {
             path: 'evaluate/:profileId',
             element: (
-              <Suspense fallback="cooucou">
+              <Suspense fallback={<Spinner />}>
                 <ModalRouteRatingEvent />
+              </Suspense>
+            ),
+          },
+          {
+            path: 'request/:profileId',
+            element: (
+              <Suspense fallback={<Spinner />}>
+                <ModalRouteRequestApprovalEvent />
               </Suspense>
             ),
           },

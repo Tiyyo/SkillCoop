@@ -8,7 +8,10 @@ export async function getEventsByProximity(req: Request, res: Response) {
   // CheckParams only convert params to int
   // so can't used with latitude and longitude
   const { userCountry, userLongitude, userLatitude } = req.query;
-  const [distance] = checkParams(req.query.distance);
+  const [distance, profileId] = checkParams(
+    req.query.distance,
+    req.query.profileId,
+  );
   // TODO assert query params as string
 
   const lat = parseFloat(userLatitude as string);
@@ -20,6 +23,7 @@ export async function getEventsByProximity(req: Request, res: Response) {
     centerLongitude: long,
     centerLatitude: lat,
     distance,
+    profileId,
   }).getNearestEvents();
 
   res.status(200).json(events);

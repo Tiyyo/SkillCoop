@@ -15,6 +15,8 @@ function CreateEvent() {
     updateStartDate,
     updateStartTime,
     updateRequiredParticipants,
+    updatePrice,
+    updateVisibility,
     validationErrors,
   } = useCreateEvent();
 
@@ -32,6 +34,8 @@ function CreateEvent() {
         updateStartDate={updateStartDate}
         updateStartTime={updateStartTime}
         updateRequiredParticipants={updateRequiredParticipants}
+        updatePrice={updatePrice}
+        updateVisibility={updateVisibility}
         validationErrors={validationErrors}
       />
     </Container>

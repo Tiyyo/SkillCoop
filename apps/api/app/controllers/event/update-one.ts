@@ -5,6 +5,7 @@ import {
 } from '../../models/index.js';
 /*eslint-disable*/
 import { notifyEventInfosHasBeenUpdated } from '../../services/notification/subtype/infos-event.js';
+import { EventStatusAdjusterService } from '../../services/event/event-status-adjuster.js';
 /*eslint-enable*/
 import { invitationStatus } from '@skillcoop/types';
 import deleteDecodedKey from '../../utils/delete-decoded.js';
@@ -19,6 +20,18 @@ const possibleFieldsUpdated = [
   'visibility',
   'price',
 ];
+
+export type UpdateEventData = {
+  date: string;
+  start_time?: string;
+  start_date?: string;
+  duration: number;
+  location: string;
+  required_participants: number;
+  organizer_id: number;
+  status_name: 'open';
+  participants?: number[];
+};
 
 export async function updateOne(req: Request, res: Response) {
   // update one event
@@ -48,20 +61,14 @@ export async function updateOne(req: Request, res: Response) {
       message: 'Nothing to update',
     });
 
-  if (data.required_participants > event.required_participants) {
-    data.status_name = 'open';
-  }
-  if (
-    confirmedParticipants &&
-    data.required_participants === confirmedParticipants.length
-  ) {
-    data.status_name = 'full';
-  }
-  // delete start date and start time if present
-  delete data.start_date;
-  delete data.start_time;
+  const eventAdjuster = new EventStatusAdjusterService(
+    data,
+    event,
+    confirmedParticipants,
+  );
+  const adjustedUpdateData = eventAdjuster.data;
 
-  const isUpdated = await Event.updateOne({ id: event_id }, data);
+  const isUpdated = await Event.updateOne({ id: event_id }, adjustedUpdateData);
 
   notifyEventInfosHasBeenUpdated(event_id);
 

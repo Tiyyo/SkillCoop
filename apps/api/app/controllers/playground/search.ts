@@ -6,7 +6,7 @@ export async function search(req: Request, res: Response) {
   // Need to asseer query
   const playgrounds = await Playground.search(search as string);
   if (!playgrounds) {
-    return res.status(204).json({ message: 'playgrounds not found' });
+    return res.status(204).json({ error: 'playground not found' });
   }
   return res.status(200).json(playgrounds);
 }

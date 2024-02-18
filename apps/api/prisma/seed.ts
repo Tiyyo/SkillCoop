@@ -7,7 +7,7 @@ import { event as Event } from '../app/models/index.js';
 import { status as Status } from '../app/models/index.js';
 import { profileOnEvent as Participant } from '../app/models/index.js';
 import { score as Score } from '../app/models/index.js';
-import { friendslist as Friendlist } from '../app/models/index.js';
+import { profileOnProfile as ProfileOnProfile } from '../app/models/index.js';
 import { skillFoot as SkillFoot } from '../app/models/index.js';
 import { notificationType as NotificationType } from '../app/models/index.js';
 import { playground as Playground } from '../app/models/index.js';
@@ -259,7 +259,7 @@ async function seed() {
     };
   });
 
-  await Friendlist.createMany(queriesPendingFriendRequest);
+  await ProfileOnProfile.createMany(queriesPendingFriendRequest);
 
   const confirmedFriend = [7, 8, 9];
 
@@ -279,8 +279,8 @@ async function seed() {
       created_at: todayUTCString,
     };
   });
-  await Friendlist.createMany(dataConfirmedRequestsAdder);
-  await Friendlist.createMany(dataConfirmedRequestsAdded);
+  await ProfileOnProfile.createMany(dataConfirmedRequestsAdder);
+  await ProfileOnProfile.createMany(dataConfirmedRequestsAdded);
 
   const pendingRequestReceived = [10, 11];
 
@@ -292,7 +292,7 @@ async function seed() {
       created_at: todayUTCString,
     };
   });
-  await Friendlist.createMany(dataConfirmedRequestsReceived);
+  await ProfileOnProfile.createMany(dataConfirmedRequestsReceived);
 
   const nbOfUser = 7;
   const arrToIterateOverUsers = new Array(nbOfUser).fill(1);
@@ -326,8 +326,8 @@ async function seed() {
     [],
   );
 
-  await Friendlist.createMany(dataConfirmedAdminAdder);
-  await Friendlist.createMany(dataConfirmedAdminAdded);
+  await ProfileOnProfile.createMany(dataConfirmedAdminAdder);
+  await ProfileOnProfile.createMany(dataConfirmedAdminAdded);
 
   // // create 5 past events organize by admin
   const NB_EVENTS_TO_CREATE = 5;
@@ -338,7 +338,6 @@ async function seed() {
     const randomDate = faker.date.past();
     const date = getUTCString(randomDate);
     const randomPlayground = getRandomIntInclusive(nbPlayground);
-    console.log('randomPlayground', randomPlayground);
     const event = await Event.create({
       date,
       duration: 90,
@@ -347,6 +346,7 @@ async function seed() {
       organizer_id: 1,
       status_name: 'completed',
       created_at: todayUTCString,
+      visibility: 'private',
     });
     if (!event) return logger.error('Failed to create event');
 
@@ -393,6 +393,8 @@ async function seed() {
       organizer_id: 2,
       status_name: 'completed',
       created_at: todayUTCString,
+      visibility: 'private',
+      price: 150,
     });
     if (!event) return logger.error('Failed to create event');
 
@@ -446,6 +448,8 @@ async function seed() {
       organizer_id: 1,
       status_name: 'full',
       created_at: todayUTCString,
+      visibility: 'public',
+      price: 120,
     });
     if (!event) return logger.error('Failed to create event');
     // add 10 participants to each event
@@ -485,6 +489,8 @@ async function seed() {
       organizer_id: 2,
       status_name: 'full',
       created_at: todayUTCString,
+      visibility: 'public',
+      price: 90,
     });
     if (!event) return logger.error('Failed to create event');
     // add 10 participants to each event
@@ -529,6 +535,8 @@ async function seed() {
       organizer_id: 1,
       status_name: 'open',
       created_at: todayUTCString,
+      visibility: 'public',
+      price: 80,
     });
     if (!event) return logger.error('Failed to create event');
     openParticipants.forEach(async (_, index) => {
@@ -558,6 +566,8 @@ async function seed() {
       organizer_id: 2,
       status_name: 'open',
       created_at: todayUTCString,
+      visibility: 'public',
+      price: 70,
     });
     if (!event) return logger.error('Failed to create event');
     openParticipants.forEach(async (_, index) => {

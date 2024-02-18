@@ -1,5 +1,5 @@
 import InputCheckbox from './group.friend';
-import { Friend } from '@skillcoop/types';
+import { Friend } from '@skillcoop/types/src';
 
 type AddNewGroupConversationFriendsProps = {
   friends: Friend[];

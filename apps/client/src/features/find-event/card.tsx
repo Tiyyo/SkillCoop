@@ -68,9 +68,9 @@ function NearEventCard({
 
   return (
     <div
-      className="bg-blurry relative flex h-auto max-h-80 
-                flex-col place-items-stretch rounded-md border-2 
-                border-border bg-base bg-opacity-20 bg-contain 
+      className="relative flex h-auto max-h-80 flex-col 
+                place-items-stretch rounded-md border-2 border-border 
+                bg-base bg-opacity-20 bg-blurry bg-contain 
                 bg-[right_13rem_top_6rem] px-4 pb-5 pt-10"
     >
       <p

@@ -107,7 +107,7 @@ function FindEvents() {
       )}
       {!isLoading && nearestEvents && nearestEvents.length > 0 && (
         <Container
-          className="grid-cols-event-cards grid flex-grow grid-flow-row 
+          className="grid flex-grow grid-flow-row grid-cols-event-cards 
           items-stretch gap-2 lg:mt-4"
         >
           {nearestEvents

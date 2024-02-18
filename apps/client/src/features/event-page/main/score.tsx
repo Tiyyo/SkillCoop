@@ -61,7 +61,12 @@ function EventPageScore({
     };
     const isScoreDataValid = saveScoreSchema.safeParse(postScoreData);
     const isStatusDataValid = updateEventSchema.safeParse(patchEventData);
-    if (!isScoreDataValid.success || !isStatusDataValid.success || !profileId)
+    if (
+      !isScoreDataValid.success ||
+      !isStatusDataValid.success ||
+      !profileId ||
+      !eventDate
+    )
       return;
     if (new Date(eventDate) > new Date()) {
       toast.error(t('toast:cannontSaveScore'));

@@ -1,9 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import Container from '../../../shared/layouts/container';
 import SearchInput from '../../../shared/components/search-input';
-
 import NewConversationOneToOne from './one-to-one';
-
 import NewConversationGroup from './group';
 import useNewConversation from '../hooks/useNewConversation';
 import AddConversationTitle from './title';

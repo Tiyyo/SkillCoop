@@ -1,5 +1,5 @@
 import { ArrowRight } from 'lucide-react';
-import { Friend } from '@skillcoop/types';
+import { Friend } from '@skillcoop/types/src';
 /*eslint-disable*/
 import { useTranslation } from 'react-i18next';
 import HorizontalAvatarList from '../../../shared/components/horizontal-avatar-list';

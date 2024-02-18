@@ -28,9 +28,6 @@ type UpdateVisibilityEventModalProps = {
   eventId: number | undefined;
   profileId: number | undefined;
 };
-/*eslint-disable max-len*/
-
-/*eslint-enable max-len*/
 
 function UpdateVisibilityEventModal({
   children,

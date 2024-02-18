@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import checkParams from '../../utils/check-params.js';
 /*eslint-disable */
 import { EventGeoLocatorService } from '../../services/geoloc/nearest-events.js';
+import { isString } from '../../utils/assert-primitve-type.js';
 /*eslint-enable */
 
 export async function getEventsByProximity(req: Request, res: Response) {
@@ -12,14 +13,16 @@ export async function getEventsByProximity(req: Request, res: Response) {
     req.query.distance,
     req.query.profileId,
   );
-  // TODO assert query params as string
+  // Assert function throw error if not a string
+  isString(userCountry);
+  isString(userLongitude);
+  isString(userLatitude);
 
-  const lat = parseFloat(userLatitude as string);
-  const long = parseFloat(userLongitude as string);
-  const country = typeof userCountry === 'string' ? userCountry : 'France ';
+  const lat = parseFloat(userLatitude);
+  const long = parseFloat(userLongitude);
 
   const events = await new EventGeoLocatorService({
-    country,
+    country: userCountry,
     centerLongitude: long,
     centerLatitude: lat,
     distance,

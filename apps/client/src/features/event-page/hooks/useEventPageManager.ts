@@ -24,6 +24,7 @@ export default function useEventPageManager() {
     if (typeof event.participants === 'string') return;
     initEventState({
       start_date: getStringDate(new Date(event.date)).split(' ')[0],
+      date: event.date,
       duration: event.duration,
       location: event.location,
       location_id: event.location_id,
@@ -41,18 +42,11 @@ export default function useEventPageManager() {
     });
   }, [location.pathname, event, initEventState]);
 
-  const eventStoreDate =
-    eventStore.start_date &&
-    eventStore.start_time &&
-    new Date(
-      `${eventStore?.start_date} ${eventStore.start_time}Z`,
-    ).toISOString();
-
   useLayoutEffect(() => {
     if (eventStore && eventStore.user_status === 'declined') {
       navigate('/', { replace: true });
     }
   }, [eventStore.user_status]);
 
-  return { bodyRef, eventStoreDate, event, eventStore, eventId, profileId };
+  return { bodyRef, event, eventStore, eventId, profileId };
 }

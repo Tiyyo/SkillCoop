@@ -26,5 +26,6 @@
   "yourAccountHasNotBeenVerified": "Tu cuenta aún no ha sido verificada. Hemos enviado un nuevo enlace a tu correo electrónico para la validación de la cuenta.",
   "youHaveOnlyXLeft": "Solo te quedan {{count}} intento(s) antes de que tu cuenta sea bloqueada.",
   "playgroundHasBeenCreated": "El campo deportivo ha sido creado",
-  "playgroundNotCreated": "No se pudo crear este campo deportivo, probablemente porque ya existe"
+  "playgroundNotCreated": "No se pudo crear este campo deportivo, probablemente porque ya existe",
+  "statusHasBeenUpdated": "El estado de {{username}} ha sido actualizado"
 }

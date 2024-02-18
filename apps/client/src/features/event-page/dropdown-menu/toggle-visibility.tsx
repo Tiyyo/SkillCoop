@@ -3,6 +3,7 @@ import { EventStatus } from '@skillcoop/types/src';
 import UpdateVisibilityEventModal from '../../../shared/components/update-visibility-modal';
 /*eslint-enable max-len*/
 import { LockKeyhole, UnlockKeyhole } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 type ToggleEventVisibilityProps = {
   eventStatus?: EventStatus | null;
@@ -19,6 +20,7 @@ function ToggleEventVisibility({
   visibility,
 }: ToggleEventVisibilityProps) {
   if (!visibility || !isAdmin) return null;
+  const { t } = useTranslation('event');
   function getRightLockIcon(size: number) {
     return visibility === 'public' ? (
       <UnlockKeyhole size={size} />
@@ -34,7 +36,13 @@ function ToggleEventVisibility({
       visibility={visibility}
     >
       {getRightLockIcon(16)}
-      <span>{visibility === 'public' ? 'Make Private' : 'Make Public'}</span>
+      <span>
+        {visibility === 'public' ? (
+          <>{t('makeItPrivate')}</>
+        ) : (
+          <>{t('makeItPublic')}</>
+        )}
+      </span>
     </UpdateVisibilityEventModal>
   );
 }

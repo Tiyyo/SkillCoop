@@ -1,10 +1,4 @@
-import {
-  CalendarClock,
-  History,
-  Home,
-  MessagesSquare,
-  Search,
-} from 'lucide-react';
+import { Home, MessagesSquare, Search } from 'lucide-react';
 import Calendar from '../../../assets/icon/Calendar';
 import NavMobileLink from '../nav-link';
 import Profile from '../../../assets/icon/Profile';

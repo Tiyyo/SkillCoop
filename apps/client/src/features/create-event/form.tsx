@@ -123,7 +123,6 @@ function CreateEventForm({
         </SelectInput>
         <InputLocation
           error={inputHasError('location', validationErrors)}
-          // defaultValue={eventCreatedState.location ?? ''}
           updateLocationId={updateLocation}
           setCreatePlayground={setDisplayCreatePlayground}
           label={t('selectPlayground')}
@@ -132,8 +131,8 @@ function CreateEventForm({
         {displayCreatePlayground && <AddNewPlayground />}
         <Input
           name="price"
-          label="Playground Price"
-          placeholder="Indicate the price of the playground if you wish"
+          label={t('playgroundPrice')}
+          placeholder={t('indicatePlaygroundPrice')}
           updateState={updatePrice}
           error={inputHasError('price', validationErrors)}
           type="number"

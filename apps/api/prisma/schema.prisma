@@ -77,7 +77,7 @@ model event {
   required_participants Int
   price                 Float?               
   nb_teams              Int                 @default(2)
-  visibility            String              @default("private")                 
+  visibility            String              @default("private")               
   location_id           Int
   playground            playground          @relation(fields: [location_id], references: [id], onDelete: NoAction, onUpdate: Cascade)
   organizer_id          Int?

@@ -23,7 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateOrganizerSchema = exports.updateEventSchema = exports.createEventSchema = void 0;
+exports.getEventNearbySchema = exports.updateOrganizerSchema = exports.updateEventSchema = exports.createEventSchema = void 0;
 const z = __importStar(require("zod"));
 const acceptableEventFormat = [6, 10, 14, 22];
 exports.createEventSchema = z.object({
@@ -56,5 +56,12 @@ exports.updateOrganizerSchema = z.object({
     event_id: z.number().int().positive(),
     organizer_id: z.number().int().positive(),
     new_organizer_id: z.number().int().positive(),
+});
+exports.getEventNearbySchema = z.object({
+    userCountry: z.string(),
+    userLongitude: z.string(),
+    userLatitude: z.string(),
+    distance: z.string(),
+    profileId: z.string(),
 });
 //# sourceMappingURL=event.js.map

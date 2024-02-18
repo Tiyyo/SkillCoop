@@ -16,7 +16,6 @@ export async function createOne(req: Request, res: Response) {
   // add organizer to the participant list
   deleteDecodedKey(req.body);
   const { participants: ids, ...data } = req.body;
-  console.log('data', data);
 
   const event = await Event.create({
     organizer_id: data.organizer_id,
@@ -28,7 +27,11 @@ export async function createOne(req: Request, res: Response) {
     visibility: data.visibility,
     price: data.price,
   });
-  if (!event) throw new ServerError('Failed to create event');
+  if (!event)
+    throw new ServerError(
+      'Failed to create event',
+      'createOne Event Controller',
+    );
 
   await ProfileOnEvent.createOne({
     event_id: event.id,
@@ -51,6 +54,7 @@ export async function createOne(req: Request, res: Response) {
   }
 
   // sync chat service database
+  // TODO: implement sync chat service
   let allParticipantsIds;
   if (ids && ids.length > 0) {
     ids.push(data.organizer_id);

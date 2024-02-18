@@ -47,7 +47,7 @@ function Team({
                   name={nameInput}
                   activeId={currentIdActive}
                   profileId={participant.profile_id}
-                  isAdmin={participant.profile_id === organizer}
+                  profileIsAdmin={participant.profile_id === organizer}
                   isMvp={participant.profile_id === mvp}
                   isBestStriker={participant.profile_id === bestStriker}
                   {...participant}

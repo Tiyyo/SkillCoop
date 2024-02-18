@@ -30,5 +30,6 @@
   "youCantEvaluateTwice": "Vous ne pouvez pas évaluer votre compétence deux fois",
   "evaluationSuccess": "Évaluation réussie",
   "winningRate": "Taux de victoire",
-  "attendedTo": "Participation à"
+  "attendedTo": "Participation à",
+  "level": "Niveau"
 }

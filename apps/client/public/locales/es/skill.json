@@ -25,5 +25,6 @@
   "youCantEvaluateTwice": "No puedes evaluar tu habilidad dos veces",
   "evaluationSuccess": "Evaluación exitosa",
   "winningRate": "Tasa de victorias",
-  "attendedTo": "Asistido a"
+  "attendedTo": "Asistido a",
+  "level": "Nivel"
 }

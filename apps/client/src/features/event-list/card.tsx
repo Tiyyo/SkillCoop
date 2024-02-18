@@ -47,8 +47,8 @@ function EventCard({
 
   return (
     <div
-      className="bg-blurry relative h-fit w-full
-                border border-border bg-base-light bg-opacity-20 
+      className="relative h-fit w-full border
+                border-border bg-base-light bg-opacity-20 bg-blurry 
                 bg-contain bg-[right_13rem_top_6rem] 
                 px-6 pb-6 pt-2"
     >

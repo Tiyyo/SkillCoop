@@ -43,5 +43,7 @@
   "createProfile": "Create your profile",
   "createProfileLegend": "This is your first connection, and we need some additional information.Let's get started by creating your profile.",
   "evaluateYourSkills": "Evaluate your skills",
-  "evalutateYourSkillsLegend": "To make the team generation algorithm more accurate and help you find matches suited to your level, you can assess your skills in each area"
+  "evalutateYourSkillsLegend": "To make the team generation algorithm more accurate and help you find matches suited to your level, you can assess your skills in each area",
+  "findEvents": "Find Events",
+  "findEventsLegend": "Find events that match your skills and interests in your area."
 }

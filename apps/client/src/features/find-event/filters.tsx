@@ -2,6 +2,7 @@ import { SelectItem } from '@radix-ui/react-select';
 import { Select, SelectContent, SelectTrigger } from '../../lib/ui/select';
 import { ArrowDownWideNarrow, ArrowUpNarrowWide } from 'lucide-react';
 import { Dispatch, SetStateAction } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const distanceOptions = {
   5: '5km',
@@ -25,6 +26,7 @@ function FindEventsFilters({
   sortDate,
   setSortDate,
 }: FindEventsFiltersProps) {
+  const { t } = useTranslation('system');
   return (
     <div className="flex gap-3">
       <Select onValueChange={(value) => setDistance(Number(value))}>
@@ -49,7 +51,7 @@ function FindEventsFilters({
           className="border-border text-sm text-xxs 
         focus:border-primary-700 md:text-xs"
         >
-          Date
+          {t('event:date')}
           <span className="ml-2">
             {sortDate === 'asc' ? (
               <ArrowUpNarrowWide size={14} />
@@ -67,14 +69,16 @@ function FindEventsFilters({
             value="asc"
             className="my-2 flex items-center justify-between"
           >
-            <span className="mx-2 text-xs lg:text-sm"> Most recent</span>
+            <span className="mx-2 text-xs lg:text-sm">
+              {t('upcomingFirst')}
+            </span>
             <ArrowUpNarrowWide size={18} />
           </SelectItem>
           <SelectItem
             value="desc"
             className="my-2 flex items-center justify-between"
           >
-            <span className="mx-2 text-xs lg:text-sm">Most older</span>
+            <span className="mx-2 text-xs lg:text-sm">{t('furthestAway')}</span>
             <ArrowDownWideNarrow size={18} />
           </SelectItem>
         </SelectContent>

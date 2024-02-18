@@ -10,6 +10,7 @@ import { useUpdateSingleEvent } from '../../hooks/useSingleEvent';
 import { Visibility } from '@skillcoop/types/src';
 import { useEvent } from '../../../features/event-page/store/event.store';
 import { updateEventSchema } from '@skillcoop/schema/src';
+import { useTranslation } from 'react-i18next';
 
 const menuItemStyle = `flex gap-2 items-center hover:bg-primary-200 
   transition-colors duration-300 rounded-lg px-2 text-md h-10`;
@@ -27,13 +28,6 @@ type UpdateVisibilityEventModalProps = {
   eventId: number | undefined;
   profileId: number | undefined;
 };
-/*eslint-disable max-len*/
-const goPublicText =
-  'By making this event public, you agree to allow any user of this platform to submit a request to join your event.';
-
-const goPrivateText =
-  'By setting this event to private, you acknowledge that only users you invite will be able to join your event.';
-/*eslint-enable max-len*/
 
 function UpdateVisibilityEventModal({
   children,
@@ -41,9 +35,13 @@ function UpdateVisibilityEventModal({
   eventId,
   profileId,
 }: UpdateVisibilityEventModalProps) {
+  const { t } = useTranslation('event');
   const closeModalRef = useRef(null);
   const { updateVisibility } = useEvent();
   const [nextVisibility, setNextVisibility] = useState<Visibility>(visibility);
+
+  const goPublicText = t('goPublicEventText');
+  const goPrivateText = t('goPrivateEventText');
 
   const { mutate: updateEventVisibility } = useUpdateSingleEvent({
     eventId: eventId,
@@ -107,7 +105,11 @@ function UpdateVisibilityEventModal({
             }
             onClick={handleClickVisibility}
           >
-            {visibility === 'public' ? 'Go private' : 'Go public'}
+            {visibility === 'public' ? (
+              <>{t('goPrivate')}</>
+            ) : (
+              <>{t('goPublic')}</>
+            )}
           </button>
           <button
             name="statusName"
@@ -115,7 +117,7 @@ function UpdateVisibilityEventModal({
             className={baseButtonStyle + ' duration-300 hover:bg-primary-400'}
             onClick={() => closeModal()}
           >
-            Cancel
+            {t('cancel')}
           </button>
         </div>
       </AlertDialogContent>

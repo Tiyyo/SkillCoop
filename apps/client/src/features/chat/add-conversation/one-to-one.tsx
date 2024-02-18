@@ -1,6 +1,6 @@
 import { UserPlus2Icon } from 'lucide-react';
 import React from 'react';
-import { Friend } from '@skillcoop/types';
+import { Friend } from '@skillcoop/types/src';
 import { useTranslation } from 'react-i18next';
 import useNewOneToOneConversation from '../hooks/useNewOneToOneConversation';
 import AddNewConversationOneToOneFriends from './one-to-one.friends';

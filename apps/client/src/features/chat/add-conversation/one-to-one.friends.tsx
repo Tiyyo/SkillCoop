@@ -1,5 +1,5 @@
 import ImageWithFallback from '../../../shared/components/image';
-import { Friend } from '@skillcoop/types';
+import { Friend } from '@skillcoop/types/src';
 
 type AddNewConversationOneToOneFriendsProps = {
   friends: Friend[];

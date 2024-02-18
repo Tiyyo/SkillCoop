@@ -9,9 +9,11 @@ import { useGetProfile } from '../../../shared/hooks/useProfile';
 import { useUpdateParticipant } from '../../../shared/hooks/useSingleEvent';
 import toast from '../../../shared/utils/toast';
 import { updateParticipantSchema } from '@skillcoop/schema/src';
+import { useTranslation } from 'react-i18next';
 
 function ModalRouteRequestApprovalEvent() {
   const navigate = useNavigate();
+  const { t } = useTranslation('event');
   const { eventId, profileId: requesterProfileId } = useParams<{
     eventId: string;
     profileId: string;
@@ -23,7 +25,11 @@ function ModalRouteRequestApprovalEvent() {
   const { mutate: updateRequesterStatus } = useUpdateParticipant({
     eventId: Number(eventId),
     onSuccess: () => {
-      toast.success(`${requesterProfile?.username} status has been updated`);
+      toast.success(
+        t('toast:statusHasBeenUpdated', {
+          username: requesterProfile?.username,
+        }),
+      );
       navigate(-1);
     },
   });
@@ -77,11 +83,19 @@ function ModalRouteRequestApprovalEvent() {
             <div>
               <p>{capitalize(requesterProfile?.username)}</p>
               <p className="text-xs text-grey-sub-text">
-                Level :{' '}
+                {t('skill:level')} :{' '}
                 <span>
-                  {requesterProfile?.last_evaluation
-                    ? associateNumberToString(requesterProfile?.last_evaluation)
-                    : 'NC'}
+                  {requesterProfile?.last_evaluation ? (
+                    <>
+                      {t(
+                        `skill:${associateNumberToString(
+                          requesterProfile?.last_evaluation,
+                        )}`,
+                      )}
+                    </>
+                  ) : (
+                    'NC'
+                  )}
                 </span>
               </p>
             </div>
@@ -93,7 +107,7 @@ function ModalRouteRequestApprovalEvent() {
               duration-300 hover:bg-primary-200"
               onClick={() => handleClickRequest('refused')}
             >
-              Refused
+              {t('refuse')}
             </button>
             <button
               className="rounded-md border border-border 
@@ -101,7 +115,7 @@ function ModalRouteRequestApprovalEvent() {
               duration-300 hover:bg-primary-400"
               onClick={() => handleClickRequest('confirmed')}
             >
-              Accept
+              {t('accept')}
             </button>
           </div>
         </>

@@ -85,7 +85,6 @@ function AddNewPlayground() {
                   return (
                     <Input
                       id={key}
-                      // value={value}
                       defaultValue={value}
                       placeholder={
                         (value as string) ?? 'Complete this information'

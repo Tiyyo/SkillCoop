@@ -30,5 +30,6 @@
   "youCantEvaluateTwice": "You cant evaluate your skill twice",
   "evaluationSuccess": "Evaluation success",
   "winningRate": "Wining Rate",
-  "attendedTo": "Attended to"
+  "attendedTo": "Attended to",
+  "level": "Level"
 }

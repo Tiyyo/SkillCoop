@@ -12,7 +12,8 @@ import { CLIENT_URL } from './utils/variables.js';
 const app: express.Application = express();
 // Sentry.init({
 //   dsn:
-//     // process.env.NODE_ENV === 'production' ? process.env.SENTRY_DSN : undefined,
+//     // process.env.NODE_ENV === 'production' ?
+//        process.env.SENTRY_DSN : undefined,
 //   // integrations: [
 //   //   // enable HTTP calls tracing
 //   //   new Sentry.Integrations.Http({ tracing: true }),

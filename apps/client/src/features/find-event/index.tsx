@@ -14,6 +14,7 @@ import useFindEventsFilters from './hooks/useFindEventsFilters';
 import { dateCompare } from '../../shared/utils/date-compare';
 /*eslint-disable*/
 import { getCurrentLngInLocalStorage } from '../../shared/utils/get-current-lng';
+import { useTranslation } from 'react-i18next';
 /*eslint-enable*/
 
 type Localisation = {
@@ -23,6 +24,7 @@ type Localisation = {
 
 function FindEvents() {
   const { userProfile, userId } = useApp();
+  const { t } = useTranslation('title');
   const [currentLocalisation, setCurrentLocalisation] = useState<Localisation>({
     latitude: null,
     longitude: null,
@@ -84,10 +86,7 @@ function FindEvents() {
     <>
       <Container className="lg:mt-4">
         <div className="flex items-center justify-between">
-          <TitleH2
-            title="Find events"
-            legend="Find all events that need player in your aera"
-          />
+          <TitleH2 title={t('findEvents')} legend={t('findEventsLegend')} />
           <FindEventsFilters
             distance={distance}
             setDistance={setDistance}
@@ -98,7 +97,7 @@ function FindEvents() {
       </Container>
       {(!nearestEvents || nearestEvents.length === 0) && !isLoading && (
         <Container className="flex-grow animate-opacity-in lg:mt-4">
-          <NotFoundMessage message="No events found" />
+          <NotFoundMessage message={t('system:noEventsFound')} />
         </Container>
       )}
       {isLoading && (

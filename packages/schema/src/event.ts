@@ -40,6 +40,6 @@ export const getEventNearbySchema = z.object({
   userCountry: z.string(),
   userLongitude: z.string(),
   userLatitude: z.string(),
-  distance: z.number().positive(),
-  profileId: z.number().positive().int(),
+  distance: z.string(),
+  profileId: z.string(),
 });

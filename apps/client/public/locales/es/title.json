@@ -42,5 +42,7 @@
   "transfertRights": "Transferir derechos",
   "transfertRightsLegend": "¿A qué participantes quieres transferir tus derechos de organizador para este evento?",
   "sharedEvents": "Eventos compartidos",
-  "sharedEventsLegend": "Últimos eventos compartidos con {{username}}"
+  "sharedEventsLegend": "Últimos eventos compartidos con {{username}}",
+  "findEvents": "Buscar eventos",
+  "findEventsLegend": "Encuentra eventos que coincidan con tus habilidades e intereses en tu área."
 }

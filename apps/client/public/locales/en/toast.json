@@ -25,5 +25,6 @@
   "yourAccountHasNotBeenVerified": "Your account has not been verified yet. We have sent a new link to your email for account validation.",
   "youHaveOnlyXLeft": "You have only {{count}} left before you account is blocked.",
   "playgroundHasBeenCreated": "Playground has been created",
-  "playgroundNotCreated": "Could not create this playground, most likely because it already exists"
+  "playgroundNotCreated": "Could not create this playground, most likely because it already exists",
+  "statusHasBeenUpdated": "{{username}} status has been updated"
 }

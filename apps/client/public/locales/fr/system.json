@@ -78,5 +78,7 @@
   "onlyUsernameIsRequired": "Seul le nom d'utilisateur est requis",
   "yes": "Oui",
   "no": "Non",
-  "confirm": "Confirmer"
+  "confirm": "Confirmer",
+  "upcomingFirst": "Prochains en premier",
+  "furthestAway": "Les plus éloignés"
 }

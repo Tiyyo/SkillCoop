@@ -144,6 +144,9 @@ function EventPageInfos({
     );
   };
 
+  const playgroundHasPrice =
+    event.price !== null && event.price !== undefined && event.price > 0;
+
   return (
     <Container className="flex-grow lg:rounded-lg">
       <div className="flex items-center justify-between">
@@ -209,13 +212,13 @@ function EventPageInfos({
         />
         <SelectInput
           name="visibility"
-          label="visibility"
+          label={t('visibility')}
           updateState={updateVisibility}
           options={[
             { value: 'public', label: t('public') },
             { value: 'private', label: t('private') },
           ]}
-          defaultValue={event.visibility ?? 'private'}
+          defaultValue={t(event.visibility ?? 'private')}
           disabled={!isEditActive}
           high
         >
@@ -237,10 +240,10 @@ function EventPageInfos({
         </SelectInput>
         <Input
           name="price"
-          label="Playground Price"
+          label={t('playgroundPrice')}
           type="number"
           disabled={!isEditActive}
-          value={event.price ?? 'NC'}
+          value={playgroundHasPrice ? event.price! : 'NC'}
           updateState={updatePrice}
           high
         >

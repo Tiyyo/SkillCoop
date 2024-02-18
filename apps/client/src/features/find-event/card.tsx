@@ -1,4 +1,5 @@
 /*eslint-disable*/
+import { useTranslation } from 'react-i18next';
 import ImageWithUsernamefallback from '../../shared/components/image-fallback-username';
 import { useSendRequestToJoinEvent } from '../../shared/hooks/useSingleEvent';
 import { useApp } from '../../shared/store/app.store';
@@ -45,6 +46,7 @@ function NearEventCard({
   distance,
 }: NearEventCardProps) {
   const { userId } = useApp();
+  const { t } = useTranslation('event');
   const { mutate: sendRequestToJoinEvent } = useSendRequestToJoinEvent({
     eventId,
     country,
@@ -62,6 +64,8 @@ function NearEventCard({
     }
   };
 
+  const playgroundHasPrice = price !== null && price !== undefined && price > 0;
+
   return (
     <div
       className="bg-blurry relative flex h-auto max-h-80 
@@ -73,7 +77,7 @@ function NearEventCard({
         className="absolute right-3 top-3 text-xxs font-light 
                   text-text-base"
       >
-        Free Spots Remaining :{' '}
+        {t('freeSpotsRemaining')} :{' '}
         <span className="text-xs font-semibold text-primary-1100">
           {requiredParticipants - confirmedParticipants}
         </span>
@@ -87,27 +91,27 @@ function NearEventCard({
           />
         </div>
         <ul className="grid grid-cols-2 items-center gap-x-3 gap-y-1 text-xs">
-          <li className="text-light">Start</li>
+          <li className="text-light">{t('date')}</li>
           <li className="font-semibold text-text-base">
             {date} at {startTime}
           </li>
-          <li className="text-light">Duration</li>
+          <li className="text-light">{t('duration')}</li>
           <li className="font-semibold text-text-base">{duration}min</li>
-          <li className="text-light">Format</li>
+          <li className="text-light">{t('format')}</li>
           <li className="font-semibold text-text-base">
             {getEventFormatbyRequiredParticipants(requiredParticipants)}
           </li>
-          <li className="text-light">Average Pariticpants Level</li>
+          <li className="text-light">{t('averageParticipantsLevel')}</li>
           <li className="font-semibold text-text-base">
             {capitalize(associateNumberToString(averageEventEvaluation))}
           </li>
-          <li className="text-light">Location</li>
+          <li className="text-light">{t('location')}</li>
           <li className="flex flex-col font-semibold text-text-base">
             <span className="">{playgroundName}</span>
             <span className="text-grey-sub-text">{playgroundCity}</span>
           </li>
-          {price && <li className="text-light">Price</li>}
-          {price && (
+          {playgroundHasPrice && <li className="text-light">{t('price')}</li>}
+          {playgroundHasPrice && (
             <li>
               {price / requiredParticipants}€{' '}
               <span className="text-light">/per</span>
@@ -121,7 +125,7 @@ function NearEventCard({
                     py-2 text-xs"
           onClick={handleClickRequestToJoinEvent}
         >
-          Send request
+          {t('sendRequest')}
         </button>
       </div>
     </div>

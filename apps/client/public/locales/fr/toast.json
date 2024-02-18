@@ -25,5 +25,6 @@
   "yourAccountHasNotBeenVerified": "Votre compte n'a pas encore été vérifié. Nous avons envoyé un nouveau lien à votre email pour la validation du compte.",
   "youHaveOnlyXLeft": "Il ne vous reste que {{count}} essai(s) avant que votre compte ne soit bloqué.",
   "playgroundHasBeenCreated": "Le terrain de sport a été créé",
-  "playgroundNotCreated": "Impossible de créer ce terrain de sport, probablement parce qu'il existe déjà"
+  "playgroundNotCreated": "Impossible de créer ce terrain de sport, probablement parce qu'il existe déjà",
+  "statusHasBeenUpdated": "Le statut de {{username}} a été mis à jour"
 }

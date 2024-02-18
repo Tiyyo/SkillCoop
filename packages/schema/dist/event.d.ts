@@ -75,18 +75,18 @@ export declare const getEventNearbySchema: z.ZodObject<{
     userCountry: z.ZodString;
     userLongitude: z.ZodString;
     userLatitude: z.ZodString;
-    distance: z.ZodNumber;
-    profileId: z.ZodNumber;
+    distance: z.ZodString;
+    profileId: z.ZodString;
 }, "strip", z.ZodTypeAny, {
     userCountry: string;
     userLongitude: string;
     userLatitude: string;
-    distance: number;
-    profileId: number;
+    distance: string;
+    profileId: string;
 }, {
     userCountry: string;
     userLongitude: string;
     userLatitude: string;
-    distance: number;
-    profileId: number;
+    distance: string;
+    profileId: string;
 }>;

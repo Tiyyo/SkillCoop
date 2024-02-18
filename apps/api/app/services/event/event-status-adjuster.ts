@@ -48,7 +48,7 @@ export class EventStatusAdjusterService {
     if (
       this.confirmedParticipants &&
       this.updateData.required_participants ===
-      this.confirmedParticipants.length
+        this.confirmedParticipants.length
     ) {
       this.updateData.status_name = 'full';
     }

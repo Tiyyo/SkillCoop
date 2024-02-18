@@ -27,6 +27,7 @@ CREATE TABLE "new_event" (
     "date" TEXT NOT NULL,
     "duration" INTEGER NOT NULL,
     "required_participants" INTEGER NOT NULL,
+    "price" REAL,
     "nb_teams" INTEGER NOT NULL DEFAULT 2,
     "visibility" TEXT NOT NULL DEFAULT 'private',
     "location_id" INTEGER NOT NULL,

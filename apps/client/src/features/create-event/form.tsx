@@ -109,7 +109,7 @@ function CreateEventForm({
         </SelectInput>
         <SelectInput
           name="visibility"
-          label="Select a visibility"
+          label={t('selectVisibility')}
           updateState={updateVisibility}
           options={[
             { value: 'public', label: t('public') },

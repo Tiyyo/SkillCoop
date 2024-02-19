@@ -1,0 +1,265 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-kysely"
+  output   = "../kysely"
+  fileName = "database.type.ts"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./sqlite.db"
+}
+
+model user {
+  id                        String    @id 
+  email                     String    @unique
+  password                  String
+  verified                  Int       @default(0)
+  blocked                   Int       @default(0)
+  failed_attempts           Int       @default(0)
+  created_at                String
+  updated_at                String? 
+  profile                   profile? // Why Profile have a caps ?
+  notification_preference   notification_preference[]
+  theme_preference          theme_preference[]
+  language_preference       language_preference[]
+}
+
+model profile {
+  profile_id                String                @id @unique
+  user                      user                  @relation(fields: [profile_id], references: [id], onDelete: Cascade)
+  username                  String             
+  first_name                String? 
+  last_name                 String?
+  location                  String?           
+  date_of_birth             String?
+  avatar                    image?                @relation(fields: [avatar_url], references: [url], onDelete: SetNull, onUpdate: Cascade)
+  avatar_url                String?
+  last_evaluation           Int?
+  active_notification       Int                   @default(1)
+  organizer                 event[]               @relation("organizer")            
+  mvp                       event[]               @relation("mvp")            
+  best_striker              event[]               @relation("best_striker")            
+  adder                     profile_on_profile[]  @relation("adder")
+  friend                    profile_on_profile[]  @relation("added")
+  rater_foot                skill_foot[]          @relation("rater_foot")
+  reviewee_foot             skill_foot[]          @relation("reviewee_foot")
+  profile_on_event          profile_on_event[]
+  mvp_pool_ratee            mvp_poll[]            @relation("ratee_mvp")
+  mvp_pool_rater            mvp_poll[]            @relation("rater_mvp")
+  best_striker_pool_ratee   best_striker_poll[]   @relation("ratee_best_striker")
+  best_striker_pool_rater   best_striker_poll[]   @relation("rater_best_striker")
+  notification_sub          notification[]        @relation("subscriber")
+  notification_instigator   notification[]        @relation("instigator")
+  created_at  String
+  updated_at  String? 
+}
+
+model profile_on_profile {
+  adder_id     String
+  adder        profile   @relation("adder", fields: [adder_id], references: [profile_id], onDelete: Cascade, onUpdate: Cascade)
+  friend_id    String
+  friend       profile   @relation("added", fields: [friend_id], references: [profile_id], onDelete: Cascade, onUpdate: Cascade)
+  status       status?   @relation(fields: [status_name], references: [name], onDelete: SetNull, onUpdate: Cascade)
+  status_name  String?
+  created_at   String
+  updated_at   String?
+
+  @@id([adder_id, friend_id])
+}
+
+model event {
+  id                    Int                @id @default(autoincrement())
+  date                  String
+  duration              Int
+  required_participants Int
+  price                 Float?               
+  nb_teams              Int                 @default(2)
+  visibility            String              @default("private")               
+  location_id           Int
+  playground            playground          @relation(fields: [location_id], references: [id], onDelete: NoAction, onUpdate: Cascade)
+  organizer_id          String?
+  organizer             profile?            @relation("organizer", fields: [organizer_id], references: [profile_id], onDelete: SetNull, onUpdate: Cascade)
+  status_name           String
+  status                status              @relation(fields: [status_name], references: [name], onDelete: NoAction, onUpdate: Cascade)
+  mvp_id                String? 
+  mvp                   profile?             @relation("mvp" , fields: [mvp_id], references: [profile_id], onDelete: SetNull, onUpdate: Cascade)
+  best_striker_id       String?
+  best_striker          profile?             @relation("best_striker" ,fields : [best_striker_id], references: [profile_id], onDelete: SetNull, onUpdate: Cascade)
+  score                 score[]
+  profile_on_event      profile_on_event[]
+  mvp_poll              mvp_poll[]
+  best_striker_poll     best_striker_poll[]
+  skills                skill_foot[]
+  notification          notification[]
+  created_at            String           
+  updated_at            String?
+}
+
+model score {
+  id              Int       @id @default(autoincrement())
+  score_team_1    Int
+  score_team_2    Int
+  event_id        Int
+  event           event     @relation(fields: [event_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  created_at      String  
+  updated_at      String?
+}
+
+model profile_on_event {
+  profile_id    String
+  profile       profile     @relation(fields: [profile_id], references: [profile_id], onDelete: Cascade, onUpdate: Cascade)
+  event_id      Int
+  event         event       @relation(fields: [event_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  team          Int?
+  status_name   String
+  status        status      @relation(fields: [status_name], references: [name], onDelete: NoAction, onUpdate: Cascade)
+  created_at    String
+  updated_at    String?
+  @@id([profile_id, event_id])
+}
+
+model skill_foot {
+  id          Int       @id @default(autoincrement())
+  pace        Int
+  shooting    Int
+  passing     Int
+  dribbling   Int
+  defending   Int
+  created_at  String
+  updated_at  String?
+  rater_id    String
+  rater       profile   @relation("rater_foot", fields: [rater_id], references: [profile_id], onDelete: Cascade, onUpdate: Cascade)
+  reviewee_id String
+  reviewee    profile   @relation("reviewee_foot", fields: [reviewee_id], references: [profile_id] , onDelete: Cascade, onUpdate: Cascade)
+  event_id    Int?      
+  event       event?     @relation(fields: [event_id], references: [id])
+
+}
+
+model sport {
+  id          Int          @id @default(autoincrement())
+  name        String       @unique
+  created_at  String     
+  updated_at  String?    
+}
+
+model status {
+  id                 Int                  @id @default(autoincrement())
+  name               String               @unique
+  created_at         String
+  updated_at         String?
+  event              event[]
+  profile_on_profile profile_on_profile[]
+  profile_on_event   profile_on_event[]
+}
+
+model image {
+  id          Int       @id @default(autoincrement())
+  url         String    @unique
+  key         String?   @unique
+  size        Int?
+  created_at  String
+  updated_at  String?
+  profile     profile[] 
+}
+
+model mvp_poll {
+  event_id    Int
+  event       event     @relation(fields: [event_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  profile_id  String
+  profile     profile   @relation("ratee_mvp",fields: [profile_id], references: [profile_id], onDelete: Cascade, onUpdate: Cascade)
+  rater_id    String
+  rater       profile   @relation("rater_mvp",fields: [rater_id], references: [profile_id], onDelete: Cascade, onUpdate: Cascade)
+  created_at  String
+  updated_at  String?
+  @@id([event_id, rater_id])
+
+}
+
+model best_striker_poll {
+  event_id    Int
+  event       event     @relation(fields: [event_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  profile_id  String
+  profile     profile   @relation("ratee_best_striker",fields: [profile_id], references: [profile_id], onDelete: Cascade, onUpdate: Cascade)
+  rater_id    String
+  rater       profile   @relation("rater_best_striker",fields: [rater_id], references: [profile_id], onDelete: Cascade, onUpdate: Cascade)
+  created_at  String
+  updated_at  String?
+
+  @@id([event_id, rater_id])
+}
+
+model notification {
+  id              Int       @id @default(autoincrement())
+  profile_id      String
+  profile         profile   @relation("subscriber",fields: [profile_id], references: [profile_id], onDelete: Cascade, onUpdate: Cascade)
+  instigator_id   String?
+  instigator      profile?  @relation("instigator", fields: [instigator_id], references: [profile_id], onDelete: Cascade, onUpdate: Cascade)
+  event_id        Int?
+  event           event?    @relation(fields: [event_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  img_url         String?
+  type_name       String?
+  type            notification_type? @relation(fields: [type_name], references: [name], onDelete: SetNull, onUpdate: Cascade)
+  subtype         String?
+  message         String
+  is_read         Int       @default(0)
+  created_at      String
+  updated_at      String?
+}
+
+model notification_type {
+  name        String    @id @unique
+  created_at  String
+  updated_at  String?
+  notification notification[]
+  notification_preference notification_preference[]
+}
+
+model notification_preference {
+  user_id     String
+  user        user                @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  type_name   String
+  type        notification_type   @relation(fields: [type_name], references: [name], onDelete: Cascade, onUpdate: Cascade)
+  email       Int                 @default(1)
+  push        Int                 @default(1)
+  website     Int                 @default(1)
+  created_at  String
+  updated_at  String?
+  @@id([user_id, type_name])
+}
+
+model theme_preference {
+  user_id     String         @id
+  user        user        @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  name        String      @default("light")
+  created_at  String
+  updated_at  String?
+}
+
+model language_preference {
+  user_id     String    @id
+  user        user      @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  name        String    @default("en")
+  created_at  String
+  updated_at  String?
+}
+
+model playground {
+  id          Int       @id @default(autoincrement())
+  name        String   
+  address     String 
+  city        String   
+  post_code   String
+  region      String
+  country     String
+  longitude   Float
+  latitude    Float
+  events      event[]
+  created_at  String
+  updated_at  String?
+
+  @@unique([name, address, city], name: "unique_playground")
+}

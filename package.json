@@ -14,7 +14,8 @@
     "client": "pnpm --filter @skillcoop/client",
     "date": "pnpm --filter @skillcoop/date-handler",
     "type": "pnpm --filter @skillcoop/types",
-    "schema": "pnpm --filter @skillcoop/schema"
+    "schema": "pnpm --filter @skillcoop/schema",
+    "api-v2": "pnpm --filter @skillcoop/api-v2"
   },
   "license": "ISC",
   "devDependencies": {

@@ -1,3 +1,5 @@
+import { DomainException } from '../shared/domain-exception';
+
 export class EventStatus {
   readonly name: string;
   validStatus: string[];
@@ -5,8 +7,10 @@ export class EventStatus {
   constructor(name: string) {
     this.validStatus = ['open', 'full', 'cancelled', 'completed'];
     if (!this.validStatus.includes(name)) {
-      // Replace Error with a custom DomainException
-      throw new Error('Invalid event status');
+      throw new DomainException(
+        `Expect status to be from ${this.validStatus}`,
+        'EventStatus',
+      );
     }
     this.name = name;
   }

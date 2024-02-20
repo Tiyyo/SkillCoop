@@ -1,3 +1,5 @@
+import { DomainException } from '../shared/domain-exception';
+
 export class InvitationStatus {
   readonly name: string;
   validStatus: string[];
@@ -12,8 +14,10 @@ export class InvitationStatus {
       'refused',
     ];
     if (!this.validStatus.includes(name)) {
-      // Replace Error with a custom DomainException
-      throw new Error('Invalid event status');
+      throw new DomainException(
+        `Expect status to be from ${this.validStatus}`,
+        'EventStatus',
+      );
     }
   }
   equals(otherType: InvitationStatus): boolean {

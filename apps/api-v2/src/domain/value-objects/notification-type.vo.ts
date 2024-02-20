@@ -1,3 +1,5 @@
+import { DomainException } from '../shared/domain-exception';
+
 export class NotificationType {
   readonly name: string;
   validTypes: string[];
@@ -6,8 +8,10 @@ export class NotificationType {
     this.name = name;
     this.validTypes = ['event', 'friend', 'message', 'system'];
     if (!this.validTypes.includes(name)) {
-      // Replace Error with a custom DomainException
-      throw new Error('Invalid notification type');
+      throw new DomainException(
+        'Invalid notification type',
+        'NotificationType',
+      );
     }
   }
   equals(otherType: NotificationType): boolean {

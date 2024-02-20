@@ -5,19 +5,27 @@ import { Inject, Injectable } from '@nestjs/common';
 import { UserEntity } from 'src/domain/entities/user.entity';
 import { addCreatedISOStringDate } from 'src/infrastructure/utils/add-date-object';
 import { transformBoolToNumberInObject } from 'src/infrastructure/utils/bool-to-int';
+import { DatabaseException } from '../database.exception';
+import { CoreAdapter } from './core.adapter';
 
 @Injectable()
-export class UserAdapter implements UserRepository {
-  constructor(@Inject('dbClient') protected dbClient: Kysely<DB>) { }
+export class UserAdapter extends CoreAdapter<'user'> implements UserRepository {
+  constructor(@Inject('dbClient') protected dbClient: Kysely<DB>) {
+    super(dbClient);
+  }
   async save(data: UserEntity): Promise<{ id: string; email: string }> {
     const dataWithIntAsBool = transformBoolToNumberInObject(data);
     const dataWithCreatedAt = addCreatedISOStringDate(dataWithIntAsBool);
-    const user = await this.dbClient
-      .insertInto('user')
-      .values(dataWithCreatedAt)
-      .returning(['id', 'email'])
-      .executeTakeFirst();
+    try {
+      const user = await this.dbClient
+        .insertInto('user')
+        .values(dataWithCreatedAt)
+        .returning(['id', 'email'])
+        .executeTakeFirst();
 
-    return user;
+      return user;
+    } catch (error) {
+      throw new DatabaseException(error);
+    }
   }
 }

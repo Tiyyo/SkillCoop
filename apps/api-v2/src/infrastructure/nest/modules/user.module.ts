@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { UserUsecases } from 'src/application/usecases/user.usecases';
+import { UserUsecases } from 'src/application/usecases/user/register.user.usecases';
 import { UserFactory } from 'src/domain/factories/user.factory';
 import { RegisterUserController } from 'src/infrastructure/controllers/user/register.controller';
 import { UserAdapter } from 'src/infrastructure/kysely/adapters/user.adapter';

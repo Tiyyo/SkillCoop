@@ -1,15 +1,17 @@
-import { UserFactory } from '../../domain/factories/user.factory';
+import { UserFactory } from '../../../domain/factories/user.factory';
 import { Inject, Injectable } from '@nestjs/common';
-import { PasswordHashInterface } from '../hash-service';
-import { EmailServiceInterface } from '../email-service';
-import { TokenServiceInterface } from '../token-service';
+import { PasswordHashInterface } from '../../hash-service';
+import { EmailServiceInterface } from '../../email-service';
+import { TokenServiceInterface } from '../../token-service';
 import { UserAdapter } from 'src/infrastructure/kysely/adapters/user.adapter';
+import { CreateUserDTO } from '../../dto/create-user.dto';
+import { ApplicationException } from '../../exceptions/application.exception';
 
 const emailKey = 'provisional email for dev purposes';
 const VALID_TIME = '1h';
 
 @Injectable()
-export class UserUsecases {
+export class RegisterUserUsecases {
   constructor(
     private readonly userFactory: UserFactory,
     private readonly userAdapter: UserAdapter,
@@ -20,9 +22,17 @@ export class UserUsecases {
     @Inject('TokenService')
     private readonly tokenService: TokenServiceInterface,
   ) { }
-  async createUser(data: any) {
+  async createUser(data: CreateUserDTO) {
     const newUser = this.userFactory.create(data.email, data.password);
-    const hashedPassword = await this.passwordService.hash(data.password);
+    let hashedPassword: string;
+    try {
+      hashedPassword = await this.passwordService.hash(data.password);
+    } catch (error) {
+      throw new ApplicationException(
+        'Could not hash password',
+        'Register User Usecases',
+      );
+    }
     await this.userAdapter.save({
       id: newUser.id,
       email: data.email,

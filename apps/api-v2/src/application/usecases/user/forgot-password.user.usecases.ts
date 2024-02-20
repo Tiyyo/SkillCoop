@@ -1,8 +1,11 @@
-import { Inject } from '@nestjs/common';
+import { ForbiddenException, Inject, NotFoundException } from '@nestjs/common';
 import { EmailDTO } from 'src/application/dto/email.dto';
 import { EmailServiceInterface } from 'src/application/email-service';
 import { TokenServiceInterface } from 'src/application/token-service';
 import { UserAdapter } from 'src/infrastructure/kysely/adapters/user.adapter';
+
+const VALID_TOKEN_DURATION = '10m';
+const emailKey = 'provisional email for dev purposes';
 
 export class ForgotPasswordUserUsecases {
   constructor(
@@ -13,11 +16,18 @@ export class ForgotPasswordUserUsecases {
     private readonly tokenService: TokenServiceInterface,
   ) { }
   async handle(email: EmailDTO) {
-    // find user by email
-    // if not found throw error
-    // if found and not verified throw error
-    // generate token
-    // send email
     const user = await this.userAdapter.findOne(email);
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    if (!user.verified) {
+      throw new ForbiddenException('User not verified');
+    }
+    const token = await this.tokenService.generateToken(
+      VALID_TOKEN_DURATION,
+      emailKey,
+      { user_id: user.id },
+    );
+    await this.emailService.resetPassword(user.email, token, user.id);
   }
 }

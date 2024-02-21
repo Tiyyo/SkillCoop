@@ -13,6 +13,7 @@ export type best_striker_poll = {
 };
 export type event = {
   id: Generated<number>;
+  domain_id: string | null;
   date: string;
   duration: number;
   required_participants: number;
@@ -77,6 +78,7 @@ export type notification_type = {
 };
 export type playground = {
   id: Generated<number>;
+  domain_id: string | null;
   name: string;
   address: string;
   city: string;

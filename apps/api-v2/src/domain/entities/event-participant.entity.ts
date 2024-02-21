@@ -1,10 +1,22 @@
-import { InvitationStatus } from '../value-objects/invitation-status.vo';
+import { DomainException } from '../shared/domain-exception';
+export type TInvitationStatus =
+  | 'confirmed'
+  | 'declined'
+  | 'pending'
+  | 'requested'
+  | 'refused';
+
+function isValidInvitationStatus(status: string): status is TInvitationStatus {
+  return ['confirmed', 'declined', 'pending', 'requested', 'refused'].includes(
+    status,
+  );
+}
 
 export class EventParticipantEntity {
-  event_id: string;
+  event_id: number;
   profile_id: string;
   team: number;
-  status_name: InvitationStatus;
+  status_name: TInvitationStatus | string;
 
   constructor({
     event_id,
@@ -12,7 +24,7 @@ export class EventParticipantEntity {
     team,
     status_name,
   }: {
-    event_id: string;
+    event_id: number;
     profile_id: string;
     team: number;
     status_name: string;
@@ -20,6 +32,12 @@ export class EventParticipantEntity {
     this.event_id = event_id;
     this.profile_id = profile_id;
     this.team = team;
-    this.status_name = new InvitationStatus(status_name);
+    if (!isValidInvitationStatus(status_name)) {
+      throw new DomainException(
+        'Invalid status name',
+        'EventParticipantEntity',
+      );
+    }
+    this.status_name = status_name;
   }
 }

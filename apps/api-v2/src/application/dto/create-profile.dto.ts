@@ -13,12 +13,13 @@ export interface CreateProfileInterface {
   date_of_birth: string | null;
   avatar_url: string | null;
   location: string | null;
+  profile_id: number;
 }
 
 export class CreateProfileDTO {
   @IsNotEmpty()
-  @IsNumber()
-  user_id: number;
+  @IsString()
+  user_id: string;
   @IsNotEmpty()
   @IsString()
   username: string;

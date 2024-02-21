@@ -42,7 +42,7 @@ export class Profile extends Core<typeof tableNames.profile> {
         .execute();
       if (!result) return null;
 
-      const [nbAttendedEvents] = await this.client
+      const nbAttendedEvents = await this.client
         .selectFrom('profile_on_event')
         .select(({ fn }) => [
           fn.count('profile_on_event.event_id').as('nb_attended_events'),
@@ -50,13 +50,15 @@ export class Profile extends Core<typeof tableNames.profile> {
         .innerJoin('event', 'event.id', 'profile_on_event.event_id')
         .where('profile_on_event.profile_id', '=', result.profile_id)
         .where('event.status_name', '=', 'completed')
-        .execute();
+        .executeTakeFirst();
 
-      const [nbBonus] = await this.client
+      const nbBonus = await this.client
         .selectFrom('event')
-        .select(({ fn }) => [fn.count('event.mvp_id').as('nb_mvp_bonus')])
         .select(({ fn }) => [
-          fn.count('event.best_striker_id').as('nb_best_striker_bonus'),
+          fn.count<number>('event.mvp_id').as('nb_mvp_bonus'),
+        ])
+        .select(({ fn }) => [
+          fn.count<number>('event.best_striker_id').as('nb_best_striker_bonus'),
         ])
         .where((eb) =>
           eb('event.mvp_id', '=', result.profile_id).or(
@@ -65,7 +67,7 @@ export class Profile extends Core<typeof tableNames.profile> {
             result.profile_id,
           ),
         )
-        .execute();
+        .executeTakeFirst();
 
       const winningRate = await sql<{ winning_rate: number }>`
           SELECT      

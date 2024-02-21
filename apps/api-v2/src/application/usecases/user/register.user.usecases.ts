@@ -1,8 +1,8 @@
 import { UserFactory } from '../../../domain/factories/user.factory';
 import { Inject, Injectable } from '@nestjs/common';
-import { PasswordHashInterface } from '../../hash-service';
-import { EmailServiceInterface } from '../../email-service';
-import { TokenServiceInterface } from '../../token-service';
+import { PasswordHashInterface } from '../../services/hash.service';
+import { EmailServiceInterface } from '../../services/email.service';
+import { TokenServiceInterface } from '../../services/token.service';
 import { UserAdapter } from 'src/infrastructure/kysely/adapters/user.adapter';
 import { CreateUserDTO } from '../../dto/create-user.dto';
 import { ApplicationException } from '../../exceptions/application.exception';

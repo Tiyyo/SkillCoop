@@ -1,4 +1,4 @@
-import { PasswordHashInterface } from 'src/application/hash-service';
+import { PasswordHashInterface } from 'src/application/services/hash.service';
 import * as bcrypt from 'bcrypt';
 import { Injectable } from '@nestjs/common';
 

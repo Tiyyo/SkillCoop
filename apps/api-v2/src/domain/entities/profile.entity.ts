@@ -17,3 +17,15 @@ export interface ProfileEntity {
   winning_rate?: number | null;
   last_evaluation: number | null;
 }
+
+export interface ProfileCoreEntity {
+  profile_id: string;
+  username: string;
+  first_name: string | null;
+  last_name: string | null;
+  location: string | null;
+  date_of_birth: string | null;
+  avatar_url: string | null;
+  last_evaluation: number | null;
+  nb_review: number | null;
+}

@@ -1,7 +1,6 @@
 import { NotificationType } from '../value-objects/notification-type.vo';
 
 export class NotificationEntity {
-  id: string;
   profile_id: string;
   type: NotificationType;
   is_read: boolean;
@@ -12,7 +11,6 @@ export class NotificationEntity {
   subtype?: string;
 
   constructor({
-    id,
     profile_id,
     type,
     is_read,
@@ -32,7 +30,6 @@ export class NotificationEntity {
     img_url?: string;
     subtype?: string;
   }) {
-    this.id = id;
     this.profile_id = profile_id;
     this.type = type;
     this.is_read = is_read;
@@ -43,3 +40,16 @@ export class NotificationEntity {
     this.subtype = subtype;
   }
 }
+
+export type NotificationDBEntity = {
+  id: number;
+  profile_id: string;
+  type: string;
+  is_read: number;
+  message: string;
+  instigator_id: string;
+  event_id: number;
+  img_url: string;
+  subtype: string;
+  created_at: string;
+};

@@ -6,9 +6,8 @@ export class GetOneProfileController {
   constructor(private readonly profileUsecases: ProfileUsecases) { }
   @Get('/:id')
   async getOne(@Param('id') id: string) {
-    const profileId = Number(id);
-    console.log('Get One Profile is called', profileId);
-    const profile = await this.profileUsecases.getOne(profileId);
+    console.log('Get One Profile is called', id);
+    const profile = await this.profileUsecases.getOne(id);
     return profile;
   }
 }

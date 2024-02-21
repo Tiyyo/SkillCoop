@@ -1,7 +1,9 @@
 import { EventStatus } from '../value-objects/event-status.vo';
+import { InvitationStatus } from '../value-objects/invitation-status.vo';
+import { TInvitationStatus } from './event-participant.entity';
 
-export class EventEntity {
-  id: string;
+export class EventCoreEntity {
+  domain_id: string;
   date: string;
   duration: number;
   required_participants: number;
@@ -11,11 +13,8 @@ export class EventEntity {
   location_id: string;
   organizer_id: string;
   status: EventStatus;
-  mvp_id?: string;
-  best_striker_id?: string;
 
   constructor({
-    id,
     date,
     duration,
     required_participants,
@@ -24,9 +23,6 @@ export class EventEntity {
     visibility,
     location_id,
     organizer_id,
-    status,
-    mvp_id,
-    best_striker_id,
   }: {
     id: string;
     date: string;
@@ -38,10 +34,7 @@ export class EventEntity {
     location_id: string;
     organizer_id: string;
     status: EventStatus;
-    mvp_id?: string;
-    best_striker_id?: string;
   }) {
-    this.id = id;
     this.date = date;
     this.location_id = location_id;
     this.status = new EventStatus('open');
@@ -53,3 +46,64 @@ export class EventEntity {
     this.organizer_id = organizer_id;
   }
 }
+
+export type EventParticipant = {
+  profile_id: string;
+  username: string;
+  avatar: string | null;
+  status: InvitationStatus;
+  last_evaluation: number | null;
+  team: number | null;
+};
+
+export type EventAggr = EventCoreEntity & {
+  location: string;
+  playground_city: string;
+  playground_address: string;
+  mvp_id: string | null;
+  best_striker_id: string | null;
+  score_team_1: number | null;
+  score_team_2: number | null;
+  participants: EventParticipant[];
+  confirmed_participants: number;
+  user_status: TInvitationStatus;
+};
+
+export type LastSharedEvent = {
+  event_id: string;
+  date: string;
+  duration: string;
+  location: string;
+  playground_city: string;
+  playground_address: string;
+  location_id: number;
+  score_team_1: number;
+  score_team_2: number;
+  participants: Array<{
+    profile_id: string;
+    username: string;
+    avatar: string;
+    team: string;
+  }>;
+};
+
+export type EventLocation = {
+  id: number;
+  country: string;
+  latitude: number;
+  longitude: number;
+};
+
+export type EventFoundedNearby = {
+  id: number;
+  date: string;
+  duration: number;
+  required_participants: number;
+  price: number | null;
+  playground_name: string;
+  playground_city: string;
+  organizer_username: string;
+  organizer_avatar: string | null;
+  confirmed_participants: number | null;
+  average_event_evaluation: number | null;
+};

@@ -60,7 +60,9 @@ export class ProfileOnEvent extends Core<typeof tableNames.profile_on_event> {
     >[];
     const values = Object.values(findObject);
     try {
-      let promise = this.client.selectFrom(this.tableName).selectAll();
+      let promise = this.client
+        .selectFrom(this.tableName)
+        .select(['event_id', 'profile_id', 'status_name', 'team']);
 
       keys.forEach((key, index) => {
         promise = promise.where(key, '=', values[index]);

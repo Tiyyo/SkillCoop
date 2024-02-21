@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { UserUsecases } from 'src/application/usecases/user/register.user.usecases';
+import { RegisterUserUsecases } from 'src/application/usecases/user/register.user.usecases';
 import { UserFactory } from 'src/domain/factories/user.factory';
+import { ForgotPasswordUserController } from 'src/infrastructure/controllers/user/forgot-password.controller';
 import { RegisterUserController } from 'src/infrastructure/controllers/user/register.controller';
 import { UserAdapter } from 'src/infrastructure/kysely/adapters/user.adapter';
 import databaseProvider from 'src/infrastructure/kysely/database.client';
@@ -11,11 +12,11 @@ import { NodeMaillerAdapterService } from 'src/infrastructure/service/nodemailer
 
 @Module({
   imports: [],
-  controllers: [RegisterUserController],
+  controllers: [RegisterUserController, ForgotPasswordUserController],
   providers: [
     databaseProvider,
     JwtService,
-    UserUsecases,
+    RegisterUserUsecases,
     UserFactory,
     UserAdapter,
     { provide: 'TokenService', useClass: JwtAdapterService },

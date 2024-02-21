@@ -1,4 +1,4 @@
-import { EmailServiceInterface } from 'src/application/email-service';
+import { EmailServiceInterface } from 'src/application/services/email.service';
 import nodemailer from 'nodemailer';
 import { Injectable } from '@nestjs/common';
 

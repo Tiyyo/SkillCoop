@@ -1,5 +1,23 @@
 import { SkillRating } from '../value-objects/skill-rating.vo';
 
+export type AverageSkills =
+  | 'avg_pace'
+  | 'avg_defending'
+  | 'avg_shooting'
+  | 'avg_passing'
+  | 'avg_dribbling';
+
+export type LevelSkills =
+  | 'novice'
+  | 'beginner'
+  | 'intermediate'
+  | 'advanced'
+  | 'expert';
+
+export type AverageSkillNumericRating = Record<AverageSkills, number>;
+
+export type LevelSkillRating = Record<AverageSkills, LevelSkills>;
+
 export class SkillEntity {
   pace: SkillRating;
   shooting: SkillRating;

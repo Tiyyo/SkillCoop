@@ -42,6 +42,7 @@
     "prisma": "^5.5.2",
     "prisma-kysely": "^1.7.1",
     "qs": "^6.11.2",
+    "randombytes": "^2.1.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
     "uuid": "^9.0.1"

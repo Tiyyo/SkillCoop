@@ -11,7 +11,11 @@ import {
   TableNames,
   UpdateObjectDB,
 } from 'src/config/types.js';
-import { CoreRepository } from 'src/domain/repositories/core.repository.js';
+import { CoreRepository } from 'src/domain/repositories/core.repository';
+import {
+  addCreatedISOStringDate,
+  addUpdatedISOStringDate,
+} from 'src/infrastructure/utils/add-date-object';
 
 export class CoreAdapter<Table extends keyof DB> implements CoreRepository {
   declare tableName: TableNames;
@@ -66,17 +70,15 @@ export class CoreAdapter<Table extends keyof DB> implements CoreRepository {
     }
   }
   async createOne(data: InsertObjectDB<Table>) {
-    const todayUTCString = getFormattedUTCTimestamp();
-    data.created_at = todayUTCString;
+    const dataWithCreatedAt = addCreatedISOStringDate(data);
     try {
       const result = await this.client
         .insertInto(this.tableName)
-        .values(data as InsertObject<DB, TableNames>)
+        .values(dataWithCreatedAt as InsertObject<DB, TableNames>)
         .execute();
 
       return Number(result[0].insertId);
     } catch (error) {
-      console.log('error', error);
       if (error instanceof Error) {
         throw new DatabaseException(error);
       }
@@ -111,8 +113,7 @@ export class CoreAdapter<Table extends keyof DB> implements CoreRepository {
     condition: UpdateObjectDB<Table>,
     updateObject: UpdateObjectDB<Table>,
   ) {
-    const todayUTCString = getFormattedUTCTimestamp();
-    updateObject.updated_at = todayUTCString;
+    const dataWithUpdatedAt = addUpdatedISOStringDate(updateObject);
 
     const conditionKeys = Object.keys(condition) as ReferenceExpression<
       DB,
@@ -120,7 +121,9 @@ export class CoreAdapter<Table extends keyof DB> implements CoreRepository {
     >[];
     const conditionValues = Object.values(condition);
 
-    let promise = this.client.updateTable(this.tableName).set(updateObject);
+    let promise = this.client
+      .updateTable(this.tableName)
+      .set(dataWithUpdatedAt);
     conditionKeys.forEach((key, index) => {
       promise = promise.where(key, '=', conditionValues[index]);
     });

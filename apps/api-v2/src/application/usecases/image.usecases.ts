@@ -10,17 +10,17 @@ export class ImageUsecases {
   async upload(data: UploadImageDTO) {
     // Upload image to cloud storage
     console.log('ImageUsecases.upload', data);
-    const result = await this.imageRepository.upload(data);
-    return result;
+    // const result = await this.imageRepository.upload(data);
+    // return result;
   }
   async save(data: CreateImageDTO) {
-    const result = await this.imageRepository.createOne(data);
-    return result;
+    // const result = await this.imageRepository.createOne(data);
+    // return result;
   }
   async getOne(id: number) {
-    return this.imageRepository.getOne(id);
+    // return this.imageRepository.getOne(id);
   }
   async deleteOne(id: number) {
-    return this.imageRepository.deleteOne(id);
+    // return this.imageRepository.deleteOne(id);
   }
 }

@@ -249,6 +249,9 @@ importers:
       qs:
         specifier: ^6.11.2
         version: 6.11.2
+      randombytes:
+        specifier: ^2.1.0
+        version: 2.1.0
       reflect-metadata:
         specifier: ^0.1.13
         version: 0.1.14

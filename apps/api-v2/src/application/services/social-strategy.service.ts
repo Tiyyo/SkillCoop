@@ -1,0 +1,53 @@
+import { CreateImageService } from 'src/domain/services/image/create-image.service';
+import { CreateSocialUserSerice } from 'src/domain/services/user/create-social-user.service';
+import { verifiedUserAccountService } from 'src/domain/services/user/verified-account.service';
+import { ProfileAdapter } from 'src/infrastructure/kysely/adapters/profile.adapter';
+
+export class SocialAuthUserStrategyService {
+  constructor(
+    private readonly createImageService: CreateImageService,
+    private readonly verifiedEmailService: verifiedUserAccountService,
+    private readonly createSocialUserSerice: CreateSocialUserSerice,
+    private readonly profileAdapter: ProfileAdapter,
+  ) { }
+  async createProfile(
+    picture: string | null,
+    given_name: string,
+    family_name: string,
+    userId: string,
+  ) {
+    const username = `${given_name} ${family_name[0]}`;
+    await this.createImageService.createImage(picture);
+    await this.profileAdapter.createOne({
+      username,
+      avatar_url: picture,
+      first_name: given_name,
+      last_name: family_name,
+      profile_id: userId,
+    });
+  }
+  async createUser({
+    email,
+    given_name,
+    family_name,
+    picture,
+  }: {
+    email: string;
+    given_name: string;
+    family_name: string;
+    picture: string;
+  }) {
+    const user = await this.createSocialUserSerice.create(email);
+    await this.verifiedEmailService.makeVerified(user.id);
+    await this.createImageService.createImage(picture);
+    const username = `${given_name} ${family_name[0]}`;
+    await this.profileAdapter.createOne({
+      username,
+      avatar_url: picture,
+      first_name: given_name,
+      last_name: family_name,
+      profile_id: user.id,
+    });
+    return user;
+  }
+}

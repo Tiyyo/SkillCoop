@@ -11,3 +11,9 @@ export class CreateImageDTO {
   @IsNumber()
   size: number | null;
 }
+
+export interface ICreateImage {
+  url: string;
+  key?: string | null;
+  size?: number | null;
+}

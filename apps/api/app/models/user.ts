@@ -63,7 +63,7 @@ export class User extends Core<typeof tableNames.user> {
     const user = await this.findOne({ email });
     if (!user) throw new NotFoundError('User not found');
 
-    const [result] = await this.client
+    const result = await this.client
       .updateTable(this.tableName)
       .set({
         failed_attempts: user.failed_attempts + 1,
@@ -71,7 +71,7 @@ export class User extends Core<typeof tableNames.user> {
       })
       .where('email', '=', email)
       .returning(['failed_attempts', 'blocked'])
-      .execute();
+      .executeTakeFirst();
 
     const isUpdated = result?.failed_attempts === user?.failed_attempts + 1;
     if (!isUpdated)

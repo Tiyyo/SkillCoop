@@ -31,11 +31,12 @@ export class SkillFoot extends Core<typeof tableNames.skill_foot> {
         fn.avg<number>('skill_foot.defending').as('avg_defending'),
       ])
       .where('reviewee_id', '=', id)
-      .execute();
+      .executeTakeFirst();
 
+    // compute is buiness loic
     const extendedResult: ExtendedResultType = {
-      ...result[0],
-      gb_rating: computeGbRating(result[0]),
+      ...result,
+      gb_rating: computeGbRating(result),
     };
 
     return extendedResult;

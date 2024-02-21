@@ -5,4 +5,7 @@ export interface TokenServiceInterface {
     payload: Record<string, any>,
   ): Promise<string>;
   verifyToken(token: string, key: string): Record<string, any> | null;
+  generateAuthTokens(
+    userId: string,
+  ): Promise<{ accessToken: string; refreshToken: string }>;
 }

@@ -72,7 +72,7 @@ model profile_on_profile {
 
 model event {
   id                    Int                @id @default(autoincrement())
-  domain_id             String             @unique
+  domain_id             String?             @unique @default(cuid())
   date                  String
   duration              Int
   required_participants Int
@@ -86,9 +86,9 @@ model event {
   status_name           String
   status                status              @relation(fields: [status_name], references: [name], onDelete: NoAction, onUpdate: Cascade)
   mvp_id                String? 
-  mvp                   profile?             @relation("mvp" , fields: [mvp_id], references: [profile_id], onDelete: SetNull, onUpdate: Cascade)
+  mvp                   profile?            @relation("mvp" , fields: [mvp_id], references: [profile_id], onDelete: SetNull, onUpdate: Cascade)
   best_striker_id       String?
-  best_striker          profile?             @relation("best_striker" ,fields : [best_striker_id], references: [profile_id], onDelete: SetNull, onUpdate: Cascade)
+  best_striker          profile?            @relation("best_striker" ,fields : [best_striker_id], references: [profile_id], onDelete: SetNull, onUpdate: Cascade)
   score                 score[]
   profile_on_event      profile_on_event[]
   mvp_poll              mvp_poll[]
@@ -250,6 +250,7 @@ model language_preference {
 
 model playground {
   id          Int       @id @default(autoincrement())
+  domain_id   String?   @unique @default(cuid())
   name        String   
   address     String 
   city        String   

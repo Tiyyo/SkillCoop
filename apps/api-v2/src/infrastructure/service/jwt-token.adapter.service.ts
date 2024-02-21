@@ -1,4 +1,4 @@
-import { TokenServiceInterface } from 'src/application/token-service';
+import { TokenServiceInterface } from 'src/application/services/token.service';
 import { JwtService } from '@nestjs/jwt';
 import { Injectable } from '@nestjs/common';
 import { TokenServiceException } from 'src/application/exceptions/token-service.exception';
@@ -34,5 +34,20 @@ export class JwtAdapterService implements TokenServiceInterface {
     } catch (error) {
       throw new TokenServiceException('Invalid token', 'JWT Adapter');
     }
+  }
+  async generateAuthTokens(
+    userId: string,
+  ): Promise<{ accessToken: string; refreshToken: string }> {
+    const accessToken = await this.generateToken(
+      '15m',
+      process.env.JWT_ACCESS_TOKEN_SECRET,
+      { userId },
+    );
+    const refreshToken = await this.generateToken(
+      '24h',
+      process.env.JWT_REFRESH_TOKEN_SECRET,
+      { userId },
+    );
+    return { accessToken, refreshToken };
   }
 }

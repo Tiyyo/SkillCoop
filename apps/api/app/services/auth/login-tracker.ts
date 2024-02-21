@@ -2,6 +2,7 @@ import { Credentials, User as TUser } from '@skillcoop/types';
 import bcrypt from 'bcrypt';
 import { FailedAttempsHandler } from './failed-attemps-handler.js';
 
+//Migrated
 export class LoginAttemptTracker {
   submittedCredentials: Credentials;
   user: TUser;

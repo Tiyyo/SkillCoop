@@ -20,6 +20,7 @@ import { redirectToResetPassword } from '../controllers/auth/redirect-to reset-p
 import { verifyResetPasswordToken } from '../controllers/auth/verify-password-token.js';
 /*eslint-enable */
 
+//Migrated
 const router: Router = express.Router();
 
 router

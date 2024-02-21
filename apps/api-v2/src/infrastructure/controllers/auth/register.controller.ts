@@ -6,8 +6,8 @@ import { RegisterUserUsecases } from 'src/application/usecases/user/register.use
 export class RegisterUserController {
   constructor(private readonly userUsecases: RegisterUserUsecases) { }
   @Post('register')
-  async createOne(@Body() body: CreateUserDTO) {
-    const profile = await this.userUsecases.createUser(body);
-    return profile;
+  async register(@Body() body: CreateUserDTO) {
+    const response = await this.userUsecases.createUser(body);
+    return response;
   }
 }

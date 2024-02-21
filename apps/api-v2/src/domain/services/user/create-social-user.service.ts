@@ -1,7 +1,9 @@
 import { UserAdapter } from 'src/infrastructure/kysely/adapters/user.adapter';
 import { UserFactory } from '../../factories/user.factory';
 import randomBytes from 'randombytes';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class CreateSocialUserSerice {
   constructor(
     private readonly userAdapter: UserAdapter,

@@ -15,6 +15,7 @@ import tokenHandler from '../../helpers/token.handler.js';
 import emailService from '../../utils/send-email.js';
 
 export default {
+  //Migrated
   async createUser(data: {
     email: string;
     password: string;
@@ -57,6 +58,7 @@ export default {
       throw error;
     }
   },
+  //Migrated
   async login(data: { email: string; password: string }) {
     const loginTrack: LoginAttemptReturn = {
       success: false,

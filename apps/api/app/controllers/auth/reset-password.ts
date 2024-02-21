@@ -5,6 +5,7 @@ import { user as User } from '../../models/index.js';
 import tokenHandler from '../../helpers/token.handler.js';
 
 export async function resetPassword(req: Request, res: Response) {
+  const token = req.cookies._rset;
   const { password } = req.body;
   const saltRouds = 10;
   const hashedPassword = await bcrypt.hash(password, saltRouds).catch((err) => {
@@ -14,7 +15,6 @@ export async function resetPassword(req: Request, res: Response) {
   // ??? why ???
   if (!hashedPassword) throw new ServerError('hash password is missing');
 
-  const token = req.cookies._rset;
   try {
     const infos = tokenHandler.verifyTokenAndGetData(
       token,

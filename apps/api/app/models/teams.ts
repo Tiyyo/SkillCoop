@@ -65,7 +65,7 @@ export class ConfigGenerateTeams {
     };
   }
   private async fetchEventData() {
-    const [result] = await db
+    const result = await db
       .selectFrom(['profile_on_event'])
       .select(['profile_on_event.event_id'])
       .select(({ fn }) => [
@@ -79,8 +79,8 @@ export class ConfigGenerateTeams {
       .where('profile_on_event.event_id', '=', this.eventId)
       .where('profile_on_event.status_name', '=', 'confirmed')
       .groupBy(['profile_on_event.event_id', 'event.required_participants'])
-      .execute();
-    console.log(result);
+      .executeTakeFirst();
+
     return result;
   }
   private parsedEventDataIntoIds(eventData: EventData) {

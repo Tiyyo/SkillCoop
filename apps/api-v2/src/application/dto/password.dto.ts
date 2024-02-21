@@ -1,16 +1,6 @@
-import {
-  IsEmail,
-  IsNotEmpty,
-  IsString,
-  Length,
-  Matches,
-} from 'class-validator';
+import { IsNotEmpty, IsString, Length, Matches } from 'class-validator';
 
-export class CreateUserDTO {
-  @IsNotEmpty()
-  @IsEmail()
-  email: string;
-
+export class PasswordDTO {
   @IsNotEmpty()
   @IsString()
   @Matches(/^(?=.*[0-9])/, {

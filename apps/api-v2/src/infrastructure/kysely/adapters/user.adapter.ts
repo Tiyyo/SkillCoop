@@ -17,6 +17,7 @@ import { TableNames } from 'src/config/types';
 export class UserAdapter extends CoreAdapter<'user'> implements UserRepository {
   constructor(@Inject('dbClient') protected dbClient: Kysely<DB>) {
     super(dbClient);
+    this.tableName = 'user';
   }
   async save(data: UserEntity): Promise<{ id: string; email: string }> {
     const dataWithIntAsBool = transformBoolToNumberInObject(data);

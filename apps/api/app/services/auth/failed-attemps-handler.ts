@@ -2,6 +2,7 @@ import { getUTCString, getInterval } from '@skillcoop/date-handler';
 import { User as TUser } from '@skillcoop/types';
 import { user as UserModel } from '../../models/index.js';
 
+//Migrated
 export class FailedAttempsHandler {
   user: TUser;
   attemptResetInterval: number = 1000 * 60 * 60 * 24;

@@ -23,7 +23,7 @@ type GoogleUserResult = {
   picture: string;
   locale: string;
 };
-
+// Migrated
 export default {
   async getOAuthToken({ code }: { code: string }) {
     const rootURL = 'https://oauth2.googleapis.com/token';

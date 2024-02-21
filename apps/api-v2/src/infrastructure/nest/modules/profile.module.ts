@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ProfileUsecases } from 'src/application/usecases/profile.usecases';
+import { BuildProfileService } from 'src/domain/services/profile/find-profile.service';
 import { CreateOneProfileController } from 'src/infrastructure/controllers/profile/create-one.controller';
 import { GetOneProfileController } from 'src/infrastructure/controllers/profile/get-one.controller';
 import { SearchProfileController } from 'src/infrastructure/controllers/profile/search.controller';
@@ -15,6 +16,11 @@ import databaseProvider from 'src/infrastructure/kysely/database.client';
     GetOneProfileController,
     SearchProfileController,
   ],
-  providers: [ProfileUsecases, ProfileAdapter, databaseProvider],
+  providers: [
+    ProfileUsecases,
+    ProfileAdapter,
+    databaseProvider,
+    BuildProfileService,
+  ],
 })
 export class ProfileModule { }

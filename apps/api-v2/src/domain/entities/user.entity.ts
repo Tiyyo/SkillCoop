@@ -15,3 +15,24 @@ export class UserEntity {
     this.failed_attempts = 0;
   }
 }
+
+export type LoginAttemptReturn = {
+  blocked?: boolean;
+  verified?: boolean;
+  failedAttempts?: number;
+  error?: string;
+  status: number;
+  success: boolean;
+  accessToken?: string;
+  refreshToken?: string;
+};
+
+export type UserDBEntity = {
+  email: string;
+  password: string;
+  verified: number;
+  blocked: number;
+  failed_attempts: number;
+  created_at?: string;
+  updated_at?: string | null;
+};

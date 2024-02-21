@@ -6,8 +6,8 @@ import { TokenServiceInterface } from '../../services/token.service';
 import { UserAdapter } from 'src/infrastructure/kysely/adapters/user.adapter';
 import { CreateUserDTO } from '../../dto/create-user.dto';
 import { ApplicationException } from '../../exceptions/application.exception';
+import { NestEnvVariableAdapterService } from 'src/infrastructure/service/env.adapter.service';
 
-const emailKey = 'provisional email for dev purposes';
 const VALID_TIME = '1h';
 
 @Injectable()
@@ -15,6 +15,7 @@ export class RegisterUserUsecases {
   constructor(
     private readonly userFactory: UserFactory,
     private readonly userAdapter: UserAdapter,
+    private readonly envVariableService: NestEnvVariableAdapterService,
     @Inject('PasswordService')
     private readonly passwordService: PasswordHashInterface,
     @Inject('EmailService')
@@ -23,6 +24,9 @@ export class RegisterUserUsecases {
     private readonly tokenService: TokenServiceInterface,
   ) { }
   async createUser(data: CreateUserDTO) {
+    const emailKey = this.envVariableService.getEnvVariable(
+      'JWT_EMAIL_TOKEN_KEY',
+    );
     const newUser = this.userFactory.create(data.email, data.password);
     let hashedPassword: string;
     try {
@@ -48,6 +52,6 @@ export class RegisterUserUsecases {
       emailToken,
       newUser.id.toString(),
     );
-    return newUser;
+    return { message: 'Check your email to verify your account' };
   }
 }

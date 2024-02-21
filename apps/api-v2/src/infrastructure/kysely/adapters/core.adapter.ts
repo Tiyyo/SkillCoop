@@ -45,7 +45,6 @@ export class CoreAdapter<Table extends keyof DB> implements CoreRepository {
       DB,
       TableNames
     >[];
-
     const values = Object.values(findObject);
 
     try {

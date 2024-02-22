@@ -5,7 +5,7 @@ import DatabaseError from '../../helpers/errors/database.error.js';
 import logger from '../../helpers/logger.js';
 import tokenHandler from '../../helpers/token.handler.js';
 import emailService from '../../utils/send-email.js';
-
+//Migrated
 export async function register(req: Request, res: Response) {
   const { email, password } = req.body;
   let newUser: { id: number; email: string };

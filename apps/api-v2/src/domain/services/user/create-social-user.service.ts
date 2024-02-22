@@ -4,7 +4,7 @@ import randomBytes from 'randombytes';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class CreateSocialUserSerice {
+export class CreateSocialUserService {
   constructor(
     private readonly userAdapter: UserAdapter,
     private readonly userFactory: UserFactory,

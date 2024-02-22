@@ -1,4 +1,4 @@
-import { Inject, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { Kysely, ReferenceExpression, sql } from 'kysely';
 import { CoreAdapter } from 'src/infrastructure/kysely/adapters/core.adapter';
 import { DB } from 'src/infrastructure/kysely/database.type';
@@ -10,8 +10,9 @@ import {
   TInvitationStatus,
 } from 'src/domain/entities/event-participant.entity';
 
+@Injectable()
 export class EventParticipantAdapter
-  extends CoreAdapter<'best_striker_poll'>
+  extends CoreAdapter<'profile_on_event'>
   implements EventParticipantRepository {
   constructor(@Inject('dbClient') protected dbClient: Kysely<DB>) {
     super(dbClient);

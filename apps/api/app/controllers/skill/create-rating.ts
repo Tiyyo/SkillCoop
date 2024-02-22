@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { skillFoot as SkillFoot } from '../../models/index.js';
 import UserInputError from '../../helpers/errors/user-input.error.js';
-
+//Migrated
 export async function createRating(req: Request, res: Response) {
   const {
     pace,

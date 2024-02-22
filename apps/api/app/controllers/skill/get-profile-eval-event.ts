@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import checkParams from '../../utils/check-params.js';
 import { skillFoot as SkillFoot } from '../../models/index.js';
 import computeGbRating from '../../utils/compute-gb-rating.js';
-
+//Migrated
 export async function getProfileEvalByEvent(req: Request, res: Response) {
   const [rater_id, reviewee_id, event_id] = checkParams(
     req.query.rater_id,

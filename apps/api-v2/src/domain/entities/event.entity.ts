@@ -12,7 +12,7 @@ export class EventCoreEntity {
   visibility?: string = 'private';
   location_id: string;
   organizer_id: string;
-  status: EventStatus;
+  status_name: string;
 
   constructor({
     date,
@@ -33,11 +33,11 @@ export class EventCoreEntity {
     visibility?: string;
     location_id: string;
     organizer_id: string;
-    status: EventStatus;
+    status_name: EventStatus;
   }) {
     this.date = date;
     this.location_id = location_id;
-    this.status = new EventStatus('open');
+    this.status_name = 'open';
     this.duration = duration;
     this.required_participants = required_participants;
     this.price = price;

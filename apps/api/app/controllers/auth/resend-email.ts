@@ -3,7 +3,7 @@ import emailService from '../../utils/send-email.js';
 import NotFoundError from '../../helpers/errors/not-found.error.js';
 import tokenHandler from '../../helpers/token.handler.js';
 import { user as User } from '../../models/index.js';
-
+// Migrated
 export async function resendEmail(req: Request, res: Response) {
   const { email } = req.body;
   const user = await User.findOne({ email });

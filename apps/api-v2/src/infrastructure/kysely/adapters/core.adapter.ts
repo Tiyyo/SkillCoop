@@ -16,6 +16,7 @@ import {
   addCreatedISOStringDate,
   addUpdatedISOStringDate,
 } from 'src/infrastructure/utils/add-date-object';
+import { transformBoolToNumberInObject } from 'src/infrastructure/utils/bool-to-int';
 
 export class CoreAdapter<Table extends keyof DB> implements CoreRepository {
   declare tableName: TableNames;
@@ -112,7 +113,8 @@ export class CoreAdapter<Table extends keyof DB> implements CoreRepository {
     condition: UpdateObjectDB<Table>,
     updateObject: UpdateObjectDB<Table>,
   ) {
-    const dataWithUpdatedAt = addUpdatedISOStringDate(updateObject);
+    const dataWithBoolean = transformBoolToNumberInObject(updateObject);
+    const dataWithUpdatedAt = addUpdatedISOStringDate(dataWithBoolean);
 
     const conditionKeys = Object.keys(condition) as ReferenceExpression<
       DB,

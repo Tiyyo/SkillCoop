@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { HOST } from '../../utils/variables.js';
 
+//Migrated
 export async function logout(_req: Request, res: Response) {
   res.clearCookie('refreshToken', {
     sameSite: 'none',

@@ -2,7 +2,7 @@ import UserInputError from '../../helpers/errors/user-input.error.js';
 import { ComputeRating } from './compute-data.js';
 import { getData } from './get-data.js';
 import { profile as Profile } from '../../models/index.js';
-
+//Migrated
 async function computeRatingUser(profileId: number) {
   const userEvaluationsAndBonus = await getData(profileId);
 

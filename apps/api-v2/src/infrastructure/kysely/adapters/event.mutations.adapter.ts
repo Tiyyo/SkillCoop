@@ -1,4 +1,4 @@
-import { Inject } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { Kysely, sql } from 'kysely';
 import { CoreAdapter } from 'src/infrastructure/kysely/adapters/core.adapter';
 import { DatabaseException } from 'src/infrastructure/kysely/database.exception';
@@ -9,8 +9,9 @@ import { getFormattedUTCTimestamp } from '@skillcoop/date-handler';
 import { EventMutationsRepository } from 'src/domain/repositories/event.mutations.repository';
 import { EventCoreEntity } from 'src/domain/entities/event.entity';
 
+@Injectable()
 export class EventMutationsAdapter
-  extends CoreAdapter<'best_striker_poll'>
+  extends CoreAdapter<'event'>
   implements EventMutationsRepository {
   constructor(@Inject('dbClient') protected dbClient: Kysely<DB>) {
     super(dbClient);

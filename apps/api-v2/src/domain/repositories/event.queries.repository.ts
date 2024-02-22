@@ -33,4 +33,10 @@ export abstract class EventQueriesRepository {
   abstract getNbBonusPerProfile(
     city: string,
   ): Promise<{ nb_mvp_bonus: number; nb_best_striker_bonus: number }>;
+  abstract getMvpCount(profileId: string): Promise<{
+    nb_mvp: number;
+  }>;
+  abstract getBestStrikerCount(profileId: string): Promise<{
+    nb_best_striker: number;
+  }>;
 }

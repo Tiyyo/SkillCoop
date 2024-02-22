@@ -38,7 +38,7 @@ export type image = {
 };
 export type language_preference = {
   user_id: string;
-  name: Generated<string>;
+  name: string;
   created_at: string;
   updated_at: string | null;
 };
@@ -49,6 +49,7 @@ export type mvp_poll = {
   created_at: string;
   updated_at: string | null;
 };
+
 export type notification = {
   id: Generated<number>;
   profile_id: string;
@@ -153,7 +154,7 @@ export type status = {
 };
 export type theme_preference = {
   user_id: string;
-  name: Generated<string>;
+  name: string;
   created_at: string;
   updated_at: string | null;
 };

@@ -16,4 +16,8 @@ export class SkillRating {
   private isValid(value: number): boolean {
     return value >= 0 && value <= 100;
   }
+
+  get skill() {
+    return this.value;
+  }
 }

@@ -1,4 +1,4 @@
-import { Inject } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { Kysely, sql } from 'kysely';
 import { CreateProfileInterface } from 'src/application/dto/create-profile.dto';
 import { SearchProfileParams } from 'src/application/dto/search-profile.dto';
@@ -10,6 +10,7 @@ import { InsertObjectDB, tableNames } from 'src/config/types';
 import { CoreAdapter } from './core.adapter';
 import { DatabaseException } from '../database.exception';
 
+@Injectable()
 export class ProfileAdapter
   extends CoreAdapter<'profile'>
   implements ProfileRepository {

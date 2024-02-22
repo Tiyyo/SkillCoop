@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { user as User } from '../../models/index.js';
 import AuthorizationError from '../../helpers/errors/unauthorized.error.js';
 import tokenHandler from '../../helpers/token.handler.js';
-
+// Migrated
 export async function refresh(req: Request, res: Response) {
   const { decoded } = req.body;
 

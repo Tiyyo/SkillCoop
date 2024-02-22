@@ -4,6 +4,7 @@ import deleteDecodedKey from '../../utils/delete-decoded.js';
 import { notificationPreference as NotificationPreference } from '../../models/index.js';
 /*eslint-enable */
 
+// Migrated
 export async function updateNotification(req: Request, res: Response) {
   deleteDecodedKey(req.body);
   const updateObject = req.body;

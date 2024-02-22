@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { playground as Playground } from '../../models/index.js';
 
+//Migrated
 export async function search(req: Request, res: Response) {
   const { search } = req.query;
   // Need to asseer query

@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { event as Event, mvp as Mvp } from '../../models/index.js';
 import deleteDecodedKey from '../../utils/delete-decoded.js';
-
+//Migrated
 export async function createOne(req: Request, res: Response) {
   deleteDecodedKey(req.body);
 

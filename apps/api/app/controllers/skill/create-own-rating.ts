@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import associateStringToNumber from '../../utils/associate-string-number.js';
 import { skillFoot as SkillFoot } from '../../models/index.js';
 import UserInputError from '../../helpers/errors/user-input.error.js';
-
+// Migrated
 export async function createOwnRating(req: Request, res: Response) {
   const { pace, shooting, passing, dribbling, defending, profile_id } =
     req.body;

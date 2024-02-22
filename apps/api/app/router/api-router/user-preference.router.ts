@@ -14,6 +14,7 @@ import { updateLanguage } from '../../controllers/user-preferences/update-langua
 import { updateTheme } from '../../controllers/user-preferences/update-theme.js';
 /* eslint-enable */
 
+// Migrated
 const router: Router = express.Router();
 
 router.route('/:id').get(factory(get));

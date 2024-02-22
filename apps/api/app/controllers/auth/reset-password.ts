@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 import ServerError from '../../helpers/errors/server.error.js';
 import { user as User } from '../../models/index.js';
 import tokenHandler from '../../helpers/token.handler.js';
-
+// Migrated
 export async function resetPassword(req: Request, res: Response) {
   const token = req.cookies._rset;
   const { password } = req.body;

@@ -1,12 +1,13 @@
-import { Inject } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { Kysely } from 'kysely';
 import { NotificationRepository } from 'src/domain/repositories/notification.repository';
 import { CoreAdapter } from 'src/infrastructure/kysely/adapters/core.adapter';
 import { DB } from 'src/infrastructure/kysely/database.type';
 import { DatabaseException } from '../database.exception';
 
+@Injectable()
 export class NotificationAdapter
-  extends CoreAdapter<'notification_type'>
+  extends CoreAdapter<'notification'>
   implements NotificationRepository {
   constructor(@Inject('dbClient') protected dbClient: Kysely<DB>) {
     super(dbClient);

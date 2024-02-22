@@ -4,6 +4,7 @@ import checkParams from '../../utils/check-params.js';
 import { UserPreferenceHandler } from '../../services/user-preference/index.js';
 import ServerError from '../../helpers/errors/server.error.js';
 
+//Migrated
 export async function get(req: Request, res: Response) {
   deleteDecodedKey(req.body);
   const [userId] = checkParams(req.params.id);

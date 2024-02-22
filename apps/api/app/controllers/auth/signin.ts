@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import authService from '../../services/auth/auth.js';
 import logger from '../../helpers/logger.js';
 import { HOST } from '../../utils/variables.js';
-
+//Migrated
 export async function signin(req: Request, res: Response) {
   const { email, password } = req.body;
   const MAX_AGE = 1000 * 60 * 60 * 24 * 7; // 7 days

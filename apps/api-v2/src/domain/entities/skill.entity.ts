@@ -1,6 +1,26 @@
 import { SkillRating } from '../value-objects/skill-rating.vo';
 
-export type AverageSkills =
+export type Skills = {
+  pace: number;
+  shooting: number;
+  passing: number;
+  dribbling: number;
+  defending: number;
+};
+
+export type AverageSkills = Skills & {
+  nb_eval_received: number;
+};
+
+export type EvaluationSkills = {
+  avg_pace: number;
+  avg_shooting: number;
+  avg_passing: number;
+  avg_dribbling: number;
+  avg_defending: number;
+};
+
+export type AverageSkill =
   | 'avg_pace'
   | 'avg_defending'
   | 'avg_shooting'
@@ -14,19 +34,26 @@ export type LevelSkills =
   | 'advanced'
   | 'expert';
 
-export type AverageSkillNumericRating = Record<AverageSkills, number>;
+export type AverageSkillNumericRating = Record<AverageSkill, number>;
 
-export type LevelSkillRating = Record<AverageSkills, LevelSkills>;
+export type LevelSkillRating = Record<AverageSkill, LevelSkills>;
+
+export type UserStats = {
+  nb_mvp: number;
+  nb_best_striker: number;
+  user_own_evaluation: Skills | undefined;
+  avg_evaluation_received: AverageSkills | undefined;
+};
 
 export class SkillEntity {
-  pace: SkillRating;
-  shooting: SkillRating;
-  passing: SkillRating;
-  dribbling: SkillRating;
-  defending: SkillRating;
+  pace: number;
+  shooting: number;
+  passing: number;
+  dribbling: number;
+  defending: number;
   rater_id: string;
   reviewee_id: string;
-  event_id: string;
+  event_id?: number;
 
   constructor({
     pace,
@@ -45,13 +72,13 @@ export class SkillEntity {
     defending: number;
     rater_id: string;
     reviewee_id: string;
-    event_id: string;
+    event_id?: number;
   }) {
-    this.pace = new SkillRating(pace);
-    this.shooting = new SkillRating(shooting);
-    this.passing = new SkillRating(passing);
-    this.dribbling = new SkillRating(dribbling);
-    this.defending = new SkillRating(defending);
+    this.pace = new SkillRating(pace).skill;
+    this.shooting = new SkillRating(shooting).skill;
+    this.passing = new SkillRating(passing).skill;
+    this.dribbling = new SkillRating(dribbling).skill;
+    this.defending = new SkillRating(defending).skill;
     this.rater_id = rater_id;
     this.reviewee_id = reviewee_id;
     this.event_id = event_id;

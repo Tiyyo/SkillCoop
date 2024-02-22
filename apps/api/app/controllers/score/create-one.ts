@@ -3,6 +3,7 @@ import { eventStatus } from '@skillcoop/types';
 import deleteDecodedKey from '../../utils/delete-decoded.js';
 import { score as Score, event as Event } from '../../models/index.js';
 
+//Migrated
 export async function createOne(req: Request, res: Response) {
   deleteDecodedKey(req.body);
   const { score_team_1, score_team_2, event_id } = req.body;

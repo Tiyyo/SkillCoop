@@ -4,6 +4,7 @@ import tokenHandler from '../../helpers/token.handler.js';
 import { user as User } from '../../models/index.js';
 import emailService from '../../utils/send-email.js';
 
+//Migrated
 export async function forgotPassword(req: Request, res: Response) {
   const { email } = req.body;
   const user = await User.findOne({ email });

@@ -1,4 +1,4 @@
-import { Inject } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { Kysely, sql } from 'kysely';
 import { CoreAdapter } from 'src/infrastructure/kysely/adapters/core.adapter';
 import { DB } from 'src/infrastructure/kysely/database.type';
@@ -6,6 +6,7 @@ import { FriendRepository } from 'src/domain/repositories/friend.repository';
 import { DatabaseException } from '../database.exception';
 import { getFormattedUTCTimestamp } from '@skillcoop/date-handler';
 
+@Injectable()
 export class FriendAdapter
   extends CoreAdapter<'profile_on_profile'>
   implements FriendRepository {

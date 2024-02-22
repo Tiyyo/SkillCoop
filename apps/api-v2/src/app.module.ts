@@ -4,6 +4,10 @@ import { AppService } from './app.service';
 import { ProfileModule } from './infrastructure/nest/modules/profile.module';
 import { UserModule } from './infrastructure/nest/modules/user.module';
 import { AuthModule } from './infrastructure/nest/modules/auth.module';
+import { AwardModule } from './infrastructure/nest/modules/award.module';
+import { NotificationModule } from './infrastructure/nest/modules/notification.module';
+import { UserPreferencesModule } from './infrastructure/nest/modules/user-preference.module';
+import { SkillsModule } from './infrastructure/nest/modules/skills.module';
 
 @Module({
   imports: [
@@ -11,6 +15,10 @@ import { AuthModule } from './infrastructure/nest/modules/auth.module';
     ProfileModule,
     UserModule,
     AuthModule,
+    AwardModule,
+    NotificationModule,
+    UserPreferencesModule,
+    SkillsModule,
   ],
   controllers: [],
   providers: [AppService],

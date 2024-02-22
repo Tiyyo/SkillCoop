@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { notification as Notification } from '../../models/index.js';
 
+//Migrated
 export async function markAsRead(req: Request, res: Response) {
   const { notificationId } = req.body;
 

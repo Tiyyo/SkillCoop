@@ -5,7 +5,7 @@ import {
   event as Event,
   bestStriker as BestStriker,
 } from '../../models/index.js';
-
+//Migrated
 export async function createOne(req: Request, res: Response) {
   deleteDecodedKey(req.body);
 

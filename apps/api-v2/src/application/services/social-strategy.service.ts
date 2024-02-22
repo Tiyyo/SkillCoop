@@ -1,5 +1,5 @@
 import { CreateImageService } from 'src/domain/services/image/create-image.service';
-import { CreateSocialUserSerice } from 'src/domain/services/user/create-social-user.service';
+import { CreateSocialUserService } from 'src/domain/services/user/create-social-user.service';
 import { VerifiedUserAccountService } from 'src/domain/services/user/verified-account.service';
 import { ProfileAdapter } from 'src/infrastructure/kysely/adapters/profile.adapter';
 
@@ -7,7 +7,7 @@ export class SocialAuthUserStrategyService {
   constructor(
     private readonly createImageService: CreateImageService,
     private readonly verifiedEmailService: VerifiedUserAccountService,
-    private readonly createSocialUserSerice: CreateSocialUserSerice,
+    private readonly createSocialUserSerice: CreateSocialUserService,
     private readonly profileAdapter: ProfileAdapter,
   ) { }
   async createProfile(

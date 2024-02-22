@@ -7,6 +7,7 @@ import type {
 import { DefaultUserPreference } from './default-preference.js';
 import { db } from '../../helpers/client.db.js';
 
+// Migrated
 export class UserPreferenceHandler {
   userId: number;
   constructor(userId: number) {

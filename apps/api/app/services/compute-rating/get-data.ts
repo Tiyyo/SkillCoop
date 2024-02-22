@@ -1,5 +1,6 @@
 import { PlayerStatInsight, type UserEvaluationsBonus } from './sql-methods.js';
 
+// Migrated
 export async function getData(
   profileId: number,
 ): Promise<UserEvaluationsBonus> {

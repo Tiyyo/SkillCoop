@@ -5,7 +5,7 @@ import tokenHandler from '../../helpers/token.handler.js';
 import ServerError from '../../helpers/errors/server.error.js';
 import { user as User } from '../../models/index.js';
 import { CLIENT_URL } from '../../utils/variables.js';
-
+// Migrated
 export async function verifyEmail(req: Request, res: Response) {
   const { token } = req.params;
   const [userId] = checkParams(req.params.userId);

@@ -6,6 +6,7 @@ import { playgroundSchema } from '@skillcoop/schema';
 import { createOne } from '../../controllers/playground/create-one.js';
 import { search } from '../../controllers/playground/search.js';
 
+// Migrated
 const router: Router = express.Router();
 
 router

@@ -1,4 +1,4 @@
-import { Inject } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { Kysely, sql } from 'kysely';
 import { CoreAdapter } from 'src/infrastructure/kysely/adapters/core.adapter';
 import { DB } from 'src/infrastructure/kysely/database.type';
@@ -6,8 +6,9 @@ import { EventQueriesRepository } from 'src/domain/repositories/event.queries.re
 import { DatabaseException } from '../database.exception';
 import { EventAggr, LastSharedEvent } from 'src/domain/entities/event.entity';
 
+@Injectable()
 export class EventQueriesAdapter
-  extends CoreAdapter<'best_striker_poll'>
+  extends CoreAdapter<'event'>
   implements EventQueriesRepository {
   constructor(@Inject('dbClient') protected dbClient: Kysely<DB>) {
     super(dbClient);
@@ -574,6 +575,38 @@ LIMIT 5
         .groupBy('event.id')
         .execute();
       return result;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new DatabaseException(error);
+      }
+    }
+  }
+  async getMvpCount(profileId: string): Promise<{ nb_mvp: number }> {
+    try {
+      const nbMvpResult = await sql<{ nb_mvp: number }>`
+      SELECT 
+        COUNT (*) AS nb_mvp
+      FROM event  
+      WHERE mvp_id = ${profileId}
+      `.execute(this.dbClient);
+      return nbMvpResult.rows[0];
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new DatabaseException(error);
+      }
+    }
+  }
+  async getBestStrikerCount(
+    profileId: string,
+  ): Promise<{ nb_best_striker: number }> {
+    try {
+      const nbBestStrikerResult = await sql<{ nb_best_striker: number }>`
+        SELECT 
+          COUNT (*) AS nb_best_striker
+        FROM event  
+        WHERE best_striker_id = ${profileId}   
+        `.execute(this.dbClient);
+      return nbBestStrikerResult.rows[0];
     } catch (error) {
       if (error instanceof Error) {
         throw new DatabaseException(error);

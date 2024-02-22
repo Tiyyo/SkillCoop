@@ -7,7 +7,7 @@ import { markAsRead } from '../../controllers/notification/mark-as-read.js';
 import { getNotification } from '../../controllers/notification/get-all.js';
 
 const router: Router = express.Router();
-
+//Migrated
 router.route('/:profileId').get(factory(getNotification));
 router
   .route('/')

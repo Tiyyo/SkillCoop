@@ -19,12 +19,19 @@ router.use('/profile', profileRouter);
 router.use('/event', eventRouter);
 router.use('/friends', friendlistRouter);
 router.use('/profile_on_event', profileOnEventRouter);
+//Migrated
 router.use('/skill_foot', skilFootRouter);
+//Migrated
 router.use('/score', scoreRouter);
+//Migrated
 router.use('/mvp', mvpRouter);
+//Migrated
 router.use('/best_striker', bestStrikerRouter);
+//Migrated
 router.use('/notification', notificationRouter);
+//Migrated
 router.use('/user-preference', userPreferenceRouter);
+//Migrated
 router.use('/playground', playgroundRouter);
 
 export default router;

@@ -8,7 +8,7 @@ type ArgsSkillCompute = {
   nbReceivedEval: number;
   nbBonus: number;
 };
-
+// Migrated
 export class ComputeRating {
   WEIGHT_OWN_EVAL = 7;
   VALUE_BONUS = 100;

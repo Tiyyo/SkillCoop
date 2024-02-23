@@ -6,7 +6,7 @@ import {
   uploadImageToBucket,
 } from '../../services/upload/s3.js';
 import NotFoundError from '../../helpers/errors/not-found.error.js';
-
+// Migrated
 export async function updateImage(req: Request, res: Response) {
   const WIDTH_AVATAR = 100;
   const avatarImage = req.file;
@@ -38,6 +38,7 @@ export async function updateImage(req: Request, res: Response) {
     height: WIDTH_AVATAR,
     width: WIDTH_AVATAR,
   });
+
   await Image.createOne({
     url: link,
     key: key,

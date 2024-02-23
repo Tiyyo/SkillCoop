@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { CreateProfileDTO } from 'src/application/dto/create-profile.dto';
-import { ProfileUsecases } from 'src/application/usecases/profile.usecases';
+import { ProfileUsecases } from 'src/application/usecases/profile/profile.usecases';
 
 @Controller('profile')
 export class CreateOneProfileController {

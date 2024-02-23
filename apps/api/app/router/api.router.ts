@@ -15,7 +15,9 @@ import playgroundRouter from './api-router/playground.router.js';
 const router: Router = express.Router();
 
 router.use('/user', userRouter);
+// Migrated
 router.use('/profile', profileRouter);
+
 router.use('/event', eventRouter);
 //Migrated
 router.use('/friends', friendlistRouter);

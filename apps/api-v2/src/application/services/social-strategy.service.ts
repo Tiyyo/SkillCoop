@@ -1,11 +1,11 @@
-import { CreateImageService } from 'src/domain/services/image/create-image.service';
+import { ImageService } from 'src/domain/services/image/image.service';
 import { CreateSocialUserService } from 'src/domain/services/user/create-social-user.service';
 import { VerifiedUserAccountService } from 'src/domain/services/user/verified-account.service';
 import { ProfileAdapter } from 'src/infrastructure/kysely/adapters/profile.adapter';
 
 export class SocialAuthUserStrategyService {
   constructor(
-    private readonly createImageService: CreateImageService,
+    private readonly createImageService: ImageService,
     private readonly verifiedEmailService: VerifiedUserAccountService,
     private readonly createSocialUserSerice: CreateSocialUserService,
     private readonly profileAdapter: ProfileAdapter,
@@ -17,7 +17,7 @@ export class SocialAuthUserStrategyService {
     userId: string,
   ) {
     const username = `${given_name} ${family_name[0]}`;
-    await this.createImageService.createImage(picture);
+    await this.createImageService.save(picture);
     await this.profileAdapter.createOne({
       username,
       avatar_url: picture,
@@ -39,7 +39,7 @@ export class SocialAuthUserStrategyService {
   }) {
     const user = await this.createSocialUserSerice.create(email);
     await this.verifiedEmailService.makeVerified(user.id);
-    await this.createImageService.createImage(picture);
+    await this.createImageService.save(picture);
     const username = `${given_name} ${family_name[0]}`;
     await this.profileAdapter.createOne({
       username,

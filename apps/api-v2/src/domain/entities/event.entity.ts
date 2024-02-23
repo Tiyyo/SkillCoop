@@ -10,7 +10,7 @@ export class EventCoreEntity {
   price?: number | null;
   nb_teams?: number = 2;
   visibility?: string = 'private';
-  location_id: string;
+  location_id: number;
   organizer_id: string;
   status_name: string;
 
@@ -31,7 +31,7 @@ export class EventCoreEntity {
     price: number;
     nb_teams?: number;
     visibility?: string;
-    location_id: string;
+    location_id: number;
     organizer_id: string;
     status_name: EventStatus;
   }) {

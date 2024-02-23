@@ -12,7 +12,7 @@ import { searchProfileByUsername } from '../../controllers/profile/search-by-use
 import { canals } from '../../@types/types.js';
 import upload from '../../services/upload/upload.js';
 import { sanitizeParams } from '../../middlewares/sanitizer.params.js';
-
+// Migrated
 const router: Router = express.Router();
 
 router

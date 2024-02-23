@@ -1,5 +1,5 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { ProfileUsecases } from 'src/application/usecases/profile.usecases';
+import { ProfileUsecases } from 'src/application/usecases/profile/profile.usecases';
 
 @Controller('profile')
 export class GetOneProfileController {

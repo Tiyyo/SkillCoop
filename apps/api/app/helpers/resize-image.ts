@@ -1,5 +1,5 @@
 import sharp from 'sharp';
-
+// Migrated
 function resizeImage(buffer: Buffer, height: number, width: number) {
   const resizedBuffer = sharp(buffer)
     .resize({

@@ -14,6 +14,7 @@ import ServerError from '../../helpers/errors/server.error.js';
 import resizeImage from '../../helpers/resize-image.js';
 import logger from '../../helpers/logger.js';
 
+//Migrated
 const region = process.env.BUCKET_REGION;
 const bucketName = process.env.BUCKET_NAME;
 const accessKeyId = process.env.ACCESS_KEY_BUCKET;

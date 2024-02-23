@@ -6,6 +6,7 @@ import { participantQueuePublisher } from '../../publishers/participant.publishe
 import { notifyUserHasBeenInvitedToEvent } from '../../services/notification/subtype/user-invited-event.js';
 /*eslint-enable max-len*/
 
+//Migrated
 export async function sendInvitationToEvent(req: Request, res: Response) {
   deleteDecodedKey(req.body);
   const { ids, event_id, initiator: profile_id } = req.body;

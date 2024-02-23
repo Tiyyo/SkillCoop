@@ -1,6 +1,6 @@
 import { Controller, Get, Query } from '@nestjs/common';
 import { SearchProfileDTO } from 'src/application/dto/search-profile.dto';
-import { ProfileUsecases } from 'src/application/usecases/profile.usecases';
+import { ProfileUsecases } from 'src/application/usecases/profile/profile.usecases';
 
 @Controller('profile')
 export class SearchProfileController {

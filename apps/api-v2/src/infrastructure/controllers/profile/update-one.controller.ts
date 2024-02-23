@@ -1,6 +1,6 @@
 import { Body, Controller, Patch } from '@nestjs/common';
 import { UpdateProfileDTO } from 'src/application/dto/update-profile.dto';
-import { ProfileUsecases } from 'src/application/usecases/profile.usecases';
+import { ProfileUsecases } from 'src/application/usecases/profile/profile.usecases';
 
 @Controller('profile')
 export class UpdateOneProfileController {

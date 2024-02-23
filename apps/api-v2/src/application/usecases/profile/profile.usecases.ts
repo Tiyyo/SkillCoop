@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { ProfileAdapter } from 'src/infrastructure/kysely/adapters/profile.adapter';
-import { CreateProfileDTO } from '../dto/create-profile.dto';
-import { UpdateProfileDTO } from '../dto/update-profile.dto';
-import { SearchProfileParams } from '../dto/search-profile.dto';
+import { CreateProfileDTO } from '../../dto/create-profile.dto';
+import { UpdateProfileDTO } from '../../dto/update-profile.dto';
+import { SearchProfileParams } from '../../dto/search-profile.dto';
 import { BuildProfileService } from 'src/domain/services/profile/find-profile.service';
 
 @Injectable()
@@ -22,9 +22,6 @@ export class ProfileUsecases {
   async search(searchParams: SearchProfileParams) {
     return this.profileAdapter.search(searchParams);
   }
-
-  async updateProfileImage() { }
-
   async updateOne(data: UpdateProfileDTO) {
     const condition = { profile_id: data.profile_id };
     const updateData = {

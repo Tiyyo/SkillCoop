@@ -11,6 +11,7 @@ import { SkillsModule } from './infrastructure/nest/modules/skills.module';
 import { EventQueriesModule } from './infrastructure/nest/modules/event-queries.module';
 import { PlaygroundModule } from './infrastructure/nest/modules/playground.module';
 import { FriendModule } from './infrastructure/nest/modules/friends.module';
+import { EventParticipantsModule } from './infrastructure/nest/modules/event-participants.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { FriendModule } from './infrastructure/nest/modules/friends.module';
     SkillsModule,
     EventQueriesModule,
     FriendModule,
+    EventParticipantsModule,
   ],
   controllers: [],
   providers: [AppService],

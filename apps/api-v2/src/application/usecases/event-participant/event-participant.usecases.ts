@@ -1,0 +1,51 @@
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { SendInvitationEventDTO } from 'src/application/dto/send-invitation-event.dto';
+import { SendRequestEventDTO } from 'src/application/dto/send-request-event.dto';
+import { UpdateParticipantStatusDTO } from 'src/application/dto/update-status.dto';
+import { EventParticipantStatusManagerService } from 'src/domain/services/event-participant/event-participant-status.service';
+import { EventParticipantService } from 'src/domain/services/event-participant/event-participant.service';
+import { EventParticipantAdapter } from 'src/infrastructure/kysely/adapters/event-participant.adapter';
+import { EventQueriesAdapter } from 'src/infrastructure/kysely/adapters/event.queries.adapter';
+
+@Injectable()
+export class EventParticipantUseCases {
+  constructor(
+    private readonly eventParticipantService: EventParticipantService,
+    private readonly eventParticipantAdapter: EventParticipantAdapter,
+    private readonly eventQueriesAdapter: EventQueriesAdapter,
+    private readonly participantStatusManager: EventParticipantStatusManagerService,
+  ) { }
+  async updateStatus(data: UpdateParticipantStatusDTO) {
+    const event = await this.eventQueriesAdapter.findOne({
+      id: data.event_id,
+    });
+    if (!event) {
+      throw new NotFoundException(
+        'Event not found',
+        'EventParrticipantUsecases',
+      );
+    }
+    return await this.participantStatusManager.handle(
+      event,
+      data.profile_id,
+      data.status_name,
+    );
+  }
+  async sendInvitation(data: SendInvitationEventDTO) {
+    const invitations = data.ids.map((id: string) => ({
+      profile_id: id,
+      event_id: data.event_id,
+      status_name: 'pending',
+    }));
+    return await this.eventParticipantAdapter.createMany(invitations);
+    // TODO: implements notifyUserHasBeenInvitedToEvent
+    // TODO: Sync database with chat service to add them in group event
+  }
+  async sendRequest(data: SendRequestEventDTO) {
+    // TODO: implements notifyNewEventPatricipantToOrganizer
+    return this.eventParticipantService.updateStatusToRequested(
+      data.event_id,
+      data.profile_id,
+    );
+  }
+}

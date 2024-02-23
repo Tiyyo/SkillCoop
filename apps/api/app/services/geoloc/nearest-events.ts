@@ -16,7 +16,7 @@ type EventGeoLocatorServiceContructor = {
   distance?: number;
   profileId: number;
 };
-
+// Migrated
 export class EventGeoLocatorService {
   country: string;
   distance: number = 50; // default distance in kilometers

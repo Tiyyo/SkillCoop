@@ -3,7 +3,7 @@ import { profileOnProfile as ProfileOnProfile } from '../../models/index.js';
 import deleteDecodedKey from '../../utils/delete-decoded.js';
 //eslint-disable-next-line
 import { notifyUserReceivedFriendRequest } from '../../services/notification/subtype/friend-request.js';
-
+//Migrated
 export async function sendFriendRequest(req: Request, res: Response) {
   deleteDecodedKey(req.body);
   // create a new friend request

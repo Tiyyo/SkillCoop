@@ -4,7 +4,7 @@ import checkParams from '../../utils/check-params.js';
 import { EventGeoLocatorService } from '../../services/geoloc/nearest-events.js';
 import { isString } from '../../utils/assert-primitve-type.js';
 /*eslint-enable */
-
+// Migrated
 export async function getEventsByProximity(req: Request, res: Response) {
   // CheckParams only convert params to int
   // so can't used with latitude and longitude

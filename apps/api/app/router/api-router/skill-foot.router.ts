@@ -10,7 +10,7 @@ import { createRating } from '../../controllers/skill/create-rating.js';
 /*eslint-disable */
 import { getProfileEvalByEvent } from '../../controllers/skill/get-profile-eval-event.js';
 /*eslint-enable */
-
+// Migrated
 const router: Router = express.Router();
 
 router

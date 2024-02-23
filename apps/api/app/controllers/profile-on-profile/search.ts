@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { profileOnProfile as ProfileOnProfile } from '../../models/index.js';
 import UserInputError from '../../helpers/errors/user-input.error.js';
 
+//Migrated
 export async function searchFriends(req: Request, res: Response) {
   const { username, profile, page } = req.query;
   if (!username || typeof username !== 'string')

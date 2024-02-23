@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { user as User } from '../../models/index.js';
 
+// Migrated
 export async function updateEmail(req: Request, res: Response) {
   const { email, user_id } = req.body;
 

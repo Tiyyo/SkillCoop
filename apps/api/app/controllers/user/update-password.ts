@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import { user as User } from '../../models/index.js';
 import NotFoundError from '../../helpers/errors/not-found.error.js';
-
+//Migrated
 export async function updatePassword(req: Request, res: Response) {
   const { old_password, new_password, user_id } = req.body;
   const user = await User.findOne({ id: user_id });

@@ -8,6 +8,9 @@ import { AwardModule } from './infrastructure/nest/modules/award.module';
 import { NotificationModule } from './infrastructure/nest/modules/notification.module';
 import { UserPreferencesModule } from './infrastructure/nest/modules/user-preference.module';
 import { SkillsModule } from './infrastructure/nest/modules/skills.module';
+import { EventQueriesModule } from './infrastructure/nest/modules/event-queries.module';
+import { PlaygroundModule } from './infrastructure/nest/modules/playground.module';
+import { FriendModule } from './infrastructure/nest/modules/friends.module';
 
 @Module({
   imports: [
@@ -18,7 +21,10 @@ import { SkillsModule } from './infrastructure/nest/modules/skills.module';
     AwardModule,
     NotificationModule,
     UserPreferencesModule,
+    PlaygroundModule,
     SkillsModule,
+    EventQueriesModule,
+    FriendModule,
   ],
   controllers: [],
   providers: [AppService],

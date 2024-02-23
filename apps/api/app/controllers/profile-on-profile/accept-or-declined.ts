@@ -4,7 +4,7 @@ import deleteDecodedKey from '../../utils/delete-decoded.js';
 import ServerError from '../../helpers/errors/server.error.js';
 //eslint-disable-next-line
 import { notifyUserHasBeenAddedToFriendlist } from '../../services/notification/subtype/added-friendlist.js';
-
+// Migrated
 export async function acceptOrDeclined(req: Request, res: Response) {
   deleteDecodedKey(req.body);
   const { adder_id, friend_id, status_name, username } = req.body;

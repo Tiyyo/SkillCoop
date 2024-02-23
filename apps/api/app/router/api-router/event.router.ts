@@ -30,31 +30,36 @@ router
   .route('/')
   .post(validateSchema(createEventSchema, canals.body), factory(createOne))
   .patch(validateSchema(updateEventSchema, canals.body), factory(updateOne));
-
+//Migrated
 router.route('/user/:profileId').get(sanitizeParams, factory(getAllByUser));
 
 // query routes
 router
   .route('/organizer')
+  //Migrated
   .get(factory(getOrganizerEvents))
   .patch(
     validateSchema(updateOrganizerSchema, canals.body),
     factory(updateOrganizer),
   );
+//Migrated
 router.route('/past').get(factory(getPasts));
+//Migrated
 router.route('/upcoming').get(factory(getUpcoming));
-
+//Migrated
 router
   .route('/details/:eventId/:profileId')
   .get(sanitizeParams, factory(getOne));
 
+//Migrated
 router
   .route('/shared/:profileId/:friendId')
   .get(sanitizeParams, factory(getLastSharedEvents));
 
 router.route('/teams').post(factory(generateTeams));
-router.route('/:id/:profileId').delete(sanitizeParams, factory(deleteOne));
 
+router.route('/:id/:profileId').delete(sanitizeParams, factory(deleteOne));
+//Migrated
 router
   .route('/near')
   .get(

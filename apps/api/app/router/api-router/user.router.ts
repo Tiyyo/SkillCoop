@@ -10,11 +10,11 @@ import { updatePassword } from '../../controllers/user/update-password.js';
 import { deleteUser } from '../../controllers/user/delete-user.js';
 
 const router: Router = express.Router();
-
+// Migrated
 router
   .route('/email')
   .patch(validateSchema(emailSchema, canals.body), factory(updateEmail));
-
+// Migrated
 router
   .route('/password')
   .patch(

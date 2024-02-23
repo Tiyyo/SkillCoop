@@ -3,6 +3,8 @@ import { JwtService } from '@nestjs/jwt';
 import { ForgotPasswordUserUsecases } from 'src/application/usecases/user/forgot-password.user.usecases';
 import { ResetPasswordUserUsecases } from 'src/application/usecases/user/reset-password.user.usecases';
 import { SendVerificationEmailUserUsecases } from 'src/application/usecases/user/send-email-verified.user.usecases';
+import { UpdateEmailUserUsecases } from 'src/application/usecases/user/update-email.user.usecases';
+import { UpdatePasswordUserUsecases } from 'src/application/usecases/user/update-password.use.usecases';
 import { VerfiyEmailUserUsecases } from 'src/application/usecases/user/verify-email.user.usecases';
 import { VerifyResetTokenUserIdUserUsecases } from 'src/application/usecases/user/verify-token-userid.user.usecases';
 import { UserAccountService } from 'src/domain/services/user/user-account.service';
@@ -13,6 +15,8 @@ import { RedirectToResetPasswordUserController } from 'src/infrastructure/contro
 
 import { ResetPasswordUserController } from 'src/infrastructure/controllers/user/reset-password.controller';
 import { SendVerificationEmailUserController } from 'src/infrastructure/controllers/user/send-verification-email.controller';
+import { UpdateEmailUserController } from 'src/infrastructure/controllers/user/update-email.controller';
+import { UpdatePasswordUserController } from 'src/infrastructure/controllers/user/update-password.controller';
 import { VerifyEmailUserController } from 'src/infrastructure/controllers/user/verify-email.controller';
 import { UserAdapter } from 'src/infrastructure/kysely/adapters/user.adapter';
 import databaseProvider from 'src/infrastructure/kysely/database.client';
@@ -30,6 +34,8 @@ import { NodeMaillerAdapterService } from 'src/infrastructure/service/nodemailer
     RedirectToResetPasswordUserController,
     ResetPasswordUserController,
     SendVerificationEmailUserController,
+    UpdateEmailUserController,
+    UpdatePasswordUserController,
   ],
   providers: [
     databaseProvider,
@@ -38,6 +44,8 @@ import { NodeMaillerAdapterService } from 'src/infrastructure/service/nodemailer
     VerfiyEmailUserUsecases,
     ResetPasswordUserUsecases,
     SendVerificationEmailUserUsecases,
+    UpdateEmailUserUsecases,
+    UpdatePasswordUserUsecases,
     JwtService,
     NestEnvVariableAdapterService,
     VerifiedUserAccountService,

@@ -27,4 +27,8 @@ export class CreateUserDTO {
   })
   @Length(8, 36)
   password: string;
+  @IsNotEmpty()
+  confirmedPassword: string;
+  @IsNotEmpty()
+  termAndService: boolean;
 }

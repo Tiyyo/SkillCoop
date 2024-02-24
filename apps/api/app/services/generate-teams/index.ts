@@ -7,20 +7,6 @@ import { ConfigGenerateTeams } from '../../models/teams.js';
 import { notifyTeamHasBeenGenerated } from '../notification/subtype/team-generated.js';
 /*eslint-enable*/
 
-export function assignTeam(
-  position: number,
-  requiredParticipant: number,
-): number {
-  const TEAM_1 = 1;
-  const TEAM_2 = 2;
-  const HALF = requiredParticipant / 2;
-  if (position < HALF) {
-    return TEAM_1;
-  } else {
-    return TEAM_2;
-  }
-}
-
 export async function generateBalancedTeam(eventId: number) {
   console.time('Algo time start');
 
@@ -40,6 +26,20 @@ export async function generateBalancedTeam(eventId: number) {
   await Promise.allSettled(updateParticipantQueries);
   await notifyTeamHasBeenGenerated(eventId);
   console.timeEnd('Algo time start');
+}
+
+export function assignTeam(
+  position: number,
+  requiredParticipant: number,
+): number {
+  const TEAM_1 = 1;
+  const TEAM_2 = 2;
+  const HALF = requiredParticipant / 2;
+  if (position < HALF) {
+    return TEAM_1;
+  } else {
+    return TEAM_2;
+  }
 }
 
 export function divideInTeam(config: TeamGeneratorConfig) {

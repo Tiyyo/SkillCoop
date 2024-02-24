@@ -10,5 +10,6 @@ export class ImageAdapter
   implements ImageRepository {
   constructor(@Inject('dbClient') protected dbClient: Kysely<DB>) {
     super(dbClient);
+    this.tableName = 'image';
   }
 }

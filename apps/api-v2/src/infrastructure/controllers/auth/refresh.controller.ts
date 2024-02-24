@@ -9,9 +9,9 @@ export class RefreshUserController {
   @HttpCode(200)
   async refresh(@Req() req: Request) {
     const token = req.cookies.refreshToken;
-
+    console.log('Refresh Controller Token:', token);
     const accessToken = await this.refreshUsecases.handle(token);
-
+    console.log('Refresh Controller Access Token:', accessToken);
     return { accessToken };
   }
 }

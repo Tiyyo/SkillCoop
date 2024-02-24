@@ -36,7 +36,18 @@ export class ComputeUserEvaluationService {
     private readonly skillsAdapter: SkillsAdapter,
     private readonly evaluationService: EvaluationService,
   ) { }
-  private async getStats(profileId: string) {
+
+  async compute(profileId: string) {
+    await this.getStats(profileId);
+    const avgSkills = this.constructAvgSkills();
+    const gbRating = this.getRatingWithBonus(avgSkills);
+    return {
+      ...avgSkills,
+      gb_rating: gbRating,
+      profileId,
+    };
+  }
+  async getStats(profileId: string) {
     const queries = [
       this.skillsAdapter.getOwnEvaluation(profileId),
       this.skillsAdapter.getAverageEvaluation(profileId),
@@ -55,23 +66,13 @@ export class ComputeUserEvaluationService {
     this.userStats = formatedResult as UserStats;
     return formatedResult as UserStats;
   }
-  async compute(profileId: string) {
-    await this.getStats(profileId);
-    const avgSkills = this.constructAvgSkills();
-    const gbRating = this.getRatingWithBonus(avgSkills);
-    return {
-      ...avgSkills,
-      gb_rating: gbRating,
-      profileId,
-    };
-  }
   private getRatingWithBonus(averageSkills: EvaluationSkills) {
     const globalRatingBeforeMvPBonus =
       this.evaluationService.average(averageSkills);
     const gbRating = this.applyMvpBonus(globalRatingBeforeMvPBonus);
     return gbRating;
   }
-  private applyMvpBonus(rating: number) {
+  applyMvpBonus(rating: number) {
     const userHaveEvaluateHimself = this.userStats.user_own_evaluation
       ? this.WEIGHT_OWN_EVAL
       : 0;
@@ -84,7 +85,7 @@ export class ComputeUserEvaluationService {
 
     return Math.floor(gbRatingMvpApplied);
   }
-  private computeAvgSkillValue(skill: keyof Skills): number {
+  computeAvgSkillValue(skill: keyof Skills): number {
     const args = {
       ownEval: this.userStats.user_own_evaluation
         ? this.userStats.user_own_evaluation[`${skill}` as keyof Skills]
@@ -109,18 +110,18 @@ export class ComputeUserEvaluationService {
       };
     }, {} as Skills) as unknown as EvaluationSkills;
   }
-  private getNumerator(args: ComputedAvgSkill) {
+  getNumerator(args: ComputedAvgSkill) {
     return (
       this.productNumerator(args.ownEval, this.WEIGHT_OWN_EVAL) +
       this.productNumerator(args.receivedEval, args.nbReceivedEval) +
       this.productNumerator(this.VALUE_BONUS, args.nbBonus)
     );
   }
-  private productNumerator(value: number | undefined, coef: number = 1) {
+  productNumerator(value: number | undefined, coef: number = 1) {
     if (!value || !coef) return 0;
     return value * coef;
   }
-  private getDenominator(args: ComputedAvgSkill) {
+  getDenominator(args: ComputedAvgSkill) {
     const ownEvalDenominator = args.ownEval ? this.WEIGHT_OWN_EVAL : 0;
     const receivedDenominator = args.receivedEval ? args.nbReceivedEval : 0;
     return ownEvalDenominator + receivedDenominator + args.nbBonus;

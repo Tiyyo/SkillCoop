@@ -11,6 +11,7 @@ export class NotificationAdapter
   implements NotificationRepository {
   constructor(@Inject('dbClient') protected dbClient: Kysely<DB>) {
     super(dbClient);
+    this.tableName = 'notification';
   }
   async getLast(profileId: string) {
     try {

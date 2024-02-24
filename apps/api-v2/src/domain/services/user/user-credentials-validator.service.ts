@@ -11,11 +11,7 @@ export class UserCredentialsValidatorService {
     private readonly passwordHashService: PasswordHashInterface,
     private readonly loginAttemptsService: UserLoginAttemptsService,
   ) { }
-  async validateCredentials(
-    email: string,
-    password: string,
-    user: UserDBEntity,
-  ) {
+  async validateCredentials(password: string, user: UserDBEntity) {
     if (!user)
       throw new DomainException(
         'User is missing',

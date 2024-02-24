@@ -6,7 +6,7 @@ import { ProfileRepository } from 'src/domain/repositories/profile.repository';
 import { DB } from '../database.type';
 import { ProfileEntity } from 'src/domain/entities/profile.entity';
 import { addCreatedISOStringDate } from 'src/infrastructure/utils/add-date-object';
-import { InsertObjectDB, tableNames } from 'src/config/types';
+import { InsertObjectDB, TableNames, tableNames } from 'src/config/types';
 import { CoreAdapter } from './core.adapter';
 import { DatabaseException } from '../database.exception';
 
@@ -14,8 +14,10 @@ import { DatabaseException } from '../database.exception';
 export class ProfileAdapter
   extends CoreAdapter<'profile'>
   implements ProfileRepository {
+  declare tableNames: keyof TableNames;
   constructor(@Inject('dbClient') protected dbClient: Kysely<DB>) {
     super(dbClient);
+    this.tableName = 'profile';
   }
 
   async create(data: CreateProfileInterface): Promise<boolean> {

@@ -1,11 +1,13 @@
 import { ImageAdapter } from 'src/infrastructure/kysely/adapters/image.adapter';
 import { LocalImage } from './local-image.service';
-import sharp from 'sharp';
+import * as sharp from 'sharp';
 import { ApplicationException } from 'src/application/exceptions/application.exception';
 import { UploadImageService } from 'src/application/services/upload.service';
 import { ModuleRef } from '@nestjs/core';
 import { UploadAWSService } from 'src/infrastructure/s3/upload-aws.service';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class ImageService {
   private uploadService: UploadImageService;
 
@@ -15,6 +17,7 @@ export class ImageService {
     private moduleRef: ModuleRef,
   ) { }
   async save(url: string, key?: string, size?: number) {
+    console.log(this.imageAdapter);
     await this.imageAdapter.createOne({ url, key, size });
   }
   async delete(url: string) {

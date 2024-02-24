@@ -8,8 +8,8 @@ type AppStoreProps = {
   userProfile: Profile | null;
   isAuth: boolean;
   isFristConnection: boolean | undefined;
-  userId: number | null;
-  setUserId: (userid: number | null) => void;
+  userId: string | null;
+  setUserId: (userid: string | null) => void;
   setIsAuth: (isAuth: boolean) => void;
   setProfile: (userProfile: any) => void;
   setIsFirstConnection: (isFristConnection: boolean | undefined) => void;
@@ -23,7 +23,7 @@ const useAppStore = create<AppStoreProps>()((set) => ({
   userId: null,
   setIsAuth: (isAuth: boolean) => set({ isAuth }),
   setProfile: (userProfile: any) => set({ userProfile }),
-  setUserId: (userId: number | null) => set({ userId }),
+  setUserId: (userId: string | null) => set({ userId }),
   setIsFirstConnection: (isFristConnection: boolean | undefined) =>
     set({ isFristConnection }),
   signout: () =>
@@ -44,7 +44,6 @@ export const useApp = () => {
   const signout = useAppStore((state) => state.signout);
 
   const { data, isLoading, isFetching, isSuccess } = useGetMe({ userProfile });
-
   useEffect(() => {
     if (data === 'Unecessary call') return;
     setIsFirstConnection(detectFirstAccess(data));

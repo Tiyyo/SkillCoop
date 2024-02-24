@@ -1,6 +1,6 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { GetUserSkillsUsecases } from 'src/application/usecases/skills/get-user-eval.usecases';
-@Controller('skill-foot')
+@Controller('skills')
 export class GetProfileEvaluationSkillsController {
   constructor(private readonly getUserSkillsUsecases: GetUserSkillsUsecases) { }
 

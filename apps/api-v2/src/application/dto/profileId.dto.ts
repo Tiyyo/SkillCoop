@@ -5,3 +5,9 @@ export class ProfileIdDTO {
   @IsNotEmpty()
   profileId: string;
 }
+
+export class ProfileIdUnderscoreDTO {
+  @IsString()
+  @IsNotEmpty()
+  profile_id: string;
+}

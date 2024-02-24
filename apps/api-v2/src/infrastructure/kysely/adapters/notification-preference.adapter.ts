@@ -10,5 +10,6 @@ export class NotificationPreferenceAdapter
   implements NotificationPreferenceRepository {
   constructor(@Inject('dbClient') protected dbClient: Kysely<DB>) {
     super(dbClient);
+    this.tableName = 'notification_preference';
   }
 }

@@ -17,5 +17,19 @@ export default defineConfig({
       '@test': './test',
     },
   },
-  plugins: [swc.vite()],
+  plugins: [
+    swc.vite({
+      jsc: {
+        parser: {
+          syntax: 'typescript',
+          dynamicImport: true,
+          decorators: true,
+        },
+        transform: {
+          legacyDecorator: true,
+          decoratorMetadata: true,
+        },
+      },
+    }),
+  ],
 });

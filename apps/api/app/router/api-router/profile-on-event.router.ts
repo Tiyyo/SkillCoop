@@ -12,6 +12,7 @@ import { useSendRequestToJoinEvent } from '../../controllers/profile-on-event/se
 import { updateStatus } from '../../controllers/profile-on-event/update-status.js';
 /* eslint-enable */
 
+//Migrated
 const router: Router = express.Router();
 
 router

@@ -1,4 +1,3 @@
-import { Test } from '@nestjs/testing';
 import { vi, describe, beforeEach, it, expect } from 'vitest';
 import { CreateSocialUserService } from 'src/domain/services/user/create-social-user.service';
 import { UserAdapter } from 'src/infrastructure/kysely/adapters/user.adapter';
@@ -13,25 +12,6 @@ describe('CreateSocialUserService', () => {
   let dbClient: Kysely<DB>;
 
   beforeEach(async () => {
-    // const moduleRef = await Test.createTestingModule({
-    //   providers: [
-    //     CreateSocialUserService,
-    //     {
-    //       provide: UserAdapter,
-    //       useValue: {
-    //         save: vi
-    //           .fn()
-    //           .mockResolvedValue({ id: '1', email: 'test@example.com' }),
-    //       },
-    //     },
-    //     UserFactory,
-    //   ],
-    // }).compile();
-
-    // service = moduleRef.get<CreateSocialUserService>(CreateSocialUserService);
-    // userAdapter = moduleRef.get<UserAdapter>(UserAdapter);
-    // userFactory = moduleRef.get<UserFactory>(UserFactory);
-
     userFactory = new UserFactory();
     userAdapter = new UserAdapter(dbClient);
     service = new CreateSocialUserService(userAdapter, userFactory);
@@ -39,23 +19,18 @@ describe('CreateSocialUserService', () => {
 
   it('should create a user with a random password and save it', async () => {
     const email = 'test@example.com';
-    const password = await service.create(email);
-    vi.spyOn(userFactory, 'create');
     userAdapter.save = vi.fn().mockResolvedValue({ id: '1', email: email });
+    vi.spyOn(userFactory, 'create');
+    const user = await service.create(email);
 
-    // expect(userFactory.create).toHaveBeenCalledWith(email, expect.any(String));
-    expect(userAdapter.save).toHaveBeenCalledWith({
-      email: 'test@example.com',
-      password: expect.any(String),
-    });
-    expect(typeof password).toBe('string');
+    expect(userAdapter.save).toHaveBeenCalled();
+    expect(user).toHaveProperty('id');
+    expect(user).toHaveProperty('email');
+    expect(user).toHaveProperty('password');
+    expect(user).toHaveProperty('blocked');
+    expect(user).toHaveProperty('verified');
+    expect(typeof user.id).toBe('string');
+    expect(typeof user.email).toBe('string');
+    expect(typeof user.password).toBe('string');
   });
-  // it('should return the created user with string id, email', async () => {
-  //   const email = 'test@example.com';
-  //   const user = await service.create(email);
-
-  //   expect(user).toHaveProperty('id');
-  //   expect(user).toHaveProperty('email');
-  //   expect(user.id).toBe(typeof 'string');
-  // });
 });

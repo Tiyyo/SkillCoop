@@ -172,7 +172,17 @@ const router = createBrowserRouter([
   },
   {
     path: '/onboarding/:profileId',
-    element: <OnBoarding />,
+    element: (
+      <Suspense
+        fallback={
+          <>
+            <Spinner />
+          </>
+        }
+      >
+        <OnBoarding />
+      </Suspense>
+    ),
     children: [
       { index: true, element: <OnBoardingCreateProfile /> },
       { path: 'add-image', element: <OnBoardinAddImageProfile /> },

@@ -38,12 +38,12 @@ export class NodeMaillerAdapterService implements EmailServiceInterface {
     }
   }
   async confirmEmail(email: string, token: string, userId: string) {
-    const url = `${this.envVariableService.getApiUrl()}/user/${userId}/verify/${token}`;
+    const url = `${this.envVariableService.getApiUrl()}/api/user/${userId}/verify/${token}`;
     const text = `Click on the link to verify your email: ${url}`;
     await this.send(email, 'validate your email', text);
   }
   async resetPassword(email: string, token: string, userId: string) {
-    const url = `${this.envVariableService.getApiUrl()}/user/${userId}/reset-password/${token}`;
+    const url = `${this.envVariableService.getApiUrl()}/api/user/${userId}/reset-password/${token}`;
     const text = `You asked to reset your password. 
               To continue, click on the link below. : ${url}`;
     await this.send(email, 'Reset your password', text);

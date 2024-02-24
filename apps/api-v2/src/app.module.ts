@@ -12,6 +12,9 @@ import { EventQueriesModule } from './infrastructure/nest/modules/event-queries.
 import { PlaygroundModule } from './infrastructure/nest/modules/playground.module';
 import { FriendModule } from './infrastructure/nest/modules/friends.module';
 import { EventParticipantsModule } from './infrastructure/nest/modules/event-participants.module';
+import { EventMutationsModule } from './infrastructure/nest/modules/event-mutations.module';
+import { TeamsModule } from './infrastructure/nest/modules/teams.module';
+import { VitestModule } from './vitest-test/vitest.module';
 
 @Module({
   imports: [
@@ -25,8 +28,11 @@ import { EventParticipantsModule } from './infrastructure/nest/modules/event-par
     PlaygroundModule,
     SkillsModule,
     EventQueriesModule,
+    EventMutationsModule,
     FriendModule,
     EventParticipantsModule,
+    TeamsModule,
+    VitestModule,
   ],
   controllers: [],
   providers: [AppService],

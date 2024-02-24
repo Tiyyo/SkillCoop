@@ -11,9 +11,11 @@ export class GetUserSkillsUsecases {
   async getProfileEvaluation(profileId: string) {
     const userEvaluation =
       await this.computeUserEvaluationService.compute(profileId);
+
     await this.profileAdapter.updateOne(
       { profile_id: profileId },
       { last_evaluation: userEvaluation.gb_rating },
     );
+    return userEvaluation;
   }
 }

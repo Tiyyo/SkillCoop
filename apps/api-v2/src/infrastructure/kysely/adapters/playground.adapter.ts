@@ -12,6 +12,7 @@ export class PlaygroundAdapter
   implements PlagroundRepository {
   constructor(@Inject('dbClient') protected dbClient: Kysely<DB>) {
     super(dbClient);
+    this.tableName = 'playground';
   }
   async search(query: string) {
     try {

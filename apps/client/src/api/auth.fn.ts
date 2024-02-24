@@ -4,12 +4,12 @@ import type { Credentials, RegisterUser } from '@skillcoop/types/src';
 export const signUpUserFn = async (
   user: RegisterUser,
 ): Promise<string | { message: string }> => {
-  const response = await api.post('auth/register', user);
+  const response = await api.post('api/auth/register', user);
   return response.data;
 };
 
 export const loginUserFn = async (user: Credentials) => {
-  const response = await api.post('auth/login', user, { timeout: 5000 });
+  const response = await api.post('api/auth/login', user, { timeout: 5000 });
   api.defaults.headers.common[
     'Authorization'
   ] = `Bearer ${response.data.accessToken}`;
@@ -17,21 +17,23 @@ export const loginUserFn = async (user: Credentials) => {
 };
 
 export const loginAsDemo = async () => {
-  const response = await api.post('auth/demo');
+  const response = await api.post('api/auth/demo');
   api.defaults.headers.common[
     'Authorization'
   ] = `Bearer ${response.data.accessToken}`;
+  console.log('Login as demo:', response.data.accessToken);
+  console.log('Login as demo:', api.defaults.headers);
   return response.data;
 };
 
 export const logoutUserFn = async () => {
-  const response = await api.post('auth/logout');
+  const response = await api.post('api/auth/logout');
   api.defaults.headers.common['Authorization'] = '';
   return response.data;
 };
 
 export const forgotPasswordFn = async (email: string) => {
-  const response = await api.post(`auth/forgot-password`, { email });
+  const response = await api.post(`api/auth/forgot-password`, { email });
   return response.data;
 };
 
@@ -39,11 +41,11 @@ export const resetPasswordFn = async (data: {
   password: string;
   confirmPassword: string;
 }) => {
-  const response = await api.post(`auth/reset-password`, data);
+  const response = await api.post(`api/auth/reset-password`, data);
   return response.data;
 };
 
 export const sendEmailVerifyFn = async (email: string) => {
-  const response = await api.post(`auth/email`, { email });
+  const response = await api.post(`api/user/email`, { email });
   return response.data;
 };

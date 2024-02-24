@@ -15,6 +15,7 @@ export class EventMutationsAdapter
   implements EventMutationsRepository {
   constructor(@Inject('dbClient') protected dbClient: Kysely<DB>) {
     super(dbClient);
+    this.tableName = 'event';
   }
   async create(data: Partial<EventCoreEntity>) {
     const dataWithBool = transformBoolToNumberInObject(data);

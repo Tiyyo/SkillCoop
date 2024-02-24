@@ -10,5 +10,6 @@ export class BestStrikerAdapter
   implements BestStrikerRepository {
   constructor(@Inject('dbClient') protected dbClient: Kysely<DB>) {
     super(dbClient);
+    this.tableName = 'best_striker_poll';
   }
 }

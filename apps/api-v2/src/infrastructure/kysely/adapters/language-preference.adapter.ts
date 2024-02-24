@@ -10,5 +10,6 @@ export class LanguagePreferenceAdapter
   implements LanguagePreferenceRepository {
   constructor(@Inject('dbClient') protected dbClient: Kysely<DB>) {
     super(dbClient);
+    this.tableName = 'language_preference';
   }
 }

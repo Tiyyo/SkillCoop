@@ -41,6 +41,7 @@ function Login() {
     loginError,
     loginAttempts,
   } = useAuth();
+
   useAuthRedirection({
     isAuthenticated,
     isFristConnection,

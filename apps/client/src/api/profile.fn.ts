@@ -1,7 +1,8 @@
 import { api } from './api.fn';
 import type { Profile, SearchProfileQuery } from '@skillcoop/types/src';
+
 export const getMeFn = async (): Promise<
-  { userProfile?: Profile; userId: number } | 'Unecessary call'
+  { userProfile?: Profile; userId: string } | 'Unecessary call'
 > => {
   const response = await api.get('api/user/me', { timeout: 1500 });
   return response.data;

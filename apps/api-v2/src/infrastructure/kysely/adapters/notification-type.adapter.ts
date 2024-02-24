@@ -10,5 +10,6 @@ export class NotificationTypeAdapter
   implements NotificationTypeRepository {
   constructor(@Inject('dbClient') protected dbClient: Kysely<DB>) {
     super(dbClient);
+    this.tableName = 'notification_type';
   }
 }

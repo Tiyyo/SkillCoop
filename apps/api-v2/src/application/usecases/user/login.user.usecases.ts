@@ -51,7 +51,6 @@ export class LoginUserUsecases {
     }
     const track =
       await this.userCredentialsValidatorService.validateCredentials(
-        email,
         password,
         user,
       );

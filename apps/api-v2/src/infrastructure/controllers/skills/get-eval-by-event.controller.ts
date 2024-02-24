@@ -2,7 +2,7 @@ import { Controller, Get, HttpCode, Query } from '@nestjs/common';
 import { GetEvalByEventDTO } from 'src/application/dto/get-eval-event.dto';
 import { GetProfileEventSkillsUsecases } from 'src/application/usecases/skills/get-eval-event.usecases';
 
-@Controller('skill-foot')
+@Controller('skills')
 export class GetEvaluationByEventSkillController {
   constructor(
     private readonly getProfileEvalSkillsUsecases: GetProfileEventSkillsUsecases,

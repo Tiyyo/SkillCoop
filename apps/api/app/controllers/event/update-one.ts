@@ -32,7 +32,7 @@ export type UpdateEventData = {
   status_name: 'open';
   participants?: number[];
 };
-
+//Migrated
 export async function updateOne(req: Request, res: Response) {
   // update one event
   // only the organize can update the event
@@ -57,7 +57,7 @@ export async function updateOne(req: Request, res: Response) {
   });
 
   if (!dataHasChange)
-    return res.status(201).json({
+    return res.status(204).json({
       message: 'Nothing to update',
     });
 

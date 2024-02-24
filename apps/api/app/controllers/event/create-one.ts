@@ -9,7 +9,7 @@ import { notifyUserHasBeenInvitedToEvent } from '../../services/notification/sub
 import deleteDecodedKey from '../../utils/delete-decoded.js';
 import ServerError from '../../helpers/errors/server.error.js';
 import { eventQueuePublisher } from '../../publishers/event.publisher.js';
-
+//Migrated
 export async function createOne(req: Request, res: Response) {
   // create one event
   // add organizer to the event
@@ -70,6 +70,7 @@ export async function createOne(req: Request, res: Response) {
     participants_id: allParticipantsIds,
     action: 'create_event',
   });
+
   res.status(201).json({
     success: true,
   });

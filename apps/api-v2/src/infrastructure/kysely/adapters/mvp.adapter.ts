@@ -10,5 +10,6 @@ export class MvpAdapter
   implements MvpRepository {
   constructor(@Inject('dbClient') protected dbClient: Kysely<DB>) {
     super(dbClient);
+    this.tableName = 'mvp_poll';
   }
 }

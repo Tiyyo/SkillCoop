@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { ApplicationException } from 'src/application/exceptions/application.exception';
 import { PlaygroundEntity } from 'src/domain/entities/playground.entity';
 import { PlaygroundFactory } from 'src/domain/factories/playground.factory';
 import { PlaygroundAdapter } from 'src/infrastructure/kysely/adapters/playground.adapter';
@@ -18,6 +19,8 @@ export class PlaygroundUsecases {
     return await this.playgroundAdapter.createOne(playground);
   }
   async search(query: string) {
+    if (!query)
+      throw new ApplicationException('Query is missing', 'PlaygroundUsecases');
     return await this.playgroundAdapter.search(query);
   }
 }

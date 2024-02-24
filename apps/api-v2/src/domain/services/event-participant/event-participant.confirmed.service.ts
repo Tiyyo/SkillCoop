@@ -3,6 +3,7 @@ import { EventCoreEntity } from 'src/domain/entities/event.entity';
 import { EventParticipantAdapter } from 'src/infrastructure/kysely/adapters/event-participant.adapter';
 import { EventMutationsAdapter } from 'src/infrastructure/kysely/adapters/event.mutations.adapter';
 import { EventStatusEvaluator } from './event-status-evaluator.service';
+import { GenerateTeamService } from '../generate-teams/generate-team.service';
 
 @Injectable()
 export class EventParticipantConfirmedService {
@@ -10,6 +11,7 @@ export class EventParticipantConfirmedService {
     private readonly eventParticipantAdapter: EventParticipantAdapter,
     private readonly eventMutationsAdapter: EventMutationsAdapter,
     private readonly eventStatusEvaluator: EventStatusEvaluator,
+    private readonly generationTeamService: GenerateTeamService,
   ) { }
 
   async handle(event: EventCoreEntity & { id: number }, profileId: string) {
@@ -31,7 +33,7 @@ export class EventParticipantConfirmedService {
         { id: event.id },
         { status_name: 'full' },
       );
-      // Generate team here
+      await this.generationTeamService.generate(event.id);
       return 'Teams has been generated ';
     }
     if (eventState === 'full') {

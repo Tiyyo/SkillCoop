@@ -9,7 +9,7 @@ import type {
 export const getProfileEvalFn = async (
   profileId: number,
 ): Promise<ProfileEval> => {
-  const response = await api.get(`api/skill_foot/${profileId}`);
+  const response = await api.get(`api/skills/profile/${profileId}`);
   return response.data;
 };
 
@@ -18,19 +18,19 @@ export const getAverageSkillFn = async (data: {
   reviewee_id: number;
   event_id: number;
 }) => {
-  const response = await api.get(`api/skill_foot/event`, { params: data });
+  const response = await api.get(`api/skills/event`, { params: data });
   return response.data;
 };
 
 export const evaluateParticipantSkillsFn = async (
   data: EvaluationParticipantSkill,
 ) => {
-  const response = await api.post(`api/skill_foot/event`, data);
+  const response = await api.post(`api/skills/event`, data);
   return response.data;
 };
 
 export const evaluateOwnSkillsFn = async (data: EvaluationOwnSkill) => {
-  const response = await api.post(`api/skill_foot`, data);
+  const response = await api.post(`api/skills`, data);
   return response.data;
 };
 

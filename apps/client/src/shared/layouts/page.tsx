@@ -14,14 +14,16 @@ function Page({ children }: { children: React.ReactNode }) {
         </Suspense>
         <ReturnBtn />
       </div>
-      <main
-        className="relative flex w-full flex-grow animate-opacity-in flex-col 
+      <Suspense>
+        <main
+          className="relative flex w-full flex-grow animate-opacity-in flex-col 
         overflow-x-hidden  
         overflow-y-scroll bg-grey-off opacity-0 
         lg:h-screen lg:px-6 lg:pb-10 2xl:px-40"
-      >
-        {children}
-      </main>
+        >
+          {children}
+        </main>
+      </Suspense>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { Controller, Get, HttpCode, Param } from '@nestjs/common';
+import { Controller, Get, HttpCode, Param, Query } from '@nestjs/common';
 import { PlaygroundUsecases } from 'src/application/usecases/playground/playground.usecases';
 
 @Controller('playground')
@@ -7,9 +7,9 @@ export class SearchPlaygroundController {
 
   @Get()
   @HttpCode(200)
-  async search(@Param('query') query: string) {
+  async search(@Query('search') query: string) {
     const playgrounds = await this.playgroundUsecases.search(query);
-    if (!playgrounds) {
+    if (!playgrounds || playgrounds.length === 0) {
       return { error: 'playground not found' };
     }
     return playgrounds;

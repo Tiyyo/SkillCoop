@@ -37,7 +37,7 @@ export class JwtAdapterService implements TokenServiceInterface {
       const decoded = await this.jwtService.verify(token, { secret: key });
       return decoded;
     } catch (error) {
-      console.log(error);
+      console.log(error.message, error);
       throw new TokenServiceException('Invalid token', 'JWT Adapter');
     }
   }
@@ -49,7 +49,7 @@ export class JwtAdapterService implements TokenServiceInterface {
     const accessToken = await this.generateToken(
       VALID_TIME_ACCESS_TOKEN,
       this.nestEnvVariableService.getEnvVariable('JWT_TOKEN_KEY'),
-      { uuser_id: userId },
+      { user_id: userId },
     );
     const refreshToken = await this.generateToken(
       VALID_TIME_REFRESH_TOKEN,

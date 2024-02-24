@@ -20,6 +20,16 @@ export type EvaluationSkills = {
   avg_defending: number;
 };
 
+export type TeamMemberEvaluation = {
+  profile_id: string;
+  avg_pace: number;
+  avg_defending: number;
+  avg_passing: number;
+  avg_dribbling: number;
+  avg_shooting: number;
+  gb_rating: number;
+};
+
 export type AverageSkill =
   | 'avg_pace'
   | 'avg_defending'

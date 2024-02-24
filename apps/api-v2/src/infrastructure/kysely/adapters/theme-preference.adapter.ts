@@ -10,5 +10,6 @@ export class ThemePreferenceAdapter
   implements ThemePreferenceRepository {
   constructor(@Inject('dbClient') protected dbClient: Kysely<DB>) {
     super(dbClient);
+    this.tableName = 'theme_preference';
   }
 }

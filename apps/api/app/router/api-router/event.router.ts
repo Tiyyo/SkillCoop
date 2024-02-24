@@ -28,7 +28,9 @@ const router: Router = express.Router();
 
 router
   .route('/')
+  //Migrated
   .post(validateSchema(createEventSchema, canals.body), factory(createOne))
+  //Migrated
   .patch(validateSchema(updateEventSchema, canals.body), factory(updateOne));
 //Migrated
 router.route('/user/:profileId').get(sanitizeParams, factory(getAllByUser));
@@ -55,9 +57,9 @@ router
 router
   .route('/shared/:profileId/:friendId')
   .get(sanitizeParams, factory(getLastSharedEvents));
-
+//Migrated
 router.route('/teams').post(factory(generateTeams));
-
+//Migrated
 router.route('/:id/:profileId').delete(sanitizeParams, factory(deleteOne));
 //Migrated
 router

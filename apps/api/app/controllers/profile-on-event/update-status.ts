@@ -8,7 +8,7 @@ import {
 /*eslint-disable max-len*/
 import { ParticipantStatusManager } from '../../services/participant.service.js';
 /*eslint-enable max-len*/
-
+//Migrated
 export async function updateStatus(req: Request, res: Response) {
   deleteDecodedKey(req.body);
 

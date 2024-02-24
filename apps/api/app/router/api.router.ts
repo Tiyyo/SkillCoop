@@ -17,11 +17,11 @@ const router: Router = express.Router();
 router.use('/user', userRouter);
 // Migrated
 router.use('/profile', profileRouter);
-
+//Migrated
 router.use('/event', eventRouter);
 //Migrated
 router.use('/friends', friendlistRouter);
-
+// Migrated
 router.use('/profile_on_event', profileOnEventRouter);
 //Migrated
 router.use('/skill_foot', skilFootRouter);

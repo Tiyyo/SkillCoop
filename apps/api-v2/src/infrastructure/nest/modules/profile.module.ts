@@ -9,6 +9,8 @@ import { GetOneProfileController } from 'src/infrastructure/controllers/profile/
 import { SearchProfileController } from 'src/infrastructure/controllers/profile/search.controller';
 import { UpdateImageController } from 'src/infrastructure/controllers/profile/update-image';
 import { UpdateOneProfileController } from 'src/infrastructure/controllers/profile/update-one.controller';
+import { EventParticipantAdapter } from 'src/infrastructure/kysely/adapters/event-participant.adapter';
+import { EventQueriesAdapter } from 'src/infrastructure/kysely/adapters/event.queries.adapter';
 import { ImageAdapter } from 'src/infrastructure/kysely/adapters/image.adapter';
 import { ProfileAdapter } from 'src/infrastructure/kysely/adapters/profile.adapter';
 import databaseProvider from 'src/infrastructure/kysely/database.client';
@@ -30,6 +32,8 @@ import { NestEnvVariableAdapterService } from 'src/infrastructure/service/env.ad
     { provide: 'UploadService', useClass: UploadAWSService },
     NestEnvVariableAdapterService,
     RandomGenerationService,
+    EventParticipantAdapter,
+    EventQueriesAdapter,
     ProfileAdapter,
     ImageAdapter,
     databaseProvider,

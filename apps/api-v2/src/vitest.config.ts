@@ -11,6 +11,17 @@ export default defineConfig({
     swc.vite({
       // Explicitly set the module type to avoid inheriting this value from a `.swcrc` config file
       module: { type: 'es6' },
+      jsc: {
+        parser: {
+          syntax: 'typescript',
+          dynamicImport: true,
+          decorators: true,
+        },
+        transform: {
+          legacyDecorator: true,
+          decoratorMetadata: true,
+        },
+      },
     }),
   ],
 });

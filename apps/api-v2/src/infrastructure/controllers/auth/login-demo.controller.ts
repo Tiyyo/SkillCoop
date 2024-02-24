@@ -12,6 +12,7 @@ export class LoginDemoUserController {
   @Post('demo')
   @HttpCode(200)
   async login(@Res() res: Response) {
+    console.log('login demo is called');
     const MAX_AGE = 1000 * 60 * 60 * 24 * 7; // 7 days
     const HOST = this.envVarible.getHost();
     const emailDemo = 'john.doe@example.com';
@@ -38,6 +39,14 @@ export class LoginDemoUserController {
         maxAge: MAX_AGE,
         domain: HOST,
       });
+      console.log(
+        'Login Demo Controller Access Token:',
+        loginTrack.accessToken,
+      );
+      console.log(
+        'Login Demo Controller Refresh Token:',
+        loginTrack.refreshToken,
+      );
       return res.json({ accessToken: loginTrack.accessToken });
     }
     return res.status(400).json({ error: 'Bad credentials' });

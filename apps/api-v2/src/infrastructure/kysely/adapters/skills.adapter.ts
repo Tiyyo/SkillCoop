@@ -14,6 +14,7 @@ export class SkillsAdapter
   implements SkillsRepository {
   constructor(@Inject('dbClient') protected dbClient: Kysely<DB>) {
     super(dbClient);
+    this.tableName = 'skill_foot';
   }
   async find(profileId: string): Promise<AverageSkillNumericRating> {
     const result = await this.client
@@ -59,7 +60,16 @@ export class SkillsAdapter
       AND reviewee_id =  ${profileId}
       GROUP BY reviewee_id
     `.execute(this.dbClient);
-      return { avg_evaluation_received: avgEvalsReceivedResult.rows[0] };
+      return {
+        avg_evaluation_received: avgEvalsReceivedResult.rows[0] ?? {
+          nb_eval_received: 0,
+          pace: null,
+          dribbling: null,
+          defending: null,
+          passing: null,
+          shooting: null,
+        },
+      };
     } catch (error) {
       if (error instanceof Error) {
         throw new DatabaseException(error);

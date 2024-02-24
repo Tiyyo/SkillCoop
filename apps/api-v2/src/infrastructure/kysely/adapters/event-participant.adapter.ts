@@ -16,6 +16,7 @@ export class EventParticipantAdapter
   implements EventParticipantRepository {
   constructor(@Inject('dbClient') protected dbClient: Kysely<DB>) {
     super(dbClient);
+    this.tableName = 'profile_on_event';
   }
   async updateStatusWithExistenceCheck({
     event_id,
@@ -139,6 +140,31 @@ export class EventParticipantAdapter
           AND profile_on_event.status_name = 'confirmed'`.execute(this.client);
 
       return winningRate.rows[0];
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new DatabaseException(error);
+      }
+    }
+  }
+  async getEventTeamConfig(eventId: number) {
+    try {
+      const result = await this.dbClient
+        .selectFrom(['profile_on_event'])
+        .select(['profile_on_event.event_id'])
+        .select(({ fn }) => [
+          'profile_on_event.event_id',
+          fn
+            .agg<string>('group_concat', ['profile_on_event.profile_id'])
+            .as('ids_participants'),
+        ])
+        .leftJoin('event', 'profile_on_event.event_id', 'event.id')
+        .select(['event.required_participants', 'event.nb_teams'])
+        .where('profile_on_event.event_id', '=', eventId)
+        .where('profile_on_event.status_name', '=', 'confirmed')
+        .groupBy(['profile_on_event.event_id', 'event.required_participants'])
+        .executeTakeFirst();
+
+      return result;
     } catch (error) {
       if (error instanceof Error) {
         throw new DatabaseException(error);

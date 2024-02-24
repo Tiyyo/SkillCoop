@@ -11,7 +11,7 @@ import {
 /*eslint-disable max-len*/
 
 /*eslint-enable max-len*/
-
+//Migrated
 export class DefaultUserPreference {
   userId: number;
 

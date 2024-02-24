@@ -12,6 +12,7 @@ export class EventQueriesAdapter
   implements EventQueriesRepository {
   constructor(@Inject('dbClient') protected dbClient: Kysely<DB>) {
     super(dbClient);
+    this.tableName = 'event';
   }
   async getNbBonusPerProfile(profileId: string) {
     try {

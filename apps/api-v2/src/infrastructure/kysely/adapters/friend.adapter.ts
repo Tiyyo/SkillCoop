@@ -12,6 +12,7 @@ export class FriendAdapter
   implements FriendRepository {
   constructor(@Inject('dbClient') protected dbClient: Kysely<DB>) {
     super(dbClient);
+    this.tableName = 'profile_on_profile';
   }
   async findFriends(profileId: string) {
     try {

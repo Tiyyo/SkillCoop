@@ -4,7 +4,7 @@ import { Profile } from 'packages/types/src';
 
 type ResponseGetMeFn =
   | 'Unecessary call'
-  | { userProfile?: Profile; userId: number }
+  | { userProfile?: Profile; userId: string }
   | undefined;
 
 type useAuthRedirectionProps = {

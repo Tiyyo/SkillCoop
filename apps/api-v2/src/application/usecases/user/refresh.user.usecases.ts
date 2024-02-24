@@ -23,6 +23,7 @@ export class RefreshUserUsecases {
       throw new UnauthorizedException('Invalid token');
     }
     delete decoded.exp;
+    delete decoded.iat;
     return await this.tokenService.generateToken(
       VALID_TIME_ACCESS_TOKEN,
       JWTAccessKey,

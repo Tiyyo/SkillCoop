@@ -6,7 +6,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ProfileIdDTO } from 'src/application/dto/profileId.dto';
+import { ProfileIdUnderscoreDTO } from 'src/application/dto/profileId.dto';
 import { UpdateImageProfileUsecases } from 'src/application/usecases/profile/update-image.usecases';
 
 @Controller('profile')
@@ -18,11 +18,12 @@ export class UpdateImageController {
   @UseInterceptors(FileInterceptor('avatar'))
   async updateImage(
     @UploadedFile() file: Express.Multer.File,
-    @Body() body: ProfileIdDTO,
+    @Body() body: ProfileIdUnderscoreDTO,
   ) {
+    console.log(file);
     return await this.updateImageUsecases.updateProfileImage(
       file,
-      body.profileId,
+      body.profile_id,
     );
   }
 }

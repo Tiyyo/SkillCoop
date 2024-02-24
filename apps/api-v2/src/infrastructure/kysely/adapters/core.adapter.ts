@@ -129,6 +129,7 @@ export class CoreAdapter<Table extends keyof DB> implements CoreRepository {
       promise = promise.where(key, '=', conditionValues[index]);
     });
     const result = await promise.executeTakeFirst();
+
     return !!Number(result.numUpdatedRows);
   }
   async deleteOne(data: Record<string, number | string | Date>) {

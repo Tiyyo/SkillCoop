@@ -1,5 +1,5 @@
 import { Controller, Get, HttpCode, UseGuards } from '@nestjs/common';
-import { ResetPasswordGuard } from 'src/infrastructure/guards/reset-password.guard';
+import { ResetPasswordGuard } from 'src/infrastructure/nest/guards/reset-password.guard';
 
 @Controller('user')
 export class VerifyResetTokenhUserController {

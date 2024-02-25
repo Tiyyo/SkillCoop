@@ -7,7 +7,6 @@ export class RegisterUserController {
   constructor(private readonly userUsecases: RegisterUserUsecases) { }
   @Post('register')
   async register(@Body() body: CreateUserDTO) {
-    console.log('register user is called');
     const response = await this.userUsecases.createUser(body);
     return response;
   }

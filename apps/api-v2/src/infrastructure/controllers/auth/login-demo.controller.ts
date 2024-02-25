@@ -12,7 +12,6 @@ export class LoginDemoUserController {
   @Post('demo')
   @HttpCode(200)
   async login(@Res() res: Response) {
-    console.log('login demo is called');
     const MAX_AGE = 1000 * 60 * 60 * 24 * 7; // 7 days
     const HOST = this.envVarible.getHost();
     const emailDemo = 'john.doe@example.com';

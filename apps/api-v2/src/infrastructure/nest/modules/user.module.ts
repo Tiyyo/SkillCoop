@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { DeleteUserUsecases } from 'src/application/usecases/user/delete.user.usecases';
 import { ForgotPasswordUserUsecases } from 'src/application/usecases/user/forgot-password.user.usecases';
 import { GetMeUserUsecases } from 'src/application/usecases/user/get-me.user.usecases';
 import { ResetPasswordUserUsecases } from 'src/application/usecases/user/reset-password.user.usecases';
@@ -11,6 +12,7 @@ import { VerifyResetTokenUserIdUserUsecases } from 'src/application/usecases/use
 import { BuildProfileService } from 'src/domain/services/profile/find-profile.service';
 import { UserAccountService } from 'src/domain/services/user/user-account.service';
 import { VerifiedUserAccountService } from 'src/domain/services/user/verified-account.service';
+import { DeleteUserController } from 'src/infrastructure/controllers/user/delete-user.controller';
 import { ForgotPasswordUserController } from 'src/infrastructure/controllers/user/forgot-password.controller';
 import { GetMeController } from 'src/infrastructure/controllers/user/get-me.controller';
 
@@ -45,6 +47,7 @@ import { NodeMaillerAdapterService } from 'src/infrastructure/service/nodemailer
     UpdateEmailUserController,
     UpdatePasswordUserController,
     GetMeController,
+    DeleteUserController,
   ],
   providers: [
     databaseProvider,
@@ -56,6 +59,7 @@ import { NodeMaillerAdapterService } from 'src/infrastructure/service/nodemailer
     UpdateEmailUserUsecases,
     UpdatePasswordUserUsecases,
     GetMeUserUsecases,
+    DeleteUserUsecases,
     JwtService,
     NestEnvVariableAdapterService,
     VerifiedUserAccountService,

@@ -6,7 +6,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { TokenServiceInterface } from 'src/application/services/token.service';
-import { NestEnvVariableAdapterService } from '../service/env.adapter.service';
+import { NestEnvVariableAdapterService } from '../../service/env.adapter.service';
 
 @Injectable()
 export class ResetPasswordGuard implements CanActivate {

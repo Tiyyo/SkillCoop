@@ -24,7 +24,6 @@ export class GetMeController {
   async getMe(@Req() req: Request, @Res() res: Response) {
     const authHeaders = req.headers.Authorization || req.headers.authorization;
     let token: string;
-    console.log('Get Me Controller Auth Headers:', authHeaders);
     if (
       authHeaders &&
       typeof authHeaders === 'string' &&

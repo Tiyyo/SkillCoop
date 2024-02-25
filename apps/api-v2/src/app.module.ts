@@ -1,4 +1,9 @@
-import { Module } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AppService } from './app.service';
 import { ProfileModule } from './infrastructure/nest/modules/profile.module';
@@ -15,6 +20,10 @@ import { EventParticipantsModule } from './infrastructure/nest/modules/event-par
 import { EventMutationsModule } from './infrastructure/nest/modules/event-mutations.module';
 import { TeamsModule } from './infrastructure/nest/modules/teams.module';
 import { VitestModule } from './vitest-test/vitest.module';
+import { AuthMiddleware } from './infrastructure/nest/middleware/auth.middleware';
+import { JwtAdapterService } from './infrastructure/service/jwt-token.adapter.service';
+import { NestEnvVariableAdapterService } from './infrastructure/service/env.adapter.service';
+import { JwtService } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -35,6 +44,35 @@ import { VitestModule } from './vitest-test/vitest.module';
     VitestModule,
   ],
   controllers: [],
-  providers: [AppService],
+  providers: [
+    AppService,
+    { provide: 'TokenService', useClass: JwtAdapterService },
+    NestEnvVariableAdapterService,
+    JwtService,
+  ],
 })
-export class AppModule { }
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(AuthMiddleware)
+      .exclude(
+        { path: '/auth/demo', method: RequestMethod.POST },
+        { path: '/auth/login', method: RequestMethod.POST },
+        { path: '/auth/logout', method: RequestMethod.POST },
+        { path: '/auth/refresh', method: RequestMethod.GET },
+        { path: '/auth/register', method: RequestMethod.POST },
+        { path: '/user/me', method: RequestMethod.GET },
+        { path: '/user/forgot-password', method: RequestMethod.POST },
+        { path: '/user/reset-password', method: RequestMethod.ALL },
+        { path: '/user/forgot-password', method: RequestMethod.POST },
+        { path: '/user/reset-password', method: RequestMethod.POST },
+        {
+          path: '/user/:userId/reset-password/:token',
+          method: RequestMethod.GET,
+        },
+        { path: '/user/email', method: RequestMethod.POST },
+        { path: '/user/:userId/verify/:token', method: RequestMethod.GET },
+      )
+      .forRoutes('*');
+  }
+}

@@ -19,6 +19,7 @@ export class AwardUseCases {
     profileId: string,
     raterId: string,
   ) {
+    console.log('voteForBestStriker');
     const event = await this.eventQueriesAdapter.getOneEvent(
       eventId,
       profileId,
@@ -42,6 +43,7 @@ export class AwardUseCases {
     return { message: 'success' };
   }
   async voteForMvp(eventId: number, profileId: string, raterId: string) {
+    console.log('voteForMvp');
     const event = await this.eventQueriesAdapter.getOneEvent(
       eventId,
       profileId,

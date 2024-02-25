@@ -6,14 +6,16 @@ import {
   useGetProfile,
 } from '../../../shared/hooks/useProfile';
 import { ALL_SKILLS } from '../../../shared/constants/skill-constant';
-import { participantSkillSchema } from '@skillcoop/schema/src';
+import {
+  participantSkillSchema,
+  EvaluationParticipantSkill,
+} from '@skillcoop/schema/src';
 import toast from '../../../shared/utils/toast';
-import { EvaluationParticipantSkill } from '@skillcoop/types/src';
 import { useNavigate } from 'react-router-dom';
 
 type usePostMatchEvaluationProps = {
   eventId?: number | string;
-  participantProfileId?: number | string;
+  participantProfileId?: string;
 };
 
 function usePostMatchEvaluation({
@@ -24,7 +26,7 @@ function usePostMatchEvaluation({
   const navigate = useNavigate();
   // get the profile of the participant
   const { data: participantProfile } = useGetProfile({
-    profileId: Number(participantProfileId),
+    profileId: participantProfileId,
     enabled: !!participantProfileId,
   });
 
@@ -34,13 +36,11 @@ function usePostMatchEvaluation({
   // Retrieve the evaluation of the participant if it exists
   const { data: participantEvaluation } = useGetAverageEval({
     eventId: Number(eventId),
-    participantProfileId: Number(participantProfileId),
+    participantProfileId: participantProfileId,
     userProfileId: userProfile?.profile_id,
   });
 
-  const [evaluation, setEvaluation] = useState<number | undefined>(
-    participantEvaluation?.rating,
-  );
+  const [evaluation, setEvaluation] = useState<number | undefined>();
   useEffect(() => {
     if (!participantEvaluation || !participantEvaluation.rating) return;
     setEvaluation(participantEvaluation.rating);
@@ -49,8 +49,10 @@ function usePostMatchEvaluation({
   // Form data submission
   const handleEvaluationSubmission = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!userProfile?.profile_id) return;
-    const submitedEvaluation = ALL_SKILLS.reduce(
+    if (!userProfile?.profile_id || !participantProfileId) return;
+    const submitedEvaluation = ALL_SKILLS.reduce<
+      Partial<EvaluationParticipantSkill>
+    >(
       (acc, curr) => {
         return {
           ...acc,
@@ -58,27 +60,24 @@ function usePostMatchEvaluation({
         };
       },
       {
-        reviewee_id: Number(participantProfileId),
+        reviewee_id: participantProfileId,
         rater_id: userProfile?.profile_id,
         event_id: Number(eventId),
       },
-    ) as EvaluationParticipantSkill;
-
+    ) as unknown as EvaluationParticipantSkill;
     const isValid = participantSkillSchema.safeParse(submitedEvaluation);
     if (!isValid.success) {
       toast.error('You need to fill all the input');
       return;
     }
     evaluateParticipant(submitedEvaluation);
-    setEvaluation(
-      Math.floor(
-        submitedEvaluation.defending +
-          submitedEvaluation.dribbling +
-          submitedEvaluation.pace +
-          submitedEvaluation.passing +
-          submitedEvaluation.shooting,
-      ) / 5,
-    );
+    const sum =
+      submitedEvaluation.defending +
+      submitedEvaluation.dribbling +
+      submitedEvaluation.pace +
+      submitedEvaluation.passing +
+      submitedEvaluation.shooting;
+    setEvaluation(Math.floor(sum) / 5);
     setTimeout(() => {
       navigate(-1);
     }, 1500);

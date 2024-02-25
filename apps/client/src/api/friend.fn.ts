@@ -5,7 +5,7 @@ import type {
   UpdateFriendsInvitation,
 } from '@skillcoop/types/src';
 
-export const getFriendsFn = async (profileId: number): Promise<Friend[]> => {
+export const getFriendsFn = async (profileId: string): Promise<Friend[]> => {
   const response = await api.get(`api/friends/${profileId}`);
   return response.data;
 };
@@ -29,8 +29,8 @@ export const searchFriendsFn = async (
 };
 
 export const sendFriendRequestFn = async (data: {
-  adder_id: number;
-  friend_id: number;
+  adder_id: string;
+  friend_id: string;
 }) => {
   const response = await api.post(`api/friends`, data);
   return response.data;

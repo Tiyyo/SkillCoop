@@ -44,8 +44,8 @@ export type AvgSkill = Skills & {
 
 export type EvaluationParticipantSkill = Skills & {
   event_id: number;
-  rater_id: number;
-  reviewee_id: number;
+  rater_id: string;
+  reviewee_id: string;
 };
 
 export type Score = {

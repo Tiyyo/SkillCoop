@@ -6,6 +6,7 @@ import { useApp } from '../../shared/store/app.store';
 import associateNumberToString from '../../shared/utils/associate-number-string-scale';
 import capitalize from '../../shared/utils/capitalize';
 import { getEventFormatbyRequiredParticipants } from '../../shared/utils/get-format-event';
+import { formatPrice } from '../../shared/utils/format-price';
 /*eslint-enable*/
 
 type NearEventCardProps = {
@@ -103,7 +104,7 @@ function NearEventCard({
           </li>
           <li className="text-light">{t('averageParticipantsLevel')}</li>
           <li className="font-semibold text-text-base">
-            {capitalize(associateNumberToString(averageEventEvaluation))}
+            {t(`skill:${associateNumberToString(averageEventEvaluation)}`)}
           </li>
           <li className="text-light">{t('location')}</li>
           <li className="flex flex-col font-semibold text-text-base">
@@ -113,7 +114,7 @@ function NearEventCard({
           {playgroundHasPrice && <li className="text-light">{t('price')}</li>}
           {playgroundHasPrice && (
             <li>
-              {price / requiredParticipants}€{' '}
+              {formatPrice(price / requiredParticipants)}€{' '}
               <span className="text-light">/per</span>
             </li>
           )}

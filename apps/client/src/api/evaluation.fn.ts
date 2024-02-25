@@ -15,8 +15,8 @@ export const getProfileEvalFn = async (
 };
 
 export const getAverageSkillFn = async (data: {
-  rater_id: number;
-  reviewee_id: number;
+  rater_id: string;
+  reviewee_id: string;
   event_id: number;
 }) => {
   const response = await api.get(`api/skills/event`, { params: data });
@@ -41,6 +41,6 @@ export const voteMvpFn = async (data: Vote) => {
 };
 
 export const voteBestStrikerFn = async (data: Vote) => {
-  const response = await api.post(`api/best_striker`, data);
+  const response = await api.post(`api/best-striker`, data);
   return response.data;
 };

@@ -15,9 +15,14 @@ export class GetProfileEventSkillsUsecases {
       reviewee_id: query.reviewee_id,
       event_id: query.event_id,
     });
-    if (!skill) {
+
+    const gbRating = this.evaluationService.average(skill);
+    console.log('gbRating', gbRating);
+    if (!skill || !gbRating) {
+      console.log('is null');
       return { rating: null };
     }
+
     return { rating: this.evaluationService.average(skill) };
   }
 }

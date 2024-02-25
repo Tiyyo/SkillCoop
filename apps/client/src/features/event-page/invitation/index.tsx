@@ -55,8 +55,7 @@ function InvitationFromEventPage() {
 
     const data = {
       event_id: Number(eventId),
-      ids:
-        eventState.staged_participants?.map((p) => Number(p.profile_id)) ?? [],
+      ids: eventState.staged_participants?.map((p) => p.profile_id) ?? [],
       initiator: profileId,
     };
     const isValid = inviteParticipantSchema.safeParse(data);

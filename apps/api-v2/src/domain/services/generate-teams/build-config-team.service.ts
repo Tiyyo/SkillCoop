@@ -12,6 +12,9 @@ export class BuildConfigTeamService {
   async getConfig(eventId: number) {
     const eventData = await this.fetchData(eventId);
     const ids = await this.extractIds(eventData);
+    console.log('ids', ids);
+    console.log(eventData.required_participants);
+
     if (ids.length !== eventData.required_participants)
       throw new ApplicationException(
         'Wrong participant number',

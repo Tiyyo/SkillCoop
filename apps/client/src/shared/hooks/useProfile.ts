@@ -247,18 +247,18 @@ export function useGetAverageEval({
 }: {
   eventId: number;
   userProfileId?: string;
-  participantProfileId: number;
+  participantProfileId: string | undefined;
 }) {
   return useQuery(
     [`eval${eventId}/${participantProfileId}`],
     () => {
-      if (!userProfileId) return;
+      if (!userProfileId || !participantProfileId) return null;
       return getAverageSkillFn({
         event_id: eventId,
         rater_id: userProfileId,
         reviewee_id: participantProfileId,
       });
     },
-    { enabled: !!userProfileId },
+    { enabled: !!userProfileId && !!participantProfileId },
   );
 }

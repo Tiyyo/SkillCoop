@@ -70,9 +70,9 @@ export type EventAggr = EventCoreEntity & {
 };
 
 export type LastSharedEvent = {
-  event_id: string;
+  event_id: number;
   date: string;
-  duration: string;
+  duration: number;
   location: string;
   playground_city: string;
   playground_address: string;
@@ -82,8 +82,8 @@ export type LastSharedEvent = {
   participants: Array<{
     profile_id: string;
     username: string;
-    avatar: string;
-    team: string;
+    avatar: string | null;
+    team: number;
   }>;
 };
 

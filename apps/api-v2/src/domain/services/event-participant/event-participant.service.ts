@@ -33,4 +33,13 @@ export class EventParticipantService {
       profile_id: profileId,
     });
   }
+  async refuseParticipant(eventId: number, profileId: string) {
+    return this.eventParticipantAdapter.updateOne(
+      {
+        event_id: eventId,
+        profile_id: profileId,
+      },
+      { status_name: 'refused' },
+    );
+  }
 }

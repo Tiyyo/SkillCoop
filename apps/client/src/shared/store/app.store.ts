@@ -22,7 +22,7 @@ const useAppStore = create<AppStoreProps>()((set) => ({
   isFristConnection: undefined,
   userId: null,
   setIsAuth: (isAuth: boolean) => set({ isAuth }),
-  setProfile: (userProfile: any) => set({ userProfile }),
+  setProfile: (userProfile: Profile) => set({ userProfile }),
   setUserId: (userId: string | null) => set({ userId }),
   setIsFirstConnection: (isFristConnection: boolean | undefined) =>
     set({ isFristConnection }),

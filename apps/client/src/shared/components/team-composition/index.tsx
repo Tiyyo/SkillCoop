@@ -34,7 +34,7 @@ function TeamComposition({
     e.preventDefault();
     //ensure that the user can't vote for or select himself
     if (
-      +(e.target as any)[currentIdpActive as keyof typeof e.target] ===
+      (e.target as any)[currentIdpActive as keyof typeof e.target] ===
       userProfileId
     )
       return;
@@ -43,7 +43,7 @@ function TeamComposition({
     // profile_id is the profileId from the user who is voted for
     const data = {
       event_id: eventId,
-      profile_id: +(e.target as any)[currentIdpActive as keyof typeof e.target]
+      profile_id: (e.target as any)[currentIdpActive as keyof typeof e.target]
         .value,
       rater_id: profileId,
     };

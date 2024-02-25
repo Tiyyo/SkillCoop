@@ -3,10 +3,12 @@ import { CreateEventDTO } from 'src/application/dto/create-event.dto';
 import { DeleteEventDTO } from 'src/application/dto/delete-event.dto';
 import { SaveScoreEventDTO } from 'src/application/dto/save-score.dto';
 import { UpdateEventDTO } from 'src/application/dto/update-event.dto';
+import { UpdateEventOrganizerDTO } from 'src/application/dto/update-organizer-event.dto';
 import { ApplicationException } from 'src/application/exceptions/application.exception';
 import { ScoreAdapter } from 'src/domain/repositories/score.repository';
 import { EventParticipantService } from 'src/domain/services/event-participant/event-participant.service';
 import { EventStatusAdjusterService } from 'src/domain/services/event/event-status-adjuster.service';
+import { GenerateTeamService } from 'src/domain/services/generate-teams/generate-team.service';
 import { EventParticipantAdapter } from 'src/infrastructure/kysely/adapters/event-participant.adapter';
 import { EventMutationsAdapter } from 'src/infrastructure/kysely/adapters/event.mutations.adapter';
 const possibleFieldsUpdated = [
@@ -27,6 +29,7 @@ export class EventMutationUsecases {
     private readonly eventParticipantService: EventParticipantService,
     private readonly eventStatusAdjusterService: EventStatusAdjusterService,
     private readonly eventParticipantAdapter: EventParticipantAdapter,
+    private readonly generateTeamService: GenerateTeamService,
   ) { }
   async createOne(data: CreateEventDTO) {
     const eventData = {
@@ -92,6 +95,9 @@ export class EventMutationUsecases {
       { id: event_id },
       adjustedUpdateData,
     );
+    if (adjustedUpdateData.status_name === 'full') {
+      this.generateTeamService.generate(event.id);
+    }
     // Notifying the participants
     return { message: 'Event updated' };
   }
@@ -122,6 +128,21 @@ export class EventMutationUsecases {
         id: data.event_id,
       },
       { status_name: 'completed' },
+    );
+  }
+  async updateOrganizer(data: UpdateEventOrganizerDTO) {
+    const event = await this.eventMutationAdapter.findOne({
+      id: data.event_id,
+    });
+    if (!event) {
+      throw new ApplicationException(
+        'Event not found',
+        'EventMutationUsecases',
+      );
+    }
+    await this.eventMutationAdapter.updateOne(
+      { id: data.event_id },
+      { organizer_id: data.new_organizer_id },
     );
   }
 }

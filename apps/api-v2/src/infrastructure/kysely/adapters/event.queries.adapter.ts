@@ -451,58 +451,61 @@ GROUP BY participant.event_id`.execute(this.client);
     }
   }
   async getLastSharedEvent(profileId: string, friendId: string) {
-    try {
-      const result = await sql<Record<string, string | number>>`
-SELECT 
-  a.event_id, 
-  e.date,
-  e.duration,
-  playground.name AS location,
-  playground.city AS playground_city,
-  playground.address AS playground_address,
-  e.location_id,
-  score.score_team_1,
-  score.score_team_2, 
-  (json_group_array(
-      json_object(
-          'profile_id' , participant.profile_id, 
-          'username' , profile.username	,
-          'avatar', profile.avatar_url,
-          'team', participant.team
-        )
-      ) 
-  ) AS participants
-FROM profile_on_event AS a
-JOIN profile_on_event AS b ON a.event_id = b.event_id
-INNER JOIN event AS e ON a.event_id = e.id
-LEFT JOIN score ON e.id = score.event_id
-JOIN playground ON event.location_id = playground.id
-JOIN profile_on_event AS participant ON e.id = participant.event_id
-JOIN profile ON participant.profile_id = profile.profile_id
-WHERE a.profile_id = ${profileId} 
-AND b.profile_id = ${friendId}
-AND a.status_name = 'confirmed' 
-AND b.status_name = 'confirmed'
-AND e.status_name = 'completed'
-GROUP BY a.event_id, b.event_id
-ORDER BY e.date DESC
-LIMIT 5
-`.execute(this.client);
+    console.log('friend id', friendId, 'profile id', profileId);
+    const result = await this.dbClient
+      .selectFrom('profile_on_event as user')
+      .innerJoin(
+        'profile_on_event as friend',
+        'user.event_id',
+        'friend.event_id',
+      )
+      .innerJoin('event', 'user.event_id', 'event.id')
+      .leftJoin('score', 'event.id', 'score.event_id')
+      .innerJoin('playground', 'event.location_id', 'playground.id')
+      .select([
+        'event.id as event_id',
+        'event.date',
+        'event.location_id',
+        'event.duration',
+        'score.score_team_1',
+        'score.score_team_2',
+        'playground.city as playground_city',
+        'playground.name as location',
+        'playground.address as playground_address',
+      ])
+      .select(({ eb }) => [
+        jsonArrayFrom(
+          eb
+            .selectFrom('profile_on_event')
+            .innerJoin(
+              'profile',
+              'profile_on_event.profile_id',
+              'profile.profile_id',
+            )
+            .select([
+              'profile_on_event.profile_id',
+              'profile.username',
+              'profile.avatar_url as avatar',
+              'profile_on_event.status_name as status',
+              'profile.last_evaluation',
+              'profile_on_event.team',
+            ])
+            .whereRef('event_id', '=', 'event.id'),
+        ).as('participants'),
+      ])
+      .where('user.status_name', '=', 'confirmed')
+      .where('friend.status_name', '=', 'confirmed')
+      .where('event.status_name', '=', 'completed')
+      .groupBy('event.id')
+      .orderBy('event.date', 'desc')
+      .limit(5)
+      .execute();
 
-      const parsedResult = result.rows.map((event) => {
-        return {
-          ...event,
-          participants:
-            typeof event.participants === 'string' &&
-            JSON.parse(event.participants),
-        };
-      });
-
-      return parsedResult as LastSharedEvent[];
-    } catch (error) {
-      if (error instanceof Error) {
-        throw new DatabaseException(error);
-      }
+    return result;
+  }
+  catch(error) {
+    if (error instanceof Error) {
+      throw new DatabaseException(error);
     }
   }
   async getEventLocationByCountry(country: string) {

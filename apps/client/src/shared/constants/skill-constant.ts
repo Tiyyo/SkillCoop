@@ -4,7 +4,7 @@ export const ALL_SKILLS = [
   'passing',
   'shooting',
   'pace',
-];
+] as const;
 export const LEVEL_SCALE = [
   'beginner',
   'novice',

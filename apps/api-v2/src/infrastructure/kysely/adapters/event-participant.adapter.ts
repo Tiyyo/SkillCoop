@@ -2,7 +2,10 @@ import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { Kysely, ReferenceExpression, sql } from 'kysely';
 import { CoreAdapter } from 'src/infrastructure/kysely/adapters/core.adapter';
 import { DB } from 'src/infrastructure/kysely/database.type';
-import { addUpdatedISOStringDate } from 'src/infrastructure/utils/add-date-object';
+import {
+  addCreatedISOStringDate,
+  addUpdatedISOStringDate,
+} from 'src/infrastructure/utils/add-date-object';
 import { DatabaseException } from 'src/infrastructure/kysely/database.exception';
 import { EventParticipantRepository } from 'src/domain/repositories/event-participant.repository';
 import {
@@ -82,16 +85,16 @@ export class EventParticipantAdapter
     }
   }
   async upsert(data: Partial<EventParticipantEntity>) {
-    const dataWithUpdatedAt = addUpdatedISOStringDate(data);
+    const dataWithCreatedAt = addCreatedISOStringDate(data);
     try {
       const result = await this.client
         .insertInto('profile_on_event')
-        .values(data)
+        .values(dataWithCreatedAt)
         .onConflict((oc) =>
           oc.columns(['event_id', 'profile_id']).doUpdateSet({
             status_name:
-              dataWithUpdatedAt.status_name as unknown as TInvitationStatus,
-            updated_at: dataWithUpdatedAt.updated_at,
+              dataWithCreatedAt.status_name as unknown as TInvitationStatus,
+            updated_at: dataWithCreatedAt.created_at,
           }),
         )
         .executeTakeFirst();

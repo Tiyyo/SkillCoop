@@ -1,6 +1,7 @@
 import { LevelScale } from '@skillcoop/types/src';
 
 const associateNumberToString = (gbrating: number): LevelScale | 'NC' => {
+  console.log('gbrating', gbrating);
   if (gbrating < 20) return 'beginner';
   if (gbrating < 35) return 'novice';
   if (gbrating < 75) return 'intermediate';

@@ -10,7 +10,7 @@ const distanceOptions = {
   25: '25km',
   50: '50km',
   100: '100km',
-  9999: '>50km',
+  9999: '>100km',
 };
 
 type FindEventsFiltersProps = {

@@ -8,7 +8,7 @@ export class SendInvitationEventDTO {
   @IsNotEmpty()
   initiator: string;
   @IsArray()
-  @IsNumber({}, { each: true })
+  @IsString({ each: true })
   @IsNotEmpty()
   ids: string[];
 }

@@ -8,7 +8,7 @@ export const getMeFn = async (): Promise<
   return response.data;
 };
 
-export const getProfileFn = async (profileId: number): Promise<Profile> => {
+export const getProfileFn = async (profileId: string): Promise<Profile> => {
   const response = await api.get(`api/profile/${profileId}`);
   return response.data;
 };

@@ -17,8 +17,8 @@ export const invitationPageVariant = {
 
 export type EventInvitation = {
   event_id: number;
-  initiator?: number;
-  ids: number[];
+  initiator?: string;
+  ids: string[];
 };
 
 export type EventParticipationRequest = {

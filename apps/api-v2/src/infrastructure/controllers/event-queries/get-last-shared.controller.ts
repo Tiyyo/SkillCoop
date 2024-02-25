@@ -1,4 +1,4 @@
-import { Controller, Get, HttpCode, Param, Query } from '@nestjs/common';
+import { Controller, Get, HttpCode, Param } from '@nestjs/common';
 import { GetLastSharedDTO } from 'src/application/dto/get-last-shared.dto';
 import { EventQueriesUsecases } from 'src/application/usecases/event-queries/event-queries.usecases';
 

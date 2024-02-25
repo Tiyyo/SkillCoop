@@ -69,7 +69,7 @@ export type UpdateEventData = Omit<CreateEventData, 'status_name'> & {
 
 export type DeleteEventData = {
   event_id: number;
-  profile_id: number;
+  profile_id: string;
 };
 
 export type SaveScore = {

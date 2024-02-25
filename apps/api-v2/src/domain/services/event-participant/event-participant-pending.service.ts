@@ -11,6 +11,7 @@ export class EventParticipantPendingService {
   ) { }
 
   async handle(event: EventCoreEntity & { id: number }, profileId: string) {
+    console.log('Participant pending service is called', event, profileId);
     if (event.organizer_id === profileId) {
       return 'Organizer cannot change his status';
     }

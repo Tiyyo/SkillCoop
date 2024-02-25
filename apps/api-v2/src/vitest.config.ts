@@ -7,21 +7,8 @@ export default defineConfig({
     root: './',
   },
   plugins: [
-    // This is required to build the test files with SWC
     swc.vite({
-      // Explicitly set the module type to avoid inheriting this value from a `.swcrc` config file
       module: { type: 'es6' },
-      jsc: {
-        parser: {
-          syntax: 'typescript',
-          dynamicImport: true,
-          decorators: true,
-        },
-        transform: {
-          legacyDecorator: true,
-          decoratorMetadata: true,
-        },
-      },
     }),
   ],
 });

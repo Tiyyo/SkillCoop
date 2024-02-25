@@ -4,6 +4,7 @@ import { EventParticipantConfirmedService } from './event-participant.confirmed.
 import { EventParticipantDeclinedService } from './event-participant.declined.service';
 import { EventParticipantPendingService } from './event-participant-pending.service';
 import { ApplicationException } from 'src/application/exceptions/application.exception';
+import { EventParticipantService } from './event-participant.service';
 
 @Injectable()
 export class EventParticipantStatusManagerService {
@@ -11,6 +12,7 @@ export class EventParticipantStatusManagerService {
     private readonly confirmedParticipantService: EventParticipantConfirmedService,
     private readonly declinedParticipantService: EventParticipantDeclinedService,
     private readonly pendingParticipantService: EventParticipantPendingService,
+    private readonly eventParticipantService: EventParticipantService,
   ) { }
   async handle(
     event: EventCoreEntity & { id: number },
@@ -24,6 +26,11 @@ export class EventParticipantStatusManagerService {
         return await this.declinedParticipantService.handle(event, profileId);
       case 'confirmed':
         return await this.confirmedParticipantService.handle(event, profileId);
+      case 'refused':
+        return await this.eventParticipantService.refuseParticipant(
+          event.id,
+          profileId,
+        );
       default:
         throw new ApplicationException(
           `${status} is not handle , expected pending, declined or confirmed`,

@@ -13,7 +13,7 @@ export const createEventSchema = z.object({
   }),
   organizer_id: z.string(),
   status_name: z.enum(["open"]).optional(),
-  participants: z.array(z.number()).optional(),
+  participants: z.array(z.string()).optional(),
 });
 
 export const updateEventSchema = z.object({

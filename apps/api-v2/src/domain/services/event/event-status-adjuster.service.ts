@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ApplicationException } from 'src/application/exceptions/application.exception';
 import { EventCoreEntity } from 'src/domain/entities/event.entity';
+import { GenerateTeamService } from '../generate-teams/generate-team.service';
 
 export type UpdateEventData = {
   date: string;
@@ -24,24 +25,29 @@ export type ProfileOnEventRessource = {
 };
 @Injectable()
 export class EventStatusAdjusterService {
-  declare updateData: UpdateEventData;
+  declare updateData: UpdateEventData & {
+    event_id?: number;
+    profile_id?: string;
+  };
   constructor() { }
   data(
     updateRawData: UpdateEventData,
-    event: EventCoreEntity,
+    event: EventCoreEntity & { id: number },
     confirmedParticipants: Array<any>,
   ) {
-    this.adjustStatus(updateRawData, event, confirmedParticipants);
+    this.updateData = updateRawData;
+    if (updateRawData.required_participants) {
+      this.adjustStatus(updateRawData, event, confirmedParticipants);
+    }
     this.removeUnwantedFields();
     return this.updateData;
   }
   private adjustStatus(
     updateRawData: UpdateEventData,
-    event: EventCoreEntity,
+    event: EventCoreEntity & { id: number },
     confirmedParticipants: Array<any>,
   ) {
-    this.updateData = updateRawData;
-    if (event.required_participants)
+    if (!event.required_participants)
       throw new ApplicationException(
         'Event required_participants is not defined',
         'EventStatusAdjusterService',
@@ -59,5 +65,7 @@ export class EventStatusAdjusterService {
   private removeUnwantedFields() {
     delete this.updateData.start_date;
     delete this.updateData.start_time;
+    delete this.updateData.event_id;
+    delete this.updateData.profile_id;
   }
 }

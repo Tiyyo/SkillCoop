@@ -14,11 +14,10 @@ export const verifyResetPasswordTokenFn = async (): Promise<{
   message: 'success' | 'expire';
 }> => {
   const response = await api.get(`api/user/reset-password`);
-  console.log('response', response.data);
   return response.data;
 };
 
-export const deleteUserFn = async (userid: number) => {
+export const deleteUserFn = async (userid: string) => {
   const response = await api.delete(`api/user/${userid}`);
   return response.data;
 };

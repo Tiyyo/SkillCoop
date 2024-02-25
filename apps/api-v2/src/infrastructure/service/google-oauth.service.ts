@@ -21,6 +21,7 @@ export class GoogleOAuthService implements SocialOauthInterface {
         },
         body: new URLSearchParams(options).toString(), // Converts the 'options' object to a URL-encoded string
       });
+      console.log('Response from fetch', response);
       if (!response.ok) {
         throw new ApplicationException(
           `Could not get token from google`,
@@ -28,8 +29,10 @@ export class GoogleOAuthService implements SocialOauthInterface {
         );
       }
       const data = await response.json();
+      console.log('Data from fetch', data);
       return data;
     } catch (error) {
+      console.log('Error', error);
       if (error instanceof Error) {
         throw new ApplicationException(
           'getOAuthToken failed to get OAuth Token' + error.message,

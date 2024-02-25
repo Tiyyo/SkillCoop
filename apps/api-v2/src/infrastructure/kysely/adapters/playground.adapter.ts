@@ -1,7 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Kysely, sql } from 'kysely';
 import { PlagroundRepository } from 'src/domain/repositories/playground.repository';
-
 import { CoreAdapter } from 'src/infrastructure/kysely/adapters/core.adapter';
 import { DB } from 'src/infrastructure/kysely/database.type';
 import { DatabaseException } from '../database.exception';

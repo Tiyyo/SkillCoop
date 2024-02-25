@@ -1,8 +1,8 @@
 import { InvitationStatus } from ".";
 
 export type Friend = {
-  adder_id: number;
-  friend_id: number;
+  adder_id: string;
+  friend_id: string;
   username: string;
   avatar_url: string;
   status_name: InvitationStatus;
@@ -11,6 +11,6 @@ export type Friend = {
 
 export type SearchFriendQuery = {
   username: string;
-  profile: number;
+  profile: string;
   page?: number;
 };

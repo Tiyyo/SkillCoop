@@ -44,6 +44,7 @@ export default function useCreateEvent() {
         Number(eventCreatedState.required_participants) ?? undefined,
     };
     const isValid = createEventSchema.safeParse(data);
+    console.log(isValid);
     if (!isValid.success) {
       setValidationErrors((isValid as any).error.issues);
       return;

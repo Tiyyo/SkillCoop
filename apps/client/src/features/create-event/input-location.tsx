@@ -3,6 +3,7 @@ import { Dispatch, SetStateAction } from 'react';
 import { searchPlaygroundFn } from '../../api/playground';
 import InputGeocode from '../../shared/components/search-select';
 import { useTranslation } from 'react-i18next';
+import useResetError from '../../shared/hooks/useResetError';
 
 type InputLocationProps = {
   updateLocationId?: (value: number) => void;

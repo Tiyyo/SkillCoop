@@ -14,7 +14,12 @@ export class UserPreferencesService {
   ) { }
 
   async get(id: string) {
-    return await this.userPreferencesAdapter.get(id);
+    try {
+      return await this.userPreferencesAdapter.get(id);
+    } catch (error) {
+      this.generate(id);
+      return await this.userPreferencesAdapter.get(id);
+    }
   }
   async generate(userId: string) {
     Promise.all([

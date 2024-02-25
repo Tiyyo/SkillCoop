@@ -1,7 +1,6 @@
 import {
   IsDateString,
   IsNotEmpty,
-  IsNumber,
   IsOptional,
   IsString,
 } from 'class-validator';
@@ -19,7 +18,7 @@ export interface CreateProfileInterface {
 export class CreateProfileDTO {
   @IsNotEmpty()
   @IsString()
-  user_id: string;
+  profile_id: string;
   @IsNotEmpty()
   @IsString()
   username: string;

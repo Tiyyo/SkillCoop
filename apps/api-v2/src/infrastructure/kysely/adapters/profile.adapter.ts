@@ -65,7 +65,7 @@ export class ProfileAdapter
     LEFT JOIN skill_foot ON skill_foot.reviewee_id = profile.profile_id 
     WHERE relation_exist IS NULL
     AND profile.profile_id  <> ${searchParams.userProfileId}
-    AND profile.username LIKE ${`%${searchParams.search.toLowerCase()}%`}
+    AND profile.username LIKE ${`%${searchParams.username.toLowerCase()}%`}
     GROUP BY profile.profile_id 
     LIMIT 20
     OFFSET ${offset}

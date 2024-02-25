@@ -21,24 +21,28 @@ function NotificationsSettings() {
     }, {});
 
   return (
-    <Container className="p-5 lg:mt-4">
+    <Container className="flex-grow p-5 lg:mt-4">
       <NotificationSetting
-        type={t('event')}
+        type="event"
+        label={t('event')}
         settings={userNotificationSetting.event}
         legend={t('eventNotificationLegend')}
       />
       <NotificationSetting
-        type={t('friends')}
+        type="friend"
+        label={t('friends')}
         settings={userNotificationSetting.friend}
         legend={t('friendsNotificationLegend')}
       />
       <NotificationSetting
-        type={t('messages')}
+        type="message"
+        label={t('messages')}
         settings={userNotificationSetting.message}
         legend={t('messagesNotificationLegend')}
       />
       <NotificationSetting
-        type={t('system')}
+        type="system"
+        label={t('system')}
         settings={userNotificationSetting.system}
         legend={t('systemNotificationLegend')}
       />

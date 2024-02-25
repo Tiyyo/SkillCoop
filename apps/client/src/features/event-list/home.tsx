@@ -29,7 +29,7 @@ function ResumeEvents() {
       {loading ? (
         <Spinner />
       ) : (
-        <>
+        <div className="flex flex-grow flex-col">
           <EventList
             events={events.incoming}
             title={t('upcoming')}
@@ -44,7 +44,7 @@ function ResumeEvents() {
             linkTo="/events/past"
             nbEventToDisplay={2}
           />
-        </>
+        </div>
       )}
     </Suspense>
   );

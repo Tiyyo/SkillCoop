@@ -7,12 +7,14 @@ import ResetPassword from '../../../features/auth/reset-password';
 function ResetPasswordMiddleware() {
   const navigate = useNavigate();
   const [userResetTokenIsValid, setUserResetTokenIsValid] = useState(false);
+
   const { data, isLoading, isSuccess } = useQuery(
     ['reset-password'],
     async () => {
       return verifyResetPasswordTokenFn();
     },
   );
+  console.log('Middleware reset password data', data);
   useEffect(() => {
     if (!isSuccess) return;
     if (data && data.message === 'success') {

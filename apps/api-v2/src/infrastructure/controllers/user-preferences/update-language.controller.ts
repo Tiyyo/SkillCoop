@@ -3,7 +3,7 @@ import { UpdateLanguageUserPreferencesDTO } from 'src/application/dto/update-lan
 import { UserPreferencesUsecases } from 'src/application/usecases/user-preferences/user-preferences.usecases';
 
 @Controller('user-preferences')
-export class UpdateLanguageUserPreferences {
+export class UpdateLanguageUserPreferencesController {
   constructor(
     private readonly userPreferencesUsecases: UserPreferencesUsecases,
   ) { }

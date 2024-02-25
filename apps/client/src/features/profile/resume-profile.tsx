@@ -12,7 +12,7 @@ export type Infos = {
   lastname: string | null;
   age: string | null;
   location: string | null;
-  profileId?: number;
+  profileId?: string;
   email?: string | null;
 };
 

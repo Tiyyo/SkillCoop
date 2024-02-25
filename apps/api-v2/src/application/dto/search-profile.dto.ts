@@ -3,32 +3,31 @@ import {
   IsInt,
   IsNotEmpty,
   IsNumber,
+  IsOptional,
   IsPositive,
   IsString,
 } from 'class-validator';
 
 export interface SearchProfileParams {
-  userProfileId: number;
-  search: string;
+  userProfileId: string;
+  username: string;
   page: number;
 }
 
 export class SearchProfileDTO {
-  @IsNotEmpty()
   @IsString()
-  search: string;
-
-  @Type(() => Number)
   @IsNotEmpty()
-  @IsNumber()
-  @IsPositive()
-  @IsInt()
-  userProfileId: number;
+  username: string;
+
+  @IsString()
+  @IsNotEmpty()
+  userProfileId: string;
 
   @Type(() => Number)
   @IsPositive()
   @IsNumber()
   @IsPositive()
   @IsInt()
+  @IsOptional()
   page: number;
 }

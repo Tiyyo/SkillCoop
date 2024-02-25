@@ -7,6 +7,7 @@ export class SearchFriendController {
   constructor(private readonly friendUsecases: FriendUsecases) { }
   @Get('/search/friendlist')
   async search(@Query() query: SearchFriendsDTO) {
+    console.log('query', query);
     return await this.friendUsecases.searchFriend(query);
   }
 }

@@ -21,6 +21,7 @@ import { SendVerificationEmailUserController } from 'src/infrastructure/controll
 import { UpdateEmailUserController } from 'src/infrastructure/controllers/user/update-email.controller';
 import { UpdatePasswordUserController } from 'src/infrastructure/controllers/user/update-password.controller';
 import { VerifyEmailUserController } from 'src/infrastructure/controllers/user/verify-email.controller';
+import { VerifyResetTokenhUserController } from 'src/infrastructure/controllers/user/verify-reset-token.controller';
 import { EventParticipantAdapter } from 'src/infrastructure/kysely/adapters/event-participant.adapter';
 import { EventQueriesAdapter } from 'src/infrastructure/kysely/adapters/event.queries.adapter';
 import { ProfileAdapter } from 'src/infrastructure/kysely/adapters/profile.adapter';
@@ -36,6 +37,7 @@ import { NodeMaillerAdapterService } from 'src/infrastructure/service/nodemailer
   controllers: [
     ForgotPasswordUserController,
     VerifyEmailUserController,
+    VerifyResetTokenhUserController,
     ForgotPasswordUserController,
     RedirectToResetPasswordUserController,
     ResetPasswordUserController,

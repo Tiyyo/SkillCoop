@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { CreateProfileDTO } from 'src/application/dto/create-profile.dto';
 import { ProfileUsecases } from 'src/application/usecases/profile/profile.usecases';
 

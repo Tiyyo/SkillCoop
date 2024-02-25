@@ -19,6 +19,7 @@ export class ResetPasswordGuard implements CanActivate {
     const request = context.switchToHttp().getRequest();
     const response = context.switchToHttp().getResponse();
     const token = request.cookies._rset;
+
     if (!token) throw new UnauthorizedException('Invalid token');
 
     const JwtEmailKey = this.envVariableService.getEnvVariable(
@@ -27,7 +28,7 @@ export class ResetPasswordGuard implements CanActivate {
 
     const decoded = await this.tokenService.verifyToken(token, JwtEmailKey);
 
-    if (decoded || !decoded.user_id) {
+    if (decoded && !decoded.user_id) {
       return response.status(200).json({ message: 'expire' });
     }
     return true;

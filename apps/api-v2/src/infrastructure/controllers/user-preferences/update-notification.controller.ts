@@ -4,11 +4,11 @@ import { UpdateNotificationUserPreferencesDTO } from 'src/application/dto/update
 import { UserPreferencesUsecases } from 'src/application/usecases/user-preferences/user-preferences.usecases';
 
 @Controller('user-preferences')
-export class UpdateNotificationUserPreferences {
+export class UpdateNotificationUserPreferencesController {
   constructor(
     private readonly userPreferencesUsecases: UserPreferencesUsecases,
   ) { }
-  @Patch('/theme')
+  @Patch('/notification')
   @HttpCode(200)
   async updateLanguage(@Body() body: UpdateNotificationUserPreferencesDTO) {
     return await this.userPreferencesUsecases.updateNotification(body);

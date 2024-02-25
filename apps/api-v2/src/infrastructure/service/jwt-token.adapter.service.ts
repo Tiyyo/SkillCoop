@@ -37,7 +37,7 @@ export class JwtAdapterService implements TokenServiceInterface {
       const decoded = await this.jwtService.verify(token, { secret: key });
       return decoded;
     } catch (error) {
-      console.log(error.message, error);
+      console.log(error.message);
       throw new TokenServiceException('Invalid token', 'JWT Adapter');
     }
   }

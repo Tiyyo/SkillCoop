@@ -5,7 +5,7 @@ import { startTransition } from 'react';
 
 // TODO : Much more simple and maintainable to do 2 separate queries
 // and cache them to reuse them in other components
-export function useResumeEvents({ profileId }: { profileId?: number }) {
+export function useResumeEvents({ profileId }: { profileId?: string }) {
   const [events, setEvents] = useState<{
     incoming: EventType[] | null;
     past: EventType[] | null;

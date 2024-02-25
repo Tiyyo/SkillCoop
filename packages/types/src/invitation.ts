@@ -23,16 +23,16 @@ export type EventInvitation = {
 
 export type EventParticipationRequest = {
   event_id: number;
-  profile_id: number;
+  profile_id: string;
 }
 
 export type CreateFriendsInvitation = {
-  adder_id: number;
-  friend_id: number;
+  adder_id: string;
+  friend_id: string;
 };
 
 export type UpdateFriendsInvitation = {
-  adder_id: number;
-  friend_id: number;
+  adder_id: string;
+  friend_id: string;
   status_name: InvitationStatus;
 };

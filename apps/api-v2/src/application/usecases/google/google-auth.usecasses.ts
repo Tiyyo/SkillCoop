@@ -21,6 +21,10 @@ export class GoogleAuthUsecases {
   async handle(code: string) {
     const { access_token, id_token } =
       await this.socialAuthService.getTokens(code);
+
+    console.log('Acces google token', access_token);
+    console.log('Id google token', id_token);
+
     const { email, given_name, family_name, picture } =
       await this.socialAuthService.getUserInfo({
         access_token,

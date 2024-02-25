@@ -13,7 +13,8 @@ export const updatePasswordFn = async (data: {
 export const verifyResetPasswordTokenFn = async (): Promise<{
   message: 'success' | 'expire';
 }> => {
-  const response = await api.get(`api/auth/reset-password`);
+  const response = await api.get(`api/user/reset-password`);
+  console.log('response', response.data);
   return response.data;
 };
 

@@ -34,8 +34,16 @@ export class UpdateImageProfileUsecases {
       height: WIDTH_AVATAR,
       width: WIDTH_AVATAR,
     });
+    console.log('key', key);
+    console.log('link', link);
+    console.log(
+      'If key and link are not null, then the image was uploaded successfully',
+    );
     await this.imageService.save(link, key, WIDTH_AVATAR);
-
+    await this.profileAdapter.updateOne(
+      { profile_id: profileId },
+      { avatar_url: link },
+    );
     if (avatar_url) {
       await this.imageService.delete(avatar_url);
     }

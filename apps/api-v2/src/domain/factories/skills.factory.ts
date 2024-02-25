@@ -1,6 +1,8 @@
+import { Injectable } from '@nestjs/common';
 import { SkillEntity } from '../entities/skill.entity';
 import { SkillService } from '../services/skills/skill.service';
 
+@Injectable()
 export class SkillsFactory {
   constructor(private readonly skillService: SkillService) { }
   public create(data) {

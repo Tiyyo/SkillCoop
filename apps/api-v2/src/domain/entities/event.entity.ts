@@ -51,7 +51,7 @@ export type EventParticipant = {
   profile_id: string;
   username: string;
   avatar: string | null;
-  status: InvitationStatus;
+  status: string;
   last_evaluation: number | null;
   team: number | null;
 };
@@ -66,7 +66,7 @@ export type EventAggr = EventCoreEntity & {
   score_team_2: number | null;
   participants: EventParticipant[];
   confirmed_participants: number;
-  user_status: TInvitationStatus;
+  user_status: string;
 };
 
 export type LastSharedEvent = {

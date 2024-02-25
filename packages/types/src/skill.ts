@@ -15,8 +15,8 @@ export type ProfileEval = {
 };
 
 export type Vote = {
-  profile_id: number;
-  rater_id: number;
+  profile_id: string;
+  rater_id: string;
   event_id: number;
 };
 

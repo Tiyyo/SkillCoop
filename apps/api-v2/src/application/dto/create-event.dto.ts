@@ -7,6 +7,10 @@ import {
 } from 'class-validator';
 
 export class CreateEventDTO {
+  @IsString()
+  start_date: string;
+  @IsString()
+  start_time: string;
   @IsNotEmpty()
   @IsString()
   date: string;

@@ -122,7 +122,7 @@ function CreateEventForm({
           <UnlockKeyhole />
         </SelectInput>
         <InputLocation
-          error={inputHasError('location', validationErrors)}
+          error={inputHasError('location_id', validationErrors)}
           updateLocationId={updateLocation}
           setCreatePlayground={setDisplayCreatePlayground}
           label={t('selectPlayground')}

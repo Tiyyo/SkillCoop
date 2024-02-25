@@ -85,6 +85,9 @@ export class FriendAdapter
         .executeTakeFirstOrThrow();
       return !!isRelationExist;
     } catch (error) {
+      if (error instanceof Error && error.message === 'no result') {
+        return false;
+      }
       if (error instanceof Error) {
         throw new DatabaseException(error);
       }

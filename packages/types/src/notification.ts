@@ -1,7 +1,7 @@
 export type NotificationType = 'event' | 'friend' | 'system' | 'message';
 
 export type NotificationParams = {
-  profileId: number;
+  profileId: string;
   message: string;
   type_name: NotificationType;
   subtype: NotificationSubtype;
@@ -52,7 +52,7 @@ export type NotificationSubtype =
 
 export type Notification = {
   id: number;
-  profile_id: number;
+  profile_id: string;
   type_name: NotificationType;
   subtype: NotificationSubtype;
   img_url?: string | null;
@@ -66,7 +66,7 @@ export type Notification = {
 export type NotificationFilters = 'event' | 'friend' | 'all';
 
 export type SSENotificationData = {
-  profileId: number;
+  profileId: string;
   message: string;
 };
 

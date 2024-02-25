@@ -5,9 +5,9 @@ import { NotificationPreferenceService } from 'src/domain/services/user-prefrere
 import { ThemePreferenceService } from 'src/domain/services/user-prefrerences/theme-preference.service';
 import { UserPreferencesService } from 'src/domain/services/user-prefrerences/user-preferences.service';
 import { GetUserPreferencesController } from 'src/infrastructure/controllers/user-preferences/get.controller';
-import { UpdateLanguageUserPreferences } from 'src/infrastructure/controllers/user-preferences/update-language.controller';
-import { UpdateNotificationUserPreferences } from 'src/infrastructure/controllers/user-preferences/update-notification.controller';
-import { UpdateThemeUserPreferences } from 'src/infrastructure/controllers/user-preferences/update-theme.controller';
+import { UpdateLanguageUserPreferencesController } from 'src/infrastructure/controllers/user-preferences/update-language.controller';
+import { UpdateNotificationUserPreferencesController } from 'src/infrastructure/controllers/user-preferences/update-notification.controller';
+import { UpdateThemeUserPreferencesController } from 'src/infrastructure/controllers/user-preferences/update-theme.controller';
 import { LanguagePreferenceAdapter } from 'src/infrastructure/kysely/adapters/language-preference.adapter';
 import { NotificationPreferenceAdapter } from 'src/infrastructure/kysely/adapters/notification-preference.adapter';
 import { NotificationTypeAdapter } from 'src/infrastructure/kysely/adapters/notification-type.adapter';
@@ -18,9 +18,9 @@ import databaseProvider from 'src/infrastructure/kysely/database.client';
 @Module({
   controllers: [
     GetUserPreferencesController,
-    UpdateNotificationUserPreferences,
-    UpdateLanguageUserPreferences,
-    UpdateThemeUserPreferences,
+    UpdateThemeUserPreferencesController,
+    UpdateNotificationUserPreferencesController,
+    UpdateLanguageUserPreferencesController,
   ],
   providers: [
     databaseProvider,

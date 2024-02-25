@@ -1,3 +1,4 @@
+import { OwnSkill } from 'packages/schema/src';
 import { api } from './api.fn';
 import type {
   EvaluationOwnSkill,
@@ -7,7 +8,7 @@ import type {
 } from '@skillcoop/types/src';
 
 export const getProfileEvalFn = async (
-  profileId: number,
+  profileId: string,
 ): Promise<ProfileEval> => {
   const response = await api.get(`api/skills/profile/${profileId}`);
   return response.data;
@@ -29,7 +30,7 @@ export const evaluateParticipantSkillsFn = async (
   return response.data;
 };
 
-export const evaluateOwnSkillsFn = async (data: EvaluationOwnSkill) => {
+export const evaluateOwnSkillsFn = async (data: OwnSkill) => {
   const response = await api.post(`api/skills`, data);
   return response.data;
 };

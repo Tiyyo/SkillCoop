@@ -15,7 +15,7 @@ import {
   updateProfileInfoFn,
 } from '../../api/api.fn';
 import type {
-  EvaluationOwnSkill,
+  OwnSkill,
   EvaluationParticipantSkill,
   Profile,
   SearchProfileQuery,
@@ -26,16 +26,16 @@ import { queryClient } from '../../main';
 
 const keys = {
   getProfile: ['profile'],
-  getProfileId: (profileId: number | string) => [
+  getProfileId: (profileId: string) => [
     ...keys.getProfile,
     `${keys.getProfile}/${profileId}}`,
   ],
   getMe: ['auth-user'],
-  getProfileEvalId: (profileId: number | string) => [
+  getProfileEvalId: (profileId: string) => [
     `${keys.getProfile}/${profileId}}`,
     `${keys.getProfile}/${profileId}/eval`,
   ],
-  getEvaluation: (profileId: number | string) => [
+  getEvaluation: (profileId: string) => [
     `${keys.getProfile}/${profileId}/eval`,
   ],
 };
@@ -63,7 +63,7 @@ export function useGetProfile({
   profileId,
   enabled = true,
 }: {
-  profileId?: number;
+  profileId?: string;
   enabled?: boolean;
 }) {
   return useQuery(
@@ -76,7 +76,7 @@ export function useGetProfile({
   );
 }
 
-export function useGetProfileEval(options: { profileId?: number }) {
+export function useGetProfileEval(options: { profileId?: string }) {
   return useQuery(
     [
       `${keys.getProfile}/${options.profileId}}`,
@@ -97,17 +97,21 @@ export function useGetSearchProfile(options: SearchProfileQuery) {
   });
 }
 
-export function useGetSuggestProfile(options: { profileId?: number }) {
-  return useQuery([`suggest-profile`], async () => {
-    if (!options.profileId) return null;
-    return getSuggestProfileFn(options.profileId);
-  });
+export function useGetSuggestProfile(options: { profileId?: string }) {
+  return useQuery(
+    [`suggest-profile`],
+    async () => {
+      if (!options.profileId) return null;
+      return getSuggestProfileFn(options.profileId);
+    },
+    { enabled: !!options.profileId },
+  );
 }
 
 export function useDeleteUser(options: { onSuccess?: () => void }) {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (userId: number) => {
+    mutationFn: (userId: string) => {
       return deleteUserFn(userId);
     },
     onSuccess: () => {
@@ -121,7 +125,7 @@ export function useDeleteUser(options: { onSuccess?: () => void }) {
 export function useUpdateAvatar(options: {
   onSuccess?: (response: AxiosResponse) => void;
   onError?: () => void;
-  profileId?: number;
+  profileId?: string;
 }) {
   const queryClient = useQueryClient();
   return useMutation({
@@ -141,7 +145,7 @@ export function useUpdateAvatar(options: {
 }
 
 export function useUpdateProfile(options: {
-  profileId?: number;
+  profileId?: string;
   onSuccess?: () => void;
 }) {
   const queryClient = useQueryClient();
@@ -163,7 +167,7 @@ export function userCreateProfile(options: { onSuccess?: () => void }) {
     mutationFn: (
       data: Partial<Omit<Profile, 'username'>> & {
         username: string;
-        profile_id: number;
+        profile_id: string;
       },
     ) => {
       return createProfileFn(data);
@@ -196,11 +200,11 @@ export function useUpdateEmail(options: {
 export function useAutoEvaluateSkill(options: {
   onSuccess?: () => void;
   onError?: () => void;
-  profileId?: number;
+  profileId?: string;
 }) {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (data: EvaluationOwnSkill) => {
+    mutationFn: (data: OwnSkill) => {
       return evaluateOwnSkillsFn(data);
     },
     onSuccess: () => {
@@ -218,7 +222,7 @@ export function useAutoEvaluateSkill(options: {
 export function useEvaluationSkill(options: {
   onSuccess?: () => void;
   onError?: () => void;
-  profileId?: number;
+  profileId?: string;
 }) {
   return useMutation({
     mutationFn: (data: EvaluationParticipantSkill) => {
@@ -242,7 +246,7 @@ export function useGetAverageEval({
   participantProfileId,
 }: {
   eventId: number;
-  userProfileId?: number;
+  userProfileId?: string;
   participantProfileId: number;
 }) {
   return useQuery(

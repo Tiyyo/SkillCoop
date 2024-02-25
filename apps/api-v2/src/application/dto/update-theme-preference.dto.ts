@@ -6,5 +6,5 @@ export class UpdateThemeUserPreferencesDTO {
   user_id: string;
   @IsString()
   @IsNotEmpty()
-  name: string;
+  name: 'light' | 'dark';
 }

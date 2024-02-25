@@ -153,10 +153,28 @@ const router = createBrowserRouter([
   },
   {
     path: '/verify-email',
-    element: <VerifyEmail />,
+    element: (
+      <Suspense>
+        <VerifyEmail />
+      </Suspense>
+    ),
   },
-  { path: '/forgot-password', element: <ForgotPassword /> },
-  { path: '/reset-password', element: <ResetPasswordMiddleware /> },
+  {
+    path: '/forgot-password',
+    element: (
+      <Suspense>
+        <ForgotPassword />
+      </Suspense>
+    ),
+  },
+  {
+    path: '/reset-password',
+    element: (
+      <Suspense>
+        <ResetPasswordMiddleware />
+      </Suspense>
+    ),
+  },
   { path: '/verify-email/success', element: <VerifyEmailSuccess /> },
   {
     path: '/auth/google',

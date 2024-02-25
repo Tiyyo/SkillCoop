@@ -5,6 +5,7 @@ import { DB } from 'src/infrastructure/kysely/database.type';
 import { EventQueriesRepository } from 'src/domain/repositories/event.queries.repository';
 import { DatabaseException } from '../database.exception';
 import { EventAggr, LastSharedEvent } from 'src/domain/entities/event.entity';
+import { jsonArrayFrom } from 'kysely/helpers/sqlite';
 
 @Injectable()
 export class EventQueriesAdapter
@@ -41,61 +42,72 @@ export class EventQueriesAdapter
   }
   async getOneEvent(eventId: number, profileId: string) {
     try {
-      const result = await sql`
-SELECT 
-  event.id AS event_id,
-  event.date,
-  event.duration,
-  playground.name AS location,
-  playground.city AS playground_city,
-  playground.address AS playground_address,
-  event.location_id,
-  event.required_participants,
-  event.nb_teams,
-  event.organizer_id,
-  event.status_name,
-  event.price,
-  event.visibility,
-  event.mvp_id,
-  event.best_striker_id,
-  score.score_team_1,
-  score.score_team_2, 
-  (json_group_array(
-      json_object(
-          'profile_id' , participant.profile_id, 
-          'username' , profile.username	,
-          'avatar', profile.avatar_url,
-          'status', participant.status_name,
-          'last_evaluation', profile.last_evaluation,
-          'team', participant.team
+      const res = await this.dbClient
+        .selectFrom('event')
+        .select([
+          'event.id as event_id',
+          'event.domain_id',
+          'event.date',
+          'event.duration',
+          'event.location_id',
+          'event.required_participants',
+          'event.nb_teams',
+          'event.organizer_id',
+          'event.status_name',
+          'event.price',
+          'event.visibility',
+          'event.mvp_id',
+          'event.best_striker_id',
+        ])
+        .innerJoin('playground', 'event.location_id', 'playground.id')
+        .innerJoin('profile_on_event', 'event.id', 'profile_on_event.event_id')
+        .innerJoin(
+          'profile',
+          'profile_on_event.profile_id',
+          'profile.profile_id',
         )
-      ) 
-  ) AS participants,
-  (SELECT COUNT (*) 
-  FROM profile_on_event 
-  WHERE event_id = event.id 
-  AND status_name = 'confirmed') AS confirmed_participants,
- (SELECT participant.status_name
-  FROM profile_on_event AS participant
-  WHERE participant.profile_id = ${profileId} 
-  AND participant.event_id = ${eventId} ) AS user_status
-FROM event
-LEFT JOIN score ON event.id = score.event_id
-JOIN playground ON event.location_id = playground.id
-JOIN profile_on_event AS participant ON event.id = participant.event_id
-JOIN profile ON participant.profile_id = profile.profile_id
-WHERE event.id = ${eventId}
-      `.execute(this.client);
+        .leftJoin('score', 'event.id', 'score.event_id')
+        .select(({ selectFrom, eb }) => [
+          selectFrom('profile_on_event')
+            .select(({ fn }) => fn.count<number>('event_id').as('confirmed'))
+            .whereRef('event_id', '=', 'event.id')
+            .where('status_name', '=', 'confirmed')
+            .as('confirmed_participants'),
+          selectFrom('profile_on_event')
+            .select('profile_on_event.status_name')
+            .whereRef('event_id', '=', 'event.id')
+            .where('profile_id', '=', profileId)
+            .as('user_status'),
+          jsonArrayFrom(
+            eb
+              .selectFrom('profile_on_event')
+              .select([
+                'profile_on_event.profile_id',
+                'profile.username',
+                'profile.avatar_url as avatar',
+                'profile_on_event.status_name as status',
+                'profile.last_evaluation',
+                'profile_on_event.team',
+              ])
+              .innerJoin(
+                'profile',
+                'profile_on_event.profile_id',
+                'profile.profile_id',
+              )
+              .whereRef('event_id', '=', 'event.id'),
+          ).as('participants'),
+        ])
+        .select([
+          'score.score_team_1',
+          'score.score_team_2',
+          'playground.name as location',
+          'playground.city as playground_city',
+          'playground.address as playground_address',
+        ])
+        .where('event.id', '=', eventId)
+        .executeTakeFirst();
 
-      const parsedResult = result.rows.map((event: EventAggr) => {
-        return {
-          ...event,
-          participants:
-            typeof event.participants === 'string' &&
-            JSON.parse(event.participants),
-        };
-      });
-      return parsedResult[0] as EventAggr;
+      return res;
     } catch (error) {
       if (error instanceof Error) {
         throw new DatabaseException(error);

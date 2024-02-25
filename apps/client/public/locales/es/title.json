@@ -44,5 +44,7 @@
   "sharedEvents": "Eventos compartidos",
   "sharedEventsLegend": "Últimos eventos compartidos con {{username}}",
   "findEvents": "Buscar eventos",
-  "findEventsLegend": "Encuentra eventos que coincidan con tus habilidades e intereses en tu área."
+  "findEventsLegend": "Encuentra eventos que coincidan con tus habilidades e intereses en tu área.",
+  "createProfile": "Crea tu perfil",
+  "createProfileLegend": "Esta es tu primera conexión, y necesitamos algo de información adicional. Comencemos creando tu perfil."
 }

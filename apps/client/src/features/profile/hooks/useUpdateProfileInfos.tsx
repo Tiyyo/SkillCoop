@@ -1,15 +1,18 @@
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { editProfileInfosSchema } from '@skillcoop/schema/src';
+import {
+  editProfileInfosSchema,
+  EditProfileInfos,
+} from '@skillcoop/schema/src';
 import { useUpdateProfile } from '../../../shared/hooks/useProfile';
 import toast from '../../../shared/utils/toast';
-import { getAge } from '@skillcoop/date-handler/src';
+import { getAge, getUTCString } from '@skillcoop/date-handler/src';
 import { useTranslation } from 'react-i18next';
 import { Infos } from '../resume-profile';
 
 type UpdateProfile = {
-  profile_id: number;
+  profile_id: string;
   username: string;
   firstname: string | null;
   lastname: string | null;
@@ -40,23 +43,26 @@ export default function useUpdateProfileInfos({ infos }: { infos: Infos }) {
     return getAge(date) + ' ' + t('yo');
   };
 
-  const onSubmit = (data: UpdateProfile) => {
+  const onSubmit = (data: EditProfileInfos) => {
     const updateProfileInfosData = {
       profile_id: infos.profileId,
       username: data.username,
-      first_name: data.firstname,
-      last_name: data.lastname,
-      date_of_birth: data.age,
+      first_name: data.first_name,
+      last_name: data.last_name,
+      date_of_birth: data.date_of_birth
+        ? getUTCString(new Date(data.date_of_birth))
+        : null,
       location: data.location,
     };
+
     updateProfileInfos(updateProfileInfosData);
     setProfileInfos({
       ...profileInfos,
-      username: data.username,
-      firstname: data.firstname,
-      lastname: data.lastname,
-      age: data.age === '' ? null : data.age,
-      location: data.location === '' ? null : data.location,
+      username: data.username ?? null,
+      firstname: data.first_name ?? null,
+      lastname: data.last_name ?? null,
+      age: data.date_of_birth ?? null,
+      location: data.location ?? null,
     });
   };
   return {

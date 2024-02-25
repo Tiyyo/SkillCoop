@@ -33,7 +33,7 @@ export const logoutUserFn = async () => {
 };
 
 export const forgotPasswordFn = async (email: string) => {
-  const response = await api.post(`api/auth/forgot-password`, { email });
+  const response = await api.post(`api/user/forgot-password`, { email });
   return response.data;
 };
 
@@ -41,7 +41,7 @@ export const resetPasswordFn = async (data: {
   password: string;
   confirmPassword: string;
 }) => {
-  const response = await api.post(`api/auth/reset-password`, data);
+  const response = await api.post(`api/user/reset-password`, data);
   return response.data;
 };
 

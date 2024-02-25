@@ -1,32 +1,22 @@
-import { IsNotEmpty, IsNumber, IsString, Max, Min } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateOwnRatingDTO {
   @IsNotEmpty()
-  @IsNumber()
-  @Min(1)
-  @Max(100)
-  pace: number;
-  @IsNotEmpty()
-  @IsNumber()
-  @Min(1)
-  @Max(100)
-  shooting: number;
-  @IsNotEmpty()
-  @IsNumber()
-  @Min(1)
-  @Max(100)
-  passing: number;
-  @IsNotEmpty()
-  @IsNumber()
-  @Min(1)
-  @Max(100)
-  dribbling: number;
-  @IsNotEmpty()
-  @IsNumber()
-  @Min(1)
-  @Max(100)
-  defending: number;
   @IsString()
+  pace: 'beginner' | 'novice' | 'intermediate' | 'advanced' | 'expert';
   @IsNotEmpty()
+  @IsString()
+  shooting: 'beginner' | 'novice' | 'intermediate' | 'advanced' | 'expert';
+  @IsNotEmpty()
+  @IsString()
+  passing: 'beginner' | 'novice' | 'intermediate' | 'advanced' | 'expert';
+  @IsNotEmpty()
+  @IsString()
+  dribbling: 'beginner' | 'novice' | 'intermediate' | 'advanced' | 'expert';
+  @IsNotEmpty()
+  @IsString()
+  defending: 'beginner' | 'novice' | 'intermediate' | 'advanced' | 'expert';
+  @IsNotEmpty()
+  @IsString()
   profile_id: string;
 }

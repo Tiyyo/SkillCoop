@@ -12,7 +12,6 @@ export class UserPreferencesService {
     private readonly themePreferenceService: ThemePreferenceService,
     private readonly userPreferencesAdapter: UserPreferencesAdapter,
   ) { }
-
   async get(id: string) {
     try {
       return await this.userPreferencesAdapter.get(id);

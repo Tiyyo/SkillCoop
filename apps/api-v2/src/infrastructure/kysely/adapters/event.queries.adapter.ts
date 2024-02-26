@@ -4,7 +4,7 @@ import { CoreAdapter } from 'src/infrastructure/kysely/adapters/core.adapter';
 import { DB } from 'src/infrastructure/kysely/database.type';
 import { EventQueriesRepository } from 'src/domain/repositories/event.queries.repository';
 import { DatabaseException } from '../database.exception';
-import { EventAggr, LastSharedEvent } from 'src/domain/entities/event.entity';
+import { EventAggr } from 'src/domain/entities/event.entity';
 import { jsonArrayFrom } from 'kysely/helpers/sqlite';
 
 @Injectable()
@@ -451,61 +451,63 @@ GROUP BY participant.event_id`.execute(this.client);
     }
   }
   async getLastSharedEvent(profileId: string, friendId: string) {
-    console.log('friend id', friendId, 'profile id', profileId);
-    const result = await this.dbClient
-      .selectFrom('profile_on_event as user')
-      .innerJoin(
-        'profile_on_event as friend',
-        'user.event_id',
-        'friend.event_id',
-      )
-      .innerJoin('event', 'user.event_id', 'event.id')
-      .leftJoin('score', 'event.id', 'score.event_id')
-      .innerJoin('playground', 'event.location_id', 'playground.id')
-      .select([
-        'event.id as event_id',
-        'event.date',
-        'event.location_id',
-        'event.duration',
-        'score.score_team_1',
-        'score.score_team_2',
-        'playground.city as playground_city',
-        'playground.name as location',
-        'playground.address as playground_address',
-      ])
-      .select(({ eb }) => [
-        jsonArrayFrom(
-          eb
-            .selectFrom('profile_on_event')
-            .innerJoin(
-              'profile',
-              'profile_on_event.profile_id',
-              'profile.profile_id',
-            )
-            .select([
-              'profile_on_event.profile_id',
-              'profile.username',
-              'profile.avatar_url as avatar',
-              'profile_on_event.status_name as status',
-              'profile.last_evaluation',
-              'profile_on_event.team',
-            ])
-            .whereRef('event_id', '=', 'event.id'),
-        ).as('participants'),
-      ])
-      .where('user.status_name', '=', 'confirmed')
-      .where('friend.status_name', '=', 'confirmed')
-      .where('event.status_name', '=', 'completed')
-      .groupBy('event.id')
-      .orderBy('event.date', 'desc')
-      .limit(5)
-      .execute();
+    try {
+      const result = await this.dbClient
+        .selectFrom('profile_on_event as user')
+        .innerJoin(
+          'profile_on_event as friend',
+          'user.event_id',
+          'friend.event_id',
+        )
+        .innerJoin('event', 'user.event_id', 'event.id')
+        .leftJoin('score', 'event.id', 'score.event_id')
+        .innerJoin('playground', 'event.location_id', 'playground.id')
+        .select([
+          'event.id as event_id',
+          'event.date',
+          'event.location_id',
+          'event.duration',
+          'score.score_team_1',
+          'score.score_team_2',
+          'playground.city as playground_city',
+          'playground.name as location',
+          'playground.address as playground_address',
+        ])
+        .select(({ eb }) => [
+          jsonArrayFrom(
+            eb
+              .selectFrom('profile_on_event')
+              .innerJoin(
+                'profile',
+                'profile_on_event.profile_id',
+                'profile.profile_id',
+              )
+              .select([
+                'profile_on_event.profile_id',
+                'profile.username',
+                'profile.avatar_url as avatar',
+                'profile_on_event.status_name as status',
+                'profile.last_evaluation',
+                'profile_on_event.team',
+              ])
+              .whereRef('event_id', '=', 'event.id'),
+          ).as('participants'),
+        ])
+        .where('user.profile_id', '=', profileId)
+        .where('friend.profile_id', '=', friendId)
+        .where('user.status_name', '=', 'confirmed')
+        .where('friend.status_name', '=', 'confirmed')
+        .where('event.status_name', '=', 'completed')
+        .groupBy('event.id')
+        .orderBy('event.date', 'desc')
+        .limit(5)
+        .execute();
 
-    return result;
-  }
-  catch(error) {
-    if (error instanceof Error) {
-      throw new DatabaseException(error);
+      return result;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new DatabaseException(error);
+      }
     }
   }
   async getEventLocationByCountry(country: string) {

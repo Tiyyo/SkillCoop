@@ -46,9 +46,20 @@ export class NotificationPreferenceService {
       );
     });
   }
-  async get(userId: string) {
-    return await this.notificationPreferenceAdapter.findOne({
-      user_id: userId,
+  // Return transport for subscribe notification type
+  async get(userId: string, type?: string | string[]) {
+    const notificationPreferences =
+      await this.notificationPreferenceAdapter.find(userId);
+
+    const transports = notificationPreferences.map((n) => {
+      const transport = Object.entries(n).map(([key, value]) => {
+        if (typeof value !== 'boolean' || !value) return n.type_name;
+        return key;
+      });
+      const unique = [...new Set(transport)];
+      return unique;
     });
+
+    return transports.filter((t) => (type ? type.includes(t[0]) : true));
   }
 }

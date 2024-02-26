@@ -1,10 +1,11 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import { ForbiddenException, Inject, Injectable } from '@nestjs/common';
 import { CreateEventDTO } from 'src/application/dto/create-event.dto';
 import { DeleteEventDTO } from 'src/application/dto/delete-event.dto';
 import { SaveScoreEventDTO } from 'src/application/dto/save-score.dto';
 import { UpdateEventDTO } from 'src/application/dto/update-event.dto';
 import { UpdateEventOrganizerDTO } from 'src/application/dto/update-organizer-event.dto';
 import { ApplicationException } from 'src/application/exceptions/application.exception';
+import { EmitEventInterface } from 'src/application/services/event.service';
 import { ScoreAdapter } from 'src/domain/repositories/score.repository';
 import { EventParticipantService } from 'src/domain/services/event-participant/event-participant.service';
 import { EventStatusAdjusterService } from 'src/domain/services/event/event-status-adjuster.service';
@@ -30,6 +31,7 @@ export class EventMutationUsecases {
     private readonly eventStatusAdjusterService: EventStatusAdjusterService,
     private readonly eventParticipantAdapter: EventParticipantAdapter,
     private readonly generateTeamService: GenerateTeamService,
+    @Inject('EmitEventService') private eventEmitter: EmitEventInterface,
   ) { }
   async createOne(data: CreateEventDTO) {
     const eventData = {
@@ -59,6 +61,11 @@ export class EventMutationUsecases {
       eventId,
       data.participants,
     );
+    this.eventEmitter.eventCreated({
+      eventId: eventId,
+      participantsIds: data.participants,
+      organizerId: data.organizer_id,
+    });
   }
   async updateOne(data: UpdateEventDTO) {
     const { event_id } = data;
@@ -98,7 +105,7 @@ export class EventMutationUsecases {
     if (adjustedUpdateData.status_name === 'full') {
       this.generateTeamService.generate(event.id);
     }
-    // Notifying the participants
+    this.eventEmitter.eventUpdated({ eventId: event_id });
     return { message: 'Event updated' };
   }
   async deleteOne(data: DeleteEventDTO) {
@@ -118,7 +125,10 @@ export class EventMutationUsecases {
     const isDeleted = await this.eventMutationAdapter.deleteOne({
       id: data.eventId,
     });
-    // sync chat database
+    this.eventEmitter.eventDeleted({
+      eventId: data.eventId,
+      organizerId: data.profileId,
+    });
     return { success: isDeleted };
   }
   async saveScore(data: SaveScoreEventDTO) {
@@ -144,5 +154,6 @@ export class EventMutationUsecases {
       { id: data.event_id },
       { organizer_id: data.new_organizer_id },
     );
+    // TODO :notify change organizer here
   }
 }

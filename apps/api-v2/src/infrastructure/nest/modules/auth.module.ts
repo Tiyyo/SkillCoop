@@ -31,6 +31,7 @@ import { UserAdapter } from 'src/infrastructure/kysely/adapters/user.adapter';
 import databaseProvider from 'src/infrastructure/kysely/database.client';
 import { BcryptAdapterService } from 'src/infrastructure/service/bcrypt.adapter.service';
 import { NestEnvVariableAdapterService } from 'src/infrastructure/service/env.adapter.service';
+import { EventEmitterService } from 'src/infrastructure/service/event.emitter.service';
 import { GoogleOAuthService } from 'src/infrastructure/service/google-oauth.service';
 import { JwtAdapterService } from 'src/infrastructure/service/jwt-token.adapter.service';
 import { NodeMaillerAdapterService } from 'src/infrastructure/service/nodemailer.adapter.service';
@@ -75,6 +76,7 @@ import { NodeMaillerAdapterService } from 'src/infrastructure/service/nodemailer
     { provide: 'SocialAuthService', useClass: GoogleOAuthService },
     { provide: 'EmailService', useClass: NodeMaillerAdapterService },
     { provide: 'PasswordService', useClass: BcryptAdapterService },
+    { provide: 'EmitEventService', useClass: EventEmitterService },
   ],
 })
 export class AuthModule { }

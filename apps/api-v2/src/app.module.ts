@@ -24,10 +24,21 @@ import { AuthMiddleware } from './infrastructure/nest/middleware/auth.middleware
 import { JwtAdapterService } from './infrastructure/service/jwt-token.adapter.service';
 import { NestEnvVariableAdapterService } from './infrastructure/service/env.adapter.service';
 import { JwtService } from '@nestjs/jwt';
+import { SanitizeMiddleware } from './infrastructure/nest/middleware/sanitize.middleware';
+import { EventEmitterModule } from '@nestjs/event-emitter';
+import { ListenerModule } from './infrastructure/nest/modules/listener.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
+    EventEmitterModule.forRoot({
+      wildcard: false,
+      newListener: false,
+      removeListener: false,
+      maxListeners: 10,
+      verboseMemoryLeak: false,
+      ignoreErrors: false,
+    }),
     ProfileModule,
     UserModule,
     AuthModule,
@@ -42,6 +53,7 @@ import { JwtService } from '@nestjs/jwt';
     EventParticipantsModule,
     TeamsModule,
     VitestModule,
+    ListenerModule,
   ],
   controllers: [],
   providers: [
@@ -53,6 +65,7 @@ import { JwtService } from '@nestjs/jwt';
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
+    consumer.apply(SanitizeMiddleware).forRoutes('*');
     consumer
       .apply(AuthMiddleware)
       .exclude(
@@ -72,6 +85,8 @@ export class AppModule implements NestModule {
         },
         { path: '/user/email', method: RequestMethod.POST },
         { path: '/user/:userId/verify/:token', method: RequestMethod.GET },
+        { path: 'test', method: RequestMethod.ALL },
+        { path: 'subscription-event', method: RequestMethod.ALL },
       )
       .forRoutes('*');
   }

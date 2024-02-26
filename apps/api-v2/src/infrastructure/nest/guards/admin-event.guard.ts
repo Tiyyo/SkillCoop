@@ -11,7 +11,6 @@ export class OrganizerEventGuard implements CanActivate {
   constructor(private readonly eventQueriesAdapter: EventQueriesAdapter) { }
   async canActivate(context: ExecutionContext) {
     const request = context.switchToHttp().getRequest();
-    // const response = context.switchToHttp().getResponse();
 
     const allPossibleStoreEventId =
       request.body.eventId ||
@@ -29,7 +28,7 @@ export class OrganizerEventGuard implements CanActivate {
 
     const eventId = Number(allPossibleStoreEventId);
 
-    if (request.user.user_id !== profileId) {
+    if (request.user !== profileId) {
       throw new ForbiddenException('Forbidden');
     }
 
@@ -37,6 +36,7 @@ export class OrganizerEventGuard implements CanActivate {
       eventId,
       profileId,
     );
+
     if (event.organizer_id !== profileId) {
       throw new ForbiddenException('Forbidden');
     }

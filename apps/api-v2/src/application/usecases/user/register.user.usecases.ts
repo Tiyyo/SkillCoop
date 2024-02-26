@@ -8,6 +8,7 @@ import { CreateUserDTO } from '../../dto/create-user.dto';
 import { ApplicationException } from '../../exceptions/application.exception';
 import { NestEnvVariableAdapterService } from 'src/infrastructure/service/env.adapter.service';
 import { UserPreferencesService } from 'src/domain/services/user-prefrerences/user-preferences.service';
+import { EmitEventInterface } from 'src/application/services/event.service';
 
 const VALID_TIME = '1h';
 
@@ -24,6 +25,7 @@ export class RegisterUserUsecases {
     @Inject('TokenService')
     private readonly tokenService: TokenServiceInterface,
     private readonly userPreferencesService: UserPreferencesService,
+    @Inject('EmitEventService') private eventEmitter: EmitEventInterface,
   ) { }
   async createUser(data: CreateUserDTO) {
     const emailKey = this.envVariableService.getEnvVariable(
@@ -55,6 +57,7 @@ export class RegisterUserUsecases {
       emailToken,
       newUser.id.toString(),
     );
+    this.eventEmitter.userCreated({ profileId: newUser.id });
     return { message: 'Check your email to verify your account' };
   }
 }

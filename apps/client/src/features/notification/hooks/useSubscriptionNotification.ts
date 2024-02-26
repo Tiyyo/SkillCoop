@@ -12,13 +12,14 @@ function useSubscriptionNotification({
 }: SubscriptionNotification) {
   useEffect(() => {
     const uniDirectionalConnection = new EventSource(
-      `${SERVER_URL}/api/subscription_pathway`,
+      `${SERVER_URL}/api/subscription-event`,
       {
         withCredentials: true,
       },
     );
 
     uniDirectionalConnection.onmessage = (event) => {
+      console.log('event', event);
       if (onMessage) {
         onMessage(event);
       }
@@ -26,11 +27,11 @@ function useSubscriptionNotification({
 
     uniDirectionalConnection.onerror = (error) => {
       if (onError) {
+        console.log('error', onError);
         onError(error);
       }
-      uniDirectionalConnection.close(); // Close the connection on error
+      uniDirectionalConnection.close();
     };
-    // Clean up the EventSource when the component unmounts
     return () => {
       uniDirectionalConnection.close();
     };

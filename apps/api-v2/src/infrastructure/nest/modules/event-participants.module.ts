@@ -19,6 +19,7 @@ import { EventMutationsAdapter } from 'src/infrastructure/kysely/adapters/event.
 import { EventQueriesAdapter } from 'src/infrastructure/kysely/adapters/event.queries.adapter';
 import { SkillsAdapter } from 'src/infrastructure/kysely/adapters/skills.adapter';
 import databaseProvider from 'src/infrastructure/kysely/database.client';
+import { EventEmitterService } from 'src/infrastructure/service/event.emitter.service';
 
 @Module({
   controllers: [
@@ -39,6 +40,7 @@ import databaseProvider from 'src/infrastructure/kysely/database.client';
     TeamEvaluationComputeService,
     ComputeUserEvaluationService,
     EvaluationService,
+    { provide: 'EmitEventService', useClass: EventEmitterService },
     EventStatusEvaluator,
     EventParticipantAdapter,
     EventMutationsAdapter,

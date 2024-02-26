@@ -174,4 +174,34 @@ export class EventParticipantAdapter
       }
     }
   }
+  async getEventParticipantsIds(eventId: number) {
+    try {
+      const result = await this.dbClient
+        .selectFrom('profile_on_event')
+        // .select(['profile_on_event.profile_id'])
+        .select(({ fn }) => [
+          fn
+            .agg<string>('group_concat', ['profile_on_event.profile_id'])
+            .as('ids_participants'),
+        ])
+        // .leftJoin('event', 'profile_on_event.event_id', 'event.id')
+        .where('profile_on_event.event_id', '=', 21)
+        .where((eb) =>
+          eb.or([
+            eb('profile_on_event.status_name', '=', 'confirmed'),
+            eb('profile_on_event.status_name', '=', 'pending'),
+          ]),
+        )
+        .groupBy(['profile_on_event.event_id'])
+        .executeTakeFirst();
+
+      return result.ids_participants?.length > 0
+        ? result.ids_participants.split(',')
+        : null;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new DatabaseException(error);
+      }
+    }
+  }
 }

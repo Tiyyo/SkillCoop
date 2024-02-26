@@ -1,7 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { SendInvitationEventDTO } from 'src/application/dto/send-invitation-event.dto';
 import { SendRequestEventDTO } from 'src/application/dto/send-request-event.dto';
 import { UpdateParticipantStatusDTO } from 'src/application/dto/update-status.dto';
+import { EmitEventInterface } from 'src/application/services/event.service';
 import { EventParticipantStatusManagerService } from 'src/domain/services/event-participant/event-participant-status.service';
 import { EventParticipantService } from 'src/domain/services/event-participant/event-participant.service';
 import { EventParticipantAdapter } from 'src/infrastructure/kysely/adapters/event-participant.adapter';
@@ -14,6 +15,7 @@ export class EventParticipantUseCases {
     private readonly eventParticipantAdapter: EventParticipantAdapter,
     private readonly eventQueriesAdapter: EventQueriesAdapter,
     private readonly participantStatusManager: EventParticipantStatusManagerService,
+    @Inject('EmitEventService') private eventEmitter: EmitEventInterface,
   ) { }
   async updateStatus(data: UpdateParticipantStatusDTO) {
     const event = await this.eventQueriesAdapter.findOne({
@@ -37,15 +39,24 @@ export class EventParticipantUseCases {
       event_id: data.event_id,
       status_name: 'pending',
     }));
-    return await this.eventParticipantAdapter.createMany(invitations);
+    await this.eventParticipantAdapter.createMany(invitations);
+
     // TODO: implements notifyUserHasBeenInvitedToEvent
     // TODO: Sync database with chat service to add them in group event
+    return this.eventEmitter.invitationEventSent({
+      eventId: data.event_id,
+      participantsIds: data.ids,
+      instigatorId: data.initiator,
+    });
   }
   async sendRequest(data: SendRequestEventDTO) {
-    // TODO: implements notifyNewEventPatricipantToOrganizer
-    return this.eventParticipantService.updateStatusToRequested(
+    this.eventParticipantService.updateStatusToRequested(
       data.event_id,
       data.profile_id,
     );
+    return this.eventEmitter.requsetEventSent({
+      eventId: data.event_id,
+      instigatorId: data.profile_id,
+    });
   }
 }

@@ -1,8 +1,16 @@
-import { NotificationType } from '../value-objects/notification-type.vo';
+export type NotificationSubtype =
+  | 'eventInfosHasBeenUpdated'
+  | 'userHasBeenInvitedToEvent'
+  | 'userReceivedFriendRequest'
+  | 'userHasBeenAddedToFriendlist'
+  | 'teamHasBeenGenerated'
+  | 'transfertOwnership';
+
+export type NotificationType = 'event' | 'friend' | 'message' | 'system';
 
 export class NotificationEntity {
   profile_id: string;
-  type: NotificationType;
+  type: string;
   is_read: boolean;
   message: string;
   instigator_id?: string;
@@ -22,7 +30,7 @@ export class NotificationEntity {
   }: {
     id: string;
     profile_id: string;
-    type: NotificationType;
+    type: string;
     is_read: boolean;
     message: string;
     instigator_id?: string;

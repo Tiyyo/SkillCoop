@@ -219,6 +219,9 @@ importers:
       '@nestjs/core':
         specifier: ^10.0.0
         version: 10.3.0(@nestjs/common@10.3.0)(@nestjs/microservices@10.3.0)(@nestjs/platform-express@10.3.0)(@nestjs/websockets@10.3.0)(reflect-metadata@0.1.14)(rxjs@7.8.1)
+      '@nestjs/event-emitter':
+        specifier: ^2.0.4
+        version: 2.0.4(@nestjs/common@10.3.0)(@nestjs/core@10.3.0)
       '@nestjs/jwt':
         specifier: ^10.2.0
         version: 10.2.0(@nestjs/common@10.3.0)
@@ -228,6 +231,9 @@ importers:
       '@nestjs/swagger':
         specifier: ^7.3.0
         version: 7.3.0(@nestjs/common@10.3.0)(@nestjs/core@10.3.0)(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.1.14)
+      '@nestjs/throttler':
+        specifier: ^5.1.2
+        version: 5.1.2(@nestjs/common@10.3.0)(@nestjs/core@10.3.0)(reflect-metadata@0.1.14)
       '@skillcoop/date-handler':
         specifier: workspace:^
         version: link:../../packages/date-handler
@@ -246,6 +252,9 @@ importers:
       cookie-parser:
         specifier: ^1.4.6
         version: 1.4.6
+      helmet:
+        specifier: ^7.1.0
+        version: 7.1.0
       kysely:
         specifier: ^0.26.3
         version: 0.26.3
@@ -270,6 +279,9 @@ importers:
       rxjs:
         specifier: ^7.8.1
         version: 7.8.1
+      sanitize-html:
+        specifier: ^2.11.0
+        version: 2.11.0
       sharp:
         specifier: ^0.32.6
         version: 0.32.6
@@ -3015,6 +3027,17 @@ packages:
     transitivePeerDependencies:
       - encoding
 
+  /@nestjs/event-emitter@2.0.4(@nestjs/common@10.3.0)(@nestjs/core@10.3.0):
+    resolution: {integrity: sha512-quMiw8yOwoSul0pp3mOonGz8EyXWHSBTqBy8B0TbYYgpnG1Ix2wGUnuTksLWaaBiiOTDhciaZ41Y5fJZsSJE1Q==}
+    peerDependencies:
+      '@nestjs/common': ^8.0.0 || ^9.0.0 || ^10.0.0
+      '@nestjs/core': ^8.0.0 || ^9.0.0 || ^10.0.0
+    dependencies:
+      '@nestjs/common': 10.3.0(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.1.14)(rxjs@7.8.1)
+      '@nestjs/core': 10.3.0(@nestjs/common@10.3.0)(@nestjs/microservices@10.3.0)(@nestjs/platform-express@10.3.0)(@nestjs/websockets@10.3.0)(reflect-metadata@0.1.14)(rxjs@7.8.1)
+      eventemitter2: 6.4.9
+    dev: false
+
   /@nestjs/jwt@10.2.0(@nestjs/common@10.3.0):
     resolution: {integrity: sha512-x8cG90SURkEiLOehNaN2aRlotxT0KZESUliOPKKnjWiyJOcWurkF3w345WOX0P4MgFzUjGoZ1Sy0aZnxeihT0g==}
     peerDependencies:
@@ -3187,6 +3210,18 @@ packages:
       '@nestjs/platform-express': 10.3.0(@nestjs/common@10.3.0)(@nestjs/core@10.3.0)
       tslib: 2.6.2
     dev: true
+
+  /@nestjs/throttler@5.1.2(@nestjs/common@10.3.0)(@nestjs/core@10.3.0)(reflect-metadata@0.1.14):
+    resolution: {integrity: sha512-60MqhSLYUqWOgc38P6C6f76JIpf6mVjly7gpuPBCKtVd0p5e8Fq855j7bJuO4/v25vgaOo1OdVs0U1qtgYioGw==}
+    peerDependencies:
+      '@nestjs/common': ^7.0.0 || ^8.0.0 || ^9.0.0 || ^10.0.0
+      '@nestjs/core': ^7.0.0 || ^8.0.0 || ^9.0.0 || ^10.0.0
+      reflect-metadata: ^0.1.13 || ^0.2.0
+    dependencies:
+      '@nestjs/common': 10.3.0(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.1.14)(rxjs@7.8.1)
+      '@nestjs/core': 10.3.0(@nestjs/common@10.3.0)(@nestjs/microservices@10.3.0)(@nestjs/platform-express@10.3.0)(@nestjs/websockets@10.3.0)(reflect-metadata@0.1.14)(rxjs@7.8.1)
+      reflect-metadata: 0.1.14
+    dev: false
 
   /@nestjs/websockets@10.3.0(@nestjs/common@10.3.0)(@nestjs/core@10.3.0)(@nestjs/platform-socket.io@10.3.0)(reflect-metadata@0.1.14)(rxjs@7.8.1):
     resolution: {integrity: sha512-1cqh46s4iHLytExSWcvp/58pMZFAT7pQ59IAYQCSZz5xFq0lEGxd36C982KyROQIHfno8E+FWm71UhgVTwKsyA==}
@@ -7768,6 +7803,10 @@ packages:
     resolution: {integrity: sha512-aIL5Fx7mawVa300al2BnEE4iNvo1qETxLrPI/o05L7z6go7fCw1J6EQmbK4FmJ2AS7kgVF/KEZWufBfdClMcPg==}
     engines: {node: '>= 0.6'}
 
+  /eventemitter2@6.4.9:
+    resolution: {integrity: sha512-JEPTiaOt9f04oa6NOkc4aH+nVp5I3wEjpHbIPqfgCdD5v5bUzy7xQqwcVO2aDQgOWhI28da57HksMrzK9HlRxg==}
+    dev: false
+
   /events@3.3.0:
     resolution: {integrity: sha512-mQw+2fkQbALzQ7V0MY0IqdnXNOeTtP4r0lN9z7AAawCXgqea7bDii20AYrIBrFd/Hx0M2Ocz6S111CaFkUcb0Q==}
     engines: {node: '>=0.8.x'}
@@ -8375,6 +8414,11 @@ packages:
     engines: {node: '>= 0.4'}
     dependencies:
       function-bind: 1.1.2
+
+  /helmet@7.1.0:
+    resolution: {integrity: sha512-g+HZqgfbpXdCkme/Cd/mZkV0aV3BZZZSugecH03kl38m/Kmdx8jKjBikpDj2cr+Iynv4KpYEviojNdTJActJAg==}
+    engines: {node: '>=16.0.0'}
+    dev: false
 
   /hexoid@1.0.0:
     resolution: {integrity: sha512-QFLV0taWQOZtvIRIAdBChesmogZrtuXvVWsFHZTk2SU+anspqZ2vMnoLg7IE1+Uk16N19APic1BuF8bC8c2m5g==}

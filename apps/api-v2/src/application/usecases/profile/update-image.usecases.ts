@@ -3,6 +3,7 @@ import { ProfileAdapter } from 'src/infrastructure/kysely/adapters/profile.adapt
 import { ApplicationException } from 'src/application/exceptions/application.exception';
 import { UploadImageService } from 'src/application/services/upload.service';
 import { ImageService } from 'src/domain/services/image/image.service';
+import { EmitEventInterface } from 'src/application/services/event.service';
 
 @Injectable()
 export class UpdateImageProfileUsecases {
@@ -11,6 +12,7 @@ export class UpdateImageProfileUsecases {
     @Inject('UploadService')
     private readonly uploadImageService: UploadImageService,
     private readonly imageService: ImageService,
+    @Inject('EmitEventService') private eventEmitter: EmitEventInterface,
   ) { }
 
   async updateProfileImage(file: any, profileId: string) {
@@ -34,11 +36,6 @@ export class UpdateImageProfileUsecases {
       height: WIDTH_AVATAR,
       width: WIDTH_AVATAR,
     });
-    console.log('key', key);
-    console.log('link', link);
-    console.log(
-      'If key and link are not null, then the image was uploaded successfully',
-    );
     await this.imageService.save(link, key, WIDTH_AVATAR);
     await this.profileAdapter.updateOne(
       { profile_id: profileId },
@@ -47,7 +44,11 @@ export class UpdateImageProfileUsecases {
     if (avatar_url) {
       await this.imageService.delete(avatar_url);
     }
-    // Sync change with chat database
+    this.eventEmitter.userUpdated({
+      profileId,
+      username,
+      avatar: link,
+    });
     return { link };
   }
 }

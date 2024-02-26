@@ -9,10 +9,13 @@ import {
   FriendRequestAcceptedEventPayload,
   FriendRequestSentEventPayload,
   InvitationEventSentEventPayload,
+  ParticipantConfirmedEventPayload,
+  ParticipantDeclinedEventPayload,
   RefusedParticipantEventPayload,
   TeamGeneratedEventPayload,
   UserCreatedEventPayload,
   UserDeletedEventPayload,
+  UserUpdatedEventPayload,
 } from 'src/domain/shared/event-payload.types';
 
 @Injectable()
@@ -20,6 +23,9 @@ export class EventEmitterService implements EmitEventInterface {
   constructor(private readonly eventEmiiter: EventEmitter2) { }
   userCreated(data: UserCreatedEventPayload): void {
     this.eventEmiiter.emit('user.created', data);
+  }
+  userUpdated(data: UserUpdatedEventPayload): void {
+    this.eventEmiiter.emit('user.updated', data);
   }
   userDeleted(data: UserDeletedEventPayload): void {
     this.eventEmiiter.emit('user.deleted', data.profileId);
@@ -44,6 +50,12 @@ export class EventEmitterService implements EmitEventInterface {
   }
   refusedParticipant(data: RefusedParticipantEventPayload): void {
     this.eventEmiiter.emit('refused.participant', data);
+  }
+  participantConfirmed(data: ParticipantConfirmedEventPayload): void {
+    this.eventEmiiter.emit('participant.confirmed', data);
+  }
+  participantDeclined(data: ParticipantDeclinedEventPayload): void {
+    this.eventEmiiter.emit('participant.declined', data);
   }
   friendRequestSent(data: FriendRequestSentEventPayload): void {
     this.eventEmiiter.emit('friend.request.sent', data);

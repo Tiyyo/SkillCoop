@@ -16,6 +16,7 @@ import { ProfileAdapter } from 'src/infrastructure/kysely/adapters/profile.adapt
 import databaseProvider from 'src/infrastructure/kysely/database.client';
 import { UploadAWSService } from 'src/infrastructure/s3/upload-aws.service';
 import { NestEnvVariableAdapterService } from 'src/infrastructure/service/env.adapter.service';
+import { EventEmitterService } from 'src/infrastructure/service/event.emitter.service';
 
 @Module({
   imports: [],
@@ -30,6 +31,7 @@ import { NestEnvVariableAdapterService } from 'src/infrastructure/service/env.ad
     ProfileUsecases,
     UpdateImageProfileUsecases,
     { provide: 'UploadService', useClass: UploadAWSService },
+    { provide: 'EmitEventService', useClass: EventEmitterService },
     NestEnvVariableAdapterService,
     RandomGenerationService,
     EventParticipantAdapter,
@@ -38,6 +40,7 @@ import { NestEnvVariableAdapterService } from 'src/infrastructure/service/env.ad
     ImageAdapter,
     databaseProvider,
     ImageService,
+
     BuildProfileService,
   ],
 })

@@ -23,6 +23,9 @@ import { NotificationTypeAdapter } from 'src/infrastructure/kysely/adapters/noti
 import { NotificationAdapter } from 'src/infrastructure/kysely/adapters/notification.adapter';
 import { ProfileAdapter } from 'src/infrastructure/kysely/adapters/profile.adapter';
 import databaseProvider from 'src/infrastructure/kysely/database.client';
+import { ProducerEventMessageService } from 'src/infrastructure/publishers/event.publisher';
+import { ProducerParticipantMessageService } from 'src/infrastructure/publishers/participant.publisher';
+import { ProducerUserMessageService } from 'src/infrastructure/publishers/user.publisher';
 
 @Module({
   controllers: [],
@@ -51,6 +54,9 @@ import databaseProvider from 'src/infrastructure/kysely/database.client';
     AddedFriendNotificationService,
     FriendRequestNotificationService,
     NotificationPreferenceService,
+    ProducerEventMessageService,
+    ProducerUserMessageService,
+    ProducerParticipantMessageService,
   ],
 })
 export class ListenerModule { }

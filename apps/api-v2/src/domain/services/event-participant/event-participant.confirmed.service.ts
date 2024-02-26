@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { EventCoreEntity } from 'src/domain/entities/event.entity';
 import { EventParticipantAdapter } from 'src/infrastructure/kysely/adapters/event-participant.adapter';
 import { EventMutationsAdapter } from 'src/infrastructure/kysely/adapters/event.mutations.adapter';
 import { EventStatusEvaluator } from './event-status-evaluator.service';
 import { GenerateTeamService } from '../generate-teams/generate-team.service';
+import { EmitEventInterface } from 'src/application/services/event.service';
 
 @Injectable()
 export class EventParticipantConfirmedService {
@@ -12,6 +13,7 @@ export class EventParticipantConfirmedService {
     private readonly eventMutationsAdapter: EventMutationsAdapter,
     private readonly eventStatusEvaluator: EventStatusEvaluator,
     private readonly generationTeamService: GenerateTeamService,
+    @Inject('EmitEventService') private eventEmitter: EmitEventInterface,
   ) { }
 
   async handle(event: EventCoreEntity & { id: number }, profileId: string) {
@@ -19,13 +21,19 @@ export class EventParticipantConfirmedService {
       event.id,
       event.required_participants,
     );
+    if (eventState === 'full') {
+      return 'Event is already full';
+    }
     if (eventState === 'open') {
       await this.eventParticipantAdapter.updateStatusWithExistenceCheck({
         profile_id: profileId,
         event_id: event.id,
         status_name: 'confirmed',
       });
-      //  Sync database with chat service to add them in group event
+      this.eventEmitter.participantConfirmed({
+        eventId: event.id,
+        profileId,
+      });
       return 'Status has been updated';
     }
     if (eventState === 'oneSpotLeft') {
@@ -35,9 +43,6 @@ export class EventParticipantConfirmedService {
       );
       await this.generationTeamService.generate(event.id);
       return 'Teams has been generated ';
-    }
-    if (eventState === 'full') {
-      return 'Event is already full';
     }
     return 'Could not find event';
   }

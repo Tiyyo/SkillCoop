@@ -237,6 +237,18 @@ importers:
       '@skillcoop/date-handler':
         specifier: workspace:^
         version: link:../../packages/date-handler
+      '@skillcoop/types':
+        specifier: workspace:^
+        version: link:../../packages/types
+      '@types/amqplib':
+        specifier: ^0.10.4
+        version: 0.10.4
+      amqp-connection-manager:
+        specifier: ^4.1.14
+        version: 4.1.14(amqplib@0.10.3)
+      amqplib:
+        specifier: ^0.10.3
+        version: 0.10.3
       bcrypt:
         specifier: ^5.1.1
         version: 5.1.1
@@ -5210,7 +5222,6 @@ packages:
     resolution: {integrity: sha512-Y5Sqquh/LqDxSgxYaAAFNM0M7GyONtSDCcFMJk+DQwYEjibPyW6y+Yu9H9omdkKc3epyXULmFN3GTaeBHhn2Hg==}
     dependencies:
       '@types/node': 20.8.10
-    dev: true
 
   /@types/aria-query@5.0.4:
     resolution: {integrity: sha512-rfT93uj5s0PRL7EzccGMs3brplhcrghnDoV26NqKhCAS1hVo+WdNsPvE/yb6ilfr5hi2MEk6d5EWJTKdxg8jVw==}

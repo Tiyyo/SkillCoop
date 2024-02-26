@@ -7,7 +7,6 @@ import { MarkAsReadNotificationController } from 'src/infrastructure/controllers
 import { SubscriptionEventController } from 'src/infrastructure/controllers/notification/subscription.controller';
 import { NotificationAdapter } from 'src/infrastructure/kysely/adapters/notification.adapter';
 import databaseProvider from 'src/infrastructure/kysely/database.client';
-import { TestListener } from 'src/infrastructure/listeners/listeners';
 import { NestEnvVariableAdapterService } from 'src/infrastructure/service/env.adapter.service';
 import { JwtAdapterService } from 'src/infrastructure/service/jwt-token.adapter.service';
 
@@ -25,7 +24,6 @@ import { JwtAdapterService } from 'src/infrastructure/service/jwt-token.adapter.
     NestEnvVariableAdapterService,
     { provide: 'TokenService', useClass: JwtAdapterService },
     JwtService,
-    TestListener,
   ],
 })
 export class NotificationModule { }

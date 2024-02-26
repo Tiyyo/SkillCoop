@@ -6,6 +6,12 @@ export type UserCreatedEventPayload = {
   profileId: string;
 };
 
+export type UserUpdatedEventPayload = {
+  profileId: string;
+  username: string;
+  avatar: string | null;
+};
+
 export type EventCreatedEventPayload = {
   eventId: number;
   organizerId: string;
@@ -40,6 +46,16 @@ export type RefusedParticipantEventPayload = {
   eventId: number;
   instigatorId: string;
   subscriberId: string;
+};
+
+export type ParticipantConfirmedEventPayload = {
+  eventId: number;
+  profileId: string;
+};
+
+export type ParticipantDeclinedEventPayload = {
+  eventId: number;
+  profileId: string;
 };
 
 export type FriendRequestSentEventPayload = {

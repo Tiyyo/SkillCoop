@@ -9,6 +9,7 @@ import {
   EventUpdatedEventPayload,
   TeamGeneratedEventPayload,
 } from 'src/domain/shared/event-payload.types';
+import { ProducerEventMessageService } from 'src/infrastructure/publishers/event.publisher';
 
 @Injectable()
 export class EventListener {
@@ -16,10 +17,17 @@ export class EventListener {
     private readonly teamGeneratedService: TeamGeneratedNotificationService,
     private readonly invitedEventService: InvitedEventNotificationService,
     private readonly updatedEventInfosService: UpdatedEventInfosNotificationService,
+    private readonly producerEventMessageService: ProducerEventMessageService,
   ) { }
   @OnEvent('event.created')
   handleEventCreated(payload: EventCreatedEventPayload) {
     this.invitedEventService.notify(payload.eventId, payload.participantsIds);
+    this.producerEventMessageService.pushToEventQueue({
+      event_id: payload.eventId,
+      organizer_id: payload.organizerId,
+      participants_id: payload.participantsIds,
+      action: 'create_event',
+    });
   }
   @OnEvent('event.updated')
   handleEventUpdated(payload: EventUpdatedEventPayload) {
@@ -27,7 +35,11 @@ export class EventListener {
   }
   @OnEvent('event.deleted')
   handleEventDeleted(payload: EventDeletedEventPayload) {
-    console.log('event deleted', payload);
+    this.producerEventMessageService.pushToEventQueue({
+      event_id: payload.eventId,
+      organizer_id: payload.organizerId,
+      action: 'delete_event',
+    });
   }
   @OnEvent('team.generated')
   handleTeamGenerated(payload: TeamGeneratedEventPayload) {

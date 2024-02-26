@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { ProfileAdapter } from 'src/infrastructure/kysely/adapters/profile.adapter';
 import { CreateProfileDTO } from '../../dto/create-profile.dto';
 import { UpdateProfileDTO } from '../../dto/update-profile.dto';
@@ -7,12 +7,14 @@ import {
   SearchProfileParams,
 } from '../../dto/search-profile.dto';
 import { BuildProfileService } from 'src/domain/services/profile/find-profile.service';
+import { EmitEventInterface } from 'src/application/services/event.service';
 
 @Injectable()
 export class ProfileUsecases {
   constructor(
     private profileAdapter: ProfileAdapter,
     private readonly buildProfileService: BuildProfileService,
+    @Inject('EmitEventService') private eventEmitter: EmitEventInterface,
   ) { }
   async createOne(data: CreateProfileDTO) {
     const createProfileId = this.profileAdapter.createOne(data);
@@ -26,7 +28,6 @@ export class ProfileUsecases {
     return this.profileAdapter.search(searchParams);
   }
   async updateOne(data: UpdateProfileDTO) {
-    console.log(data);
     const condition = { profile_id: data.profile_id };
     const updateData = {
       username: data.username,
@@ -41,7 +42,11 @@ export class ProfileUsecases {
       condition,
       updateData,
     );
-    // TODO: sync change with chat database
+    this.eventEmitter.userUpdated({
+      profileId: data.profile_id,
+      username: data.username,
+      avatar: data.avatar_url,
+    });
     return isProfileUpdated;
   }
 }

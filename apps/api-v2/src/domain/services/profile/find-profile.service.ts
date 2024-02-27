@@ -11,9 +11,7 @@ export class BuildProfileService {
     private readonly eventQueriesAdapter: EventQueriesAdapter,
   ) { }
   async build(profileId: string) {
-    console.log('BuildProfileService profileId:', profileId);
     const coreProfile = await this.profileAdapter.findWithNbReview(profileId);
-    console.log('coreProfile:', coreProfile);
     const nbAttendedEvents =
       await this.eventParticipant.getAttendedEventCount(profileId);
     const winningRate = await this.eventParticipant.getWinningRate(profileId);

@@ -1,5 +1,6 @@
 import { Inject } from '@nestjs/common';
 import { ApplicationException } from 'src/application/exceptions/application.exception';
+import { GoogleAuthException } from 'src/application/exceptions/google-auth.exception';
 import { SocialOauthInterface } from 'src/application/services/social-auth.service';
 import { SocialAuthUserStrategyService } from 'src/application/services/social-strategy.service';
 import { TokenServiceInterface } from 'src/application/services/token.service';
@@ -22,16 +23,13 @@ export class GoogleAuthUsecases {
     const { access_token, id_token } =
       await this.socialAuthService.getTokens(code);
 
-    console.log('Acces google token', access_token);
-    console.log('Id google token', id_token);
-
     const { email, given_name, family_name, picture } =
       await this.socialAuthService.getUserInfo({
         access_token,
         id_token,
       });
     if (!email) {
-      throw new ApplicationException(
+      throw new GoogleAuthException(
         'Could not get email from google',
         'googleAuth',
       );

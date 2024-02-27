@@ -1,11 +1,18 @@
-import { NestFactory } from '@nestjs/core';
+import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { RequestMethod, ValidationPipe } from '@nestjs/common';
+import { Logger, RequestMethod, ValidationPipe } from '@nestjs/common';
 import * as cookieParser from 'cookie-parser';
 import helmet from 'helmet';
+import { WinstonModule } from 'nest-winston';
+import { winstonLogger } from './infrastructure/logger/winston.logger';
+import { AllExceptionFilter } from './infrastructure/exceptions/exception.filter';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    logger: WinstonModule.createLogger({
+      instance: winstonLogger,
+    }),
+  });
   app.use(helmet());
   app.use(cookieParser());
   app.setGlobalPrefix('api', {
@@ -24,6 +31,9 @@ async function bootstrap() {
       forbidNonWhitelisted: true,
     }),
   );
+  const httpAdapter = app.get(HttpAdapterHost);
+  const logger = new Logger('AllExceptionFilter');
+  app.useGlobalFilters(new AllExceptionFilter(httpAdapter, logger));
   await app.listen(8082);
 }
 bootstrap();

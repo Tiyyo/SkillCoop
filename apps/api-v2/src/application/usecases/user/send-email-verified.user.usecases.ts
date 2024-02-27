@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ApplicationException } from 'src/application/exceptions/application.exception';
+import { RessourceNotFoundException } from 'src/application/exceptions/ressource-not-found.exception';
 import { EmailServiceInterface } from 'src/application/services/email.service';
 import { TokenServiceInterface } from 'src/application/services/token.service';
 import { UserAdapter } from 'src/infrastructure/kysely/adapters/user.adapter';
@@ -18,8 +19,8 @@ export class SendVerificationEmailUserUsecases {
   async handle(email: string) {
     const user = await this.userAdapter.findOne({ email });
     if (!user) {
-      throw new ApplicationException(
-        'User not found',
+      throw new RessourceNotFoundException(
+        'Could not find user with this email',
         'SendVerificationEmailUserUsecases',
       );
     }

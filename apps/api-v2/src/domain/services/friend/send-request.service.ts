@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { ApplicationException } from 'src/application/exceptions/application.exception';
 import { DomainException } from 'src/domain/shared/domain-exception';
 import { FriendAdapter } from 'src/infrastructure/kysely/adapters/friend.adapter';
 
@@ -8,8 +9,8 @@ export class SendFriendRequestService {
   async execute(from: string, to: string) {
     const isRelationExist = await this.friendAdapter.findRelation(from, to);
     if (isRelationExist) {
-      throw new DomainException(
-        'Relation already exists',
+      throw new ApplicationException(
+        'Could not send friend request, relation already exist',
         'SendFriendRequestService',
       );
     }

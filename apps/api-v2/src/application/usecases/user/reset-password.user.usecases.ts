@@ -25,7 +25,7 @@ export class ResetPasswordUserUsecases {
 
     if (!decoded || !decoded.user_id) {
       throw new ApplicationException(
-        'Token is expired',
+        'Reset token password dont have user_id payload inside it',
         'ResetPasswordUserUsecases',
       );
     }

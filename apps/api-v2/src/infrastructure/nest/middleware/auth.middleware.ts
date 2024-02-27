@@ -5,6 +5,9 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { NextFunction, Request, Response } from 'express';
+import { AccessTokenException } from 'src/application/exceptions/access-token.exception';
+import { RefreshTokenException } from 'src/application/exceptions/refresh-token.exception';
+import { TokenServiceException } from 'src/application/exceptions/token-service.exception';
 import { TokenServiceInterface } from 'src/application/services/token.service';
 import { NestEnvVariableAdapterService } from 'src/infrastructure/service/env.adapter.service';
 
@@ -30,14 +33,37 @@ export class AuthMiddleware implements NestMiddleware {
     const refreshKey = this.envVariableService.getEnvVariable(
       'JWT_REFRESH_TOKEN_KEY',
     );
-    const accessTokenPayload = await this.tokenService.verifyToken(
-      accessToken,
-      accessKey,
-    );
-    const refreshTokenPayload = await this.tokenService.verifyToken(
-      refreshToken,
-      refreshKey,
-    );
+    let accessTokenPayload: any;
+    let refreshTokenPayload: any;
+    try {
+      accessTokenPayload = await this.tokenService.verifyToken(
+        accessToken,
+        accessKey,
+      );
+    } catch (error) {
+      if (error instanceof TokenServiceException) {
+        throw new AccessTokenException(
+          'Access Token verification failed : ' + error.message,
+          'AuthMiddleware',
+        );
+      }
+      throw new UnauthorizedException('UnAuthorized');
+    }
+
+    try {
+      refreshTokenPayload = await this.tokenService.verifyToken(
+        refreshToken,
+        refreshKey,
+      );
+    } catch (error) {
+      if (error instanceof TokenServiceException) {
+        throw new RefreshTokenException(
+          'Refresh Token verification failed : ' + error.message,
+          'AuthMiddleware',
+        );
+      }
+      throw new UnauthorizedException('UnAuthorized');
+    }
     if (accessTokenPayload.user_id !== refreshTokenPayload.user_id) {
       throw new UnauthorizedException('UnAuthorized');
     }

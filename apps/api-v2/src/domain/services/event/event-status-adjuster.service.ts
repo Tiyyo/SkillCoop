@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ApplicationException } from 'src/application/exceptions/application.exception';
+import { UndefinedException } from 'src/application/exceptions/undefined.exception';
 import { EventCoreEntity } from 'src/domain/entities/event.entity';
-import { GenerateTeamService } from '../generate-teams/generate-team.service';
 
 export type UpdateEventData = {
   date: string;
@@ -48,8 +48,8 @@ export class EventStatusAdjusterService {
     confirmedParticipants: Array<any>,
   ) {
     if (!event.required_participants)
-      throw new ApplicationException(
-        'Event required_participants is not defined',
+      throw new UndefinedException(
+        'event.required_participants',
         'EventStatusAdjusterService',
       );
     if (updateRawData.required_participants > event.required_participants) {

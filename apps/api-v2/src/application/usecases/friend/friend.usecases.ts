@@ -1,7 +1,9 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { ResponseFriendRequestDTO } from 'src/application/dto/response-friend-request.dto';
 import { SearchFriendsDTO } from 'src/application/dto/search-friends.dto';
 import { ApplicationException } from 'src/application/exceptions/application.exception';
+import { RessourceNotFoundException } from 'src/application/exceptions/ressource-not-found.exception';
+import { EmitEventInterface } from 'src/application/services/event.service';
 import { PendingFriendRequestService } from 'src/domain/services/friend/pending-request.service';
 import { SendFriendRequestService } from 'src/domain/services/friend/send-request.service';
 import { FriendAdapter } from 'src/infrastructure/kysely/adapters/friend.adapter';
@@ -12,11 +14,15 @@ export class FriendUsecases {
     private readonly friendAdapter: FriendAdapter,
     private readonly sendFriendRequestService: SendFriendRequestService,
     private readonly pendingFriendRequestService: PendingFriendRequestService,
+    @Inject('EmitEventService') private eventEmitter: EmitEventInterface,
   ) { }
 
   async sendRequst(adderId: string, friendId: string) {
     await this.sendFriendRequestService.execute(adderId, friendId);
-    // Notify user received friend request
+    return this.eventEmitter.friendRequestSent({
+      profileId: friendId,
+      instigatorId: adderId,
+    });
   }
   async respondToRequest(data: ResponseFriendRequestDTO) {
     const isExist = await this.pendingFriendRequestService.isExist(
@@ -24,7 +30,7 @@ export class FriendUsecases {
       data.friend_id,
     );
     if (!isExist) {
-      throw new ApplicationException(
+      throw new RessourceNotFoundException(
         'No pending request found',
         'FriendUsecases',
       );
@@ -36,7 +42,10 @@ export class FriendUsecases {
     );
 
     if (data.status_name === 'confirmed') {
-      // Notify user has been added to friendlist
+      this.eventEmitter.friendRequestAccepted({
+        profileId: data.friend_id,
+        instigatorId: data.adder_id,
+      });
     }
     return { success: true, username: data.username, status: data.status_name };
   }

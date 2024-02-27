@@ -17,9 +17,8 @@ export class GetProfileEventSkillsUsecases {
     });
 
     const gbRating = this.evaluationService.average(skill);
-    console.log('gbRating', gbRating);
+
     if (!skill || !gbRating) {
-      console.log('is null');
       return { rating: null };
     }
 

@@ -5,6 +5,7 @@ import { SaveScoreEventDTO } from 'src/application/dto/save-score.dto';
 import { UpdateEventDTO } from 'src/application/dto/update-event.dto';
 import { UpdateEventOrganizerDTO } from 'src/application/dto/update-organizer-event.dto';
 import { ApplicationException } from 'src/application/exceptions/application.exception';
+import { RessourceNotFoundException } from 'src/application/exceptions/ressource-not-found.exception';
 import { EmitEventInterface } from 'src/application/services/event.service';
 import { ScoreAdapter } from 'src/domain/repositories/score.repository';
 import { EventParticipantService } from 'src/domain/services/event-participant/event-participant.service';
@@ -71,8 +72,8 @@ export class EventMutationUsecases {
     const { event_id } = data;
     const event = await this.eventMutationAdapter.findOne({ id: event_id });
     if (!event) {
-      throw new ApplicationException(
-        'Event not found',
+      throw new RessourceNotFoundException(
+        'Could not find event to update',
         'EventMutationUsecases',
       );
     }
@@ -111,8 +112,8 @@ export class EventMutationUsecases {
   async deleteOne(data: DeleteEventDTO) {
     const event = await this.eventMutationAdapter.findOne({ id: data.eventId });
     if (!event) {
-      throw new ApplicationException(
-        'Event not found',
+      throw new RessourceNotFoundException(
+        'Could not find event to delete',
         'EventMutationUsecases',
       );
     }
@@ -145,8 +146,8 @@ export class EventMutationUsecases {
       id: data.event_id,
     });
     if (!event) {
-      throw new ApplicationException(
-        'Event not found',
+      throw new RessourceNotFoundException(
+        'Could not find event to update organizer',
         'EventMutationUsecases',
       );
     }

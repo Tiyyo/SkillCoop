@@ -10,6 +10,7 @@ import { SearchFriendController } from 'src/infrastructure/controllers/friend/se
 import { SendRequestFriendController } from 'src/infrastructure/controllers/friend/send-request.controller';
 import { FriendAdapter } from 'src/infrastructure/kysely/adapters/friend.adapter';
 import databaseProvider from 'src/infrastructure/kysely/database.client';
+import { EventEmitterService } from 'src/infrastructure/service/event.emitter.service';
 
 @Module({
   controllers: [
@@ -26,6 +27,7 @@ import databaseProvider from 'src/infrastructure/kysely/database.client';
     FriendUsecases,
     SendFriendRequestService,
     PendingFriendRequestService,
+    { provide: 'EmitEventService', useClass: EventEmitterService },
   ],
 })
 export class FriendModule { }

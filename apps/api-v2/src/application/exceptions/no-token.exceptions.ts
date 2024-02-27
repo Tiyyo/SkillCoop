@@ -1,5 +1,3 @@
-import { HttpException } from '@nestjs/common';
-
 export class NoTokenException extends Error {
   error: string;
   constructor() {

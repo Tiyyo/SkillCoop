@@ -1,6 +1,4 @@
 import { EventStatus } from '../value-objects/event-status.vo';
-import { InvitationStatus } from '../value-objects/invitation-status.vo';
-import { TInvitationStatus } from './event-participant.entity';
 
 export class EventCoreEntity {
   domain_id: string;

@@ -32,7 +32,10 @@ api.interceptors.response.use(
     console.log('Error catch by interceptors:', error.response?.data);
     // errMessage should be unique and bind to validation access token error
     // if errMessage is not unique, it will cause infinite loop
-    if (errMessage === 'No access' && !originalRequest._retry) {
+    if (
+      errMessage.includes('No access token provided') &&
+      !originalRequest._retry
+    ) {
       console.log(
         'Retry request becasue token is expired or not present:',
         error.response?.data,

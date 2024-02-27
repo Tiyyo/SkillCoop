@@ -9,4 +9,7 @@ export class DatabaseException extends Error {
     this.userMessage = 'Internal server error';
     this.message = `${this.name}: ${error.message} `;
   }
+  getStatus() {
+    return this.status;
+  }
 }

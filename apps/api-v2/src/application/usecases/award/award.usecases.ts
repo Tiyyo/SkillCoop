@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ApplicationException } from 'src/application/exceptions/application.exception';
+import { RessourceNotFoundException } from 'src/application/exceptions/ressource-not-found.exception';
+import { WrongEventStatusException } from 'src/application/exceptions/wront-event-status.exception';
 import { BestStrikerAdapter } from 'src/infrastructure/kysely/adapters/best-striker.adapter';
 import { EventMutationsAdapter } from 'src/infrastructure/kysely/adapters/event.mutations.adapter';
 import { EventQueriesAdapter } from 'src/infrastructure/kysely/adapters/event.queries.adapter';
@@ -19,7 +21,6 @@ export class AwardUseCases {
     profileId: string,
     raterId: string,
   ) {
-    console.log('voteForBestStriker');
     const event = await this.eventQueriesAdapter.getOneEvent(
       eventId,
       profileId,
@@ -28,7 +29,7 @@ export class AwardUseCases {
       throw new ApplicationException('Event not found', 'AwardUseCases');
     }
     if (event.status_name !== 'completed') {
-      throw new ApplicationException(
+      throw new WrongEventStatusException(
         'Event status not equal to completed',
         'AwardUseCases',
       );
@@ -43,16 +44,15 @@ export class AwardUseCases {
     return { message: 'success' };
   }
   async voteForMvp(eventId: number, profileId: string, raterId: string) {
-    console.log('voteForMvp');
     const event = await this.eventQueriesAdapter.getOneEvent(
       eventId,
       profileId,
     );
     if (!event) {
-      throw new ApplicationException('Event not found', 'AwardUseCases');
+      throw new RessourceNotFoundException('Event not found', 'AwardUseCases');
     }
     if (event.status_name !== 'completed') {
-      throw new ApplicationException(
+      throw new WrongEventStatusException(
         'Event status not equal to completed',
         'AwardUseCases',
       );

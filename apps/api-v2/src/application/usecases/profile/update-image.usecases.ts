@@ -1,9 +1,10 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { ProfileAdapter } from 'src/infrastructure/kysely/adapters/profile.adapter';
 import { ApplicationException } from 'src/application/exceptions/application.exception';
 import { UploadImageService } from 'src/application/services/upload.service';
 import { ImageService } from 'src/domain/services/image/image.service';
 import { EmitEventInterface } from 'src/application/services/event.service';
+import { RessourceNotFoundException } from 'src/application/exceptions/ressource-not-found.exception';
 
 @Injectable()
 export class UpdateImageProfileUsecases {
@@ -19,14 +20,17 @@ export class UpdateImageProfileUsecases {
     const WIDTH_AVATAR = 100;
 
     if (!file) {
-      throw new ApplicationException('No file provided', 'ProfileUsecases');
+      throw new BadRequestException('No file provided', 'ProfileUsecases');
     }
 
     const profile = await this.profileAdapter.findOne({
       profile_id: profileId,
     });
     if (!profile) {
-      throw new ApplicationException('Profile not found', 'ProfileUsecases');
+      throw new RessourceNotFoundException(
+        'Could not find profile to update',
+        'ProfileUsecases',
+      );
     }
 
     const { username, avatar_url } = profile;

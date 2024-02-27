@@ -1,4 +1,5 @@
 import { ForbiddenException, Inject, NotFoundException } from '@nestjs/common';
+import { RessourceNotFoundException } from 'src/application/exceptions/ressource-not-found.exception';
 import { EmailServiceInterface } from 'src/application/services/email.service';
 import { TokenServiceInterface } from 'src/application/services/token.service';
 import { UserAdapter } from 'src/infrastructure/kysely/adapters/user.adapter';
@@ -19,7 +20,10 @@ export class ForgotPasswordUserUsecases {
     const emailKey = this.envVarible.getEnvVariable('JWT_EMAIL_TOKEN_KEY');
     const user = await this.userAdapter.findOne({ email });
     if (!user) {
-      throw new NotFoundException('User not found');
+      throw new RessourceNotFoundException(
+        'Could not find user with this email',
+        'ForgotPasswordUserUsecases',
+      );
     }
     if (!user.verified) {
       throw new ForbiddenException('User not verified');

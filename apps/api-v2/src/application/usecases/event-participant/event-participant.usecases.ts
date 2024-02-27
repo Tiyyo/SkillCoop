@@ -2,6 +2,7 @@ import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { SendInvitationEventDTO } from 'src/application/dto/send-invitation-event.dto';
 import { SendRequestEventDTO } from 'src/application/dto/send-request-event.dto';
 import { UpdateParticipantStatusDTO } from 'src/application/dto/update-status.dto';
+import { RessourceNotFoundException } from 'src/application/exceptions/ressource-not-found.exception';
 import { EmitEventInterface } from 'src/application/services/event.service';
 import { EventParticipantStatusManagerService } from 'src/domain/services/event-participant/event-participant-status.service';
 import { EventParticipantService } from 'src/domain/services/event-participant/event-participant.service';
@@ -22,8 +23,8 @@ export class EventParticipantUseCases {
       id: data.event_id,
     });
     if (!event) {
-      throw new NotFoundException(
-        'Event not found',
+      throw new RessourceNotFoundException(
+        'Could not find event related to this participant',
         'EventParrticipantUsecases',
       );
     }
@@ -41,8 +42,6 @@ export class EventParticipantUseCases {
     }));
     await this.eventParticipantAdapter.createMany(invitations);
 
-    // TODO: implements notifyUserHasBeenInvitedToEvent
-    // TODO: Sync database with chat service to add them in group event
     return this.eventEmitter.invitationEventSent({
       eventId: data.event_id,
       participantsIds: data.ids,

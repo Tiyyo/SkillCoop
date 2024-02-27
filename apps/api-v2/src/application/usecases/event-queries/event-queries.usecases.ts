@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { GetLastSharedDTO } from 'src/application/dto/get-last-shared.dto';
 import { GetEventNearbyDTO } from 'src/application/dto/get-near-event.dto';
 import { GetPaginatedEventDTO } from 'src/application/dto/get-paginated-event.dto';
+import { RessourceNotFoundException } from 'src/application/exceptions/ressource-not-found.exception';
 import { haversineDistance } from 'src/domain/services/haversine-formula';
 import { EventQueriesAdapter } from 'src/infrastructure/kysely/adapters/event.queries.adapter';
 
@@ -43,7 +44,10 @@ export class EventQueriesUsecases {
       data.userCountry,
     );
     if (!locations || locations.length === 0) {
-      throw new NotFoundException('No events found');
+      throw new RessourceNotFoundException(
+        'Not event found in this country',
+        'EventQueriesUsecases',
+      );
     }
     const eventIds = locations
       .filter(

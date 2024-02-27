@@ -27,6 +27,7 @@ import { JwtService } from '@nestjs/jwt';
 import { SanitizeMiddleware } from './infrastructure/nest/middleware/sanitize.middleware';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { ListenerModule } from './infrastructure/nest/modules/listener.module';
+import { WinstonModule } from './infrastructure/logger/winston.module';
 
 @Module({
   imports: [

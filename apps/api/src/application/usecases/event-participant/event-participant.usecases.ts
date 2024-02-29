@@ -20,10 +20,9 @@ export class EventParticipantUseCases {
     @Inject('EmitEventService') private eventEmitter: EmitEventInterface,
   ) { }
   async updateStatus(data: UpdateParticipantStatusDTO) {
-    const event: EventCoreEntity & { id: number } =
-      await this.eventQueriesAdapter.findOne({
-        id: data.event_id,
-      });
+    const event = (await this.eventQueriesAdapter.findOne({
+      id: data.event_id,
+    })) as unknown as EventCoreEntity & { id: number };
     if (!event) {
       throw new RessourceNotFoundException(
         'Could not find event related to this participant',

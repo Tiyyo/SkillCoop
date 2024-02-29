@@ -71,8 +71,9 @@ export class EventMutationUsecases {
   }
   async updateOne(data: UpdateEventDTO) {
     const { event_id } = data;
-    const event: EventCoreEntity & { id: number } =
-      await this.eventMutationAdapter.findOne({ id: event_id });
+    const event = (await this.eventMutationAdapter.findOne({
+      id: event_id,
+    })) as unknown as EventCoreEntity & { id: number };
     if (!event) {
       throw new RessourceNotFoundException(
         'Could not find event to update',

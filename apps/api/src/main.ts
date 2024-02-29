@@ -19,7 +19,7 @@ async function bootstrap() {
     exclude: [{ path: 'auth/google/callback', method: RequestMethod.ALL }],
   });
   app.enableCors({
-    origin: ['http://localhost:5004', 'https://skillcoop.fr'],
+    origin: ['https://skillcoop.fr'],
     allowedHeaders: ['content-type', 'Authorization'],
     credentials: true,
   });

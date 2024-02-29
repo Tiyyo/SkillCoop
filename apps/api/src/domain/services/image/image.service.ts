@@ -15,9 +15,8 @@ export class ImageService {
     private readonly imageAdapter: ImageAdapter,
     // @Inject('UploadService') private readonly uploadService: UploadImageService,
     private moduleRef: ModuleRef,
-  ) {}
+  ) { }
   async save(url: string, key?: string, size?: number) {
-    console.log(this.imageAdapter);
     await this.imageAdapter.createOne({ url, key, size });
   }
   async delete(url: string) {

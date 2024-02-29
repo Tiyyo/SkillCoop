@@ -7,7 +7,7 @@ export type EventWithoutAggr = {
   location_id: number;
   required_participants: number;
   nb_teams: number;
-  organizer_id: number | null;
+  organizer_id: string | null;
   mvp_id?: number | null;
   best_striker_id?: number | null;
   status_name: string;
@@ -25,9 +25,9 @@ export type EventType = {
   playground_address: string;
   required_participants: number;
   nb_teams: number;
-  organizer_id: number;
-  mvp_id?: number | null;
-  best_striker_id?: number | null;
+  organizer_id: string;
+  mvp_id?: string | null;
+  best_striker_id?: string | null;
   status_name: EventStatus;
   score_team_1: number | null;
   score_team_2: number | null;
@@ -54,7 +54,7 @@ export type CreateEventData = {
   duration: number;
   location: string;
   required_participants: number;
-  organizer_id: number;
+  organizer_id: string;
   status_name: 'open';
   participants?: number[];
   visibility: Visibility;
@@ -64,12 +64,12 @@ export type CreateEventData = {
 export type UpdateEventData = Omit<CreateEventData, 'status_name'> & {
   status_name: EventStatus;
   event_id: number;
-  profile_id: number;
+  profile_id: string;
 };
 
 export type DeleteEventData = {
   event_id: number;
-  profile_id: number;
+  profile_id: string;
 };
 
 export type SaveScore = {
@@ -80,8 +80,8 @@ export type SaveScore = {
 
 export type TransfertOwnership = {
   event_id: number;
-  organizer_id: number;
-  new_organizer_id: number;
+  organizer_id: string;
+  new_organizer_id: string;
 };
 
 export type SearchEventQuery = {
@@ -91,7 +91,7 @@ export type SearchEventQuery = {
 };
 
 export type EventQuery = {
-  profileId: number;
+  profileId: string;
   page: number;
 }
 
@@ -114,5 +114,5 @@ export type NearestEventQuery = {
   userLatitude: number;
   userLongitude: number;
   distance: number;
-  profileId: number;
+  profileId: string;
 }

@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 type MyFormProps = {
   conversationId: number;
-  userId: number | null;
+  userId: string | null;
   username: string | undefined;
   avatar: string | null | undefined;
 };

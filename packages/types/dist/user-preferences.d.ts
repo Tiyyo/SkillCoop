@@ -32,7 +32,7 @@ export type RawUserPreference = {
     prefered_notifications: string;
 };
 export type UpdateNotificationPreference = {
-    user_id: number;
+    user_id: string;
     type_name: NotificationType;
     push?: boolean;
     website?: boolean;
@@ -45,10 +45,10 @@ export type NotificationMethodSetting = {
     push: boolean;
 };
 export type UpdateLanguagePreference = {
-    user_id: number;
+    user_id: string;
     name: LanguageSymbol;
 };
 export type UpdateThemePreference = {
-    user_id: number;
+    user_id: string;
     name: Theme;
 };

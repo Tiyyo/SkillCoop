@@ -10,7 +10,7 @@ function OnBoarding() {
 
   return (
     <Page>
-      <Container className="flex justify-between px-4 py-4 lg:mt-4">
+      <Container className="flex flex-row justify-between px-4 py-4 lg:mt-4">
         <p className="text-sm font-semibold text-light md:text-md lg:text-2xl">
           Skill<span className="text-primary-100">coop</span>
         </p>

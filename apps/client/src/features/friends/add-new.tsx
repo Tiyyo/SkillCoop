@@ -19,7 +19,7 @@ function AddFriends() {
   useSuggestProfile({ profileId });
 
   const dataFilteredByPendingFriendIds = (
-    item: { profile_id: number },
+    item: { profile_id: string },
     pendingFriend: Record<string, any>[],
   ) => {
     const ids = pendingFriend.map((friend) => friend.adder_id);
@@ -43,6 +43,7 @@ function AddFriends() {
           }}
         >
           {suggestedOrSearched &&
+            suggestedOrSearched.length > 0 &&
             suggestedOrSearched
               .filter((item) =>
                 dataFilteredByPendingFriendIds(item, pendingFriends),
@@ -54,7 +55,7 @@ function AddFriends() {
                   username={profile.username}
                   friendId={profile.profile_id}
                   relation={profile.relation_exists}
-                  profileId={profileId ?? 0}
+                  profileId={profileId ?? ''}
                 />
               ))}
         </div>

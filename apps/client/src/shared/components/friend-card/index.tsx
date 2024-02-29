@@ -16,8 +16,8 @@ import { useTranslation } from 'react-i18next';
 type FriendCardProps = {
   avatar: string;
   username: string;
-  adderId: number;
-  friendId: number;
+  adderId: string;
+  friendId: string;
   status: string;
   lastEvaluationRecorded?: number | null;
   dataFromState?: CreateEventStateStore | EventStateStore | null;

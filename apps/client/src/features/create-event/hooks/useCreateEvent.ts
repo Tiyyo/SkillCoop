@@ -15,6 +15,7 @@ export default function useCreateEvent() {
     createEvent,
     data: eventCreatedState,
     isLoading,
+    clearEventState,
     updateDuration,
     updateLocation,
     updateStartDate,
@@ -43,20 +44,23 @@ export default function useCreateEvent() {
       required_participants:
         Number(eventCreatedState.required_participants) ?? undefined,
     };
+
     const isValid = createEventSchema.safeParse(data);
     if (!isValid.success) {
       setValidationErrors((isValid as any).error.issues);
       return;
     }
+
     const isPast = isPastDate(data.date);
     if (isPast) {
       toast.error(t('toast:cannotCreateEventInPast'));
       return;
     }
     data.date = getUTCString(new Date(data.date));
-    //@ts-ignore
+    // @ts-ignore
     createEvent(data);
     createEventFormRef.current?.reset();
+    clearEventState();
   };
 
   // find if an input has an error
@@ -68,6 +72,7 @@ export default function useCreateEvent() {
     if (!validationErrors) return false;
     return errors?.find((error) => error.path[0] === nameInput) ? true : false;
   };
+
   return {
     createEventFormRef,
     eventCreatedState,

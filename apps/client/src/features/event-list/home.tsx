@@ -6,6 +6,7 @@ import SubHeader from '../../shared/components/header/sub-header';
 import ErrorFallback from '../../shared/components/error-fallback';
 import { useTranslation } from 'react-i18next';
 import { Suspense } from 'react';
+import { Link } from 'react-router-dom';
 
 function ResumeEvents() {
   const { t } = useTranslation('title');
@@ -26,10 +27,16 @@ function ResumeEvents() {
         textButton={t('addNewEvent')}
         legend={t('eventsLegend')}
       />
+      <div className="flex justify-between bg-base-light px-6 py-2">
+        <h4 className="text-sm text-primary-1100">What's next ?</h4>
+        <Link to="/events/incoming" className="text-xs text-light">
+          {t('system:seeMore')}
+        </Link>
+      </div>
       {loading ? (
         <Spinner />
       ) : (
-        <>
+        <div className="flex flex-grow flex-col">
           <EventList
             events={events.incoming}
             title={t('upcoming')}
@@ -44,7 +51,7 @@ function ResumeEvents() {
             linkTo="/events/past"
             nbEventToDisplay={2}
           />
-        </>
+        </div>
       )}
     </Suspense>
   );

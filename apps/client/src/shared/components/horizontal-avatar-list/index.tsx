@@ -7,13 +7,13 @@ type HorizontalAvatarListProps = {
   friends: {
     avatar: string | null;
     username: string;
-    userId: number;
+    userId: string;
   }[];
-  remove?: (userId: number) => void;
+  remove?: (userId: string) => void;
 };
 
 function HorizontalAvatarList({ friends, remove }: HorizontalAvatarListProps) {
-  const handleClick = (userId: number) => {
+  const handleClick = (userId: string) => {
     if (remove) {
       remove(userId);
     }

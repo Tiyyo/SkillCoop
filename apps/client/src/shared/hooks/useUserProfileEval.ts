@@ -7,7 +7,7 @@ export function useUserProfileEval({
   onSuccess,
   onError,
 }: {
-  profileId?: number;
+  profileId?: string;
   onSuccess?: () => void;
   onError?: () => void;
 }) {

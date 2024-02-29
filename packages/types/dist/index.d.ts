@@ -9,3 +9,4 @@ export * from './participant';
 export * from './user-preferences';
 export * from './message-queue';
 export * from './chat';
+export * from './playground';

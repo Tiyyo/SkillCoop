@@ -4,12 +4,12 @@ export class CreateGroupConversationDto {
   @IsNotEmpty()
   @IsPositive()
   @IsNumber()
-  creator_id: number;
+  creator_id: string;
   @IsOptional()
   @IsString()
   title?: string;
   @ArrayNotEmpty()
   @IsArray()
   @IsNumber({}, { each: true })
-  participants_ids: number[];
+  participants_ids: string[];
 }

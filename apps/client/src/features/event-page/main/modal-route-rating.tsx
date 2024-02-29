@@ -70,7 +70,11 @@ function ModalRouteRatingEvent() {
                 </span>{' '}
                 {t('performanceAt')}{' '}
                 <span className="font-semibold text-primary-1000">
-                  {associateNumberToString(participantEvaluation.rating)}
+                  {t(
+                    associateNumberToString(
+                      participantEvaluation.rating ?? evaluation,
+                    ),
+                  )}
                 </span>{' '}
                 {t('levelForThisEvent')}
               </p>

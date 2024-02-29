@@ -5,7 +5,7 @@ import { useFindOrCreateOneToOneConversation } from './useConversations';
 import { useNavigate } from 'react-router-dom';
 
 type NewConversationOneToOneProps = {
-  userId: number | undefined;
+  userId: string | undefined;
 };
 
 export default function useNewOneToOneConversation({
@@ -22,10 +22,10 @@ export default function useNewOneToOneConversation({
       },
     });
 
-  const navigateToConversation = (friendId: number) => {
+  const navigateToConversation = (friendId: string | undefined) => {
     findOrCreateConversation({
-      user_id_one: Number(userId),
-      user_id_two: friendId,
+      user_id_one: userId!,
+      user_id_two: friendId!,
     });
   };
 

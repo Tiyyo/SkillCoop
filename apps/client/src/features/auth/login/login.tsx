@@ -41,6 +41,7 @@ function Login() {
     loginError,
     loginAttempts,
   } = useAuth();
+
   useAuthRedirection({
     isAuthenticated,
     isFristConnection,
@@ -61,7 +62,7 @@ function Login() {
   const onSubmit = (data: LoginUserData) => {
     if (!loginFn) return;
     const sanitizeData = {
-      email: dompurify.sanitize(data.email) as string,
+      email: dompurify.sanitize(data.email).trim() as string,
       password: dompurify.sanitize(data.password) as string,
     };
     loginFn(sanitizeData);

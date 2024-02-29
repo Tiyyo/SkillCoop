@@ -6,7 +6,7 @@ import {
 } from '../../features/friends/hooks/useFriends';
 
 type UseSearchResultOrDefault = {
-  profileId?: number;
+  profileId?: string;
 };
 
 export function useSearchResultOrDefault({
@@ -15,7 +15,7 @@ export function useSearchResultOrDefault({
   const [searchFriendQuery, setSearchFriendQuery] = useState<SearchFriendQuery>(
     {
       username: '',
-      profile: profileId ? profileId : 0,
+      profile: profileId ? profileId : '',
       page: 1,
     },
   );

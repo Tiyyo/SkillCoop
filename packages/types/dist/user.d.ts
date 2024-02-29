@@ -8,7 +8,7 @@ export type User = {
     updated_at?: string | null;
 };
 export type UserInfosToken = {
-    user_id: number;
+    user_id: string;
 };
 export type GoogleUserInfos = {
     email: string;
@@ -25,16 +25,16 @@ export type RegisterUser = {
 export type SendConfirmationEmail = {
     emailToken: string;
     email: string;
-    userId: number;
+    userId: string;
 };
 export type SendResetPasswordEmail = {
     resetToken: string;
     email: string;
-    userId: number;
+    userId: string;
 };
 export type UpdateEmail = {
     email: string;
-    user_id: number;
+    user_id: string;
 };
 export type ResetPassword = {
     password: string;

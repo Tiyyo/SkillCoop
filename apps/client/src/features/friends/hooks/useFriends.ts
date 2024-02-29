@@ -17,7 +17,7 @@ const keys = {
   searchFriends: ['search-friends'],
 };
 
-export function useGetConfirmedFriends(options: { profileId?: number }) {
+export function useGetConfirmedFriends(options: { profileId?: string }) {
   return useQuery(
     keys.getFriends,
     async () => {
@@ -30,13 +30,13 @@ export function useGetConfirmedFriends(options: { profileId?: number }) {
 
 export function useSearchInFriendlist(options: {
   username?: string;
-  profile: number;
+  profile: string;
   page?: number;
 }) {
   return useQuery(
     keys.searchFriends,
     async ({ signal }) => {
-      if (options.profile === 0 || !options.username) return null;
+      if (options.profile === '' || !options.username) return null;
       return searchFriendsFn(
         {
           username: options.username,
@@ -50,7 +50,7 @@ export function useSearchInFriendlist(options: {
   );
 }
 
-export function useGetPendingFriendsRequest(options: { profileId?: number }) {
+export function useGetPendingFriendsRequest(options: { profileId?: string }) {
   return useQuery(
     keys.getPendingFriends,
     async () => {

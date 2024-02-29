@@ -7,10 +7,9 @@ import { Conversation } from '@skillcoop/types/src';
 /*eslint-disable */
 import ConversationCardImage from '../../../shared/components/conversation-image';
 import ConversationCardTitle from '../../../shared/components/conversation-title';
- 
 
 type ConversationCardProps = {
-  currentUserId: number;
+  currentUserId: string;
   conversation: Conversation;
 };
 function ConversationCard({

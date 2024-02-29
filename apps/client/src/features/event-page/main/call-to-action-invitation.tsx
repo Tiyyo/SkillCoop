@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 
 type CallToActionInvitationProps = {
   eventId?: number;
-  profileId?: number;
+  profileId?: string;
   eventStatus?: EventStatus | null;
 };
 

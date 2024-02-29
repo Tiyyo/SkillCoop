@@ -10,7 +10,7 @@ type InfosMembersListProps = {
   conversationId: number;
   isAdmin: boolean;
   typeConversation: TypeConversation;
-  currentUserId: number;
+  currentUserId: string;
 };
 
 function InfosMembersList({

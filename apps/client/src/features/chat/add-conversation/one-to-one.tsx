@@ -7,7 +7,7 @@ import AddNewConversationOneToOneFriends from './one-to-one.friends';
 
 type NewConversationOneToOneProps = {
   friends: Friend[];
-  userId: number | undefined;
+  userId: string | undefined;
   searchInputValue?: string;
   setTypeConversation: React.Dispatch<
     React.SetStateAction<'group' | 'oneToOne'>

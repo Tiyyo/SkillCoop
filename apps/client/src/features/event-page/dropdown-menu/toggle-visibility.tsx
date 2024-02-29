@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 type ToggleEventVisibilityProps = {
   eventStatus?: EventStatus | null;
   eventId?: number;
-  profileId?: number;
+  profileId?: string;
   visibility: 'public' | 'private' | null;
   isAdmin?: boolean;
 };

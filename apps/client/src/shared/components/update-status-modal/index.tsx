@@ -18,7 +18,7 @@ import { useTranslation } from 'react-i18next';
 type UpdateStatusModalProps = {
   children?: React.ReactNode;
   eventId: number | undefined;
-  profileId: number | undefined;
+  profileId: string | undefined;
 };
 
 const menuItemStyle = `flex gap-2 items-center hover:bg-primary-200 

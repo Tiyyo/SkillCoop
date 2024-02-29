@@ -37,7 +37,7 @@ const keys = {
 
 export function useGetSingleEvent(options: {
   eventId: number;
-  profileId?: number;
+  profileId?: string;
 }) {
   return useQuery(
     [`event${options.eventId}`],

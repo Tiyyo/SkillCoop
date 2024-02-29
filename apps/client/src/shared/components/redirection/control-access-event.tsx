@@ -25,7 +25,7 @@ function ControlAccesEventPage({ children }: { children: React.ReactNode }) {
     return event?.participants.map((p: EventParticipant) => p.profile_id);
   }
 
-  function profileIdIsInIdsParticipants(idsParticipants: number[]) {
+  function profileIdIsInIdsParticipants(idsParticipants: string[]) {
     if (!profileId) return false;
     return idsParticipants?.includes(profileId);
   }

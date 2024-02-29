@@ -23,7 +23,7 @@ function OnBoardingEvaluateSkill() {
   const { profileId } = useParams();
 
   const { autoEvaluate } = useUserProfileEval({
-    profileId: Number(profileId),
+    profileId,
     onSuccess: () => {
       toast.success(t('evaluationSuccess'));
     },
@@ -34,7 +34,7 @@ function OnBoardingEvaluateSkill() {
   const idComp = useId();
 
   const { mutate: updateProfile } = useUpdateProfile({
-    profileId: Number(profileId),
+    profileId,
     onSuccess: () => {
       setIsFirstConnection(false);
       setProfile({
@@ -49,8 +49,9 @@ function OnBoardingEvaluateSkill() {
   });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    console.log('handleSubmit');
     e.preventDefault();
-    if (!Number(profileId)) return;
+    if (!profileId) return;
     const targetInputs = e.target as any;
     const data = {
       defending: targetInputs.defending.value,
@@ -58,9 +59,10 @@ function OnBoardingEvaluateSkill() {
       passing: targetInputs.passing.value,
       shooting: targetInputs.shooting.value,
       pace: targetInputs.pace.value,
-      profile_id: Number(profileId),
+      profile_id: profileId,
     };
     const isValid = ownSkillSchema.safeParse(data);
+    console.log('isValid', isValid);
     if (!isValid.success) return;
     autoEvaluate(data);
   };
@@ -73,7 +75,7 @@ function OnBoardingEvaluateSkill() {
       last_name: lastname,
       date_of_birth,
       location,
-      profile_id: Number(profileId),
+      profile_id: profileId,
     };
     const isValid = editProfileInfosSchema.safeParse(userProfileData);
     if (!isValid.success) return;
@@ -103,7 +105,7 @@ function OnBoardingEvaluateSkill() {
           ))}
           <button
             className="my-auto flex cursor-pointer rounded-lg bg-primary-400 
-            px-4 py-2 font-medium text-dark text-opacity-70 
+            px-4 py-2 font-medium text-text-base text-opacity-70 
             shadow-sm duration-300 ease-in-out hover:bg-primary-700"
           >
             {t('event:sendEvaluation')}

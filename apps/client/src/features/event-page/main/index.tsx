@@ -42,7 +42,7 @@ function EventPage() {
                 eventlocation={eventStore.location}
                 eventDate={eventStore.date}
                 requiredParticipants={eventStore.required_participants}
-                profileId={profileId ?? 0}
+                profileId={profileId ?? ''}
                 eventStatus={eventStore.status_name}
                 isAdmin={eventStore?.organizer_id === profileId}
                 confirmedParticipants={eventStore.confirmed_participants}

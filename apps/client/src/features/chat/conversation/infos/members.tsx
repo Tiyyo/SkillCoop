@@ -7,7 +7,7 @@ import InfosMembersList from './members.list';
 
 type ConversationInfosMembersProps = {
   typeConversation: TypeConversation;
-  currentUserId: number | null;
+  currentUserId: string | null;
   participantsList: ConversationParticipant[];
   conversationId: number;
 };

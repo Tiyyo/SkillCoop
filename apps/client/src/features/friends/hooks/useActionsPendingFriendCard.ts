@@ -7,10 +7,10 @@ import { updateFriendshipSchema } from '@skillcoop/schema/src';
 import { useTranslation } from 'react-i18next';
 
 type useActionsPendingFriendCardProps = {
-  friendId: number;
+  friendId: string;
   username: string;
   avatar: string;
-  adderId: number;
+  adderId: string;
 };
 
 export function useActionsPendingFriendCard({

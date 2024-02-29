@@ -34,6 +34,8 @@ function MenuItemDialog({
     transition-colors duration-300 rounded-lg px-2 text-md`;
 
   const handleClick = () => {
+    console.log('mutationData', mutationData);
+    console.log(typeof mutationData.event_id);
     if (!mutateFn) return;
     mutateFn(mutationData);
   };

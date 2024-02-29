@@ -17,7 +17,7 @@ import { useTranslation } from 'react-i18next';
 
 type TransfertOwnershipProps = {
   data: EventType;
-  profileId: number;
+  profileId: string;
 };
 
 function TransfertOwnership({
@@ -25,13 +25,13 @@ function TransfertOwnership({
   profileId,
 }: TransfertOwnershipProps) {
   const { t } = useTranslation('system');
-  const [selectedProfile, setSelectedProfile] = useState<number | null>(null);
+  const [selectedProfile, setSelectedProfile] = useState<string | null>(null);
   const navigate = useNavigate();
   const { updateOrganizerId } = useEvent();
   const { mutate: transfertOwnership, isLoading } = useTransfertOwnership({
     eventId: event.event_id,
     onSuccess: () => {
-      if (typeof selectedProfile === 'number') {
+      if (typeof selectedProfile === 'string') {
         updateOrganizerId(selectedProfile);
       }
       navigate(`/event/${event.event_id}`, { replace: true });

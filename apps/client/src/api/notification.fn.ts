@@ -7,7 +7,7 @@ export const markNotficationAsReadFn = async (notificationId: number) => {
 };
 
 export const getNotificationFn = async (
-  profileId: number,
+  profileId: string,
 ): Promise<Notification[]> => {
   const response = await api.get(`api/notification/${profileId}`);
   return response.data;

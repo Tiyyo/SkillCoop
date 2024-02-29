@@ -8,7 +8,7 @@ const keys = {
   getNotifications: ['notification'],
 };
 
-export function useGetNotifications(options: { profileId?: number | null }) {
+export function useGetNotifications(options: { profileId?: string | null }) {
   return useQuery(
     keys.getNotifications,
     async () => {

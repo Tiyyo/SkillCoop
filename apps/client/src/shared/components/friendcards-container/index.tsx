@@ -10,8 +10,8 @@ import { useTranslation } from 'react-i18next';
 
 type FriendCardProps = {
   profileSearchResult: Friend[] | undefined | null;
-  addFriendToState?: (friendId: number) => void;
-  removeFriendsToState?: (friendId: number) => void;
+  addFriendToState?: (friendId: string) => void;
+  removeFriendsToState?: (friendId: string) => void;
   loading: boolean;
   activeFilter?: boolean;
   dataFromState?: CreateEventStateStore | undefined | null;

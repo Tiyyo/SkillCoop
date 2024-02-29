@@ -7,9 +7,9 @@ export class RemoveUserGroupConversationDto {
   @IsPositive()
   @IsNotEmpty()
   conversation_id: number;
-  @Type(() => Number)
+
   @IsNumber()
   @IsPositive()
   @IsNotEmpty()
-  participant_id: number;
+  participant_id: string;
 }

@@ -56,8 +56,8 @@ function Field({
           <FormField
             type={type}
             name={name}
-            register={register}
             defaultValue={valueForm ?? undefined}
+            register={register}
           ></FormField>
         )}
       </div>
@@ -102,7 +102,7 @@ function FormEditProfileInfos({
         <Field
           label={t('firstName')}
           type="text"
-          name="firstname"
+          name="first_name"
           value={profileInfos.firstname}
           shouldEditInfos={shouldEditInfos}
           Icon={<User2 size={18} />}
@@ -111,7 +111,7 @@ function FormEditProfileInfos({
         <Field
           label={t('lastName')}
           type="text"
-          name="lastname"
+          name="last_name"
           value={profileInfos.lastname}
           shouldEditInfos={shouldEditInfos}
           Icon={<User2 size={18} />}
@@ -120,7 +120,7 @@ function FormEditProfileInfos({
         <Field
           label={t('age')}
           type="date"
-          name="age"
+          name="date_of_birth"
           value={getAgeString(profileInfos.age)}
           valueForm={getBirthDate(profileInfos.age)}
           Icon={<Calendar size={18} />}

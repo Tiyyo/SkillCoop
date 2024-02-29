@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 type RevokeParticipationMenuItemProps = {
   eventStatus: EventStatus | null;
   eventId?: number;
-  profileId?: number;
+  profileId?: string;
 };
 
 function RevokeParticipationMenuItem({

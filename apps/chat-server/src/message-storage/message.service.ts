@@ -2,7 +2,7 @@ import { Inject, Injectable, Logger } from '@nestjs/common';
 import { getFormattedUTCTimestamp } from '@skillcoop/date-handler';
 import { Kysely } from 'kysely';
 import { DB } from 'src/database/database';
-import { CreateMessageStore, UpdateMessage, DeleteMessage } from '@skillcoop/types'
+import { CreateMessageStore, UpdateMessage, DeleteMessage } from '@skillcoop/types/src'
 
 @Injectable()
 export class MessageService {

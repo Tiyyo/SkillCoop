@@ -17,7 +17,7 @@ export type EventStateStore = {
   visibility: Visibility | null;
   price: number | null;
   required_participants: number | null;
-  organizer_id?: number | null;
+  organizer_id?: string | null;
   status_name: EventStatus | null;
   participants?: EventParticipant[] | null;
   user_status?: string | null;
@@ -35,15 +35,15 @@ type eventStore = {
   updateLocationId: (args: number) => void;
   updateDuration: (args: number) => void;
   updateRequiredParticipants: (args: number) => void;
-  updateOrganizerId: (args: number) => void;
+  updateOrganizerId: (args: string) => void;
   updateStatusName: (args: EventStatus) => void;
   updateParticipants: (args: EventParticipant[]) => void;
   updatePrice: (args: number) => void;
   updateVisibility: (args: Visibility) => void;
   addToStaged: (args: EventParticipant) => void;
-  removeFromStaged: (args: number) => void;
+  removeFromStaged: (args: string) => void;
   updateUserStatus: (args: string) => void;
-  updateParticipantStatus: (args: InvitationStatus, id: number) => void;
+  updateParticipantStatus: (args: InvitationStatus, id: string) => void;
 };
 
 export const useEventStore = create<eventStore>()((set) => ({
@@ -104,7 +104,7 @@ export const useEventStore = create<eventStore>()((set) => ({
       ...state,
       event: { ...state.event, required_participants: requiredParticipants },
     })),
-  updateOrganizerId: (organizerId: number) =>
+  updateOrganizerId: (organizerId: string) =>
     set((state) => ({
       ...state,
       event: { ...state.event, organizer_id: organizerId },
@@ -147,7 +147,7 @@ export const useEventStore = create<eventStore>()((set) => ({
           : [participant],
       },
     })),
-  removeFromStaged: (participantId: number) =>
+  removeFromStaged: (participantId: string) =>
     set((state) => ({
       ...state,
       event: {
@@ -157,7 +157,7 @@ export const useEventStore = create<eventStore>()((set) => ({
         ),
       },
     })),
-  updateParticipantStatus: (statusName: InvitationStatus, id: number) =>
+  updateParticipantStatus: (statusName: InvitationStatus, id: string) =>
     set((state) => ({
       ...state,
       event: {

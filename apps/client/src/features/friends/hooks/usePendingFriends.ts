@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useFriends } from '../store/friend.store';
 import { useGetPendingFriendsRequest } from './useFriends';
 
-export function usePendingFriends({ profileId }: { profileId?: number }) {
+export function usePendingFriends({ profileId }: { profileId?: string }) {
   const { addPendingFriend, pendingFriends } = useFriends();
   const { data, isLoading, isFetching, isError } = useGetPendingFriendsRequest({
     profileId,

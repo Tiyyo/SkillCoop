@@ -7,7 +7,7 @@ type ParticipantHandlerActionProps = {
   profileIsAdmin: boolean | undefined;
   participantStatus: InvitationStatus;
   avatar: string | null;
-  profileId: number;
+  profileId: string;
   currentUserIsAdmin: boolean | undefined;
 };
 

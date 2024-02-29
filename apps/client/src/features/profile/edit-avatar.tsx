@@ -10,7 +10,7 @@ function AvatarEdit({
   updateState,
 }: {
   avatar: string | null;
-  profileId?: number;
+  profileId?: string;
   updateState?: (...args: any) => void;
 }) {
   const { t } = useTranslation('system');
@@ -51,6 +51,7 @@ function AvatarEdit({
     e: React.ChangeEvent<HTMLInputElement>,
   ) => {
     if (!profileId || !e.target.files) return;
+
     if (
       !VALID_FILES_TYPES.find((type) => {
         if (!e.target.files) return;
@@ -66,6 +67,7 @@ function AvatarEdit({
       const formData = new FormData();
       formData.append('profile_id', profileId.toString());
       formData.append('avatar', e.target.files[0]);
+      console.log('formData', formData);
       uploadImage(formData);
     }
   };

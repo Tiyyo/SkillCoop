@@ -9,7 +9,7 @@ export default function useNewConversation() {
     'group' | 'oneToOne'
   >('oneToOne');
   const { data: friends } = useGetConfirmedFriends({
-    profileId: Number(userId),
+    profileId: userId,
   });
 
   const getSearchInputValue = (value: string) => {

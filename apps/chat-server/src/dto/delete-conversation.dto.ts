@@ -7,9 +7,9 @@ export class DeleteConversationParamsDto {
   @IsPositive()
   @IsNumber()
   conversation_id: number;
-  @Type(() => Number)
+
   @IsNotEmpty()
   @IsPositive()
   @IsNumber()
-  user_id: number;
+  user_id: string;
 }

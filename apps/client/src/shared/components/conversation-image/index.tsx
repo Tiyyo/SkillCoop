@@ -7,11 +7,11 @@ import GroupChatImageWithUsernameFallback from '../pair-avatar';
 type ConversationCardImageProps = {
   typeConversation: 'oneToOne' | 'group' | 'event';
   participantsList: {
-    user_id: number;
+    user_id: string;
     username: string;
     avatar: string | null;
   }[];
-  currentUserId: number | null;
+  currentUserId: string | null;
   size?: number;
 };
 function ConversationCardImage({
@@ -21,7 +21,7 @@ function ConversationCardImage({
   size,
 }: ConversationCardImageProps) {
   const participants = participantsList.filter(
-    (p) => p.user_id !== Number(currentUserId),
+    (p) => p.user_id !== currentUserId,
   );
   /* oneToOne: 1 user*/
   if (typeConversation === 'oneToOne') {

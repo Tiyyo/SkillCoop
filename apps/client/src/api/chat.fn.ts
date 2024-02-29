@@ -18,7 +18,7 @@ export const api = axios.create({
 api.defaults.headers.common['Content-Type'] = 'application/json';
 
 export const getConversationsFn = async (
-  userId: number,
+  userId: string,
 ): Promise<Conversation[]> => {
   const response = await api.get(`/chat-service/conversations/${userId}`);
   return response.data;

@@ -4,7 +4,7 @@ import { useFriends } from '../../features/friends/store/friend.store';
 import { useGetConfirmedFriends } from '../../features/friends/hooks/useFriends';
 /*eslint-enable */
 
-export function useConfirmedfriends({ profileId }: { profileId?: number }) {
+export function useConfirmedfriends({ profileId }: { profileId?: string }) {
   const { addConfirmedFriends, confirmedFriends } = useFriends();
   const { data, isLoading, isFetching, isError } = useGetConfirmedFriends({
     profileId,

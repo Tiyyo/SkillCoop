@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 type ConversationInfosLinkProps = {
   conversation: Conversation;
-  currentUserId: number | null;
+  currentUserId: string | null;
 };
 
 function ConversationInfosLink({

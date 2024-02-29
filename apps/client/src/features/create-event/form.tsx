@@ -25,7 +25,7 @@ type CreateEventFormProps = {
   inputHasError: (name: string, validationErrors: any) => boolean;
   isLoading: boolean;
   updateDuration: (value: number) => void;
-  updateLocation: (value: number) => void;
+  updateLocation: (id: number, name: string) => void;
   updateStartDate: (value: string) => void;
   updateStartTime: (value: string) => void;
   updateRequiredParticipants: (value: number) => void;
@@ -80,6 +80,7 @@ function CreateEventForm({
           defaultValues={eventCreatedState.start_time ?? ''}
           error={inputHasError('start_time', validationErrors)}
           high
+          formid="create-event"
         >
           <CalendarClock />
         </InputTime>
@@ -92,6 +93,7 @@ function CreateEventForm({
           defaultValue={eventCreatedState.duration ?? ''}
           error={inputHasError('duration', validationErrors)}
           high
+          formid="create-event"
         >
           <Clock />
         </SelectInput>
@@ -104,6 +106,7 @@ function CreateEventForm({
           defaultValue={eventCreatedState.required_participants ?? ''}
           error={inputHasError('required_participants', validationErrors)}
           high
+          formid="create-event"
         >
           <Users />
         </SelectInput>
@@ -115,18 +118,21 @@ function CreateEventForm({
             { value: 'public', label: t('public') },
             { value: 'private', label: t('private') },
           ]}
-          defaultValue={eventCreatedState.visibility ?? ''}
           error={inputHasError('visibility', validationErrors)}
+          defaultValue={eventCreatedState.visibility ?? ''}
           high
+          formid="create-event"
         >
           <UnlockKeyhole />
         </SelectInput>
         <InputLocation
-          error={inputHasError('location', validationErrors)}
-          updateLocationId={updateLocation}
+          error={inputHasError('location_id', validationErrors)}
+          updateLocationNameAndId={updateLocation}
           setCreatePlayground={setDisplayCreatePlayground}
+          defaultValue={eventCreatedState.location_name ?? ''}
           label={t('selectPlayground')}
           placeholder={t('choosePlayground')}
+          formid="create-event"
         />
         {displayCreatePlayground && <AddNewPlayground />}
         <Input
@@ -135,8 +141,10 @@ function CreateEventForm({
           placeholder={t('indicatePlaygroundPrice')}
           updateState={updatePrice}
           error={inputHasError('price', validationErrors)}
+          defaultValue={eventCreatedState.price ?? ''}
           type="number"
           high
+          formid="create-event"
         >
           <Euro />
         </Input>

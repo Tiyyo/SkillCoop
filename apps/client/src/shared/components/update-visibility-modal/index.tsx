@@ -26,7 +26,7 @@ type UpdateVisibilityEventModalProps = {
   children: React.ReactNode;
   visibility: Visibility;
   eventId: number | undefined;
-  profileId: number | undefined;
+  profileId: string | undefined;
 };
 
 function UpdateVisibilityEventModal({

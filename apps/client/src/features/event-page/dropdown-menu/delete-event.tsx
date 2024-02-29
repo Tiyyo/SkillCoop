@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 type DeleteEventMenuItemProps = {
   isAdmin: boolean;
   eventId?: number;
-  profileId?: number;
+  profileId?: string;
 };
 
 function DeleteEventMenuItem({
@@ -31,7 +31,7 @@ function DeleteEventMenuItem({
   return (
     <MenuItemDialog
       mutateFn={deleteEvent}
-      mutationData={{ event_id: eventId, profile_id: profileId }}
+      mutationData={{ event_id: Number(eventId), profile_id: profileId }}
       description={
         t('system:thisActionCannotBeUndone') + ' ' + t('thisWillDeleteTheEvent')
       }

@@ -36,13 +36,13 @@ export default function useConnectChatServer(conversationId: number) {
 
       socket.on('connect', connect);
       socket.on('reconnect_attempt', () => {
-        console.log('Attempting to reconnect');
+        // console.log('Attempting to reconnect');
       });
       socket.on('disconnect', () => {
         console.log('Disconnected');
       });
       socket.on('error', (error) => {
-        console.log('Socket error:', error);
+        // console.log('Socket error:', error);
       });
       socket.on('historic', getHistoric);
       socket.on('new-message', displayNewMessage);

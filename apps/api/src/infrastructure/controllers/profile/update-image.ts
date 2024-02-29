@@ -13,14 +13,13 @@ import { UpdateImageProfileUsecases } from 'src/application/usecases/profile/upd
 export class UpdateImageController {
   constructor(
     private readonly updateImageUsecases: UpdateImageProfileUsecases,
-  ) {}
+  ) { }
   @Patch('/avatar')
   @UseInterceptors(FileInterceptor('avatar'))
   async updateImage(
     @UploadedFile() file: Express.Multer.File,
     @Body() body: ProfileIdUnderscoreDTO,
   ) {
-    console.log(file);
     return await this.updateImageUsecases.updateProfileImage(
       file,
       body.profile_id,

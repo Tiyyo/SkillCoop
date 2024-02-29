@@ -67,7 +67,6 @@ function AvatarEdit({
       const formData = new FormData();
       formData.append('profile_id', profileId.toString());
       formData.append('avatar', e.target.files[0]);
-      console.log('formData', formData);
       uploadImage(formData);
     }
   };

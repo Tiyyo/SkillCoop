@@ -12,7 +12,7 @@ export class EventSyncService {
 
   async create(data: EventQueuePublisher) {
     const todayUTCString = getFormattedUTCTimestamp();
-    console.log('EventSyncService.create', data);
+
     try {
       await this.dbClient.transaction().execute(async (trx) => {
         const newConversation = await trx

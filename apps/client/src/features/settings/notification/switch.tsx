@@ -33,7 +33,7 @@ function NotificationSwitch({
     };
     const isValid =
       updateNotificationPreferenceSchema.safeParse(updatePreferenceData);
-    console.log('isValid', updatePreferenceData);
+
     if (!isValid.success) return null;
     updatePreference(updatePreferenceData);
   };

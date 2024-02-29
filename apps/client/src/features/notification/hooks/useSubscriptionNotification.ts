@@ -19,7 +19,6 @@ function useSubscriptionNotification({
     );
 
     uniDirectionalConnection.onmessage = (event) => {
-      console.log('event', event);
       if (onMessage) {
         onMessage(event);
       }
@@ -27,7 +26,6 @@ function useSubscriptionNotification({
 
     uniDirectionalConnection.onerror = (error) => {
       if (onError) {
-        console.log('error', onError);
         onError(error);
       }
       uniDirectionalConnection.close();

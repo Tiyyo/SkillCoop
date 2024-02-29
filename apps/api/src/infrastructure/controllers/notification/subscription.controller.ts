@@ -10,7 +10,7 @@ export class SubscriptionEventController {
   constructor(
     private readonly envVariableService: NestEnvVariableAdapterService,
     private readonly eventEmitter: EventEmitter2,
-  ) {}
+  ) { }
   @UseGuards(SSEGuard)
   @Sse()
   sse(@Req() req: Request): Observable<unknown> {
@@ -28,8 +28,7 @@ export class SubscriptionEventController {
       this.eventEmitter.removeAllListeners('new-notification');
     });
 
-    req.on('error', (err) => {
-      console.log(err);
+    req.on('error', () => {
       console.log(`${user_id} connection error`);
     });
 

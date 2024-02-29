@@ -17,9 +17,8 @@ export class AuthMiddleware implements NestMiddleware {
     @Inject('TokenService')
     private readonly tokenService: TokenServiceInterface,
     private readonly envVariableService: NestEnvVariableAdapterService,
-  ) {}
+  ) { }
   async use(req: Request, res: Response, next: NextFunction) {
-    console.log('AuthMiddleware');
     const refreshToken = req.cookies.refreshToken;
     const authHeader =
       req.headers['authorization'] || req.headers['Authorization'];
@@ -42,7 +41,6 @@ export class AuthMiddleware implements NestMiddleware {
         accessKey,
       );
     } catch (error) {
-      console.log('error', error);
       if (error instanceof TokenServiceException) {
         throw new AccessTokenException(
           'No access token provided or invalid token ',

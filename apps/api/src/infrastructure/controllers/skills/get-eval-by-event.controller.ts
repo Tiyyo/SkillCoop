@@ -6,12 +6,11 @@ import { GetProfileEventSkillsUsecases } from 'src/application/usecases/skills/g
 export class GetEvaluationByEventSkillController {
   constructor(
     private readonly getProfileEvalSkillsUsecases: GetProfileEventSkillsUsecases,
-  ) {}
+  ) { }
 
   @Get('/event')
   @HttpCode(200)
   async getEvalByEvent(@Query() query: GetEvalByEventDTO) {
-    console.log('query', query);
     return await this.getProfileEvalSkillsUsecases.getProfileEvaluationByEvent(
       query,
     );

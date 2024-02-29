@@ -11,7 +11,7 @@ export const getCurrentLngInLocalStorage = (): string | undefined => {
     }
     return;
   } catch (error) {
-    console.error(error, 'Error parsing userPreferences in Json');
+    // console.error(error, 'Error parsing userPreferences in Json');
     return;
   }
 };

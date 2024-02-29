@@ -8,7 +8,7 @@ export class LoginDemoUserController {
   constructor(
     private readonly loginUsecases: LoginUserUsecases,
     private readonly envVarible: NestEnvVariableAdapterService,
-  ) {}
+  ) { }
   @Post('demo')
   @HttpCode(200)
   async login(@Res() res: Response) {
@@ -38,14 +38,6 @@ export class LoginDemoUserController {
         maxAge: MAX_AGE,
         domain: HOST,
       });
-      console.log(
-        'Login Demo Controller Access Token:',
-        loginTrack.accessToken,
-      );
-      console.log(
-        'Login Demo Controller Refresh Token:',
-        loginTrack.refreshToken,
-      );
       return res.json({ accessToken: loginTrack.accessToken });
     }
     return res.status(400).json({ error: 'Bad credentials' });

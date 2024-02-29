@@ -6,11 +6,10 @@ import { UserPreferencesUsecases } from 'src/application/usecases/user-preferenc
 export class UpdateThemeUserPreferencesController {
   constructor(
     private readonly userPreferencesUsecases: UserPreferencesUsecases,
-  ) {}
+  ) { }
   @Patch('/theme')
   @HttpCode(200)
   async updateLanguage(@Body() body: UpdateThemeUserPreferencesDTO) {
-    console.log('body', body);
     return await this.userPreferencesUsecases.updateTheme(
       body.user_id,
       body.name,

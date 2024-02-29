@@ -25,7 +25,7 @@ export class NotificationPipelineService {
     private readonly notificationBuilderMessageService: NotificationBuilderMessageService,
     private readonly notificationService: NotificationService,
     private readonly notificationDispatchService: NotificationDispatchService,
-  ) {}
+  ) { }
   async notify({
     type,
     subtype,
@@ -77,7 +77,6 @@ export class NotificationPipelineService {
         };
       });
     if (!notifications || notifications.length === 0) {
-      console.log('No notifications to send');
       return;
     }
     notifications.forEach(async (notification) => {

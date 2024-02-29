@@ -46,7 +46,6 @@ function UpdateVisibilityEventModal({
   const { mutate: updateEventVisibility } = useUpdateSingleEvent({
     eventId: eventId,
     onSuccess: () => {
-      console.log('visibility updated', nextVisibility);
       updateVisibility(nextVisibility);
       closeModal();
     },
@@ -66,7 +65,6 @@ function UpdateVisibilityEventModal({
     };
     const isValid = updateEventSchema.safeParse(updateData);
     if (!isValid.success) {
-      console.error(isValid.error);
       return;
     }
     updateEventVisibility(updateData);

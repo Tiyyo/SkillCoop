@@ -46,7 +46,6 @@ function ResumeEmailInfos({ email }: { email?: string | null }) {
     if (!userProfile || !userId) return;
     data.user_id = userId;
     const isValid = updateEmailSchema.safeParse(data);
-    console.log('isValid', isValid);
     if (!isValid.success) {
       setErrorText(t('somethingWentWrong'));
       setCountRender((prev) => prev + 1);

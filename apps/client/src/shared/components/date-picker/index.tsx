@@ -44,8 +44,6 @@ function InputDate({
   const defaultDate =
     typeof defaultValue === 'string' ? new Date(defaultValue) : undefined;
 
-  console.log(defaultDate);
-
   return (
     <div className="relative flex w-full items-center gap-x-2.5 py-4">
       <CalendarSearch

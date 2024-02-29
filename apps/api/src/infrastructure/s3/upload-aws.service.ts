@@ -91,9 +91,6 @@ export class UploadAWSService implements UploadImageService {
     file: unknown,
     { height, width }: { height: number; width: number },
   ) {
-    console.log('file', file);
-    console.log('height', height);
-    console.log('width', width);
     this.imageService =
       this.imageService ?? this.moduleRef.get(ImageService, { strict: false });
     const { buffer, originalname, mimetype } =

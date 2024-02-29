@@ -14,7 +14,7 @@ function ResetPasswordMiddleware() {
       return verifyResetPasswordTokenFn();
     },
   );
-  console.log('Middleware reset password data', data);
+
   useEffect(() => {
     if (!isSuccess) return;
     if (data && data.message === 'success') {

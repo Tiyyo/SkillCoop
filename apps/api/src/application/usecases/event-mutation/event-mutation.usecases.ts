@@ -7,6 +7,7 @@ import { UpdateEventOrganizerDTO } from 'src/application/dto/update-organizer-ev
 import { ApplicationException } from 'src/application/exceptions/application.exception';
 import { RessourceNotFoundException } from 'src/application/exceptions/ressource-not-found.exception';
 import { EmitEventInterface } from 'src/application/services/event.service';
+import { EventCoreEntity } from 'src/domain/entities/event.entity';
 import { ScoreAdapter } from 'src/domain/repositories/score.repository';
 import { EventParticipantService } from 'src/domain/services/event-participant/event-participant.service';
 import { EventStatusAdjusterService } from 'src/domain/services/event/event-status-adjuster.service';
@@ -33,7 +34,7 @@ export class EventMutationUsecases {
     private readonly eventParticipantAdapter: EventParticipantAdapter,
     private readonly generateTeamService: GenerateTeamService,
     @Inject('EmitEventService') private eventEmitter: EmitEventInterface,
-  ) {}
+  ) { }
   async createOne(data: CreateEventDTO) {
     const eventData = {
       organizer_id: data.organizer_id,
@@ -70,7 +71,8 @@ export class EventMutationUsecases {
   }
   async updateOne(data: UpdateEventDTO) {
     const { event_id } = data;
-    const event = await this.eventMutationAdapter.findOne({ id: event_id });
+    const event: EventCoreEntity & { id: number } =
+      await this.eventMutationAdapter.findOne({ id: event_id });
     if (!event) {
       throw new RessourceNotFoundException(
         'Could not find event to update',
@@ -86,7 +88,6 @@ export class EventMutationUsecases {
     const dataHasChange = possibleFieldsUpdated.some((field) => {
       return data[field] !== event[field as keyof typeof event];
     });
-    console.log('dataHasChange', dataHasChange);
     if (!dataHasChange)
       return {
         message: 'Nothing to update',

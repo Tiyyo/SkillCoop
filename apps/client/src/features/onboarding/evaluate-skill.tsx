@@ -49,7 +49,6 @@ function OnBoardingEvaluateSkill() {
   });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    console.log('handleSubmit');
     e.preventDefault();
     if (!profileId) return;
     const targetInputs = e.target as any;
@@ -62,7 +61,6 @@ function OnBoardingEvaluateSkill() {
       profile_id: profileId,
     };
     const isValid = ownSkillSchema.safeParse(data);
-    console.log('isValid', isValid);
     if (!isValid.success) return;
     autoEvaluate(data);
   };

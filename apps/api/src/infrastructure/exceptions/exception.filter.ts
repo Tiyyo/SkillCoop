@@ -31,6 +31,8 @@ export class AllExceptionFilter implements ExceptionFilter {
       exception instanceof DatabaseException;
 
     this.logger.error('Error handle by filter', exception);
+    this.logger.log(exception);
+    this.logger.verbose(exception);
 
     if (exception instanceof ApplicationException) {
       isProduction

@@ -8,8 +8,8 @@ export type ProfileEval = {
     avg_shooting: number;
 };
 export type Vote = {
-    profile_id: number;
-    rater_id: number;
+    profile_id: string;
+    rater_id: string;
     event_id: number;
 };
 export type EvaluationOwnSkill = {
@@ -32,8 +32,8 @@ export type AvgSkill = Skills & {
 };
 export type EvaluationParticipantSkill = Skills & {
     event_id: number;
-    rater_id: number;
-    reviewee_id: number;
+    rater_id: string;
+    reviewee_id: string;
 };
 export type Score = {
     avg_pace: number;

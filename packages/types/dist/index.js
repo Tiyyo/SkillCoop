@@ -25,4 +25,5 @@ __exportStar(require("./participant"), exports);
 __exportStar(require("./user-preferences"), exports);
 __exportStar(require("./message-queue"), exports);
 __exportStar(require("./chat"), exports);
+__exportStar(require("./playground"), exports);
 //# sourceMappingURL=index.js.map

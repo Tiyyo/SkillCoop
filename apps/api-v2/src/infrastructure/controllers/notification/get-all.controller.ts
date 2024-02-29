@@ -3,7 +3,7 @@ import { NotificationUsecases } from 'src/application/usecases/notification/noti
 
 @Controller('notification')
 export class GetAllNotificationController {
-  constructor(private readonly notificationUsecases: NotificationUsecases) { }
+  constructor(private readonly notificationUsecases: NotificationUsecases) {}
 
   @Get('/:profileId')
   @HttpCode(200)

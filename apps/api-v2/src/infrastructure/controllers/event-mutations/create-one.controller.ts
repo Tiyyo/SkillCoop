@@ -4,7 +4,7 @@ import { EventMutationUsecases } from 'src/application/usecases/event-mutation/e
 
 @Controller('event')
 export class CreateEventController {
-  constructor(private readonly eventMutationUsecases: EventMutationUsecases) { }
+  constructor(private readonly eventMutationUsecases: EventMutationUsecases) {}
 
   @Post()
   @HttpCode(201)

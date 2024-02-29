@@ -1,10 +1,13 @@
-import { ConversationParticipant, TypeConversation } from '@skillcoop/types';
+import {
+  ConversationParticipant,
+  TypeConversation,
+} from '@skillcoop/types/src';
 import InfosActionsLeaveGroup from './actions.leave';
 import InfosActionsDeleteGroup from './actions.delete';
 
 type ConversationInfosActionsProps = {
   conversationId: number;
-  currentUserId: number | null;
+  currentUserId: string | null;
   participantsList: ConversationParticipant[];
   typeConversation: TypeConversation;
 };

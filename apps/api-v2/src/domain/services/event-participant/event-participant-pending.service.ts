@@ -8,7 +8,7 @@ export class EventParticipantPendingService {
   constructor(
     private readonly eventParticipantAdapter: EventParticipantAdapter,
     private readonly eventMutationsAdapter: EventMutationsAdapter,
-  ) { }
+  ) {}
 
   async handle(event: EventCoreEntity & { id: number }, profileId: string) {
     if (event.organizer_id === profileId) {

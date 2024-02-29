@@ -5,7 +5,7 @@ import { LanguagePreferenceAdapter } from 'src/infrastructure/kysely/adapters/la
 export class LanguagePreferenceService {
   constructor(
     private readonly languagePreferenceAdapter: LanguagePreferenceAdapter,
-  ) { }
+  ) {}
   async generate(userId: string) {
     return await this.languagePreferenceAdapter.createOne({
       user_id: userId,

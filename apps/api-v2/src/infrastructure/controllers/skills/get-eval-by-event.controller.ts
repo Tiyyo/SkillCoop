@@ -6,7 +6,7 @@ import { GetProfileEventSkillsUsecases } from 'src/application/usecases/skills/g
 export class GetEvaluationByEventSkillController {
   constructor(
     private readonly getProfileEvalSkillsUsecases: GetProfileEventSkillsUsecases,
-  ) { }
+  ) {}
 
   @Get('/event')
   @HttpCode(200)

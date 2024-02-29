@@ -12,7 +12,7 @@ export type NotificationSubtype =
 
 @Injectable()
 export class NotificationBuilderMessageService {
-  constructor() { }
+  constructor() {}
   build({
     subtype,
     username,

@@ -8,7 +8,7 @@ export class GoogleAuthController {
   constructor(
     private readonly googleAuthUsecases: GoogleAuthUsecases,
     private readonly envVariableService: NestEnvVariableAdapterService,
-  ) { }
+  ) {}
   @Get('google/callback')
   @HttpCode(301)
   async createOne(
@@ -19,6 +19,8 @@ export class GoogleAuthController {
     const { accessToken, refreshToken } = await this.googleAuthUsecases.handle(
       queryParams.code,
     );
+    console.log('Access Token', accessToken);
+    console.log('Refresh Token', refreshToken);
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
       sameSite: 'none',

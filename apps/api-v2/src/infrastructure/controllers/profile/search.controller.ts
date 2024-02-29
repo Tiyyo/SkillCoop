@@ -4,7 +4,7 @@ import { ProfileUsecases } from 'src/application/usecases/profile/profile.usecas
 
 @Controller('profile')
 export class SearchProfileController {
-  constructor(private readonly profileUsecases: ProfileUsecases) { }
+  constructor(private readonly profileUsecases: ProfileUsecases) {}
   @Get('/search/one')
   async getOne(@Query() queryParams: SearchProfileDTO) {
     const profile = await this.profileUsecases.search(queryParams);

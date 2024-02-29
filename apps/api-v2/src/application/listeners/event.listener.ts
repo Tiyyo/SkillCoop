@@ -18,7 +18,7 @@ export class EventListener {
     private readonly invitedEventService: InvitedEventNotificationService,
     private readonly updatedEventInfosService: UpdatedEventInfosNotificationService,
     private readonly producerEventMessageService: ProducerEventMessageService,
-  ) { }
+  ) {}
   @OnEvent('event.created')
   handleEventCreated(payload: EventCreatedEventPayload) {
     this.invitedEventService.notify(payload.eventId, payload.participantsIds);

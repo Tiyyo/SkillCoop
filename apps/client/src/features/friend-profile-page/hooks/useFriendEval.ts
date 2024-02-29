@@ -3,7 +3,11 @@
 import { useEffect, useState } from 'react';
 import { useGetProfileEval } from '../../../shared/hooks/useProfile';
 
-export function useProfileEval({ profileId }: { profileId: number }) {
+export function useProfileEval({
+  profileId,
+}: {
+  profileId: string | undefined;
+}) {
   const [hasBeenEvaluated, setHasBeenEvaluated] = useState<boolean>(false);
   const [averageEvaluation, setAverageEvaluation] = useState<
     Record<string, number>

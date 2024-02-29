@@ -6,4 +6,4 @@ import databaseProvider from '../../kysely/database.client';
   providers: [databaseProvider, Logger],
   exports: [databaseProvider],
 })
-export class DatabaseModule { }
+export class DatabaseModule {}

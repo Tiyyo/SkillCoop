@@ -6,7 +6,7 @@ import { EventParticipantUseCases } from 'src/application/usecases/event-partici
 export class SendRequestEventParticipantController {
   constructor(
     private readonly eventParticipantusecases: EventParticipantUseCases,
-  ) { }
+  ) {}
   @Post('request')
   @HttpCode(201)
   async sendRequest(@Body() body: SendRequestEventDTO) {

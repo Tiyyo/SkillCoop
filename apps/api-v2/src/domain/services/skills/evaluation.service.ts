@@ -16,7 +16,7 @@ const AUTHORIZED_KEYS_SKILLS = [
 
 @Injectable()
 export class EvaluationService {
-  constructor() { }
+  constructor() {}
   average(skill: EvaluationSkills | Skills) {
     if (!skill) return null;
     const values = Object.keys(skill)

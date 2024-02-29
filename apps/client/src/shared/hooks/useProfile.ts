@@ -15,7 +15,6 @@ import {
   updateProfileInfoFn,
 } from '../../api/api.fn';
 import type {
-  OwnSkill,
   EvaluationParticipantSkill,
   Profile,
   SearchProfileQuery,
@@ -23,6 +22,7 @@ import type {
 } from '@skillcoop/types/src';
 import { AxiosResponse } from 'axios';
 import { queryClient } from '../../main';
+import { OwnSkill } from 'packages/schema/src';
 
 const keys = {
   getProfile: ['profile'],

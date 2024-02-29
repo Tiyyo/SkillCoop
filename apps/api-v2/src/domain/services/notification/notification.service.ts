@@ -3,7 +3,7 @@ import { NotificationAdapter } from 'src/infrastructure/kysely/adapters/notifica
 
 @Injectable()
 export class NotificationService {
-  constructor(private readonly notificationAdapter: NotificationAdapter) { }
+  constructor(private readonly notificationAdapter: NotificationAdapter) {}
   async save({
     message,
     notificationType,

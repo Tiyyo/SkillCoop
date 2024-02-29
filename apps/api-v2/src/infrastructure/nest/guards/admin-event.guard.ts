@@ -8,7 +8,7 @@ import { EventQueriesAdapter } from 'src/infrastructure/kysely/adapters/event.qu
 
 @Injectable()
 export class OrganizerEventGuard implements CanActivate {
-  constructor(private readonly eventQueriesAdapter: EventQueriesAdapter) { }
+  constructor(private readonly eventQueriesAdapter: EventQueriesAdapter) {}
   async canActivate(context: ExecutionContext) {
     const request = context.switchToHttp().getRequest();
 

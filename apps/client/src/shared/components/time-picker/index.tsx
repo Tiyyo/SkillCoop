@@ -21,6 +21,7 @@ interface InputTimeProps extends ComponentPropsWithoutRef<'input'> {
   date?: string;
   disabled?: boolean;
   high?: boolean;
+  formid?: string;
 }
 
 function InputTime({
@@ -32,6 +33,7 @@ function InputTime({
   defaultValues,
   disabled,
   high,
+  formid,
   ...props
 }: InputTimeProps) {
   const idHoursComponent = useId();
@@ -123,6 +125,7 @@ function InputTime({
             <input
               name={name}
               id={name}
+              form={formid}
               {...props}
               className={cn(
                 `block w-full rounded-lg border border-border bg-base-light
@@ -153,6 +156,7 @@ function InputTime({
                   Number(defaultValues?.split(':')[0]),
                 ) ?? ''
               }
+              form={formid}
             >
               {avaiableHoursChoice.map((hour) => (
                 <Choice
@@ -181,6 +185,7 @@ function InputTime({
                   Number(defaultValues?.split(':')[1]),
                 ) ?? ''
               }
+              form={formid}
             >
               {avaiableMinutesChoice.map((minute) => (
                 <Choice key={minute + idMinutesComponent} value={minute} />

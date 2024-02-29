@@ -9,7 +9,7 @@ export class NotificationPreferenceService {
   constructor(
     private readonly notificationPreferenceAdapter: NotificationPreferenceAdapter,
     private readonly notificationTypeAdapter: NotificationTypeAdapter,
-  ) { }
+  ) {}
   async generate(userId: string) {
     const notificationTypes = await this.notificationTypeAdapter.findAll();
     if (!notificationTypes) {

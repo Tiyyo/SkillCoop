@@ -7,7 +7,7 @@ export class GetUserSkillsUsecases {
   constructor(
     private readonly computeUserEvaluationService: ComputeUserEvaluationService,
     private readonly profileAdapter: ProfileAdapter,
-  ) { }
+  ) {}
   async getProfileEvaluation(profileId: string) {
     const userEvaluation =
       await this.computeUserEvaluationService.compute(profileId);

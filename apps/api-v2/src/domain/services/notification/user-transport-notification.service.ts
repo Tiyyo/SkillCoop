@@ -6,7 +6,7 @@ import { NotificationPreferenceService } from '../user-prefrerences/notification
 export class UserTransportNotificationService {
   constructor(
     private readonly notificationPreferenceService: NotificationPreferenceService,
-  ) { }
+  ) {}
   async get(ids: string[], notificationType: string) {
     const getSubscribersQueries = await ids.map((id) =>
       this.notificationPreferenceService.get(id, notificationType),

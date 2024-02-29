@@ -25,7 +25,7 @@ export class NotificationPipelineService {
     private readonly notificationBuilderMessageService: NotificationBuilderMessageService,
     private readonly notificationService: NotificationService,
     private readonly notificationDispatchService: NotificationDispatchService,
-  ) { }
+  ) {}
   async notify({
     type,
     subtype,
@@ -58,17 +58,28 @@ export class NotificationPipelineService {
       username: infos instanceof InstigatorInfos ? infos.username : undefined,
       eventDate: infos instanceof EventInfos ? infos.eventDate : undefined,
     });
-    const notifications = subscribers.map((subscriber) => {
-      return {
-        ...subscriber,
-        subtype: subtype,
-        message,
-        notificationType: type,
-        instigatorId: instigatorId,
-        eventId: eventId,
-        avatarUrl: infos instanceof InstigatorInfos ? infos.avatar_url : null,
-      };
-    });
+    const notifications = subscribers
+      .filter((subscriber) => {
+        if (instigatorId) {
+          return subscriber.profileId !== instigatorId;
+        }
+        return true;
+      })
+      .map((subscriber) => {
+        return {
+          ...subscriber,
+          subtype: subtype,
+          message,
+          notificationType: type,
+          instigatorId: instigatorId,
+          eventId: eventId,
+          avatarUrl: infos instanceof InstigatorInfos ? infos.avatar_url : null,
+        };
+      });
+    if (!notifications || notifications.length === 0) {
+      console.log('No notifications to send');
+      return;
+    }
     notifications.forEach(async (notification) => {
       if (
         notification.transports.includes('website') ||

@@ -7,7 +7,8 @@ import { ThemePreferenceRepository } from 'src/domain/repositories/theme-prefere
 @Injectable()
 export class ThemePreferenceAdapter
   extends CoreAdapter<'theme_preference'>
-  implements ThemePreferenceRepository {
+  implements ThemePreferenceRepository
+{
   constructor(@Inject('dbClient') protected dbClient: Kysely<DB>) {
     super(dbClient);
     this.tableName = 'theme_preference';

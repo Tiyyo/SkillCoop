@@ -57,7 +57,7 @@ function Register() {
     const termAndServiceInString = data.termAndService ? 'on' : 'off';
     setCurrentEmail(data.email);
     signUpUser({
-      email: data.email,
+      email: data.email.trim(),
       password: data.password,
       confirmedPassword: data.confirmedPassword,
       termAndService: termAndServiceInString,

@@ -22,4 +22,4 @@ import databaseProvider from 'src/infrastructure/kysely/database.client';
   ],
   providers: [databaseProvider, EventQueriesAdapter, EventQueriesUsecases],
 })
-export class EventQueriesModule { }
+export class EventQueriesModule {}

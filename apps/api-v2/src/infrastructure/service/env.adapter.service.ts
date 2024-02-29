@@ -4,7 +4,7 @@ import { EnvVariableRepository } from 'src/domain/repositories/env.variable.repo
 
 @Injectable()
 export class NestEnvVariableAdapterService implements EnvVariableRepository {
-  constructor(private configService: ConfigService) { }
+  constructor(private configService: ConfigService) {}
   getEnvVariable(name: string): string {
     return this.configService.get(name);
   }

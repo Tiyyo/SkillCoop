@@ -56,7 +56,7 @@ GROUP BY c.conversation_id, c.created_at, c.last_update, c.event_id, c.type_name
       this.logger.error('Could not get conversation ' + conversationId + ' ' + error.message)
     }
   }
-  async getList(user_id: number) {
+  async getList(user_id: string) {
     try {
       const result = await sql`SELECT conversation.conversation_id,
        conversation.title,

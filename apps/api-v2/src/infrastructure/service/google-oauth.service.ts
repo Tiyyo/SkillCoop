@@ -1,16 +1,25 @@
 import { ApplicationException } from 'src/application/exceptions/application.exception';
 import { SocialOauthInterface } from 'src/application/services/social-auth.service';
+import { NestEnvVariableAdapterService } from './env.adapter.service';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class GoogleOAuthService implements SocialOauthInterface {
+  constructor(
+    private readonly envVariableService: NestEnvVariableAdapterService,
+  ) {}
   async getTokens(
     code: string,
   ): Promise<{ access_token: string | null; id_token: string | null }> {
     const rootURL = 'https://oauth2.googleapis.com/token';
     const options = {
       code,
-      client_id: process.env.GOOGLE_CLIENT_ID,
-      client_secret: process.env.GOOGLE_CLIENT_SECRET,
-      redirect_uri: process.env.API_URL + '/auth/google/callback',
+      client_id: this.envVariableService.getEnvVariable('GOOGLE_CLIENT_ID'),
+      client_secret: this.envVariableService.getEnvVariable(
+        'GOOGLE_CLIENT_SECRET',
+      ),
+      redirect_uri:
+        this.envVariableService.getApiUrl() + '/auth/google/callback',
       grant_type: 'authorization_code',
     };
     try {
@@ -42,6 +51,7 @@ export class GoogleOAuthService implements SocialOauthInterface {
       return { access_token: null, id_token: null };
     }
   }
+
   async getUserInfo({
     id_token,
     access_token,

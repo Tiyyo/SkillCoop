@@ -5,12 +5,12 @@ import { OrganizerEventGuard } from 'src/infrastructure/nest/guards/admin-event.
 
 @Controller('event')
 export class UpdateEventController {
-  constructor(private readonly eventMutationUsecases: EventMutationUsecases) { }
+  constructor(private readonly eventMutationUsecases: EventMutationUsecases) {}
 
   @Patch()
-  @HttpCode(204)
+  @HttpCode(200)
   @UseGuards(OrganizerEventGuard)
-  async createOne(@Body() body: UpdateEventDTO) {
-    return this.eventMutationUsecases.updateOne(body);
+  async updateOne(@Body() body: UpdateEventDTO) {
+    return await this.eventMutationUsecases.updateOne(body);
   }
 }

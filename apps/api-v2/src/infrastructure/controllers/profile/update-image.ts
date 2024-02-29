@@ -13,7 +13,7 @@ import { UpdateImageProfileUsecases } from 'src/application/usecases/profile/upd
 export class UpdateImageController {
   constructor(
     private readonly updateImageUsecases: UpdateImageProfileUsecases,
-  ) { }
+  ) {}
   @Patch('/avatar')
   @UseInterceptors(FileInterceptor('avatar'))
   async updateImage(

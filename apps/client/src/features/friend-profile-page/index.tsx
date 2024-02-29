@@ -13,8 +13,7 @@ import FriendProfileInfos from './infos';
 
 function FriendProfile() {
   const { userId } = useApp();
-  const params = useParams<{ id: string }>();
-  const profileId = Number(params.id);
+  const { id: profileId } = useParams<{ id: string }>();
   const { data: profile } = useGetProfile({ profileId });
   const { hasBeenEvaluated, evaluateProfile } = useProfileEval({ profileId });
   const { data: sharedEvents } = useGetSharedEvents({

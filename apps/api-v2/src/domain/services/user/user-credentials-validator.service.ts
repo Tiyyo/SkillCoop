@@ -10,7 +10,7 @@ export class UserCredentialsValidatorService {
     @Inject('PasswordService')
     private readonly passwordHashService: PasswordHashInterface,
     private readonly loginAttemptsService: UserLoginAttemptsService,
-  ) { }
+  ) {}
   async validateCredentials(password: string, user: UserDBEntity) {
     if (!user)
       throw new DomainException(

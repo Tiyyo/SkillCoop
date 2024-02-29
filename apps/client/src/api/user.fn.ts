@@ -4,7 +4,7 @@ import type { UpdateEmail } from '@skillcoop/types/src';
 export const updatePasswordFn = async (data: {
   old_password: string;
   new_password: string;
-  user_id: number;
+  user_id: string;
 }) => {
   const response = await api.patch(`api/user/password`, data);
   return response.data;

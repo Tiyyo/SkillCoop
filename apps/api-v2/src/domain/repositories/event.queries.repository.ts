@@ -20,7 +20,8 @@ export abstract class EventQueriesRepository {
     profileId: string,
     page: number,
   ): Promise<{ events: EventAggr[]; count: number }>;
-  abstract getEventNotificationSubscribers(eventId: number): Promise<number[]>;
+  // Not needed anymore
+  // abstract getEventNotificationSubscribers(eventId: number): Promise<number[]>;
   abstract getLastSharedEvent(
     profileId: string,
     friendId: string,

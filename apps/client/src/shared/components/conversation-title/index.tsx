@@ -3,7 +3,7 @@ import { cn } from '../../../lib/utils';
 
 type ConversationCardTitleProps = {
   title: string | null;
-  currentUserId: number | null;
+  currentUserId: string | null;
   classname?: string;
   participantsList: ConversationParticipant[];
 };

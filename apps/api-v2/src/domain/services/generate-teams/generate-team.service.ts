@@ -12,7 +12,7 @@ export class GenerateTeamService {
     private readonly buildConfigService: BuildConfigTeamService,
     private readonly eventParticipantAdapter: EventParticipantAdapter,
     @Inject('EmitEventService') private eventEmitter: EmitEventInterface,
-  ) { }
+  ) {}
   async generate(eventId: number) {
     const config = await this.buildConfigService.getConfig(eventId);
     if (!config) {

@@ -76,4 +76,4 @@ import { NodeMaillerAdapterService } from 'src/infrastructure/service/nodemailer
     { provide: 'EmitEventService', useClass: EventEmitterService },
   ],
 })
-export class UserModule { }
+export class UserModule {}

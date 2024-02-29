@@ -4,7 +4,6 @@ import ImageWithUsernamefallback from '../../shared/components/image-fallback-us
 import { useSendRequestToJoinEvent } from '../../shared/hooks/useSingleEvent';
 import { useApp } from '../../shared/store/app.store';
 import associateNumberToString from '../../shared/utils/associate-number-string-scale';
-import capitalize from '../../shared/utils/capitalize';
 import { getEventFormatbyRequiredParticipants } from '../../shared/utils/get-format-event';
 import { formatPrice } from '../../shared/utils/format-price';
 /*eslint-enable*/

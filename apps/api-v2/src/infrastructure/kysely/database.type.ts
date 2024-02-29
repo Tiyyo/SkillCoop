@@ -13,7 +13,6 @@ export type best_striker_poll = {
 };
 export type event = {
   id: Generated<number>;
-  domain_id: string | null;
   date: string;
   duration: number;
   required_participants: number;
@@ -49,7 +48,6 @@ export type mvp_poll = {
   created_at: string;
   updated_at: string | null;
 };
-
 export type notification = {
   id: Generated<number>;
   profile_id: string;
@@ -79,7 +77,6 @@ export type notification_type = {
 };
 export type playground = {
   id: Generated<number>;
-  domain_id: string | null;
   name: string;
   address: string;
   city: string;

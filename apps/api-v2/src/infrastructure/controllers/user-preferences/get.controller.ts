@@ -5,7 +5,7 @@ import { UserPreferencesUsecases } from 'src/application/usecases/user-preferenc
 export class GetUserPreferencesController {
   constructor(
     private readonly userPreferencesUsecases: UserPreferencesUsecases,
-  ) { }
+  ) {}
 
   @Get('/:profileId')
   @HttpCode(200)

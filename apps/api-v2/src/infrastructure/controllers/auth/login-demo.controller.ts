@@ -8,7 +8,7 @@ export class LoginDemoUserController {
   constructor(
     private readonly loginUsecases: LoginUserUsecases,
     private readonly envVarible: NestEnvVariableAdapterService,
-  ) { }
+  ) {}
   @Post('demo')
   @HttpCode(200)
   async login(@Res() res: Response) {

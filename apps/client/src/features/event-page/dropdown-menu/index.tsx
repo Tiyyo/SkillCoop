@@ -15,7 +15,7 @@ import ToggleEventVisibility from './toggle-visibility';
 type DropdownEventMenuProps = {
   eventStatus?: EventStatus | null;
   eventId?: number;
-  profileId?: number;
+  profileId?: string;
   isAdmin?: boolean;
   visibility: 'public' | 'private' | null;
 };

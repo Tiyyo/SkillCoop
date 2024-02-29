@@ -14,13 +14,14 @@ export class EventParticipantConfirmedService {
     private readonly eventStatusEvaluator: EventStatusEvaluator,
     private readonly generationTeamService: GenerateTeamService,
     @Inject('EmitEventService') private eventEmitter: EmitEventInterface,
-  ) { }
+  ) {}
 
   async handle(event: EventCoreEntity & { id: number }, profileId: string) {
     const eventState = await this.eventStatusEvaluator.evaluate(
       event.id,
       event.required_participants,
     );
+
     if (eventState === 'full') {
       return 'Event is already full';
     }

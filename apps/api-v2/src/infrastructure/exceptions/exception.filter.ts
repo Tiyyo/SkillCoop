@@ -1,4 +1,3 @@
-//@ts-nocheck
 import {
   ArgumentsHost,
   Catch,
@@ -7,23 +6,18 @@ import {
   LoggerService,
 } from '@nestjs/common';
 import { HttpAdapterHost } from '@nestjs/core';
-import { NestEnvVariableAdapterService } from '../service/env.adapter.service';
 import { ApplicationException } from 'src/application/exceptions/application.exception';
 import { DomainException } from 'src/domain/shared/domain-exception';
 import { DatabaseException } from '../kysely/database.exception';
-import { Logger } from '@nestjs/common';
 
 @Catch()
 export class AllExceptionFilter implements ExceptionFilter {
   constructor(
     private readonly httpAdapterHost: HttpAdapterHost,
     private readonly logger: LoggerService, // private readonly envVariableService: NestEnvVariableAdapterService,
-  ) { }
+  ) {}
 
   catch(exception: unknown, host: ArgumentsHost) {
-    // console.log('Filter is calledexception', exception);
-    // console.log(this.logger);
-    // this.logger.info('Filter is calledexception', exception);
     const isProduction = process.env.NODE_ENV === 'production';
 
     const { httpAdapter } = this.httpAdapterHost;
@@ -36,9 +30,31 @@ export class AllExceptionFilter implements ExceptionFilter {
       exception instanceof HttpException ||
       exception instanceof DatabaseException;
 
-    isKnownException && isProduction
-      ? this.logger.error(exception.getUserMessage())
-      : this.logger.error(exception.message);
+    if (!isProduction) {
+      this.logger.error('Error handle by filter', exception);
+    }
+
+    if (exception instanceof ApplicationException) {
+      isProduction
+        ? this.logger.error(exception.getUserMessage())
+        : this.logger.error(exception.message);
+    }
+
+    if (exception instanceof DomainException) {
+      isProduction
+        ? this.logger.error(exception.getUserMessage())
+        : this.logger.error(exception.message);
+    }
+
+    if (exception instanceof DatabaseException) {
+      isProduction
+        ? this.logger.error(exception.getUserMessage())
+        : this.logger.error(exception.message);
+    }
+
+    if (exception instanceof HttpException) {
+      this.logger.error(exception.message);
+    }
 
     if (isKnownException) {
       httpStatus = exception.getStatus();
@@ -47,12 +63,38 @@ export class AllExceptionFilter implements ExceptionFilter {
     if (exception instanceof HttpException) {
       httpStatus = exception.getStatus();
     }
+
+    const userMessage = () => {
+      if (exception instanceof ApplicationException) {
+        return exception.getUserMessage();
+      }
+      if (exception instanceof DomainException) {
+        return exception.getUserMessage();
+      }
+      if (exception instanceof DatabaseException) {
+        return exception.getUserMessage();
+      }
+      return 'Internal Server Error';
+    };
+
+    const message = () => {
+      if (exception instanceof ApplicationException) {
+        return exception.getMessage();
+      }
+      if (exception instanceof DomainException) {
+        return exception.getMessage();
+      }
+      if (exception instanceof DatabaseException) {
+        return exception.getMessage();
+      }
+      if (exception instanceof HttpException) {
+        return exception.message;
+      }
+      return 'Internal Server Error';
+    };
     const responseBody = {
       statusCode: httpStatus,
-      error:
-        isKnownException && isProduction
-          ? exception.getUserMessage()
-          : exception.message ?? 'Internal Server Error',
+      error: isKnownException && isProduction ? userMessage() : message(),
       timestamp: new Date().toISOString(),
       path: httpAdapter.getRequestUrl(ctx.getRequest()),
     };

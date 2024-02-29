@@ -7,7 +7,8 @@ import { DB } from 'src/infrastructure/kysely/database.type';
 @Injectable()
 export class NotificationTypeAdapter
   extends CoreAdapter<'notification_type'>
-  implements NotificationTypeRepository {
+  implements NotificationTypeRepository
+{
   constructor(@Inject('dbClient') protected dbClient: Kysely<DB>) {
     super(dbClient);
     this.tableName = 'notification_type';

@@ -5,8 +5,11 @@ import { NotificationPipelineService } from '../notification-pipeline.service';
 export class InvitedEventNotificationService {
   constructor(
     private readonly notificationPipelineService: NotificationPipelineService,
-  ) { }
+  ) {}
   notify(eventId: number, profileIds: string[]) {
+    if (!profileIds || !profileIds.length) {
+      return;
+    }
     profileIds.forEach((profileId) => {
       this.notificationPipelineService.notify({
         type: 'event',

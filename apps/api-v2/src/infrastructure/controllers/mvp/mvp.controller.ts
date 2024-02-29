@@ -4,7 +4,7 @@ import { AwardUseCases } from 'src/application/usecases/award/award.usecases';
 
 @Controller('mvp')
 export class MvpAwardController {
-  constructor(private readonly awardUsecases: AwardUseCases) { }
+  constructor(private readonly awardUsecases: AwardUseCases) {}
   @Post()
   @HttpCode(201)
   async createOne(@Body() body: AwardVoteDTO) {

@@ -6,11 +6,11 @@ import type { EventParticipant, EventStatus } from '@skillcoop/types/src';
 import { useTranslation } from 'react-i18next';
 
 type TeamCompositionProps = {
-  participants?: EventParticipant[] | string | null;
+  participants?: EventParticipant[] | null;
   eventStatus?: EventStatus | null;
-  mvp?: number | null;
-  bestStriker?: number | null;
-  organizer?: number | null;
+  mvp?: string | null;
+  bestStriker?: string | null;
+  organizer?: string | null;
 };
 
 function TeamComposition({

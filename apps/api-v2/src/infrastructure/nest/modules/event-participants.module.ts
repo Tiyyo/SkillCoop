@@ -48,4 +48,4 @@ import { EventEmitterService } from 'src/infrastructure/service/event.emitter.se
     SkillsAdapter,
   ],
 })
-export class EventParticipantsModule { }
+export class EventParticipantsModule {}

@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { OnEvent } from '@nestjs/event-emitter';
+import { UserPreferencesService } from 'src/domain/services/user-prefrerences/user-preferences.service';
 import {
   UserCreatedEventPayload,
   UserDeletedEventPayload,
@@ -10,9 +11,11 @@ import { ProducerUserMessageService } from 'src/infrastructure/publishers/user.p
 export class UserListener {
   constructor(
     private readonly producerUserMessageService: ProducerUserMessageService,
-  ) { }
+    private readonly userPreferencesService: UserPreferencesService,
+  ) {}
   @OnEvent('user.created')
   handleUserCreated(payload: UserCreatedEventPayload) {
+    this.userPreferencesService.generate(payload.profileId);
     this.producerUserMessageService.pushToUserQueue({
       profile_id: payload.profileId,
       username: '',

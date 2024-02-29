@@ -10,7 +10,7 @@ export class EventParticipantDeclinedService {
     private readonly eventParticipantAdapter: EventParticipantAdapter,
     private readonly eventMutationsAdapter: EventMutationsAdapter,
     @Inject('EmitEventService') private eventEmitter: EmitEventInterface,
-  ) { }
+  ) {}
 
   async handle(event: EventCoreEntity & { id: number }, profileId: string) {
     if (event.organizer_id === profileId) {

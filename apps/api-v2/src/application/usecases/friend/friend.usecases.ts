@@ -1,7 +1,6 @@
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { ResponseFriendRequestDTO } from 'src/application/dto/response-friend-request.dto';
 import { SearchFriendsDTO } from 'src/application/dto/search-friends.dto';
-import { ApplicationException } from 'src/application/exceptions/application.exception';
 import { RessourceNotFoundException } from 'src/application/exceptions/ressource-not-found.exception';
 import { EmitEventInterface } from 'src/application/services/event.service';
 import { PendingFriendRequestService } from 'src/domain/services/friend/pending-request.service';
@@ -15,7 +14,7 @@ export class FriendUsecases {
     private readonly sendFriendRequestService: SendFriendRequestService,
     private readonly pendingFriendRequestService: PendingFriendRequestService,
     @Inject('EmitEventService') private eventEmitter: EmitEventInterface,
-  ) { }
+  ) {}
 
   async sendRequst(adderId: string, friendId: string) {
     await this.sendFriendRequestService.execute(adderId, friendId);

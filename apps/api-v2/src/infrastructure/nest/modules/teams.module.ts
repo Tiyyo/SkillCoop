@@ -28,4 +28,4 @@ import { EventEmitterService } from 'src/infrastructure/service/event.emitter.se
     SkillsAdapter,
   ],
 })
-export class TeamsModule { }
+export class TeamsModule {}

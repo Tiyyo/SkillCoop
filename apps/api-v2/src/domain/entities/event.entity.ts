@@ -1,7 +1,6 @@
 import { EventStatus } from '../value-objects/event-status.vo';
 
 export class EventCoreEntity {
-  domain_id: string;
   date: string;
   duration: number;
   required_participants: number;

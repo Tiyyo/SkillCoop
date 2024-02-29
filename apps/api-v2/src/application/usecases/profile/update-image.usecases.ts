@@ -1,6 +1,5 @@
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { ProfileAdapter } from 'src/infrastructure/kysely/adapters/profile.adapter';
-import { ApplicationException } from 'src/application/exceptions/application.exception';
 import { UploadImageService } from 'src/application/services/upload.service';
 import { ImageService } from 'src/domain/services/image/image.service';
 import { EmitEventInterface } from 'src/application/services/event.service';
@@ -14,7 +13,7 @@ export class UpdateImageProfileUsecases {
     private readonly uploadImageService: UploadImageService,
     private readonly imageService: ImageService,
     @Inject('EmitEventService') private eventEmitter: EmitEventInterface,
-  ) { }
+  ) {}
 
   async updateProfileImage(file: any, profileId: string) {
     const WIDTH_AVATAR = 100;

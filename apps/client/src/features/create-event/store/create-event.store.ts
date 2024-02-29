@@ -10,28 +10,30 @@ export type CreateEventStateStore = {
   start_date: string | null;
   start_time: string | null;
   location_id: number | null;
+  location_name: string | null;
   duration: number | null;
   required_participants: number | null;
   organizer_id: number | null;
   visibility: Visibility;
   price: number | null;
   status_name: string | null;
-  participants?: number[] | null;
+  participants?: string[] | null;
 };
 
 type CreateEventStore = {
   event: CreateEventStateStore;
   updateStartDate: (args: string) => void;
   updateStartTime: (args: string) => void;
-  updateLocation: (args: number) => void;
+  updateLocationId: (args: number) => void;
+  updateLocationName: (args: string) => void;
   updateDuration: (args: number) => void;
   updateRequiredParticipants: (args: number) => void;
   updateOrganizerId: (args: number) => void;
   updateStatusName: (args: string) => void;
   updateVisibility: (args: Visibility) => void;
   updatePrice: (args: number) => void;
-  addInvitedParticipantsIds: (args: number) => void;
-  removeInvitedParticipantsIds: (args: number) => void;
+  addInvitedParticipantsIds: (args: string) => void;
+  removeInvitedParticipantsIds: (args: string) => void;
   clearEventState: () => void;
 };
 
@@ -40,6 +42,7 @@ export const useCreateEventStore = create<CreateEventStore>()((set) => ({
     start_date: null,
     start_time: null,
     location_id: null,
+    location_name: null,
     duration: null,
     required_participants: null,
     organizer_id: null,
@@ -58,10 +61,15 @@ export const useCreateEventStore = create<CreateEventStore>()((set) => ({
       ...state,
       event: { ...state.event, start_time: startTime },
     })),
-  updateLocation: (location: number) =>
+  updateLocationId: (location: number) =>
     set((state) => ({
       ...state,
       event: { ...state.event, location_id: location },
+    })),
+  updateLocationName: (locationName: string) =>
+    set((state) => ({
+      ...state,
+      event: { ...state.event, location_name: locationName },
     })),
   updateDuration: (duration: number) =>
     set((state) => ({
@@ -93,7 +101,7 @@ export const useCreateEventStore = create<CreateEventStore>()((set) => ({
       ...state,
       event: { ...state.event, price: price },
     })),
-  addInvitedParticipantsIds: (invitedParticipantsIds: number) =>
+  addInvitedParticipantsIds: (invitedParticipantsIds: string) =>
     set((state) => ({
       ...state,
       event: {
@@ -103,7 +111,7 @@ export const useCreateEventStore = create<CreateEventStore>()((set) => ({
           : [invitedParticipantsIds],
       },
     })),
-  removeInvitedParticipantsIds: (invitedParticipantsIds: number) =>
+  removeInvitedParticipantsIds: (invitedParticipantsIds: string) =>
     set((state) => ({
       ...state,
       event: {
@@ -120,7 +128,9 @@ export const useCreateEventStore = create<CreateEventStore>()((set) => ({
         start_date: null,
         start_time: null,
         location_id: null,
+        location_name: null,
         duration: null,
+        participants: null,
         required_participants: null,
         organizer_id: null,
         status_name: 'open',
@@ -136,7 +146,8 @@ export const useMutateEvent = () => {
     updateStartDate,
     updateStartTime,
     updateDuration,
-    updateLocation,
+    updateLocationId,
+    updateLocationName,
     updateRequiredParticipants,
     addInvitedParticipantsIds,
     removeInvitedParticipantsIds,
@@ -146,6 +157,12 @@ export const useMutateEvent = () => {
     updateVisibility,
     event: data,
   } = useCreateEventStore((state) => state);
+
+  function updateLocation(id: number, name: string) {
+    updateLocationId(id);
+    updateLocationName(name);
+  }
+
   const { t } = useTranslation('toast');
   const { mutate: createEvent, isLoading } = useMutation({
     mutationFn: async (data: CreateEventData) => createEventFn(data),
@@ -161,6 +178,7 @@ export const useMutateEvent = () => {
         month: 'short',
         day: 'numeric',
       }).format(date);
+
       toast.eventSuccess(t('eventSet'), t('atOn', { startTime, startDate }));
       queryClient.invalidateQueries([
         'events',
@@ -177,6 +195,7 @@ export const useMutateEvent = () => {
       clearEventState();
     },
   });
+
   return {
     createEvent,
     updateStartDate,

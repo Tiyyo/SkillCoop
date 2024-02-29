@@ -1,7 +1,6 @@
 import { OwnSkill } from 'packages/schema/src';
 import { api } from './api.fn';
 import type {
-  EvaluationOwnSkill,
   EvaluationParticipantSkill,
   ProfileEval,
   Vote,

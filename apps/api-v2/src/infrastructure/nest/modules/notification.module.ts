@@ -26,4 +26,4 @@ import { JwtAdapterService } from 'src/infrastructure/service/jwt-token.adapter.
     JwtService,
   ],
 })
-export class NotificationModule { }
+export class NotificationModule {}

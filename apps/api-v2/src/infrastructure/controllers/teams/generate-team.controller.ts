@@ -4,7 +4,7 @@ import { TeamsUsecases } from 'src/application/usecases/teams/teams.usecases';
 
 @Controller('event')
 export class GenerateTeamController {
-  constructor(private readonly teamsUsecases: TeamsUsecases) { }
+  constructor(private readonly teamsUsecases: TeamsUsecases) {}
 
   @Post('teams')
   async generateTeams(@Body() body: GenerateTeamsDTO) {

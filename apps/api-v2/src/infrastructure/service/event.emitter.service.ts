@@ -20,7 +20,7 @@ import {
 
 @Injectable()
 export class EventEmitterService implements EmitEventInterface {
-  constructor(private readonly eventEmiiter: EventEmitter2) { }
+  constructor(private readonly eventEmiiter: EventEmitter2) {}
   userCreated(data: UserCreatedEventPayload): void {
     this.eventEmiiter.emit('user.created', data);
   }

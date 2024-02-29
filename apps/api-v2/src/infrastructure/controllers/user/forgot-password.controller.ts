@@ -6,7 +6,7 @@ import { ForgotPasswordUserUsecases } from 'src/application/usecases/user/forgot
 export class ForgotPasswordUserController {
   constructor(
     private readonly forgotPasswordUserUsecases: ForgotPasswordUserUsecases,
-  ) { }
+  ) {}
   @Post('/forgot-password')
   @HttpCode(200)
   async forgotPassword(@Body() body: EmailDTO) {

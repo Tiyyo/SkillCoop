@@ -4,7 +4,7 @@ import { CreateSkillsUsecases } from 'src/application/usecases/skills/create-ski
 
 @Controller('skills')
 export class CreateEvaluationSkillController {
-  constructor(private readonly createSkillsUsecases: CreateSkillsUsecases) { }
+  constructor(private readonly createSkillsUsecases: CreateSkillsUsecases) {}
   @Post('/event')
   @HttpCode(201)
   async create(@Body() body: CreateRatingDTO) {

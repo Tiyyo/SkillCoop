@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 type DeleteEventMenuItemProps = {
   isAdmin: boolean;
   eventId?: number;
-  profileId?: number;
+  profileId?: string;
 };
 
 function DeleteEventMenuItem({

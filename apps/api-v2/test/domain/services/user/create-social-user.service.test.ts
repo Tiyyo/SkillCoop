@@ -2,19 +2,22 @@ import { vi, describe, beforeEach, it, expect } from 'vitest';
 import { CreateSocialUserService } from 'src/domain/services/user/create-social-user.service';
 import { UserAdapter } from 'src/infrastructure/kysely/adapters/user.adapter';
 import { UserFactory } from 'src/domain/factories/user.factory';
-import { Kysely } from 'kysely';
-import { DB } from 'src/infrastructure/kysely/database.type';
+import { Test, TestingModule } from '@nestjs/testing';
 
 describe('CreateSocialUserService', () => {
   let service: CreateSocialUserService;
   let userAdapter: UserAdapter;
   let userFactory: UserFactory;
-  let dbClient: Kysely<DB>;
+  // let dbClient: Kysely<DB>;
 
   beforeEach(async () => {
-    userFactory = new UserFactory();
-    userAdapter = new UserAdapter(dbClient);
-    service = new CreateSocialUserService(userAdapter, userFactory);
+    const module: TestingModule = await Test.createTestingModule({
+      providers: [CreateSocialUserService, UserAdapter, UserFactory],
+    }).compile();
+
+    userAdapter = module.get<UserAdapter>(UserAdapter);
+    userFactory = module.get<UserFactory>(UserFactory);
+    service = module.get<CreateSocialUserService>(CreateSocialUserService);
   });
 
   it('should create a user with a random password and save it', async () => {

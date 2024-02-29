@@ -6,7 +6,7 @@ import { EventParticipantUseCases } from 'src/application/usecases/event-partici
 export class UpdateStatusEventParticipantController {
   constructor(
     private readonly eventParticipantUsecases: EventParticipantUseCases,
-  ) { }
+  ) {}
 
   @Patch()
   @HttpCode(200)

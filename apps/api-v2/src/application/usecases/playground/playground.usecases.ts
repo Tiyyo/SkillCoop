@@ -9,7 +9,7 @@ export class PlaygroundUsecases {
   constructor(
     private readonly playgroundAdapter: PlaygroundAdapter,
     private readonly playgroundFactory: PlaygroundFactory,
-  ) { }
+  ) {}
 
   async createOne(body: Omit<PlaygroundEntity, 'id'>) {
     const newPlayground = this.playgroundFactory.create(body);

@@ -5,7 +5,7 @@ import { NotificationPipelineService } from '../notification-pipeline.service';
 export class FriendRequestNotificationService {
   constructor(
     private readonly notificationPipelineService: NotificationPipelineService,
-  ) { }
+  ) {}
   notify(subscriberId: string, instigatorId: string) {
     return this.notificationPipelineService.notify({
       type: 'friend',

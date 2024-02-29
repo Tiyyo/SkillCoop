@@ -4,7 +4,7 @@ import { PlaygroundUsecases } from 'src/application/usecases/playground/playgrou
 
 @Controller('playground')
 export class CreatePlaygroundController {
-  constructor(private readonly playgroundUsecases: PlaygroundUsecases) { }
+  constructor(private readonly playgroundUsecases: PlaygroundUsecases) {}
 
   @Post()
   @HttpCode(201)

@@ -14,7 +14,7 @@ export class ResetPasswordUserUsecases {
     private readonly passwordService: PasswordHashInterface,
     @Inject('TokenService')
     private readonly tokenService: TokenServiceInterface,
-  ) { }
+  ) {}
   async handle(token: string, password: string) {
     const JwtEmailKey = this.envVariableService.getEnvVariable(
       'JWT_EMAIL_TOKEN_KEY',

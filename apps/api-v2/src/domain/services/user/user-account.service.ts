@@ -3,7 +3,7 @@ import { UserAdapter } from 'src/infrastructure/kysely/adapters/user.adapter';
 
 @Injectable()
 export class UserAccountService {
-  constructor(private readonly userAdapter: UserAdapter) { }
+  constructor(private readonly userAdapter: UserAdapter) {}
   async block(email: string) {
     const { failed_attempts, blocked } =
       await this.userAdapter.updateWithReturn({ email }, { blocked: true });

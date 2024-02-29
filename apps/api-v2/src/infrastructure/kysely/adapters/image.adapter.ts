@@ -7,7 +7,8 @@ import { DB } from '../database.type';
 @Injectable()
 export class ImageAdapter
   extends CoreAdapter<'image'>
-  implements ImageRepository {
+  implements ImageRepository
+{
   constructor(@Inject('dbClient') protected dbClient: Kysely<DB>) {
     super(dbClient);
     this.tableName = 'image';

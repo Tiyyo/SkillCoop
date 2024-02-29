@@ -7,7 +7,7 @@ import type {
 } from '@skillcoop/types/src';
 
 export const getUserPreferencesFn = async (
-  userid: number,
+  userid: string,
 ): Promise<UserPreference> => {
   const response = await api.get(`api/user-preferences/${userid}`);
   return response.data;

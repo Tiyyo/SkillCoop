@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
+import { UserQueuePublisher, queues } from '@skillcoop/types';
 import amqp, { ChannelWrapper } from 'amqp-connection-manager';
 import { Channel } from 'amqplib';
-import { UserQueuePublisher, queues } from '@skillcoop/types';
 
 @Injectable()
 export class ProducerUserMessageService {

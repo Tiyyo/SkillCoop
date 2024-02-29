@@ -4,7 +4,7 @@ import { EventQueriesUsecases } from 'src/application/usecases/event-queries/eve
 
 @Controller('event')
 export class GetOneEventController {
-  constructor(private readonly eventQueriesUsecases: EventQueriesUsecases) { }
+  constructor(private readonly eventQueriesUsecases: EventQueriesUsecases) {}
   @Get('/details/:eventId/:profileId')
   @HttpCode(200)
   async getOneEvent(@Param() params: GetOneEventDTO) {

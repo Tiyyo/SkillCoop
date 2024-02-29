@@ -8,7 +8,8 @@ import { DatabaseException } from '../database.exception';
 @Injectable()
 export class NotificationAdapter
   extends CoreAdapter<'notification'>
-  implements NotificationRepository {
+  implements NotificationRepository
+{
   constructor(@Inject('dbClient') protected dbClient: Kysely<DB>) {
     super(dbClient);
     this.tableName = 'notification';

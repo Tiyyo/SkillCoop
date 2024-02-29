@@ -4,7 +4,7 @@ import { UserAdapter } from 'src/infrastructure/kysely/adapters/user.adapter';
 
 @Injectable()
 export class LoginAttempsCounterService {
-  constructor(private readonly userAdapter: UserAdapter) { }
+  constructor(private readonly userAdapter: UserAdapter) {}
 
   async resetCounter(email: string) {
     await this.userAdapter.updateOne({ email }, { failed_attempts: 0 });

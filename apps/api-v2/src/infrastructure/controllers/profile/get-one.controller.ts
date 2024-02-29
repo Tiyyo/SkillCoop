@@ -3,7 +3,7 @@ import { ProfileUsecases } from 'src/application/usecases/profile/profile.usecas
 
 @Controller('profile')
 export class GetOneProfileController {
-  constructor(private readonly profileUsecases: ProfileUsecases) { }
+  constructor(private readonly profileUsecases: ProfileUsecases) {}
   @Get('/:id')
   async getOne(@Param('id') id: string) {
     console.log('Get One Profile is called', id);

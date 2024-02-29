@@ -1,9 +1,4 @@
-import {
-  Inject,
-  Injectable,
-  NotFoundException,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { UpdatePasswordDTO } from 'src/application/dto/update-password.dto';
 import { RessourceNotFoundException } from 'src/application/exceptions/ressource-not-found.exception';
 import { PasswordHashInterface } from 'src/application/services/hash.service';
@@ -15,7 +10,7 @@ export class UpdatePasswordUserUsecases {
     private readonly userAdapter: UserAdapter,
     @Inject('PasswordService')
     private readonly passwordService: PasswordHashInterface,
-  ) { }
+  ) {}
   async updatePassword(data: UpdatePasswordDTO) {
     const user = await this.userAdapter.findOne({ id: data.user_id });
     if (!user) {

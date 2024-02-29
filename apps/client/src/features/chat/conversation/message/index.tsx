@@ -4,7 +4,7 @@ import { Conversation, Profile, HistoricMessages } from '@skillcoop/types/src';
 
 type ConversationMessagesProps = {
   historicMessages: HistoricMessages;
-  userId: number | null;
+  userId: string | null;
   userProfile: Profile | null;
   conversation: Conversation | undefined | null;
 };

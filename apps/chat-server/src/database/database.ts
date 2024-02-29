@@ -20,14 +20,14 @@ export type convertion_type = {
 };
 export type message = {
   message_id: Generated<number>;
-  user_id: number | null;
+  user_id: string | null;
   conversation_id: number;
   message: string;
   created_at: string;
   updated_at: string | null;
 };
 export type user = {
-  user_id: number;
+  user_id: string;
   username: string;
   avatar: string | null;
   created_at: string;
@@ -35,7 +35,7 @@ export type user = {
 };
 export type user_on_conversation = {
   id: Generated<number>;
-  user_id: number;
+  user_id: string;
   conversation_id: number;
   is_admin: Generated<number>;
   last_seen: string | null;

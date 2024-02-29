@@ -15,4 +15,4 @@ import databaseProvider from 'src/infrastructure/kysely/database.client';
     PlaygroundFactory,
   ],
 })
-export class PlaygroundModule { }
+export class PlaygroundModule {}

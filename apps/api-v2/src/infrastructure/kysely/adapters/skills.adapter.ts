@@ -11,7 +11,8 @@ import { DatabaseException } from '../database.exception';
 
 export class SkillsAdapter
   extends CoreAdapter<'skill_foot'>
-  implements SkillsRepository {
+  implements SkillsRepository
+{
   constructor(@Inject('dbClient') protected dbClient: Kysely<DB>) {
     super(dbClient);
     this.tableName = 'skill_foot';

@@ -10,7 +10,7 @@ export class VerfiyEmailUserUsecases {
     @Inject('TokenService')
     private readonly tokenService: TokenServiceInterface,
     private readonly verifiedUserAccountService: VerifiedUserAccountService,
-  ) { }
+  ) {}
   async handle(userId: string, token: string) {
     const JWTEmailKey = this.envVariableService.getEnvVariable(
       'JWT_EMAIL_TOKEN_KEY',

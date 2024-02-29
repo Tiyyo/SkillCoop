@@ -4,7 +4,7 @@ import { EventQueriesUsecases } from 'src/application/usecases/event-queries/eve
 
 @Controller('event')
 export class GetLastSharedEventController {
-  constructor(private readonly eventQueriesUsecases: EventQueriesUsecases) { }
+  constructor(private readonly eventQueriesUsecases: EventQueriesUsecases) {}
   @Get('/shared/:profileId/:friendId')
   @HttpCode(200)
   async getUpcoming(@Param() param: GetLastSharedDTO) {

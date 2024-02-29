@@ -7,7 +7,6 @@ import { UserAdapter } from 'src/infrastructure/kysely/adapters/user.adapter';
 import { CreateUserDTO } from '../../dto/create-user.dto';
 import { ApplicationException } from '../../exceptions/application.exception';
 import { NestEnvVariableAdapterService } from 'src/infrastructure/service/env.adapter.service';
-import { UserPreferencesService } from 'src/domain/services/user-prefrerences/user-preferences.service';
 import { EmitEventInterface } from 'src/application/services/event.service';
 
 const VALID_TIME = '1h';
@@ -24,9 +23,8 @@ export class RegisterUserUsecases {
     private readonly emailService: EmailServiceInterface,
     @Inject('TokenService')
     private readonly tokenService: TokenServiceInterface,
-    private readonly userPreferencesService: UserPreferencesService,
     @Inject('EmitEventService') private eventEmitter: EmitEventInterface,
-  ) { }
+  ) {}
   async createUser(data: CreateUserDTO) {
     const emailKey = this.envVariableService.getEnvVariable(
       'JWT_EMAIL_TOKEN_KEY',
@@ -46,7 +44,6 @@ export class RegisterUserUsecases {
       email: data.email,
       password: hashedPassword,
     });
-    await this.userPreferencesService.generate(newUser.id);
     const emailToken = await this.tokenService.generateToken(
       VALID_TIME,
       emailKey,

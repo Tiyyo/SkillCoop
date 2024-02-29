@@ -1,5 +1,4 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { ApplicationException } from 'src/application/exceptions/application.exception';
 import { RessourceNotFoundException } from 'src/application/exceptions/ressource-not-found.exception';
 import { EmailServiceInterface } from 'src/application/services/email.service';
 import { TokenServiceInterface } from 'src/application/services/token.service';
@@ -15,7 +14,7 @@ export class SendVerificationEmailUserUsecases {
     private readonly tokenService: TokenServiceInterface,
     @Inject('EmailService')
     private readonly emailService: EmailServiceInterface,
-  ) { }
+  ) {}
   async handle(email: string) {
     const user = await this.userAdapter.findOne({ email });
     if (!user) {

@@ -3,7 +3,6 @@ import { Dispatch, SetStateAction } from 'react';
 import { searchPlaygroundFn } from '../../api/playground';
 import InputGeocode from '../../shared/components/search-select';
 import { useTranslation } from 'react-i18next';
-import useResetError from '../../shared/hooks/useResetError';
 
 type InputLocationProps = {
   updateLocationId?: (value: number) => void;
@@ -14,6 +13,7 @@ type InputLocationProps = {
   label: string;
   disabled?: boolean;
   placeholder?: string;
+  formid?: string;
 };
 
 function InputLocation({
@@ -25,6 +25,7 @@ function InputLocation({
   label,
   disabled,
   placeholder,
+  formid,
 }: InputLocationProps) {
   const { t } = useTranslation('event');
   const getPlaygroundChoose = (value: {
@@ -50,6 +51,7 @@ function InputLocation({
         disabled={disabled}
         defaultValue={defaultValue}
         error={error}
+        formid={formid}
       >
         <MapPin />
       </InputGeocode>

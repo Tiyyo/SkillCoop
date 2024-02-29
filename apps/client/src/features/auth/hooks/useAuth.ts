@@ -39,10 +39,12 @@ function useAuth() {
   const { mutate: mutateLoginFn, error: errorLogin } = useMutation({
     mutationFn: async (credentials: Credentials) => loginUserFn(credentials),
     onSuccess: (response) => {
+      console.log('response', response);
       if (response.error) {
         setLoginError(response.error);
         setLoginAttempts(response.failedAttemps);
         setLoading(false);
+        return;
       }
       // trigger the query to get the user profile data
       setIsAuthenticated(true);

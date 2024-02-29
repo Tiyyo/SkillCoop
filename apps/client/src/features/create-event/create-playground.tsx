@@ -90,7 +90,7 @@ function AddNewPlayground() {
                         (value as string) ?? 'Complete this information'
                       }
                       label={capitalize(key)}
-                      formId="create-playground"
+                      formid="create-playground"
                       high
                     />
                   );
@@ -102,7 +102,7 @@ function AddNewPlayground() {
                       value={value}
                       placeholder="Complete this information"
                       label={capitalize(key)}
-                      formId="create-playground"
+                      formid="create-playground"
                       high
                     />
                   );

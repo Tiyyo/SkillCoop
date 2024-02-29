@@ -9,7 +9,7 @@ import { ApplicationException } from 'src/application/exceptions/application.exc
 export class NodeMaillerAdapterService implements EmailServiceInterface {
   constructor(
     private readonly envVariableService: NestEnvVariableAdapterService,
-  ) { }
+  ) {}
   async send(email: string, subject: string, text: string) {
     try {
       const transporter = nodemailer.createTransport({

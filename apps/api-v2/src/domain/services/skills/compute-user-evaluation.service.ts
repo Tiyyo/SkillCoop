@@ -35,7 +35,7 @@ export class ComputeUserEvaluationService {
     private readonly eventQueriesAdapter: EventQueriesAdapter,
     private readonly skillsAdapter: SkillsAdapter,
     private readonly evaluationService: EvaluationService,
-  ) { }
+  ) {}
 
   async compute(profileId: string) {
     await this.getStats(profileId);

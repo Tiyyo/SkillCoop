@@ -33,7 +33,7 @@ export class EventMutationUsecases {
     private readonly eventParticipantAdapter: EventParticipantAdapter,
     private readonly generateTeamService: GenerateTeamService,
     @Inject('EmitEventService') private eventEmitter: EmitEventInterface,
-  ) { }
+  ) {}
   async createOne(data: CreateEventDTO) {
     const eventData = {
       organizer_id: data.organizer_id,
@@ -86,6 +86,7 @@ export class EventMutationUsecases {
     const dataHasChange = possibleFieldsUpdated.some((field) => {
       return data[field] !== event[field as keyof typeof event];
     });
+    console.log('dataHasChange', dataHasChange);
     if (!dataHasChange)
       return {
         message: 'Nothing to update',

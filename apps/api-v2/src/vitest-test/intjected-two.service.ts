@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class InjectedTwoService {
-  constructor() { }
+  constructor() {}
   bar() {
     return 'bar';
   }

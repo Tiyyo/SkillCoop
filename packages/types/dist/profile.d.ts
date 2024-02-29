@@ -2,7 +2,7 @@ export type Profile = {
     avatar_url: string | null;
     username: string;
     date_of_birth: string | null;
-    profile_id: number;
+    profile_id: string;
     email?: string | null;
     nb_events?: number | null;
     first_name?: string | null;
@@ -14,12 +14,13 @@ export type Profile = {
     nb_mvp_bonus?: number | null;
     nb_attended_events?: number | null;
     relation_exists?: number | null;
+    winning_rate?: number | null;
     last_evaluation: number | null;
 };
 export type SearchProfileQuery = {
     username: string;
     page?: number;
-    userProfileId: number;
+    userProfileId: string;
 };
 export type Bonus = {
     nb_mvp_bonus: number;

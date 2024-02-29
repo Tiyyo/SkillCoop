@@ -9,7 +9,8 @@ import { getFormattedUTCTimestamp } from '@skillcoop/date-handler';
 @Injectable()
 export class FriendAdapter
   extends CoreAdapter<'profile_on_profile'>
-  implements FriendRepository {
+  implements FriendRepository
+{
   constructor(@Inject('dbClient') protected dbClient: Kysely<DB>) {
     super(dbClient);
     this.tableName = 'profile_on_profile';

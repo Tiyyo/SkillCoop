@@ -1,1 +1,1 @@
-export class ThemePreferenceRepository { }
+export class ThemePreferenceRepository {}

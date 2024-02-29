@@ -10,7 +10,7 @@ export class CreateSkillsUsecases {
   constructor(
     private readonly skillsAdapter: SkillsAdapter,
     private readonly skillFactory: SkillsFactory,
-  ) { }
+  ) {}
   async createRating(body: CreateRatingDTO) {
     const isEvalExist = await this.skillsAdapter.findOne({
       rater_id: body.rater_id,

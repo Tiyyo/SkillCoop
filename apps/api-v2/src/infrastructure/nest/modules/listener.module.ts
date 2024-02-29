@@ -15,13 +15,19 @@ import { InvitedEventNotificationService } from 'src/domain/services/notificatio
 import { TeamGeneratedNotificationService } from 'src/domain/services/notification/subtype/team-generated.notification.service';
 import { UpdatedEventInfosNotificationService } from 'src/domain/services/notification/subtype/updated-event-infos.notification.service';
 import { UserTransportNotificationService } from 'src/domain/services/notification/user-transport-notification.service';
+import { LanguagePreferenceService } from 'src/domain/services/user-prefrerences/language-preference.service';
 import { NotificationPreferenceService } from 'src/domain/services/user-prefrerences/notification-preference.service';
+import { ThemePreferenceService } from 'src/domain/services/user-prefrerences/theme-preference.service';
+import { UserPreferencesService } from 'src/domain/services/user-prefrerences/user-preferences.service';
 import { EventParticipantAdapter } from 'src/infrastructure/kysely/adapters/event-participant.adapter';
 import { EventQueriesAdapter } from 'src/infrastructure/kysely/adapters/event.queries.adapter';
+import { LanguagePreferenceAdapter } from 'src/infrastructure/kysely/adapters/language-preference.adapter';
 import { NotificationPreferenceAdapter } from 'src/infrastructure/kysely/adapters/notification-preference.adapter';
 import { NotificationTypeAdapter } from 'src/infrastructure/kysely/adapters/notification-type.adapter';
 import { NotificationAdapter } from 'src/infrastructure/kysely/adapters/notification.adapter';
 import { ProfileAdapter } from 'src/infrastructure/kysely/adapters/profile.adapter';
+import { ThemePreferenceAdapter } from 'src/infrastructure/kysely/adapters/theme-preference.adapter';
+import { UserPreferencesAdapter } from 'src/infrastructure/kysely/adapters/user-preferences.adapter';
 import databaseProvider from 'src/infrastructure/kysely/database.client';
 import { ProducerEventMessageService } from 'src/infrastructure/publishers/event.publisher';
 import { ProducerParticipantMessageService } from 'src/infrastructure/publishers/participant.publisher';
@@ -41,6 +47,9 @@ import { ProducerUserMessageService } from 'src/infrastructure/publishers/user.p
     NotificationAdapter,
     NotificationPreferenceAdapter,
     NotificationTypeAdapter,
+    UserPreferencesAdapter,
+    LanguagePreferenceAdapter,
+    ThemePreferenceAdapter,
     TeamGeneratedNotificationService,
     NotificationDispatchService,
     NotificationPipelineService,
@@ -57,6 +66,9 @@ import { ProducerUserMessageService } from 'src/infrastructure/publishers/user.p
     ProducerEventMessageService,
     ProducerUserMessageService,
     ProducerParticipantMessageService,
+    UserPreferencesService,
+    LanguagePreferenceService,
+    ThemePreferenceService,
   ],
 })
-export class ListenerModule { }
+export class ListenerModule {}

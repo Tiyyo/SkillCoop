@@ -44,4 +44,4 @@ import { EventEmitterService } from 'src/infrastructure/service/event.emitter.se
     BuildProfileService,
   ],
 })
-export class ProfileModule { }
+export class ProfileModule {}

@@ -7,20 +7,24 @@ import { RefreshUserUsecases } from 'src/application/usecases/user/refresh.user.
 import { RegisterUserUsecases } from 'src/application/usecases/user/register.user.usecases';
 import { UserFactory } from 'src/domain/factories/user.factory';
 import { DateProvider } from 'src/domain/services/date.provider.service';
+import { ImageService } from 'src/domain/services/image/image.service';
 import { LanguagePreferenceService } from 'src/domain/services/user-prefrerences/language-preference.service';
 import { NotificationPreferenceService } from 'src/domain/services/user-prefrerences/notification-preference.service';
 import { ThemePreferenceService } from 'src/domain/services/user-prefrerences/theme-preference.service';
 import { UserPreferencesService } from 'src/domain/services/user-prefrerences/user-preferences.service';
+import { CreateSocialUserService } from 'src/domain/services/user/create-social-user.service';
 import { UserLoginAttemptsService } from 'src/domain/services/user/login-attemps.service';
 import { LoginAttempsCounterService } from 'src/domain/services/user/login-attempts-counter.service';
 import { UserAccountService } from 'src/domain/services/user/user-account.service';
 import { UserCredentialsValidatorService } from 'src/domain/services/user/user-credentials-validator.service';
+import { VerifiedUserAccountService } from 'src/domain/services/user/verified-account.service';
 import { GoogleAuthController } from 'src/infrastructure/controllers/auth/google-auth.controller';
 import { LoginDemoUserController } from 'src/infrastructure/controllers/auth/login-demo.controller';
 import { LoginUserController } from 'src/infrastructure/controllers/auth/login.controller';
 import { LogoutUserController } from 'src/infrastructure/controllers/auth/logout.controller';
 import { RefreshUserController } from 'src/infrastructure/controllers/auth/refresh.controller';
 import { RegisterUserController } from 'src/infrastructure/controllers/auth/register.controller';
+import { ImageAdapter } from 'src/infrastructure/kysely/adapters/image.adapter';
 import { LanguagePreferenceAdapter } from 'src/infrastructure/kysely/adapters/language-preference.adapter';
 import { NotificationPreferenceAdapter } from 'src/infrastructure/kysely/adapters/notification-preference.adapter';
 import { NotificationTypeAdapter } from 'src/infrastructure/kysely/adapters/notification-type.adapter';
@@ -61,6 +65,7 @@ import { NodeMaillerAdapterService } from 'src/infrastructure/service/nodemailer
     NotificationTypeAdapter,
     ThemePreferenceAdapter,
     LanguagePreferenceAdapter,
+    ImageAdapter,
     UserCredentialsValidatorService,
     SocialAuthUserStrategyService,
     NestEnvVariableAdapterService,
@@ -71,6 +76,9 @@ import { NodeMaillerAdapterService } from 'src/infrastructure/service/nodemailer
     NotificationPreferenceService,
     LanguagePreferenceService,
     ThemePreferenceService,
+    ImageService,
+    VerifiedUserAccountService,
+    CreateSocialUserService,
     DateProvider,
     { provide: 'TokenService', useClass: JwtAdapterService },
     { provide: 'SocialAuthService', useClass: GoogleOAuthService },
@@ -79,4 +87,4 @@ import { NodeMaillerAdapterService } from 'src/infrastructure/service/nodemailer
     { provide: 'EmitEventService', useClass: EventEmitterService },
   ],
 })
-export class AuthModule { }
+export class AuthModule {}

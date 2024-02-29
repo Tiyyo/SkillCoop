@@ -5,7 +5,7 @@ import { OrganizerEventGuard } from 'src/infrastructure/nest/guards/admin-event.
 
 @Controller('event')
 export class UpdateOrganizerEventController {
-  constructor(private readonly eventMutationUsecases: EventMutationUsecases) { }
+  constructor(private readonly eventMutationUsecases: EventMutationUsecases) {}
   @Patch('/organizer')
   @HttpCode(204)
   @UseGuards(OrganizerEventGuard)

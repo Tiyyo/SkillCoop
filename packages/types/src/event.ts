@@ -26,8 +26,8 @@ export type EventType = {
   required_participants: number;
   nb_teams: number;
   organizer_id: string;
-  mvp_id?: number | null;
-  best_striker_id?: number | null;
+  mvp_id?: string | null;
+  best_striker_id?: string | null;
   status_name: EventStatus;
   score_team_1: number | null;
   score_team_2: number | null;
@@ -64,7 +64,7 @@ export type CreateEventData = {
 export type UpdateEventData = Omit<CreateEventData, 'status_name'> & {
   status_name: EventStatus;
   event_id: number;
-  profile_id: number;
+  profile_id: string;
 };
 
 export type DeleteEventData = {

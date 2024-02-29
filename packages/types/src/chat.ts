@@ -1,5 +1,5 @@
 export type AuthorGroupMessages = {
-  user_id: number;
+  user_id: string;
   username: string;
   avatar: string | null;
   messages: Message[];
@@ -17,21 +17,21 @@ export type Conversation = {
 };
 
 export type ConversationParticipant = {
-  user_id: number;
+  user_id: string;
   username: string;
   avatar: string | null;
   is_admin?: 0 | 1;
 };
 
 export type CreateOneToOneConversation = {
-  user_id_one: number;
-  user_id_two: number;
+  user_id_one: string;
+  user_id_two: string;
 };
 
 export type CreateGroupConversation = {
-  creator_id: number;
+  creator_id: string;
   title?: string;
-  participants_ids: number[];
+  participants_ids: string[];
 }
 
 export type GetConversation = {
@@ -39,22 +39,22 @@ export type GetConversation = {
 };
 
 export type GetConversationList = {
-  user_id: number;
+  user_id: string;
 };
 
 export type DeleteConversation = {
   conversation_id: number;
-  user_id: number;
+  user_id: string;
 }
 
 export type AddParticipantGroupConversation = {
   conversation_id: number;
-  participants_ids: number[];
+  participants_ids: string[];
 }
 
 export type RemoveParticipantGroupConversation = {
   conversation_id: number;
-  participant_id: number;
+  participant_id: string;
 }
 
 export type ResponseCreateConversation = {
@@ -63,7 +63,7 @@ export type ResponseCreateConversation = {
 
 export type UpdateUserOnConversationConditions = {
   conversation_id: number;
-  user_id: number;
+  user_id: string;
 }
 
 export type DateGroupMessages = {
@@ -79,7 +79,7 @@ export type Historic = {
 }
 
 export type LastMessage = {
-  user_id: number;
+  user_id: string;
   content: string;
   created_at: string;
 };
@@ -93,7 +93,7 @@ export type Message = {
 
 export type MessageStore = {
   message_id: number;
-  user_id: number;
+  user_id: string;
   username: string;
   avatar: string | null;
   message: string;
@@ -116,7 +116,7 @@ export type UpdateblePropsUserOnConversation = {
 
 export type CreateMessageStore = {
   content: string;
-  sender: number;
+  sender: string;
   conversation_id: number;
 }
 
@@ -132,7 +132,7 @@ export type DeleteMessage = {
 export type UpdateUserOnConversation = UpdateUserOnConversationConditions & UpdateblePropsUserOnConversation;
 
 export type FriendStoreChat = {
-  userId: number;
+  userId: string;
   username: string;
   avatar: string | null;
 };

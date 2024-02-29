@@ -16,7 +16,7 @@ describe('Service', () => {
     expect(result).toBeDefined();
     expect(result.getStr()).toBe('mock foo bar');
   });
-  it.skip('should work with testing module', async () => {
+  it('should work with testing module', async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [RandomService, InjectedOneService, InjectedTwoService],
     }).compile();

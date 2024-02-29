@@ -9,7 +9,7 @@ const convertFilterIntoMatchingTypeName = {
   personal: 'oneToOne',
 };
 
-export default function useFiltersConversations(userId?: number | null) {
+export default function useFiltersConversations(userId?: string | null) {
   const { data: fetchConversations } = useGetConversationsList({
     userId: userId,
   });
@@ -28,7 +28,7 @@ export default function useFiltersConversations(userId?: number | null) {
     return (
       type ===
       convertFilterIntoMatchingTypeName[
-        filter as keyof typeof convertFilterIntoMatchingTypeName
+      filter as keyof typeof convertFilterIntoMatchingTypeName
       ]
     );
   };

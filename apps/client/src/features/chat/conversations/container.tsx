@@ -13,7 +13,7 @@ type ConversationCardsContainerProps = {
   >;
   currentConversationFilter: 'all' | 'event' | 'group' | 'personal';
   conversations: Conversation[] | undefined;
-  userId: number | null | undefined;
+  userId: string | null | undefined;
 };
 
 function ConversationCardsContainer({

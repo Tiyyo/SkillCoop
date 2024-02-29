@@ -4,15 +4,13 @@ import { Kysely } from 'kysely';
 import { DB } from '../database.type';
 import { NotificationPreferenceRepository } from 'src/domain/repositories/notification-preference.repository';
 import { DatabaseException } from '../database.exception';
-import {
-  transformNumberToBoolean,
-  transformNumberToBooleanInObject,
-} from 'src/infrastructure/utils/bool-to-int';
+import { transformNumberToBooleanInObject } from 'src/infrastructure/utils/bool-to-int';
 
 @Injectable()
 export class NotificationPreferenceAdapter
   extends CoreAdapter<'notification_preference'>
-  implements NotificationPreferenceRepository {
+  implements NotificationPreferenceRepository
+{
   constructor(@Inject('dbClient') protected dbClient: Kysely<DB>) {
     super(dbClient);
     this.tableName = 'notification_preference';

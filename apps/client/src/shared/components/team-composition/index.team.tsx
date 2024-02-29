@@ -4,14 +4,14 @@ import Participant from '../participant';
 import TitleH2 from '../title-h2';
 
 type TeamProps = {
-  participants?: EventParticipant[] | string | null;
+  participants?: EventParticipant[] | null;
   currentIdActive?: string;
   title?: string;
   teamTofileter?: number;
   nameInput?: string;
-  mvp?: number | null;
-  bestStriker?: number | null;
-  organizer?: number;
+  mvp?: string | null;
+  bestStriker?: string | null;
+  organizer?: string;
   eventStatus?: EventStatus | null;
 };
 

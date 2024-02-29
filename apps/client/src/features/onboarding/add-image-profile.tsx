@@ -10,7 +10,6 @@ function OnBoardinAddImageProfile() {
   const { t } = useTranslation('system');
   const { profileId } = useParams();
   const { setInputValue, avatar } = useOnboarding();
-  const id = Number(profileId);
   const navigate = useNavigate();
 
   const getAvatarLink = (value: string) => {
@@ -33,7 +32,7 @@ function OnBoardinAddImageProfile() {
         <div className="flex-grow">
           <AvatarEdit
             avatar={avatar}
-            profileId={id}
+            profileId={profileId}
             updateState={getAvatarLink}
           />
         </div>
@@ -42,12 +41,12 @@ function OnBoardinAddImageProfile() {
             onClick={() => navigate(-1)}
             className="my-auto w-1/2 rounded-md 
             border border-primary-700 bg-base-light bg-opacity-75 py-2 
-            text-center text-lg text-dark shadow-md"
+            text-center text-lg text-primary-1100 shadow-md"
           >
             {t('back')}
           </button>
           <Link
-            to={`/onboarding/${id}/evaluation`}
+            to={`/onboarding/${profileId}/evaluation`}
             className={cn(
               `my-auto w-1/2 rounded-md bg-primary-700
             py-2 text-center text-lg text-white shadow-md`,

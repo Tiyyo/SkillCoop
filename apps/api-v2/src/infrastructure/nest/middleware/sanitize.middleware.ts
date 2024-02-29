@@ -4,7 +4,7 @@ import { SanitizeService } from 'src/infrastructure/service/sanitize.service';
 
 @Injectable()
 export class SanitizeMiddleware implements NestMiddleware {
-  constructor() { }
+  constructor() {}
   async use(req: Request, _res: Response, next: NextFunction) {
     req.body = SanitizeService.deepObject(req.body);
     req.query = SanitizeService.object(req.query);

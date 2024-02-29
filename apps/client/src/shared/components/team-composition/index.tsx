@@ -8,7 +8,7 @@ import { useApp } from '../../../shared/store/app.store';
 import { useTranslation } from 'react-i18next';
 
 type TeamCompositionProps = {
-  participants: EventParticipant[] | string;
+  participants: EventParticipant[];
   eventId: number;
   profileId: number;
   nameInput?: string;

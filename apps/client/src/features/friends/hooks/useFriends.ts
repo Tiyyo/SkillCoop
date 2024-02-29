@@ -50,7 +50,7 @@ export function useSearchInFriendlist(options: {
   );
 }
 
-export function useGetPendingFriendsRequest(options: { profileId?: number }) {
+export function useGetPendingFriendsRequest(options: { profileId?: string }) {
   return useQuery(
     keys.getPendingFriends,
     async () => {

@@ -21,8 +21,6 @@ export const loginAsDemo = async () => {
   api.defaults.headers.common[
     'Authorization'
   ] = `Bearer ${response.data.accessToken}`;
-  console.log('Login as demo:', response.data.accessToken);
-  console.log('Login as demo:', api.defaults.headers);
   return response.data;
 };
 

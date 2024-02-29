@@ -8,7 +8,8 @@ import { DatabaseException } from '../database.exception';
 @Injectable()
 export class PlaygroundAdapter
   extends CoreAdapter<'playground'>
-  implements PlagroundRepository {
+  implements PlagroundRepository
+{
   constructor(@Inject('dbClient') protected dbClient: Kysely<DB>) {
     super(dbClient);
     this.tableName = 'playground';

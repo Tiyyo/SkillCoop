@@ -12,7 +12,7 @@ export class UserLoginAttemptsService {
     private readonly dateProvider: DateProvider,
     private readonly userAccount: UserAccountService,
     private readonly loginAttemptsCounter: LoginAttempsCounterService,
-  ) { }
+  ) {}
 
   private resetAttemptEligibilityCheck(user: UserDBEntity): boolean {
     if (!user.updated_at) return false;

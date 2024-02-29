@@ -8,7 +8,7 @@ export class GetProfileEventSkillsUsecases {
   constructor(
     private readonly skillsAdapter: SkillsAdapter,
     private readonly evaluationService: EvaluationService,
-  ) { }
+  ) {}
   async getProfileEvaluationByEvent(query: GetEvalByEventDTO) {
     const skill = await this.skillsAdapter.findOne({
       rater_id: query.rater_id,

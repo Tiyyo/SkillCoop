@@ -19,4 +19,4 @@ import databaseProvider from 'src/infrastructure/kysely/database.client';
     MvpAdapter,
   ],
 })
-export class AwardModule { }
+export class AwardModule {}

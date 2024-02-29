@@ -7,7 +7,8 @@ import { DB } from 'src/infrastructure/kysely/database.type';
 @Injectable()
 export class LanguagePreferenceAdapter
   extends CoreAdapter<'language_preference'>
-  implements LanguagePreferenceRepository {
+  implements LanguagePreferenceRepository
+{
   constructor(@Inject('dbClient') protected dbClient: Kysely<DB>) {
     super(dbClient);
     this.tableName = 'language_preference';

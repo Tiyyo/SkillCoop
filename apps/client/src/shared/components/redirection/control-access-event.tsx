@@ -22,11 +22,10 @@ function ControlAccesEventPage({ children }: { children: React.ReactNode }) {
   function getIdsParticipants(event: EventType | undefined) {
     if (!event) return null;
     if (typeof event.participants === 'string') return null;
-    console.log('event control acccess', event);
     return event?.participants.map((p: EventParticipant) => p.profile_id);
   }
 
-  function profileIdIsInIdsParticipants(idsParticipants: number[]) {
+  function profileIdIsInIdsParticipants(idsParticipants: string[]) {
     if (!profileId) return false;
     return idsParticipants?.includes(profileId);
   }

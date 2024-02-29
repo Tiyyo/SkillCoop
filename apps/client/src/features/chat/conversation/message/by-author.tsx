@@ -9,10 +9,10 @@ import { Message } from 'packages/types/src';
 
 type GroupAuthorMessageProps = {
   messages: Message[];
-  userId: number;
+  userId: string;
   username: string;
   avatar: string | null;
-  currentUserId: number | null;
+  currentUserId: string | null;
 };
 
 function GroupAuthorMessage({

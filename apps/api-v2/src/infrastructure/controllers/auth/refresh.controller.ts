@@ -4,7 +4,7 @@ import { RefreshUserUsecases } from 'src/application/usecases/user/refresh.user.
 
 @Controller('auth')
 export class RefreshUserController {
-  constructor(private readonly refreshUsecases: RefreshUserUsecases) { }
+  constructor(private readonly refreshUsecases: RefreshUserUsecases) {}
   @Get('refresh')
   @HttpCode(200)
   async refresh(@Req() req: Request) {

@@ -9,7 +9,7 @@ import {
 export class TeamEvaluationComputeService {
   constructor(
     private readonly computeUserEvaluationService: ComputeUserEvaluationService,
-  ) { }
+  ) {}
   async compute(ids: string[]) {
     const participantEvals = await this.getUsersEvals(ids);
     const evals = await this.ensureAllParticipantsGotEvaluated(

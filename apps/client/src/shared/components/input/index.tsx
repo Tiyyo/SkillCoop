@@ -12,7 +12,7 @@ interface InputProps extends ComponentPropsWithoutRef<'input'> {
   className?: string;
   high?: boolean;
   activeStep?: boolean;
-  formId?: string;
+  formid?: string;
 }
 
 function Input({
@@ -27,7 +27,7 @@ function Input({
   className,
   activeStep,
   high,
-  formId,
+  formid,
   ...props
 }: InputProps) {
   const { hasError, setHasError } = useResetError(error);
@@ -55,7 +55,7 @@ function Input({
         </label>
         <input
           name={name}
-          form={formId}
+          form={formid}
           placeholder={placeholder}
           id={name}
           onChange={handleChange}

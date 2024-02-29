@@ -14,7 +14,7 @@ export class ResetPasswordGuard implements CanActivate {
     @Inject('TokenService')
     private readonly tokenService: TokenServiceInterface,
     private readonly envVariableService: NestEnvVariableAdapterService,
-  ) { }
+  ) {}
   async canActivate(context: ExecutionContext) {
     const request = context.switchToHttp().getRequest();
     const response = context.switchToHttp().getResponse();

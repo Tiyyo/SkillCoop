@@ -4,7 +4,7 @@ import { SkillService } from '../services/skills/skill.service';
 
 @Injectable()
 export class SkillsFactory {
-  constructor(private readonly skillService: SkillService) { }
+  constructor(private readonly skillService: SkillService) {}
   public create(data) {
     return new SkillEntity({
       pace:

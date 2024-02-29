@@ -12,7 +12,7 @@ export class FriendListener {
   constructor(
     private readonly addedFriendService: AddedFriendNotificationService,
     private readonly friendRequestService: FriendRequestNotificationService,
-  ) { }
+  ) {}
   @OnEvent('friend.request.sent')
   handleFriendRequestSent(data: FriendRequestSentEventPayload) {
     this.friendRequestService.notify(data.profileId, data.instigatorId);

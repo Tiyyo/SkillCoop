@@ -3,7 +3,7 @@ import { ResetPasswordGuard } from 'src/infrastructure/nest/guards/reset-passwor
 
 @Controller('user')
 export class VerifyResetTokenhUserController {
-  constructor() { }
+  constructor() {}
   @Get('reset-password')
   @UseGuards(ResetPasswordGuard)
   @HttpCode(200)

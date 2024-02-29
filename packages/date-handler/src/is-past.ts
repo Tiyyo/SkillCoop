@@ -6,7 +6,8 @@ import { getDateAndTimeUTC } from "./utc";
  * @returns boolean
     Check if date and time are not passed in UTC timezone
  */
-export function isPastDate(dateToCompare: string): boolean {
+export function isPastDate(dateToCompare: string | null): boolean {
+  if (!dateToCompare) return true;
   const { date: todayDate, time: todayTime } = getDateAndTimeUTC(new Date());
   const { date: dateToCompareDate, time: dateToCompareTime } =
     getDateAndTimeUTC(new Date(dateToCompare));

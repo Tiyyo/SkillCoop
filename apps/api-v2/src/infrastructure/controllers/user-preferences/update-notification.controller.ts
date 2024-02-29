@@ -7,7 +7,7 @@ import { UserPreferencesUsecases } from 'src/application/usecases/user-preferenc
 export class UpdateNotificationUserPreferencesController {
   constructor(
     private readonly userPreferencesUsecases: UserPreferencesUsecases,
-  ) { }
+  ) {}
   @Patch('/notification')
   @HttpCode(200)
   async updateLanguage(@Body() body: UpdateNotificationUserPreferencesDTO) {

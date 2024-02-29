@@ -8,7 +8,7 @@ export class BuildConfigTeamService {
   constructor(
     private readonly eventParticipantAdapter: EventParticipantAdapter,
     private readonly teamEvaluationComputeService: TeamEvaluationComputeService,
-  ) { }
+  ) {}
   async getConfig(eventId: number) {
     const eventData = await this.fetchData(eventId);
     const ids = await this.extractIds(eventData);

@@ -30,4 +30,4 @@ import { EventEmitterService } from 'src/infrastructure/service/event.emitter.se
     { provide: 'EmitEventService', useClass: EventEmitterService },
   ],
 })
-export class FriendModule { }
+export class FriendModule {}

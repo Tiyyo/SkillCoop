@@ -4,7 +4,7 @@ import { AwardUseCases } from 'src/application/usecases/award/award.usecases';
 
 @Controller('best-striker')
 export class BestStrikerAwardController {
-  constructor(private readonly awardUsecases: AwardUseCases) { }
+  constructor(private readonly awardUsecases: AwardUseCases) {}
   @Post()
   @HttpCode(201)
   async createOne(@Body() body: AwardVoteDTO) {

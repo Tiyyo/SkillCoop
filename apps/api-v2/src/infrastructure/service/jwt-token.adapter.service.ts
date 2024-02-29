@@ -9,7 +9,7 @@ export class JwtAdapterService implements TokenServiceInterface {
   constructor(
     private readonly jwtService: JwtService,
     private readonly nestEnvVariableService: NestEnvVariableAdapterService,
-  ) { }
+  ) {}
   async generateToken(
     expireTime: string,
     key: string,
@@ -22,7 +22,6 @@ export class JwtAdapterService implements TokenServiceInterface {
       });
       return token;
     } catch (error) {
-      console.log(error);
       throw new TokenServiceException(
         'Could not generate token',
         'JWT Adapter',
@@ -37,7 +36,6 @@ export class JwtAdapterService implements TokenServiceInterface {
       const decoded = await this.jwtService.verify(token, { secret: key });
       return decoded;
     } catch (error) {
-      console.log(error.message);
       throw new TokenServiceException('Invalid token', 'JWT Adapter');
     }
   }

@@ -1,4 +1,4 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { SendInvitationEventDTO } from 'src/application/dto/send-invitation-event.dto';
 import { SendRequestEventDTO } from 'src/application/dto/send-request-event.dto';
 import { UpdateParticipantStatusDTO } from 'src/application/dto/update-status.dto';
@@ -17,7 +17,7 @@ export class EventParticipantUseCases {
     private readonly eventQueriesAdapter: EventQueriesAdapter,
     private readonly participantStatusManager: EventParticipantStatusManagerService,
     @Inject('EmitEventService') private eventEmitter: EmitEventInterface,
-  ) { }
+  ) {}
   async updateStatus(data: UpdateParticipantStatusDTO) {
     const event = await this.eventQueriesAdapter.findOne({
       id: data.event_id,

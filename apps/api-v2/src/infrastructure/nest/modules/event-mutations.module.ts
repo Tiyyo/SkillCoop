@@ -46,4 +46,4 @@ import { EventEmitterService } from 'src/infrastructure/service/event.emitter.se
     ScoreAdapter,
   ],
 })
-export class EventMutationsModule { }
+export class EventMutationsModule {}

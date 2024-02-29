@@ -1,9 +1,9 @@
-import { Controller, Get, HttpCode, Param, Query } from '@nestjs/common';
+import { Controller, Get, HttpCode, Query } from '@nestjs/common';
 import { PlaygroundUsecases } from 'src/application/usecases/playground/playground.usecases';
 
 @Controller('playground')
 export class SearchPlaygroundController {
-  constructor(private readonly playgroundUsecases: PlaygroundUsecases) { }
+  constructor(private readonly playgroundUsecases: PlaygroundUsecases) {}
 
   @Get()
   @HttpCode(200)

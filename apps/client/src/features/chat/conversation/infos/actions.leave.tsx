@@ -13,7 +13,7 @@ import { useRemoveFromConversationGroup } from '../../hooks/useConversations';
 
 type InfosActionsLeaveGroupProps = {
   conversationId: number;
-  currentUserId: number | null;
+  currentUserId: string | null;
 };
 
 function InfosActionsLeaveGroup({

@@ -4,7 +4,7 @@ import { ProfileUsecases } from 'src/application/usecases/profile/profile.usecas
 
 @Controller('profile')
 export class CreateOneProfileController {
-  constructor(private readonly profileUsecases: ProfileUsecases) { }
+  constructor(private readonly profileUsecases: ProfileUsecases) {}
   @Post()
   async createOne(@Body() body: CreateProfileDTO) {
     const profile = await this.profileUsecases.createOne(body);

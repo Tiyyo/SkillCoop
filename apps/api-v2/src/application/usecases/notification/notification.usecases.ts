@@ -7,7 +7,7 @@ export class NotificationUsecases {
   constructor(
     private readonly notificationAdapter: NotificationAdapter,
     private readonly notificationManager: NotificationReadManagerService,
-  ) { }
+  ) {}
   async getLast(profileId: string) {
     return await this.notificationAdapter.getLast(profileId);
   }

@@ -6,4 +6,4 @@ import { InjectedTwoService } from './intjected-two.service';
 @Module({
   providers: [RandomService, InjectedOneService, InjectedTwoService],
 })
-export class VitestModule { }
+export class VitestModule {}

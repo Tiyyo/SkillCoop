@@ -41,5 +41,7 @@
   "findEvents": "Trouver des événements",
   "findEventsLegend": "Trouvez des événements correspondant à vos compétences et intérêts dans votre région.",
   "createProfile": "Créez votre profil",
-  "createProfileLegend": "C'est votre première connexion, et nous avons besoin de quelques informations supplémentaires. Commençons par créer votre profil."
+  "createProfileLegend": "C'est votre première connexion, et nous avons besoin de quelques informations supplémentaires. Commençons par créer votre profil.",
+  "addAProfilePicture": "Ajouter une photo de profil",
+  "addAProfilePictureLegend": "Voulez-vous ajouter une photo de profil ? Ce n'est pas obligatoire"
 }

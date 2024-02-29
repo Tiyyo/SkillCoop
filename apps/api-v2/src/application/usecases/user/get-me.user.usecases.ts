@@ -3,7 +3,7 @@ import { BuildProfileService } from 'src/domain/services/profile/find-profile.se
 
 @Injectable()
 export class GetMeUserUsecases {
-  constructor(private readonly buildProfileService: BuildProfileService) { }
+  constructor(private readonly buildProfileService: BuildProfileService) {}
   public async getProfile(profileId: string) {
     return await this.buildProfileService.build(profileId);
   }

@@ -7,10 +7,13 @@ import { DatabaseException } from '../database.exception';
 import { EventAggr } from 'src/domain/entities/event.entity';
 import { jsonArrayFrom } from 'kysely/helpers/sqlite';
 
+//TODO : Rewrite raw query with kysely api to have a better type safety
+
 @Injectable()
 export class EventQueriesAdapter
   extends CoreAdapter<'event'>
-  implements EventQueriesRepository {
+  implements EventQueriesRepository
+{
   constructor(@Inject('dbClient') protected dbClient: Kysely<DB>) {
     super(dbClient);
     this.tableName = 'event';
@@ -46,7 +49,6 @@ export class EventQueriesAdapter
         .selectFrom('event')
         .select([
           'event.id as event_id',
-          'event.domain_id',
           'event.date',
           'event.duration',
           'event.location_id',
@@ -167,17 +169,7 @@ AND EXISTS(
 GROUP BY event.id
 ORDER BY date DESC
       `.execute(this.client);
-
-      const parsedResult = result.rows.map((event: EventAggr) => {
-        return {
-          ...event,
-          participants:
-            typeof event.participants === 'string' &&
-            JSON.parse(event.participants),
-        };
-      });
-
-      return parsedResult as EventAggr[];
+      return result.rows as EventAggr[];
     } catch (error) {
       if (error instanceof Error) {
         throw new DatabaseException(error);
@@ -234,16 +226,10 @@ FROM event
 WHERE event.organizer_id = ${profileId}
       `.execute(this.client);
 
-      const parsedResult: EventAggr[] = result.rows.map((event: EventAggr) => {
-        return {
-          ...event,
-          participants:
-            typeof event.participants === 'string' &&
-            JSON.parse(event.participants),
-        };
-      });
-
-      return { events: parsedResult, count: count.rows[0].total_event };
+      return {
+        events: result.rows as EventAggr[],
+        count: count.rows[0].total_event,
+      };
     } catch (error) {
       if (error instanceof Error) {
         throw new DatabaseException(error);
@@ -323,15 +309,10 @@ AND EXISTS(
 AND event.date < date('now')
       `.execute(this.client);
 
-      const parsedResult = result.rows.map((event: EventAggr) => {
-        return {
-          ...event,
-          participants:
-            typeof event.participants === 'string' &&
-            JSON.parse(event.participants),
-        };
-      });
-      return { events: parsedResult, count: count.rows[0].total_event };
+      return {
+        events: result.rows as EventAggr[],
+        count: count.rows[0].total_event,
+      };
     } catch (error) {
       if (error instanceof Error) {
         throw new DatabaseException(error);
@@ -426,30 +407,32 @@ AND event.date > datetime('now')
       }
     }
   }
-  async getEventNotificationSubscribers(eventId: number) {
-    try {
-      const result = await sql<{ profile_ids: string }>`
-SELECT
-  (json_group_array(participant.profile_id)) AS profile_ids
-FROM event
-INNER JOIN profile_on_event AS participant ON event.id = participant.event_id
-INNER JOIN profile ON participant.profile_id = profile.profile_id
-WHERE participant.event_id = ${eventId}
-AND profile.profile_id <> event.organizer_id
-AND (participant.status_name = 'confirmed' 
-OR (profile.active_notification = 1 AND participant.status_name = 'pending'))
-GROUP BY participant.event_id`.execute(this.client);
-      const parsedJson: number[] =
-        result.rows.length > 0
-          ? JSON.parse(result.rows[0].profile_ids)
-          : undefined;
-      return parsedJson;
-    } catch (error) {
-      if (error instanceof Error) {
-        throw new DatabaseException(error);
-      }
-    }
-  }
+  // Not needed anymore
+  //   async getEventNotificationSubscribers(eventId: number) {
+  //     try {
+  //       const result = await sql<{ profile_ids: string }>`
+  // SELECT
+  //   (json_group_array(participant.profile_id)) AS profile_ids
+  // FROM event
+  // INNER JOIN profile_on_event AS participant ON event.id = participant.event_id
+  // INNER JOIN profile ON participant.profile_id = profile.profile_id
+  // WHERE participant.event_id = ${eventId}
+  // AND profile.profile_id <> event.organizer_id
+  // AND (participant.status_name = 'confirmed'
+  // OR (profile.active_notification = 1 AND participant.status_name = 'pending'))
+  // GROUP BY participant.event_id`.execute(this.client);
+
+  //       const parsedJson: number[] =
+  //         result.rows.length > 0
+  //           ? JSON.parse(result.rows[0].profile_ids)
+  //           : undefined;
+  //       return result.rows as number[];
+  //     } catch (error) {
+  //       if (error instanceof Error) {
+  //         throw new DatabaseException(error);
+  //       }
+  //     }
+  //   }
   async getLastSharedEvent(profileId: string, friendId: string) {
     try {
       const result = await this.dbClient

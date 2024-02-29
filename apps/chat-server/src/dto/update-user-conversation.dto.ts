@@ -8,7 +8,7 @@ export class UpdateUserOnConversationDto {
   @IsNotEmpty()
   @IsNumber()
   @IsPositive()
-  user_id: number;
+  user_id: string;
   @IsOptional()
   @IsDateString()
   last_seen?: string;

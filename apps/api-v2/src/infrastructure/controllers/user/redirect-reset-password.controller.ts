@@ -9,7 +9,7 @@ export class RedirectToResetPasswordUserController {
   constructor(
     private readonly envVarible: NestEnvVariableAdapterService,
     private readonly verifyResetToken: VerifyResetTokenUserIdUserUsecases,
-  ) { }
+  ) {}
   @Get(':userId/reset-password/:token')
   @HttpCode(204)
   async redirectToReset(@Param() params: TokenUserIdDTO, @Res() res: Response) {

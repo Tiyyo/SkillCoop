@@ -16,7 +16,8 @@ import {
 @Injectable()
 export class EventParticipantAdapter
   extends CoreAdapter<'profile_on_event'>
-  implements EventParticipantRepository {
+  implements EventParticipantRepository
+{
   constructor(@Inject('dbClient') protected dbClient: Kysely<DB>) {
     super(dbClient);
     this.tableName = 'profile_on_event';
@@ -75,8 +76,7 @@ export class EventParticipantAdapter
       });
 
       const result = await promise.execute();
-      if (!result || result.length === 0)
-        throw new NotFoundException('Not found');
+
       return result;
     } catch (error) {
       if (error instanceof Error) {
@@ -185,7 +185,7 @@ export class EventParticipantAdapter
             .as('ids_participants'),
         ])
         // .leftJoin('event', 'profile_on_event.event_id', 'event.id')
-        .where('profile_on_event.event_id', '=', 21)
+        .where('profile_on_event.event_id', '=', eventId)
         .where((eb) =>
           eb.or([
             eb('profile_on_event.status_name', '=', 'confirmed'),

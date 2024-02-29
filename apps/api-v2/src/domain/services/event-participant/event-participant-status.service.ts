@@ -13,7 +13,7 @@ export class EventParticipantStatusManagerService {
     private readonly declinedParticipantService: EventParticipantDeclinedService,
     private readonly pendingParticipantService: EventParticipantPendingService,
     private readonly eventParticipantService: EventParticipantService,
-  ) { }
+  ) {}
   async handle(
     event: EventCoreEntity & { id: number },
     profileId: string,

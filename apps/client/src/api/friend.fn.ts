@@ -11,7 +11,7 @@ export const getFriendsFn = async (profileId: string): Promise<Friend[]> => {
 };
 
 export const getPendingFriendsFn = async (
-  profileId: number,
+  profileId: string,
 ): Promise<Friend[]> => {
   const response = await api.get(`api/friends/pending/${profileId}`);
   return response.data;

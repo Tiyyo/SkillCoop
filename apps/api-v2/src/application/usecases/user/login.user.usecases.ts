@@ -16,7 +16,7 @@ export class LoginUserUsecases {
     private readonly emailService: EmailServiceInterface,
     private readonly envVariableService: NestEnvVariableAdapterService,
     private readonly userCredentialsValidatorService: UserCredentialsValidatorService,
-  ) { }
+  ) {}
   async handle(email: string, password: string) {
     const loginTrack: LoginAttemptReturn = {
       success: false,
@@ -61,8 +61,9 @@ export class LoginUserUsecases {
     }
     if (track !== 'success') {
       loginTrack.failedAttempts = track?.failed_attempts;
-      loginTrack.error = `You have only ${5 - loginTrack.failedAttempts
-        } attempt number left before you account is blocked. `;
+      loginTrack.error = `You have only ${
+        5 - loginTrack.failedAttempts
+      } attempt number left before you account is blocked. `;
       return loginTrack;
     }
     const { accessToken, refreshToken } =

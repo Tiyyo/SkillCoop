@@ -7,7 +7,8 @@ import { DB } from 'src/infrastructure/kysely/database.type';
 @Injectable()
 export class MvpAdapter
   extends CoreAdapter<'mvp_poll'>
-  implements MvpRepository {
+  implements MvpRepository
+{
   constructor(@Inject('dbClient') protected dbClient: Kysely<DB>) {
     super(dbClient);
     this.tableName = 'mvp_poll';

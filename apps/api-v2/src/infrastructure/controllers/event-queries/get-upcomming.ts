@@ -4,7 +4,7 @@ import { EventQueriesUsecases } from 'src/application/usecases/event-queries/eve
 
 @Controller('event')
 export class GetUpcomingEventController {
-  constructor(private readonly eventQueriesUsecases: EventQueriesUsecases) { }
+  constructor(private readonly eventQueriesUsecases: EventQueriesUsecases) {}
   @Get('/upcoming')
   @HttpCode(200)
   async getUpcoming(@Query() query: GetPaginatedEventDTO) {

@@ -10,7 +10,7 @@ export class SubscriptionEventController {
   constructor(
     private readonly envVariableService: NestEnvVariableAdapterService,
     private readonly eventEmitter: EventEmitter2,
-  ) { }
+  ) {}
   @UseGuards(SSEGuard)
   @Sse()
   sse(@Req() req: Request): Observable<unknown> {

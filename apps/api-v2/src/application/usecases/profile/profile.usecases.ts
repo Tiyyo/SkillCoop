@@ -2,10 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { ProfileAdapter } from 'src/infrastructure/kysely/adapters/profile.adapter';
 import { CreateProfileDTO } from '../../dto/create-profile.dto';
 import { UpdateProfileDTO } from '../../dto/update-profile.dto';
-import {
-  SearchProfileDTO,
-  SearchProfileParams,
-} from '../../dto/search-profile.dto';
+import { SearchProfileDTO } from '../../dto/search-profile.dto';
 import { BuildProfileService } from 'src/domain/services/profile/find-profile.service';
 import { EmitEventInterface } from 'src/application/services/event.service';
 
@@ -15,7 +12,7 @@ export class ProfileUsecases {
     private profileAdapter: ProfileAdapter,
     private readonly buildProfileService: BuildProfileService,
     @Inject('EmitEventService') private eventEmitter: EmitEventInterface,
-  ) { }
+  ) {}
   async createOne(data: CreateProfileDTO) {
     const createProfileId = this.profileAdapter.createOne(data);
     return createProfileId;

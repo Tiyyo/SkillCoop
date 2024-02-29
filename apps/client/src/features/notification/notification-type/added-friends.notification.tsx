@@ -1,4 +1,4 @@
-import type { Notification } from '@skillcoop/types';
+import type { Notification } from '@skillcoop/types/src';
 import CoreNotification from '../wrapper';
 import { useTranslation } from 'react-i18next';
 

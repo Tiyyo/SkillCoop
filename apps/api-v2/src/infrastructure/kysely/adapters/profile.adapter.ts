@@ -13,7 +13,8 @@ import { DatabaseException } from '../database.exception';
 @Injectable()
 export class ProfileAdapter
   extends CoreAdapter<'profile'>
-  implements ProfileRepository {
+  implements ProfileRepository
+{
   declare tableNames: keyof TableNames;
   constructor(@Inject('dbClient') protected dbClient: Kysely<DB>) {
     super(dbClient);

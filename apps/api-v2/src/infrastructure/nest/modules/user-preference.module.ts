@@ -36,4 +36,4 @@ import databaseProvider from 'src/infrastructure/kysely/database.client';
     ThemePreferenceService,
   ],
 })
-export class UserPreferencesModule { }
+export class UserPreferencesModule {}

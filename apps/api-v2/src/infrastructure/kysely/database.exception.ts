@@ -12,4 +12,10 @@ export class DatabaseException extends Error {
   getStatus() {
     return this.status;
   }
+  getUserMessage() {
+    return this.userMessage;
+  }
+  getMessage() {
+    return this.message;
+  }
 }

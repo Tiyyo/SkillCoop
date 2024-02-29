@@ -9,7 +9,7 @@ export class BuildProfileService {
     private readonly profileAdapter: ProfileAdapter,
     private readonly eventParticipant: EventParticipantAdapter,
     private readonly eventQueriesAdapter: EventQueriesAdapter,
-  ) { }
+  ) {}
   async build(profileId: string) {
     const coreProfile = await this.profileAdapter.findWithNbReview(profileId);
     const nbAttendedEvents =

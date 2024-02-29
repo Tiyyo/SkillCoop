@@ -1,1 +1,1 @@
-export abstract class LanguagePreferenceRepository { }
+export abstract class LanguagePreferenceRepository {}

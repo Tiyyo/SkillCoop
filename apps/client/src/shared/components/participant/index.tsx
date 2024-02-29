@@ -10,7 +10,7 @@ type ParticipantProps = {
   avatar: string | null;
   username: string;
   status: InvitationStatus;
-  profileId: number;
+  profileId: string;
   eventStatus?: EventStatus | null;
   activeId?: string;
   name?: string;

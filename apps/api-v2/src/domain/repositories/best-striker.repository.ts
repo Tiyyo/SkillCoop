@@ -1,1 +1,1 @@
-export abstract class BestStrikerRepository { }
+export abstract class BestStrikerRepository {}

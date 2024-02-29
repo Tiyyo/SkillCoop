@@ -4,7 +4,7 @@ import { EventQueriesUsecases } from 'src/application/usecases/event-queries/eve
 
 @Controller('event')
 export class GetPastsEventController {
-  constructor(private readonly eventQueriesUsecases: EventQueriesUsecases) { }
+  constructor(private readonly eventQueriesUsecases: EventQueriesUsecases) {}
   @Get('/past')
   @HttpCode(200)
   async getPasts(@Query() query: GetPaginatedEventDTO) {

@@ -7,7 +7,7 @@ export class RandomService {
   constructor(
     private readonly injectedOneService: InjectedOneService,
     private readonly injectedTwoService: InjectedTwoService,
-  ) { }
+  ) {}
   getStr() {
     return `${this.injectedOneService.foo()} ${this.injectedTwoService.bar()}`;
   }

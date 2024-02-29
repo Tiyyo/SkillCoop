@@ -7,7 +7,7 @@ import { ResetPasswordUserUsecases } from 'src/application/usecases/user/reset-p
 export class ResetPasswordUserController {
   constructor(
     private readonly resetPasswordUsecases: ResetPasswordUserUsecases,
-  ) { }
+  ) {}
   @Post('/reset-password')
   @HttpCode(200)
   async resetPassword(@Req() req: Request, @Body() body: ResetPasswordDTO) {

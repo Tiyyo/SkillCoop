@@ -1,6 +1,6 @@
 import { InvitationStatus } from "./invitation";
 export type EventParticipant = {
-    profile_id: number;
+    profile_id: string;
     username: string;
     avatar: string | null;
     status: InvitationStatus;
@@ -9,6 +9,6 @@ export type EventParticipant = {
 };
 export type UpdateParticipant = {
     event_id: number;
-    profile_id: number;
+    profile_id: string;
     status_name: InvitationStatus;
 };

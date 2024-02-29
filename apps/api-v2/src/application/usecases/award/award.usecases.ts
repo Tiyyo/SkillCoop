@@ -14,7 +14,7 @@ export class AwardUseCases {
     private readonly eventMutationsAdapter: EventMutationsAdapter,
     private readonly bestStrikerAdapter: BestStrikerAdapter,
     private readonly mvpAdapter: MvpAdapter,
-  ) { }
+  ) {}
 
   async voteForBestStriker(
     eventId: number,

@@ -12,7 +12,7 @@ export class SubscriberService {
   constructor(
     private readonly eventParticipantAdapter: EventParticipantAdapter,
     private readonly userTransportService: UserTransportNotificationService,
-  ) { }
+  ) {}
   async get({
     type,
     profileId,

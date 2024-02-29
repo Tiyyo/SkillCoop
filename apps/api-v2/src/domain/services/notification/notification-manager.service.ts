@@ -3,7 +3,7 @@ import { NotificationAdapter } from 'src/infrastructure/kysely/adapters/notifica
 
 @Injectable()
 export class NotificationReadManagerService {
-  constructor(private readonly notificationAdapter: NotificationAdapter) { }
+  constructor(private readonly notificationAdapter: NotificationAdapter) {}
 
   async markAsRead(notificationId: number) {
     await this.notificationAdapter.updateOne(

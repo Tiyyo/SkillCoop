@@ -9,7 +9,7 @@ export class LoginUserController {
   constructor(
     private readonly loginUsecases: LoginUserUsecases,
     private readonly envVarible: NestEnvVariableAdapterService,
-  ) { }
+  ) {}
   @Post('login')
   @HttpCode(200)
   async login(@Body() body: LoginUserDTO, @Res() res: Response) {

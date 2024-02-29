@@ -12,7 +12,8 @@ import { EventCoreEntity } from 'src/domain/entities/event.entity';
 @Injectable()
 export class EventMutationsAdapter
   extends CoreAdapter<'event'>
-  implements EventMutationsRepository {
+  implements EventMutationsRepository
+{
   constructor(@Inject('dbClient') protected dbClient: Kysely<DB>) {
     super(dbClient);
     this.tableName = 'event';

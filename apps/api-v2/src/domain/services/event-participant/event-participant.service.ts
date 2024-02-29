@@ -5,7 +5,7 @@ import { EventParticipantAdapter } from 'src/infrastructure/kysely/adapters/even
 export class EventParticipantService {
   constructor(
     private readonly eventParticipantAdapter: EventParticipantAdapter,
-  ) { }
+  ) {}
   // Should be only used ath the moment of creating an event
   async addParticipant(eventId: number, profileId: string) {
     return this.eventParticipantAdapter.createOne({

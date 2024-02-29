@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { ApplicationException } from 'src/application/exceptions/application.exception';
 import { UndefinedException } from 'src/application/exceptions/undefined.exception';
 import { EventCoreEntity } from 'src/domain/entities/event.entity';
 
@@ -29,7 +28,7 @@ export class EventStatusAdjusterService {
     event_id?: number;
     profile_id?: string;
   };
-  constructor() { }
+  constructor() {}
   data(
     updateRawData: UpdateEventData,
     event: EventCoreEntity & { id: number },

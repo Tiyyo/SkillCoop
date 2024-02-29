@@ -6,7 +6,7 @@ import { UserPreferencesUsecases } from 'src/application/usecases/user-preferenc
 export class UpdateThemeUserPreferencesController {
   constructor(
     private readonly userPreferencesUsecases: UserPreferencesUsecases,
-  ) { }
+  ) {}
   @Patch('/theme')
   @HttpCode(200)
   async updateLanguage(@Body() body: UpdateThemeUserPreferencesDTO) {

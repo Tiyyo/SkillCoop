@@ -36,4 +36,4 @@ import databaseProvider from 'src/infrastructure/kysely/database.client';
     ComputeUserEvaluationService,
   ],
 })
-export class SkillsModule { }
+export class SkillsModule {}

@@ -15,7 +15,7 @@ export class SSEGuard implements CanActivate {
     private readonly tokenService: TokenServiceInterface,
 
     private readonly envVariableService: NestEnvVariableAdapterService,
-  ) { }
+  ) {}
   async canActivate(context: ExecutionContext) {
     const req = context.switchToHttp().getRequest();
 

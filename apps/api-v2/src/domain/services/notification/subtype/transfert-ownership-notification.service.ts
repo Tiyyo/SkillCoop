@@ -5,7 +5,7 @@ import { NotificationPipelineService } from '../notification-pipeline.service';
 export class TransfetOwnershipNotificationService {
   constructor(
     private readonly notificationPipelineService: NotificationPipelineService,
-  ) { }
+  ) {}
   notify(eventId: number, instigatorId: string) {
     return this.notificationPipelineService.notify({
       type: 'event',

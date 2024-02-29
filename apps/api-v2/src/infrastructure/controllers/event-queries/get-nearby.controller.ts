@@ -4,7 +4,7 @@ import { EventQueriesUsecases } from 'src/application/usecases/event-queries/eve
 
 @Controller('event')
 export class GetNearByEventController {
-  constructor(private readonly eventQueriesUsecases: EventQueriesUsecases) { }
+  constructor(private readonly eventQueriesUsecases: EventQueriesUsecases) {}
   @Get('/near')
   @HttpCode(200)
   async getUpcoming(@Query() query: GetEventNearbyDTO) {

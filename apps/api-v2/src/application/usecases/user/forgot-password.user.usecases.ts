@@ -1,4 +1,4 @@
-import { ForbiddenException, Inject, NotFoundException } from '@nestjs/common';
+import { ForbiddenException, Inject } from '@nestjs/common';
 import { RessourceNotFoundException } from 'src/application/exceptions/ressource-not-found.exception';
 import { EmailServiceInterface } from 'src/application/services/email.service';
 import { TokenServiceInterface } from 'src/application/services/token.service';
@@ -15,7 +15,7 @@ export class ForgotPasswordUserUsecases {
     private readonly emailService: EmailServiceInterface,
     @Inject('TokenService')
     private readonly tokenService: TokenServiceInterface,
-  ) { }
+  ) {}
   async handle(email: string) {
     const emailKey = this.envVarible.getEnvVariable('JWT_EMAIL_TOKEN_KEY');
     const user = await this.userAdapter.findOne({ email });

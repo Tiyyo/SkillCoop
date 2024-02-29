@@ -5,7 +5,7 @@ import { OrganizerEventGuard } from 'src/infrastructure/nest/guards/admin-event.
 
 @Controller('event')
 export class DeleteEventController {
-  constructor(private readonly eventMutationUsecases: EventMutationUsecases) { }
+  constructor(private readonly eventMutationUsecases: EventMutationUsecases) {}
 
   @Delete('/:eventId/:profileId')
   @HttpCode(204)

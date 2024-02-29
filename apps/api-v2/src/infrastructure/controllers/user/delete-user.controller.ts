@@ -4,7 +4,7 @@ import { DeleteAccountGuard } from 'src/infrastructure/nest/guards/delete-accoun
 
 @Controller('user')
 export class DeleteUserController {
-  constructor(private readonly deleteUserUsecases: DeleteUserUsecases) { }
+  constructor(private readonly deleteUserUsecases: DeleteUserUsecases) {}
   @Delete('/:userId')
   @HttpCode(204)
   @UseGuards(DeleteAccountGuard)

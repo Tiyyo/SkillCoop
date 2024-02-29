@@ -8,7 +8,7 @@ export function useSearchProfile({ profileId }: { profileId?: string }) {
   const [searchValue, setSearchValue] = useState<SearchProfileQuery>({
     username: '',
     page: 1,
-    userProfileId: profileId ?? 0,
+    userProfileId: profileId ?? '',
   });
 
   const { data, refetch } = useGetSearchProfile(searchValue);

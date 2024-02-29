@@ -1,1 +1,1 @@
-export abstract class NotificationPreferenceRepository { }
+export abstract class NotificationPreferenceRepository {}

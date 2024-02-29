@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { GetLastSharedDTO } from 'src/application/dto/get-last-shared.dto';
 import { GetEventNearbyDTO } from 'src/application/dto/get-near-event.dto';
 import { GetPaginatedEventDTO } from 'src/application/dto/get-paginated-event.dto';
@@ -8,7 +8,7 @@ import { EventQueriesAdapter } from 'src/infrastructure/kysely/adapters/event.qu
 
 @Injectable()
 export class EventQueriesUsecases {
-  constructor(private readonly eventQueriesAdapter: EventQueriesAdapter) { }
+  constructor(private readonly eventQueriesAdapter: EventQueriesAdapter) {}
   async getOne(eventId: number, profiledId: string) {
     return await this.eventQueriesAdapter.getOneEvent(eventId, profiledId);
   }

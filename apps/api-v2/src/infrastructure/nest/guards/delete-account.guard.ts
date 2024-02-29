@@ -7,7 +7,7 @@ import {
 
 @Injectable()
 export class DeleteAccountGuard implements CanActivate {
-  constructor() { }
+  constructor() {}
   async canActivate(context: ExecutionContext) {
     const request = context.switchToHttp().getRequest();
     const userId = request.params.userId;

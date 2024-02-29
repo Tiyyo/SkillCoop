@@ -27,7 +27,6 @@ import { JwtService } from '@nestjs/jwt';
 import { SanitizeMiddleware } from './infrastructure/nest/middleware/sanitize.middleware';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { ListenerModule } from './infrastructure/nest/modules/listener.module';
-import { WinstonModule } from './infrastructure/logger/winston.module';
 
 @Module({
   imports: [
@@ -75,6 +74,7 @@ export class AppModule implements NestModule {
         { path: '/auth/logout', method: RequestMethod.POST },
         { path: '/auth/refresh', method: RequestMethod.GET },
         { path: '/auth/register', method: RequestMethod.POST },
+        { path: '/auth/google/callback', method: RequestMethod.GET },
         { path: '/user/me', method: RequestMethod.GET },
         { path: '/user/forgot-password', method: RequestMethod.POST },
         { path: '/user/reset-password', method: RequestMethod.ALL },

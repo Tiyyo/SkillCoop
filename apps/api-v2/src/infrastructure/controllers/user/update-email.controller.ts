@@ -6,7 +6,7 @@ import { UpdateEmailUserUsecases } from 'src/application/usecases/user/update-em
 export class UpdateEmailUserController {
   constructor(
     private readonly updateEmailUserUsecases: UpdateEmailUserUsecases,
-  ) { }
+  ) {}
 
   @Patch('email')
   @HttpCode(200)

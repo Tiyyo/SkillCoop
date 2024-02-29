@@ -1,5 +1,4 @@
 import { Inject } from '@nestjs/common';
-import { ApplicationException } from 'src/application/exceptions/application.exception';
 import { GoogleAuthException } from 'src/application/exceptions/google-auth.exception';
 import { SocialOauthInterface } from 'src/application/services/social-auth.service';
 import { SocialAuthUserStrategyService } from 'src/application/services/social-strategy.service';
@@ -17,7 +16,7 @@ export class GoogleAuthUsecases {
     private readonly tokenService: TokenServiceInterface,
     @Inject('SocialAuthService')
     private readonly socialAuthService: SocialOauthInterface,
-  ) { }
+  ) {}
 
   async handle(code: string) {
     const { access_token, id_token } =
@@ -28,6 +27,7 @@ export class GoogleAuthUsecases {
         access_token,
         id_token,
       });
+
     if (!email) {
       throw new GoogleAuthException(
         'Could not get email from google',
@@ -36,8 +36,9 @@ export class GoogleAuthUsecases {
     }
     const foundUser = await this.userAdapter.findOne({ email });
     const foundProfile = await this.profileAdapter.findOne({
-      profile_id: foundUser.id,
+      profile_id: foundUser?.id,
     });
+
     let user: UserEntity;
 
     if (!foundUser) {
@@ -57,6 +58,6 @@ export class GoogleAuthUsecases {
       );
     }
 
-    return await this.tokenService.generateAuthTokens(foundUser.id ?? user.id);
+    return await this.tokenService.generateAuthTokens(foundUser?.id ?? user.id);
   }
 }

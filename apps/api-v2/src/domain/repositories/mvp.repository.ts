@@ -1,1 +1,1 @@
-export abstract class MvpRepository { }
+export abstract class MvpRepository {}

@@ -4,7 +4,7 @@ import { RegisterUserUsecases } from 'src/application/usecases/user/register.use
 
 @Controller('auth')
 export class RegisterUserController {
-  constructor(private readonly userUsecases: RegisterUserUsecases) { }
+  constructor(private readonly userUsecases: RegisterUserUsecases) {}
   @Post('register')
   async register(@Body() body: CreateUserDTO) {
     const response = await this.userUsecases.createUser(body);

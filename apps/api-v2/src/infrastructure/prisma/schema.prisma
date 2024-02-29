@@ -71,8 +71,7 @@ model profile_on_profile {
 }
 
 model event {
-  id                    Int                @id @default(autoincrement())
-  domain_id             String?             @unique @default(cuid())
+  id                    Int                 @id @default(autoincrement())
   date                  String
   duration              Int
   required_participants Int
@@ -250,7 +249,6 @@ model language_preference {
 
 model playground {
   id          Int       @id @default(autoincrement())
-  domain_id   String?   @unique @default(cuid())
   name        String   
   address     String 
   city        String   

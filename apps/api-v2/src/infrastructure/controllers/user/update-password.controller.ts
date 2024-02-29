@@ -6,7 +6,7 @@ import { UpdatePasswordUserUsecases } from 'src/application/usecases/user/update
 export class UpdatePasswordUserController {
   constructor(
     private readonly updatePasswordUserUsecases: UpdatePasswordUserUsecases,
-  ) { }
+  ) {}
 
   @Patch('password')
   @HttpCode(200)

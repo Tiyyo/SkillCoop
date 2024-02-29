@@ -4,7 +4,7 @@ import { UserAdapter } from 'src/infrastructure/kysely/adapters/user.adapter';
 
 @Injectable()
 export class UpdateEmailUserUsecases {
-  constructor(private readonly userAdapter: UserAdapter) { }
+  constructor(private readonly userAdapter: UserAdapter) {}
 
   async updateEmail(body: UpdateEmailDTO) {
     const hasUpdated = await this.userAdapter.updateOne(

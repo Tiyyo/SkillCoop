@@ -18,7 +18,7 @@ export class GetMeController {
     @Inject('TokenService') private tokenService: TokenServiceInterface,
     private readonly envVariableService: NestEnvVariableAdapterService,
     private readonly getMeUserUsecases: GetMeUserUsecases,
-  ) { }
+  ) {}
 
   @Get('me')
   async getMe(@Req() req: Request, @Res() res: Response) {

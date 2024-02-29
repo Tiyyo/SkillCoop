@@ -6,7 +6,7 @@ import { NestEnvVariableAdapterService } from 'src/infrastructure/service/env.ad
 export class LogoutUserController {
   constructor(
     private readonly envVariableService: NestEnvVariableAdapterService,
-  ) { }
+  ) {}
   @Post('logout')
   @HttpCode(204)
   async logout(@Res() res: Response) {

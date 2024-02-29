@@ -5,6 +5,8 @@ exports.invitationStatus = {
     pending: 'pending',
     confirmed: 'confirmed',
     declined: 'declined',
+    requested: 'requested',
+    refused: 'refused',
 };
 exports.invitationPageVariant = {
     update: 'update',

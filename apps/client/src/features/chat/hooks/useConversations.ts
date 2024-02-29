@@ -17,7 +17,7 @@ import {
   DeleteConversation,
   RemoveParticipantGroupConversation,
   UpdateUserOnConversation,
-} from '@skillcoop/types';
+} from '@skillcoop/types/src';
 
 const keys = {
   getConversations: ['conversations'],
@@ -27,7 +27,7 @@ const keys = {
   ],
 };
 
-export function useGetConversationsList(options: { userId?: number | null }) {
+export function useGetConversationsList(options: { userId?: string | null }) {
   return useQuery(keys.getConversations, async () => {
     if (!options.userId) return;
     return getConversationsFn(options.userId);

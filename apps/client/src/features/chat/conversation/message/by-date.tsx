@@ -7,7 +7,7 @@ import GroupAuthorMessage from './by-author';
 type GroupDateMessagesProps = {
   date: string;
   authorGroups: AuthorGroupMessages[];
-  currentUserId: number | null;
+  currentUserId: string | null;
 };
 
 function GroupDateMessages({

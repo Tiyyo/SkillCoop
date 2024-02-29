@@ -3,13 +3,16 @@ import MenuItemDialog from '../../shared/components/menu-item-dialog';
 import { useDeleteUser } from '../../shared/hooks/useProfile';
 import { useApp } from '../../shared/store/app.store';
 import { useTranslation } from 'react-i18next';
+import useLogout from '../../shared/hooks/useLogout';
 
 function DeleteUserAccount() {
   const { t } = useTranslation('system');
   const { userId, setIsAuth } = useApp();
+  const { logout } = useLogout();
   const { mutate: deleteUserAccount } = useDeleteUser({
     onSuccess: () => {
       setIsAuth(false);
+      logout();
     },
   });
   return (

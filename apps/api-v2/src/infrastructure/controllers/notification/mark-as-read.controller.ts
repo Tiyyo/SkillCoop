@@ -4,7 +4,7 @@ import { NotificationUsecases } from 'src/application/usecases/notification/noti
 
 @Controller('notification')
 export class MarkAsReadNotificationController {
-  constructor(private readonly notificationUsecases: NotificationUsecases) { }
+  constructor(private readonly notificationUsecases: NotificationUsecases) {}
 
   @Post()
   @HttpCode(200)

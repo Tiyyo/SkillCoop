@@ -4,7 +4,7 @@ import { FriendUsecases } from 'src/application/usecases/friend/friend.usecases'
 
 @Controller('friends')
 export class GetFriendsFriendController {
-  constructor(private readonly friendUsecases: FriendUsecases) { }
+  constructor(private readonly friendUsecases: FriendUsecases) {}
   @Get('/:profileId')
   async getFriends(@Param() param: ProfileIdDTO) {
     return await this.friendUsecases.getFriends(param.profileId);

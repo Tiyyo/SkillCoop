@@ -9,7 +9,7 @@ export class VerifyEmailUserController {
   constructor(
     private readonly verifyEmailUsecases: VerfiyEmailUserUsecases,
     private envVariableService: NestEnvVariableAdapterService,
-  ) { }
+  ) {}
   @Get('/:userId/verify/:token')
   @HttpCode(200)
   async verifyEmail(@Param() params: TokenUserIdDTO, @Res() res: Response) {

@@ -5,10 +5,10 @@ import { CreateEventStateStore } from '../../features/create-event/store/create-
 
 type UseSelectionOfFriendsProps = {
   activeSelected?: boolean;
-  removeFriendFromState?: (friendId: number) => void;
-  addFriendToState?: (friendId: number) => void;
+  removeFriendFromState?: (friendId: string) => void;
+  addFriendToState?: (friendId: string) => void;
   dataFromState?: CreateEventStateStore | null;
-  friendId: number;
+  friendId: string;
 };
 
 export function useSelectionOfFriends({

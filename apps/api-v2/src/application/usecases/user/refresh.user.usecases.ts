@@ -10,7 +10,7 @@ export class RefreshUserUsecases {
     @Inject('TokenService')
     private readonly tokenService: TokenServiceInterface,
     private readonly envVariableService: NestEnvVariableAdapterService,
-  ) { }
+  ) {}
   async handle(token: string) {
     const JWTRefreshKey = this.envVariableService.getEnvVariable(
       'JWT_REFRESH_TOKEN_KEY',

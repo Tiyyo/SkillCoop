@@ -8,7 +8,7 @@ export class VerifyResetTokenUserIdUserUsecases {
     private readonly envVariableService: NestEnvVariableAdapterService,
     @Inject('TokenService')
     private readonly tokenService: TokenServiceInterface,
-  ) { }
+  ) {}
   async handle(token: string, userId: string) {
     const JWTEmailKey = this.envVariableService.getEnvVariable(
       'JWT_EMAIL_TOKEN_KEY',

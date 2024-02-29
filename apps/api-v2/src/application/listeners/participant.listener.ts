@@ -15,7 +15,7 @@ export class ParticipantListener {
   constructor(
     private readonly invitedEventService: InvitedEventNotificationService,
     private readonly producerParticipantMessageService: ProducerParticipantMessageService,
-  ) { }
+  ) {}
   @OnEvent('invitation.event.sent')
   handleSendInvitationParticipant(event: InvitationEventSentEventPayload) {
     this.invitedEventService.notify(event.eventId, event.participantsIds);

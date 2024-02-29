@@ -15,7 +15,7 @@ export class AllExceptionFilter implements ExceptionFilter {
   constructor(
     private readonly httpAdapterHost: HttpAdapterHost,
     private readonly logger: LoggerService, // private readonly envVariableService: NestEnvVariableAdapterService,
-  ) {}
+  ) { }
 
   catch(exception: unknown, host: ArgumentsHost) {
     const isProduction = process.env.NODE_ENV === 'production';
@@ -30,9 +30,7 @@ export class AllExceptionFilter implements ExceptionFilter {
       exception instanceof HttpException ||
       exception instanceof DatabaseException;
 
-    if (!isProduction) {
-      this.logger.error('Error handle by filter', exception);
-    }
+    this.logger.error('Error handle by filter', exception);
 
     if (exception instanceof ApplicationException) {
       isProduction

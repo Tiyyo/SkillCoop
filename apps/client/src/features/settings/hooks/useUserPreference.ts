@@ -15,7 +15,7 @@ const keys = {
   getUserPreference: ['userPreference'],
 };
 
-export function useGetUserPreferences(options: { userId?: number | null }) {
+export function useGetUserPreferences(options: { userId?: string | null }) {
   return useQuery(
     keys.getUserPreference,
     async () => {

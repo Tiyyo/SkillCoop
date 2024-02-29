@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 /*eslint-enable*/
 
 type NewConversationGroupProps = {
-  userId: number | null;
+  userId: string | undefined;
 };
 
 export default function useNewGroupConversation({
@@ -38,7 +38,7 @@ export default function useNewGroupConversation({
   const participants_ids = useMemo(() => {
     if (!userId) return [];
     return friendsToAdd.reduce(
-      (acc: number[], friend: FriendStoreChat) => {
+      (acc: string[], friend: FriendStoreChat) => {
         acc.push(friend.userId);
         return acc;
       },

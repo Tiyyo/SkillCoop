@@ -4,6 +4,7 @@ import { Kysely } from 'kysely';
 import { DB } from '../database/database';
 import { EventQueuePublisher } from '@skillcoop/types';
 
+
 @Injectable()
 export class EventSyncService {
   private tableName = 'conversation' as const;
@@ -11,6 +12,7 @@ export class EventSyncService {
 
   async create(data: EventQueuePublisher) {
     const todayUTCString = getFormattedUTCTimestamp();
+    console.log('EventSyncService.create', data);
     try {
       await this.dbClient.transaction().execute(async (trx) => {
         const newConversation = await trx
@@ -24,7 +26,10 @@ export class EventSyncService {
           .returning('conversation_id')
           .executeTakeFirstOrThrow();
 
-        return await trx
+        if (!data.participants_id || data.participants_id.length === 0) {
+          return
+        }
+        await trx
           .insertInto('user_on_conversation')
           .values(
             data.participants_id.map((id) => ({

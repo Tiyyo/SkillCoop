@@ -18,7 +18,7 @@ type ConversationProps = {
   setShowConvInfos: Dispatch<SetStateAction<boolean>>;
   showConvInfos: boolean;
   historicMessages: HistoricMessages;
-  userId: number | null;
+  userId: string | null;
   userProfile: Profile | null;
 };
 

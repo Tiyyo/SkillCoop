@@ -9,7 +9,7 @@ import ConversationInfosActions from './actions';
 
 type ConversationInfosProps = {
   conversation: Conversation;
-  currentUserId: number | null;
+  currentUserId: string | null;
 };
 
 const mobileViewStyle = `absolute top-0 z-10 h-7 w-full    

@@ -14,7 +14,7 @@ type UpdatePasswordField = {
   old_password: string;
   new_password: string;
   confirm_new_password: string;
-  user_id: number;
+  user_id: string;
 };
 
 function EditModalPassword({ children }: { children: React.ReactNode }) {

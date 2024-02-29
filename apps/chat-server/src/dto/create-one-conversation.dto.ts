@@ -4,10 +4,10 @@ export class CreateOneToOneConversationDto {
   @IsNotEmpty()
   @IsNumber()
   @IsPositive()
-  user_id_one: number;
+  user_id_one: string;
 
   @IsNotEmpty()
   @IsNumber()
   @IsPositive()
-  user_id_two: number;
+  user_id_two: string;
 }

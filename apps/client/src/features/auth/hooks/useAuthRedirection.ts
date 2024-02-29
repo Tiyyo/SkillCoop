@@ -4,7 +4,7 @@ import { Profile } from 'packages/types/src';
 
 type ResponseGetMeFn =
   | 'Unecessary call'
-  | { userProfile?: Profile; userId: number }
+  | { userProfile?: Profile; userId: string }
   | undefined;
 
 type useAuthRedirectionProps = {
@@ -21,7 +21,9 @@ export default function useAuthRedirection({
   responseGetProfile,
 }: useAuthRedirectionProps) {
   const navigate = useNavigate();
-
+  console.log('isAuthenticated', isAuthenticated);
+  console.log('isFristConnection', isFristConnection);
+  console.log('loading', loading);
   if (loading && isAuthenticated && isFristConnection) {
     if (responseGetProfile === 'Unecessary call' || !responseGetProfile) {
       return;
@@ -30,6 +32,7 @@ export default function useAuthRedirection({
   }
 
   if (loading && isAuthenticated && isFristConnection === false) {
+    console.log('Is goind to redirect to /');
     queryClient.setQueryData(['auth-user'], (oldData: any) => {
       if (
         responseGetProfile !== 'Unecessary call' &&

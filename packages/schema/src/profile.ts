@@ -7,3 +7,5 @@ export const editProfileInfosSchema = z.object({
   date_of_birth: z.string().optional().nullable(),
   location: z.string().optional().nullable(),
 });
+
+export type EditProfileInfos = z.infer<typeof editProfileInfosSchema>;

@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 
 type UseConversationProps = {
   conversation: any;
-  userId: number | null;
+  userId: string | null;
 };
 
 export default function useConversation({

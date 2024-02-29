@@ -1,5 +1,5 @@
 import { useApp } from '../../shared/store/app.store';
-import { ownSkillSchema } from '@skillcoop/schema/src';
+import { ownSkillSchema, OwnSkill } from '@skillcoop/schema/src';
 import { useUserProfileEval } from '../../shared/hooks/useUserProfileEval';
 import Container from '../../shared/layouts/container';
 import LoadingPage from '../../shared/components/loading-page';
@@ -22,7 +22,7 @@ function UserResumeSkills() {
     e.preventDefault();
     if (!userProfile?.profile_id) return;
     const targetInputs = e.target as any;
-    const data = {
+    const data: OwnSkill = {
       defending: targetInputs.defending.value,
       dribbling: targetInputs.dribbling.value,
       passing: targetInputs.passing.value,

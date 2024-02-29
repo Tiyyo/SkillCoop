@@ -4,7 +4,7 @@ import { create } from 'zustand';
 type NewConversationGroupStoreProps = {
   friends: FriendStoreChat[];
   addFriends: (friend: FriendStoreChat) => void;
-  removeFriends: (id: number) => void;
+  removeFriends: (id: string) => void;
   cleanFriends: () => void;
 };
 

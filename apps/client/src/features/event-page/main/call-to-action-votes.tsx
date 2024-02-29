@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 type EventPageVotesBannerProps = {
   eventId: number;
   participants: EventParticipant[] | string;
-  profileId?: number;
+  profileId?: string;
 };
 
 function EventPageVotesBanner({

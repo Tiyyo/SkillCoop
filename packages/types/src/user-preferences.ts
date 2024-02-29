@@ -41,7 +41,7 @@ export type RawUserPreference = {
 }
 
 export type UpdateNotificationPreference = {
-  user_id: number
+  user_id: string
   type_name: NotificationType
   push?: boolean
   website?: boolean
@@ -56,11 +56,11 @@ export type NotificationMethodSetting = {
 }
 
 export type UpdateLanguagePreference = {
-  user_id: number
+  user_id: string
   name: LanguageSymbol
 }
 
 export type UpdateThemePreference = {
-  user_id: number
+  user_id: string
   name: Theme
 }

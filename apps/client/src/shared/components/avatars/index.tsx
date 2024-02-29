@@ -19,6 +19,7 @@ function ResponsiveAvatar({
   avatar: string | null;
   borderNone?: boolean;
 }) {
+  console.log('avatar', avatar);
   return (
     <>
       <ImageWithFallback
@@ -27,7 +28,7 @@ function ResponsiveAvatar({
         size={28}
         className={cn(
           `"aspect-square lg:border-3"
-                overflow-hidden rounded-full border-2 border-base-light 
+                overflow-hidden rounded-full border-2 border-base-light
                 bg-primary-800 md:hidden`,
           borderNone && 'border border-transparent',
         )}
@@ -67,24 +68,26 @@ function Avatars({
   borderNone,
 }: AvatarsProps) {
   const idComp = useId();
+  console.log('participants', participants);
   return (
     <div className={`h-fit ${startSide === 'right' ? 'flex-row-reverse' : ''}`}>
       <div className={cn('flex', nbAvatarToDisplay > 1 && '-space-x-3')}>
-        {participants
-          .filter((participant) => {
-            if (team) {
-              return participant.team === team;
-            }
-            return true;
-          })
-          .slice(0, nbAvatarToDisplay)
-          .map((participant) => (
-            <ResponsiveAvatar
-              key={idComp + participant.profile_id.toString()}
-              avatar={participant.avatar}
-              borderNone={borderNone}
-            />
-          ))}
+        {participants &&
+          participants
+            .filter((participant) => {
+              if (team) {
+                return participant.team === team;
+              }
+              return true;
+            })
+            .slice(0, nbAvatarToDisplay)
+            .map((participant) => (
+              <ResponsiveAvatar
+                key={idComp + participant.profile_id.toString()}
+                avatar={participant.avatar}
+                borderNone={borderNone}
+              />
+            ))}
         {plus && plus > 0 ? (
           <div
             className={cn(

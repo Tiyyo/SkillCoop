@@ -19,7 +19,7 @@ function ModalRouteRequestApprovalEvent() {
     profileId: string;
   }>();
   const { data: requesterProfile } = useGetProfile({
-    profileId: Number(requesterProfileId),
+    profileId: requesterProfileId,
   });
 
   const { mutate: updateRequesterStatus } = useUpdateParticipant({
@@ -35,9 +35,10 @@ function ModalRouteRequestApprovalEvent() {
   });
 
   function handleClickRequest(status: 'confirmed' | 'refused') {
+    if (!requesterProfileId) return;
     const updateDate = {
       event_id: Number(eventId),
-      profile_id: Number(requesterProfileId),
+      profile_id: requesterProfileId,
       status_name: status,
     };
     const isValid = updateParticipantSchema.safeParse(updateDate);
@@ -46,7 +47,7 @@ function ModalRouteRequestApprovalEvent() {
     }
     updateRequesterStatus({
       event_id: Number(eventId),
-      profile_id: Number(requesterProfileId),
+      profile_id: requesterProfileId,
       status_name: status,
     });
   }

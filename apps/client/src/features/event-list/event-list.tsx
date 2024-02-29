@@ -61,7 +61,10 @@ function EventList({
   const eventsToShowcase = getNextEvent(events);
 
   return (
-    <div className="flex w-full flex-col items-center justify-center">
+    <div
+      className="flex w-full flex-grow flex-col items-center 
+      bg-base-light lg:bg-transparent"
+    >
       {eventsToShowcase && (
         <ShowcaseEventCard
           eventId={eventsToShowcase.event_id}

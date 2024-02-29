@@ -153,10 +153,28 @@ const router = createBrowserRouter([
   },
   {
     path: '/verify-email',
-    element: <VerifyEmail />,
+    element: (
+      <Suspense>
+        <VerifyEmail />
+      </Suspense>
+    ),
   },
-  { path: '/forgot-password', element: <ForgotPassword /> },
-  { path: '/reset-password', element: <ResetPasswordMiddleware /> },
+  {
+    path: '/forgot-password',
+    element: (
+      <Suspense>
+        <ForgotPassword />
+      </Suspense>
+    ),
+  },
+  {
+    path: '/reset-password',
+    element: (
+      <Suspense>
+        <ResetPasswordMiddleware />
+      </Suspense>
+    ),
+  },
   { path: '/verify-email/success', element: <VerifyEmailSuccess /> },
   {
     path: '/auth/google',
@@ -172,7 +190,17 @@ const router = createBrowserRouter([
   },
   {
     path: '/onboarding/:profileId',
-    element: <OnBoarding />,
+    element: (
+      <Suspense
+        fallback={
+          <>
+            <Spinner />
+          </>
+        }
+      >
+        <OnBoarding />
+      </Suspense>
+    ),
     children: [
       { index: true, element: <OnBoardingCreateProfile /> },
       { path: 'add-image', element: <OnBoardinAddImageProfile /> },
@@ -265,18 +293,37 @@ const router = createBrowserRouter([
       {
         path: '/contact',
         children: [
-          { index: true, element: <ConfirmedFriends /> },
+          {
+            index: true,
+            element: (
+              <Suspense>
+                <ConfirmedFriends />
+              </Suspense>
+            ),
+          },
           {
             path: 'pending-request',
-            element: <PendingFriends />,
+            element: (
+              <Suspense>
+                <PendingFriends />
+              </Suspense>
+            ),
           },
           {
             path: 'add',
-            element: <AddFriends />,
+            element: (
+              <Suspense>
+                <AddFriends />
+              </Suspense>
+            ),
           },
           {
             path: 'profile/:id',
-            element: <FriendProfile />,
+            element: (
+              <Suspense>
+                <FriendProfile />
+              </Suspense>
+            ),
           },
           { path: '*', element: <Page404 /> },
         ],
@@ -318,7 +365,11 @@ const router = createBrowserRouter([
       { path: 'chat/new-conversation/:userId', element: <NewConversation /> },
       {
         path: '/desktop/chat',
-        element: <DesktopChatHomePage />,
+        element: (
+          <Suspense>
+            <DesktopChatHomePage />
+          </Suspense>
+        ),
         children: [
           {
             element: <DesktopConversationPage />,

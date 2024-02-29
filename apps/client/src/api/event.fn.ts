@@ -15,14 +15,14 @@ export const getAllEventsFn = async (): Promise<EventType[]> => {
   return response.data;
 };
 
-export const getEventsFn = async (profileId: number): Promise<EventType[]> => {
+export const getEventsFn = async (profileId: string): Promise<EventType[]> => {
   const response = await api.get(`api/event/user/${profileId}`);
   return response.data;
 };
 
 export const getEventFn = async (
   eventId: number,
-  profileId: number,
+  profileId: string,
 ): Promise<EventType> => {
   const response = await api.get(`api/event/details/${eventId}/${profileId}`);
   return response.data;
@@ -88,7 +88,7 @@ export const updateEventFn = async (data: Partial<UpdateEventData>) => {
 
 export const deleteEventFn = async (data: {
   event_id: number;
-  profile_id: number;
+  profile_id: string;
 }) => {
   const response = await api.delete(
     `api/event/${data.event_id}/${data.profile_id}`,
@@ -117,8 +117,8 @@ export const saveScoreFn = async (data: {
 };
 
 export const getSharedEventsFn = async (data: {
-  profileId: number;
-  friendId: number;
+  profileId: string;
+  friendId: string;
 }) => {
   const response = await api.get(
     `api/event/shared/${data.profileId}/${data.friendId}`,

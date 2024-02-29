@@ -8,6 +8,7 @@ import NotificationSwitch from './switch';
 type NotificationSettingProps = {
   type: NotificationType;
   settings: NotificationMethodSetting;
+  label: string;
   legend?: string;
 };
 
@@ -15,10 +16,11 @@ function NotificationSetting({
   type,
   settings,
   legend,
+  label,
 }: NotificationSettingProps) {
   return (
     <>
-      <h3 className="py-1 text-sm font-semibold">{capitalize(type)}</h3>
+      <h3 className="py-1 text-sm font-semibold">{capitalize(label)}</h3>
       <p className="text-xs font-light">{legend}</p>
       <NotificationSwitch
         notificationType={type}

@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 
 type InfosActionsDeleteGroupProps = {
   conversationId: number;
-  currentUserId: number | null;
+  currentUserId: string | null;
 };
 
 function InfosActionsDeleteGroup({

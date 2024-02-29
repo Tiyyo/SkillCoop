@@ -3,9 +3,10 @@ import { useDebounce } from '../../hooks/useDebounce';
 import Input from '../input';
 import { useQuery } from '@tanstack/react-query';
 import { useOnClickOutside } from '../../hooks/useClickOutside';
+import useResetError from '../../hooks/useResetError';
 
 type InputGeocodeProps<T> = {
-  formId?: string;
+  formid?: string;
   nbOfSuggestions: number;
   children?: React.ReactNode;
   titleKey: string;
@@ -31,7 +32,7 @@ function SearchSelect<T>({
   locationKey,
   queryFn,
   getLocationDataState,
-  formId,
+  formid,
   extractDataMethod,
   defaultValue,
   error,
@@ -41,6 +42,7 @@ function SearchSelect<T>({
   const suggestionContainer = useRef<HTMLUListElement>(null);
   const debounceQueryValue = useDebounce(query, 350);
   const [suggestionsAreVisible, setSuggestionsAreVisible] = useState(false);
+  const { hasError, setHasError } = useResetError(error);
 
   const { data } = useQuery(
     ['geocoding', debounceQueryValue],
@@ -57,13 +59,15 @@ function SearchSelect<T>({
 
   function handleChangeInput(event: React.ChangeEvent<HTMLInputElement>) {
     setQuery(event.target.value);
+
     if (event.target.value.length > 2) {
       setSuggestionsAreVisible(true);
     }
   }
 
   function handleClickSuggest(suggestion: any) {
-    setQuery(suggestion[titleKey]);
+    setHasError(false);
+    // setQuery(suggestion[titleKey]);
     if (extractDataMethod) {
       return getLocationDataState(extractDataMethod(suggestion));
     }
@@ -79,16 +83,16 @@ function SearchSelect<T>({
   return (
     <div className="relative flex w-full flex-col gap-y-1">
       <Input
-        value={query ?? defaultValue}
+        defaultValue={defaultValue ?? ''}
         name={name}
         label={label}
         placeholder={placeholder}
         onChange={handleChangeInput}
         onFocus={() => setSuggestionsAreVisible(true)}
-        form={formId}
-        error={error}
+        error={hasError}
         disabled={disabled}
         high
+        formid={formid}
       >
         {children}
       </Input>

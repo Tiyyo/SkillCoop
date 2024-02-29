@@ -20,7 +20,7 @@ model convertion_type {
 }
 
 model user {
-  user_id           Int       @id 
+  user_id           String       @id 
   username          String    @unique
   avatar            String?   
   created_at        String
@@ -31,7 +31,7 @@ model user {
 
 model message {
   message_id        Int         @id @default(autoincrement())
-  user_id           Int?
+  user_id           String?
   sender            user?       @relation(fields: [user_id], references: [user_id], onDelete: SetNull, onUpdate: Cascade)
   conversation_id   Int
   conversation      conversation @relation(fields: [conversation_id], references: [conversation_id], onDelete: Cascade, onUpdate: Cascade)
@@ -55,7 +55,7 @@ model conversation  {
 
 model user_on_conversation {
   id                Int           @id @default(autoincrement())
-  user_id           Int
+  user_id           String
   conversation_id   Int
   user              user          @relation(fields: [user_id], references: [user_id], onDelete: Cascade, onUpdate : Cascade)
   conversation      conversation  @relation(fields: [conversation_id], references: [conversation_id], onDelete: Cascade, onUpdate: Cascade)

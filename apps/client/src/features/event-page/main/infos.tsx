@@ -34,7 +34,7 @@ type EventPageInfosProps = {
   eventDate: string | null;
   requiredParticipants: number | null;
   isAdmin: boolean;
-  profileId: number;
+  profileId: string;
   eventStatus: EventStatus | null;
   confirmedParticipants?: number | null;
 };
@@ -69,6 +69,7 @@ function EventPageInfos({
     updateRequiredParticipants,
     updateVisibility,
     updatePrice,
+    updateStatusName,
   } = useEvent();
 
   const handleClickActiveEdit = () => {
@@ -104,7 +105,15 @@ function EventPageInfos({
               price: Number(event.price) ?? null,
               visibility: event.visibility ?? 'private',
             };
-
+            if (confirmedParticipants === Number(event.required_participants)) {
+              updateStatusName('full');
+            }
+            if (
+              confirmedParticipants &&
+              confirmedParticipants < Number(event.required_participants)
+            ) {
+              updateStatusName('open');
+            }
             if (
               confirmedParticipants &&
               confirmedParticipants > Number(event.required_participants)
@@ -160,6 +169,7 @@ function EventPageInfos({
         >
           {isAdmin &&
             eventStatus !== 'completed' &&
+            !isPastDate(eventDate) &&
             displayEditBtnOrValidateBtn()}
         </div>
       </div>

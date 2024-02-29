@@ -4,7 +4,7 @@ import { Friend } from '@skillcoop/types/src';
 type AddNewConversationOneToOneFriendsProps = {
   friends: Friend[];
   searchInputValue: string | undefined;
-  navigateToConversation: (friendId: number) => void;
+  navigateToConversation: (friendId: string) => void;
 };
 
 function AddNewConversationOneToOneFriends({

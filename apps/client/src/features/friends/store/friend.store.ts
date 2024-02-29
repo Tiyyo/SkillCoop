@@ -2,8 +2,8 @@ import { create } from 'zustand';
 import type { InvitationStatus, Profile } from '@skillcoop/types/src';
 
 type Friend = {
-  adder_id: number;
-  friend_id: number;
+  adder_id: string;
+  friend_id: string;
   avatar_url: string;
   status_name: InvitationStatus;
   username: string;

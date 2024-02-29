@@ -7,7 +7,7 @@ import { useNotifications } from '../../../features/notification/store/notificat
 /*eslint-enable*/
 import { Link } from 'react-router-dom';
 
-function NotificationTrigger({ profileId }: { profileId?: number }) {
+function NotificationTrigger({ profileId }: { profileId?: string }) {
   const { allUnreadNotifications, setNotification } = useNotifications();
   const {
     refetch,

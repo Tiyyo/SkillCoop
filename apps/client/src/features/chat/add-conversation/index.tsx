@@ -37,7 +37,7 @@ function NewConversation() {
       {typeConversation === 'oneToOne' && friends && (
         <NewConversationOneToOne
           friends={friends}
-          userId={Number(userId)}
+          userId={userId}
           setTypeConversation={setTypeConversation}
           searchInputValue={searchInputValue}
         />
@@ -45,7 +45,7 @@ function NewConversation() {
       {typeConversation === 'group' && friends && (
         <NewConversationGroup
           friends={friends}
-          userId={Number(userId)}
+          userId={userId}
           searchInputValue={searchInputValue}
         />
       )}

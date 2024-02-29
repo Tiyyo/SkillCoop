@@ -8,7 +8,7 @@ export class AddUserGroupConversationDto {
   @ArrayNotEmpty()
   @IsNumber({}, { each: true })
   @IsArray()
-  participants_ids: number[];
+  participants_ids: string[];
   @IsNotEmpty()
   @IsOptional()
   @IsNumber()

@@ -7,7 +7,7 @@ import { ConversationParticipant } from '@skillcoop/types';
 import { useRef, useState } from 'react';
 
 type ConversationInfosMembersProps = {
-  currentUserId: number | null;
+  currentUserId: string | null;
   participantsList: ConversationParticipant[];
   conversationId: number;
 };

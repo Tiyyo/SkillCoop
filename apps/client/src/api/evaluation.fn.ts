@@ -1,36 +1,36 @@
+import { OwnSkill } from 'packages/schema/src';
 import { api } from './api.fn';
 import type {
-  EvaluationOwnSkill,
   EvaluationParticipantSkill,
   ProfileEval,
   Vote,
 } from '@skillcoop/types/src';
 
 export const getProfileEvalFn = async (
-  profileId: number,
+  profileId: string,
 ): Promise<ProfileEval> => {
-  const response = await api.get(`api/skill_foot/${profileId}`);
+  const response = await api.get(`api/skills/profile/${profileId}`);
   return response.data;
 };
 
 export const getAverageSkillFn = async (data: {
-  rater_id: number;
-  reviewee_id: number;
+  rater_id: string;
+  reviewee_id: string;
   event_id: number;
 }) => {
-  const response = await api.get(`api/skill_foot/event`, { params: data });
+  const response = await api.get(`api/skills/event`, { params: data });
   return response.data;
 };
 
 export const evaluateParticipantSkillsFn = async (
   data: EvaluationParticipantSkill,
 ) => {
-  const response = await api.post(`api/skill_foot/event`, data);
+  const response = await api.post(`api/skills/event`, data);
   return response.data;
 };
 
-export const evaluateOwnSkillsFn = async (data: EvaluationOwnSkill) => {
-  const response = await api.post(`api/skill_foot`, data);
+export const evaluateOwnSkillsFn = async (data: OwnSkill) => {
+  const response = await api.post(`api/skills`, data);
   return response.data;
 };
 
@@ -40,6 +40,6 @@ export const voteMvpFn = async (data: Vote) => {
 };
 
 export const voteBestStrikerFn = async (data: Vote) => {
-  const response = await api.post(`api/best_striker`, data);
+  const response = await api.post(`api/best-striker`, data);
   return response.data;
 };

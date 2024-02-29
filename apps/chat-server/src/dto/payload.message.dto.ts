@@ -8,7 +8,7 @@ export class PayloadMessageDto {
   @IsNotEmpty()
   @IsNumber()
   @IsPositive()
-  user_id: number;
+  user_id: string;
   @IsString()
   @IsNotEmpty()
   message: string

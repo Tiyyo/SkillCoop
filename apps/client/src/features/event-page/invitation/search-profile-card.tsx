@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 type SearchProfileCardProps = {
   avatar: string;
   username: string;
-  friendId: number;
+  friendId: string;
   lastEvaluationRecorded?: number | null;
 };
 

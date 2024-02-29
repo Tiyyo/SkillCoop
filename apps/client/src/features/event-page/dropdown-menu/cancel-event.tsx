@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 type CancelEventMenuItemProps = {
   isAdmin: boolean;
   eventId?: number;
-  profileId?: number;
+  profileId?: string;
   eventStatus: EventStatus | null;
 };
 

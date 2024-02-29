@@ -3,7 +3,7 @@ import AvatarEdit from './edit-avatar';
 
 type ResumeProfileBannerProps = {
   avatar: string | null;
-  profileId: number | undefined;
+  profileId: string | undefined;
   getCurrentState: (state: boolean) => void;
 };
 

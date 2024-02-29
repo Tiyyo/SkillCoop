@@ -9,7 +9,7 @@ import AddNewGroupConversationFriends from './group.friends';
 
 type NewConversationGroupProps = {
   friends: Friend[];
-  userId: number | null;
+  userId: string | undefined;
   searchInputValue?: string;
 };
 

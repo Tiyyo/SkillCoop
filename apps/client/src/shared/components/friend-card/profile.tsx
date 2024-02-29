@@ -12,8 +12,8 @@ import { useTranslation } from 'react-i18next';
 type ProfileCardProps = {
   avatar: string | null;
   username: string;
-  profileId: number;
-  friendId: number;
+  profileId: string;
+  friendId: string;
   lastEvaluationRecorded?: number;
   relation?: number | null;
   createdAt?: string;

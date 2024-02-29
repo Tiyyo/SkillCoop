@@ -13,6 +13,7 @@ type InputLocationProps = {
   label: string;
   disabled?: boolean;
   placeholder?: string;
+  formid?: string;
 };
 
 function InputLocation({
@@ -24,6 +25,7 @@ function InputLocation({
   label,
   disabled,
   placeholder,
+  formid,
 }: InputLocationProps) {
   const { t } = useTranslation('event');
   const getPlaygroundChoose = (value: {
@@ -49,6 +51,7 @@ function InputLocation({
         disabled={disabled}
         defaultValue={defaultValue}
         error={error}
+        formid={formid}
       >
         <MapPin />
       </InputGeocode>

@@ -7,9 +7,9 @@ import type {
 } from '@skillcoop/types/src';
 
 export const getUserPreferencesFn = async (
-  userid: number,
+  userid: string,
 ): Promise<UserPreference> => {
-  const response = await api.get(`api/user-preference/${userid}`);
+  const response = await api.get(`api/user-preferences/${userid}`);
   return response.data;
 };
 
@@ -17,7 +17,7 @@ export const updateNotificationPreferenceFn = async (
   updateObject: UpdateNotificationPreference,
 ) => {
   const response = await api.patch(
-    `api/user-preference/notification`,
+    `api/user-preferences/notification`,
     updateObject,
   );
   return response.data;
@@ -27,7 +27,7 @@ export const updateLanguagePreferenceFn = async (
   updateObject: UpdateLanguagePreference,
 ) => {
   const response = await api.patch(
-    `api/user-preference/language`,
+    `api/user-preferences/language`,
     updateObject,
   );
   return response.data;
@@ -36,6 +36,6 @@ export const updateLanguagePreferenceFn = async (
 export const updateThemePreferenceFn = async (
   updateObject: UpdateThemePreference,
 ) => {
-  const response = await api.patch(`api/user-preference/theme`, updateObject);
+  const response = await api.patch(`api/user-preferences/theme`, updateObject);
   return response.data;
 };

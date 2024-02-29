@@ -29,7 +29,7 @@ function OnBoardingCreateProfile() {
   const updateQueryData = () => {
     // create a profile with username
     if (!username || !profileId) return;
-    createProfile({ profile_id: Number(profileId), username });
+    createProfile({ profile_id: profileId, username });
 
     queryClient.setQueryData(['auth-user'], (oldData: any) => {
       if (oldData) {
@@ -63,7 +63,7 @@ function OnBoardingCreateProfile() {
           sm:grid sm:grid-cols-2"
         >
           <Input
-            label="Username *"
+            label={t('system:username') + ' *'}
             high
             updateState={(e) => getValueInput(e, 'username')}
             value={username ?? ''}
@@ -71,7 +71,7 @@ function OnBoardingCreateProfile() {
             <User2 size={18} />
           </Input>
           <Input
-            label="First Name"
+            label={t('system:firstName')}
             high
             updateState={(e) => getValueInput(e, 'firstname')}
             value={firstname ?? ''}
@@ -79,7 +79,7 @@ function OnBoardingCreateProfile() {
             <User2 size={18} />
           </Input>
           <Input
-            label="Last Name"
+            label={t('system:lastName')}
             high
             updateState={(e) => getValueInput(e, 'lastname')}
             value={lastname ?? ''}
@@ -87,7 +87,7 @@ function OnBoardingCreateProfile() {
             <User2 size={18} />
           </Input>
           <Input
-            label="Date of birth"
+            label={t('system:age')}
             type="date"
             high
             updateState={(e) => getValueInput(e, 'date_of_birth')}
@@ -96,7 +96,7 @@ function OnBoardingCreateProfile() {
             <Calendar size={18} />
           </Input>
           <Input
-            label="Location"
+            label={t('system:location')}
             high
             updateState={(e) => getValueInput(e, 'location')}
             value={location ?? ''}

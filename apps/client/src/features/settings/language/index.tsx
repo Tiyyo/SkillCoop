@@ -47,8 +47,10 @@ function LanguageSettings() {
 
     const isValid =
       updateLanguagePreferenceSchema.safeParse(updatePreferenceData);
+
     if (!isValid.success) {
       toast.error(t('couldNotUpdateLanguage'));
+      return;
     }
     updatePreference(updatePreferenceData);
   };

@@ -22,6 +22,7 @@ interface SelectInputProps extends ComponentPropsWithoutRef<'select'> {
   disabled?: boolean;
   children?: React.ReactNode;
   high?: boolean;
+  formid?: string;
 }
 
 function SelectInput({
@@ -35,6 +36,7 @@ function SelectInput({
   mutateKey,
   disabled,
   high,
+  formid,
   ...props
 }: SelectInputProps) {
   const { t } = useTranslation('event');
@@ -101,6 +103,7 @@ function SelectInput({
               high ? 'h-10' : 'h-7',
               hasError && 'ring-2 ring-error',
             )}
+            form={formid}
             onChange={handleChange}
             {...props}
           >

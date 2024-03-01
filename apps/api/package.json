@@ -46,8 +46,10 @@
     "better-sqlite3": "^9.0.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
+    "clsx": "^2.0.0",
     "cookie-parser": "^1.4.6",
     "csv-parser": "^3.0.0",
+    "framer-motion": "^11.0.8",
     "helmet": "^7.1.0",
     "kysely": "^0.26.3",
     "logform": "^2.6.0",
@@ -60,6 +62,7 @@
     "rxjs": "^7.8.1",
     "sanitize-html": "^2.11.0",
     "sharp": "^0.32.6",
+    "tailwind-merge": "^2.0.0",
     "uuid": "^9.0.1",
     "winston": "^3.11.0"
   },

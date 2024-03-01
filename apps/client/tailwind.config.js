@@ -31,6 +31,7 @@ export default {
         'opacity-in-delayed': 'opacity-in 0.3s linear 0.7s forwards',
         'fade-in-right':
           'translate-right-left 0.3s ease-in-out 0.12s 1 forwards, opacity-in 0.5s linear 0s forwards',
+        spotlight: 'spotlight 2s ease .75s 1 forwards',
       },
       aspectRatio: {
         '1/4': '1/4',
@@ -170,6 +171,16 @@ export default {
         'translate-right-left': {
           '0%': { transform: 'translateX(100%)' },
           '100%': { transform: 'translateX(0)' },
+        },
+        spotlight: {
+          '0%': {
+            opacity: 0,
+            transform: 'translate(-72%, -62%) scale(0.5)',
+          },
+          '100%': {
+            opacity: 1,
+            transform: 'translate(-50%,-40%) scale(1)',
+          },
         },
       },
       minHeight: {

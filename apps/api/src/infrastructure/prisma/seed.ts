@@ -235,6 +235,8 @@ export class Seed {
       process.env.NODE_ENV === 'production'
         ? '../../../src/infrastructure/prisma/data.csv'
         : 'data.csv';
+    Logger.log('Path to file ' + pathToFile, 'Seed');
+    Logger.log(__dirname, 'Seed');
     const filePath = path.join(__dirname, pathToFile);
     try {
       const stringify = await convertCsvToJson(filePath);

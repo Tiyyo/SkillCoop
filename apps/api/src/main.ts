@@ -8,16 +8,17 @@ import { AllExceptionFilter } from './infrastructure/exceptions/exception.filter
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
-    cors: true,
     logger: WinstonModule.createLogger({
       instance: winstonLogger,
     }),
   });
-  // app.enableCors({
-  //   origin: ['https://skillcoop.fr'],
-  //   allowedHeaders: ['content-type', 'Authorization'],
-  //   credentials: true,
-  // });
+  app.enableCors({
+    origin: 'https://skillcoop.fr',
+    allowedHeaders: 'Content-Type, Accept',
+    credentials: true,
+    methods: 'GET,PUT,POST,DELETE,OPTIONS',
+    optionsSuccessStatus: 200,
+  });
   // app.use(helmet());
   app.use(cookieParser());
   app.setGlobalPrefix('api', {

@@ -233,7 +233,7 @@ export class Seed {
   async playground() {
     const pathToFile =
       process.env.NODE_ENV === 'production'
-        ? '../../prisma/data.csv'
+        ? '../../../src/infrastructure/prisma/data.csv'
         : 'data.csv';
     const filePath = path.join(__dirname, pathToFile);
     try {

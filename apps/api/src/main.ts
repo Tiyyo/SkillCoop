@@ -31,7 +31,7 @@ async function bootstrap() {
   app.enableCors({
     origin: ['https://skillcoop.fr'],
     allowedHeaders: ['content-type', 'Authorization'],
-    methods: 'GET,PUT,POST,DELETE,OPTIONS',
+    methods: 'GET,PUT,POST,PATCH,DELETE,OPTIONS',
     credentials: true,
     preflightContinue: false,
     optionsSuccessStatus: 200,

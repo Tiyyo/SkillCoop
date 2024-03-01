@@ -6,13 +6,21 @@
 
 ## Features
 
-- Google OAuth2 Authentication
-- User profile information management.
-- Friend list management. Get suggestions of friends to add.
 - Organize football matches among friends.
+- Find matchs in your area that need players.
+- Chat with friends in real-time.
+- Friend list management. Get suggestions of friends to add.
 - Automatic team creation based on each player's skill level.
 - Track personal progress through the evolution of global statistics over time.
 - Maintain a record of all played matches.
+- User profile information management.
+- Google OAuth2 Authentication
+- Get notifications on invitations, messages, and more.
+
+## Comming soon
+
+- Find available players to complete your team.
+- Mobile app.
 
 ### Apps and Packages
 
@@ -26,13 +34,11 @@
 
 ### Stack
 
-- Express.js / Nestjs
-- SQlite / Redis
+- Nestjs
+- SQlite
 - Prisma / Kysely
 - RabbitMQ
-
 - React.js
 - ReactQuery / Zustand
 - TailwindCSS / Shadcn/ui
-
 - Zod

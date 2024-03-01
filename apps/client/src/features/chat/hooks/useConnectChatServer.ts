@@ -41,7 +41,7 @@ export default function useConnectChatServer(conversationId: number) {
       socket.on('disconnect', () => {
         console.log('Disconnected');
       });
-      socket.on('error', (error) => {
+      socket.on('error', () => {
         // console.log('Socket error:', error);
       });
       socket.on('historic', getHistoric);

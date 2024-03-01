@@ -25,7 +25,7 @@ function NotificationTrigger({ profileId }: { profileId?: string }) {
         refetch();
       }
     },
-    onError: (error: Event) => {
+    onError: () => {
       // console.log('Error from SSE', error);
     },
   });

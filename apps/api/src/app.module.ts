@@ -27,6 +27,7 @@ import { JwtService } from '@nestjs/jwt';
 import { SanitizeMiddleware } from './infrastructure/nest/middleware/sanitize.middleware';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { ListenerModule } from './infrastructure/nest/modules/listener.module';
+import { HealthcheckController } from './app.controller';
 
 @Module({
   imports: [
@@ -55,7 +56,7 @@ import { ListenerModule } from './infrastructure/nest/modules/listener.module';
     VitestModule,
     ListenerModule,
   ],
-  controllers: [],
+  controllers: [HealthcheckController],
   providers: [
     AppService,
     { provide: 'TokenService', useClass: JwtAdapterService },
@@ -69,6 +70,7 @@ export class AppModule implements NestModule {
     consumer
       .apply(AuthMiddleware)
       .exclude(
+        { path: '/healthcheck', method: RequestMethod.ALL },
         { path: '/auth/demo', method: RequestMethod.POST },
         { path: '/auth/login', method: RequestMethod.POST },
         { path: '/auth/logout', method: RequestMethod.POST },

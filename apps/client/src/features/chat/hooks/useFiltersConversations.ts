@@ -28,7 +28,7 @@ export default function useFiltersConversations(userId?: string | null) {
     return (
       type ===
       convertFilterIntoMatchingTypeName[
-      filter as keyof typeof convertFilterIntoMatchingTypeName
+        filter as keyof typeof convertFilterIntoMatchingTypeName
       ]
     );
   };

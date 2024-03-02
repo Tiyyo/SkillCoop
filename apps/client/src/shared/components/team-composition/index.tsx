@@ -10,8 +10,9 @@ import { useTranslation } from 'react-i18next';
 type TeamCompositionProps = {
   participants: EventParticipant[];
   eventId: number;
-  profileId: number;
+  profileId: string;
   nameInput?: string;
+  organizer?: string;
   mutationFn?: UseMutateFunction<any, unknown, any, unknown>;
 };
 
@@ -20,6 +21,7 @@ function TeamComposition({
   eventId,
   profileId,
   nameInput,
+  organizer,
   mutationFn,
 }: TeamCompositionProps) {
   const { t } = useTranslation('event');
@@ -72,6 +74,7 @@ function TeamComposition({
         teamTofileter={1}
         currentIdActive={currentIdpActive}
         nameInput={nameInput}
+        organizer={organizer}
       />
       <div className="flex h-7 justify-between bg-base-light">
         <div className="w-[45%] rounded-r-xl bg-grey-off"></div>
@@ -83,6 +86,7 @@ function TeamComposition({
         teamTofileter={2}
         currentIdActive={currentIdpActive}
         nameInput={nameInput}
+        organizer={organizer}
       />
       <Button
         type="submit"

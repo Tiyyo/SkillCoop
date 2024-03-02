@@ -20,6 +20,7 @@ function ParticipantLegend({
   status,
   username,
 }: ParticipantLegendProps) {
+  console.log(profileIsAdmin, isMvp, isBestStriker, status, username);
   return (
     <legend className={cn('mr-2 w-full whitespace-pre text-sm font-medium ')}>
       <p className="flex items-center justify-center text-center">

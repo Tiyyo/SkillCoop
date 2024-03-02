@@ -6,15 +6,17 @@ import type { EventParticipant } from '@skillcoop/types/src';
 import TeamComposition from '../../../shared/components/team-composition';
 import toast from '../../../shared/utils/toast';
 import {
+  useGetSingleEvent,
   useVoteForMvp,
   useVoteForbestStriker,
 } from '../../../shared/hooks/useSingleEvent';
 import { useTranslation } from 'react-i18next';
+import { MotionTabs } from './motion-tab';
 
 type LocationState = {
   eventId?: number;
   participants?: EventParticipant[];
-  profileId?: number;
+  profileId?: string;
 };
 
 function EndOfGameAwards() {
@@ -25,8 +27,14 @@ function EndOfGameAwards() {
     participants: undefined,
     profileId: undefined,
   });
+  const { data: event } = useGetSingleEvent({
+    eventId: locationStateInfos.eventId,
+    profileId: locationStateInfos.profileId,
+  });
+
   const { mutate: voteMvp } = useVoteForMvp({
     eventId: locationStateInfos.eventId,
+
     onSuccess: () => {
       toast.success(t('yourVoteHasBeenRecorded'));
     },
@@ -59,30 +67,12 @@ function EndOfGameAwards() {
     }
   }, [state]);
 
-  return (
-    <>
-      <Tabs
-        defaultValue="account"
-        className="flex w-full flex-col justify-center"
-      >
-        <h2 className="p-4 font-semibold text-primary-1100">
-          {t('voteNowForTheBest')} :
-        </h2>
-        <TabsList className="flex">
-          <TabsTrigger
-            value="mvp"
-            className="w-1/2 max-w-xl border border-border"
-          >
-            {t('player')}
-          </TabsTrigger>
-          <TabsTrigger
-            value="striker"
-            className="w-1/2 max-w-xl border border-border"
-          >
-            {t('striker')}
-          </TabsTrigger>
-        </TabsList>
-        <TabsContent value="mvp">
+  const tryTabs = [
+    {
+      title: t('player'),
+      value: 'mvp',
+      content: (
+        <>
           {locationStateInfos.participants &&
             locationStateInfos.eventId &&
             locationStateInfos.profileId && (
@@ -90,12 +80,19 @@ function EndOfGameAwards() {
                 participants={locationStateInfos.participants}
                 eventId={locationStateInfos.eventId}
                 profileId={locationStateInfos.profileId}
+                organizer={event?.organizer_id}
                 nameInput="mvp"
                 mutationFn={voteMvp}
               />
             )}
-        </TabsContent>
-        <TabsContent value="striker">
+        </>
+      ),
+    },
+    {
+      title: t('striker'),
+      value: 'striker',
+      content: (
+        <>
           {locationStateInfos.participants &&
             locationStateInfos.eventId &&
             locationStateInfos.profileId && (
@@ -103,12 +100,22 @@ function EndOfGameAwards() {
                 participants={locationStateInfos.participants}
                 eventId={locationStateInfos.eventId}
                 profileId={locationStateInfos.profileId}
+                organizer={event?.organizer_id}
                 nameInput="striker"
                 mutationFn={voteBestStriker}
               />
             )}
-        </TabsContent>
-      </Tabs>
+        </>
+      ),
+    },
+  ];
+
+  return (
+    <>
+      <h2 className="pt-2 font-semibold text-primary-1100">
+        {t('voteNowForTheBest')} :
+      </h2>{' '}
+      <MotionTabs tabs={tryTabs} containerClassName="py-4 text-text-base" />
     </>
   );
 }

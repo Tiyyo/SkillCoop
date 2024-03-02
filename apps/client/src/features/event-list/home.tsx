@@ -27,8 +27,14 @@ function ResumeEvents() {
         textButton={t('addNewEvent')}
         legend={t('eventsLegend')}
       />
-      <div className="flex justify-between bg-base-light px-6 py-2">
-        <h4 className="text-sm text-primary-1100">What's next ?</h4>
+      <div
+        className="flex justify-between bg-base-light px-6 py-2 lg:my-1.5 
+        lg:rounded-lg"
+      >
+        <div className="flex gap-x-3">
+          <div className="w-1.5 min-w-[6px] rounded-full bg-primary-100"></div>
+          <h4 className="text-sm text-primary-1100">What's next ?</h4>
+        </div>
         <Link to="/events/incoming" className="text-xs text-light">
           {t('system:seeMore')}
         </Link>

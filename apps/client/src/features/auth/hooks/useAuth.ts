@@ -17,6 +17,7 @@ import { getMeFn } from "../../../api/profile.fn";
 import { useApp } from "../../../shared/store/app.store";
 import { detectFirstAccess } from "../../../shared/utils/is-first-connection";
 import { Credentials } from "packages/types/src";
+import { useGetUserPreferences } from "../../settings/hooks/useUserPreference";
 
 /*eslint-enable*/
 function useAuth() {
@@ -36,10 +37,25 @@ function useAuth() {
     { enabled: isAuthenticated },
   );
 
+  const getUserPreferencesCondition = () => {
+    if (
+      typeof responseGetProfile !== 'string' &&
+      responseGetProfile &&
+      isAuthenticated
+    ) {
+      return responseGetProfile.userId;
+    }
+  };
+
+  const { data: userPreferences } = useGetUserPreferences({
+    userId: '6ed3dedc-2e60-43b1-84db-8bb97294383a',
+  });
+
+  console.log(userPreferences);
+
   const { mutate: mutateLoginFn, error: errorLogin } = useMutation({
     mutationFn: async (credentials: Credentials) => loginUserFn(credentials),
     onSuccess: (response) => {
-      console.log('response', response);
       if (response.error) {
         setLoginError(response.error);
         setLoginAttempts(response.failedAttemps);

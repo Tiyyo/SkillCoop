@@ -22,7 +22,7 @@ export function useGetUserPreferences(options: { userId?: string | null }) {
       if (!options.userId) return null;
       return getUserPreferencesFn(options.userId);
     },
-    { enabled: !options.userId },
+    { enabled: !!options.userId },
   );
 }
 

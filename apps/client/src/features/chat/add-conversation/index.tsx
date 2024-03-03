@@ -6,6 +6,7 @@ import NewConversationGroup from './group';
 import useNewConversation from '../hooks/useNewConversation';
 import AddConversationTitle from './title';
 import ReturnArrowBtn from '../../../shared/components/return-arrow-btn';
+import { useApp } from '../../../shared/store/app.store';
 
 function NewConversation() {
   const {
@@ -16,6 +17,7 @@ function NewConversation() {
     searchInputValue,
   } = useNewConversation();
   const { userId } = useParams();
+  const { userProfile } = useApp();
   const navigate = useNavigate();
 
   const handleClickReturn = (condition: string): void => {
@@ -38,6 +40,8 @@ function NewConversation() {
         <NewConversationOneToOne
           friends={friends}
           userId={userId}
+          userUsername={userProfile?.username}
+          userAvatar={userProfile?.avatar}
           setTypeConversation={setTypeConversation}
           searchInputValue={searchInputValue}
         />

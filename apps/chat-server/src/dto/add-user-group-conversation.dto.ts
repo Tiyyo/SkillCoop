@@ -1,4 +1,4 @@
-import { ArrayNotEmpty, IsArray, IsEnum, IsNotEmpty, IsNumber, IsOptional, IsPositive } from "class-validator";
+import { ArrayNotEmpty, IsArray, IsEnum, IsNotEmpty, IsNumber, IsOptional, IsPositive, IsString } from "class-validator";
 
 export class AddUserGroupConversationDto {
   @IsNotEmpty()
@@ -6,7 +6,7 @@ export class AddUserGroupConversationDto {
   @IsPositive()
   conversation_id: number;
   @ArrayNotEmpty()
-  @IsNumber({}, { each: true })
+  @IsString({ each: true })
   @IsArray()
   participants_ids: string[];
   @IsNotEmpty()

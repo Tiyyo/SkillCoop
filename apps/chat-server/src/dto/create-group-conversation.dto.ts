@@ -1,15 +1,14 @@
-import { IsNotEmpty, IsNumber, IsOptional, IsPositive, ArrayNotEmpty, IsArray, IsString } from "class-validator";
+import { IsNotEmpty, IsOptional, ArrayNotEmpty, IsArray, IsString } from "class-validator";
 
 export class CreateGroupConversationDto {
   @IsNotEmpty()
-  @IsPositive()
-  @IsNumber()
+  @IsString()
   creator_id: string;
   @IsOptional()
   @IsString()
   title?: string;
   @ArrayNotEmpty()
+  @IsString({ each: true })
   @IsArray()
-  @IsNumber({}, { each: true })
   participants_ids: string[];
 }

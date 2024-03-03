@@ -21,7 +21,7 @@ function NotificationTrigger({ profileId }: { profileId?: string }) {
   useSubscriptionNotification({
     onMessage: (event: MessageEvent) => {
       const data = JSON.parse(event.data);
-      if (data.message.includes('new notification')) {
+      if (data.message.includes('new-notification')) {
         refetch();
       }
     },

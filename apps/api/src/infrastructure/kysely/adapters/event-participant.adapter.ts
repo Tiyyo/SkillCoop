@@ -16,8 +16,7 @@ import {
 @Injectable()
 export class EventParticipantAdapter
   extends CoreAdapter<'profile_on_event'>
-  implements EventParticipantRepository
-{
+  implements EventParticipantRepository {
   constructor(@Inject('dbClient') protected dbClient: Kysely<DB>) {
     super(dbClient);
     this.tableName = 'profile_on_event';
@@ -85,6 +84,7 @@ export class EventParticipantAdapter
     }
   }
   async upsert(data: Partial<EventParticipantEntity>) {
+    console.log('data', data);
     const dataWithCreatedAt = addCreatedISOStringDate(data);
     try {
       const result = await this.client

@@ -29,7 +29,7 @@ async function bootstrap() {
   const logger = new Logger('AllExceptionFilter');
   app.useGlobalFilters(new AllExceptionFilter(httpAdapter, logger));
   app.enableCors({
-    origin: ['https://skillcoop.fr'],
+    origin: ['https://skillcoop.fr', 'http://localhost:5004'],
     allowedHeaders: ['content-type', 'Authorization'],
     methods: 'GET,PUT,POST,PATCH,DELETE,OPTIONS',
     credentials: true,

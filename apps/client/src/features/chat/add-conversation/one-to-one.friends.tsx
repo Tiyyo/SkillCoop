@@ -4,7 +4,11 @@ import { Friend } from '@skillcoop/types/src';
 type AddNewConversationOneToOneFriendsProps = {
   friends: Friend[];
   searchInputValue: string | undefined;
-  navigateToConversation: (friendId: string) => void;
+  navigateToConversation: (
+    friendId: string,
+    friendUsername: string,
+    friendAvatar: string | null,
+  ) => void;
 };
 
 function AddNewConversationOneToOneFriends({
@@ -28,7 +32,13 @@ function AddNewConversationOneToOneFriends({
               px-4 py-2 shadow-sm first:border-t 
               first:border-t-grey-regular first:border-opacity-10 
               lg:rounded-xl lg:border-none lg:bg-base"
-              onClick={() => navigateToConversation(friend.friend_id)}
+              onClick={() =>
+                navigateToConversation(
+                  friend.friend_id,
+                  friend.username,
+                  friend.avatar_url,
+                )
+              }
               aria-roledescription="Link to conversation"
               key={friend.friend_id}
             >

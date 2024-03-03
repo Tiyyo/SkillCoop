@@ -9,10 +9,11 @@ import { ConversationIdParamsDto } from './dto/conversationId.params.dto';
 import { UpdateUserOnConversationDto } from './dto/update-user-conversation.dto';
 import { DeleteConversationParamsDto } from './dto/delete-conversation.dto';
 import { EventIdParamsDto } from './dto/eventId.params.dto';
+import { UserService } from './user/user.service';
 
 @Controller('chat-service')
 export class AppController {
-  constructor(private readonly conversationService: ConversationService) { }
+  constructor(private readonly conversationService: ConversationService, private readonly userService: UserService) { }
   @Get()
   async healthCheck() {
     return { message: 'Chat server is ok' };
@@ -25,6 +26,10 @@ export class AppController {
 
   @Post('conversation/group')
   async createConvGroup(@Body() body: CreateGroupConversationDto) {
+    const userCheckPromise = body.participants.map((p) => this.userService.checkUserExistence(p.userId, p.username, p.avatar));
+    await Promise.all(userCheckPromise);
+    await this.userService.checkUserExistence(body.creator.userId, body.creator.username, body.creator.avatar);
+
     const conversationId = await this.conversationService.createGroup(body);
     return conversationId
   }
@@ -85,7 +90,11 @@ export class AppController {
   @Post('conversation/find-or-create')
   async findOrCreateConversation(@Body() body: CreateOneToOneConversationDto) {
     const conversationId = await this.conversationService.searchOneToOne(body);
-    return conversationId ? conversationId : await this.conversationService.createOneToOne(body);
+    if (conversationId) return conversationId;
+    await this.userService.checkUserExistence(body.user_id_one, body.user_username_one, body.user_avatar_one);
+    await this.userService.checkUserExistence(body.user_id_two, body.user_username_two, body.user_avatar_two);
+    const conv = await this.conversationService.createOneToOne(body);
+    return { conversation_id: conv.conversationId }
   }
 
   @Delete('conversation/:conversation_id/:user_id')

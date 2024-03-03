@@ -1,4 +1,4 @@
-import { IsDateString, IsEnum, IsNotEmpty, IsNumber, IsOptional, IsPositive } from "class-validator";
+import { IsDateString, IsEnum, IsNotEmpty, IsNumber, IsOptional, IsPositive, IsString } from "class-validator";
 
 export class UpdateUserOnConversationDto {
   @IsNotEmpty()
@@ -6,8 +6,7 @@ export class UpdateUserOnConversationDto {
   @IsPositive()
   conversation_id: number;
   @IsNotEmpty()
-  @IsNumber()
-  @IsPositive()
+  @IsString()
   user_id: string;
   @IsOptional()
   @IsDateString()

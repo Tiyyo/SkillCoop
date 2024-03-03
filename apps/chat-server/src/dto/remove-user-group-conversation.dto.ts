@@ -1,5 +1,5 @@
 import { Type } from "class-transformer";
-import { IsNotEmpty, IsNumber, IsPositive } from "class-validator";
+import { IsNotEmpty, IsNumber, IsPositive, IsString } from "class-validator";
 
 export class RemoveUserGroupConversationDto {
   @Type(() => Number)
@@ -7,9 +7,7 @@ export class RemoveUserGroupConversationDto {
   @IsPositive()
   @IsNotEmpty()
   conversation_id: number;
-
-  @IsNumber()
-  @IsPositive()
   @IsNotEmpty()
+  @IsString()
   participant_id: string;
 }

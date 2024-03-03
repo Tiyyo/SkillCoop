@@ -1,5 +1,5 @@
 import { Type } from "class-transformer";
-import { IsNotEmpty, IsNumber, IsPositive } from "class-validator";
+import { IsNotEmpty, IsNumber, IsPositive, IsString } from "class-validator";
 
 export class DeleteConversationParamsDto {
   @Type(() => Number)
@@ -9,7 +9,6 @@ export class DeleteConversationParamsDto {
   conversation_id: number;
 
   @IsNotEmpty()
-  @IsPositive()
-  @IsNumber()
+  @IsString()
   user_id: string;
 }

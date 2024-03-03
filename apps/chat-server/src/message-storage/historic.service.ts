@@ -36,14 +36,11 @@ export class HistoricService {
         ])
         .where('conversation.conversation_id', '=', data.conversation_id)
         .groupBy('conversation.conversation_id')
-        .execute();
+        .executeTakeFirst();
 
-      const historic = {
-        ...result[0],
-        messages: JSON.parse((result[0] as any).messages),
-      };
+      const parsedHistoric = { ...result, messages: this.groupMessageBy.groupByDateAndAuthor(result.messages) };
 
-      return { ...historic, messages: this.groupMessageBy.groupByDateAndAuthor(historic.messages) };
+      return parsedHistoric;
     } catch (error) {
       this.logger.error('Could not get historic of conversation ' + data.conversation_id + ' ' + error.message)
     }

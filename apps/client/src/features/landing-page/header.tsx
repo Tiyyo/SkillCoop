@@ -12,14 +12,14 @@ function HeaderLandingPage() {
         Skill<span className="text-primary-100">coop</span>
       </p>
 
-      <div className="flex items-center gap-x-2 text-sm">
+      <div className="flex items-center gap-x-2 text-xs md:text-sm">
         <Link to="/login" className="text-grey-sub-text">
           {t('login')}
         </Link>
         <Link
           to="/register"
-          className="rounded-full border  border-primary-100 
-        bg-primary-200 px-4 py-2 font-semibold text-primary-100"
+          className="rounded-full bg-primary-600 
+              px-4 py-2 text-text-base hover:bg-primary-400"
         >
           {t('joinUs')}
         </Link>

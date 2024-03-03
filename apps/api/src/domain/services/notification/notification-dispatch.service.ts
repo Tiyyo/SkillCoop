@@ -3,7 +3,7 @@ import { EventEmitter2 } from '@nestjs/event-emitter';
 
 @Injectable()
 export class NotificationDispatchService {
-  constructor(private readonly eventEmiter: EventEmitter2) {}
+  constructor(private readonly eventEmiter: EventEmitter2) { }
   dispatch(notification: any) {
     if (!notification || !notification.transports) {
       console.error(

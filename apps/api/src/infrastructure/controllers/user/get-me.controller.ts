@@ -18,12 +18,13 @@ export class GetMeController {
     @Inject('TokenService') private tokenService: TokenServiceInterface,
     private readonly envVariableService: NestEnvVariableAdapterService,
     private readonly getMeUserUsecases: GetMeUserUsecases,
-  ) {}
+  ) { }
 
   @Get('me')
   async getMe(@Req() req: Request, @Res() res: Response) {
     const authHeaders = req.headers.Authorization || req.headers.authorization;
     let token: string;
+
     if (
       authHeaders &&
       typeof authHeaders === 'string' &&
@@ -31,6 +32,7 @@ export class GetMeController {
     ) {
       token = authHeaders.split(' ')[1];
     }
+
     if (!token) {
       throw new AccessTokenException(
         'No access token provided',

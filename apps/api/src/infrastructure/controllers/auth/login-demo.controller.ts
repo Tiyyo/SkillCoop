@@ -26,6 +26,7 @@ export class LoginDemoUserController {
         failedAttemps: loginTrack.failedAttempts,
       });
     }
+
     if (
       loginTrack.success &&
       loginTrack.accessToken &&

@@ -25,13 +25,23 @@ export type ConversationParticipant = {
 
 export type CreateOneToOneConversation = {
   user_id_one: string;
+  user_username_one: string;
+  user_avatar_one: string | null;
   user_id_two: string;
+  user_username_two: string;
+  user_avatar_two: string | null;
+};
+
+export type UserConv = {
+  userId: string;
+  username: string;
+  avatar: string | null;
 };
 
 export type CreateGroupConversation = {
-  creator_id: string;
+  creator: UserConv;
   title?: string;
-  participants_ids: string[];
+  participants: UserConv[];
 }
 
 export type GetConversation = {

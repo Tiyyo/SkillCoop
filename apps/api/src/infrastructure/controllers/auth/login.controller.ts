@@ -9,7 +9,7 @@ export class LoginUserController {
   constructor(
     private readonly loginUsecases: LoginUserUsecases,
     private readonly envVarible: NestEnvVariableAdapterService,
-  ) {}
+  ) { }
   @Post('login')
   @HttpCode(200)
   async login(@Body() body: LoginUserDTO, @Res() res: Response) {
@@ -20,6 +20,7 @@ export class LoginUserController {
       body.email,
       body.password,
     );
+
     if (!loginTrack.success) {
       return res.status(loginTrack.status).json({
         error: loginTrack.error,

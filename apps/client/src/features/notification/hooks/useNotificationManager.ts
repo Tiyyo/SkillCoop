@@ -14,7 +14,7 @@ export default function useNotificationManager() {
   } = useGetNotifications({
     profileId: userProfile?.profile_id,
   });
-
+  console.log('notifications', fetchNotifications);
   useLayoutEffect(() => {
     if (userProfile?.profile_id) {
       refetch();

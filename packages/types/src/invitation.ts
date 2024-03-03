@@ -35,4 +35,5 @@ export type UpdateFriendsInvitation = {
   adder_id: string;
   friend_id: string;
   status_name: InvitationStatus;
+  username?: string
 };

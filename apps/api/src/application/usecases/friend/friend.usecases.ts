@@ -14,7 +14,7 @@ export class FriendUsecases {
     private readonly sendFriendRequestService: SendFriendRequestService,
     private readonly pendingFriendRequestService: PendingFriendRequestService,
     @Inject('EmitEventService') private eventEmitter: EmitEventInterface,
-  ) {}
+  ) { }
 
   async sendRequst(adderId: string, friendId: string) {
     await this.sendFriendRequestService.execute(adderId, friendId);
@@ -42,8 +42,8 @@ export class FriendUsecases {
 
     if (data.status_name === 'confirmed') {
       this.eventEmitter.friendRequestAccepted({
-        profileId: data.friend_id,
-        instigatorId: data.adder_id,
+        profileId: data.adder_id,
+        instigatorId: data.friend_id,
       });
     }
     return { success: true, username: data.username, status: data.status_name };

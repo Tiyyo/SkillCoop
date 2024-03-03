@@ -12,6 +12,7 @@ import { GroupMessageByService } from './utils/message-groupby.service';
 import { AuthMiddleware } from './middleware/auth-middleware';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigModule } from '@nestjs/config';
+import { UserService } from './user/user.service';
 
 
 @Module({
@@ -31,6 +32,7 @@ import { ConfigModule } from '@nestjs/config';
     GroupMessageByService,
     Logger,
     JwtService,
+    UserService,
   ],
 })
 export class AppModule implements NestModule {

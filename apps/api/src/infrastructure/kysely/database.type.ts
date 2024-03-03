@@ -12,13 +12,16 @@ export type best_striker_poll = {
   updated_at: string | null;
 };
 export type event = {
-  id: Generated<number>;
+  id: number;
   date: string;
   duration: number;
   required_participants: number;
   price: number | null;
-  nb_teams: Generated<number>;
-  visibility: string;
+  nb_teams: number;
+  /**
+   * @kyselyType('public' | 'private')
+   */
+  visibility: 'public' | 'private';
   location_id: number;
   organizer_id: string | null;
   status_name: string;
@@ -28,7 +31,7 @@ export type event = {
   updated_at: string | null;
 };
 export type image = {
-  id: Generated<number>;
+  id: number;
   url: string;
   key: string | null;
   size: number | null;
@@ -37,6 +40,9 @@ export type image = {
 };
 export type language_preference = {
   user_id: string;
+  /**
+   * @kyselyType(string)
+   */
   name: string;
   created_at: string;
   updated_at: string | null;
@@ -49,7 +55,7 @@ export type mvp_poll = {
   updated_at: string | null;
 };
 export type notification = {
-  id: Generated<number>;
+  id: number;
   profile_id: string;
   instigator_id: string | null;
   event_id: number | null;
@@ -57,16 +63,16 @@ export type notification = {
   type_name: string | null;
   subtype: string | null;
   message: string;
-  is_read: Generated<number>;
+  is_read: number;
   created_at: string;
   updated_at: string | null;
 };
 export type notification_preference = {
   user_id: string;
   type_name: string;
-  email: Generated<number>;
-  push: Generated<number>;
-  website: Generated<number>;
+  email: number;
+  push: number;
+  website: number;
   created_at: string;
   updated_at: string | null;
 };
@@ -76,7 +82,7 @@ export type notification_type = {
   updated_at: string | null;
 };
 export type playground = {
-  id: Generated<number>;
+  id: number;
   name: string;
   address: string;
   city: string;
@@ -97,7 +103,7 @@ export type profile = {
   date_of_birth: string | null;
   avatar_url: string | null;
   last_evaluation: number | null;
-  active_notification: Generated<number>;
+  active_notification: number;
   created_at: string;
   updated_at: string | null;
 };
@@ -117,7 +123,7 @@ export type profile_on_profile = {
   updated_at: string | null;
 };
 export type score = {
-  id: Generated<number>;
+  id: number;
   score_team_1: number;
   score_team_2: number;
   event_id: number;
@@ -125,7 +131,7 @@ export type score = {
   updated_at: string | null;
 };
 export type skill_foot = {
-  id: Generated<number>;
+  id: number;
   pace: number;
   shooting: number;
   passing: number;
@@ -138,20 +144,23 @@ export type skill_foot = {
   event_id: number | null;
 };
 export type sport = {
-  id: Generated<number>;
+  id: number;
   name: string;
   created_at: string;
   updated_at: string | null;
 };
 export type status = {
-  id: Generated<number>;
+  id: number;
   name: string;
   created_at: string;
   updated_at: string | null;
 };
 export type theme_preference = {
   user_id: string;
-  name: string;
+  /**
+   * @kyselyType('light' | 'dark')
+   */
+  name: 'light' | 'dark';
   created_at: string;
   updated_at: string | null;
 };
@@ -159,9 +168,9 @@ export type user = {
   id: string;
   email: string;
   password: string;
-  verified: Generated<number>;
-  blocked: Generated<number>;
-  failed_attempts: Generated<number>;
+  verified: number;
+  blocked: number;
+  failed_attempts: number;
   created_at: string;
   updated_at: string | null;
 };

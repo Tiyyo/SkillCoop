@@ -131,6 +131,8 @@ jobs:
             npm install -g pnpm
             pnpm install
 
+            pnpm clean:type
+
             pnpm schema build 
             pnpm date build
             pnpm type build  

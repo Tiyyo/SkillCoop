@@ -86,9 +86,6 @@ importers:
       class-validator:
         specifier: ^0.14.1
         version: 0.14.1
-      clsx:
-        specifier: ^2.0.0
-        version: 2.0.0
       cookie-parser:
         specifier: ^1.4.6
         version: 1.4.6
@@ -131,9 +128,6 @@ importers:
       sharp:
         specifier: ^0.32.6
         version: 0.32.6
-      tailwind-merge:
-        specifier: ^2.0.0
-        version: 2.0.0
       uuid:
         specifier: ^9.0.1
         version: 9.0.1

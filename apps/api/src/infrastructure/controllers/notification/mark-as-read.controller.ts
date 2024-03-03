@@ -1,4 +1,4 @@
-import { Body, Controller, HttpCode, Patch, Post } from '@nestjs/common';
+import { Body, Controller, HttpCode, Patch } from '@nestjs/common';
 import { MarkNotificationDTO } from 'src/application/dto/mark-notification.dto';
 import { NotificationUsecases } from 'src/application/usecases/notification/notification.usecases';
 

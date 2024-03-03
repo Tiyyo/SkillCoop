@@ -1,7 +1,6 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { useNewConversationGroup } from '../store/new-group.store';
 import { useCreateGroupConversation } from './useConversations';
-import { FriendStoreChat } from '@skillcoop/types';
 /*eslint-disable*/
 import useGetConversationPath from '../../../shared/hooks/useGetConversationPath';
 import { useNavigate } from 'react-router-dom';

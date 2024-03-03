@@ -1,6 +1,5 @@
 /* eslint-disable indent*/
 import { useLocation } from 'react-router-dom';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../../lib/ui/tabs';
 import { useEffect, useState } from 'react';
 import type { EventParticipant } from '@skillcoop/types/src';
 import TeamComposition from '../../../shared/components/team-composition';

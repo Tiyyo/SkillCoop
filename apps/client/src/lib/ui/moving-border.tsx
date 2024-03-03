@@ -40,7 +40,8 @@ export const MovingBorder = ({
     (val) => pathRef.current?.getPointAtLength(val).y,
   );
 
-  const transform = useMotionTemplate`translateX(${x}px) translateY(${y}px) translateX(-50%) translateY(-50%)`;
+  const transform = useMotionTemplate`translateX(${x}px) 
+  translateY(${y}px) translateX(-50%) translateY(-50%)`;
 
   return (
     <>

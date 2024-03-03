@@ -16,7 +16,10 @@ function OnBoarding() {
           className="flex flex-row justify-between
            px-4 py-4 lg:mt-4"
         >
-          <p className="text-sm font-semibold text-light md:text-md lg:text-2xl">
+          <p
+            className="text-sm font-semibold text-light md:text-md 
+            lg:text-2xl"
+          >
             Skill<span className="text-primary-100">coop</span>
           </p>
           <button onClick={logout} className="text-xs text-primary-700">

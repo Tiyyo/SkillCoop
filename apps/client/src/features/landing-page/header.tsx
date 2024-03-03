@@ -1,7 +1,5 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { MovingBorder } from '../../lib/ui/moving-border';
-import { cn } from '../../lib/utils';
 
 function HeaderLandingPage() {
   const { t } = useTranslation();

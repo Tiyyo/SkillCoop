@@ -41,7 +41,7 @@ function NewConversation() {
           friends={friends}
           userId={userId}
           userUsername={userProfile?.username}
-          userAvatar={userProfile?.avatar}
+          userAvatar={userProfile?.avatar_url}
           setTypeConversation={setTypeConversation}
           searchInputValue={searchInputValue}
         />

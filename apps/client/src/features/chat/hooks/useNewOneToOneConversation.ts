@@ -20,7 +20,6 @@ export default function useNewOneToOneConversation({
   const { mutate: findOrCreateConversation } =
     useFindOrCreateOneToOneConversation({
       onSuccess: (response) => {
-        console.log(response);
         if (response.conversation_id) {
           navigate(`${conversationPath}${response.conversation_id}`);
         }

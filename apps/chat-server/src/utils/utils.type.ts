@@ -2,7 +2,9 @@ import { Conversation } from "@skillcoop/types";
 
 
 export function assertIsConversation(conversation: any): asserts conversation is Conversation {
+  console.log('assertIsConversation', typeof conversation);
   const isObject = (obj: any): obj is Record<string, unknown> => typeof obj === 'object' && obj !== null;
+
 
   if (!isObject(conversation)) {
     throw new Error('Conversation is not an object');
@@ -32,7 +34,7 @@ export function assertIsConversation(conversation: any): asserts conversation is
   }
 
   conversation.participants_list.forEach(participant => {
-    if (typeof participant.user_id !== 'number' ||
+    if (typeof participant.user_id !== 'string' ||
       typeof participant.username !== 'string' ||
       typeof participant.avatar !== 'string' && participant.avatar !== null || typeof participant.is_admin !== 'number') {
       throw new Error('Invalid Participant in Conversation object');

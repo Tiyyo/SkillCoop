@@ -42,7 +42,7 @@ export class InfosNotificationService {
   constructor(
     private readonly profileAdapter: ProfileAdapter,
     private readonly eventQueriesAdapter: EventQueriesAdapter,
-  ) {}
+  ) { }
   async get({
     type,
     eventId,
@@ -74,7 +74,7 @@ export class InfosNotificationService {
     const profile = await this.profileAdapter.findOne({
       profile_id: profileId,
     });
-    return new InstigatorInfos(profile.avatar_url, profile.username).get;
+    return new InstigatorInfos(profile?.avatar_url, profile?.username).get;
   }
   async getEventInfos(eventId: number): Promise<{
     avatar_url: string | null;

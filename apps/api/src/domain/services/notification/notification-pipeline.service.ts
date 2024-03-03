@@ -47,17 +47,20 @@ export class NotificationPipelineService {
       convId: convId,
       profileId: profileId,
     });
+    console.log('Subscriber', subscribers);
     const infos = await this.infosNotificationService.get({
       type: type,
       eventId: eventId,
       instigatorId: instigatorId,
       subtype: subtype,
     });
+    console.log('Infos', infos);
     const message = this.notificationBuilderMessageService.build({
       subtype: subtype,
       username: infos instanceof InstigatorInfos ? infos.username : undefined,
       eventDate: infos instanceof EventInfos ? infos.eventDate : undefined,
     });
+    console.log('Message', message);
     const notifications = subscribers
       .filter((subscriber) => {
         if (instigatorId) {
@@ -76,6 +79,7 @@ export class NotificationPipelineService {
           avatarUrl: infos instanceof InstigatorInfos ? infos.avatar_url : null,
         };
       });
+    console.log('Notifications', notifications);
     if (!notifications || notifications.length === 0) {
       return;
     }
@@ -84,8 +88,10 @@ export class NotificationPipelineService {
         notification.transports.includes('website') ||
         notification.transports.includes('push')
       ) {
+        console.log('Saved notification', notification);
         await this.notificationService.save(notification);
       }
+      console.log('Dispatech', notification);
       return this.notificationDispatchService.dispatch(notification);
     });
   }

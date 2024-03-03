@@ -22,6 +22,13 @@ function FriendRequestNotification({
       </>
     );
   };
+  console.log(
+    'Client notification',
+    'friend :',
+    notification.profile_id,
+    'adder_id',
+    notification.instigator_id,
+  );
   const handleClickActionOnInvition = () => {
     if (!notification.instigator_id) return;
     // TODO : validate date before mutation
@@ -29,6 +36,7 @@ function FriendRequestNotification({
       friend_id: notification.profile_id,
       adder_id: notification.instigator_id,
       status_name: invitationStatus.confirmed,
+      username: username,
     });
   };
   return (

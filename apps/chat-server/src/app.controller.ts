@@ -26,6 +26,10 @@ export class AppController {
 
   @Post('conversation/group')
   async createConvGroup(@Body() body: CreateGroupConversationDto) {
+    const userCheckPromise = body.participants.map((p) => this.userService.checkUserExistence(p.userId, p.username, p.avatar));
+    await Promise.all(userCheckPromise);
+    await this.userService.checkUserExistence(body.creator.userId, body.creator.username, body.creator.avatar);
+
     const conversationId = await this.conversationService.createGroup(body);
     return conversationId
   }

@@ -153,11 +153,22 @@ ORDER BY conversation.last_update DESC
 
         await trx
           .insertInto('user_on_conversation')
-          .values(
-            data.participants_ids.map((id) => ({
+          .values([
+            {
               conversation_id: newConversation.conversation_id,
-              user_id: id,
-              is_admin: data.creator_id === id ? 1 : 0,
+              user_id: data.creator.userId,
+              is_admin: 1,
+              created_at: todayUTCString,
+            },
+          ]).executeTakeFirst();
+
+        await trx
+          .insertInto('user_on_conversation')
+          .values(
+            data.participants.map((p) => ({
+              conversation_id: newConversation.conversation_id,
+              user_id: p.userId,
+              is_admin: 0,
               created_at: todayUTCString,
             })),
           )

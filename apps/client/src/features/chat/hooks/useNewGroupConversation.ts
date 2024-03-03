@@ -5,6 +5,7 @@ import { FriendStoreChat } from '@skillcoop/types';
 /*eslint-disable*/
 import useGetConversationPath from '../../../shared/hooks/useGetConversationPath';
 import { useNavigate } from 'react-router-dom';
+import { useApp } from '../../../shared/store/app.store';
 /*eslint-enable*/
 
 type NewConversationGroupProps = {
@@ -14,6 +15,7 @@ type NewConversationGroupProps = {
 export default function useNewGroupConversation({
   userId,
 }: NewConversationGroupProps) {
+  const { userProfile } = useApp();
   const [title, setTitle] = useState('');
   const navigate = useNavigate();
   const conversationPath = useGetConversationPath();
@@ -35,22 +37,15 @@ export default function useNewGroupConversation({
     setTitle(title);
   };
 
-  const participants_ids = useMemo(() => {
-    if (!userId) return [];
-    return friendsToAdd.reduce(
-      (acc: string[], friend: FriendStoreChat) => {
-        acc.push(friend.userId);
-        return acc;
-      },
-      [userId],
-    );
-  }, [friendsToAdd, userId]);
-
   const handleClickCreateConversation = () => {
-    if (!userId) return;
+    if (!userId || !userProfile?.username) return;
     createConversation({
-      creator_id: userId,
-      participants_ids,
+      creator: {
+        userId,
+        username: userProfile?.username,
+        avatar: userProfile?.avatar_url,
+      },
+      participants: friendsToAdd,
       title,
     });
   };

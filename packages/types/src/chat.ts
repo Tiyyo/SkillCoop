@@ -32,10 +32,16 @@ export type CreateOneToOneConversation = {
   user_avatar_two: string | null;
 };
 
+export type UserConv = {
+  userId: string;
+  username: string;
+  avatar: string | null;
+};
+
 export type CreateGroupConversation = {
-  creator_id: string;
+  creator: UserConv;
   title?: string;
-  participants_ids: string[];
+  participants: UserConv[];
 }
 
 export type GetConversation = {

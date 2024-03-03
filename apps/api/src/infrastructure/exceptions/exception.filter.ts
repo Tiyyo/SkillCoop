@@ -30,8 +30,6 @@ export class AllExceptionFilter implements ExceptionFilter {
       exception instanceof HttpException ||
       exception instanceof DatabaseException;
 
-    console.log('exception', exception);
-
     if (exception instanceof ApplicationException) {
       isProduction
         ? this.logger.error(exception.getUserMessage())

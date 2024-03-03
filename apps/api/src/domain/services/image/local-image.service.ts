@@ -9,8 +9,7 @@ export class LocalImage {
     originalname: string;
     mimetype: string;
   }> {
-    const minmeType = this.filename.split('.').pop();
-    console.log('minmeType', minmeType);
+    // const minmeType = this.filename.split('.').pop();
     return { buffer: Buffer.from('s'), originalname: 's', mimetype: 's' };
     // const filePath = path.join(dirname, pathToPublicFolder + this.filename);
     // try {

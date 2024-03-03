@@ -38,13 +38,6 @@ export class HistoricService {
         .groupBy('conversation.conversation_id')
         .executeTakeFirst();
 
-      console.log('result', result);
-
-      // const historic = {
-      //   ...result[0],
-      //   messages: JSON.parse((result[0] as any).messages),
-      // };
-
       const parsedHistoric = { ...result, messages: this.groupMessageBy.groupByDateAndAuthor(result.messages) };
 
       return parsedHistoric;

@@ -17,7 +17,6 @@ export class NotificationDispatchService {
         this.sendEmaiNotification();
       }
       if (transport === 'website') {
-        console.log('Send website notification:', notification);
         this.eventEmiter.emit('new-notification', notification);
       }
       if (transport === 'push') {

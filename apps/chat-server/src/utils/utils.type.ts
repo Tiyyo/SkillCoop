@@ -2,7 +2,6 @@ import { Conversation } from "@skillcoop/types";
 
 
 export function assertIsConversation(conversation: any): asserts conversation is Conversation {
-  console.log('assertIsConversation', typeof conversation);
   const isObject = (obj: any): obj is Record<string, unknown> => typeof obj === 'object' && obj !== null;
 
 

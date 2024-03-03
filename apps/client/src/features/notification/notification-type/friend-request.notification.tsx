@@ -22,13 +22,7 @@ function FriendRequestNotification({
       </>
     );
   };
-  console.log(
-    'Client notification',
-    'friend :',
-    notification.profile_id,
-    'adder_id',
-    notification.instigator_id,
-  );
+
   const handleClickActionOnInvition = () => {
     if (!notification.instigator_id) return;
     // TODO : validate date before mutation

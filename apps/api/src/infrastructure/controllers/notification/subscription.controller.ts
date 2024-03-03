@@ -34,12 +34,6 @@ export class SubscriptionEventController {
 
     return fromEvent(this.eventEmitter, 'new-notification').pipe(
       map((notfication: any) => {
-        console.log(
-          'new-notification sent',
-          notfication,
-          notfication.profileId,
-          user_id,
-        );
         if (notfication.profileId === user_id) {
           return { data: { message: 'new-notification' } };
         }

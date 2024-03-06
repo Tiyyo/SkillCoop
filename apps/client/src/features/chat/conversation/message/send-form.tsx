@@ -68,8 +68,9 @@ export function MyForm({
           placeholder={`${t('typeYourMessage')} ...`}
           className="palceholder:text-light relative m-0 flex w-full 
             flex-grow resize-none flex-col overflow-hidden 
-            rounded-lg border-0 bg-bubble px-2.5 py-2 focus:ring-0 
-            focus-visible:ring-0  md:py-3.5 md:pl-[20px] md:pr-12"
+            rounded-lg border-0 bg-bubble px-2.5 py-2 focus:outline-none
+            focus:outline-primary-700
+            focus:ring-0  focus-visible:ring-0 md:py-3.5 md:pl-[20px] md:pr-12"
         />
         <button
           type="submit"

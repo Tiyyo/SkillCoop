@@ -81,5 +81,7 @@
   "no": "No",
   "confirm": "Confirm",
   "upcomingFirst": "Upcoming First",
-  "furthestAway": "Furthest Away"
+  "furthestAway": "Furthest Away",
+  "findEvents": "Find Events",
+  "chat": "Chat"
 }

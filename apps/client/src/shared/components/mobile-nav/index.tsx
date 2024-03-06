@@ -40,10 +40,14 @@ function MobileNav({
         <NavMobileLink to="/my-event" value={t('myEvents')} setClose={setClose}>
           <Calendar />
         </NavMobileLink>
-        <NavMobileLink to="/find-event" value="Find Events" setClose={setClose}>
+        <NavMobileLink
+          to="/find-event"
+          value={t('findEvents')}
+          setClose={setClose}
+        >
           <Search size={20} />
         </NavMobileLink>
-        <NavMobileLink to="/chat" value="Chat" setClose={setClose}>
+        <NavMobileLink to="/chat" value={t('chat')} setClose={setClose}>
           <MessagesSquare size={20} />
         </NavMobileLink>
       </ul>

@@ -80,5 +80,7 @@
   "no": "Non",
   "confirm": "Confirmer",
   "upcomingFirst": "Prochains en premier",
-  "furthestAway": "Les plus éloignés"
+  "furthestAway": "Les plus éloignés",
+  "findEvents": "Trouver des événements",
+  "chat": "Messagerie"
 }

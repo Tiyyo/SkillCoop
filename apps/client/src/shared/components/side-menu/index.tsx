@@ -41,7 +41,7 @@ function SideMenuDesktop() {
         <NavButtonDesktop path="/my-event" content={t('myEvents')}>
           <Calendar />
         </NavButtonDesktop>
-        <NavButtonDesktop path="/find-event" content="Find Events">
+        <NavButtonDesktop path="/find-event" content={t('findEvents')}>
           <Search size={20} />
         </NavButtonDesktop>
         <NavButtonDesktop path="/events/incoming" content={t('upcomingEvents')}>
@@ -50,7 +50,7 @@ function SideMenuDesktop() {
         <NavButtonDesktop path="/events/past" content={t('pastEvents')}>
           <History size={20} />
         </NavButtonDesktop>
-        <NavButtonDesktop path="/desktop/chat" content="Chat">
+        <NavButtonDesktop path="/desktop/chat" content={t('chat')}>
           <MessagesSquare size={20} />
         </NavButtonDesktop>
       </ul>

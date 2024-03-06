@@ -15,7 +15,8 @@
     "date": "pnpm --filter @skillcoop/date-handler",
     "type": "pnpm --filter @skillcoop/types",
     "schema": "pnpm --filter @skillcoop/schema",
-    "api-v2": "pnpm --filter @skillcoop/api-v2"
+    "api-v2": "pnpm --filter @skillcoop/api-v2",
+    "clean:type": "node ./apps/api/src/config/update-types.js"
   },
   "license": "ISC",
   "devDependencies": {

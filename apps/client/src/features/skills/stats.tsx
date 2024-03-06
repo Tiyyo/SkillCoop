@@ -9,6 +9,7 @@ import associateNumberToString from '../../shared/utils/associate-number-string-
 /*eslint-enable */
 import StatWrapper from './layout/stat-wrapper';
 import { useTranslation } from 'react-i18next';
+import { formatPrice } from '../../shared/utils/format-price';
 
 type ProfileStatsProps = {
   gbRating: number | null | undefined;
@@ -53,7 +54,7 @@ function ProfileStats({
           <p>
             {t('winningRate')}{' '}
             <span className="font-semibold text-primary-1100">
-              {winningRate ?? 0}%
+              {formatPrice(winningRate) ?? 0}%
             </span>
           </p>
         </StatWrapper>

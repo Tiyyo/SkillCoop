@@ -21,11 +21,10 @@
     "db:migrate:deploy": "prisma migrate deploy",
     "db:migrate:dev": "prisma migrate dev",
     "db:push": "prisma db push",
-    "db:seed:prod": "node dist/prisma//infrastructure/prisma/seed.js",
+    "db:seed:prod": "node dist/prisma/infrastructure/prisma/seed.js",
     "db:seed:dev": "ts-node -r tsconfig-paths/register ./src/infrastructure/prisma/seed.ts",
     "db:reset": "prisma migrate reset",
-    "db:studio": "prisma studio",
-    "clean:type": "node ./apps/api/src/config/update-types.js"
+    "db:studio": "prisma studio"
   },
   "dependencies": {
     "@aws-sdk/client-cloudfront": "^3.454.0",

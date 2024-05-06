@@ -14,6 +14,7 @@ import {
   UpdateUserOnConversationConditions
 } from '@skillcoop/types'
 import { assertIsConversation } from 'src/utils/utils.type';
+import { jsonArrayFrom } from 'kysely/helpers/sqlite';
 
 
 @Injectable()
@@ -21,37 +22,37 @@ export class ConversationService {
   constructor(@Inject('dbClient') protected dbClient: Kysely<DB>, private readonly logger: Logger) { }
   async getConversation(conversationId: number) {
     try {
-      const result = await sql`
-SELECT c.conversation_id,
-       c.event_id,
-       c.created_at,
-       c.type_name,
-       c.title,
-       c.last_update,
-       json_group_array(
-          json_object(
-            'user_id', participants.user_id,
-            'avatar', user.avatar,
-            'username', user.username,
-            'is_admin', participants.is_admin
-          )
-        ) AS participants_list
-FROM conversation as c
-INNER JOIN user_on_conversation as participants ON c.conversation_id = participants.conversation_id
-INNER JOIN user ON participants.user_id = user.user_id
-WHERE c.conversation_id = ${conversationId}
-GROUP BY c.conversation_id, c.created_at, c.last_update, c.event_id, c.type_name, c.title
-`.execute(this.dbClient);
-
-      const extractedConv = result.rows[0] as object;
-      const conversation = {
-        ...extractedConv,
-        participants_list: (extractedConv as any).participants_list
-          ? JSON.parse((extractedConv as any).participants_list)
-          : [],
-      };
+      const conversation = await this.dbClient
+        .selectFrom('conversation')
+        .select([
+          'conversation.conversation_id',
+          'conversation.event_id',
+          'conversation.created_at',
+          'conversation.type_name',
+          'conversation.title',
+          'conversation.last_update'])
+        .innerJoin('user_on_conversation as participants', 'conversation.conversation_id', 'participants.conversation_id')
+        .innerJoin('user', 'participants.user_id', 'user.user_id')
+        .select(({ eb }) => [
+          jsonArrayFrom(
+            eb.selectFrom('user_on_conversation')
+              .select([
+                'user_on_conversation.user_id',
+                'user.avatar',
+                'user.username',
+                'user_on_conversation.is_admin',
+              ])
+              .whereRef('user_on_conversation.conversation_id', '=', 'conversation.conversation_id')
+              .innerJoin('user', 'user_on_conversation.user_id', 'user.user_id')
+          ).as('participants_list'),
+        ])
+        .where('conversation.conversation_id', '=', conversationId)
+        .groupBy(['conversation.conversation_id', 'conversation.created_at', 'conversation.last_update', 'conversation.event_id', 'conversation.type_name', 'conversation.title'])
+        .executeTakeFirst();
+      console.log('conversation', conversation);
       assertIsConversation(conversation)
-      return conversation;
+
+      return conversation
     } catch (error) {
       this.logger.error('Could not get conversation ' + conversationId + ' ' + error.message)
     }
@@ -101,17 +102,7 @@ GROUP BY conversation.conversation_id
 ORDER BY conversation.last_update DESC
 `.execute(this.dbClient);
 
-      const conversations = result.rows.map((conversation: any) => ({
-        ...conversation,
-        participants_list: conversation.participants_list
-          ? JSON.parse(conversation.participants_list)
-          : [],
-        last_message: conversation.last_message
-          ? JSON.parse(conversation.last_message)
-          : null,
-      }));
-
-      return conversations as Conversation[];
+      return result.rows as Conversation[];
     } catch (error) {
       this.logger.error('Could not get conversation list for user :' + user_id + ' ' + error.message)
     }
@@ -162,11 +153,22 @@ ORDER BY conversation.last_update DESC
 
         await trx
           .insertInto('user_on_conversation')
-          .values(
-            data.participants_ids.map((id) => ({
+          .values([
+            {
               conversation_id: newConversation.conversation_id,
-              user_id: id,
-              is_admin: data.creator_id === id ? 1 : 0,
+              user_id: data.creator.userId,
+              is_admin: 1,
+              created_at: todayUTCString,
+            },
+          ]).executeTakeFirst();
+
+        await trx
+          .insertInto('user_on_conversation')
+          .values(
+            data.participants.map((p) => ({
+              conversation_id: newConversation.conversation_id,
+              user_id: p.userId,
+              is_admin: 0,
               created_at: todayUTCString,
             })),
           )

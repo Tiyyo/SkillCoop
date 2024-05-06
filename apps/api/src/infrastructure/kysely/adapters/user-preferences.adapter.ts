@@ -18,7 +18,7 @@ type RawUserPreference = Omit<UserPreferences, 'prefered_notifications'> & {
 
 @Injectable()
 export class UserPreferencesAdapter implements UserPreferencesRepository {
-  constructor(@Inject('dbClient') protected dbClient: Kysely<DB>) {}
+  constructor(@Inject('dbClient') protected dbClient: Kysely<DB>) { }
   async get(userId: string) {
     const result = await sql<RawUserPreference>`
       SELECT 
@@ -39,6 +39,8 @@ export class UserPreferencesAdapter implements UserPreferencesRepository {
       WHERE 'notification_preference'.'user_id' = ${userId}
       GROUP BY 'notification_preference'.'user_id'
     `.execute(this.dbClient);
+
+    if (result.rows.length === 0) return null;
 
     const userPreferences = {
       ...result.rows[0],

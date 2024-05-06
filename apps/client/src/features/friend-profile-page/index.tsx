@@ -10,6 +10,7 @@ import { useApp } from '../../shared/store/app.store';
 import { useGetSharedEvents } from '../event-list/hooks/useMultipleEvents';
 import FriendProfileStatsVisualization from './visual';
 import FriendProfileInfos from './infos';
+import { formatPrice } from '../../shared/utils/format-price';
 
 function FriendProfile() {
   const { userId } = useApp();
@@ -55,7 +56,7 @@ function FriendProfile() {
                 nbReview={profile?.nb_review}
                 nbBestStrikerBonus={profile?.nb_best_striker_bonus}
                 lastEvaluation={profile?.last_evaluation}
-                winningRate={profile?.winning_rate}
+                winningRate={formatPrice(profile?.winning_rate)}
               />
             </div>
             <div>
@@ -66,7 +67,7 @@ function FriendProfile() {
                   nbReview={profile?.nb_review}
                   nbBestStrikerBonus={profile?.nb_best_striker_bonus}
                   lastEvaluation={profile?.last_evaluation}
-                  winningRate={profile?.winning_rate}
+                  winningRate={formatPrice(profile?.winning_rate)}
                 />
               </Suspense>
             </div>

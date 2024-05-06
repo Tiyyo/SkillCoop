@@ -44,7 +44,7 @@ function NewConversationGroup({
           onChange={handleChangeTitile}
         />
         <div
-          className="no-scrollbar flex h-[30vh] flex-col content-start 
+          className="no-scrollbar flex flex-col content-start 
           overflow-y-auto px-2 py-6 lg:gap-3 xl:grid xl:grid-cols-2 
           2xl:grid-cols-3"
         >

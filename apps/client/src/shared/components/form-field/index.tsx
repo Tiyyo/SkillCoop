@@ -65,7 +65,9 @@ function FormField({
              foucs:ring-1 peer block w-full appearance-none 
              rounded-lg border border-border border-opacity-20
              bg-transparent px-2.5 pb-1.5 pt-3 text-sm text-text-base 
-              focus:ring-primary-100 `,
+             focus-within:outline-none 
+              focus:ring-1
+              focus:ring-primary-600`,
             props.disabled && 'cursor-not-allowed border-none text-light',
           )}
           defaultValue={props.defaultValue}

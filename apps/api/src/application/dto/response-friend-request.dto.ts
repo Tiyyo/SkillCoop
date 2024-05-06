@@ -12,5 +12,5 @@ export class ResponseFriendRequestDTO {
   status_name: string;
   @IsNotEmpty()
   @IsString()
-  username: string;
+  username?: string;
 }

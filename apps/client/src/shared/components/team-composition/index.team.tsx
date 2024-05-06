@@ -26,6 +26,7 @@ function Team({
   organizer,
   eventStatus,
 }: TeamProps) {
+  console.log('participants', participants, organizer);
   return (
     <div className=" bg-grey-off lg:basis-1/2 lg:rounded-lg">
       <Container className="shadow-none lg:rounded-none lg:rounded-t-lg ">

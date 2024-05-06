@@ -27,7 +27,7 @@ function ConversationCardImage({
   if (typeConversation === 'oneToOne') {
     return (
       <ImageWithUsernamefallback
-        avatar={participants[0].avatar}
+        avatar={participants[0].avatar ?? null}
         username={participants[0].username}
         size={size}
       />
@@ -42,7 +42,7 @@ function ConversationCardImage({
     if (participants.length === 1) {
       return (
         <ImageWithUsernamefallback
-          avatar={participants[0].avatar}
+          avatar={participants[0]?.avatar ?? null}
           username={participants[0].username}
           size={size}
         />

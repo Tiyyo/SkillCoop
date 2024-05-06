@@ -9,6 +9,8 @@ type NewConversationOneToOneProps = {
   friends: Friend[];
   userId: string | undefined;
   searchInputValue?: string;
+  userAvatar?: string | null;
+  userUsername?: string;
   setTypeConversation: React.Dispatch<
     React.SetStateAction<'group' | 'oneToOne'>
   >;
@@ -19,9 +21,15 @@ function NewConversationOneToOne({
   userId,
   setTypeConversation,
   searchInputValue,
+  userAvatar,
+  userUsername,
 }: NewConversationOneToOneProps) {
   const { t } = useTranslation('chat');
-  const { navigateToConversation } = useNewOneToOneConversation({ userId });
+  const { navigateToConversation } = useNewOneToOneConversation({
+    userId,
+    userAvatar,
+    userUsername,
+  });
 
   return (
     <>

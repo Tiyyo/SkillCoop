@@ -13,9 +13,9 @@ export class UserPreferencesUsecases {
     private readonly languagePreferenceAdapter: LanguagePreferenceAdapter,
     private readonly notificationPreferenceAdapter: NotificationPreferenceAdapter,
     private readonly userPreferencesService: UserPreferencesService,
-  ) {}
+  ) { }
 
-  async updateTheme(userId: string, name: string) {
+  async updateTheme(userId: string, name: 'light' | 'dark') {
     return await this.themePreferenceAdapter.updateOne(
       { user_id: userId },
       { name },

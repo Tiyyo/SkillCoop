@@ -8,7 +8,6 @@ function ReturnArrowBtn({
   condition?: any;
 }) {
   const handleClick = () => {
-    if (!condition) return onClick;
     return onClick(condition);
   };
   return (

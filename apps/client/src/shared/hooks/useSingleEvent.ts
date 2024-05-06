@@ -36,16 +36,16 @@ const keys = {
 };
 
 export function useGetSingleEvent(options: {
-  eventId: number;
+  eventId: number | string | undefined;
   profileId?: string;
 }) {
   return useQuery(
     [`event${options.eventId}`],
     async () => {
-      if (!options.profileId || !options.eventId) return;
+      if (!options.profileId || !options.eventId) return null;
       return getEventFn(Number(options.eventId), options.profileId);
     },
-    { enabled: true, refetchOnMount: true, staleTime: 0 },
+    { enabled: true, refetchOnMount: true, staleTime: 1000 * 60 * 5 },
   );
 }
 

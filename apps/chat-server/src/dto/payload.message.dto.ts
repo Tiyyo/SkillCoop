@@ -6,8 +6,7 @@ export class PayloadMessageDto {
   @IsPositive()
   conversation_id: number;
   @IsNotEmpty()
-  @IsNumber()
-  @IsPositive()
+  @IsString()
   user_id: string;
   @IsString()
   @IsNotEmpty()

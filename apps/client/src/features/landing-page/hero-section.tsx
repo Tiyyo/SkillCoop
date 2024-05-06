@@ -41,7 +41,7 @@ function HeroSection() {
         <Link
           to="/register"
           className="rounded-full bg-primary-700 px-2 
-                py-1 text-sm text-base-light hover:animate-pulse"
+                py-1 text-sm text-primary-1100 hover:animate-pulse"
         >
           {t('start')}
         </Link>

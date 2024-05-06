@@ -1,8 +1,8 @@
-import { IsNumber, IsPositive } from "class-validator";
+import { IsNotEmpty, IsString } from "class-validator";
 
 export class UserIdParamsDto {
 
-  @IsNumber()
-  @IsPositive()
+  @IsString()
+  @IsNotEmpty()
   userId: string
 }

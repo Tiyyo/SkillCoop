@@ -9,6 +9,8 @@ const utc_1 = require("./utc");
     Check if date and time are not passed in UTC timezone
  */
 function isPastDate(dateToCompare) {
+    if (!dateToCompare)
+        return true;
     const { date: todayDate, time: todayTime } = (0, utc_1.getDateAndTimeUTC)(new Date());
     const { date: dateToCompareDate, time: dateToCompareTime } = (0, utc_1.getDateAndTimeUTC)(new Date(dateToCompare));
     if (dateToCompareDate < todayDate)

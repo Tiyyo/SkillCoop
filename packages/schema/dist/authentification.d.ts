@@ -9,13 +9,13 @@ export declare const emailSchema: z.ZodObject<{
 }>;
 export declare const updateEmailSchema: z.ZodObject<{
     email: z.ZodString;
-    user_id: z.ZodNumber;
+    user_id: z.ZodString;
 }, "strip", z.ZodTypeAny, {
     email: string;
-    user_id: number;
+    user_id: string;
 }, {
     email: string;
-    user_id: number;
+    user_id: string;
 }>;
 export declare const loginSchema: z.ZodObject<{
     email: z.ZodString;

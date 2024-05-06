@@ -27,7 +27,7 @@ exports.voteSchema = void 0;
 const z = __importStar(require("zod"));
 exports.voteSchema = z.object({
     event_id: z.number().int().positive(),
-    profile_id: z.number().int().positive(),
-    rater_id: z.number().int().positive(),
+    profile_id: z.string(),
+    rater_id: z.string(),
 });
 //# sourceMappingURL=vote.js.map

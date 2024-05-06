@@ -27,12 +27,12 @@ exports.updateParticipantSchema = exports.inviteParticipantSchema = void 0;
 const z = __importStar(require("zod"));
 exports.inviteParticipantSchema = z.object({
     event_id: z.number().int().positive(),
-    ids: z.array(z.number()),
-    initiator: z.number().optional()
+    ids: z.array(z.string()),
+    initiator: z.string()
 });
 exports.updateParticipantSchema = z.object({
     event_id: z.number().int().positive(),
-    profile_id: z.number().int().positive(),
+    profile_id: z.string(),
     status_name: z.enum(["confirmed", "declined", "pending", "refused", "requested"])
 });
 //# sourceMappingURL=participant.js.map

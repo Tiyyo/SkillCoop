@@ -28,6 +28,7 @@ function InputLocation({
   formid,
 }: InputLocationProps) {
   const { t } = useTranslation('event');
+  console.log('defaultValue', defaultValue);
   const getPlaygroundChoose = (value: {
     city: string;
     name: string;

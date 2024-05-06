@@ -95,7 +95,7 @@ export type UpdateblePropsUserOnConversation = {
 };
 export type CreateMessageStore = {
     content: string;
-    sender: number;
+    sender: string;
     conversation_id: number;
 };
 export type UpdateMessage = {

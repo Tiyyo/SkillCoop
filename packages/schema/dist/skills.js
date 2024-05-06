@@ -31,12 +31,12 @@ exports.ownSkillSchema = z.object({
     pace: z.enum(['beginner', 'novice', 'intermediate', 'advanced', 'expert']),
     passing: z.enum(['beginner', 'novice', 'intermediate', 'advanced', 'expert']),
     shooting: z.enum(['beginner', 'novice', 'intermediate', 'advanced', 'expert']),
-    profile_id: z.number().int().positive(),
+    profile_id: z.string().uuid(),
 });
 exports.participantSkillSchema = z.object({
     event_id: z.number().int().positive(),
-    rater_id: z.number().int().positive(),
-    reviewee_id: z.number().int().positive(),
+    rater_id: z.string(),
+    reviewee_id: z.string(),
     pace: z.number().min(10).max(100),
     shooting: z.number().min(10).max(100),
     passing: z.number().min(10).max(100),

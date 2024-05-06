@@ -26,8 +26,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateFriendshipSchema = exports.searchFriendsSchema = exports.createInvitationSchema = void 0;
 const z = __importStar(require("zod"));
 exports.createInvitationSchema = z.object({
-    adder_id: z.number().int().positive(),
-    friend_id: z.number().int().positive(),
+    adder_id: z.string(),
+    friend_id: z.string()
 });
 exports.searchFriendsSchema = z.object({
     username: z.string(),
@@ -35,8 +35,8 @@ exports.searchFriendsSchema = z.object({
     page: z.string().optional()
 });
 exports.updateFriendshipSchema = z.object({
-    adder_id: z.number().int().positive(),
-    friend_id: z.number().int().positive(),
+    adder_id: z.string(),
+    friend_id: z.string(),
     username: z.string().optional(),
     status_name: z.enum(["pending", "confirmed", "declined"]),
 });

@@ -27,17 +27,17 @@ exports.updateThemePreferenceSchema = exports.updateLanguagePreferenceSchema = e
 const z = __importStar(require("zod"));
 exports.updateNotificationPreferenceSchema = z.object({
     type_name: z.enum(['friend', 'event', 'system', 'message']),
-    user_id: z.number().positive().int(),
+    user_id: z.string().uuid(),
     email: z.boolean().optional(),
     push: z.boolean().optional(),
     website: z.boolean().optional(),
 });
 exports.updateLanguagePreferenceSchema = z.object({
-    user_id: z.number().positive().int(),
+    user_id: z.string().uuid(),
     name: z.enum(['en', 'fr', 'es']),
 });
 exports.updateThemePreferenceSchema = z.object({
-    user_id: z.number().positive().int(),
+    user_id: z.string().uuid(),
     name: z.enum(['dark', 'light']),
 });
 //# sourceMappingURL=preferences.js.map

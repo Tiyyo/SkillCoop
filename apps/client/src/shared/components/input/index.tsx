@@ -1,4 +1,4 @@
-import type { ComponentPropsWithoutRef } from 'react';
+import { useState, type ComponentPropsWithoutRef } from 'react';
 import { cn } from '../../../lib/utils';
 import useResetError from '../../../shared/hooks/useResetError';
 
@@ -30,9 +30,11 @@ function Input({
   formid,
   ...props
 }: InputProps) {
+  const [, setInputValue] = useState('');
   const { hasError, setHasError } = useResetError(error);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setHasError(false);
+    setInputValue(e.target.value);
     if (updateState) {
       updateState(e.target.value);
       return;
@@ -59,6 +61,7 @@ function Input({
           placeholder={placeholder}
           id={name}
           onChange={handleChange}
+          value={'inputValue'}
           onFocus={(e) => (e.target.type = type)}
           step={activeStep ? 3600 : 1}
           disabled={disabled}

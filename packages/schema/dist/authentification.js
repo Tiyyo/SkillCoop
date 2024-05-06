@@ -30,7 +30,7 @@ exports.emailSchema = z.object({
 });
 exports.updateEmailSchema = z.object({
     email: z.string().email({ message: 'thisIsNotValidEmail' }),
-    user_id: z.number().positive().int(),
+    user_id: z.string(),
 });
 exports.loginSchema = z.object({
     email: z.string(),

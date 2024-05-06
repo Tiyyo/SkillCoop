@@ -35,9 +35,9 @@ exports.createEventSchema = z.object({
     required_participants: z.number().refine((data) => acceptableEventFormat.includes(data), {
         message: "wrongFormatEvent"
     }),
-    organizer_id: z.number().int().positive(),
+    organizer_id: z.string(),
     status_name: z.enum(["open"]).optional(),
-    participants: z.array(z.number()).optional(),
+    participants: z.array(z.string()).optional(),
 });
 exports.updateEventSchema = z.object({
     // TODO make a custom regex for the date in string format
@@ -48,14 +48,14 @@ exports.updateEventSchema = z.object({
     required_participants: z.number().refine((data) => acceptableEventFormat.includes(data), {
         message: "wrongFormatEvent"
     }).optional(),
-    profile_id: z.number().int().positive(),
+    profile_id: z.string(),
     status_name: z.enum(["open", "full", "cancelled", "completed"]).optional(),
-    participants: z.array(z.number()).optional(),
+    participants: z.array(z.string()).optional(),
 });
 exports.updateOrganizerSchema = z.object({
     event_id: z.number().int().positive(),
-    organizer_id: z.number().int().positive(),
-    new_organizer_id: z.number().int().positive(),
+    organizer_id: z.string(),
+    new_organizer_id: z.string(),
 });
 exports.getEventNearbySchema = z.object({
     userCountry: z.string(),

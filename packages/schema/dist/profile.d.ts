@@ -18,3 +18,4 @@ export declare const editProfileInfosSchema: z.ZodObject<{
     date_of_birth?: string | null | undefined;
     location?: string | null | undefined;
 }>;
+export type EditProfileInfos = z.infer<typeof editProfileInfosSchema>;

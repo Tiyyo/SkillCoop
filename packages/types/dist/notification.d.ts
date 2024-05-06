@@ -32,7 +32,7 @@ export type Notification = {
     img_url?: string | null;
     is_read: 0 | 1;
     message: string;
-    instigator_id?: number | null;
+    instigator_id?: string | null;
     event_id?: number | null;
     created_at: string;
 };

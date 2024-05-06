@@ -131,11 +131,12 @@ jobs:
             npm install -g pnpm
             pnpm install
 
-            pnpm schema build 
-            pnpm date build
-            pnpm type build  
-            pnpm api build
-            pnpm chat build
+            # pnpm schema build 
+            # pnpm date build
+            # pnpm type build  
+            # pnpm api build
+            # pnpm chat build
+            pnpm build
 
             pnpm api db:migrate:deploy
 

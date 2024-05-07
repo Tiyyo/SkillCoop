@@ -36,6 +36,8 @@ async function bootstrap() {
     preflightContinue: false,
     optionsSuccessStatus: 200,
   });
+  console.log('Listening on port 8082');
+  console.log('Environement:', process.env.NODE_ENV);
   await app.listen(8082);
 }
 bootstrap();

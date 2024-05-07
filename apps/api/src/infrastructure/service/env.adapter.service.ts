@@ -4,7 +4,7 @@ import { EnvVariableRepository } from 'src/domain/repositories/env.variable.repo
 
 @Injectable()
 export class NestEnvVariableAdapterService implements EnvVariableRepository {
-  constructor(private configService: ConfigService) {}
+  constructor(private configService: ConfigService) { }
   getEnvVariable(name: string): string {
     return this.configService.get(name);
   }
@@ -25,5 +25,9 @@ export class NestEnvVariableAdapterService implements EnvVariableRepository {
     return isProduction
       ? this.configService.get('HOST')
       : this.configService.get('localhost');
+  }
+  isProduction(): boolean {
+    console.log('IsProduction', this.configService.get('NODE_ENV'));
+    return this.configService.get('NODE_ENV') === 'production';
   }
 }

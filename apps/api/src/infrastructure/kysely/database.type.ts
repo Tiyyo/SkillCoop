@@ -12,7 +12,7 @@ export type best_striker_poll = {
   updated_at: string | null;
 };
 export type event = {
-  id: number;
+  id: Generated<number>;
   date: string;
   duration: number;
   required_participants: number;
@@ -63,16 +63,16 @@ export type notification = {
   type_name: string | null;
   subtype: string | null;
   message: string;
-  is_read: number;
+  is_read: number; // boolean
   created_at: string;
   updated_at: string | null;
 };
 export type notification_preference = {
   user_id: string;
   type_name: string;
-  email: number;
-  push: number;
-  website: number;
+  email: number; //boolean
+  push: number; // boolean
+  website: number; // boolean
   created_at: string;
   updated_at: string | null;
 };
@@ -103,7 +103,7 @@ export type profile = {
   date_of_birth: string | null;
   avatar_url: string | null;
   last_evaluation: number | null;
-  active_notification: number;
+  active_notification: number; // boolean;
   created_at: string;
   updated_at: string | null;
 };
@@ -168,9 +168,9 @@ export type user = {
   id: string;
   email: string;
   password: string;
-  verified: number;
-  blocked: number;
-  failed_attempts: number;
+  verified: Generated<number>;
+  blocked: Generated<number>;
+  failed_attempts: Generated<number>;
   created_at: string;
   updated_at: string | null;
 };

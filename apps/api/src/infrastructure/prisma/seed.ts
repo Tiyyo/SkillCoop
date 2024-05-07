@@ -15,6 +15,8 @@ import { BcryptAdapterService } from '../service/bcrypt.adapter.service';
 import * as SQLite from 'better-sqlite3';
 import * as fs from 'fs';
 import * as csv from 'csv-parser';
+import { NestEnvVariableAdapterService } from '../service/env.adapter.service.js';
+import { ConfigService } from '@nestjs/config';
 
 function getRandomIntInclusive(max: number) {
   const maxFloored = Math.floor(max);
@@ -197,6 +199,7 @@ export class Seed {
     private readonly logger: Logger,
     @Inject('PasswordService')
     private readonly passwordService: PasswordHashInterface,
+    private readonly envVariable: NestEnvVariableAdapterService,
   ) {
     this.today = getFormattedUTCTimestamp();
   }
@@ -231,12 +234,14 @@ export class Seed {
   }
 
   async playground() {
-    const pathToFile =
-      process.env.NODE_ENV === 'production'
-        ? '../../../src/infrastructure/prisma/data.csv'
-        : 'data.csv';
+    const pathToFile = this.envVariable.isProduction()
+      ? '../../../src/infrastructure/prisma/data.csv'
+      : 'data.csv';
+    console.log('Path to file ' + pathToFile);
     Logger.log('Path to file ' + pathToFile, 'Seed');
     Logger.log(__dirname, 'Seed');
+    console.log(__dirname, 'Seed');
+    console.log('Production', this.envVariable.isProduction());
     const filePath = path.join(__dirname, pathToFile);
     try {
       const stringify = await convertCsvToJson(filePath);
@@ -886,6 +891,8 @@ const dialect = new SqliteDialect({
   database: new SQLite('./src/infrastructure/prisma/sqlite.db'),
 });
 
+const configService = new ConfigService();
+
 const seed = new Seed(
   new Kysely<DB>({
     dialect,
@@ -893,5 +900,6 @@ const seed = new Seed(
   }),
   new Logger('Seed'),
   new BcryptAdapterService(),
+  new NestEnvVariableAdapterService(configService),
 );
 seed.run();

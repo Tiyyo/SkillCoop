@@ -76,6 +76,7 @@ export type notification_preference = {
   created_at: string;
   updated_at: string | null;
 };
+
 export type notification_type = {
   name: string;
   created_at: string;
@@ -194,3 +195,4 @@ export type DB = {
   theme_preference: theme_preference;
   user: user;
 };
+

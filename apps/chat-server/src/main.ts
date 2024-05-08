@@ -25,7 +25,7 @@ async function bootstrap() {
   }));
   app.use(new HttpLogger().use)
   app.enableCors({
-    origin: [clientUrl, 'https://skillcoop.fr'],
+    origin: [clientUrl, 'https://skillcoop.fr', 'https://www.skillcoop.fr'],
     allowedHeaders: ['content-type', "Authorization"],
     credentials: true,
   });

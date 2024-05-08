@@ -37,7 +37,7 @@ async function bootstrap() {
   //   optionsSuccessStatus: 200,
   // });
   app.enableCors({
-    origin: ['http://localhost:5004', 'https://skillcoop.fr'],
+    origin: ['http://localhost:5004', 'https://www.skillcoop.fr'],
     allowedHeaders: ['content-type', 'Authorization'],
     credentials: true,
   });

@@ -7,11 +7,23 @@ import { winstonLogger } from './infrastructure/logger/winston.logger';
 import { AllExceptionFilter } from './infrastructure/exceptions/exception.filter';
 import helmet from 'helmet';
 
+const whitelist = [
+  'http://localhost:5004',
+  'https://www.skillcoop.fr',
+  'https://skillcoop.fr',
+];
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: WinstonModule.createLogger({
       instance: winstonLogger,
     }),
+  });
+  app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Accept');
+    next();
   });
   app.use(helmet());
   app.use(cookieParser());
@@ -37,12 +49,14 @@ async function bootstrap() {
   //   optionsSuccessStatus: 200,
   // });
   app.enableCors({
-    origin: [
-      'http://localhost:5004',
-      'https://www.skillcoop.fr',
-      'https://skillcoop.fr',
-    ],
-    allowedHeaders: ['content-type', 'Authorization'],
+    origin: function (origin, callback) {
+      if (!origin || whitelist.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    // allowedHeaders: ['content-type', 'Authorization'],
     credentials: true,
   });
   console.log('Listening on port 8082');

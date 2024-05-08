@@ -20,10 +20,23 @@ async function bootstrap() {
     }),
   });
   app.use((req, res, next) => {
+    console.log('Set Headers Manually in main.ts');
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
     res.header('Access-Control-Allow-Headers', 'Content-Type, Accept');
+    console.log('Headers', res.getHeaders());
     next();
+  });
+  app.enableCors({
+    origin: function (origin, callback) {
+      if (!origin || whitelist.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    // allowedHeaders: ['content-type', 'Authorization'],
+    credentials: true,
   });
   app.use(helmet());
   app.use(cookieParser());
@@ -48,17 +61,7 @@ async function bootstrap() {
   //   preflightContinue: false,
   //   optionsSuccessStatus: 200,
   // });
-  app.enableCors({
-    origin: function (origin, callback) {
-      if (!origin || whitelist.indexOf(origin) !== -1) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
-    // allowedHeaders: ['content-type', 'Authorization'],
-    credentials: true,
-  });
+
   console.log('Listening on port 8082');
   console.log('Environement:', process.env.NODE_ENV);
   await app.listen(8082);

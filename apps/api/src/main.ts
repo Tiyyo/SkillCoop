@@ -28,13 +28,18 @@ async function bootstrap() {
   const httpAdapter = app.get(HttpAdapterHost);
   const logger = new Logger('AllExceptionFilter');
   app.useGlobalFilters(new AllExceptionFilter(httpAdapter, logger));
+  // app.enableCors({
+  //   origin: ['https://skillcoop.fr', 'http://localhost:5004'],
+  //   allowedHeaders: ['content-type', 'Authorization'],
+  //   methods: 'GET,PUT,POST,PATCH,DELETE,OPTIONS',
+  //   credentials: true,
+  //   preflightContinue: false,
+  //   optionsSuccessStatus: 200,
+  // });
   app.enableCors({
-    origin: ['https://skillcoop.fr', 'http://localhost:5004'],
+    origin: ['http://localhost:5004', 'https://skillcoop.fr'],
     allowedHeaders: ['content-type', 'Authorization'],
-    methods: 'GET,PUT,POST,PATCH,DELETE,OPTIONS',
     credentials: true,
-    preflightContinue: false,
-    optionsSuccessStatus: 200,
   });
   console.log('Listening on port 8082');
   console.log('Environement:', process.env.NODE_ENV);

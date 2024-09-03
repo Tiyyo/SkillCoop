@@ -135,7 +135,7 @@ function CreateEventForm({
           placeholder={t('choosePlayground')}
           formid="create-event"
         />
-        {/* {displayCreatePlayground && <AddNewPlayground />} */}
+        {displayCreatePlayground && <AddNewPlayground />}
         <Input
           name="price"
           label={t('playgroundPrice')}

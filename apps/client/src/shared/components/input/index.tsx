@@ -61,7 +61,6 @@ function Input({
           placeholder={placeholder}
           id={name}
           onChange={handleChange}
-          // value={inputValue}
           onFocus={(e) => (e.target.type = type)}
           step={activeStep ? 3600 : 1}
           disabled={disabled}

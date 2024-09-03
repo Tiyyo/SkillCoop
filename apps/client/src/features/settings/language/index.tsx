@@ -29,7 +29,7 @@ function LanguageSettings() {
   const ctx = useOutletContext<UserPreference>();
   if (!ctx) return null;
   const { prefered_language: language } = ctx;
-  console.log(language);
+
   const handleChange = (e: React.FormEvent<HTMLFormElement>) => {
     const languageSymbol = (e.target as HTMLSelectElement)
       .value as LanguageSymbol;

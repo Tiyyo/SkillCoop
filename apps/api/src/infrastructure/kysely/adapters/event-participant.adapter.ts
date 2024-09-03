@@ -84,7 +84,6 @@ export class EventParticipantAdapter
     }
   }
   async upsert(data: Partial<EventParticipantEntity>) {
-    console.log('data', data);
     const dataWithCreatedAt = addCreatedISOStringDate(data);
     try {
       const result = await this.client

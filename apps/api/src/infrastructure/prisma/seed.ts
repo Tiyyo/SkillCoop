@@ -237,11 +237,7 @@ export class Seed {
     const pathToFile = this.envVariable.isProduction()
       ? '../../../src/infrastructure/prisma/data.csv'
       : 'data.csv';
-    console.log('Path to file ' + pathToFile);
-    Logger.log('Path to file ' + pathToFile, 'Seed');
-    Logger.log(__dirname, 'Seed');
-    console.log(__dirname, 'Seed');
-    console.log('Production', this.envVariable.isProduction());
+
     const filePath = path.join(__dirname, pathToFile);
     try {
       const stringify = await convertCsvToJson(filePath);

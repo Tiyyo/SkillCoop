@@ -19,7 +19,6 @@ function useSubscriptionNotification({
     );
 
     uniDirectionalConnection.onmessage = (event) => {
-      console.log('new event message', event);
       if (onMessage) {
         onMessage(event);
       }

@@ -49,7 +49,7 @@ export class ConversationService {
         .where('conversation.conversation_id', '=', conversationId)
         .groupBy(['conversation.conversation_id', 'conversation.created_at', 'conversation.last_update', 'conversation.event_id', 'conversation.type_name', 'conversation.title'])
         .executeTakeFirst();
-      console.log('conversation', conversation);
+
       assertIsConversation(conversation)
 
       return conversation

@@ -7,26 +7,49 @@ import { HttpLogger } from './middleware/access-http.middleware';
 import { ValidationPipe } from '@nestjs/common';
 import cookieParser from 'cookie-parser';
 
-const clientUrl = process.env.NODE_ENV === "production" ? process.env.CLIENT_URL : 'http://localhost:5004';
+const whitelist = [
+  'http://localhost:5004',
+  'https://www.skillcoop.fr',
+  'https://skillcoop.fr',
+];
+
+const clientUrl =
+  process.env.NODE_ENV === 'production'
+    ? process.env.CLIENT_URL
+    : 'http://localhost:5004';
 
 Logger.log(`Client url: ${clientUrl}`, 'Main');
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: WinstonModule.createLogger({
-      instance: winstonLogger
-    })
+      instance: winstonLogger,
+    }),
+  });
+  app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Accept');
+    next();
   });
   app.use(cookieParser());
-  app.useGlobalPipes(new ValidationPipe({
-    whitelist: true,
-    transform: true,
-    forbidNonWhitelisted: true,
-  }));
-  app.use(new HttpLogger().use)
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      transform: true,
+      forbidNonWhitelisted: true,
+    }),
+  );
+  app.use(new HttpLogger().use);
   app.enableCors({
-    origin: [clientUrl, 'https://skillcoop.fr', 'https://www.skillcoop.fr'],
-    allowedHeaders: ['content-type', "Authorization"],
+    origin: function (origin, callback) {
+      if (!origin || whitelist.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    // allowedHeaders: ['content-type', 'Authorization'],
     credentials: true,
   });
   app.connectMicroservice({

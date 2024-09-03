@@ -20,11 +20,9 @@ async function bootstrap() {
     }),
   });
   app.use((req, res, next) => {
-    console.log('Set Headers Manually in main.ts');
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
     res.header('Access-Control-Allow-Headers', 'Content-Type, Accept');
-    console.log('Headers', res.getHeaders());
     next();
   });
   app.enableCors({

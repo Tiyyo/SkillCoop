@@ -26,6 +26,8 @@ export default function useCreateEvent() {
   } = useMutateEvent();
   const profileId = userProfile?.profile_id;
 
+  console.log('eventCreatedState', eventCreatedState);
+
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     // This is unmaintainable and hard to read
     e.preventDefault();
@@ -46,6 +48,7 @@ export default function useCreateEvent() {
     };
 
     const isValid = createEventSchema.safeParse(data);
+
     if (!isValid.success) {
       setValidationErrors((isValid as any).error.issues);
       return;

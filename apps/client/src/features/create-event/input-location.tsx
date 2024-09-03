@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 type InputLocationProps = {
   updateLocationId?: (value: number) => void;
   updateLocationNameAndId?: (locationId: number, location: string) => void;
+  currentLocationState?: string | null;
   error?: boolean;
   defaultValue?: string | undefined;
   setCreatePlayground?: Dispatch<SetStateAction<boolean>>;
@@ -26,6 +27,7 @@ function InputLocation({
   disabled,
   placeholder,
   formid,
+  currentLocationState,
 }: InputLocationProps) {
   const { t } = useTranslation('event');
 
@@ -45,6 +47,7 @@ function InputLocation({
         name="location"
         label={label}
         placeholder={placeholder}
+        currentLocationState={currentLocationState}
         queryFn={searchPlaygroundFn}
         titleKey="name"
         locationKey="city"

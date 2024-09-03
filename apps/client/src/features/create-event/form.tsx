@@ -129,12 +129,13 @@ function CreateEventForm({
           error={inputHasError('location_id', validationErrors)}
           updateLocationNameAndId={updateLocation}
           setCreatePlayground={setDisplayCreatePlayground}
-          // defaultValue={eventCreatedState.location_name ?? ''}
+          currentLocationState={eventCreatedState.location_name}
+          defaultValue={eventCreatedState.location_name ?? ''}
           label={t('selectPlayground')}
           placeholder={t('choosePlayground')}
           formid="create-event"
         />
-        {displayCreatePlayground && <AddNewPlayground />}
+        {/* {displayCreatePlayground && <AddNewPlayground />} */}
         <Input
           name="price"
           label={t('playgroundPrice')}

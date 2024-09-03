@@ -1,9 +1,9 @@
 import { useRef, useState } from 'react';
 import { useDebounce } from '../../hooks/useDebounce';
-import Input from '../input';
 import { useQuery } from '@tanstack/react-query';
 import { useOnClickOutside } from '../../hooks/useClickOutside';
 import useResetError from '../../hooks/useResetError';
+import { cn } from '../../../lib/utils';
 
 type InputGeocodeProps<T> = {
   formid?: string;
@@ -11,6 +11,7 @@ type InputGeocodeProps<T> = {
   children?: React.ReactNode;
   titleKey: string;
   locationKey: string;
+  currentLocationState?: string | null;
   queryFn: (query: string) => Promise<any>;
   getLocationDataState: (state: T) => void;
   label?: string;
@@ -34,15 +35,26 @@ function SearchSelect<T>({
   getLocationDataState,
   formid,
   extractDataMethod,
-  defaultValue,
   error,
   disabled,
+  currentLocationState,
 }: InputGeocodeProps<T>) {
   const [query, setQuery] = useState<string | undefined>(undefined);
+  const { hasError, setHasError } = useResetError(error);
+  const [inputValue, setInputValue] = useState(currentLocationState || '');
+  const [suggestionsAreVisible, setSuggestionsAreVisible] = useState(false);
+
   const suggestionContainer = useRef<HTMLUListElement>(null);
   const debounceQueryValue = useDebounce(query, 350);
-  const [suggestionsAreVisible, setSuggestionsAreVisible] = useState(false);
-  const { hasError, setHasError } = useResetError(error);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setHasError(false);
+    if (e.target.value.length > 2) {
+      setSuggestionsAreVisible(true);
+    }
+    setInputValue(e.target.value);
+    setQuery(e.target.value);
+  };
 
   const { data } = useQuery(
     ['geocoding', debounceQueryValue],
@@ -57,17 +69,9 @@ function SearchSelect<T>({
   );
   const suggestions = data?.features || data;
 
-  function handleChangeInput(event: React.ChangeEvent<HTMLInputElement>) {
-    setQuery(event.target.value);
-
-    if (event.target.value.length > 2) {
-      setSuggestionsAreVisible(true);
-    }
-  }
-
   function handleClickSuggest(suggestion: any) {
     setHasError(false);
-    // setQuery(suggestion[titleKey]);
+    setInputValue(suggestion[titleKey]);
     if (extractDataMethod) {
       return getLocationDataState(extractDataMethod(suggestion));
     }
@@ -82,20 +86,41 @@ function SearchSelect<T>({
 
   return (
     <div className="relative flex w-full flex-col gap-y-1">
-      <Input
-        defaultValue={defaultValue ?? ''}
-        name={name}
-        label={label}
-        placeholder={placeholder}
-        onChange={handleChangeInput}
-        onFocus={() => setSuggestionsAreVisible(true)}
-        error={hasError}
-        disabled={disabled}
-        high
-        formid={formid}
-      >
-        {children}
-      </Input>
+      <div className="flex w-full items-center gap-x-2.5 py-4">
+        <div
+          className={`basis-7 ${hasError ? 'text-error' : 'text-primary-100'}`}
+        >
+          {children}
+        </div>
+        <div className="flex flex-grow flex-col gap-y-1">
+          <label
+            htmlFor={name}
+            className="ml-2 block h-4 text-xs font-medium text-grey-sub-text "
+          >
+            {label}
+          </label>
+          <input
+            name={name}
+            form={formid}
+            placeholder={placeholder}
+            id={name}
+            value={inputValue ?? undefined}
+            onChange={handleChange}
+            disabled={disabled}
+            className={cn(
+              `block h-10 w-full rounded-lg border 
+              border-bubble 
+              bg-base-light pl-2 text-sm font-medium 
+               text-primary-1100 placeholder:text-xs placeholder:font-medium 
+               placeholder:text-light focus-within:ring-1 
+              focus:ring-primary-600 focus-visible:outline-none`,
+              disabled && 'border-none',
+              hasError && 'ring-2 ring-error',
+            )}
+          />
+        </div>
+      </div>
+
       {suggestionsAreVisible && suggestions && suggestions.length > 0 && (
         <ul
           ref={suggestionContainer}
